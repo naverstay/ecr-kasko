@@ -1,0 +1,23 @@
+{
+  "files": {
+    "main.css": "/ecr-kasko/static/css/main.f646a202.chunk.css",
+    "main.js": "/ecr-kasko/static/js/main.61b7bf57.chunk.js",
+    "main.js.map": "/ecr-kasko/static/js/main.61b7bf57.chunk.js.map",
+    "runtime-main.js": "/ecr-kasko/static/js/runtime-main.0b6e15a8.js",
+    "runtime-main.js.map": "/ecr-kasko/static/js/runtime-main.0b6e15a8.js.map",
+    "static/js/2.e8c4d16a.chunk.js": "/ecr-kasko/static/js/2.e8c4d16a.chunk.js",
+    "static/js/2.e8c4d16a.chunk.js.map": "/ecr-kasko/static/js/2.e8c4d16a.chunk.js.map",
+    "index.html": "/ecr-kasko/index.html",
+    "precache-manifest.0e268b1522156816c8b2b76bcc21c10a.js": "/ecr-kasko/precache-manifest.0e268b1522156816c8b2b76bcc21c10a.js",
+    "service-worker.js": "/ecr-kasko/service-worker.js",
+    "static/css/main.f646a202.chunk.css.map": "/ecr-kasko/static/css/main.f646a202.chunk.css.map",
+    "static/js/2.e8c4d16a.chunk.js.LICENSE.txt": "/ecr-kasko/static/js/2.e8c4d16a.chunk.js.LICENSE.txt",
+    "static/media/index.scss": "/ecr-kasko/static/media/ecr_icons.bebfca2d.woff"
+  },
+  "entrypoints": [
+    "static/js/runtime-main.0b6e15a8.js",
+    "static/js/2.e8c4d16a.chunk.js",
+    "static/css/main.f646a202.chunk.css",
+    "static/js/main.61b7bf57.chunk.js"
+  ]
+}
