@@ -1,5 +1,6 @@
 {
   "name": "ecr-mazda",
+  "homepage": "https://naverstay.github.io/ecr-kasko/",
   "version": "0.1.0",
   "private": true,
   "dependencies": {
@@ -34,6 +35,7 @@
     "eslint-plugin-react-hooks": "^1.6.1",
     "file-loader": "4.3.0",
     "fs-extra": "^8.1.0",
+    "gh-pages": "^2.2.0",
     "html-webpack-plugin": "4.0.0-beta.11",
     "identity-obj-proxy": "3.0.0",
     "jest": "24.9.0",
@@ -87,7 +89,9 @@
   "scripts": {
     "start": "node scripts/start.js",
     "build": "node scripts/build.js",
-    "test": "node scripts/test.js"
+    "test": "node scripts/test.js",
+    "predeploy": "npm run build",
+    "deploy": "gh-pages -d build"
   },
   "eslintConfig": {
     "extends": "react-app"
