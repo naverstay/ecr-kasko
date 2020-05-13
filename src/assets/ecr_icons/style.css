@@ -1,0 +1,116 @@
+@font-face {
+  font-family: 'ecr_icons';
+  src:
+    url('fonts/ecr_icons.ttf?c7ocsr') format('truetype'),
+    url('fonts/ecr_icons.woff?c7ocsr') format('woff'),
+    url('fonts/ecr_icons.svg?c7ocsr#ecr_icons') format('svg');
+  font-weight: normal;
+  font-style: normal;
+  font-display: block;
+}
+
+[class^="i-"], [class*=" i-"] {
+  /* use !important to prevent issues with browser extensions that change fonts */
+  font-family: 'ecr_icons' !important;
+  speak: none;
+  font-style: normal;
+  font-weight: normal;
+  font-variant: normal;
+  text-transform: none;
+  line-height: 1;
+
+  /* Better Font Rendering =========== */
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+.i-alert:before {
+  content: "\e91a";
+}
+.i-bell:before {
+  content: "\e918";
+}
+.i-upload:before {
+  content: "\e919";
+}
+.i-plus:before {
+  content: "\e91b";
+}
+.i-chat:before {
+  content: "\e917";
+}
+.i-search:before {
+  content: "\e900";
+}
+.i-check:before {
+  content: "\e901";
+}
+.i-add:before {
+  content: "\e902";
+}
+.i-play:before {
+  content: "\e903";
+}
+.i-copy:before {
+  content: "\e904";
+}
+.i-restore:before {
+  content: "\e905";
+}
+.i-bank:before {
+  content: "\e906";
+}
+.i-download:before {
+  content: "\e907";
+}
+.i-news:before {
+  content: "\e908";
+}
+.i-chart:before {
+  content: "\e909";
+}
+.i-calendar:before {
+  content: "\e90a";
+}
+.i-cart:before {
+  content: "\e90b";
+}
+.i-settings:before {
+  content: "\e90c";
+}
+.i-user:before {
+  content: "\e90d";
+}
+.i-exit:before {
+  content: "\e90e";
+}
+.i-info:before {
+  content: "\e90f";
+}
+.i-search_2:before {
+  content: "\e910";
+}
+.i-chevron_r:before {
+  content: "\e911";
+}
+.i-add_fill:before {
+  content: "\e912";
+}
+.i-close_circle:before {
+  content: "\e913";
+}
+.i-close:before {
+  content: "\e914";
+}
+.i-printer:before {
+  content: "\e915";
+}
+.i-filter:before {
+  content: "\e916";
+}
+.i-sandwich:before {
+  content: "\2261";
+}
+.i-spinner:before {
+  content: "\e97c";
+}

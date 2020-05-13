@@ -1,0 +1,64 @@
+@import 'src/assets/styles/global';
+
+.kasko-offer {
+	color: #000;
+	position: relative;
+	
+	&__list {
+		list-style: none;
+		padding: 0;
+		margin: 0;
+	}
+	
+	&__item {
+		display: block;
+		border: 1px solid $color-grey-light;
+		border-radius: 5px;
+		margin-bottom: 15px;
+		overflow: hidden;
+		
+		&--title {
+			@extend %text2;
+			background: $color-grey-light;
+			position: relative;
+			padding: 15px 12px 15px 32px;
+			white-space: nowrap;
+			overflow: hidden;
+			max-width: 100%;
+			text-overflow: ellipsis;
+
+			&:before {
+				font-family: $icomoon-font-family;
+				content: $i-chevron_r;
+				position: absolute;
+				left: 10px;
+				top: 50%;
+				margin-top: -8px;
+				font-size: 16px;
+				line-height: 1;
+				color: $color-grey;
+			}
+		}
+
+		&--body {
+			@extend %text2;
+			background: #fff;
+			padding: 9px 15px 6px;
+		}
+		
+		&--price {
+			font-size: 27px;
+			line-height: 40px;
+			padding: 0 4px;
+		}
+	}
+	
+	&__more {
+		@extend %text1;
+		text-align: right;
+		align-self: flex-end;
+		flex: 1 0 auto;
+		padding-bottom: 5px;
+	}
+	
+}

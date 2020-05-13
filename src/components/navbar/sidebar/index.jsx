@@ -17,7 +17,7 @@ import {
 } from '../../../store/navbar';
 import { userLogout } from '../../../store/user';
 import cn from 'classnames';
-// import './style.scss';
+import './style.scss';
 import SidebarButton from './sidebar-button';
 import SubMenu from './SubMenu';
 

@@ -1,0 +1,28 @@
+@import 'src/assets/styles/global';
+
+$aside-size: 226px;
+
+.kasko {
+	
+	&-wrapper {
+		display: flex;
+		flex-flow: row nowrap;
+		margin: 0 -10px;
+		padding-right: 14px;
+	}
+	
+	&-main {
+		flex: 1 0 auto;
+		padding: 0 10px;
+		
+		&__title {
+			@extend %h1;
+			text-align: center;
+		}
+	}
+	
+	&-aside {
+		flex: 0 1 $aside-size;
+		padding: 0 10px;
+	}
+}

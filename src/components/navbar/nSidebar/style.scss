@@ -125,6 +125,8 @@
 
 		&.logo {
 			background: black;
+			font-size: 18px;
+			
 			img {
 				width: 18px;
 				height: 18px;
@@ -202,6 +204,11 @@
 
 		&.user {
 		}
+	}
+
+	svg {
+		width: 1em;
+		height: 1em;
 	}
 }
 

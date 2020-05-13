@@ -1,0 +1,16 @@
+.report-page-menu {
+	&__container {
+		padding: 2rem 0;
+		display: flex;
+		justify-content: center;
+	}
+
+	&__link {
+		color: black;
+		margin: 0 1rem;
+	}
+
+	&__link-active {
+		color: blue;
+	}
+}

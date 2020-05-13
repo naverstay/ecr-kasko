@@ -1,0 +1,166 @@
+@import 'normalize';
+@import 'global';
+@import 'grid';
+@import 'fonts';
+
+html {
+	font: 14px/1.2 'Roboto', sans-serif;
+}
+
+button,
+input {
+	border: none;
+	background: none;
+	outline: 0;
+}
+
+.w_100p {
+	width: 100%;
+}
+
+.float_placeholder {
+	@extend %text1;
+	transition: all 0.7s;
+	position: absolute;
+	left: 21px;
+	top: 50%;
+	transform: translate(0, -50%);
+	color: #b5b5b5;
+	pointer-events: none;
+
+	.force_placeholder ~ &,
+	.ant-picker.ant-picker-focused ~ &,
+	.ant-picker:not(._empty) ~ &,
+	.ant-select:not(._empty) ~ &,
+	input:not(._empty) ~ &,
+	input:focus ~ & {
+		font-size: 12px;
+		top: 11px;
+		color: $color-grey;
+	}
+}
+
+.ant-select-selection-item {
+	padding-top: 7px !important;
+}
+
+.ant-picker-input input {
+	transform: translate(0, 6px);
+}
+
+.ant-input {
+	padding-top: 20px !important;
+	padding-bottom: 6px !important;
+}
+
+.btn_grey {
+	border-color: $color-grey-light !important;
+	background: $color-grey-light !important;
+	color: #808080 !important;
+	pointer-events: none;
+}
+
+.btn_green {
+	background: $color-green;
+	color: #fff;
+
+	&:focus {
+		
+	}
+	
+	&:hover {
+		opacity: .9;
+	}
+
+	.ant-btn:hover, .ant-btn:focus, .ant-btn:active, .ant-btn.active {
+		text-decoration: none;
+		background: #fff;
+	}
+}
+
+$spinner_time: 1s;
+.btn_search {
+	position: relative;
+	padding-left: 23px;
+	will-change: transform;
+
+	&:before {
+		font-family: $icomoon-font-family;
+		content: $i-spinner;
+		position: absolute;
+		left: 0;
+		top: 50%;
+		font-size: 20px;
+		margin-top: -10px;
+		line-height: 1;
+		-webkit-animation: rotating $spinner_time linear infinite;
+		-moz-animation: rotating $spinner_time linear infinite;
+		-ms-animation: rotating $spinner_time linear infinite;
+		-o-animation: rotating $spinner_time linear infinite;
+		animation: rotating $spinner_time linear infinite;
+	}
+}
+
+.color_green {
+	color: $color-green;
+}
+
+.color_red {
+	color: $color-prime;
+}
+
+.color_black {
+	color: #000;
+}
+
+.hide_picker_icon {
+	.ant-picker-suffix {
+		display: none;
+	}
+}
+
+.gl_link {
+	cursor: pointer;
+	display: inline-block;
+
+	&:hover {
+		text-decoration: underline;
+	}
+}
+
+.ant-btn {
+	font-size: 16px;
+
+	&.btn_middle {
+		padding-left: 40px;
+		padding-right: 40px;
+		margin-bottom: 32px;
+		margin-top: 15px;
+	}
+
+	&.btn_wide {
+		padding-left: 92px;
+		padding-right: 92px;
+		margin-bottom: 32px;
+	}
+}
+
+.checkbox_middle {
+	line-height: 44px;
+	position: relative;
+	
+	.ant-checkbox-wrapper {
+		display: inline-block;
+		vertical-align: middle;
+		line-height: 1;
+	}
+	
+	&--hint {
+		position: absolute;
+		font-size: 12px;
+		line-height: 1;
+		bottom: 0;
+		left: 38px;
+		color: $color-grey;
+	}
+}

@@ -1,0 +1,135 @@
+@import 'src/assets/styles/global';
+
+.kasko-car-info {
+	color: #000;
+	position: relative;
+
+	._inactive {
+		color: $color-grey;
+	}
+	
+	&__notification {
+		cursor: pointer;
+		position: absolute;
+		top: 7px;
+		right: -2px;
+		width: 20px;
+		height: 20px;
+		font-size: 20px;
+		
+		&:before {
+			font-family: $icomoon-font-family;
+			content: $i-bell;
+			position: absolute;
+			right: 0;
+			top: 50%;
+			margin-top: -10px;
+			line-height: 1;
+			color: $color-grey;
+		}
+		
+		&:not(:empty) {
+			&:before {
+				color: $color-prime;
+			}
+		}
+		
+		span {
+			@extend %text3;
+			position: absolute;
+			top: -6px;
+			right: -3px;
+			color: #fff;
+			background: #000;
+			border: 1px solid #fff;
+			width: 15px;
+			height: 15px;
+			line-height: 14px;
+			border-radius: 7px;
+			text-align: center;
+		}
+	}
+	
+	&__image {
+		width: 100%;
+		margin: 20px 0;
+		
+		img {
+			display: inline-block;
+			vertical-align: top;
+			max-width: 100%;
+		}
+	}
+	
+	&__name {
+		max-width: 110px;
+		font-weight: bold;
+		font-size: 14px;
+		line-height: 18px;
+	}
+	
+	&__info {
+		margin-top: 8px;
+		font-size: 12px;
+		line-height: 14px;
+	}
+	
+	&__status {
+		display: flex;
+		flex-flow: row;
+		margin-left: -5px;
+		padding: 0;
+		justify-content: space-between;
+		
+		&--item {
+			@extend %text3;
+			margin-top: 12px;
+			padding-left: 16px;
+			margin-left: 5px;
+			display: inline-block;
+			vertical-align: top;
+			position: relative;
+			
+			&:before {
+				content: '';
+				position: absolute;
+				border-radius: 100%;
+				top: -2px;
+				left: -1px;
+				width: 14px;
+				height: 14px;
+				border: 1px solid #b5b5b5;
+			}
+
+			&.waiting:before {
+				background: $color-yellow;
+				border: 1px solid $color-yellow;
+			}
+
+			&.approved:before {
+				color: #fff;
+				background: $color-green;
+				border: 1px solid $color-green;
+			}
+		}
+		
+	}
+	
+	&__controls {
+		@extend %radio_v1;
+		
+		.ant-radio-group {
+			display: flex;
+			flex-flow: row;
+			margin-left: -5px;
+			justify-content: space-between;
+		}
+		
+		.ant-radio-wrapper {
+			@extend %text3;
+			margin-top: 12px;
+			padding-left: 16px;
+			margin-left: 5px;
+		}
+	}
+}

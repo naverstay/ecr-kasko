@@ -1,0 +1,179 @@
+@import "variables";
+
+@font-face {
+  font-family: '#{$icomoon-font-family}';
+  src:
+    url('#{$icomoon-font-path}/#{$icomoon-font-family}.ttf?c7ocsr') format('truetype'),
+    url('#{$icomoon-font-path}/#{$icomoon-font-family}.woff?c7ocsr') format('woff'),
+    url('#{$icomoon-font-path}/#{$icomoon-font-family}.svg?c7ocsr##{$icomoon-font-family}') format('svg');
+  font-weight: normal;
+  font-style: normal;
+  font-display: block;
+}
+
+[class^="i-"], [class*=" i-"] {
+  /* use !important to prevent issues with browser extensions that change fonts */
+  font-family: '#{$icomoon-font-family}' !important;
+  speak: none;
+  font-style: normal;
+  font-weight: normal;
+  font-variant: normal;
+  text-transform: none;
+  line-height: 1;
+
+  /* Better Font Rendering =========== */
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+.i-alert {
+  &:before {
+    content: $i-alert; 
+  }
+}
+.i-bell {
+  &:before {
+    content: $i-bell; 
+  }
+}
+.i-upload {
+  &:before {
+    content: $i-upload; 
+  }
+}
+.i-plus {
+  &:before {
+    content: $i-plus; 
+  }
+}
+.i-chat {
+  &:before {
+    content: $i-chat; 
+  }
+}
+.i-search {
+  &:before {
+    content: $i-search; 
+  }
+}
+.i-check {
+  &:before {
+    content: $i-check; 
+  }
+}
+.i-add {
+  &:before {
+    content: $i-add; 
+  }
+}
+.i-play {
+  &:before {
+    content: $i-play; 
+  }
+}
+.i-copy {
+  &:before {
+    content: $i-copy; 
+  }
+}
+.i-restore {
+  &:before {
+    content: $i-restore; 
+  }
+}
+.i-bank {
+  &:before {
+    content: $i-bank; 
+  }
+}
+.i-download {
+  &:before {
+    content: $i-download; 
+  }
+}
+.i-news {
+  &:before {
+    content: $i-news; 
+  }
+}
+.i-chart {
+  &:before {
+    content: $i-chart; 
+  }
+}
+.i-calendar {
+  &:before {
+    content: $i-calendar; 
+  }
+}
+.i-cart {
+  &:before {
+    content: $i-cart; 
+  }
+}
+.i-settings {
+  &:before {
+    content: $i-settings; 
+  }
+}
+.i-user {
+  &:before {
+    content: $i-user; 
+  }
+}
+.i-exit {
+  &:before {
+    content: $i-exit; 
+  }
+}
+.i-info {
+  &:before {
+    content: $i-info; 
+  }
+}
+.i-search_2 {
+  &:before {
+    content: $i-search_2; 
+  }
+}
+.i-chevron_r {
+  &:before {
+    content: $i-chevron_r; 
+  }
+}
+.i-add_fill {
+  &:before {
+    content: $i-add_fill; 
+  }
+}
+.i-close_circle {
+  &:before {
+    content: $i-close_circle; 
+  }
+}
+.i-close {
+  &:before {
+    content: $i-close; 
+  }
+}
+.i-printer {
+  &:before {
+    content: $i-printer; 
+  }
+}
+.i-filter {
+  &:before {
+    content: $i-filter; 
+  }
+}
+.i-sandwich {
+  &:before {
+    content: $i-sandwich; 
+  }
+}
+.i-spinner {
+  &:before {
+    content: $i-spinner; 
+  }
+}
+
