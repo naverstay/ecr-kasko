@@ -1,6 +1,7 @@
 /**
  * reducers
  */
+export { default as kasko } from './kasko';
 export { default as navbar } from './navbar';
 export { default as user } from './user';
 export { default as filters } from './filters';

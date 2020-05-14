@@ -16,11 +16,13 @@ class OfferItem extends Component {
 	
 	static propTypes = {
 		children: PropTypes.node,
+		onOfferSelect: PropTypes.func,
 		innerWidth: PropTypes.number
 	};
 
-	toggleActiveOffer = (e) => {
+	toggleActiveOffer = (index) => {
 		this.setState({activeOffer: !this.state.activeOffer})
+		this.props.onOfferSelect({id: index, active: this.state.activeOffer})
 	}
 
 	render() {
@@ -29,7 +31,7 @@ class OfferItem extends Component {
 		return (
 			slider ?
 				<div key={index} className={"slick-slide"}>
-					<div onClick={this.toggleActiveOffer} className={"kasko-offer__item" + (this.state.activeOffer ? " active" : "")}>
+					<div onClick={() => this.toggleActiveOffer(index)} className={"kasko-offer__item" + (this.state.activeOffer ? " active" : "")}>
 						<div className="kasko-offer__item--title">{offer.name}</div>
 						<div className="kasko-offer__item--body">
 							{offer.prefix}&nbsp;

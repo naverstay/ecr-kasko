@@ -30,21 +30,38 @@ class KaskoNotices extends Component {
 		const statusClasses = {
 			0: 'calculation',
 			1: 'waiting',
-			2: 'approved'
+			2: 'approved',
+			3: 'approved'
 		}
 		const statusNames = {
 			0: 'Расчет',
 			1: 'Ожидание',
-			2: 'Выпущено'
+			2: 'Выпущено',
+			3: 'Выпущено'
 		}
 		const progressNames = {
 			0: 'Консультация',
-			1: 'Оформление',
-			2: 'Выпуск',
-			3: 'Еще'
+			1: 'Расчет',
+			2: 'Оформление',
+			3: 'Выпуск'
 		}
 
-		const noticeHtml = noticeList && noticeList.length ? noticeList.map((n, i) => <li key={i} className="kasko-notice__item">{n}</li>) : "";
+		const noticeHtml = noticeList && noticeList.length ? noticeList.map((n, i) => <li key={i} className="kasko-notice__item">
+			<div className="kasko-notice__item--head">
+				{n.list.length ? <span className="kasko-notice__item--count">{n.list.length}</span> : ""}
+				{n.title}
+			</div>
+			{
+				n.list.length ?
+					n.list.map((l) => <div className="kasko-notice__unit">
+						<div className={"kasko-notice__unit--caption " + (statusClasses[l.progress])}>{l.name}</div>
+						<div className="kasko-notice__unit--time">{l.time}</div>
+						<div className="kasko-notice__unit--status">{l.status}</div>
+					</div>)
+				: ""
+			}
+			
+		</li>) : "";
 
 		const progressHtml = [] 
 		

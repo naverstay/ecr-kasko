@@ -6,6 +6,7 @@ import PropTypes from "prop-types";
 import KaskoCarSelect from "../kasko-car-select";
 import ClientQuestionnaire from "../client-questionnaire";
 import DriverInfo from "../driver-info";
+import ClientInfo from "../client-info";
 
 class CalculationPopup extends Component {
 	constructor(props) {
@@ -48,6 +49,7 @@ class CalculationPopup extends Component {
 		children: PropTypes.node,
 		innerWidth: PropTypes.number,
 		popupCloseFunc: PropTypes.func,
+		fullCalculation: PropTypes.bool,
 		offersList: PropTypes.array,
 	};
 		
@@ -67,7 +69,7 @@ class CalculationPopup extends Component {
 	}
 
 	render() {
-		let {popupCloseFunc} = this.props
+		let {popupCloseFunc, fullCalculation} = this.props
 
 		const otherOptions = ['Мультидрайв'];
 
@@ -82,19 +84,37 @@ class CalculationPopup extends Component {
 						<span className="kasko-car-select__calculation--text">Окончательный расчет</span>
 					</div>
 
-					<h1 className="kasko-main__title">Автомобиль</h1>
+					{
+						fullCalculation ?
+							<>
+								<h1 className="kasko-main__title">Поля к заполнению</h1>
+								<ClientInfo fullCalculation={fullCalculation}/>
+							</>
+							: ""
+					}
 					
-					<KaskoCarSelect allFields={true}/>
+					<h1 className={"kasko-main__title" + (fullCalculation ? " collapsed" : "")}>Автомобиль</h1>
+					
+					{
+						fullCalculation ? ""
+						:
+							<KaskoCarSelect allFields={true}/>
+					}
 
-					<h1 className="kasko-main__title">Анкета клиента</h1>
+					<h1 className={"kasko-main__title" + (fullCalculation ? " collapsed" : "")}>Анкета клиента</h1>
 
-					<ClientQuestionnaire />
+					{
+						fullCalculation ? ""
+							:
+							<>
+								<ClientQuestionnaire/>
+								<div className="kasko-car-select__controls check_v2">
+									<Checkbox.Group options={otherOptions} onChange={this.onOtherChange}/>
+								</div>
+							</>
+					}
 
-					<div className="kasko-car-select__controls check_v2">
-						<Checkbox.Group options={otherOptions} onChange={this.onOtherChange}/>
-					</div>
-
-					<DriverInfo />
+					<DriverInfo fullCalculation={fullCalculation} />
 
 				</div>
 			</div>

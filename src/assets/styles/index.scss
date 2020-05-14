@@ -23,10 +23,12 @@ input {
 	transition: all 0.7s;
 	position: absolute;
 	left: 21px;
+	right: 20px;
 	top: 50%;
 	transform: translate(0, -50%);
 	color: #b5b5b5;
 	pointer-events: none;
+	white-space: pre-line;
 
 	.force_placeholder ~ &,
 	.ant-picker.ant-picker-focused ~ &,
@@ -37,7 +39,15 @@ input {
 		font-size: 12px;
 		top: 11px;
 		color: $color-grey;
+		white-space: nowrap;
+		overflow: hidden;
+		text-overflow: ellipsis;
 	}
+
+	.ant-select + & {
+		right: 40px;
+	}
+
 }
 
 .ant-select-selection-item {
@@ -65,9 +75,9 @@ input {
 	color: #fff;
 
 	&:focus {
-		
+
 	}
-	
+
 	&:hover {
 		opacity: .9;
 	}
@@ -101,6 +111,14 @@ $spinner_time: 1s;
 	}
 }
 
+.text_left {
+	text-align: left !important;
+}
+
+.text_upper {
+	text-transform: uppercase;
+}
+
 .color_green {
 	color: $color-green;
 }
@@ -120,11 +138,13 @@ $spinner_time: 1s;
 }
 
 .gl_link {
+	transition: color .3s, opacity .3s;
 	cursor: pointer;
 	display: inline-block;
+	text-decoration: underline;
 
 	&:hover {
-		text-decoration: underline;
+		text-decoration: none;
 	}
 }
 
@@ -154,13 +174,13 @@ $spinner_time: 1s;
 .checkbox_middle {
 	line-height: 44px;
 	position: relative;
-	
+
 	.ant-checkbox-wrapper {
 		display: inline-block;
 		vertical-align: middle;
 		line-height: 1;
 	}
-	
+
 	&--hint {
 		position: absolute;
 		font-size: 12px;
@@ -174,5 +194,24 @@ $spinner_time: 1s;
 .wide_group {
 	.ant-radio-group {
 		width: 100%;
+	}
+}
+
+
+.select_dropdown_v1 {
+
+	.ant-select-item-option-content {
+		transition: color .3s;
+	}
+
+	.ant-select-item-option-active:not(.ant-select-item-option-disabled):not(.ant-select-item-option-selected) {
+		.ant-select-item-option-content {
+			color: #fff;
+		}
+	}
+
+	.ant-select-item {
+		@extend %text2;
+		line-height: 22px;
 	}
 }

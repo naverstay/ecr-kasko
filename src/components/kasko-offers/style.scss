@@ -45,6 +45,10 @@
 			@extend %text2;
 			background: #fff;
 			padding: 9px 15px 6px;
+			white-space: nowrap;
+			overflow: hidden;
+			max-width: 100%;
+			text-overflow: ellipsis;
 		}
 		
 		&--price {
@@ -70,6 +74,7 @@
 		align-self: flex-end;
 		flex: 1 0 auto;
 		padding-bottom: 5px;
+		color: $color-grey;
 	}
 	
 }

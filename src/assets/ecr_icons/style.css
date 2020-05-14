@@ -1,9 +1,9 @@
 @font-face {
   font-family: 'ecr_icons';
   src:
-    url('fonts/ecr_icons.ttf?c7ocsr') format('truetype'),
-    url('fonts/ecr_icons.woff?c7ocsr') format('woff'),
-    url('fonts/ecr_icons.svg?c7ocsr#ecr_icons') format('svg');
+    url('fonts/ecr_icons.ttf?uqjz7q') format('truetype'),
+    url('fonts/ecr_icons.woff?uqjz7q') format('woff'),
+    url('fonts/ecr_icons.svg?uqjz7q#ecr_icons') format('svg');
   font-weight: normal;
   font-style: normal;
   font-display: block;
@@ -29,6 +29,15 @@
 }
 .i-bell:before {
   content: "\e918";
+}
+.i-sms:before {
+  content: "\e91c";
+}
+.i-mail:before {
+  content: "\e91d";
+}
+.i-comp:before {
+  content: "\e91e";
 }
 .i-upload:before {
   content: "\e919";

@@ -7,27 +7,41 @@ $aside-size: 226px;
 	&-wrapper {
 		display: flex;
 		flex-flow: row nowrap;
-		margin: 0 -10px;
-		padding-right: 14px;
+		//margin: 0 -10px;
+		//padding-right: 14px;
 		min-height: 100vh;
 	}
 	
 	&-main {
 		position: relative;
 		flex: 1 0 auto;
-		padding: 0 10px;
-		max-width: calc(100vw - #{$aside-size * 2 + 100px});
+		//padding: 0 10px;
+		//max-width: calc(100vw - #{$aside-size * 2 + 100px});
 		
 		&__title {
 			@extend %h1;
 			text-align: center;
 			margin-bottom: 32px;
+			
+			&.collapsed {
+				position: relative;
+
+				&:before {
+					transition: transform .25s;
+					font-family: $icomoon-font-family;
+					content: $i-chevron_r;
+					color: $color-grey;
+					font-size: 16px;
+					margin-right: 10px;
+					margin-left: -20px;
+				}
+			}
 		}
 	}
 	
 	&-aside {
-		flex: 0 1 $aside-size;
-		padding: 0 10px;
-		max-width: $aside-size;
+		//flex: 0 1 $aside-size;
+		//padding: 0 10px;
+		//max-width: $aside-size;
 	}
 }

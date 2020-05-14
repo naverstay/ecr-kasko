@@ -1,7 +1,8 @@
 @import 'src/assets/styles/global';
 
 .calculation-offers {
-
+	margin-bottom: 30px;
+	
 	&__table {
 		width: 100%;
 		margin-bottom: 15px;
@@ -14,43 +15,82 @@
 			padding: 5px 10px;
 			text-align: center;
 			border-bottom: 1px solid $color-grey;
+			vertical-align: middle;
 
 			&:first-child {
 				text-align: left;
+
+				+ th {
+					text-align: left;
+				}
 			}
 		}
 
 		td {
 			text-align: center;
 			padding: 12px 10px;
-			vertical-align: top;
+			vertical-align: middle;
 			border-bottom: 1px solid $color-grey;
 
 			&:first-child {
 				text-align: left;
+				
+				+ td {
+					text-align: left;
+				}
 			}
-
 		}
 
+		tr.selected td {
+			background: #deeefa;
+		}
+		
 		&--col-1 {
-			width: 50%;
+			width: 33%;
+			
+			&.small {
+				width: 21%;
+			}
 		}
 
-		&--col-2,
+		&--col-2 {
+			width: 22%;
+
+			&.small {
+				width: 17%;
+			}
+		}
+		
 		&--col-3 {
-			width: 13%;
+			width: 22%;
+
+			&.small {
+				width: 14%;
+			}
 		}
 
 		&--col-4 {
-			width: 23%;
+			width: 24%;
+
+			&.small {
+				width: 11%;
+			}
 		}
 
 		&--col-5 {
-			width: 23%;
+			width: 9%;
 		}
 
 		&--col-6 {
-			width: 23%;
+			width: 1%;
+		}
+
+		&--col-7 {
+			width: 16%;
+		}
+
+		&--col-8 {
+			width: 11%;
 		}
 	}
 }

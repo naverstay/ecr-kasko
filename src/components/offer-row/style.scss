@@ -2,17 +2,78 @@
 
 .offer-row {
 	
+	&__documents {
+		position: relative;
+	}
+	
+	&__date {
+		@extend %text1;
+	}
+	
+	&__bill {
+		position: absolute;
+		top: 100%;
+		margin-top: 12px;
+		left: 0;
+		color: $color-grey;
+	}
+	
+	&__status {
+		border-radius: 100%;
+		width: 20px;
+		height: 20px;
+		display: inline-block;
+		vertical-align: top;
+		margin: 15px 0;
+
+		&.approved {
+			background: $color-green;
+		}
+		
+	}
+	
 	&__name {
 		@extend %text1;
+		text-align: left;
 	}
 	
 	&__hint {
 		@extend %text2;
 		color: $color-grey;
+		float: left;
+		margin-top: 8px;
+		margin-bottom: -10px;
+	}
+	
+	&__options {
+		list-style-type: none;
+		padding: 0;
+		margin: 5px -20px 5px 0;
+		text-align: left;
+		column-count: 2;
+		column-gap: 2em;
+		
+		li {
+			@extend %text2;
+			position: relative;
+			padding-left: 10px;
+			padding-right: 20px;
+			margin-bottom: 6px;
+			
+			&:before {
+				content: '';
+				position: absolute;
+				left: 0;
+				top: 4px;
+				width: 5px;
+				height: 5px;
+				border-radius: 2px;
+				background: $color-blue-light;
+			}
+		}
 	}
 	
 	&__logo {
-		
 		img {
 			display: inline-block;
 			max-width: 100%;
@@ -23,9 +84,10 @@
 		position: relative;
 		cursor: pointer;
 		width: 20px;
-		height: 20px;
+		height: 50px;
 		
 		&:before {
+			transition: transform .3s;
 			font-family: $icomoon-font-family;
 			content: $i-chevron_r;
 			position: absolute;
@@ -37,6 +99,12 @@
 			color: $color-grey;
 			font-size: 16px;
 			line-height: 1;
+		}
+		
+		.expanded & {
+			&:before {
+				transform: translate(0, -50%) rotate(90deg);
+			}
 		}
 	}
 	

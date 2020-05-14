@@ -1,4 +1,5 @@
 import React, {Component} from "react";
+import {Col, Row} from "antd";
 import AsideBlock from "../../components/aside-block";
 import AsideCrumbs from "../../components/aside-crumbs";
 import KaskoNotices from "../../components/kasko-notices";
@@ -14,51 +15,78 @@ class Kasko extends Component {
 	static propTypes = {
 		children: PropTypes.node,
 		showOffers: PropTypes.any,
-		innerWidth: PropTypes.number
+		progress: PropTypes.any,
+		innerWidth: PropTypes.number,
+		step: PropTypes.number
 	};
 
 	render() {
-		const {showOffers} = this.props;
+		const {showOffers, step, progress} = this.props;
+		
+		const events = []
+		
+		if (step === 2) {
+			events.push({
+					progress: 1,
+					name: 'КАСКО',
+					status: 'Ожидание оплаты / Ингосстрах',
+					time: '9:50'
+				})
+		}
+		
+		if (step === 3) {
+			events.push({
+				progress: 2,
+				name: 'КАСКО',
+				status: 'Выпущено / Ингосстрах',
+				time: '9:50'
+			})
+			events.push({
+				progress: 1,
+				name: 'КАСКО',
+				status: 'Ожидание оплаты / Ингосстрах',
+				time: '9:50'
+			})
+		}
 		
 		return (
-			<div className="kasko-wrapper">
-				<div className="kasko-aside">
+			<Row gutter={20} className="kasko-wrapper">
+				<Col span={4} className="kasko-aside">
 					<AsideCrumbs crumbs = {['Главное']} />
 					<AsideBlock>
-						<KaskoUser firstName = 'Сергей' lastName = 'Фомин' avatar = "" phone = "" docs = "" trustees = "" autos = '' />
+						<KaskoUser firstName={step === 1 ? '' : 'Сергей'} lastName={step === 1 ? '' : 'Фомин'} avatar = "" phone = "" docs = "" trustees = "" autos = '' />
 					</AsideBlock>
 	
 					<AsideBlock>
-						<KaskoCarInfo notificationCount={showOffers === false ? 0 : 1} carName = 'Mersedes Benz GT S Sports Car' image = "" info = "2013 г.  Авто с пробегом" price = "14 800 000 ₽" />
+						<KaskoCarInfo step={step} notificationCount={step === 2 ? 1 : step === 3 ? 2 : 0} carName={step === 1 ? '' : 'Mersedes Benz GT S Sports Car'} image = "" info={step === 1 ? '' :  "2013 г.  Авто с пробегом"} price={step === 1 ? '' : "14 800 000 ₽"} />
 					</AsideBlock>
-				</div>
-				<div className="kasko-main">
+				</Col>
+				<Col span={16} className="kasko-main">
 					{showOffers === false ?
 						<>
 							<h1 className="kasko-main__title">Автомобиль</h1>
-							<KaskoCarSelect image="car-1.png" />
+							<KaskoCarSelect step={step} image="car-1.png" />
 						</>
 						:
 						<>
-							<OfferSelect image="car-1.png" type={showOffers}/>
+							<OfferSelect step={step} image="car-1.png" type={showOffers}/>
 						</>
 					}
-					
-				</div>
-				<div className="kasko-aside">
+				</Col>
+				<Col span={4} className="kasko-aside">
 					{showOffers === false ?
 						""
 						:
 						<AsideBlock>
-							<KaskoNotices status={0} type={showOffers}/>
+							<KaskoNotices status={step === 2 ? 1 : 0} type={showOffers}/>
 						</AsideBlock>
 					}
 					
 					<AsideBlock>
-						<KaskoNotices noticeList={['Сегодня, Пон 20.02.19']}/>
+						<KaskoNotices noticeList={[{title : 'Сегодня, Пон 20.02.19', list: events}]} />
 					</AsideBlock>
-				</div>
-			</div>
+				</Col>
+			</Row>
 		);
 	}
 }

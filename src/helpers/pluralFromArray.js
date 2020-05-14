@@ -1,4 +1,4 @@
-export default function plural(forms, n) {
+export default function pluralFromArray(forms, n) {
 	let idx;
 	if (n % 10 === 1 && n % 100 !== 11) {
 		idx = 0; // many

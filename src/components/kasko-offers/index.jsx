@@ -10,6 +10,7 @@ class KaskoOffers extends Component {
 	static propTypes = {
 		children: PropTypes.node,
 		innerWidth: PropTypes.number,
+		onOfferSelect: PropTypes.func,
 		offersList: PropTypes.array,
 	};
 	
@@ -20,14 +21,17 @@ class KaskoOffers extends Component {
 		});
 	};
 
-	toggleActiveOffer = (e) => {
-		console.log('toggleActiveOffer', e.target);
+	toggleActiveOffer = (offer) => {
+		console.log('toggleActiveOffer', offer);
 		//const active = e.target.classList.contain('active')
 		// e.target.classList.toggleClass('active', !active)
+		
+		
+		this.props.onOfferSelect(offer)
 	}
 
 	render() {
-		let {offersList, slider} = this.props
+		let {offersList, slider, onOfferSelect} = this.props
 
 		let carouselSettings = {
 			dots: false,
@@ -38,12 +42,12 @@ class KaskoOffers extends Component {
 			slider ?
 				<Slider {...carouselSettings}>
 					{
-						offersList.map((o, i) => <OfferItem slider={true} index={i} offer={o} />)
+						offersList.map((o, i) => <OfferItem key={i} onOfferSelect={onOfferSelect} slider={true} index={i} offer={o} />)
 					}
 				</Slider>
 			: <div className="kasko-offer">
 				<Row gutter={20} className="kasko-offer__list">
-					{offersList.map((o, i) => <OfferItem index={i} offer={o}/>)}
+					{offersList.map((o, i) => <OfferItem key={i} index={i} offer={o}/>)}
 				</Row>
 				
 				<div className="kasko-offer__more"><div className="gl_link">Показать все F&I меню</div></div>

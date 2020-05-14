@@ -3,9 +3,9 @@
 @font-face {
   font-family: '#{$icomoon-font-family}';
   src:
-    url('#{$icomoon-font-path}/#{$icomoon-font-family}.ttf?c7ocsr') format('truetype'),
-    url('#{$icomoon-font-path}/#{$icomoon-font-family}.woff?c7ocsr') format('woff'),
-    url('#{$icomoon-font-path}/#{$icomoon-font-family}.svg?c7ocsr##{$icomoon-font-family}') format('svg');
+    url('#{$icomoon-font-path}/#{$icomoon-font-family}.ttf?uqjz7q') format('truetype'),
+    url('#{$icomoon-font-path}/#{$icomoon-font-family}.woff?uqjz7q') format('woff'),
+    url('#{$icomoon-font-path}/#{$icomoon-font-family}.svg?uqjz7q##{$icomoon-font-family}') format('svg');
   font-weight: normal;
   font-style: normal;
   font-display: block;
@@ -34,6 +34,21 @@
 .i-bell {
   &:before {
     content: $i-bell; 
+  }
+}
+.i-sms {
+  &:before {
+    content: $i-sms; 
+  }
+}
+.i-mail {
+  &:before {
+    content: $i-mail; 
+  }
+}
+.i-comp {
+  &:before {
+    content: $i-comp; 
   }
 }
 .i-upload {

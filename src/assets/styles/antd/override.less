@@ -54,7 +54,7 @@
 @heading-color-dark: fade(@white, 100%);
 @text-color-dark: fade(@white, 85%);
 @text-color-secondary-dark: fade(@white, 65%);
-@text-selection-bg: @primary-color;
+@text-selection-bg: #7EBFED;
 @font-variant-base: tabular-nums;
 @font-feature-settings-base: 'tnum';
 @font-size-base: 14px;
@@ -94,15 +94,15 @@
 
 // The background colors for active and hover states for things like
 // list items or table cells.
-@item-active-bg: @primary-1;
-@item-hover-bg: #f5f5f5;
+@item-active-bg: #7EBFED;
+@item-hover-bg: #7EBFED;
 
 // ICONFONT
 @iconfont-css-prefix: anticon;
 
 // LINK
 @link-color: #A8A8A8;
-@link-hover-color: color(~`colorPalette('@{link-color}', 5) `);
+@link-hover-color: color(~`colorPalette('@{link-color}', 85) `);
 @link-active-color: color(~`colorPalette('@{link-color}', 7) `);
 @link-decoration: none;
 @link-hover-decoration: none;
@@ -135,7 +135,7 @@
 // Outline
 @outline-blur-size: 0;
 @outline-width: 2px;
-@outline-color: @primary-color;
+@outline-color: #7EBFED;
 @outline-fade: 20%;
 
 @background-color-light: hsv(0, 0, 98%); // background of header and selected item
@@ -184,7 +184,7 @@
 
 @btn-disable-color: rgba(255, 255, 255, 0.87);
 @btn-disable-bg: rgba(34, 139, 34, .3);
-@btn-disable-border: rgba(34, 139, 34, .3);
+@btn-disable-border: rgba(34, 139, 34, .03);
 
 @btn-default-ghost-color: @component-background;
 @btn-default-ghost-bg: transparent;
@@ -232,7 +232,7 @@
 @descriptions-item-padding-bottom: @padding-md;
 
 // Dropdown
-@dropdown-selected-color: @primary-color;
+@dropdown-selected-color: #7EBFED;
 @dropdown-menu-submenu-disabled-bg: @component-background;
 
 // Empty
@@ -388,7 +388,7 @@
 @input-number-handler-bg: @component-background;
 @input-number-handler-border-color: @border-color-base;
 @input-addon-bg: @background-color-light;
-@input-hover-border-color: @primary-5;
+@input-hover-border-color: #7EBFED;
 @input-disabled-bg: @disabled-bg;
 @input-outline-offset: 0 0;
 @input-icon-hover-color: fade(@black, 85%);
@@ -403,7 +403,7 @@
 @select-border-color: @border-color-base;
 @select-item-selected-font-weight: 600;
 @select-dropdown-bg: @component-background;
-@select-item-selected-bg: @primary-1;
+@select-item-selected-bg: #7EBFED;
 @select-item-active-bg: @item-hover-bg;
 @select-dropdown-vertical-padding: @dropdown-vertical-padding;
 @select-dropdown-edge-child-vertical-padding: @dropdown-edge-child-vertical-padding;

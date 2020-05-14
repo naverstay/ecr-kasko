@@ -83,30 +83,93 @@
 	&__list {
 		padding: 0;
 		list-style: none;
-		margin: 14px -15px 19px;
+		margin: 14px -15px 1px;
 		min-height: 54px;
 	}
 
-	&__item {
-		padding: 8px 25px;
-		font-weight: bold;
-		font-size: 12px;
-		line-height: 14px;
-		color: #808080;
-		background: #fff;
+	&__unit {
 		position: relative;
-		border-bottom: 1px solid #C4C4C4;
+		padding: 10px;
 		
-		&:before {
-			content: '';
+		+ .kasko-notice__unit {
+			border-top: 1px solid #c4c4c4;
+		}
+		
+		&--status {
+			@extend %text3;
+			margin-top: 10px;
+		}
+		
+		&--time {
+			@extend %text3;
 			position: absolute;
-			top: 12px;
-			left: 8px;
-			width: 0;
-			height: 0;
-			border-left: 6px solid transparent;
-			border-right: 6px solid transparent;
-			border-top: 6px solid $color-grey;
+			top: 10px;
+			right: 8px;
+			color: $color-grey;
+		}
+		
+		&--caption {
+			@extend %text2;
+			padding: 0 24px;
+			position: relative;
+			
+			&:before {
+				content: '';
+				position: absolute;
+				left: 0;
+				top: 0;
+				border-radius: 100%;
+				width: 14px;
+				height: 14px;
+			}
+			
+			&.waiting:before {
+				background: $color-yellow;
+			}
+
+			&.approved:before {
+				background: $color-green;
+			}
+		}
+	}
+
+	&__item {
+		
+		&--head {
+			padding: 8px 25px;
+			font-weight: bold;
+			font-size: 12px;
+			line-height: 14px;
+			color: #808080;
+			background: #fff;
+			position: relative;
+			border-bottom: 1px solid #c4c4c4;
+
+			&:before {
+				content: '';
+				position: absolute;
+				top: 12px;
+				left: 8px;
+				width: 0;
+				height: 0;
+				border-left: 6px solid transparent;
+				border-right: 6px solid transparent;
+				border-top: 6px solid $color-grey;
+			}
+		}
+		
+		&--count {
+			border-radius: 100%;
+			background: #000;
+			width: 14px;
+			height: 14px;
+			font-size: 12px;
+			line-height: 14px;
+			text-align: center;
+			display: inline-block;
+			vertical-align: top;
+			color: #fff;
+			margin-right: 5px;
 		}
 	}
 

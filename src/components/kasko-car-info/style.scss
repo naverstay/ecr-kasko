@@ -59,6 +59,10 @@
 			vertical-align: top;
 			max-width: 100%;
 		}
+
+		&._inactive {
+			opacity: .3;
+		}
 	}
 	
 	&__name {
@@ -66,6 +70,7 @@
 		font-weight: bold;
 		font-size: 14px;
 		line-height: 18px;
+		white-space: pre-line
 	}
 	
 	&__info {

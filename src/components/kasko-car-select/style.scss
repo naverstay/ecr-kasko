@@ -44,6 +44,7 @@
 			top: 50%;
 			transform: translate(0, -50%);
 			transition: opacity .3s;
+			//color: #b5b5b5;
 			
 			&:first-child {
 				right: 50%;
@@ -77,6 +78,10 @@
 			vertical-align: top;
 			max-width: 100%;
 		}
+		
+		&._inactive {
+			opacity: .3;
+		}
 	}
 
 	&__name {
@@ -99,12 +104,10 @@
 
 		&.check_v1 {
 			@extend %check_v1;
-			margin-left: -20px;
 		}
 
 		&.check_v2 {
 			@extend %check_v2;
-			margin-left: -20px;
 		}
 
 		&.radio_v2 {
@@ -139,13 +142,24 @@
 		&--group {
 			position: relative;
 
+			&.payment {
+				margin-bottom: 250px;
+			}
+			
 			.ant-btn.btn_middle {
 				margin: 0 20px;
 			}
 			
-			.gl_link {
+			&-l {
 				position: absolute;
 				right: 100%;
+				top: 50%;
+				transform: translate(0, -50%);
+			}
+			
+			&-r {
+				position: absolute;
+				left: 100%;
 				top: 50%;
 				transform: translate(0, -50%);
 			}
@@ -216,6 +230,7 @@
 		margin-top: 15px;
 		
 		.slick-arrow {
+			cursor: pointer;
 			position: absolute;
 			top: 50%;
 			margin-top: -18px;
@@ -255,6 +270,7 @@
 		
 		.slick-slide {
 			padding: 0 10px;
+			width: 25%;
 		}
 	}
 	
@@ -263,10 +279,12 @@
 			@extend %h1;
 			display: block;
 			margin-bottom: 5px;
+			color: inherit;
 		}
 		
 		&--label {
 			@extend %text1;
+			color: inherit;
 		}
 	}
 }
