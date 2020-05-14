@@ -1,5 +1,5 @@
 import React, {Component} from "react";
-import {Col, Row, Button, Radio} from "antd";
+import {Col, Row, Button, Radio, Slider} from "antd";
 import './style.scss';
 import PropTypes from "prop-types";
 import moment from 'moment';
@@ -8,6 +8,8 @@ import KaskoOffers from "../kasko-offers";
 import {Link} from "react-router-dom";
 import {Switch, Checkbox} from "antd";
 import CalculationPopup from "../calculation-popup";
+import {formatMoney} from "../../helpers/formatMoney";
+import CalculationOffers from "../calculation-offers";
 
 
 moment().locale('ru', ru);
@@ -20,7 +22,7 @@ class OfferSelect extends Component {
 			fullCalculation: false,
 			calculationPopupOpened: false,
 			formBusy: false,
-			hasFranchise: true,
+			hasFranchise: false,
 			carCredit: true,
 			carMark: '',
 			carPrice: 0,
@@ -28,6 +30,15 @@ class OfferSelect extends Component {
 			carEquipment: '',
 			carNumber: '',
 			carYear: '',
+			franchise: [
+				10000,
+				15000,
+				30000,
+				40000,
+				50000,
+				70000,
+				100000
+			],
 			markList: [
 				"BMW",
 				"Honda",
@@ -134,6 +145,16 @@ class OfferSelect extends Component {
 			hasFranchise: !!e.target.value,
 		});
 	};
+	
+	onFranchiseValueChange = e => {
+		//console.log('onFranchiseValueChange', e);
+	};
+
+	onFranchiseTooltip = value => {
+		//console.log('onFranchiseTooltip', value);
+		
+		return null // formatMoney(scaleValue(value, [0, 100], [this.state.franchise[0], this.state.franchise[this.state.franchise.length - 1]]))
+	};
 
 	onCarCreditChange = e => {
 		this.setState({
@@ -141,12 +162,38 @@ class OfferSelect extends Component {
 		});
 	};
 
+	updateFranchiseExtremum (min, max) {
+		//this.setState({updateFranchiseExtremum: [min, max]})
+	}
+
 	render() {
 		const {image} = this.props;
 
 		const damageOptions = ['Ущерб', 'Полная гибель', 'Угон'];
 		const otherOptions = ['Мультидрайв'];
+
+		const franchise = this.state.franchise
 		
+		let franchiseSteps = {
+			//10000 : '10 000',
+			//15000 : '15 000',
+			//30000 : '30 000',
+			//40000 : '40 000',
+			//50000 : '50 000',
+			//70000 : '70 000',
+			//100000: '100 000'
+		}
+
+		this.updateFranchiseExtremum([franchise[0], franchise[franchise.length - 1]])
+		
+		franchise.forEach((f, i) => {
+			const index = i === 0 ? 0 : i === franchise.length - 1 ? 100 : parseInt(i * (100 / ((franchise.length - 1) || 1)))
+
+			franchiseSteps[index] = {
+				label: <span className={"kasko-car-select__franchise--label" + (index === 0 || index === 100 ? " extremum" : "")}>{formatMoney(f)}</span>,
+			}
+		})
+
 		return (
 			<>
 				<div className="kasko-car-select">
@@ -227,15 +274,30 @@ class OfferSelect extends Component {
 						Параметры КАСКО
 					</div>
 					
-					<div className="kasko-car-select__controls radio_v2">
-						<Radio.Group onChange={this.onFranchiseChange}>
+					<div className="kasko-car-select__controls radio_v2 wide_group">
+						<Radio.Group defaultValue={this.state.hasFranchise ? 1 : 0} onChange={this.onFranchiseChange}>
 							<Row gutter={20}>
 								<Col>
-									<Radio checked={this.state.hasFranchise} value={1}>Без франшизы</Radio>
+									<Radio value={0}>Без франшизы</Radio>
 								</Col>
 								<Col>
-									<Radio checked={!this.state.hasFranchise} value={0}>С франшизой</Radio>
+									<Radio value={1}>С франшизой</Radio>
 								</Col>
+								
+								{ this.state.hasFranchise ?
+									<>
+										<Col className={"check_v3 checkbox_franchise"}>
+											<Checkbox>Со второго случая</Checkbox>
+										</Col>
+										<Col className={"kasko-car-select__controls--flex-1"}>
+											<Slider className="kasko-car-select__franchise" tooltipVisible={false}
+													tipFormatter={this.onFranchiseTooltip}
+													onAfterChange={this.onFranchiseValueChange} marks={franchiseSteps}
+													defaultValue={franchiseSteps[2]}/>
+										</Col>
+									</>
+									: ""
+								}
 							</Row>
 						</Radio.Group>
 					</div>
@@ -301,6 +363,227 @@ class OfferSelect extends Component {
 							Получить расчет
 						</Link>
 					</div>
+					
+					<CalculationOffers offersList={[
+						{
+							logo: 'ingosstrakh.png',
+							offers: [
+								{
+									name: 'Обычный',
+									price: 41450,
+									dealerFee: 4145,
+									options: [
+										'Территория страхования: РФ + СНГ',
+										'Повреждение отскочившим или упавшим ',
+										'Сбор справок',
+										'предметом',
+										'Эвакуатор',
+										'Стихийное бедствие',
+										'Круглосуточная консультация',
+										'Противоправные действия третьих лиц',
+										'Сбор справок',
+										'Действия животных',
+										'Несчастный случай: 300 000  ₽',
+										'Провал под грунт',
+										'ДТП',
+										'Техногенная авария',
+										'Пожар',
+										'Подтопление'
+									]
+								},
+								{
+									name: 'Обычный 2',
+									price: 51450,
+									dealerFee: 5145,
+									options: [
+										'Территория страхования: РФ + СНГ',
+										'Повреждение отскочившим или упавшим ',
+										'Сбор справок',
+										'предметом',
+										'Эвакуатор',
+										'Стихийное бедствие',
+										'Круглосуточная консультация',
+										'Противоправные действия третьих лиц',
+										'Сбор справок',
+										'Действия животных',
+										'Несчастный случай: 300 000  ₽',
+										'Провал под грунт',
+										'ДТП',
+										'Техногенная авария',
+										'Пожар',
+										'Подтопление'
+									]
+								},
+								{
+									name: 'Обычный 3',
+									price: 61450,
+									dealerFee: 6145,
+									options: [
+										'Территория страхования: РФ + СНГ',
+										'Повреждение отскочившим или упавшим ',
+										'Сбор справок',
+										'предметом',
+										'Эвакуатор',
+										'Стихийное бедствие',
+										'Круглосуточная консультация',
+										'Противоправные действия третьих лиц',
+										'Сбор справок',
+										'Действия животных',
+										'Несчастный случай: 300 000  ₽',
+										'Провал под грунт',
+										'ДТП',
+										'Техногенная авария',
+										'Пожар',
+										'Подтопление'
+									]
+								},
+								{
+									name: 'Обычный 4',
+									price: 11450,
+									dealerFee: 1145,
+									options: [
+										'Территория страхования: РФ + СНГ',
+										'Повреждение отскочившим или упавшим ',
+										'Сбор справок',
+										'предметом',
+										'Эвакуатор',
+										'Стихийное бедствие',
+										'Круглосуточная консультация',
+										'Противоправные действия третьих лиц',
+										'Сбор справок',
+										'Действия животных',
+										'Несчастный случай: 300 000  ₽',
+										'Провал под грунт',
+										'ДТП',
+										'Техногенная авария',
+										'Пожар',
+										'Подтопление'
+									]
+								},
+								{
+									name: 'Обычный 5',
+									price: 21450,
+									dealerFee: 2145,
+									options: [
+										'Территория страхования: РФ + СНГ',
+										'Повреждение отскочившим или упавшим ',
+										'Сбор справок',
+										'предметом',
+										'Эвакуатор',
+										'Стихийное бедствие',
+										'Круглосуточная консультация',
+										'Противоправные действия третьих лиц',
+										'Сбор справок',
+										'Действия животных',
+										'Несчастный случай: 300 000  ₽',
+										'Провал под грунт',
+										'ДТП',
+										'Техногенная авария',
+										'Пожар',
+										'Подтопление'
+									]
+								},
+								{
+									name: 'Обычный 6',
+									price: 31450,
+									dealerFee: 3145,
+									options: [
+										'Территория страхования: РФ + СНГ',
+										'Повреждение отскочившим или упавшим ',
+										'Сбор справок',
+										'предметом',
+										'Эвакуатор',
+										'Стихийное бедствие',
+										'Круглосуточная консультация',
+										'Противоправные действия третьих лиц',
+										'Сбор справок',
+										'Действия животных',
+										'Несчастный случай: 300 000  ₽',
+										'Провал под грунт',
+										'ДТП',
+										'Техногенная авария',
+										'Пожар',
+										'Подтопление'
+									]
+								}
+							]
+						},
+						{
+							logo: 'bck.png',
+							offers: [
+								{
+									name: 'Необычный',
+									price: 30450,
+									dealerFee: 3045,
+									options: [
+										'Территория страхования: РФ + СНГ',
+										'Повреждение отскочившим или упавшим ',
+										'Сбор справок',
+										'предметом',
+										'Эвакуатор',
+										'Стихийное бедствие',
+										'Круглосуточная консультация',
+										'Противоправные действия третьих лиц',
+										'Сбор справок',
+										'Действия животных',
+										'Несчастный случай: 300 000  ₽',
+										'Провал под грунт',
+										'ДТП',
+										'Техногенная авария',
+										'Пожар',
+										'Подтопление'
+									]
+								},
+								{
+									name: 'Необычный 2',
+									price: 30450,
+									dealerFee: 3045,
+									options: [
+										'Территория страхования: РФ + СНГ',
+										'Повреждение отскочившим или упавшим ',
+										'Сбор справок',
+										'предметом',
+										'Эвакуатор',
+										'Стихийное бедствие',
+										'Круглосуточная консультация',
+										'Противоправные действия третьих лиц',
+										'Сбор справок',
+										'Действия животных',
+										'Несчастный случай: 300 000  ₽',
+										'Провал под грунт',
+										'ДТП',
+										'Техногенная авария',
+										'Пожар',
+										'Подтопление'
+									]
+								},
+								{
+									name: 'Необычный 3',
+									price: 30450,
+									dealerFee: 3045,
+									options: [
+										'Территория страхования: РФ + СНГ',
+										'Повреждение отскочившим или упавшим ',
+										'Сбор справок',
+										'предметом',
+										'Эвакуатор',
+										'Стихийное бедствие',
+										'Круглосуточная консультация',
+										'Противоправные действия третьих лиц',
+										'Сбор справок',
+										'Действия животных',
+										'Несчастный случай: 300 000  ₽',
+										'Провал под грунт',
+										'ДТП',
+										'Техногенная авария',
+										'Пожар',
+										'Подтопление'
+									]
+								}
+							]
+						}
+					]} />
+					
 				</div>
 		
 				{this.state.calculationPopupOpened ? 

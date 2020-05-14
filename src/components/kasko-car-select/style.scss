@@ -116,6 +116,14 @@
 			margin-top: 12px;
 		}
 		
+		&--stretch {
+			justify-content: stretch;
+		}
+		
+		&--flex-1 {
+			flex: 1 0 auto;
+		}
+		
 		&--price {
 			.ant-radio-wrapper {
 				.short_form & {
@@ -140,6 +148,36 @@
 				right: 100%;
 				top: 50%;
 				transform: translate(0, -50%);
+			}
+		}
+	}
+	
+	&__franchise {
+		margin: 10px 0 0 38px;
+
+		.ant-slider-handle {
+			border-color: #fff;
+			margin-top: -4px;
+		}
+		
+		.ant-slider-dot {
+			width: 6px;
+			height: 6px;
+			margin-left: -3px;
+			border-width: 1px;
+		}
+		
+		.ant-slider-track,
+		.ant-slider-rail {
+			height: 3px;
+		}
+		
+		&--label {
+			@extend %text2;
+			white-space: nowrap;
+			
+			&.extremum {
+				font-size: 14px;
 			}
 		}
 	}

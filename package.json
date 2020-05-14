@@ -1,6 +1,5 @@
 {
   "name": "ecr-mazda",
-  "homepage": "https://naverstay.github.io/ecr-kasko/",
   "version": "0.1.0",
   "private": true,
   "dependencies": {

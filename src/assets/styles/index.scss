@@ -145,6 +145,12 @@ $spinner_time: 1s;
 	}
 }
 
+.checkbox_franchise {
+	.ant-checkbox-wrapper {
+		margin-top: 18px;
+	}
+}
+
 .checkbox_middle {
 	line-height: 44px;
 	position: relative;
@@ -162,5 +168,11 @@ $spinner_time: 1s;
 		bottom: 0;
 		left: 38px;
 		color: $color-grey;
+	}
+}
+
+.wide_group {
+	.ant-radio-group {
+		width: 100%;
 	}
 }

@@ -1,11 +1,10 @@
 import React, {Component} from "react";
-import {Col, Row} from "antd";
-import {Link} from "react-router-dom";
+import {Row} from "antd";
 
 import './style.scss';
 import PropTypes from "prop-types";
-import {formatMoney} from "../../helpers/formatMoney";
 import Slider from "react-slick";
+import OfferItem from "../offer-item";
 
 class KaskoOffers extends Component {
 	static propTypes = {
@@ -21,6 +20,12 @@ class KaskoOffers extends Component {
 		});
 	};
 
+	toggleActiveOffer = (e) => {
+		console.log('toggleActiveOffer', e.target);
+		//const active = e.target.classList.contain('active')
+		// e.target.classList.toggleClass('active', !active)
+	}
+
 	render() {
 		let {offersList, slider} = this.props
 
@@ -33,30 +38,12 @@ class KaskoOffers extends Component {
 			slider ?
 				<Slider {...carouselSettings}>
 					{
-						offersList.map((o, i) => <div className={"slick-slide"} key={i}>
-							<Link to="/offers" className="kasko-offer__item">
-								<div className="kasko-offer__item--title">{o.name}</div>
-								<div className="kasko-offer__item--body">
-									{o.prefix}&nbsp;
-									<span className="kasko-offer__item--price">{formatMoney(o.price)}</span>
-									&nbsp;{o.suffix}
-								</div>
-							</Link>
-						</div>)
+						offersList.map((o, i) => <OfferItem slider={true} index={i} offer={o} />)
 					}
 				</Slider>
 			: <div className="kasko-offer">
 				<Row gutter={20} className="kasko-offer__list">
-					{offersList.map((o, i) => <Col span={6} key={i}>
-						<Link to="/offers" className="kasko-offer__item">
-							<div className="kasko-offer__item--title">{o.name}</div>
-							<div className="kasko-offer__item--body">
-								{o.prefix}&nbsp;
-								<span className="kasko-offer__item--price">{formatMoney(o.price)}</span>
-								&nbsp;{o.suffix}
-							</div>
-						</Link>
-					</Col>)}
+					{offersList.map((o, i) => <OfferItem index={i} offer={o}/>)}
 				</Row>
 				
 				<div className="kasko-offer__more"><div className="gl_link">Показать все F&I меню</div></div>

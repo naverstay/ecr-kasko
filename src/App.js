@@ -23,6 +23,7 @@ function App() {
                 </ul>
             </div>
             <Route exact path="/" component={Home} />
+            <Route exact path="/ecr-kasko" component={Home} />
             <Route path="/kasko" render={(routeProps) => (
                 <Kasko {...routeProps} showOffers={false} />
             )} />
