@@ -72,7 +72,7 @@ input {
 
 .btn_green {
 	//&.ant-btn {
-		background: $color-green;
+		background: $color-green !important;
 		color: #fff;
 
 		&:focus {
@@ -88,7 +88,7 @@ input {
 		&:active,
 		&.active {
 			text-decoration: none;
-			background: #fff;
+			background: #fff !important;
 		}
 	//}
 }
