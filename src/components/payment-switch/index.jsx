@@ -1,10 +1,7 @@
 import React, {Component} from "react";
-import {Checkbox} from "antd";
 
 import './style.scss';
 import PropTypes from "prop-types";
-import pluralFromArray from "../../helpers/pluralFromArray";
-import {formatMoney} from "../../helpers/formatMoney";
 
 class PaymentSwitch extends Component {
 	constructor(props) {
@@ -32,7 +29,7 @@ class PaymentSwitch extends Component {
 		
 		return (
 			<div className="payment-switch">
-				<div onClick={this.togglePaymentOptions} className="payment-switch__label gl_link">
+				<div onClick={this.togglePaymentOptions} className="payment-switch__label gl_link color_black">
 					Оплатить на сайте страховой компании
 				</div>
 				{
@@ -57,7 +54,6 @@ class PaymentSwitch extends Component {
 								</li>
 							</ul>
 						</div>
-					
 						: ""
 				}
 			</div>

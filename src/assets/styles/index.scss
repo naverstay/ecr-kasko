@@ -70,7 +70,7 @@ input {
 	pointer-events: none;
 }
 
-.btn_green {
+.btn_green.ant-btn {
 	background: $color-green;
 	color: #fff;
 
@@ -152,16 +152,26 @@ $spinner_time: 1s;
 	font-size: 16px;
 
 	&.btn_middle {
-		padding-left: 40px;
-		padding-right: 40px;
+		min-width: 206px;
+		//padding-left: 40px;
+		//padding-right: 40px;
 		margin-bottom: 32px;
 		margin-top: 15px;
 	}
 
 	&.btn_wide {
-		padding-left: 92px;
-		padding-right: 92px;
+		min-width: 432px;
+		//padding-left: 92px;
+		//padding-right: 92px;
 		margin-bottom: 32px;
+	}
+}
+
+.ant-checkbox-checked .ant-checkbox-inner {
+	background: #fff;
+	
+	&:after {
+		border-color: $color-green;
 	}
 }
 
@@ -214,4 +224,8 @@ $spinner_time: 1s;
 		@extend %text2;
 		line-height: 22px;
 	}
+}
+
+.ant-input-disabled {
+	border-color: transparent !important;
 }

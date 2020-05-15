@@ -1,8 +1,8 @@
 import React, {Component} from "react";
-import {Input, Col, Row, Select, DatePicker, Checkbox} from "antd";
+import {Input, Col, Row, Select, Checkbox} from "antd";
 import './style.scss';
 import PropTypes from "prop-types";
-import moment from "moment";
+
 import InsurancePolicy from "../insurance-policy";
 import {Link} from "react-router-dom";
 import Inputmask from "inputmask";
@@ -51,15 +51,15 @@ class DriverInfo extends Component {
 	};
 
 	onDriverBirthdayChange = e => {
-		this.setState({driverBirthday: e})
+		this.setState({driverBirthday: e.target.value})
 	};
 
 	onDriverLicenseStartChange = e => {
-		this.setState({driverLicenseStart: e})
+		this.setState({driverLicenseStart: e.target.value})
 	};
 
 	onDriverLicenseFirstChange = e => {
-		this.setState({driverLicenseFirst: e})
+		this.setState({driverLicenseFirst: e.target.value})
 	};
 
 	onDriverLicenseIDChange = e => {
@@ -111,7 +111,8 @@ class DriverInfo extends Component {
 	
 	render() {
 		let {fullCalculation} = this.props
-		const dateFormat = "DD.MM.YY"
+		//const dateFormat = "DD.MM.YY"
+		const dateFormatMask = "'mask': '99.99.99', 'showMaskOnHover': 'false'"
 		const driverPhoneMask = "'mask': '[+7] (999)-999-99-99', 'showMaskOnHover': 'false'"
 		const driverEmailMask = "'alias': 'email', 'showMaskOnHover': 'false'"
 		const driverLicenseIDMask = "'mask': '99 99', 'showMaskOnHover': 'false'"
@@ -156,9 +157,13 @@ class DriverInfo extends Component {
 								<div className="float_placeholder">Отчество</div>
 							</Col>
 							<Col span={6}>
-								<DatePicker format={dateFormat} value={this.state.driverBirthday ? moment(this.state.driverBirthday) : null}
-											onChange={this.onDriverBirthdayChange} placeholder=""
-											className={"w_100p hide_picker_icon" + (this.state.driverBirthday && this.state.driverBirthday._isAMomentObject ? "" : " _empty")}/>
+								{/*<DatePicker format={dateFormat} value={this.state.driverBirthday ? moment(this.state.driverBirthday) : null}*/}
+								{/*			onChange={this.onDriverBirthdayChange} placeholder=""*/}
+								{/*			className={"w_100p hide_picker_icon" + (this.state.driverBirthday && this.state.driverBirthday._isAMomentObject ? "" : " _empty")}/>*/}
+								<Input
+									className={"w_100p" + ((this.state.driverBirthday + '').length ? "" : " _empty")}
+									value={this.state.driverBirthday}
+									onChange={this.onDriverBirthdayChange} defaultValue=""/>
 								<div className="float_placeholder">Дата рождения</div>
 							</Col>
 						</Row>
@@ -201,10 +206,14 @@ class DriverInfo extends Component {
 								<div className="float_placeholder">Номер</div>
 							</Col>
 							<Col span={6}>
-								<DatePicker format={dateFormat}
-									value={this.state.driverLicenseStart ? moment(this.state.driverLicenseStart) : null}
-									onChange={this.onDriverLicenseStartChange} placeholder=""
-									className={"w_100p hide_picker_icon" + (this.state.driverLicenseStart && this.state.driverLicenseStart._isAMomentObject ? "" : " _empty")}/>
+								{/*<DatePicker format={dateFormat}*/}
+								{/*	value={this.state.driverLicenseStart ? moment(this.state.driverLicenseStart) : null}*/}
+								{/*	onChange={this.onDriverLicenseStartChange} placeholder=""*/}
+								{/*	className={"w_100p hide_picker_icon" + (this.state.driverLicenseStart && this.state.driverLicenseStart._isAMomentObject ? "" : " _empty")}/>*/}
+								<Input data-inputmask={dateFormatMask}
+									   className={"w_100p" + ((this.state.driverLicenseStart + '').length ? "" : " _empty")}
+									   value={this.state.driverLicenseStart}
+									   onChange={this.onDriverLicenseStartChange} defaultValue=""/>
 								<div className="float_placeholder">Дата выдачи</div>
 							</Col>
 							<Col span={12}>
@@ -218,11 +227,15 @@ class DriverInfo extends Component {
 
 						<Row className="kasko-car-select__controls" gutter={20}>
 							<Col span={6}>
-								<DatePicker format={dateFormat} 
-											//disabled={!this.state.driverLicensePrev ? "disabled" : ""}
-											value={this.state.driverLicenseFirst ? moment(this.state.driverLicenseFirst) : null}
-											onChange={this.onDriverLicenseFirstChange} placeholder=""
-											className={"w_100p hide_picker_icon" + (this.state.driverLicenseFirst && this.state.driverLicenseFirst._isAMomentObject ? "" : " _empty")}/>
+								{/*<DatePicker format={dateFormat} */}
+								{/*			//disabled={!this.state.driverLicensePrev ? "disabled" : ""}*/}
+								{/*			value={this.state.driverLicenseFirst ? moment(this.state.driverLicenseFirst) : null}*/}
+								{/*			onChange={this.onDriverLicenseFirstChange} placeholder=""*/}
+								{/*			className={"w_100p hide_picker_icon" + (this.state.driverLicenseFirst && this.state.driverLicenseFirst._isAMomentObject ? "" : " _empty")}/>*/}
+								<Input data-inputmask={dateFormatMask}
+									className={"w_100p" + ((this.state.driverLicenseFirst + '').length ? "" : " _empty")}
+									value={this.state.driverLicenseFirst}
+									onChange={this.onDriverLicenseFirstChange} defaultValue=""/>
 								<div className="float_placeholder">{'Дата выдачи \n первого ВУ'}</div>
 							</Col>
 							<Col className="checkbox_middle check_v3" span={6}>

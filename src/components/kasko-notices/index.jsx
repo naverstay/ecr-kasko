@@ -53,7 +53,7 @@ class KaskoNotices extends Component {
 			</div>
 			{
 				n.list.length ?
-					n.list.map((l) => <div className="kasko-notice__unit">
+					n.list.map((l, i) => <div key={i} className="kasko-notice__unit">
 						<div className={"kasko-notice__unit--caption " + (statusClasses[l.progress])}>{l.name}</div>
 						<div className="kasko-notice__unit--time">{l.time}</div>
 						<div className="kasko-notice__unit--status">{l.status}</div>

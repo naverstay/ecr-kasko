@@ -68,7 +68,7 @@ class OfferRow extends Component {
 					
 					return (show ? 
 							<>
-								<tr onClick={() => this.onSelectOfferToggle(company, i)} key={i} className={(showOptions ? "expanded" : "") + (offerSelected ? " selected" : "")}>
+								<tr key={i} className={(showOptions ? "expanded" : "") + (offerSelected ? " selected" : "")}>
 									<td>
 										{i === 0 ? <div className="offer-row__logo"><img src={logo} alt=""/></div> : ""}
 									</td>
@@ -102,7 +102,7 @@ class OfferRow extends Component {
 									: 
 										<>
 											<td>
-												<Checkbox/>
+												<Checkbox className="offer-row__check" onChange={() => this.onSelectOfferToggle(company, i)}/>
 											</td>
 											<td>
 												<div onClick={() => this.addOptionFlag(i)} className="offer-row__link"/>
@@ -111,7 +111,8 @@ class OfferRow extends Component {
 									}
 								</tr>
 								{!completed && showOptions ?
-									<tr key={i + 100000}>
+									<tr key={i + 100000}
+										className={(offerSelected ? "selected" : "")}>
 										<td>&nbsp;</td>
 										<td colSpan={4}>
 											<ul className="offer-row__options">

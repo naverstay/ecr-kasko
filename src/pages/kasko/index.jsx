@@ -54,7 +54,7 @@ class Kasko extends Component {
 				<Col span={4} className="kasko-aside">
 					<AsideCrumbs crumbs = {['Главное']} />
 					<AsideBlock>
-						<KaskoUser firstName={step === 1 ? '' : 'Сергей'} lastName={step === 1 ? '' : 'Фомин'} avatar = "" phone = "" docs = "" trustees = "" autos = '' />
+						<KaskoUser firstName={step === 1 ? '' : 'Сергей'} lastName={step === 1 ? '' : 'Фомин'} avatar = "" phone ={step > 1 ? "+ 7 (916) 111 11 11" : ""} docs = "" trustees = "" autos = '' />
 					</AsideBlock>
 	
 					<AsideBlock>
@@ -78,7 +78,7 @@ class Kasko extends Component {
 						""
 						:
 						<AsideBlock>
-							<KaskoNotices status={step === 2 ? 1 : 0} type={showOffers}/>
+							<KaskoNotices status={step === 2 ? 1 : step === 3 ? 3 : 0} type={showOffers}/>
 						</AsideBlock>
 					}
 					

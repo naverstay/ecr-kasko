@@ -22,20 +22,22 @@
 		margin-bottom: 7px;
 		
 		&--switch {
-			background: #b5b5b5;
-			//height: 16px;
-			
-			&:after {
-				width: 20px;
-				height: 20px;
-				top: -2px;
-				left: -4px;
-				background: $color-green;
-			}
-			
-			&.ant-switch-checked:after {
-				left: 100%;
-				margin-left: 4px;
+			&.ant-switch{
+				background: #b5b5b5;
+				//height: 16px;
+
+				&:after {
+					width: 20px;
+					height: 20px;
+					top: -2px;
+					left: -4px;
+					background: $color-green;
+				}
+
+				&.ant-switch-checked:after {
+					left: 100%;
+					margin-left: 4px;
+				}
 			}
 		}
 		
@@ -101,7 +103,7 @@
 		display: flex;
 		flex-flow: row;
 		margin-bottom: 14px;
-
+		
 		&.check_v1 {
 			@extend %check_v1;
 		}
@@ -112,6 +114,10 @@
 
 		&.radio_v2 {
 			@extend %radio_v2;
+		}
+		
+		&.radio_v3 {
+			@extend %radio_v3;
 		}
 		
 		.ant-radio-wrapper {

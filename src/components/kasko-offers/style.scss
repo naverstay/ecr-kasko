@@ -70,11 +70,7 @@
 	
 	&__more {
 		@extend %text1;
-		text-align: right;
-		align-self: flex-end;
-		flex: 1 0 auto;
-		padding-bottom: 5px;
+		margin-top: 6px;
 		color: $color-grey;
 	}
-	
 }

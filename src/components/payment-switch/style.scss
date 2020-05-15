@@ -6,13 +6,6 @@
 	
 	&__label {
 		@extend %text1;
-		opacity: .3;
-		text-decoration: underline;
-		cursor: pointer;
-		
-		&:hover {
-			opacity: .7;
-		}
 	}
 	
 	&__dropdown {

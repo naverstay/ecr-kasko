@@ -75,7 +75,7 @@ class KaskoCarSelect extends Component {
 	};
 
 	onCarUsageChange = e => {
-		this.setState({carUsageStart: e})
+		this.setState({carUsageStart: e.target.value})
 	};
 
 	toggleAdditionalFields = e => {
@@ -167,6 +167,10 @@ class KaskoCarSelect extends Component {
 			carCredit: !!e.target.value
 		});
 	};
+	
+	componentDidMount() {
+		this.props.allFields && this.setState({showAdditional: true, newCar: false})
+	}
 
 	componentDidUpdate() {
 		document.querySelectorAll('[data-inputmask]').forEach(function (inp) {
@@ -177,16 +181,27 @@ class KaskoCarSelect extends Component {
 			})
 			Inputmask(mask).mask(inp);
 		})
+		
+		document.querySelectorAll('[data-inputmask-date]').forEach(function (inp) {
+			Inputmask({
+				placeholder : '_',
+				showMaskOnHover : false,
+				regex: String.raw`^(?:(?:(?:0?[13578]|1[02])(\/|-|\.)31)\1|(?:(?:0?[1,3-9]|1[0-2])(\/|-|\.)(?:29|30)\2))(?:(?:1[6-9]|[2-9]\d)?\d{2})$|^(?:0?2(\/|-|\.)29\3(?:(?:(?:1[6-9]|[2-9]\d)?(?:0[48]|[2468][048]|[13579][26])|(?:(?:16|[2468][048]|[3579][26])00))))$|^(?:(?:0?[1-9])|(?:1[0-2]))(\/|-|\.)(?:0?[1-9]|1\d|2[0-8])\4(?:(?:1[6-9]|[2-9]\d)?\d{2})$`
+			}).mask(inp);
+		})
 	};
-
-	componentDidMount() {
-		this.props.allFields && this.setState({showAdditional: true, newCar: false})
-
-	}
 
 	render() {
 		const {image, allFields, step} = this.props;
-		const dateFormat = "DD.MM.YY"
+		//const dateFormat = "DD.MM.YY"
+		let dateFormatMask = "'mask': '99.99.99', 'showMaskOnHover': 'false'"
+		
+		//dateFormatMask = "'regex': '" + String.raw`^(?:(?:31(\/|-|\.)(?:0?[13578]|1[02]))\1|(?:(?:29|30)(\/|-|\.)(?:0?[1,3-9]|1[0-2])\2))(?:(?:1[6-9]|[2-9]\d)?\d{2})$|^(?:29(\/|-|\.)0?2\3(?:(?:(?:1[6-9]|[2-9]\d)?(?:0[48]|[2468][048]|[13579][26])|(?:(?:16|[2468][048]|[3579][26])00))))$|^(?:0?[1-9]|1\d|2[0-8])(\/|-|\.)(?:(?:0?[1-9])|(?:1[0-2]))\4(?:(?:1[6-9]|[2-9]\d)?\d{2})$` + "', 'showMaskOnHover': 'false'"
+		
+		//let rx = String.raw`^(?:(?:31(\/|-|\.)(?:0?[13578]|1[02]))\1|(?:(?:29|30)(\/|-|\.)(?:0?[1,3-9]|1[0-2])\2))(?:(?:1[6-9]|[2-9]\d)?\d{2})$|^(?:29(\/|-|\.)0?2\3(?:(?:(?:1[6-9]|[2-9]\d)?(?:0[48]|[2468][048]|[13579][26])|(?:(?:16|[2468][048]|[3579][26])00))))$|^(?:0?[1-9]|1\d|2[0-8])(\/|-|\.)(?:(?:0?[1-9])|(?:1[0-2]))\4(?:(?:1[6-9]|[2-9]\d)?\d{2})$`
+
+		//console.log('dateFormatMask', dateFormatMask, rx);
+
 		const carNumberMask = "'mask': 'A 999 AA 999'"
 		const carPriceMask = "'alias': 'integer', 'groupSeparator': ' ', 'digitsOptional': true, 'autoGroup': true, 'rightAlign': 'false', 'clearIncomplete': 'true', 'clearMaskOnLostFocus': 'true', 'placeholder': '_'"
 		const carPowerMask = "'alias': 'integer', 'groupSeparator': ' ', 'digitsOptional': true, 'autoGroup': true, 'rightAlign': 'false', 'clearMaskOnLostFocus': 'true', 'placeholder': '_'"
@@ -294,8 +309,6 @@ class KaskoCarSelect extends Component {
 										data-inputmask={carPriceMask}
 										className={"ant-input w_100p" + ((this.state.carPrice + '').length ? "" : " _empty")} 
 										 value={this.state.carPrice}
-										 mask={[/[1-9]\d*/]}
-										 guide={false}
 										 onChange={this.onCarPriceChange} defaultValue=""/>
 									<div className="float_placeholder">Стоимость, ₽</div>
 								</Col>
@@ -312,9 +325,13 @@ class KaskoCarSelect extends Component {
 									<div className="float_placeholder">Регион эксплуатации</div>
 								</Col>
 								<Col span={6}>
-									<DatePicker format={dateFormat} value={this.state.carUsageStart ? moment(this.state.carUsageStart) : null}
-												onChange={this.onCarUsageChange} placeholder=""
-												className={"w_100p hide_picker_icon" + (this.state.carUsageStart && this.state.carUsageStart._isAMomentObject ? "" : " _empty")}/>
+									{/*<DatePicker format={dateFormat} value={this.state.carUsageStart ? moment(this.state.carUsageStart) : null}*/}
+									{/*			onChange={this.onCarUsageChange} placeholder=""*/}
+									{/*			className={"w_100p hide_picker_icon" + (this.state.carUsageStart && this.state.carUsageStart._isAMomentObject ? "" : " _empty")}/>*/}
+									<Input data-inputmask={dateFormatMask}
+										className={"w_100p" + (this.state.carUsageStart.length ? "" : " _empty")}
+										   value={this.state.carUsageStart}
+										   onChange={this.onCarUsageChange} defaultValue=""/>
 									<div className="float_placeholder">{'Дата начала \n эксплуатации'}</div>
 								</Col>
 							</Row>

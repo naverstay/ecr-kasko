@@ -12,6 +12,7 @@ import {formatMoney} from "../../helpers/formatMoney";
 import pluralFromArray from "../../helpers/pluralFromArray";
 import CalculationOffers from "../calculation-offers";
 import PaymentSwitch from "../payment-switch";
+import DriverCount from "../driver-count";
 
 moment().locale('ru', ru);
 
@@ -60,6 +61,7 @@ class OfferSelect extends Component {
 				"GT S Sports Car"
 			],
 			showPayment: false,
+			showMoreDamages: false,
 			paramsChanged: false,
 			activeOffers: false
 		};
@@ -90,8 +92,8 @@ class OfferSelect extends Component {
 		document.body.classList.toggle('no-overflow', !this.state.calculationPopupOpened)
 	}
 
-	getEmptyFields = () => {
-		return this.state.fullCalculation ? 10 : 20
+	calculationButtonText = () => {
+		return this.state.fullCalculation ? 'Для окончательного расчетазаполните 10 полей ' : 'Для расчета заполните  20 полей'
 	}
 
 	offersUpdate = (offer) => {
@@ -111,24 +113,20 @@ class OfferSelect extends Component {
 	};
 	
 	onDamagesChange = (checkedValues) => {
-		console.log('checked = ', checkedValues);
-
 		this.setState({
 			paramsChanged: true
+		})
+	}
+
+	onShowMoreDamagesChange = (checkedValues) => {
+		this.setState({
+			showMoreDamages: !this.state.showMoreDamages
 		})
 	}
 	
-	onPeriodChange = (checkedValues) => {
-		console.log('checked = ', checkedValues);
+	onPeriodChange = (e) => {
+		console.log('checked = ', e.target.value);
 		
-		this.setState({
-			paramsChanged: true
-		})
-	}
-
-	onOtherChange = (checkedValues) => {
-		console.log('checked = ', checkedValues);
-
 		this.setState({
 			paramsChanged: true
 		})
@@ -137,7 +135,7 @@ class OfferSelect extends Component {
 	onFranchiseChange = e => {
 		this.setState({
 			paramsChanged: true,
-			hasFranchise: !!e.target.value,
+			hasFranchise: e.target.value > 0,
 		});
 	};
 	
@@ -161,12 +159,12 @@ class OfferSelect extends Component {
 	render() {
 		const {image, step} = this.props;
 
-		const periodPlurals = ['мксяц', 'мксяца', 'мксяцев'];
+		const periodPlurals = ['месяц', 'месяца', 'месяцев'];
 		const periodOptions = [12, 9, 6, 3];
-		const damageOptions = ['Ущерб', 'Полная гибель', 'Угон'];
-		const otherOptions = ['Мультидрайв'];
-
-		const franchise = this.state.franchise
+		const driverOptions = ['Мультидрайв'];
+		const damageOptions = ['Ущерб', 'Полная гибель', 'Угон', 'Шины/Диски', 'ЛКП', 'Стекла', 'Фары', 'Бамперы и зеркала'];
+		
+		const franchise = this.state.franchise;
 		
 		let franchiseSteps = {
 			//10000 : '10 000',
@@ -247,9 +245,7 @@ class OfferSelect extends Component {
 							</div>
 			
 							<div className="kasko-car-select__controls ant-row-center">
-								<Button htmlType="submit" className={"btn_green btn_wide"} onClick={this.toggleCalculationPopup}>
-									Для расчета заполните {this.getEmptyFields()} полей
-								</Button>
+								<Button htmlType="submit" className={"btn_green btn_wide"} onClick={this.toggleCalculationPopup}>{this.calculationButtonText()}</Button>
 							</div>
 			
 							<div className="kasko-car-select__caption">
@@ -314,21 +310,19 @@ class OfferSelect extends Component {
 											<Radio value={0}>Без франшизы</Radio>
 										</Col>
 										<Col>
-											<Radio value={1}>С франшизой</Radio>
+											<Radio value={1}>Франшиза с 1 случая</Radio>
+										</Col>
+										<Col>
+											<Radio value={2}>Франшиза со 2 случая</Radio>
 										</Col>
 										
 										{ this.state.hasFranchise ?
-											<>
-												<Col className={"check_v3 checkbox_franchise"}>
-													<Checkbox>Со второго случая</Checkbox>
-												</Col>
-												<Col className={"kasko-car-select__controls--flex-1"}>
-													<Slider className="kasko-car-select__franchise" tooltipVisible={false}
-															tipFormatter={this.onFranchiseTooltip}
-															onAfterChange={this.onFranchiseValueChange} marks={franchiseSteps}
-															defaultValue={franchiseSteps[2]}/>
-												</Col>
-											</>
+											<Col className={"kasko-car-select__controls--flex-1"}>
+												<Slider className="kasko-car-select__franchise" tooltipVisible={false}
+														tipFormatter={this.onFranchiseTooltip}
+														onAfterChange={this.onFranchiseValueChange} marks={franchiseSteps}
+														defaultValue={franchiseSteps[2]}/>
+											</Col>
 											: ""
 										}
 									</Row>
@@ -336,39 +330,44 @@ class OfferSelect extends Component {
 							</div>
 			
 							<div className="kasko-car-select__controls check_v2">
-								<Checkbox.Group defaultValue={'012'} style={{width: '100%'}} onChange={this.onDamagesChange}>
+								<Checkbox.Group defaultValue={damageOptions.map((o, i) => i)} onChange={this.onDamagesChange}>
 									<Row gutter={20}>
 										{
-											damageOptions.map((c, i) => <Col key={i}>
-															<Checkbox checked="checked" value={i}><span className="test123">{c}</span></Checkbox>
+											<>
+												{ 
+													damageOptions.slice(0, (this.state.showMoreDamages ? damageOptions.length : 3)).map((c, i) => <Col key={i}>
+															<Checkbox value={i}>{c}</Checkbox>
 														</Col>
-											)
+													)
+												}
+												<Col>
+													<div className="kasko-offer__more">
+														<div onClick={this.onShowMoreDamagesChange} className="gl_link">{this.state.showMoreDamages ? "Скрыть" : "Показать еще"}</div>
+													</div>
+												</Col>
+											</>
 										}
 									</Row>
 								</Checkbox.Group>
-								
-								<div className="kasko-offer__more"><div className="gl_link">Показать еще</div></div>
 							</div>
 							
-							<div className="kasko-car-select__controls check_v1">
-								<Checkbox.Group defaultValue={'0'} style={{width: '100%'}} onChange={this.onPeriodChange}>
+							<div className="kasko-car-select__controls radio_v3">
+								<Radio.Group defaultValue={periodOptions[0]} style={{width: '100%'}} onChange={this.onPeriodChange}>
 									<Row gutter={20}>
 										{
 											periodOptions.map((c, i) => <Col key={i}>
-													<Checkbox checked="checked" value={i}>
+													<Radio value={c}>
 														<span className="kasko-car-select__period--value">{c}</span>
 														<span className="kasko-car-select__period--label">{pluralFromArray(periodPlurals, c)}</span>
-													</Checkbox>
+													</Radio>
 												</Col>
 											)
 										}
 									</Row>
-								</Checkbox.Group>
+								</Radio.Group>
 							</div>
-			
-							<div className="kasko-car-select__controls check_v2">
-								<Checkbox.Group options={otherOptions} onChange={this.onOtherChange}/>
-							</div>
+
+							<DriverCount driverOptions={driverOptions} />
 			
 							<div className="kasko-car-select__controls ant-row-center">
 								<div onClick={this.toggleCalculationOffers} className={"ant-btn btn_green btn_middle" + ((this.state.activeOffers && this.state.paramsChanged) ? "" : " disabled")}>
@@ -471,8 +470,7 @@ class OfferSelect extends Component {
 															</Link>
 														</div>
 														<Button htmlType="submit" className={"btn_green btn_middle"}
-																onClick={this.toggleCalculationPopup}>Для окончательного расчета
-															заполните {this.getEmptyFields()} полей</Button>
+																onClick={this.toggleCalculationPopup}>{this.calculationButtonText()}</Button>
 														<div className="kasko-car-select__controls--group-r">
 															<Link to="/" className={"gl_link"}>
 																Сравнить
