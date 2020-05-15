@@ -8,7 +8,7 @@ class DriverCount extends Component {
 	constructor(props) {
 		super(props);
 		this.state = {
-			checkedList: [],
+			checkedList: this.props.driverOptions,
 			indeterminate: true,
 			checkAll: false,
 		};
@@ -64,7 +64,9 @@ class DriverCount extends Component {
 									<Checkbox
 										onChange={this.onDriverOptionsChange}
 										checked={this.state.checkedList.indexOf(c) > -1}
-										value={c}>{c}</Checkbox>
+										value={c}>{c}
+										<span className="driver-count__index">КБМ={i + 1}</span>
+									</Checkbox>
 								</Col>
 							)
 						}

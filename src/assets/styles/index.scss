@@ -71,23 +71,25 @@ input {
 }
 
 .btn_green {
-	background: $color-green;
-	color: #fff;
+	&.ant-btn {
+		background: $color-green;
+		color: #fff;
 
-	&:focus {
+		&:focus {
 
-	}
+		}
 
-	&:hover {
-		opacity: .9;
-	}
-	
-	&:hover, 
-	&:focus, 
-	&:active, 
-	&.active {
-		text-decoration: none;
-		background: #fff;
+		&:hover {
+			opacity: .9;
+		}
+
+		&:hover,
+		&:focus,
+		&:active,
+		&.active {
+			text-decoration: none;
+			background: #fff;
+		}
 	}
 }
 

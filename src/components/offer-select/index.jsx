@@ -26,6 +26,7 @@ class OfferSelect extends Component {
 			calculationPopupOpened: false,
 			formBusy: false,
 			hasFranchise: false,
+			franchiseVal: 0,
 			carCredit: true,
 			carMark: '',
 			carPrice: 0,
@@ -137,8 +138,10 @@ class OfferSelect extends Component {
 		});
 	};
 	
-	onFranchiseValueChange = e => {
-		//console.log('onFranchiseValueChange', e);
+	onFranchiseValueChange = val => {
+		this.setState({
+			franchiseVal: val
+		})
 	};
 
 	onFranchiseTooltip = value => {
@@ -165,8 +168,7 @@ class OfferSelect extends Component {
 		let driverOptions = [];
 		
 		if (step > 1) {
-			driverOptions.unshift('Фомин Сергей М.')
-			driverOptions.unshift('Фомина Алла К.')
+			driverOptions = ['Фомин Сергей М.', 'Фомина Алла К.', 'Фомина Марина Ф.']
 		}
 		
 		let franchiseSteps = {
@@ -201,7 +203,7 @@ class OfferSelect extends Component {
 			const index = i === 0 ? 0 : i === franchise.length - 1 ? 100 : parseInt(i * (100 / ((franchise.length - 1) || 1)))
 
 			franchiseSteps[index] = {
-				label: <span className={"kasko-car-select__franchise--label" + (index === 0 || index === 100 ? " extremum" : "")}>{formatMoney(f)}</span>,
+				label: <span className={"kasko-car-select__franchise--label" + (index === this.state.franchiseVal ? " active" : "")}>{formatMoney(f)}</span>,
 			}
 		})
 
@@ -321,7 +323,9 @@ class OfferSelect extends Component {
 										
 										{ this.state.hasFranchise ?
 											<Col className={"kasko-car-select__controls--flex-1"}>
-												<Slider className="kasko-car-select__franchise" tooltipVisible={false}
+												<Slider className="kasko-car-select__franchise"
+														step={null}
+														tooltipVisible={false}
 														tipFormatter={this.onFranchiseTooltip}
 														onAfterChange={this.onFranchiseValueChange} marks={franchiseSteps}
 														defaultValue={franchiseSteps[2]}/>
@@ -491,7 +495,7 @@ class OfferSelect extends Component {
 				</div>
 				
 				{this.state.calculationPopupOpened ? 
-					<CalculationPopup fullCalculation={this.state.fullCalculation} popupCloseFunc={this.toggleCalculationPopup} />
+					<CalculationPopup step={step} fullCalculation={this.state.fullCalculation} popupCloseFunc={this.toggleCalculationPopup} />
 					: ""}
 			</>
 		);

@@ -194,7 +194,7 @@ class KaskoCarSelect extends Component {
 	render() {
 		const {image, allFields, step, hideOffers} = this.props;
 		//const dateFormat = "DD.MM.YY"
-		let dateFormatMask = "'mask': '99.99.99', 'showMaskOnHover': 'false'"
+		let dateFormatMask = "'mask': '99.99.9999', 'showMaskOnHover': 'false'"
 		
 		//dateFormatMask = "'regex': '" + String.raw`^(?:(?:31(\/|-|\.)(?:0?[13578]|1[02]))\1|(?:(?:29|30)(\/|-|\.)(?:0?[1,3-9]|1[0-2])\2))(?:(?:1[6-9]|[2-9]\d)?\d{2})$|^(?:29(\/|-|\.)0?2\3(?:(?:(?:1[6-9]|[2-9]\d)?(?:0[48]|[2468][048]|[13579][26])|(?:(?:16|[2468][048]|[3579][26])00))))$|^(?:0?[1-9]|1\d|2[0-8])(\/|-|\.)(?:(?:0?[1-9])|(?:1[0-2]))\4(?:(?:1[6-9]|[2-9]\d)?\d{2})$` + "', 'showMaskOnHover': 'false'"
 		
@@ -206,6 +206,10 @@ class KaskoCarSelect extends Component {
 		const carPriceMask = "'alias': 'integer', 'groupSeparator': ' ', 'digitsOptional': true, 'autoGroup': true, 'rightAlign': 'false', 'clearIncomplete': 'true', 'clearMaskOnLostFocus': 'true', 'placeholder': '_'"
 		const carPowerMask = "'alias': 'integer', 'groupSeparator': ' ', 'digitsOptional': true, 'autoGroup': true, 'rightAlign': 'false', 'clearMaskOnLostFocus': 'true', 'placeholder': '_'"
 		let searchDisabled = !this.state.carNumber.length || this.state.carNumber.indexOf('_') > -1 || this.state.formBusy
+		
+		function disabledDate(current) {
+			return current && current._isAMomentObject && current.isAfter(new Date());
+		}
 		
 		const layout = {
 			labelCol: {
@@ -295,7 +299,7 @@ class KaskoCarSelect extends Component {
 						<div className="float_placeholder">Комплектация</div>
 					</Col>
 					<Col span={6}>
-						<YearPicker value={this.state.carYear ? moment(this.state.carYear) : null} onChange={this.onCarYearChange} placeholder="" className={"w_100p hide_picker_icon" + (this.state.carYear && this.state.carYear._isAMomentObject ? "" : " _empty")}/>
+						<YearPicker format="YYYY" disabledDate={disabledDate} value={this.state.carYear ? moment(this.state.carYear) : null} onChange={this.onCarYearChange} placeholder="" className={"w_100p hide_picker_icon" + (this.state.carYear && this.state.carYear._isAMomentObject ? "" : " _empty")}/>
 						<div className="float_placeholder">Год выпуска</div>
 					</Col>
 				</Row>

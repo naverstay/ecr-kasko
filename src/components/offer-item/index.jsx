@@ -21,8 +21,9 @@ class OfferItem extends Component {
 	};
 
 	toggleActiveOffer = (index) => {
-		this.setState({activeOffer: !this.state.activeOffer})
-		this.props.onOfferSelect({id: index, active: this.state.activeOffer})
+		let active = this.state.activeOffer
+		this.setState({activeOffer: !active})
+		this.props.onOfferSelect({id: index, active: active})
 	}
 
 	render() {

@@ -118,7 +118,7 @@ class ClientInfo extends Component {
 	render() {
 		// vin [A-HJ-NPR-Z\\d]{8}[\\dX][A-HJ-NPR-Z\\d]{2}\\d{6}
 
-		const dateFormatMask = "'mask': '99.99.99', 'showMaskOnHover': 'false'"
+		const dateFormatMask = "'mask': '99.99.9999', 'showMaskOnHover': 'false'"
 		const clientLicenseIDMask = "'mask': '99 99', 'showMaskOnHover': 'false'"
 		const clientLicenseNumberMask = "'mask': '999999', 'showMaskOnHover': 'false'"
 		const carVINMask = "'alias': 'vin', 'placeholder': '', 'clearIncomplete': 'false'"

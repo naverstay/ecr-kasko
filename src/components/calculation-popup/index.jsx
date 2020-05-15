@@ -7,6 +7,7 @@ import KaskoCarSelect from "../kasko-car-select";
 import ClientQuestionnaire from "../client-questionnaire";
 import DriverInfo from "../driver-info";
 import ClientInfo from "../client-info";
+import DriverCount from "../driver-count";
 
 class CalculationPopup extends Component {
 	constructor(props) {
@@ -69,9 +70,13 @@ class CalculationPopup extends Component {
 	}
 
 	render() {
-		let {popupCloseFunc, fullCalculation} = this.props
+		let {popupCloseFunc, step} = this.props
 
-		const otherOptions = ['Мультидрайв'];
+		let driverOptions = [];
+
+		if (step > 1) {
+			driverOptions = ['Фомин Сергей М.', 'Фомина Алла К.', 'Фомина Марина Ф.']
+		}
 
 		return (
 			<div className="calculation-popup">
@@ -108,9 +113,7 @@ class CalculationPopup extends Component {
 							:
 							<>
 								<ClientQuestionnaire/>
-								<div className="kasko-car-select__controls check_v2">
-									<Checkbox.Group options={otherOptions} onChange={this.onOtherChange}/>
-								</div>
+								<DriverCount step={step} driverOptions={driverOptions}/>
 							</>
 					}
 
