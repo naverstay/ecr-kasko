@@ -71,6 +71,7 @@
 	&__more {
 		@extend %text1;
 		margin-top: 6px;
+		text-align: right;
 		color: $color-grey;
 	}
 }

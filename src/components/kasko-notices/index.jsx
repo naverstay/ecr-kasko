@@ -95,7 +95,7 @@ class KaskoNotices extends Component {
 								</li>
 								<li>
 									<div className="kasko-notice__price--label">СК</div>
-									<div className="kasko-notice__price--value">Ингосстрах</div>
+									<div className="kasko-notice__price--value">ВСК</div>
 								</li>
 								<li>
 									<div className="kasko-notice__price--label">Срок</div>

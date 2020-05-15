@@ -59,7 +59,7 @@ class DriverCount extends Component {
 			<div className="kasko-car-select__controls check_v2">
 					<Row gutter={20}>
 						{
-							driverOptions.map((c, i) =>
+							driverOptions.length ? driverOptions.map((c, i) =>
 								<Col key={i}>
 									<Checkbox
 										onChange={this.onDriverOptionsChange}
@@ -68,7 +68,7 @@ class DriverCount extends Component {
 										<span className="driver-count__index">КБМ={i + 1}</span>
 									</Checkbox>
 								</Col>
-							)
+							) : ""
 						}
 						{
 							<Col key={driverOptions.length}>

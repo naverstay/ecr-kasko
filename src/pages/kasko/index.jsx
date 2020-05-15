@@ -38,13 +38,13 @@ class Kasko extends Component {
 			events.push({
 				progress: 2,
 				name: 'КАСКО',
-				status: 'Выпущено / Ингосстрах',
+				status: 'Выпущено / ВСК',
 				time: '9:50'
 			})
 			events.push({
 				progress: 1,
 				name: 'КАСКО',
-				status: 'Ожидание оплаты / Ингосстрах',
+				status: 'Ожидание оплаты / ВСК',
 				time: '9:50'
 			})
 		}

@@ -226,7 +226,7 @@ class OfferSelect extends Component {
 
 							<CalculationOffers completed={true} selectedOffer={this.updateSelectedOffer} offersList={[
 								{
-									logo: 'ingosstrakh.png',
+									logo: 'bck.png',
 									offers: [
 										{
 											name: 'Обычный',
@@ -282,25 +282,25 @@ class OfferSelect extends Component {
 										price: 10430,
 										prefix: 'от',
 										suffix: '₽.'
-									},
-									{
-										name: 'ОСАГО',
-										price: 10410,
-										prefix: 'от',
-										suffix: '₽.'
-									},
-									{
-										name: 'Кредит',
-										price: 10420,
-										prefix: 'от',
-										suffix: '₽.'
-									},
-									{
-										name: '123',
-										price: 10430,
-										prefix: 'от',
-										suffix: '₽.'
 									}
+									//{
+									//	name: 'ОСАГО',
+									//	price: 10410,
+									//	prefix: 'от',
+									//	suffix: '₽.'
+									//},
+									//{
+									//	name: 'Кредит',
+									//	price: 10420,
+									//	prefix: 'от',
+									//	suffix: '₽.'
+									//},
+									//{
+									//	name: '123',
+									//	price: 10430,
+									//	prefix: 'от',
+									//	suffix: '₽.'
+									//}
 								]}/>
 							</div>
 			

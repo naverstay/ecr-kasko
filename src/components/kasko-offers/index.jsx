@@ -45,7 +45,8 @@ class KaskoOffers extends Component {
 						offersList.map((o, i) => <OfferItem key={i} onOfferSelect={onOfferSelect} slider={true} index={i} offer={o} />)
 					}
 				</Slider>
-			: <div className="kasko-offer">
+			: 
+			<div className="kasko-offer">
 				<Row gutter={20} className="kasko-offer__list">
 					{offersList.map((o, i) => <OfferItem key={i} index={i} offer={o}/>)}
 				</Row>

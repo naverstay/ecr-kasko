@@ -162,7 +162,7 @@ class DriverInfo extends Component {
 			<div className="driver-info">
 				{
 					fullCalculation ? "" :
-					drivers.map((d) => {
+					drivers.length ? drivers.map((d) => {
 						return (<div key={d} className="driver-info__item">
 							<div className="driver-info__caption">Данные водителя</div>
 
@@ -327,8 +327,8 @@ class DriverInfo extends Component {
 										onChange={this.onDriverFamilyStatusChange}
 										value={this.state.driverFamilyStatus}
 									>
-										{this.state.driverFamilyStatusList.map((e, i) => <Option key={i}
-																								 value={e}>{e}</Option>)}
+										{this.state.driverFamilyStatusList ? this.state.driverFamilyStatusList.map((e, i) => <Option key={i}
+																								 value={e}>{e}</Option>) : ""}
 									</Select>
 									<div className="float_placeholder">Семейное положение</div>
 								</Col>
@@ -351,7 +351,7 @@ class DriverInfo extends Component {
 							</div>
 						</div>
 						)
-					})
+					}) : ""
 				}
 				
 				<div className="driver-info__caption">Проверьте лиц, включенных в полис</div>

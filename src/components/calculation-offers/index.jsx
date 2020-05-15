@@ -46,9 +46,9 @@ class CalculationOffers extends Component {
 						</tr>
 					</thead>
 					<tbody>
-						{offersList.map((o, i) => {
+						{offersList.length ? offersList.map((o, i) => {
 							return (<OfferRow completed={completed} selectedOffer={selectedOffer} key={i} company={i} logo={o.logo} offers={o.offers} />)
-						})}
+						}) : ""}
 					</tbody>
 				</table>
 			</div>

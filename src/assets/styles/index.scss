@@ -71,7 +71,7 @@ input {
 }
 
 .btn_green {
-	&.ant-btn {
+	//&.ant-btn {
 		background: $color-green;
 		color: #fff;
 
@@ -90,7 +90,7 @@ input {
 			text-decoration: none;
 			background: #fff;
 		}
-	}
+	//}
 }
 
 $spinner_time: 1s;
