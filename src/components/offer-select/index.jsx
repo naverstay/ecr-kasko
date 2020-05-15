@@ -125,8 +125,6 @@ class OfferSelect extends Component {
 	}
 	
 	onPeriodChange = (e) => {
-		console.log('checked = ', e.target.value);
-		
 		this.setState({
 			paramsChanged: true
 		})
@@ -161,10 +159,15 @@ class OfferSelect extends Component {
 
 		const periodPlurals = ['месяц', 'месяца', 'месяцев'];
 		const periodOptions = [12, 9, 6, 3];
-		const driverOptions = ['Мультидрайв'];
 		const damageOptions = ['Ущерб', 'Полная гибель', 'Угон', 'Шины/Диски', 'ЛКП', 'Стекла', 'Фары', 'Бамперы и зеркала'];
-		
 		const franchise = this.state.franchise;
+		
+		let driverOptions = [];
+		
+		if (step > 1) {
+			driverOptions.unshift('Фомин Сергей М.')
+			driverOptions.unshift('Фомина Алла К.')
+		}
 		
 		let franchiseSteps = {
 			//10000 : '10 000',
@@ -244,7 +247,7 @@ class OfferSelect extends Component {
 								<span className="kasko-car-select__calculation--text">Окончательный расчет</span>
 							</div>
 			
-							<div className="kasko-car-select__controls ant-row-center">
+							<div className="kasko-car-select__controls ant-row-center mb_45">
 								<Button htmlType="submit" className={"btn_green btn_wide"} onClick={this.toggleCalculationPopup}>{this.calculationButtonText()}</Button>
 							</div>
 			
@@ -367,7 +370,7 @@ class OfferSelect extends Component {
 								</Radio.Group>
 							</div>
 
-							<DriverCount driverOptions={driverOptions} />
+							<DriverCount step={step} driverOptions={driverOptions} />
 			
 							<div className="kasko-car-select__controls ant-row-center">
 								<div onClick={this.toggleCalculationOffers} className={"ant-btn btn_green btn_middle" + ((this.state.activeOffers && this.state.paramsChanged) ? "" : " disabled")}>
@@ -469,7 +472,7 @@ class OfferSelect extends Component {
 																Сохранить&nbsp;расчет
 															</Link>
 														</div>
-														<Button htmlType="submit" className={"btn_green btn_middle"}
+														<Button htmlType="submit" className={"btn_green btn_wide"}
 																onClick={this.toggleCalculationPopup}>{this.calculationButtonText()}</Button>
 														<div className="kasko-car-select__controls--group-r">
 															<Link to="/" className={"gl_link"}>

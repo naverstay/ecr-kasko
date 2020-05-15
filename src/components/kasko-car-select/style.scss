@@ -102,7 +102,11 @@
 	&__controls {
 		display: flex;
 		flex-flow: row;
-		margin-bottom: 14px;
+		margin-bottom: 15px;
+		
+		&.mb_45 {
+			margin-bottom: 45px;
+		}
 		
 		&.check_v1 {
 			@extend %check_v1;
@@ -152,6 +156,7 @@
 				margin-bottom: 250px;
 			}
 			
+			.ant-btn.btn_wide,
 			.ant-btn.btn_middle {
 				margin: 0 20px;
 			}

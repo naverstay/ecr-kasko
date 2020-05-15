@@ -192,7 +192,7 @@ class KaskoCarSelect extends Component {
 	};
 
 	render() {
-		const {image, allFields, step} = this.props;
+		const {image, allFields, step, hideOffers} = this.props;
 		//const dateFormat = "DD.MM.YY"
 		let dateFormatMask = "'mask': '99.99.99', 'showMaskOnHover': 'false'"
 		
@@ -404,7 +404,7 @@ class KaskoCarSelect extends Component {
 					</div>
 				}
 
-				{(!this.state.formBusy && this.state.carFound) ?
+				{(!this.state.formBusy && this.state.carFound && !hideOffers) ?
 					<KaskoOffers offersList={[
 						{
 							name: 'Кредит',

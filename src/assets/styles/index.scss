@@ -70,7 +70,7 @@ input {
 	pointer-events: none;
 }
 
-.btn_green.ant-btn {
+.btn_green {
 	background: $color-green;
 	color: #fff;
 
@@ -81,8 +81,11 @@ input {
 	&:hover {
 		opacity: .9;
 	}
-
-	.ant-btn:hover, .ant-btn:focus, .ant-btn:active, .ant-btn.active {
+	
+	&:hover, 
+	&:focus, 
+	&:active, 
+	&.active {
 		text-decoration: none;
 		background: #fff;
 	}
@@ -163,7 +166,7 @@ $spinner_time: 1s;
 		min-width: 432px;
 		//padding-left: 92px;
 		//padding-right: 92px;
-		margin-bottom: 32px;
+		//margin-bottom: 32px;
 	}
 }
 

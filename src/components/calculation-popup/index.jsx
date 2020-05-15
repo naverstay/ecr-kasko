@@ -13,7 +13,7 @@ class CalculationPopup extends Component {
 		super(props);
 		this.state = {
 			carFound: void 0,
-			fullCalculation: false,
+			fullCalculation: this.props.fullCalculation || false,
 			calculationPopupOpened: false,
 			formBusy: false,
 			hasFranchise: true,
@@ -80,31 +80,31 @@ class CalculationPopup extends Component {
 
 					<div className={"kasko-car-select__calculation" + (this.state.fullCalculation ? ' active' : '')}>
 						<span className="kasko-car-select__calculation--text">Предварительный расчет</span>
-						<Switch className="kasko-car-select__calculation--switch" onChange={this.onCalculationTypeChange}/>
+						<Switch checked={this.state.fullCalculation} className="kasko-car-select__calculation--switch" onChange={this.onCalculationTypeChange}/>
 						<span className="kasko-car-select__calculation--text">Окончательный расчет</span>
 					</div>
 
 					{
-						fullCalculation ?
+						this.state.fullCalculation ?
 							<>
 								<h1 className="kasko-main__title">Поля к заполнению</h1>
-								<ClientInfo fullCalculation={fullCalculation}/>
+								<ClientInfo fullCalculation={this.state.fullCalculation}/>
 							</>
 							: ""
 					}
 					
-					<h1 className={"kasko-main__title" + (fullCalculation ? " collapsed" : "")}>Автомобиль</h1>
+					<h1 className={"kasko-main__title" + (this.state.fullCalculation ? " collapsed" : "")}>Автомобиль</h1>
 					
 					{
-						fullCalculation ? ""
+						this.state.fullCalculation ? ""
 						:
-							<KaskoCarSelect allFields={true}/>
+							<KaskoCarSelect hideOffers={true} allFields={true}/>
 					}
 
-					<h1 className={"kasko-main__title" + (fullCalculation ? " collapsed" : "")}>Анкета клиента</h1>
+					<h1 className={"kasko-main__title" + (this.state.fullCalculation ? " collapsed" : "")}>Анкета клиента</h1>
 
 					{
-						fullCalculation ? ""
+						this.state.fullCalculation ? ""
 							:
 							<>
 								<ClientQuestionnaire/>
@@ -114,7 +114,7 @@ class CalculationPopup extends Component {
 							</>
 					}
 
-					<DriverInfo fullCalculation={fullCalculation} />
+					<DriverInfo fullCalculation={this.state.fullCalculation} />
 
 				</div>
 			</div>
