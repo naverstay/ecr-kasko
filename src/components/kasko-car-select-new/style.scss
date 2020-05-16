@@ -104,10 +104,6 @@
 		flex-flow: row;
 		margin-bottom: 15px;
 		
-		&.mb_45 {
-			margin-bottom: 45px;
-		}
-		
 		&.check_v1 {
 			@extend %check_v1;
 		}
@@ -137,6 +133,14 @@
 			.ant-col {
 				margin-bottom: 15px;
 			}
+		}
+
+		&.mb_60 {
+			margin-bottom: 60px;
+		}
+
+		&.mb_45 {
+			margin-bottom: 45px;
 		}
 		
 		.ant-radio-wrapper {

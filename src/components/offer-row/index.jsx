@@ -56,7 +56,7 @@ class OfferRow extends Component {
 	}
 
 	render() {
-		const {offers, logo, company, completed} = this.props
+		const {offers, logo, company, completed, waiting} = this.props
 		const moreLink = 'еще ' + (offers.length - 1) + ' ' + pluralFromArray(['тариф', 'тарифа', 'тарифов'], (offers.length - 1))
 		
 		return (
@@ -83,7 +83,7 @@ class OfferRow extends Component {
 										<div className="offer-row__fee">{formatMoney(o.dealerFee)} ₽</div>
 									</td>
 									
-									{ completed ?
+									{ (completed || waiting) ?
 										<>
 											<td>
 												<div className="offer-row__date">{o.dateStart}</div>
@@ -96,7 +96,7 @@ class OfferRow extends Component {
 												</div>
 											</td>
 											<td>
-												<div className="offer-row__status approved"/>
+												<div className={"offer-row__status " + (completed ? "approved" : "waiting")}/>
 											</td>
 										</>
 									: 

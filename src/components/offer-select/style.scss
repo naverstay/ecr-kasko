@@ -2,5 +2,22 @@
 
 .offer-select {
 
-}
+	&__sms {
+		position: relative;
+		width: 226px;
+		padding: 0 10px;
+		display: inline-block;
+		vertical-align: top;
+		text-align: left;
 
+		.gl_link {
+			white-space: nowrap;
+			margin-top: 15px;
+			position: absolute;
+			top: 100%;
+			left: 50%;
+			transform: translate(-50%, 0);
+		}
+	}
+	
+}

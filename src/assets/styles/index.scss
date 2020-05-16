@@ -72,13 +72,9 @@ input {
 
 .btn_green {
 	//&.ant-btn {
-		background: $color-green !important;
+		background: $color-green;
 		color: #fff;
-
-		&:focus {
-
-		}
-
+	
 		&:hover {
 			opacity: .9;
 		}
@@ -88,7 +84,7 @@ input {
 		&:active,
 		&.active {
 			text-decoration: none;
-			background: #fff !important;
+			background: #fff;
 		}
 	//}
 }
@@ -116,12 +112,28 @@ $spinner_time: 1s;
 	}
 }
 
+.align_center {
+	align-items: center;
+}
+
+.text_center {
+	text-align: center !important;
+}
+
+.text_right {
+	text-align: right !important;
+}
+
 .text_left {
 	text-align: left !important;
 }
 
 .text_upper {
 	text-transform: uppercase;
+}
+
+.align_self_start {
+	align-self: flex-start;
 }
 
 .color_green {
@@ -160,8 +172,11 @@ $spinner_time: 1s;
 		min-width: 206px;
 		//padding-left: 40px;
 		//padding-right: 40px;
-		margin-bottom: 32px;
-		margin-top: 15px;
+
+		&.margin {
+			margin-bottom: 32px;
+			margin-top: 15px;
+		}
 	}
 
 	&.btn_wide {
@@ -197,12 +212,10 @@ $spinner_time: 1s;
 	}
 
 	&--hint {
-		position: absolute;
-		font-size: 12px;
-		line-height: 1;
-		bottom: 0;
-		left: 38px;
+		font-size: 14px;
+		line-height: 20px;
 		color: $color-grey;
+		padding-left: 7px;
 	}
 }
 

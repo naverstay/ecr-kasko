@@ -489,8 +489,22 @@
 }
 
 .wrapper-error {
+	.ant-checkbox-inner,
+	.ant-checkbox-inner:after {
+		border-color: $color-prime !important;
+	}
+	
+	.ant-select-arrow {
+		svg {
+			path {
+				fill: $color-prime !important
+			}
+		}
+	}
+	
 	&.ant-picker,
 	+ .float_placeholder,
+	.ant-select-selector,
 	input {
 		color: $color-prime !important;
 		border-color: $color-prime !important;

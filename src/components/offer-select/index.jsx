@@ -1,5 +1,5 @@
 import React, {Component} from "react";
-import {Col, Row, Button, Radio, Slider} from "antd";
+import {Col, Row, Button, Radio, Slider, Input} from "antd";
 import './style.scss';
 import PropTypes from "prop-types";
 import moment from 'moment';
@@ -22,15 +22,17 @@ class OfferSelect extends Component {
 		this.state = {
 			carFound: void 0,
 			fullCalculation: false,
-			showCalculationOffers: false,
+			showCalculationOffers: this.props.step > 1,
+			SMSSent: false,
 			calculationPopupOpened: false,
 			formBusy: false,
-			hasFranchise: false,
+			hasFranchise: this.props.step > 1,
 			franchiseVal: 0,
 			carCredit: true,
 			carMark: '',
 			carPrice: 0,
 			carModel: '',
+			SMSCode: '',
 			carEquipment: '',
 			carNumber: '',
 			carYear: '',
@@ -61,10 +63,10 @@ class OfferSelect extends Component {
 				"Executive",
 				"GT S Sports Car"
 			],
-			showPayment: false,
+			showPayment: this.props.step > 1,
 			showMoreDamages: false,
 			paramsChanged: false,
-			activeOffers: false
+			activeOffers: this.props.step > 1 ? [1] : []
 		};
 	}
 
@@ -81,6 +83,10 @@ class OfferSelect extends Component {
 			showPayment: true
 		})
 	}
+
+	onSMSCodeChange = e => {
+		this.setState({SMSCode: e.target.value})
+	};
 	
 	onCalculationTypeChange = (checked) => {
 		this.setState({
@@ -88,9 +94,13 @@ class OfferSelect extends Component {
 		})
 	}
 	
-	toggleCalculationPopup = (checked) => {
+	toggleCalculationPopup = () => {
 		this.setState({calculationPopupOpened: !this.state.calculationPopupOpened})
 		document.body.classList.toggle('no-overflow', !this.state.calculationPopupOpened)
+	}
+
+	toggleSMSSent = () => {
+		this.setState({SMSSent: !this.state.SMSSent})
 	}
 
 	calculationButtonText = () => {
@@ -98,14 +108,25 @@ class OfferSelect extends Component {
 	}
 
 	offersUpdate = (offer) => {
+		let activeOffers = this.state.activeOffers
+		
+		if (offer.active) {
+			activeOffers.push(offer.id)
+		} else {
+			const index = activeOffers.indexOf(offer.id);
+			if (index > -1) {
+				activeOffers.splice(index, 1);
+			}
+		}
+		
 		this.setState({
-			activeOffers: offer.active,
+			activeOffers: activeOffers,
 			paramsChanged: true
 		});
 	};
 
 	toggleCalculationOffers = e => {
-		if (this.state.activeOffers && this.state.paramsChanged) {
+		if (this.state.activeOffers.length && this.state.paramsChanged) {
 			this.setState({
 				showCalculationOffers: !this.state.showCalculationOffers,
 				paramsChanged: false
@@ -199,6 +220,89 @@ class OfferSelect extends Component {
 			'Подтопление'
 		]
 		
+		let calculationOfferList = [
+			{
+				logo: 'ingosstrakh.png',
+				offers: [
+					{
+						name: 'Обычный',
+						price: 41450,
+						dealerFee: 4145,
+						options: optionsFixtures
+					},
+					{
+						name: 'Обычный 2',
+						price: 51450,
+						dealerFee: 5145,
+						options: optionsFixtures
+					},
+					{
+						name: 'Обычный 3',
+						price: 61450,
+						dealerFee: 6145,
+						options: optionsFixtures
+					},
+					{
+						name: 'Обычный 4',
+						price: 11450,
+						dealerFee: 1145,
+						options: optionsFixtures
+					},
+					{
+						name: 'Обычный 5',
+						price: 21450,
+						dealerFee: 2145,
+						options: optionsFixtures
+					},
+					{
+						name: 'Обычный 6',
+						price: 31450,
+						dealerFee: 3145,
+						options: optionsFixtures
+					}
+				]
+			},
+			{
+				logo: 'bck.png',
+				offers: [
+					{
+						name: 'Необычный',
+						price: 30450,
+						dealerFee: 3045,
+						options: optionsFixtures
+					},
+					{
+						name: 'Необычный 2',
+						price: 30450,
+						dealerFee: 3045,
+						options: optionsFixtures
+					},
+					{
+						name: 'Необычный 3',
+						price: 30450,
+						dealerFee: 3045,
+						options: optionsFixtures
+					}
+				]
+			}
+		]
+		
+		if (step > 1) {
+			calculationOfferList = [
+				{
+					logo: 'ingosstrakh.png',
+					offers: [
+						{
+							name: 'Обычный',
+							price: 41450,
+							dealerFee: 4145,
+							options: optionsFixtures
+						}
+					]
+				},
+			]
+		}
+		
 		franchise.forEach((f, i) => {
 			const index = i === 0 ? 0 : i === franchise.length - 1 ? 100 : parseInt(i * (100 / ((franchise.length - 1) || 1)))
 
@@ -282,25 +386,25 @@ class OfferSelect extends Component {
 										price: 10430,
 										prefix: 'от',
 										suffix: '₽.'
+									},
+									{
+										name: 'ОСАГО',
+										price: 10410,
+										prefix: 'от',
+										suffix: '₽.'
+									},
+									{
+										name: 'Кредит',
+										price: 10420,
+										prefix: 'от',
+										suffix: '₽.'
+									},
+									{
+										name: '123',
+										price: 10430,
+										prefix: 'от',
+										suffix: '₽.'
 									}
-									//{
-									//	name: 'ОСАГО',
-									//	price: 10410,
-									//	prefix: 'от',
-									//	suffix: '₽.'
-									//},
-									//{
-									//	name: 'Кредит',
-									//	price: 10420,
-									//	prefix: 'от',
-									//	suffix: '₽.'
-									//},
-									//{
-									//	name: '123',
-									//	price: 10430,
-									//	prefix: 'от',
-									//	suffix: '₽.'
-									//}
 								]}/>
 							</div>
 			
@@ -377,83 +481,69 @@ class OfferSelect extends Component {
 							<DriverCount step={step} driverOptions={driverOptions} />
 			
 							<div className="kasko-car-select__controls ant-row-center">
-								<div onClick={this.toggleCalculationOffers} className={"ant-btn btn_green btn_middle" + ((this.state.activeOffers && this.state.paramsChanged) ? "" : " disabled")}>
+								<div onClick={this.toggleCalculationOffers} className={"ant-btn btn_green btn_middle margin" + ((this.state.activeOffers.length && this.state.paramsChanged) ? "" : " disabled")}>
 									Получить расчет
 								</div>
 							</div>
 							
 							{this.state.showCalculationOffers ?
 									<>
-										<CalculationOffers selectedOffer={this.updateSelectedOffer} offersList={[
-											{
-												logo: 'ingosstrakh.png',
-												offers: [
-													{
-														name: 'Обычный',
-														price: 41450,
-														dealerFee: 4145,
-														options: optionsFixtures
-													},
-													{
-														name: 'Обычный 2',
-														price: 51450,
-														dealerFee: 5145,
-														options: optionsFixtures
-													},
-													{
-														name: 'Обычный 3',
-														price: 61450,
-														dealerFee: 6145,
-														options: optionsFixtures
-													},
-													{
-														name: 'Обычный 4',
-														price: 11450,
-														dealerFee: 1145,
-														options: optionsFixtures
-													},
-													{
-														name: 'Обычный 5',
-														price: 21450,
-														dealerFee: 2145,
-														options: optionsFixtures
-													},
-													{
-														name: 'Обычный 6',
-														price: 31450,
-														dealerFee: 3145,
-														options: optionsFixtures
-													}
-												]
-											},
-											{
-												logo: 'bck.png',
-												offers: [
-													{
-														name: 'Необычный',
-														price: 30450,
-														dealerFee: 3045,
-														options: optionsFixtures
-													},
-													{
-														name: 'Необычный 2',
-														price: 30450,
-														dealerFee: 3045,
-														options: optionsFixtures
-													},
-													{
-														name: 'Необычный 3',
-														price: 30450,
-														dealerFee: 3045,
-														options: optionsFixtures
-													}
-												]
-											}
-										]}/>
+										<CalculationOffers waiting={step === 2} selectedOffer={this.updateSelectedOffer} offersList={calculationOfferList}/>
 		
-										<div className="kasko-car-select__controls ant-row-center">
+										<div className={"kasko-car-select__controls ant-row-center align_center"}>
 											{
-												this.state.showPayment ?
+												(step === 2) ?
+													<>
+														<div className="kasko-car-select__controls--group-w text_left">
+															<Link to="/" className={"gl_link color_black"}>
+																Отменить операцию и <br />
+																вернуться к расчету
+															</Link>
+														</div>
+														
+														{
+															this.state.SMSSent ?
+																<>
+																	<div className="kasko-car-select__controls--group-w text_center">
+																		<div className="offer-select__sms">
+																			<Input className={"ant-input w_100p" + (this.state.SMSCode.length ? "" : " _empty")}
+																				onChange={this.onSMSCodeChange}
+																				defaultValue=""/>
+																			<div className="float_placeholder">Код подтверждения</div>
+																			<div className="gl_link"
+																				 onClick={this.toggleSMSSent}>
+																				Отправить код повторно
+																			</div>
+																		</div>
+																	</div>
+																	<div className="kasko-car-select__controls--group-w text_left">
+																		<p>
+																			Попросите клиента продиктовать код, <br />
+																			который был отправлен ему <br/>
+																			на мобильный телефон
+																		</p>
+																	</div>
+																</>
+																:
+																<>
+																	<div
+																		className="kasko-car-select__controls--group-w text_center">
+																		<Button htmlType="submit"
+																				className={"btn_green btn_middle"}
+																				onClick={this.toggleSMSSent}>Оплатить в
+																			кассу</Button>
+																	</div>
+																	<div
+																		className="kasko-car-select__controls--group-w text_right">
+																		<div className={"gl_link"}>
+																			Отправить ссылку повторно
+																		</div>
+																	</div>
+																</>
+															
+														}
+													</>
+												: this.state.showPayment ?
 													<div className="kasko-car-select__controls--group payment">
 														<div className="kasko-car-select__controls--group-l">
 															<Link to="/" className={"gl_link color_black"}>
@@ -495,7 +585,7 @@ class OfferSelect extends Component {
 				</div>
 				
 				{this.state.calculationPopupOpened ? 
-					<CalculationPopup step={step} fullCalculation={this.state.fullCalculation} popupCloseFunc={this.toggleCalculationPopup} />
+					<CalculationPopup step={step} allFields={false} fullCalculation={this.state.fullCalculation} popupCloseFunc={this.toggleCalculationPopup} />
 					: ""}
 			</>
 		);

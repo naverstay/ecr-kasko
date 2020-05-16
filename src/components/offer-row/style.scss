@@ -30,6 +30,9 @@
 			background: $color-green;
 		}
 		
+		&.waiting {
+			background: $color-yellow;
+		}
 	}
 	
 	&__check {
