@@ -36,7 +36,10 @@ class KaskoOffers extends Component {
 
 		let carouselSettings = {
 			dots: false,
-			slidesPerRow: 4
+      infinite: true,
+      slidesToShow: 1,
+      slidesToScroll: 1,
+      variableWidth: true
 		};
 		
 		let reactSwipeEl;
