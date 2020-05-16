@@ -31,7 +31,7 @@ class OfferItem extends Component {
 		
 		return (
 			slider ?
-				<div key={index} className={"slick-slide"}>
+				<div key={index} className={"kasko-offer__slide"}>
 					<div onClick={() => this.toggleActiveOffer(index)} className={"kasko-offer__item" + (this.state.activeOffer ? " active" : "")}>
 						<div className="kasko-offer__item--title">{offer.name}</div>
 						<div className="kasko-offer__item--body">

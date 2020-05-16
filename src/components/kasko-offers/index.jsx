@@ -4,6 +4,7 @@ import {Row} from "antd";
 import './style.scss';
 import PropTypes from "prop-types";
 import Slider from "react-slick";
+//import ReactSwipe from 'react-swipe';
 import OfferItem from "../offer-item";
 
 class KaskoOffers extends Component {
@@ -38,6 +39,12 @@ class KaskoOffers extends Component {
 			slidesPerRow: 4
 		};
 		
+		let reactSwipeEl;
+		let swipeOptions = {
+			continuous: true,
+			slidesPerView: 4
+		}
+		
 		return (
 			slider ?
 				<Slider {...carouselSettings}>
@@ -45,6 +52,25 @@ class KaskoOffers extends Component {
 						offersList.map((o, i) => <OfferItem key={i} onOfferSelect={onOfferSelect} slider={true} index={i} offer={o} />)
 					}
 				</Slider>
+				//<>
+				//	<ReactSwipe
+				//		className="carousel"
+				//		swipeOptions={swipeOptions}
+				//		ref={el => (reactSwipeEl = el)}
+				//	>
+				//		{
+				//			offersList.map((o, i) => <OfferItem key={i} onOfferSelect={onOfferSelect} slider={true}
+				//											 index={i} offer={o}/>)
+				//		}
+				//		
+				//		{/*<div>PANE 1</div>*/}
+				//		{/*<div>PANE 2</div>*/}
+				//		{/*<div>PANE 3</div>*/}
+				//	</ReactSwipe>
+				//	<button onClick={() => reactSwipeEl.next()}>Next</button>
+				//	<button onClick={() => reactSwipeEl.prev()}>Previous</button>
+				//</>
+			
 			: 
 			<div className="kasko-offer">
 				<Row gutter={20} className="kasko-offer__list">
