@@ -94,14 +94,16 @@ class CalculationPopup extends Component {
 			driverOptions = ['Фомин Сергей М.', 'Фомина Алла К.', 'Фомина Марина Ф.']
 		}
 
+		console.log('step', step);
+		
 		return (
 			<div className="calculation-popup">
 				<div className="calculation-popup__inner">
 					<div className="calculation-popup__close" onClick={popupCloseFunc}/>
 
-					<div className={"kasko-car-select__calculation" + (this.state.fullCalculation ? ' active' : '')}>
+					<div className={"kasko-car-select__calculation" + (allFields || this.state.fullCalculation ? ' active' : '')}>
 						<span className="kasko-car-select__calculation--text">Предварительный расчет</span>
-						<Switch checked={this.state.fullCalculation} className="kasko-car-select__calculation--switch" onChange={this.onCalculationTypeChange}/>
+						<Switch checked={allFields || this.state.fullCalculation} className="kasko-car-select__calculation--switch" onChange={this.onCalculationTypeChange}/>
 						<span className="kasko-car-select__calculation--text">Окончательный расчет</span>
 					</div>
 
@@ -118,20 +120,24 @@ class CalculationPopup extends Component {
 					<h1 onClick={allFields ? this.onToggleCarFields : null} className={"kasko-main__title" + (allFields ? (this.state.showCarFields ? " expanded" : " collapsed") : "")}>Автомобиль</h1>
 					
 					{/*<KaskoCarSelect hideOffers={true} allFields={true}/>*/}
-					<KaskoCarSelectNew hideOffers={true} allFields={allFields} fullCalculation={this.state.fullCalculation}/>
+					<KaskoCarSelectNew hideOffers={true} allFields={allFields} expanded={(step === void 0) || this.state.showCarFields} fullCalculation={this.state.fullCalculation}/>
 
 					<h1 onClick={allFields ? this.onToggleClientFields : null} className={"kasko-main__title" + (allFields ? (this.state.showClientFields ? " expanded" : " collapsed") : "")}>Анкета клиента</h1>
-
-					<div className={"kasko-car-select__controls ant-row-center align_center"}>
-						<Checkbox checked={this.state.useOCR ? "checked" : null}
-								  onChange={this.onUseOCRChange}>Не распознавать документы</Checkbox>
-					</div>
 					
-					<ClientQuestionnaire/>
+					{
+						((step === void 0) || (step !== 2) || this.state.showClientFields) ?
+							<>
+								<div className={"kasko-car-select__controls ant-row-center align_center"}>
+									<Checkbox checked={this.state.useOCR ? "checked" : null}
+											  onChange={this.onUseOCRChange}>Не распознавать документы</Checkbox>
+								</div>
+								<ClientQuestionnaire/>
+								<DriverCount step={step} driverOptions={driverOptions}/>
+							</>
+							: ""
+					}
 					
-					<DriverCount step={step} driverOptions={driverOptions}/>
-					
-					<DriverInfo fullCalculation={this.state.fullCalculation} />
+					<DriverInfo expanded={(step !== 2) || this.state.showClientFields} fullCalculation={this.state.fullCalculation} />
 
 				</div>
 			</div>

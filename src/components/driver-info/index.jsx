@@ -210,7 +210,7 @@ class DriverInfo extends Component {
 	};
 	
 	render() {
-		let {fullCalculation, allFields} = this.props
+		let {fullCalculation, allFields, expanded} = this.props
 		//const dateFormat = "DD.MM.YY"
 		const dateFormatMask = "'mask': '99.99.9999', 'showMaskOnHover': 'false'"
 		const driverPhoneMask = "'mask': '[+7] (999)-999-99-99', 'showMaskOnHover': 'false'"
@@ -227,13 +227,11 @@ class DriverInfo extends Component {
 		for (let drv = 0; drv < this.state.driverCount; drv++) {
 			drivers.push(drv)
 		}
-
-		console.log('drivers', drivers);
 		
 		return (
 			<div className="driver-info">
 				{
-					drivers.length ? drivers.map((d) => {
+					(expanded && drivers.length) ? drivers.map((d) => {
 						return (<div key={d} className="driver-info__item">
 							<div className="driver-info__caption">Личная информация</div>
 
@@ -299,17 +297,17 @@ class DriverInfo extends Component {
 									<Checkbox onChange={this.onDriverProgenyNessChange}>Есть дети</Checkbox>
 								</Col>
 								
-								{
-									this.state.driverProgenyNess ?
-									<Col span={6}>
-										<Input
-											className={"w_100p" + ((this.state.driverChildrenCount + '').length ? "" : " _empty")}
-											value={this.state.driverChildrenCount}
-											onChange={this.onDriverChildrenCountChange} defaultValue=""/>
-										<div className="float_placeholder">Кол-во детей младше 21</div>
-									</Col>
-									: ""
-								}
+								{/*{*/}
+								{/*	this.state.driverProgenyNess ?*/}
+								{/*	<Col span={6}>*/}
+								{/*		<Input*/}
+								{/*			className={"w_100p" + ((this.state.driverChildrenCount + '').length ? "" : " _empty")}*/}
+								{/*			value={this.state.driverChildrenCount}*/}
+								{/*			onChange={this.onDriverChildrenCountChange} defaultValue=""/>*/}
+								{/*		<div className="float_placeholder">Кол-во детей младше 21</div>*/}
+								{/*	</Col>*/}
+								{/*	: ""*/}
+								{/*}*/}
 							</Row>
 								
 								{

@@ -24,6 +24,7 @@ $aside-size: 226px;
 			margin-bottom: 32px;
 			
 			&.collapsed {
+				cursor: pointer;
 				position: relative;
 
 				&:before {
@@ -34,6 +35,28 @@ $aside-size: 226px;
 					font-size: 16px;
 					margin-right: 10px;
 					margin-left: -20px;
+					position: absolute;
+				}
+
+				.calculation-popup__inner & {
+					margin-bottom: 60px;
+				}
+			}
+			
+			&.expanded {
+				cursor: pointer;
+				position: relative;
+
+				&:before {
+					transition: transform .25s;
+					font-family: $icomoon-font-family;
+					content: $i-chevron_r;
+					color: $color-grey;
+					font-size: 16px;
+					margin-right: 10px;
+					margin-left: -20px;
+					transform: rotate(90deg);
+					position: absolute;
 				}
 			}
 		}

@@ -21,7 +21,7 @@ class OfferSelect extends Component {
 		super(props);
 		this.state = {
 			carFound: void 0,
-			fullCalculation: false,
+			fullCalculation: (this.props.step === 2),
 			showCalculationOffers: this.props.step > 1,
 			SMSSent: false,
 			calculationPopupOpened: false,
@@ -90,7 +90,7 @@ class OfferSelect extends Component {
 	
 	onCalculationTypeChange = (checked) => {
 		this.setState({
-			fullCalculation: checked
+			fullCalculation: (this.props.step === 2) || checked
 		})
 	}
 	
@@ -349,7 +349,7 @@ class OfferSelect extends Component {
 						<>
 							<div className={"kasko-car-select__calculation" + (this.state.fullCalculation ? ' active' : '')}>
 								<span className="kasko-car-select__calculation--text">Предварительный расчет</span>
-								<Switch className="kasko-car-select__calculation--switch" onChange={this.onCalculationTypeChange}/>
+								<Switch checked={this.state.fullCalculation} className="kasko-car-select__calculation--switch" onChange={this.onCalculationTypeChange}/>
 								<span className="kasko-car-select__calculation--text">Окончательный расчет</span>
 							</div>
 			
@@ -585,7 +585,7 @@ class OfferSelect extends Component {
 				</div>
 				
 				{this.state.calculationPopupOpened ? 
-					<CalculationPopup step={step} allFields={false} fullCalculation={this.state.fullCalculation} popupCloseFunc={this.toggleCalculationPopup} />
+					<CalculationPopup step={step} allFields={step === 2} fullCalculation={this.state.fullCalculation} popupCloseFunc={this.toggleCalculationPopup} />
 					: ""}
 			</>
 		);
