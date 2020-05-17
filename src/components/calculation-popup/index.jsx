@@ -31,9 +31,8 @@ class CalculationPopup extends Component {
 			carNumber: '',
 			carYear: '',
 			markList: [
-				"BMW",
-				"Honda",
-				"Lotus",
+				"Hyundai",
+				"Mazda",
 				"Mercedes-Benz"
 			],
 			modelList: [

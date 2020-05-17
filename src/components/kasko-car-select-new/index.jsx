@@ -24,7 +24,7 @@ class KaskoCarSelectNew extends Component {
 			carForTaxi: false,
 			carAutoStart: false,
 			newCar: true,
-			carCredit: true,
+			carCredit: false,
 			carPrice: 0,
 			carPower: 0,
 			carPowerRange: '',
@@ -48,9 +48,8 @@ class KaskoCarSelectNew extends Component {
 			carYear: '',
 			carUsageStart: '',
 			markList: [
-				"BMW",
-				"Honda",
-				"Lotus",
+				"Hyundai",
+				"Mazda",
 				"Mercedes-Benz"
 			],
 			modelList: [
@@ -390,7 +389,7 @@ class KaskoCarSelectNew extends Component {
 									</Col>
 									<Col span={6}>
 										<Button htmlType={searchDisabled ? null : "submit"} className={"w_100p " + (this.state.carFound !== void 0 ? "btn_grey" :
-											this.state.formBusy ? "btn_grey" : "btn_green")} 
+											this.state.formBusy ? "btn_grey" : "ant-btn-primary")} 
 												disabled={searchDisabled ? 'disabled' : null}>
 													{this.state.carFound === void 0 ? 
 														this.state.formBusy ? 
@@ -621,18 +620,23 @@ class KaskoCarSelectNew extends Component {
 									</Row>
 								</Radio.Group>
 							</Col>
-							<Col span={6} className="align_self_start">
-								<Select
-									dropdownClassName="select_dropdown_v1"
-									className={"w_100p" + (this.state.carBankName.length ? "" : " _empty")}
-									placeholder=""
-									onChange={this.onCarBankNameChange}
-									value={this.state.carBankName}
-								>
-									{this.state.carBankNameList.map((e, i) => <Option key={i} value={e}>{e}</Option>)}
-								</Select>
-								<div className="float_placeholder">Банк</div>
-							</Col>
+							
+							{
+								this.state.carCredit ?
+									<Col span={6} className="align_self_start">
+										<Select
+											dropdownClassName="select_dropdown_v1"
+											className={"w_100p" + (this.state.carBankName.length ? "" : " _empty")}
+											placeholder=""
+											onChange={this.onCarBankNameChange}
+											value={this.state.carBankName}
+										>
+											{this.state.carBankNameList.map((e, i) => <Option key={i} value={e}>{e}</Option>)}
+										</Select>
+										<div className="float_placeholder">Банк</div>
+									</Col>
+									: ""
+							}
 						</Row>
 					</> 
 					: ""

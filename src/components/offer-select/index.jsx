@@ -46,9 +46,8 @@ class OfferSelect extends Component {
 				100000
 			],
 			markList: [
-				"BMW",
-				"Honda",
-				"Lotus",
+				"Hyundai",
+				"Mazda",
 				"Mercedes-Benz"
 			],
 			modelList: [
@@ -181,6 +180,8 @@ class OfferSelect extends Component {
 	render() {
 		const {image, step} = this.props;
 
+		console.log('OfferSelect', image);
+		
 		const periodPlurals = ['месяц', 'месяца', 'месяцев'];
 		const periodOptions = [12, 9, 6, 3];
 		const damageOptions = ['Ущерб', 'Полная гибель', 'Угон', 'Шины/Диски', 'ЛКП', 'Стекла', 'Фары', 'Бамперы и зеркала'];
@@ -321,7 +322,7 @@ class OfferSelect extends Component {
 					</div>
 	
 					<div className="kasko-car-select__image">
-						<img src={image || 'car-1-s.png'} alt=""/>
+						<img src={'./cars/' + image + '-s.png'} alt=""/>
 					</div>
 	
 					{step === 3 ?
@@ -354,7 +355,7 @@ class OfferSelect extends Component {
 							</div>
 			
 							<div className="kasko-car-select__controls ant-row-center mb_45">
-								<Button htmlType="submit" className={"btn_green btn_wide"} onClick={this.toggleCalculationPopup}>{this.calculationButtonText()}</Button>
+								<Button htmlType="submit" className={"ant-btn-primary btn_wide"} onClick={this.toggleCalculationPopup}>{this.calculationButtonText()}</Button>
 							</div>
 			
 							<div className="kasko-car-select__caption">
@@ -481,7 +482,7 @@ class OfferSelect extends Component {
 							<DriverCount step={step} driverOptions={driverOptions} />
 			
 							<div className="kasko-car-select__controls ant-row-center">
-								<div onClick={this.toggleCalculationOffers} className={"ant-btn btn_green btn_middle margin" + ((this.state.activeOffers.length && this.state.paramsChanged) ? "" : " disabled")}>
+								<div onClick={this.toggleCalculationOffers} className={"ant-btn ant-btn-primary btn_middle margin" + ((this.state.activeOffers.length && this.state.paramsChanged) ? "" : " disabled")}>
 									Получить расчет
 								</div>
 							</div>
@@ -529,7 +530,7 @@ class OfferSelect extends Component {
 																	<div
 																		className="kasko-car-select__controls--group-w text_center">
 																		<Button htmlType="submit"
-																				className={"btn_green btn_middle"}
+																				className={"ant-btn-primary btn_middle"}
 																				onClick={this.toggleSMSSent}>Оплатить в
 																			кассу</Button>
 																	</div>
@@ -550,7 +551,7 @@ class OfferSelect extends Component {
 																Сохранить&nbsp;расчет
 															</Link>
 														</div>
-														<Button htmlType="submit" className={"btn_green btn_middle"}
+														<Button htmlType="submit" className={"ant-btn-primary btn_middle"}
 																onClick={this.toggleCalculationPopup}>Оплатить в кассу</Button>
 														<div className="kasko-car-select__controls--group-r">
 															<PaymentSwitch paymentStep={0}/>
@@ -566,7 +567,7 @@ class OfferSelect extends Component {
 																Сохранить&nbsp;расчет
 															</Link>
 														</div>
-														<Button htmlType="submit" className={"btn_green btn_wide"}
+														<Button htmlType="submit" className={"ant-btn-primary btn_wide"}
 																onClick={this.toggleCalculationPopup}>{this.calculationButtonText()}</Button>
 														<div className="kasko-car-select__controls--group-r">
 															<Link to="/" className={"gl_link"}>

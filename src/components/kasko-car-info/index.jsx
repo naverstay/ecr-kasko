@@ -19,6 +19,9 @@ class KaskoCarInfo extends Component {
 
 	render() {
 		const {carName, image, info, price, notificationCount, step} = this.props;
+
+		console.log('KaskoCarInfo', image);
+		
 		return (
 			<div className="kasko-car-info">
 				<div className="kasko-car-info__notification">{notificationCount ? <span>{notificationCount}</span> : ""}</div>
@@ -26,7 +29,7 @@ class KaskoCarInfo extends Component {
 				<div className={"kasko-car-info__info _inactive"}>{info || 'Год выпуска'}</div>
 				<div className={"kasko-car-info__info _inactive"}>{price || 'Стоимость'}</div>
 				<div className={"kasko-car-info__image" + (step === 1 ? " _inactive" : "")}>
-					<img src={image || 'car-1-s.png'} alt=""/>
+					<img src={'./cars/' + image + '-s.png'} alt=""/>
 				</div>
 				<div className="kasko-car-info__controls">
 					{/*<Radio.Group onChange={this.onChange} >*/}

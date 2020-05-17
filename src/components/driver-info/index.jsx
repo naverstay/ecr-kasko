@@ -564,7 +564,7 @@ class DriverInfo extends Component {
 								Отмена
 							</Link>
 						</div>
-						<Link to="/payment" className={"ant-btn btn_green btn_middle"}>
+						<Link to="/payment" className={"ant-btn ant-btn-primary btn_middle"}>
 							Сохранить
 						</Link>
 					</div>

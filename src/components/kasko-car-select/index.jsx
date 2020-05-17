@@ -36,9 +36,8 @@ class KaskoCarSelect extends Component {
 			carYear: '',
 			carUsageStart: '',
 			markList: [
-				"BMW",
-				"Honda",
-				"Lotus",
+				"Hyundai",
+				"Mazda",
 				"Mercedes-Benz"
 			],
 			modelList: [
@@ -65,6 +64,7 @@ class KaskoCarSelect extends Component {
 		children: PropTypes.node,
 		allFields: PropTypes.bool,
 		innerWidth: PropTypes.number,
+		imageCallback: PropTypes.func,
 		step: PropTypes.number
 	};
 
@@ -122,6 +122,7 @@ class KaskoCarSelect extends Component {
 	onMarkChange = value => {
 		this.setState({carMark: value})
 		this.checkReadyState()
+		this.updateImage(value)
 	};
 
 	onModelChange = value => {
@@ -179,6 +180,7 @@ class KaskoCarSelect extends Component {
 					carYear: moment('2015'),
 					carUsageStart: moment('2018-01-15')
 				})
+				this.updateImage('Mercedes-Benz')
 			}
 		}, 200)
 	};
@@ -230,8 +232,13 @@ class KaskoCarSelect extends Component {
 		})
 	};
 
+	updateImage = (img) => {
+		if ('imageCallback' in this.props) this.props.imageCallback(img)
+	};
+	
 	render() {
-		const {image, allFields, step, hideOffers} = this.props;
+		const {allFields, step, hideOffers} = this.props;
+		let {image} = this.props;
 		//const dateFormat = "DD.MM.YY"
 		let dateFormatMask = "'mask': '99.99.9999', 'showMaskOnHover': 'false'"
 		
@@ -245,6 +252,10 @@ class KaskoCarSelect extends Component {
 		const carPriceMask = "'alias': 'integer', 'groupSeparator': ' ', 'digitsOptional': true, 'autoGroup': true, 'rightAlign': 'false', 'clearIncomplete': 'true', 'clearMaskOnLostFocus': 'true', 'placeholder': '_'"
 		const carPowerMask = "'alias': 'integer', 'groupSeparator': ' ', 'digitsOptional': true, 'autoGroup': true, 'rightAlign': 'false', 'clearMaskOnLostFocus': 'true', 'placeholder': '_'"
 		let searchDisabled = !this.state.carNumber.length || this.state.carNumber.indexOf('_') > -1 || this.state.formBusy
+				
+		if (this.state.carMark) {
+			image = this.state.carMark
+		}
 		
 		function disabledDate(current) {
 			return current && current._isAMomentObject && current.isAfter(new Date());
@@ -287,7 +298,7 @@ class KaskoCarSelect extends Component {
 							</Col>
 							<Col span={6}>
 								<Button htmlType={searchDisabled ? null : "submit"} className={"w_100p " + (this.state.carFound !== void 0 ? "btn_grey" :
-									this.state.formBusy ? "btn_grey" : "btn_green")} 
+									this.state.formBusy ? "btn_grey" : "ant-btn-primary")} 
 										disabled={searchDisabled ? 'disabled' : null}>
 											{this.state.carFound === void 0 ? 
 												this.state.formBusy ? 
@@ -443,7 +454,7 @@ class KaskoCarSelect extends Component {
 					""
 					: 
 					<div className={"kasko-car-select__image" + (step === 1 && !this.state.allowPayment ? " _inactive" : "")}>
-						<img src={image || 'car-1-s.png'} alt=""/>
+						<img src={'./cars/' + image + '.png'} alt=""/>
 					</div>
 				}
 

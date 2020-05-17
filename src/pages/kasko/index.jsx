@@ -12,6 +12,18 @@ import './style.scss';
 import OfferSelect from "../../components/offer-select";
 
 class Kasko extends Component {
+	constructor(props) {
+		super(props);
+		this.state = {
+			carImage: '',
+			markList: [
+				"Hyundai",
+				"Mazda",
+				"Mercedes-Benz"
+			]
+		};
+	}
+	
 	static propTypes = {
 		children: PropTypes.node,
 		showOffers: PropTypes.any,
@@ -19,6 +31,11 @@ class Kasko extends Component {
 		innerWidth: PropTypes.number,
 		step: PropTypes.number
 	};
+
+	imageCallback = (img) => {
+		console.log('imageCallback', img);
+		this.setState({carImage: img})
+	}
 
 	render() {
 		const {showOffers, step, progress} = this.props;
@@ -58,18 +75,18 @@ class Kasko extends Component {
 					</AsideBlock>
 	
 					<AsideBlock>
-						<KaskoCarInfo step={step} notificationCount={step === 2 ? 1 : step === 3 ? 2 : 0} carName={step === 1 ? '' : 'Mersedes Benz GT S Sports Car'} image = "" info={step === 1 ? '' :  "2013 г.  Авто с пробегом"} price={step === 1 ? '' : "14 800 000 ₽"} />
+						<KaskoCarInfo step={step} notificationCount={step === 2 ? 1 : step === 3 ? 2 : 0} carName={step === 1 ? '' : 'Mersedes Benz GT S Sports Car'} image={this.state.carImage} info={step === 1 ? '' :  "2013 г.  Авто с пробегом"} price={step === 1 ? '' : "14 800 000 ₽"} />
 					</AsideBlock>
 				</Col>
 				<Col span={16} className="kasko-main">
 					{showOffers === false ?
 						<>
 							<h1 className="kasko-main__title">Автомобиль</h1>
-							<KaskoCarSelect step={step} image="car-1.png" />
+							<KaskoCarSelect imageCallback={this.imageCallback} step={step} image={this.state.carImage} />
 						</>
 						:
 						<>
-							<OfferSelect step={step} image="car-1.png" type={showOffers}/>
+							<OfferSelect imageCallback={this.imageCallback} step={step} image={this.state.carImage} type={showOffers}/>
 						</>
 					}
 				</Col>
