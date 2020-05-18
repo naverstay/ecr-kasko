@@ -18,7 +18,7 @@ class KaskoCarSelectNew extends Component {
 		super(props);
 		this.state = {
 			carFound: void 0,
-			allowPayment: false,
+			allowPayment: true,
 			showAdditional: false,
 			formBusy: false,
 			carForTaxi: false,
@@ -50,15 +50,16 @@ class KaskoCarSelectNew extends Component {
 			markList: [
 				"Hyundai",
 				"Mazda",
-				"Mercedes-Benz"
+				//"Mercedes-Benz"
 			],
 			modelList: [
-				"M3",
-				"Accord",
-				"100500",
-				"GT S Sports Car"
+				"Sonata",
+				"Solaris",
+				"CX-5",
+				"CX-9"
 			],
 			equipmentList: [
+				"2.0 MPI - 6AT",
 				"Comfort",
 				"Sport",
 				"Executive",
@@ -116,15 +117,15 @@ class KaskoCarSelectNew extends Component {
 			if (this.state.newCar) {
 				let allFieldsReady = true
 				let checkFields = [
-					'carATS',
+					//'carATS',
 					'carMark',
 					'carModel',
 					'carEquipment',
-					'carRegion',
-					'carPrice',
-					'carPower',
+					//'carRegion',
+					//'carPrice',
+					//'carPower',
 					'carYear',
-					'carUsageStart'
+					//'carUsageStart'
 				]
 
 				for (let i = 0; i < checkFields.length; i++) {
@@ -268,16 +269,16 @@ class KaskoCarSelectNew extends Component {
 				this.setState({
 					allowPayment: true,
 					carATS: 'Noname',
-					carMark: 'Mercedes-Benz',
-					carModel: 'GT S Sports Car',
-					carEquipment: 'GT S Sports Car',
+					carMark: 'Hyundai',
+					carModel: 'Sonata',
+					carEquipment: '2.0 MPI - 6AT',
 					carNumber: 'A 123 AA 177',
 					carRegion: 'г. Москва',
 					carPrice: 14800000,
 					carPower: 245,
 					carMileage: 24500,
 					carYear: moment('2015'),
-					carUsageStart: moment('2018-01-15')
+					carUsageStart: '18.05.2020'
 				})
 			}
 		}, 200)
@@ -457,7 +458,7 @@ class KaskoCarSelectNew extends Component {
 								{/*			onChange={this.onCarUsageStartChange} placeholder=""*/}
 								{/*			className={"w_100p hide_picker_icon" + (this.state.carUsageStart && this.state.carUsageStart._isAMomentObject ? "" : " _empty")}/>*/}
 								<Input data-inputmask={dateFormatMask}
-									   className={"w_100p" + (this.state.carUsageStart.length ? "" : " _empty")}
+									   className={"w_100p" + ((this.state.carUsageStart + '').length ? "" : " _empty")}
 									   value={this.state.carUsageStart}
 									   onChange={this.onCarUsageStartChange} defaultValue=""/>
 								<div className="float_placeholder">{'Дата начала \n эксплуатации'}</div>
@@ -607,8 +608,8 @@ class KaskoCarSelectNew extends Component {
 								: ""
 						}
 		
-						<Row className="kasko-car-select__controls kasko-car-select__controls--price radio_v2 mb_60" gutter={20}>
-							<Col span={6}>
+						<Row className="kasko-car-select__controls kasko-car-select__controls--price radio_v2 mb_45" gutter={20}>
+							<Col className="kasko-car-select__controls--credit">
 								<Radio.Group className={"w_100p " + (this.state.showAdditional ? "full_form" : "short_form")} onChange={this.onCarCreditChange}>
 									<Row gutter={20}>
 										<Col>
@@ -642,7 +643,7 @@ class KaskoCarSelectNew extends Component {
 					: ""
 				}
 				
-				<Row className="kasko-car-select__controls mb_60" gutter={20}>
+				<Row className="kasko-car-select__controls mb_55" gutter={20}>
 					<Col span={6}>
 						<Input className={"w_100p" + ((this.state.carKaskoDoc + '').length ? "" : " _empty")}
 							   value={(this.state.carKaskoDoc)}

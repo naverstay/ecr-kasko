@@ -23,7 +23,7 @@ class OfferSelect extends Component {
 			carFound: void 0,
 			fullCalculation: (this.props.step === 2),
 			showCalculationOffers: this.props.step > 1,
-			SMSSent: false,
+			SMSSent: true,
 			calculationPopupOpened: false,
 			formBusy: false,
 			hasFranchise: this.props.step > 1,
@@ -48,15 +48,16 @@ class OfferSelect extends Component {
 			markList: [
 				"Hyundai",
 				"Mazda",
-				"Mercedes-Benz"
+				//"Mercedes-Benz"
 			],
 			modelList: [
-				"M3",
-				"Accord",
-				"100500",
-				"GT S Sports Car"
+				"Sonata",
+				"Solaris",
+				"CX-5",
+				"CX-9"
 			],
 			equipmentList: [
+				"2.0 MPI - 6AT",
 				"Comfort",
 				"Sport",
 				"Executive",
@@ -83,8 +84,20 @@ class OfferSelect extends Component {
 		})
 	}
 
+	updatePaymentState = () => {
+		this.setState({
+			showPayment: true
+		})
+		
+		this.toggleCalculationPopup()
+	}
+
 	onSMSCodeChange = e => {
 		this.setState({SMSCode: e.target.value})
+		
+		if (('' + e.target.value).length === 4) {
+			window.location = '/done'
+		}
 	};
 	
 	onCalculationTypeChange = (checked) => {
@@ -103,7 +116,7 @@ class OfferSelect extends Component {
 	}
 
 	calculationButtonText = () => {
-		return this.state.fullCalculation ? 'Для окончательного расчетазаполните 10 полей ' : 'Для расчета заполните  20 полей'
+		return this.state.fullCalculation ? 'Для окончательного расчетазаполните 20 полей ' : 'Для расчета заполните  10 полей'
 	}
 
 	offersUpdate = (offer) => {
@@ -178,9 +191,8 @@ class OfferSelect extends Component {
 	};
 	
 	render() {
-		const {image, step} = this.props;
-
-		console.log('OfferSelect', image);
+		const {step} = this.props;
+		let {image} = this.props;
 		
 		const periodPlurals = ['месяц', 'месяца', 'месяцев'];
 		const periodOptions = [12, 9, 6, 3];
@@ -304,6 +316,10 @@ class OfferSelect extends Component {
 			]
 		}
 		
+		if (step === 3) {
+			image = "Hyundai"
+		}
+		
 		franchise.forEach((f, i) => {
 			const index = i === 0 ? 0 : i === franchise.length - 1 ? 100 : parseInt(i * (100 / ((franchise.length - 1) || 1)))
 
@@ -322,7 +338,7 @@ class OfferSelect extends Component {
 					</div>
 	
 					<div className="kasko-car-select__image">
-						<img src={'./cars/' + image + '-s.png'} alt=""/>
+						<img src={'./cars/' + image + '.png'} alt=""/>
 					</div>
 	
 					{step === 3 ?
@@ -482,9 +498,7 @@ class OfferSelect extends Component {
 							<DriverCount step={step} driverOptions={driverOptions} />
 			
 							<div className="kasko-car-select__controls ant-row-center">
-								<div onClick={this.toggleCalculationOffers} className={"ant-btn ant-btn-primary btn_middle margin" + ((this.state.activeOffers.length && this.state.paramsChanged) ? "" : " disabled")}>
-									Получить расчет
-								</div>
+								<div onClick={this.toggleCalculationOffers} className={"ant-btn ant-btn-primary btn_middle margin" + ((this.state.activeOffers.length && this.state.paramsChanged) ? "" : " disabled")}>Получить расчет</div>
 							</div>
 							
 							{this.state.showCalculationOffers ?
@@ -541,7 +555,6 @@ class OfferSelect extends Component {
 																		</div>
 																	</div>
 																</>
-															
 														}
 													</>
 												: this.state.showPayment ?
@@ -551,8 +564,8 @@ class OfferSelect extends Component {
 																Сохранить&nbsp;расчет
 															</Link>
 														</div>
-														<Button htmlType="submit" className={"ant-btn-primary btn_middle"}
-																onClick={this.toggleCalculationPopup}>Оплатить в кассу</Button>
+														<Link to="/payment" className={"ant-btn ant-btn-primary btn_middle"}
+																>Оплатить в кассу</Link>
 														<div className="kasko-car-select__controls--group-r">
 															<PaymentSwitch paymentStep={0}/>
 															<Link to="/" className={"gl_link"}>
@@ -586,7 +599,7 @@ class OfferSelect extends Component {
 				</div>
 				
 				{this.state.calculationPopupOpened ? 
-					<CalculationPopup step={step} allFields={step === 2} fullCalculation={this.state.fullCalculation} popupCloseFunc={this.toggleCalculationPopup} />
+					<CalculationPopup updatePaymentState={this.updatePaymentState} step={(step)} allFields={(step === 2)} fullCalculation={this.state.fullCalculation} popupCloseFunc={this.toggleCalculationPopup} />
 					: ""}
 			</>
 		);

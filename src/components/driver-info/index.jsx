@@ -78,6 +78,10 @@ class DriverInfo extends Component {
 		this.setState({driverCount: (drv)})
 	};
 
+	driverInfoSave = e => {
+		if ('calculationSave' in this.props) this.props.calculationSave()
+	};
+
 	onClientFlatTypeChange = value => {
 		this.setState({clientFlatType: value})
 	};
@@ -564,9 +568,9 @@ class DriverInfo extends Component {
 								Отмена
 							</Link>
 						</div>
-						<Link to="/payment" className={"ant-btn ant-btn-primary btn_middle"}>
+						<div onClick={this.driverInfoSave} className={"ant-btn ant-btn-primary btn_middle"}>
 							Сохранить
-						</Link>
+						</div>
 					</div>
 				</div>
 			</div>

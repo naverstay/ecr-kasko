@@ -33,7 +33,6 @@ class Kasko extends Component {
 	};
 
 	imageCallback = (img) => {
-		console.log('imageCallback', img);
 		this.setState({carImage: img})
 	}
 
@@ -75,7 +74,7 @@ class Kasko extends Component {
 					</AsideBlock>
 	
 					<AsideBlock>
-						<KaskoCarInfo step={step} notificationCount={step === 2 ? 1 : step === 3 ? 2 : 0} carName={step === 1 ? '' : 'Mersedes Benz GT S Sports Car'} image={this.state.carImage} info={step === 1 ? '' :  "2013 г.  Авто с пробегом"} price={step === 1 ? '' : "14 800 000 ₽"} />
+						<KaskoCarInfo step={step} notificationCount={step === 2 ? 1 : step === 3 ? 2 : 0} carName={step === 1 ? '' : 'Hyundai Sonata'} image={this.state.carImage} info={step === 1 ? '' :  "2013 г.  Авто с пробегом"} price={step === 1 ? '' : "14 800 000 ₽"} />
 					</AsideBlock>
 				</Col>
 				<Col span={16} className="kasko-main">

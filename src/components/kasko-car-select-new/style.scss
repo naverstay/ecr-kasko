@@ -135,8 +135,8 @@
 			}
 		}
 
-		&.mb_60 {
-			margin-bottom: 60px;
+		&.mb_55 {
+			margin-bottom: 55px;
 		}
 
 		&.mb_45 {
@@ -154,6 +154,14 @@
 		
 		&--flex-1 {
 			flex: 1 0 auto;
+		}
+		
+		&--credit {
+			min-width: 25%;
+			
+			.ant-row {
+				//justify-content: space-between;
+			}
 		}
 		
 		&--price {

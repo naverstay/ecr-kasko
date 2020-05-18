@@ -33,20 +33,21 @@ class CalculationPopup extends Component {
 			markList: [
 				"Hyundai",
 				"Mazda",
-				"Mercedes-Benz"
+				//"Mercedes-Benz"
 			],
 			modelList: [
-				"M3",
-				"Accord",
-				"100500",
-				"GT S Sports Car"
+				"Sonata",
+				"Solaris",
+				"CX-5",
+				"CX-9"
 			],
 			equipmentList: [
+				"2.0 MPI - 6AT",
 				"Comfort",
 				"Sport",
 				"Executive",
 				"GT S Sports Car"
-			]
+			],
 		};
 	}
 	
@@ -54,6 +55,7 @@ class CalculationPopup extends Component {
 		children: PropTypes.node,
 		innerWidth: PropTypes.number,
 		popupCloseFunc: PropTypes.func,
+		updatePaymentState: PropTypes.func,
 		fullCalculation: PropTypes.bool,
 		offersList: PropTypes.array,
 	};
@@ -85,15 +87,13 @@ class CalculationPopup extends Component {
 	}
 
 	render() {
-		let {popupCloseFunc, step, allFields} = this.props
+		let {popupCloseFunc, step, allFields, updatePaymentState} = this.props
 
 		let driverOptions = [];
 
 		if (step > 1) {
 			driverOptions = ['Фомин Сергей М.', 'Фомина Алла К.', 'Фомина Марина Ф.']
 		}
-
-		console.log('step', step);
 		
 		return (
 			<div className="calculation-popup">
@@ -136,7 +136,7 @@ class CalculationPopup extends Component {
 							: ""
 					}
 					
-					<DriverInfo expanded={(step !== 2) || this.state.showClientFields} fullCalculation={this.state.fullCalculation} />
+					<DriverInfo calculationSave={updatePaymentState} expanded={(step !== 2) || this.state.showClientFields} fullCalculation={this.state.fullCalculation} />
 
 				</div>
 			</div>

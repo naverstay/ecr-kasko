@@ -38,15 +38,16 @@ class KaskoCarSelect extends Component {
 			markList: [
 				"Hyundai",
 				"Mazda",
-				"Mercedes-Benz"
+				//"Mercedes-Benz"
 			],
 			modelList: [
-				"M3",
-				"Accord",
-				"100500",
-				"GT S Sports Car"
+				"Sonata",
+				"Solaris",
+				"CX-5",
+				"CX-9"
 			],
 			equipmentList: [
+				"2.0 MPI - 6AT",
 				"Comfort",
 				"Sport",
 				"Executive",
@@ -75,15 +76,15 @@ class KaskoCarSelect extends Component {
 			if (this.state.newCar) {
 				let allFieldsReady = true
 				let checkFields = [
-					'carATS',
+					//'carATS',
 					'carMark',
 					'carModel',
 					'carEquipment',
-					'carRegion',
-					'carPrice',
-					'carPower',
+					//'carRegion',
+					//'carPrice',
+					//'carPower',
 					'carYear',
-					'carUsageStart'
+					//'carUsageStart'
 				]
 
 				for (let i = 0; i < checkFields.length; i++) {
@@ -95,7 +96,11 @@ class KaskoCarSelect extends Component {
 					}
 				}
 
-				this.setState({carFound: allFieldsReady, allowPayment: allFieldsReady})
+				this.setState({carFound: allFieldsReady, allowPayment: allFieldsReady, carPrice: (allFieldsReady ? 1000000 : 0)})
+
+				setTimeout(() => {
+					if (allFieldsReady) this.updateImage(this.state.carMark)
+				}, 0)
 			}
 		}, 0)
 	};
@@ -169,18 +174,18 @@ class KaskoCarSelect extends Component {
 				this.setState({
 					allowPayment: true,
 					carATS: 'Noname',
-					carMark: 'Mercedes-Benz',
-					carModel: 'GT S Sports Car',
-					carEquipment: 'GT S Sports Car',
+					carMark: 'Hyundai',
+					carModel: 'Sonata',
+					carEquipment: '2.0 MPI - 6AT',
 					carNumber: 'A 123 AA 177',
 					carRegion: 'г. Москва',
 					carPrice: 14800000,
 					carPower: 245,
 					carMileage: 24500,
 					carYear: moment('2015'),
-					carUsageStart: moment('2018-01-15')
+					carUsageStart: '18.05.2020'
 				})
-				this.updateImage('Mercedes-Benz')
+				this.updateImage(this.state.carMark)
 			}
 		}, 200)
 	};
@@ -233,7 +238,7 @@ class KaskoCarSelect extends Component {
 	};
 
 	updateImage = (img) => {
-		if ('imageCallback' in this.props) this.props.imageCallback(img)
+		if ('imageCallback' in this.props && this.state.carFound) this.props.imageCallback(img)
 	};
 	
 	render() {
@@ -383,7 +388,7 @@ class KaskoCarSelect extends Component {
 									{/*			onChange={this.onCarUsageChange} placeholder=""*/}
 									{/*			className={"w_100p hide_picker_icon" + (this.state.carUsageStart && this.state.carUsageStart._isAMomentObject ? "" : " _empty")}/>*/}
 									<Input data-inputmask={dateFormatMask}
-										className={"w_100p" + (this.state.carUsageStart.length ? "" : " _empty")}
+										className={"w_100p" + ((this.state.carUsageStart + '').length ? "" : " _empty")}
 										   value={this.state.carUsageStart}
 										   onChange={this.onCarUsageChange} defaultValue=""/>
 									<div className="float_placeholder">{'Дата начала \n эксплуатации'}</div>
@@ -436,7 +441,7 @@ class KaskoCarSelect extends Component {
 											<div className="kasko-car-select__price--label _inactive">Стоимость автомобиля
 											</div>
 											<div
-												className="kasko-car-select__price--value _inactive">{this.state.carPrice > 0 ? formatMoney(this.state.carPrice) : 0} ₽
+												className={"kasko-car-select__price--value" + (this.state.carPrice > 0 ? "" : " _inactive")}>{this.state.carPrice > 0 ? formatMoney(this.state.carPrice) : 0} ₽
 											</div>
 										</div>
 									</Col>
@@ -453,9 +458,9 @@ class KaskoCarSelect extends Component {
 					allFields ?
 					""
 					: 
-					<div className={"kasko-car-select__image" + (step === 1 && !this.state.allowPayment ? " _inactive" : "")}>
+					this.state.carFound ? <div className={"kasko-car-select__image" + (step === 1 && !this.state.allowPayment ? " _inactive__" : "")}>
 						<img src={'./cars/' + image + '.png'} alt=""/>
-					</div>
+					</div> : ""
 				}
 
 				{(!this.state.formBusy && this.state.carFound && !hideOffers) ?
