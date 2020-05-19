@@ -1,6 +1,6 @@
 import React, {Component} from "react";
 import Inputmask from "inputmask";
-import {Input, Col, Row, Select, Button, DatePicker, Checkbox, Form, Radio} from "antd";
+import {Input, Col, Row, Select, Button, Checkbox, Form, Radio} from "antd";
 import './style.scss';
 import PropTypes from "prop-types";
 import moment from 'moment';
@@ -9,7 +9,7 @@ import KaskoOffers from "../kasko-offers";
 import {formatMoney} from "../../helpers/formatMoney";
 
 const {Option} = Select;
-const {YearPicker} = DatePicker;
+//const {YearPicker} = DatePicker;
 
 moment().locale('ru', ru);
 
@@ -33,7 +33,6 @@ class KaskoCarSelect extends Component {
 			carEquipment: '',
 			carATS: '',
 			carNumber: '',
-			carYear: '',
 			carUsageStart: '',
 			markList: [
 				"Hyundai",
@@ -59,6 +58,8 @@ class KaskoCarSelect extends Component {
 				"Noname"
 			]
 		};
+
+		this.state['carYear'] = this.state.newCar ? '' + (new Date()).getFullYear() : ''
 	}
 
 	static propTypes = {
@@ -105,8 +106,8 @@ class KaskoCarSelect extends Component {
 		}, 0)
 	};
 	
-	onCarYearChange = e => {
-		this.setState({carYear: e})
+	onCarYearChange = (value) => {
+		this.setState({carYear: value})
 		this.checkReadyState()
 	};
 
@@ -204,6 +205,7 @@ class KaskoCarSelect extends Component {
 	onCarNewChange = e => {
 		this.setState({
 			newCar: !!e.target.value,
+			carYear: '' + (new Date()).getFullYear(),
 			carNumber: ''
 		});
 	};
@@ -246,6 +248,11 @@ class KaskoCarSelect extends Component {
 		let {image} = this.props;
 		//const dateFormat = "DD.MM.YY"
 		let dateFormatMask = "'mask': '99.99.9999', 'showMaskOnHover': 'false'"
+		let yearList = []
+
+		for (let y = (new Date()).getFullYear(); y > 1980; y--) {
+			yearList.push(y)
+		}
 		
 		//dateFormatMask = "'regex': '" + String.raw`^(?:(?:31(\/|-|\.)(?:0?[13578]|1[02]))\1|(?:(?:29|30)(\/|-|\.)(?:0?[1,3-9]|1[0-2])\2))(?:(?:1[6-9]|[2-9]\d)?\d{2})$|^(?:29(\/|-|\.)0?2\3(?:(?:(?:1[6-9]|[2-9]\d)?(?:0[48]|[2468][048]|[13579][26])|(?:(?:16|[2468][048]|[3579][26])00))))$|^(?:0?[1-9]|1\d|2[0-8])(\/|-|\.)(?:(?:0?[1-9])|(?:1[0-2]))\4(?:(?:1[6-9]|[2-9]\d)?\d{2})$` + "', 'showMaskOnHover': 'false'"
 		
@@ -259,7 +266,7 @@ class KaskoCarSelect extends Component {
 		let searchDisabled = !this.state.carNumber.length || this.state.carNumber.indexOf('_') > -1 || this.state.formBusy
 				
 		if (this.state.carMark) {
-			image = this.state.carMark
+			//image = this.state.carMark
 		}
 		
 		function disabledDate(current) {
@@ -274,6 +281,13 @@ class KaskoCarSelect extends Component {
 				span: 16
 			}
 		};
+		
+		//if (this.state.newCar) {
+		//	setTimeout(() => {
+		//		console.log('setTimeout');
+		//		this.onCarYearChange((new Date()).getFullYear())
+		//	}, 0)
+		//}
 
 		return (
 			<div className="kasko-car-select">
@@ -354,7 +368,18 @@ class KaskoCarSelect extends Component {
 						<div className="float_placeholder">Комплектация</div>
 					</Col>
 					<Col span={6}>
-						<YearPicker format="YYYY" disabledDate={disabledDate} value={this.state.carYear ? moment(this.state.carYear) : null} onChange={this.onCarYearChange} placeholder="" className={"w_100p hide_picker_icon" + (this.state.carYear && this.state.carYear._isAMomentObject ? "" : " _empty")}/>
+						{/*<YearPicker format="YYYY" disabledDate={disabledDate} value={this.state.carYear ? moment(this.state.carYear) : null} onChange={this.onCarYearChange} placeholder="" className={"w_100p hide_picker_icon" + (this.state.carYear && this.state.carYear._isAMomentObject ? "" : " _empty")}/>*/}
+
+						<Select
+							disabled={this.state.newCar ? "disabled" : ""}
+							dropdownClassName="select_dropdown_v1"
+							className={"w_100p" + ((this.state.carYear + '').length ? "" : " _empty")}
+							placeholder=""
+							onChange={this.onCarYearChange}
+							value={this.state.carYear}
+						>
+							{yearList.map((e, i) => <Option key={i} value={e}>{e}</Option>)}
+						</Select>
 						<div className="float_placeholder">Год выпуска</div>
 					</Col>
 				</Row>
@@ -414,8 +439,11 @@ class KaskoCarSelect extends Component {
 									</Select>
 									<div className="float_placeholder">Противоугонная система</div>
 								</Col>
-								<Col className="checkbox_middle check_v3" span={6}>
+								<Col span={6} className="checkbox_middle check_v3">
 									<Checkbox onChange={this.onAutoStartChange}>Автозапуск</Checkbox>
+								</Col>
+								<Col span={6} className="kasko-car-select__additional _inactive text_right">
+									<div className="gl_link" onClick={this.toggleAdditionalFields}>Скрыть</div>
 								</Col>
 							</Row>
 						</>
@@ -458,7 +486,7 @@ class KaskoCarSelect extends Component {
 					allFields ?
 					""
 					: 
-					this.state.carFound ? <div className={"kasko-car-select__image" + (step === 1 && !this.state.allowPayment ? " _inactive__" : "")}>
+					(1 || this.state.carFound) ? <div className={"kasko-car-select__image" + (step === 1 && !this.state.allowPayment ? " _inactive__" : "")}>
 						<img src={'./cars/' + image + '.png'} alt=""/>
 					</div> : ""
 				}

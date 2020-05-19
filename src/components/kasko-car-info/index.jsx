@@ -11,7 +11,6 @@ class KaskoCarInfo extends Component {
 	};
 	
 	onChange = e => {
-		console.log('radio checked', e.target.value);
 		this.setState({
 			value: e.target.value,
 		});
@@ -19,8 +18,6 @@ class KaskoCarInfo extends Component {
 
 	render() {
 		const {carName, image, info, price, notificationCount, step} = this.props;
-
-		console.log('KaskoCarInfo', image);
 		
 		return (
 			<div className="kasko-car-info">

@@ -64,8 +64,10 @@ class OfferSelect extends Component {
 				"GT S Sports Car"
 			],
 			showPayment: this.props.step > 1,
+			availablePayment: false,
 			showMoreDamages: false,
 			paramsChanged: false,
+			selectedOffers: [],
 			activeOffers: this.props.step > 1 ? [1] : []
 		};
 	}
@@ -76,18 +78,19 @@ class OfferSelect extends Component {
 		innerWidth: PropTypes.number
 	};
 
-	updateSelectedOffer = (company, offer) => {
-		console.log('updateSelectedOffer', company, offer);
-
+	updateSelectedOffer = (company, offers) => {
 		this.setState({
-			showPayment: true
+			showPayment: true,
+			availablePayment: true
 		})
 	}
 
-	updatePaymentState = () => {
-		this.setState({
-			showPayment: true
-		})
+	updatePaymentState = (value) => {
+		if (this.state.showCalculationOffers) {
+			this.setState({
+				showPayment: value
+			})
+		}
 		
 		this.toggleCalculationPopup()
 	}
@@ -140,7 +143,8 @@ class OfferSelect extends Component {
 	toggleCalculationOffers = e => {
 		if (this.state.activeOffers.length && this.state.paramsChanged) {
 			this.setState({
-				showCalculationOffers: !this.state.showCalculationOffers,
+				fullCalculation: true,
+				showCalculationOffers: true,
 				paramsChanged: false
 			});
 		}
@@ -503,17 +507,14 @@ class OfferSelect extends Component {
 							
 							{this.state.showCalculationOffers ?
 									<>
-										<CalculationOffers waiting={step === 2} selectedOffer={this.updateSelectedOffer} offersList={calculationOfferList}/>
+										<CalculationOffers allowCheck={this.state.showPayment} waiting={step === 2} selectedOffer={this.updateSelectedOffer} offersList={calculationOfferList}/>
 		
 										<div className={"kasko-car-select__controls ant-row-center align_center"}>
 											{
 												(step === 2) ?
 													<>
 														<div className="kasko-car-select__controls--group-w text_left">
-															<Link to="/" className={"gl_link color_black"}>
-																Отменить операцию и <br />
-																вернуться к расчету
-															</Link>
+															<Link to="/" className={"gl_link color_black"}>Отменить операцию и <br />вернуться к расчету</Link>
 														</div>
 														
 														{
@@ -526,9 +527,7 @@ class OfferSelect extends Component {
 																				defaultValue=""/>
 																			<div className="float_placeholder">Код подтверждения</div>
 																			<div className="gl_link"
-																				 onClick={this.toggleSMSSent}>
-																				Отправить код повторно
-																			</div>
+																				 onClick={this.toggleSMSSent}>Отправить код повторно</div>
 																		</div>
 																	</div>
 																	<div className="kasko-car-select__controls--group-w text_left">
@@ -545,14 +544,11 @@ class OfferSelect extends Component {
 																		className="kasko-car-select__controls--group-w text_center">
 																		<Button htmlType="submit"
 																				className={"ant-btn-primary btn_middle"}
-																				onClick={this.toggleSMSSent}>Оплатить в
-																			кассу</Button>
+																				onClick={this.toggleSMSSent}>Оплатить в кассу</Button>
 																	</div>
 																	<div
 																		className="kasko-car-select__controls--group-w text_right">
-																		<div className={"gl_link"}>
-																			Отправить ссылку повторно
-																		</div>
+																		<div className={"gl_link"}>Отправить ссылку повторно</div>
 																	</div>
 																</>
 														}
@@ -560,32 +556,23 @@ class OfferSelect extends Component {
 												: this.state.showPayment ?
 													<div className="kasko-car-select__controls--group payment">
 														<div className="kasko-car-select__controls--group-l">
-															<Link to="/" className={"gl_link color_black"}>
-																Сохранить&nbsp;расчет
-															</Link>
+															<Link to="/" className={"gl_link color_black"}>Сохранить&nbsp;расчет</Link>
 														</div>
-														<Link to="/payment" className={"ant-btn ant-btn-primary btn_middle"}
-																>Оплатить в кассу</Link>
+														<Link to="/payment" className={"ant-btn ant-btn-primary btn_middle" + ((this.state.availablePayment) ? "" : " disabled")}>Оплатить в кассу</Link>
 														<div className="kasko-car-select__controls--group-r">
 															<PaymentSwitch paymentStep={0}/>
-															<Link to="/" className={"gl_link"}>
-																Сравнить
-															</Link>
+															<Link to="/" className={"gl_link"}>Сравнить</Link>
 														</div>
 													</div>
 													:
 													<div className="kasko-car-select__controls--group">
 														<div className="kasko-car-select__controls--group-l">
-															<Link to="/" className={"gl_link color_black"}>
-																Сохранить&nbsp;расчет
-															</Link>
+															<Link to="/" className={"gl_link color_black"}>Сохранить&nbsp;расчет</Link>
 														</div>
 														<Button htmlType="submit" className={"ant-btn-primary btn_wide"}
 																onClick={this.toggleCalculationPopup}>{this.calculationButtonText()}</Button>
 														<div className="kasko-car-select__controls--group-r">
-															<Link to="/" className={"gl_link"}>
-																Сравнить
-															</Link>
+															<Link to="/" className={"gl_link"}>Сравнить</Link>
 														</div>
 													</div>
 											}
@@ -599,7 +586,7 @@ class OfferSelect extends Component {
 				</div>
 				
 				{this.state.calculationPopupOpened ? 
-					<CalculationPopup updatePaymentState={this.updatePaymentState} step={(step)} allFields={(step === 2)} fullCalculation={this.state.fullCalculation} popupCloseFunc={this.toggleCalculationPopup} />
+					<CalculationPopup updatePaymentState={this.updatePaymentState} step={this.state.showCalculationOffers ? 2 : step} allFields={this.state.showCalculationOffers || (step === 2)} fullCalculation={this.state.showCalculationOffers || this.state.fullCalculation} popupCloseFunc={this.toggleCalculationPopup} />
 					: ""}
 			</>
 		);

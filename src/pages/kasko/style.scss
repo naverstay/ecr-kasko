@@ -10,6 +10,20 @@ $aside-size: 226px;
 		//margin: 0 -10px;
 		//padding-right: 14px;
 		min-height: 100vh;
+		
+		&__fixed {
+			position: fixed;
+			top: 0;
+			right: $content-padding;
+			left: $aside-size-small + $content-padding;
+			height: 0;
+			min-height: 0;
+
+			.kasko-main {
+				height: 0 !important;
+				overflow: hidden;
+			}
+		}
 	}
 	
 	&-main {
@@ -63,8 +77,10 @@ $aside-size: 226px;
 	}
 	
 	&-aside {
+		position: relative;
 		//flex: 0 1 $aside-size;
 		//padding: 0 10px;
 		//max-width: $aside-size;
+		
 	}
 }

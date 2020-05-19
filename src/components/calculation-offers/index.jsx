@@ -20,7 +20,7 @@ class CalculationOffers extends Component {
 	};
 
 	render() {
-		const {offersList, selectedOffer, completed, waiting} = this.props
+		const {offersList, selectedOffer, completed, waiting, allowCheck} = this.props
 		
 		return (
 			<div className="calculation-offers">
@@ -47,7 +47,7 @@ class CalculationOffers extends Component {
 					</thead>
 					<tbody>
 						{offersList.length ? offersList.map((o, i) => {
-							return (<OfferRow completed={completed} waiting={waiting} selectedOffer={selectedOffer} key={i} company={i} logo={o.logo} offers={o.offers} />)
+							return (<OfferRow allowCheck={allowCheck} completed={completed} waiting={waiting} selectedOffer={selectedOffer} key={i} company={i} logo={o.logo} offers={o.offers} />)
 						}) : ""}
 					</tbody>
 				</table>

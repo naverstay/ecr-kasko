@@ -23,20 +23,18 @@ class OfferRow extends Component {
 		offers: PropTypes.array,
 	};
 
-	onSelectOfferToggle = (company, index) => {
+	onSelectOfferToggle = (company, index, e) => {
 		let options = Object.assign({}, this.state.offerSelected)
-
-		if (index in options) {
-			options[index] = !options[index]
-		} else {
-			options[index] = true
-		}
 		
-		if (options[index]) {
-			this.props.selectedOffer(company, index)
-		}
+		options[index] = e.target.checked
 
 		this.setState({offerSelected: options})
+		
+		setTimeout(() => {
+			if (options[index]) {
+				this.props.selectedOffer(company, this.state.offerSelected)
+			}
+		})
 	}
 	
 	onCollapseToggle = () => {
@@ -56,8 +54,9 @@ class OfferRow extends Component {
 	}
 
 	render() {
-		const {offers, logo, company, completed, waiting} = this.props
+		const {offers, logo, company, completed, waiting, allowCheck} = this.props
 		const moreLink = 'еще ' + (offers.length - 1) + ' ' + pluralFromArray(['тариф', 'тарифа', 'тарифов'], (offers.length - 1))
+		const lessLink = 'скрыть ' + (offers.length - 1) + ' ' + pluralFromArray(['тариф', 'тарифа', 'тарифов'], (offers.length - 1))
 		
 		return (
 			<>
@@ -74,7 +73,8 @@ class OfferRow extends Component {
 									</td>
 									<td>
 										<div className="offer-row__name">{o.name}</div>
-										{(i === 0 && offers.length > 1) ? <div onClick={this.onCollapseToggle} className="offer-row__hint gl_link">{moreLink}</div> : ""}
+										{(this.state.rowsCollapsed && i === 0 && offers.length > 1) ? <div onClick={this.onCollapseToggle} className="offer-row__hint gl_link">{moreLink}</div> : ""}
+										{(!this.state.rowsCollapsed && (i === offers.length - 1) && offers.length > 1) ? <div onClick={this.onCollapseToggle} className="offer-row__hint gl_link">{lessLink}</div> : ""}
 									</td>
 									<td>
 										<div className="offer-row__price">{formatMoney(o.price)} ₽</div>
@@ -102,7 +102,7 @@ class OfferRow extends Component {
 									: 
 										<>
 											<td>
-												<Checkbox className="offer-row__check" onChange={() => this.onSelectOfferToggle(company, i)}/>
+												<Checkbox disabled={(allowCheck ? null : "disabled")} className="offer-row__check" onChange={(e) => this.onSelectOfferToggle(company, i, e)}/>
 											</td>
 											<td>
 												<div onClick={() => this.addOptionFlag(i)} className="offer-row__link"/>

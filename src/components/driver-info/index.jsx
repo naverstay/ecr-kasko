@@ -78,8 +78,8 @@ class DriverInfo extends Component {
 		this.setState({driverCount: (drv)})
 	};
 
-	driverInfoSave = e => {
-		if ('calculationSave' in this.props) this.props.calculationSave()
+	driverInfoSave = (value) => {
+		if ('calculationSave' in this.props) this.props.calculationSave(value)
 	};
 
 	onClientFlatTypeChange = value => {
@@ -564,13 +564,9 @@ class DriverInfo extends Component {
 				<div className="kasko-car-select__controls ant-row-center">
 					<div className="kasko-car-select__controls--group">
 						<div className="kasko-car-select__controls--group-l">
-							<Link to="/offers" className={"gl_link"}>
-								Отмена
-							</Link>
+							<div onClick={() => this.driverInfoSave(false)} className={"gl_link"}>Отмена</div>
 						</div>
-						<div onClick={this.driverInfoSave} className={"ant-btn ant-btn-primary btn_middle"}>
-							Сохранить
-						</div>
+						<div onClick={() => this.driverInfoSave(true)} className={"ant-btn ant-btn-primary btn_middle"}>Сохранить</div>
 					</div>
 				</div>
 			</div>

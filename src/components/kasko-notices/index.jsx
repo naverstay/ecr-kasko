@@ -22,11 +22,11 @@ class KaskoNotices extends Component {
 	}
 
 	componentDidMount() {
-		this.props.type !== void 0 && this.setState({noticeOpened: false})
+		this.props.type !== void 0 && this.setState({noticeOpened: true})
 	}
 
 	render() {
-		const {noticeList, type, status} = this.props;
+		const {noticeList, type, status, step} = this.props;
 		const statusClasses = {
 			0: 'calculation',
 			1: 'waiting',
@@ -90,16 +90,16 @@ class KaskoNotices extends Component {
 								<li>
 									<div className="kasko-notice__price--label">Стоимость</div>
 									<div className="kasko-notice__price--value">
-										<span>41 450 ₽</span>
+										{step >= 2 ? <span>41 450 ₽</span> : ''}
 									</div>
 								</li>
 								<li>
 									<div className="kasko-notice__price--label">СК</div>
-									<div className="kasko-notice__price--value">ВСК</div>
+									<div className="kasko-notice__price--value">{step >=2 ? 'ВСК' : ''}</div>
 								</li>
 								<li>
 									<div className="kasko-notice__price--label">Срок</div>
-									<div className="kasko-notice__price--value">21.09.19<br />20.09.20</div>
+									<div className="kasko-notice__price--value">{step >= 2 ? <>21.09.19<br />20.09.20</> : ''}</div>
 								</li>
 								<li>
 									<div className="kasko-notice__price--label">Полис</div>

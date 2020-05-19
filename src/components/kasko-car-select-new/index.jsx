@@ -142,8 +142,8 @@ class KaskoCarSelectNew extends Component {
 		}, 0)
 	};
 	
-	onCarYearChange = e => {
-		this.setState({carYear: e})
+	onCarYearChange = (value) => {
+		this.setState({carYear: value})
 		this.checkReadyState()
 	};
 
@@ -335,6 +335,12 @@ class KaskoCarSelectNew extends Component {
 		const {image, allFields, step, hideOffers, fullCalculation, expanded} = this.props;
 		//const dateFormat = "DD.MM.YY"
 		let dateFormatMask = "'mask': '99.99.9999', 'showMaskOnHover': 'false'"
+
+		let yearList = []
+
+		for (let y = (new Date()).getFullYear(); y > 1980; y--) {
+			yearList.push(y)
+		}
 		
 		//dateFormatMask = "'regex': '" + String.raw`^(?:(?:31(\/|-|\.)(?:0?[13578]|1[02]))\1|(?:(?:29|30)(\/|-|\.)(?:0?[1,3-9]|1[0-2])\2))(?:(?:1[6-9]|[2-9]\d)?\d{2})$|^(?:29(\/|-|\.)0?2\3(?:(?:(?:1[6-9]|[2-9]\d)?(?:0[48]|[2468][048]|[13579][26])|(?:(?:16|[2468][048]|[3579][26])00))))$|^(?:0?[1-9]|1\d|2[0-8])(\/|-|\.)(?:(?:0?[1-9])|(?:1[0-2]))\4(?:(?:1[6-9]|[2-9]\d)?\d{2})$` + "', 'showMaskOnHover': 'false'"
 		
@@ -441,7 +447,16 @@ class KaskoCarSelectNew extends Component {
 								<div className="float_placeholder">Комплектация</div>
 							</Col>
 							<Col span={6}>
-								<YearPicker format="YYYY" disabledDate={disabledDate} value={this.state.carYear ? moment(this.state.carYear) : null} onChange={this.onCarYearChange} placeholder="" className={"w_100p hide_picker_icon" + (this.state.carYear && this.state.carYear._isAMomentObject ? "" : " _empty")}/>
+								{/*<YearPicker format="YYYY" disabledDate={disabledDate} value={this.state.carYear ? moment(this.state.carYear) : null} onChange={this.onCarYearChange} placeholder="" className={"w_100p hide_picker_icon" + (this.state.carYear && this.state.carYear._isAMomentObject ? "" : " _empty")}/>*/}
+								<Select
+									dropdownClassName="select_dropdown_v1"
+									className={"w_100p" + ((this.state.carYear + '').length ? "" : " _empty")}
+									placeholder=""
+									onChange={this.onCarYearChange}
+									value={this.state.carYear}
+								>
+									{yearList.map((e, i) => <Option key={i} value={e}>{e}</Option>)}
+								</Select>
 								<div className="float_placeholder">Год выпуска</div>
 							</Col>
 						</Row>
