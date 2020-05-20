@@ -36,7 +36,8 @@ $aside-size: 226px;
 			@extend %h1;
 			text-align: center;
 			margin-bottom: 32px;
-			
+
+			&.expanded,
 			&.collapsed {
 				cursor: pointer;
 				position: relative;
@@ -51,26 +52,17 @@ $aside-size: 226px;
 					margin-left: -20px;
 					position: absolute;
 				}
-
+			}
+			
+			&.collapsed {
 				.calculation-popup__inner & {
 					margin-bottom: 55px;
 				}
 			}
 			
 			&.expanded {
-				cursor: pointer;
-				position: relative;
-
 				&:before {
-					transition: transform .25s;
-					font-family: $icomoon-font-family;
-					content: $i-chevron_r;
-					color: $color-grey;
-					font-size: 16px;
-					margin-right: 10px;
-					margin-left: -20px;
 					transform: rotate(90deg);
-					position: absolute;
 				}
 			}
 		}

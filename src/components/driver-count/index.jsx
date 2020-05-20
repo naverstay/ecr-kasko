@@ -1,5 +1,5 @@
 import React, {Component} from "react";
-import {Col, Row, Checkbox} from "antd";
+import {Col, Row, Checkbox, Tooltip} from "antd";
 
 import './style.scss';
 import PropTypes from "prop-types";
@@ -72,10 +72,12 @@ class DriverCount extends Component {
 						}
 						{
 							<Col key={driverOptions.length}>
-								<Checkbox
-									indeterminate={this.state.indeterminate}
-									checked={this.state.checkAll}
-									onChange={this.onCheckAllChange}>Мультидрайв</Checkbox>
+								<Tooltip overlayClassName="tooltip_v1" placement="top" title="Неограниченное количество водителей">
+									<Checkbox
+										indeterminate={this.state.indeterminate}
+										checked={this.state.checkAll}
+										onChange={this.onCheckAllChange}>Мультидрайв</Checkbox>
+								</Tooltip>
 							</Col>
 						}
 					</Row>

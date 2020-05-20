@@ -31,9 +31,7 @@ class OfferRow extends Component {
 		this.setState({offerSelected: options})
 		
 		setTimeout(() => {
-			if (options[index]) {
-				this.props.selectedOffer(company, this.state.offerSelected)
-			}
+			this.props.selectedOffer(company, this.state.offerSelected)
 		})
 	}
 	

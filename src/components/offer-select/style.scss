@@ -10,13 +10,13 @@
 		vertical-align: top;
 		text-align: left;
 
-		.gl_link {
-			white-space: nowrap;
+		.ant-btn {
+			font-size: 14px;
 			margin-top: 15px;
 			position: absolute;
 			top: 100%;
-			left: 50%;
-			transform: translate(-50%, 0);
+			left: 10px;
+			right: 10px;
 		}
 	}
 	

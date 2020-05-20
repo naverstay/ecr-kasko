@@ -44,11 +44,28 @@
 		&--body {
 			@extend %text2;
 			background: #fff;
-			padding: 9px 15px 6px;
+			padding: 9px 40px 6px 15px;
 			white-space: nowrap;
 			overflow: hidden;
 			max-width: 100%;
 			text-overflow: ellipsis;
+			position: relative;
+			
+			&:before {
+				font-family: $icomoon-font-family;
+				content: $i-plus;
+				position: absolute;
+				right: 16px;
+				top: 16px;
+				font-size: 16px;
+				color: #fff;
+				background: $color-green;
+				width: 20px;
+				height: 20px;
+				border-radius: 100%;
+				text-align: center;
+				line-height: 20px;
+			}
 		}
 		
 		&--price {
@@ -63,6 +80,15 @@
 				
 				&:before {
 					color: #fff;
+				}
+			}
+
+			.kasko-offer__item--body {
+				&:before {
+					right: 12px;
+					background-color: transparent;
+					content: $i-check;
+					color: $color-green;
 				}
 			}
 		}

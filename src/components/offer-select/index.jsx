@@ -1,5 +1,5 @@
 import React, {Component} from "react";
-import {Col, Row, Button, Radio, Slider, Input} from "antd";
+import {Col, Row, Button, Radio, Slider, Input, Tooltip} from "antd";
 import './style.scss';
 import PropTypes from "prop-types";
 import moment from 'moment';
@@ -23,6 +23,7 @@ class OfferSelect extends Component {
 			carFound: void 0,
 			fullCalculation: (this.props.step === 2),
 			showCalculationOffers: this.props.step > 1,
+			showParams: false,
 			SMSSent: true,
 			calculationPopupOpened: false,
 			formBusy: false,
@@ -64,6 +65,7 @@ class OfferSelect extends Component {
 				"GT S Sports Car"
 			],
 			showPayment: this.props.step > 1,
+			showCompare: false,
 			availablePayment: false,
 			showMoreDamages: false,
 			paramsChanged: false,
@@ -79,9 +81,63 @@ class OfferSelect extends Component {
 	};
 
 	updateSelectedOffer = (company, offers) => {
+		let offerList = this.state.selectedOffers;
+		let compare = true;
+		
+		let companyOffers = offerList.find((c) => c.company === company)
+
+		if (companyOffers) {
+			for (let o in offers) {
+				if (offers.hasOwnProperty(o)) {
+					let offer = offers[o]
+
+					if (offer) {
+						companyOffers.offers.push(o)
+					} else {
+						const index = companyOffers.offers.indexOf(o + '');
+						if (index > -1) {
+							companyOffers.offers.splice(index, 1);
+						}
+						
+						if (!companyOffers.offers.length) {
+							for (let i = 0; i < offerList.length; i++) {
+								if (offerList[i].company === company) {
+									offerList.splice(i, 1)
+								}
+								
+							}
+						}
+					}
+				}
+			}
+			
+		} else {
+			let arr = []
+
+			for (let o in offers) {
+				if (offers.hasOwnProperty(o)) {
+					let offer = offers[o]
+					
+					if (offer) {
+						arr.push(o)
+					}
+				}
+			}
+
+			offerList.push({company: company, offers: arr})
+		}
+		
+		if (offerList.length === 1) {
+			if (offerList[0].offers.length === 1) {
+				compare = false
+			}
+		}
+		
 		this.setState({
+			selectedOffers: offerList,
 			showPayment: true,
-			availablePayment: true
+			showCompare: offerList.length > 1 && compare,
+			availablePayment: offerList.length > 0
 		})
 	}
 
@@ -112,6 +168,10 @@ class OfferSelect extends Component {
 	toggleCalculationPopup = () => {
 		this.setState({calculationPopupOpened: !this.state.calculationPopupOpened})
 		document.body.classList.toggle('no-overflow', !this.state.calculationPopupOpened)
+	}
+
+	toggleShowParams = () => {
+		this.setState({showParams: !this.state.showParams})
 	}
 
 	toggleSMSSent = () => {
@@ -193,6 +253,18 @@ class OfferSelect extends Component {
 			carCredit: !!e.target.value
 		});
 	};
+
+	scrollToBottom = () => {
+		this.messagesEnd.scrollIntoView({behavior: "smooth"});
+	}
+
+	componentDidMount() {
+		this.scrollToBottom();
+	}
+
+	componentDidUpdate() {
+		this.scrollToBottom();
+	}
 	
 	render() {
 		const {step} = this.props;
@@ -429,81 +501,91 @@ class OfferSelect extends Component {
 								]}/>
 							</div>
 			
-							<div className="kasko-car-select__caption">
-								Параметры КАСКО
-							</div>
+							<div onClick={this.toggleShowParams} className={"kasko-car-select__caption" + (this.state.showCalculationOffers ? (this.state.showParams ? " expanded" : " collapsed") : "")}>Параметры КАСКО</div>
 							
-							<div className="kasko-car-select__controls radio_v2 wide_group">
-								<Radio.Group defaultValue={this.state.hasFranchise ? 1 : 0} onChange={this.onFranchiseChange}>
-									<Row gutter={20}>
-										<Col>
-											<Radio value={0}>Без франшизы</Radio>
-										</Col>
-										<Col>
-											<Radio value={1}>Франшиза с 1 случая</Radio>
-										</Col>
-										<Col>
-											<Radio value={2}>Франшиза со 2 случая</Radio>
-										</Col>
-										
-										{ this.state.hasFranchise ?
-											<Col className={"kasko-car-select__controls--flex-1"}>
-												<Slider className="kasko-car-select__franchise"
-														step={null}
-														tooltipVisible={false}
-														tipFormatter={this.onFranchiseTooltip}
-														onAfterChange={this.onFranchiseValueChange} marks={franchiseSteps}
-														defaultValue={franchiseSteps[2]}/>
-											</Col>
-											: ""
-										}
-									</Row>
-								</Radio.Group>
-							</div>
-			
-							<div className="kasko-car-select__controls check_v2">
-								<Checkbox.Group defaultValue={damageOptions.map((o, i) => i)} onChange={this.onDamagesChange}>
-									<Row gutter={20}>
-										{
-											<>
-												{ 
-													damageOptions.slice(0, (this.state.showMoreDamages ? damageOptions.length : 3)).map((c, i) => <Col key={i}>
-															<Checkbox value={i}>{c}</Checkbox>
-														</Col>
-													)
-												}
+							{
+								(!this.state.showCalculationOffers || this.state.showParams) ?
+								<>
+									<div className="kasko-car-select__controls radio_v2 wide_group">
+										<Radio.Group defaultValue={this.state.hasFranchise ? 1 : 0}
+													 onChange={this.onFranchiseChange}>
+											<Row gutter={20}>
 												<Col>
-													<div className="kasko-offer__more">
-														<div onClick={this.onShowMoreDamagesChange} className="gl_link">{this.state.showMoreDamages ? "Скрыть" : "Показать еще"}</div>
-													</div>
+													<Radio value={0}>Без франшизы</Radio>
 												</Col>
-											</>
-										}
-									</Row>
-								</Checkbox.Group>
-							</div>
-							
-							<div className="kasko-car-select__controls radio_v3">
-								<Radio.Group defaultValue={periodOptions[0]} style={{width: '100%'}} onChange={this.onPeriodChange}>
+												<Col>
+													<Radio value={1}>Франшиза с 1 случая</Radio>
+												</Col>
+												<Col>
+													<Radio value={2}>Франшиза со 2 случая</Radio>
+												</Col>
+	
+												{this.state.hasFranchise ?
+													<Col className={"kasko-car-select__controls--flex-1"}>
+														<Slider className="kasko-car-select__franchise"
+																step={null}
+																tooltipVisible={false}
+																tipFormatter={this.onFranchiseTooltip}
+																onAfterChange={this.onFranchiseValueChange}
+																marks={franchiseSteps}
+																defaultValue={franchiseSteps[2]}/>
+													</Col>
+													: ""
+												}
+											</Row>
+										</Radio.Group>
+									</div>
+	
+									<div className="kasko-car-select__controls check_v2">
+									<Checkbox.Group defaultValue={damageOptions.map((o, i) => i)} onChange={this.onDamagesChange}>
 									<Row gutter={20}>
-										{
-											periodOptions.map((c, i) => <Col key={i}>
-													<Radio value={c}>
-														<span className="kasko-car-select__period--value">{c}</span>
-														<span className="kasko-car-select__period--label">{pluralFromArray(periodPlurals, c)}</span>
-													</Radio>
-												</Col>
-											)
-										}
+									{
+										<>
+											{
+												damageOptions.slice(0, (this.state.showMoreDamages ? damageOptions.length : 3)).map((c, i) =>
+													<Col key={i}>
+														<Checkbox value={i}>{c}</Checkbox>
+													</Col>
+												)
+											}
+											<Col>
+												<div className="kasko-offer__more">
+													<div onClick={this.onShowMoreDamagesChange}
+														 className="gl_link">{this.state.showMoreDamages ? "Скрыть" : "Показать еще"}</div>
+												</div>
+											</Col>
+										</>
+									}
 									</Row>
-								</Radio.Group>
-							</div>
+									</Checkbox.Group>
+									</div>
+	
+									<div className="kasko-car-select__controls radio_v3">
+									<Radio.Group defaultValue={periodOptions[0]} style={{width: '100%'}} onChange={this.onPeriodChange}>
+									<Row gutter={20}>
+									{
+										periodOptions.map((c, i) => <Col key={i}>
+												<Radio value={c}>
+													<span className="kasko-car-select__period--value">{c}</span>
+													<span
+														className="kasko-car-select__period--label">{pluralFromArray(periodPlurals, c)}</span>
+												</Radio>
+											</Col>
+										)
+									}
+									</Row>
+									</Radio.Group>
+									</div>
+	
+									<DriverCount step={step} driverOptions={driverOptions} />
 
-							<DriverCount step={step} driverOptions={driverOptions} />
-			
-							<div className="kasko-car-select__controls ant-row-center">
-								<div onClick={this.toggleCalculationOffers} className={"ant-btn ant-btn-primary btn_middle margin" + ((this.state.activeOffers.length && this.state.paramsChanged) ? "" : " disabled")}>Получить расчет</div>
-							</div>
+									<div className="kasko-car-select__controls ant-row-center">
+										<div onClick={this.toggleCalculationOffers}
+											 className={"ant-btn ant-btn-primary btn_middle margin" + ((step !== 2 && this.state.activeOffers.length && this.state.paramsChanged) ? "" : " disabled")}>Получить расчет</div>
+									</div>
+								</>
+								: ""
+							}
 							
 							{this.state.showCalculationOffers ?
 									<>
@@ -514,7 +596,10 @@ class OfferSelect extends Component {
 												(step === 2) ?
 													<>
 														<div className="kasko-car-select__controls--group-w text_left">
-															<Link to="/" className={"gl_link color_black"}>Отменить операцию и <br />вернуться к расчету</Link>
+															<Tooltip overlayClassName="tooltip_v1" placement="bottomLeft"
+																	 title="Отменить операцию и вернуться к расчету">
+																<Link to="/" className={"ant-btn btn_green "}>Отменить</Link>
+															</Tooltip>
 														</div>
 														
 														{
@@ -526,7 +611,7 @@ class OfferSelect extends Component {
 																				onChange={this.onSMSCodeChange}
 																				defaultValue=""/>
 																			<div className="float_placeholder">Код подтверждения</div>
-																			<div className="gl_link"
+																			<div className="ant-btn btn_green"
 																				 onClick={this.toggleSMSSent}>Отправить код повторно</div>
 																		</div>
 																	</div>
@@ -555,25 +640,25 @@ class OfferSelect extends Component {
 													</>
 												: this.state.showPayment ?
 													<div className="kasko-car-select__controls--group payment">
-														<div className="kasko-car-select__controls--group-l">
-															<Link to="/" className={"gl_link color_black"}>Сохранить&nbsp;расчет</Link>
-														</div>
-														<Link to="/payment" className={"ant-btn ant-btn-primary btn_middle" + ((this.state.availablePayment) ? "" : " disabled")}>Оплатить в кассу</Link>
+														{/*<div className="kasko-car-select__controls--group-l">*/}
+														{/*	<Link to="/" className={"gl_link color_black"}>Сохранить&nbsp;расчет</Link>*/}
+														{/*</div>*/}
+														<a href={this.state.availablePayment ? "/payment" : "#"} className={"ant-btn ant-btn-primary btn_middle" + ((this.state.availablePayment) ? "" : " disabled")}>{this.state.showCompare ? 'Сравнить' : 'Оплатить в кассу'}</a>
 														<div className="kasko-car-select__controls--group-r">
-															<PaymentSwitch paymentStep={0}/>
-															<Link to="/" className={"gl_link"}>Сравнить</Link>
+															<PaymentSwitch allowPayment={this.state.availablePayment} paymentStep={0}/>
+															{/*<Link to="/" className={"gl_link"}>Сравнить</Link>*/}
 														</div>
 													</div>
 													:
 													<div className="kasko-car-select__controls--group">
-														<div className="kasko-car-select__controls--group-l">
-															<Link to="/" className={"gl_link color_black"}>Сохранить&nbsp;расчет</Link>
-														</div>
+														{/*<div className="kasko-car-select__controls--group-l">*/}
+														{/*	<Link to="/" className={"gl_link color_black"}>Сохранить&nbsp;расчет</Link>*/}
+														{/*</div>*/}
 														<Button htmlType="submit" className={"ant-btn-primary btn_wide"}
 																onClick={this.toggleCalculationPopup}>{this.calculationButtonText()}</Button>
-														<div className="kasko-car-select__controls--group-r">
-															<Link to="/" className={"gl_link"}>Сравнить</Link>
-														</div>
+														{/*<div className="kasko-car-select__controls--group-r">*/}
+														{/*	<Link to="/" className={"gl_link"}>Сравнить</Link>*/}
+														{/*</div>*/}
 													</div>
 											}
 											
@@ -584,6 +669,8 @@ class OfferSelect extends Component {
 						</>
 					}
 				</div>
+				
+				<div ref={(el) => { this.messagesEnd = el }}/>
 				
 				{this.state.calculationPopupOpened ? 
 					<CalculationPopup updatePaymentState={this.updatePaymentState} step={this.state.showCalculationOffers ? 2 : step} allFields={this.state.showCalculationOffers || (step === 2)} fullCalculation={this.state.showCalculationOffers || this.state.fullCalculation} popupCloseFunc={this.toggleCalculationPopup} />

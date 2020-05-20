@@ -2,6 +2,7 @@ import React, {Component} from "react";
 
 import './style.scss';
 import PropTypes from "prop-types";
+import {Tooltip} from "antd";
 
 class PaymentSwitch extends Component {
 	constructor(props) {
@@ -23,17 +24,16 @@ class PaymentSwitch extends Component {
 	}
 	
 	render() {
-		const {paymentStep} = this.props
-
-		console.log('paymentStep', paymentStep);
+		const {paymentStep, allowPayment} = this.props
 		
 		return (
 			<div className="payment-switch">
-				<div onClick={this.togglePaymentOptions} className="payment-switch__label gl_link color_black">
-					Оплатить на сайте страховой компании
-				</div>
+				<Tooltip overlayClassName="tooltip_v1" placement="top"
+						 title="Оплатить на сайте страховой компании">
+					<div onClick={this.togglePaymentOptions} className={"payment-switch__label ant-btn btn_middle btn_green" + (allowPayment ? "" : " disabled")}>Оплатить онлайн</div>
+				</Tooltip>
 				{
-					this.state.showPaymentOptions ?
+					(allowPayment && this.state.showPaymentOptions) ?
 						<div className="payment-switch__dropdown">
 							<p>Отправить ссылку на оплату:</p>
 							<ul className="payment-switch__options">
@@ -62,4 +62,3 @@ class PaymentSwitch extends Component {
 }
 
 export default PaymentSwitch;
-

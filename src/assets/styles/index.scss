@@ -71,22 +71,24 @@ input {
 }
 
 .btn_green {
-	//&.ant-btn {
-		background: $color-green;
-		color: #fff;
-	
-		&:hover {
-			opacity: .9;
-		}
+	&.ant-btn {
+		&:not(.disabled) {
+			border-color: $color-green;
+			color: $color-green;
 
-		&:hover,
-		&:focus,
-		&:active,
-		&.active {
-			text-decoration: none;
-			background: #fff;
+			&:hover {
+				opacity: .9;
+			}
+
+			&:hover,
+			&:focus,
+			&:active,
+			&.active {
+				text-decoration: none;
+				background: rgba(34, 139, 34, .1);
+			}
 		}
-	//}
+	}
 }
 
 $spinner_time: 1s;
@@ -168,7 +170,7 @@ $spinner_time: 1s;
 .ant-picker-panel-container,
 .ant-select-dropdown {
 	box-shadow: none !important;
-	border: 1px solid #B7B7B7;
+	border: 1px solid #b7b7b7;
 }
 
 .ant-btn {
@@ -195,7 +197,7 @@ $spinner_time: 1s;
 
 .ant-checkbox-checked .ant-checkbox-inner {
 	background: #fff;
-	
+
 	&:after {
 		border-color: $color-green;
 	}
@@ -235,7 +237,7 @@ $spinner_time: 1s;
 	.ant-select-selector {
 		border-color: transparent;
 	}
-	
+
 	.ant-select-arrow {
 		display: none;
 	}
@@ -260,4 +262,98 @@ $spinner_time: 1s;
 
 .ant-input-disabled {
 	border-color: transparent !important;
+}
+
+.check_v3 {
+	.ant-checkbox {
+		+ span {
+			@extend %text1;
+		}
+	}
+
+	.ant-checkbox-checked {
+		.ant-checkbox-inner {
+			background: #fff;
+
+			&:after {
+				border-color: $color-green;
+			}
+		}
+	}
+}
+
+.input-error {
+	color: $color-prime !important;
+	border-color: $color-prime !important;
+
+	+ .float_placeholder {
+		color: $color-prime !important;
+		border-color: $color-prime !important;
+	}
+}
+
+.wrapper-error {
+	.ant-checkbox-inner,
+	.ant-checkbox-inner:after {
+		border-color: $color-prime !important;
+	}
+
+	.ant-select-arrow {
+		svg {
+			path {
+				fill: $color-prime !important
+			}
+		}
+	}
+
+	&.ant-picker,
+	+ .float_placeholder,
+	.ant-select-selector,
+	input {
+		color: $color-prime !important;
+		border-color: $color-prime !important;
+		box-shadow: none !important;
+	}
+}
+
+.tooltip_v1 {
+	&.ant-tooltip {
+		.ant-tooltip-content {
+			box-shadow: none;
+		}
+
+		.ant-tooltip-inner {
+			padding-top: 10px;
+			font-size: 10px;
+			border: 1px solid $color-grey;
+			border-radius: 0;
+			box-shadow: none;
+		}
+	}
+	
+	&.ant-tooltip-placement {
+		&-top {
+			.ant-tooltip-arrow {
+				z-index: 1;
+				transform: translate(-50%, -1px);
+
+				&:before {
+					border: solid $color-grey;
+					border-width: 0 1px 1px 0;
+				}
+			}
+		}
+
+		&-bottomLeft {
+			.ant-tooltip-arrow {
+				z-index: 1;
+				transform: translate(0, 1px);
+
+				&:before {
+					border: solid $color-grey;
+					border-width: 1px 0 0 1px;
+				}
+			}
+		}
+	}
 }
