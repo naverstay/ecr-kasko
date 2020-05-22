@@ -179,7 +179,7 @@ class OfferSelect extends Component {
 	}
 
 	calculationButtonText = () => {
-		return this.state.fullCalculation ? 'Для окончательного расчетазаполните 20 полей ' : 'Для расчета заполните  10 полей'
+		return this.state.showPayment || (this.props.step === 2) ? 'Анкета КАСКО заполните 0 полей' : this.state.fullCalculation ? 'Для окончательного расчетазаполните 20 полей ' : 'Для расчета заполните  10 полей'
 	}
 
 	offersUpdate = (offer) => {
@@ -440,7 +440,7 @@ class OfferSelect extends Component {
 						</>
 						:
 						<>
-							<div className={"kasko-car-select__calculation" + (this.state.fullCalculation ? ' active' : '')}>
+							<div className={"kasko-car-select__calculation" + (this.state.fullCalculation ? ' active' : '') + (this.state.showPayment || (step === 2) ? ' disabled' : '')}>
 								<span className="kasko-car-select__calculation--text">Предварительный расчет</span>
 								<Switch checked={this.state.fullCalculation} className="kasko-car-select__calculation--switch" onChange={this.onCalculationTypeChange}/>
 								<span className="kasko-car-select__calculation--text">Окончательный расчет</span>
@@ -449,142 +449,145 @@ class OfferSelect extends Component {
 							<div className="kasko-car-select__controls ant-row-center mb_45">
 								<Button htmlType="submit" className={"ant-btn-primary btn_wide"} onClick={this.toggleCalculationPopup}>{this.calculationButtonText()}</Button>
 							</div>
-			
-							<div className="kasko-car-select__caption">
-								Добавить в КАСКО
-							</div>
 							
-							<div className="kasko-car-select__carousel">
-								<KaskoOffers onOfferSelect={this.offersUpdate} slider={true} offersList={[
-									{
-										name: 'GAP',
-										price: 10400,
-										prefix: 'от',
-										suffix: '₽/мес.'
-									},
-									{
-										name: 'Несчастный случай',
-										price: 10410,
-										prefix: 'от',
-										suffix: '₽.'
-									},
-									{
-										name: 'Аварийный комиссар',
-										price: 10420,
-										prefix: 'от',
-										suffix: '₽.'
-									},
-									{
-										name: 'Стекла без справок',
-										price: 10430,
-										prefix: 'от',
-										suffix: '₽.'
-									},
-									{
-										name: 'ОСАГО',
-										price: 10410,
-										prefix: 'от',
-										suffix: '₽.'
-									},
-									{
-										name: 'Кредит',
-										price: 10420,
-										prefix: 'от',
-										suffix: '₽.'
-									},
-									{
-										name: '123',
-										price: 10430,
-										prefix: 'от',
-										suffix: '₽.'
-									}
-								]}/>
-							</div>
-			
-							<div onClick={this.toggleShowParams} className={"kasko-car-select__caption" + (this.state.showCalculationOffers ? (this.state.showParams ? " expanded" : " collapsed") : "")}>Параметры КАСКО</div>
-							
-							{
-								(!this.state.showCalculationOffers || this.state.showParams) ?
+							{(step !== 2) ?
 								<>
-									<div className="kasko-car-select__controls radio_v2 wide_group">
-										<Radio.Group defaultValue={this.state.hasFranchise ? 1 : 0}
-													 onChange={this.onFranchiseChange}>
-											<Row gutter={20}>
-												<Col>
-													<Radio value={0}>Без франшизы</Radio>
-												</Col>
-												<Col>
-													<Radio value={1}>Франшиза с 1 случая</Radio>
-												</Col>
-												<Col>
-													<Radio value={2}>Франшиза со 2 случая</Radio>
-												</Col>
-	
-												{this.state.hasFranchise ?
-													<Col className={"kasko-car-select__controls--flex-1"}>
-														<Slider className="kasko-car-select__franchise"
-																step={null}
-																tooltipVisible={false}
-																tipFormatter={this.onFranchiseTooltip}
-																onAfterChange={this.onFranchiseValueChange}
-																marks={franchiseSteps}
-																defaultValue={franchiseSteps[2]}/>
-													</Col>
-													: ""
-												}
-											</Row>
-										</Radio.Group>
+									<div className="kasko-car-select__caption">
+										Добавить в КАСКО
 									</div>
-	
-									<div className="kasko-car-select__controls check_v2">
-									<Checkbox.Group defaultValue={damageOptions.map((o, i) => i)} onChange={this.onDamagesChange}>
-									<Row gutter={20}>
-									{
-										<>
+									
+									<div className="kasko-car-select__carousel">
+										<KaskoOffers onOfferSelect={this.offersUpdate} slider={true} offersList={[
 											{
-												damageOptions.slice(0, (this.state.showMoreDamages ? damageOptions.length : 3)).map((c, i) =>
-													<Col key={i}>
-														<Checkbox value={i}>{c}</Checkbox>
+												name: 'GAP',
+												price: '+ 10400',
+												prefix: '',
+												suffix: '₽'
+											},
+											{
+												name: 'Несчастный случай',
+												price: '+ 10410',
+												prefix: '',
+												suffix: '₽'
+											},
+											{
+												name: 'Аварийный комиссар',
+												price: '+ 10420',
+												prefix: '',
+												suffix: '₽'
+											},
+											{
+												name: 'Стекла без справок',
+												price: '+ 10430',
+												prefix: '',
+												suffix: '₽'
+											},
+											{
+												name: 'ОСАГО',
+												price: '+ 10410',
+												prefix: '',
+												suffix: '₽'
+											},
+											{
+												name: 'Кредит',
+												price: '+ 10420',
+												prefix: '',
+												suffix: '₽'
+											},
+											{
+												name: '123',
+												price: '+ 10430',
+												prefix: '',
+												suffix: '₽'
+											}
+										]}/>
+									</div>
+									
+									{
+										(!this.state.showCalculationOffers || this.state.showParams) ?
+										<>
+											<div className="kasko-car-select__controls radio_v2 wide_group">
+												<Radio.Group defaultValue={this.state.hasFranchise ? 1 : 0}
+															 onChange={this.onFranchiseChange}>
+													<Row gutter={20}>
+														<Col>
+															<Radio value={0}>Без франшизы</Radio>
+														</Col>
+														<Col>
+															<Radio value={1}>Франшиза с 1 случая</Radio>
+														</Col>
+														<Col>
+															<Radio value={2}>Франшиза со 2 случая</Radio>
+														</Col>
+			
+														{this.state.hasFranchise ?
+															<Col className={"kasko-car-select__controls--flex-1"}>
+																<Slider className="kasko-car-select__franchise"
+																		step={null}
+																		tooltipVisible={false}
+																		tipFormatter={this.onFranchiseTooltip}
+																		onAfterChange={this.onFranchiseValueChange}
+																		marks={franchiseSteps}
+																		defaultValue={franchiseSteps[2]}/>
+															</Col>
+															: ""
+														}
+													</Row>
+												</Radio.Group>
+											</div>
+
+											<div className="kasko-car-select__controls check_v2 mb_10">
+											<Checkbox.Group defaultValue={damageOptions.map((o, i) => i)} onChange={this.onDamagesChange}>
+											<Row gutter={20}>
+											{
+												<>
+													{
+														damageOptions.slice(0, (this.state.showMoreDamages ? damageOptions.length : 3)).map((c, i) =>
+															<Col key={i}>
+																<Checkbox value={i}>{c}</Checkbox>
+															</Col>
+														)
+													}
+													<Col>
+														<div className="kasko-offer__more">
+															<div onClick={this.onShowMoreDamagesChange}
+																 className="gl_link">{this.state.showMoreDamages ? "Скрыть" : "Показать еще"}</div>
+														</div>
+													</Col>
+												</>
+											}
+											</Row>
+											</Checkbox.Group>
+											</div>
+
+											<div className={"kasko-car-select__caption"}>Срок действия в месяцах</div>
+
+											<div className="kasko-car-select__controls radio_v3">
+											<Radio.Group defaultValue={periodOptions[0]} style={{width: '100%'}} onChange={this.onPeriodChange}>
+											<Row gutter={20}>
+											{
+												periodOptions.map((c, i) => <Col key={i}>
+														<Radio value={c}>
+															<span className="kasko-car-select__period--value">{c}</span>
+															{/*<span className="kasko-car-select__period--label">{pluralFromArray(periodPlurals, c)}</span>*/}
+														</Radio>
 													</Col>
 												)
 											}
-											<Col>
-												<div className="kasko-offer__more">
-													<div onClick={this.onShowMoreDamagesChange}
-														 className="gl_link">{this.state.showMoreDamages ? "Скрыть" : "Показать еще"}</div>
-												</div>
-											</Col>
+											</Row>
+											</Radio.Group>
+											</div>
+			
+											<DriverCount step={step} driverOptions={driverOptions} />
+		
+											<div className="kasko-car-select__controls ant-row-center">
+												<div onClick={this.toggleCalculationOffers}
+													 className={"ant-btn ant-btn-primary btn_middle margin" + ((step !== 2 && this.state.activeOffers.length && this.state.paramsChanged) ? "" : " disabled")}>Получить расчет</div>
+											</div>
 										</>
+										: ""
 									}
-									</Row>
-									</Checkbox.Group>
-									</div>
-	
-									<div className="kasko-car-select__controls radio_v3">
-									<Radio.Group defaultValue={periodOptions[0]} style={{width: '100%'}} onChange={this.onPeriodChange}>
-									<Row gutter={20}>
-									{
-										periodOptions.map((c, i) => <Col key={i}>
-												<Radio value={c}>
-													<span className="kasko-car-select__period--value">{c}</span>
-													<span
-														className="kasko-car-select__period--label">{pluralFromArray(periodPlurals, c)}</span>
-												</Radio>
-											</Col>
-										)
-									}
-									</Row>
-									</Radio.Group>
-									</div>
-	
-									<DriverCount step={step} driverOptions={driverOptions} />
-
-									<div className="kasko-car-select__controls ant-row-center">
-										<div onClick={this.toggleCalculationOffers}
-											 className={"ant-btn ant-btn-primary btn_middle margin" + ((step !== 2 && this.state.activeOffers.length && this.state.paramsChanged) ? "" : " disabled")}>Получить расчет</div>
-									</div>
-								</>
-								: ""
+								</> : ""
 							}
 							
 							{this.state.showCalculationOffers ?
@@ -598,7 +601,7 @@ class OfferSelect extends Component {
 														<div className="kasko-car-select__controls--group-w text_left">
 															<Tooltip overlayClassName="tooltip_v1" placement="bottomLeft"
 																	 title="Отменить операцию и вернуться к расчету">
-																<Link to="/" className={"ant-btn btn_green "}>Отменить</Link>
+																<Link to="/" className={"ant-btn btn_green "}>Вернуться к расчету</Link>
 															</Tooltip>
 														</div>
 														

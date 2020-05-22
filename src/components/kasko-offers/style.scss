@@ -19,52 +19,92 @@
 		cursor: pointer;
 		
 		&--title {
-			@extend %text2;
+			@extend %text1;
 			background: $color-grey-light;
 			position: relative;
-			padding: 15px 12px 15px 32px;
+			padding: 15px;
 			white-space: nowrap;
 			overflow: hidden;
 			max-width: 100%;
 			text-overflow: ellipsis;
 
-			&:before {
-				font-family: $icomoon-font-family;
-				content: $i-chevron_r;
-				position: absolute;
-				left: 10px;
-				top: 50%;
-				margin-top: -8px;
-				font-size: 16px;
-				line-height: 1;
-				color: $color-grey;
+			.kasko-offer__slide & {
+				font-size: 12px;
+				padding-left: 32px;
+
+				&:before {
+					font-family: $icomoon-font-family;
+					content: $i-chevron_r;
+					position: absolute;
+					left: 10px;
+					top: 50%;
+					margin-top: -8px;
+					font-size: 16px;
+					line-height: 1;
+					color: $color-grey;
+				}
 			}
 		}
 
 		&--body {
 			@extend %text2;
 			background: #fff;
-			padding: 9px 40px 6px 15px;
+			padding: 9px 15px 15px 15px;
 			white-space: nowrap;
 			overflow: hidden;
 			max-width: 100%;
 			text-overflow: ellipsis;
 			position: relative;
+
+			p {
+				margin-bottom: 0;
+				
+				+ p {
+					margin-top: 5px;
+				}
+			}
 			
+			.kasko-offer__slide & {
+				padding-right: 40px;
+				
+				&:before {
+					font-family: $icomoon-font-family;
+					content: $i-plus;
+					position: absolute;
+					right: 12px;
+					top: 16px;
+					font-size: 14px;
+					color: #fff;
+					background: $color-green;
+					width: 20px;
+					height: 20px;
+					border-radius: 100%;
+					text-align: center;
+					line-height: 20px;
+				}
+			}
+		}
+		
+		&--link {
+			@extend %text2;
+			position: relative;
+			display: inline-block;
+			vertical-align: top;
+			height: 30px;
+			border-radius: 15px;
+			color: #000;
+			padding: 8px 25px 8px 10px;
+			background: $color-blue-light;
+			box-sizing: border-box;
+
 			&:before {
-				font-family: $icomoon-font-family;
-				content: $i-plus;
-				position: absolute;
-				right: 16px;
-				top: 16px;
-				font-size: 16px;
 				color: #fff;
-				background: $color-green;
-				width: 20px;
-				height: 20px;
-				border-radius: 100%;
-				text-align: center;
-				line-height: 20px;
+				font-family: $icomoon-font-family;
+				content: $i-chevron_r;
+				position: absolute;
+				right: 8px;
+				top: 50%;
+				margin-top: -7px;
 			}
 		}
 		
@@ -83,12 +123,19 @@
 				}
 			}
 
-			.kasko-offer__item--body {
-				&:before {
-					right: 12px;
-					background-color: transparent;
-					content: $i-check;
-					color: $color-green;
+			.kasko-offer__slide & {
+				.kasko-offer__item--title {
+
+					&:before {
+						color: #fff;
+					}
+				}
+				
+				.kasko-offer__item--body {
+					&:before {
+						content: $i-minus;
+						background-color: opacify($color-grey, .5);
+					}
 				}
 			}
 		}

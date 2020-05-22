@@ -31,6 +31,8 @@ class OfferItem extends Component {
 
 	render() {
 		let {offer, slider, index} = this.props
+		let prefix = (offer.price + '').replace(/\d/g, '')
+		let price = formatMoney((offer.price + '').replace(/\D/g, ''))
 		
 		return (
 			slider ?
@@ -39,7 +41,7 @@ class OfferItem extends Component {
 						<div className="kasko-offer__item--title">{offer.name}</div>
 						<div className="kasko-offer__item--body">
 							{offer.prefix}&nbsp;
-							<span className="kasko-offer__item--price">{formatMoney(offer.price)}</span>
+							<span className="kasko-offer__item--price">{prefix + ' ' + price}</span>
 							&nbsp;{offer.suffix}
 						</div>
 					</div>
@@ -49,9 +51,14 @@ class OfferItem extends Component {
 					<Link to="/offers" className="kasko-offer__item">
 						<div className="kasko-offer__item--title">{offer.name}</div>
 						<div className="kasko-offer__item--body">
-							{offer.prefix}&nbsp;
-							<span className="kasko-offer__item--price">{formatMoney(offer.price)}</span>
-							&nbsp;{offer.suffix}
+							<p>
+								{offer.prefix}&nbsp;
+								<span className="kasko-offer__item--price">{formatMoney(offer.price)}</span>
+								&nbsp;{offer.suffix}
+							</p>
+							<p className="text_center">
+								<div className="kasko-offer__item--link">Рассчитать</div>
+							</p>
 						</div>
 					</Link>
 				</Col>

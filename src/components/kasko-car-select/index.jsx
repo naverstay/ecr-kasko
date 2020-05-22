@@ -183,7 +183,7 @@ class KaskoCarSelect extends Component {
 					carPrice: 14800000,
 					carPower: 245,
 					carMileage: 24500,
-					carYear: moment('2015'),
+					carYear: '2015',
 					carUsageStart: '18.05.2020'
 				})
 				this.updateImage(this.state.carMark)
