@@ -20,6 +20,7 @@
 		}
 
 		.gl_link {
+			@extend %text2;
 			white-space: nowrap;
 			margin-top: 15px;
 			position: absolute;

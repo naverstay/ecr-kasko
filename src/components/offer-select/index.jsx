@@ -560,7 +560,7 @@ class OfferSelect extends Component {
 											</Checkbox.Group>
 											</div>
 
-											<div className={"kasko-car-select__caption fz_12"}>Срок действия в месяцах</div>
+											<div className={"kasko-car-select__caption fz_12"}>Срок действия, месяцы</div>
 
 											<div className="kasko-car-select__controls radio_v3">
 											<Radio.Group defaultValue={periodOptions[0]} style={{width: '100%'}} onChange={this.onPeriodChange}>
