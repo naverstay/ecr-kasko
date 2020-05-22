@@ -292,7 +292,7 @@ class KaskoCarSelect extends Component {
 		return (
 			<div className="kasko-car-select">
 				<div className="kasko-car-select__controls radio_v2">
-					<Radio.Group defaultValue={this.state.newCar ? 1 : 0} onChange={this.onCarNewChange}>
+					<Radio.Group defaultValue={step === 1 ? null : this.state.newCar ? 1 : 0} onChange={this.onCarNewChange}>
 						<Row gutter={20}>
 							<Col>
 								<Radio value={1}>Новый</Radio>
@@ -336,7 +336,7 @@ class KaskoCarSelect extends Component {
 				<Row className="kasko-car-select__controls" gutter={20}>
 					<Col span={6}>
 						<Select
-							dropdownClassName="select_dropdown_v1" className={"w_100p" + (this.state.carMark.length ? "" : " _empty")}
+							dropdownClassName="select_dropdown_v1" className={"w_100p" + (this.state.carMark.length ? "" : " _empty" + (step === 1 ? " ant-select-focused" : ""))}
 							placeholder=""
 							onChange={this.onMarkChange}
 							value={this.state.carMark}
@@ -518,7 +518,34 @@ class KaskoCarSelect extends Component {
 							suffix: '₽'
 						}
 					]} />
-				: "" }
+				:
+					<KaskoOffers disabled={true} offersList={[
+						{
+							name: 'Кредит',
+							price: 0,
+							prefix: 'от',
+							suffix: '₽/мес'
+						},
+						{
+							name: 'ОСАГО',
+							price: 0,
+							prefix: 'от',
+							suffix: '₽'
+						},
+						{
+							name: 'КАСКО',
+							price: 0,
+							prefix: 'от',
+							suffix: '₽'
+						},
+						{
+							name: 'GAP',
+							price: 0,
+							prefix: 'от',
+							suffix: '₽'
+						}
+					]}/>
+				}
 			</div>
 		);
 	}

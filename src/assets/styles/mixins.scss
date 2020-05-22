@@ -129,6 +129,8 @@
 		}
 
 		&.ant-radio-wrapper-disabled {
+			cursor: not-allowed;
+			
 			.ant-radio-inner {
 				border-color: $checkbox-grey;
 
@@ -203,7 +205,7 @@
 		position: relative;
 		padding: 8px 15px;
 		margin-right: 0;
-
+		
 		&:hover {
 			.ant-radio-inner {
 				border-color: $checkbox-color;
@@ -211,6 +213,8 @@
 		}
 
 		&.ant-radio-wrapper-disabled {
+			cursor: not-allowed;
+
 			.ant-radio-inner {
 				border-color: $checkbox-grey;
 			}
@@ -293,6 +297,8 @@
 		}
 
 		&.ant-checkbox-wrapper-disabled {
+			cursor: not-allowed;
+			
 			.ant-checkbox-inner {
 				border-color: $checkbox-grey;
 			}
@@ -375,6 +381,8 @@
 		}
 
 		&.ant-radio-wrapper-disabled {
+			cursor: not-allowed;
+			
 			.ant-radio-inner {
 				border-color: $checkbox-grey;
 			}
@@ -453,6 +461,8 @@
 		}
 
 		&.ant-checkbox-wrapper-disabled {
+			cursor: not-allowed;
+			
 			.ant-checkbox-inner {
 				border-color: $checkbox-grey;
 			}

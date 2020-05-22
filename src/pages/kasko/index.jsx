@@ -15,7 +15,7 @@ class Kasko extends Component {
 	constructor(props) {
 		super(props);
 		this.state = {
-			carImage: this.props.step === 1 ? '' : 'Hyundai',
+			carImage: this.props.step === 1 ? 'car' : 'Hyundai',
 			markList: [
 				"Hyundai",
 				"Mazda",

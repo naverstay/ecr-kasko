@@ -99,6 +99,7 @@ class OfferRow extends Component {
 										</>
 									: 
 										<>
+											<td>&nbsp;</td>
 											<td>
 												<Checkbox disabled={(allowCheck ? null : "disabled")} className="offer-row__check" onChange={(e) => this.onSelectOfferToggle(company, i, e)}/>
 											</td>

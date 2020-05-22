@@ -19,6 +19,7 @@
 
 			&:first-child {
 				text-align: left;
+				padding-left: 15px;
 
 				+ th {
 					text-align: left;
@@ -34,6 +35,7 @@
 
 			&:first-child {
 				text-align: left;
+				padding-left: 15px;
 				
 				+ td {
 					text-align: left;
@@ -46,7 +48,7 @@
 		}
 		
 		&--col-1 {
-			width: 33%;
+			width: 22%;
 			
 			&.small {
 				width: 21%;
@@ -54,7 +56,7 @@
 		}
 
 		&--col-2 {
-			width: 22%;
+			width: 30%;
 
 			&.small {
 				width: 17%;
@@ -62,7 +64,7 @@
 		}
 		
 		&--col-3 {
-			width: 22%;
+			width: 12%;
 
 			&.small {
 				width: 14%;
@@ -70,11 +72,15 @@
 		}
 
 		&--col-4 {
-			width: 24%;
+			width: 15%;
 
 			&.small {
 				width: 11%;
 			}
+		}
+
+		&--col-4-1 {
+			width: 25%;
 		}
 
 		&--col-5 {

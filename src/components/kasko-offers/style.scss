@@ -8,6 +8,11 @@
 		list-style: none;
 		padding: 0;
 		margin: 0;
+
+		.disabled & {
+			pointer-events: none;
+			opacity: .3;
+		}
 	}
 	
 	&__item {
@@ -49,7 +54,7 @@
 		&--body {
 			@extend %text2;
 			background: #fff;
-			padding: 9px 15px 15px 15px;
+			padding: 5px 15px 8px 15px;
 			white-space: nowrap;
 			overflow: hidden;
 			max-width: 100%;
@@ -65,14 +70,14 @@
 			}
 			
 			.kasko-offer__slide & {
-				padding-right: 40px;
+				padding-left: 35px;
 				
 				&:before {
 					font-family: $icomoon-font-family;
 					content: $i-plus;
 					position: absolute;
-					right: 12px;
-					top: 16px;
+					left: 12px;
+					top: 15px;
 					font-size: 14px;
 					color: #fff;
 					background: $color-green;

@@ -415,7 +415,7 @@ class KaskoCarSelectNew extends Component {
 						<Row className="kasko-car-select__controls" gutter={20}>
 							<Col span={6}>
 								<Select
-									dropdownClassName="select_dropdown_v1" className={"w_100p" + (this.state.carMark.length ? "" : " _empty")}
+									dropdownClassName="select_dropdown_v1" className={"w_100p" + (this.state.carMark.length ? "" : " _empty") + (step === 1 ? " ant-select-focused" : "")}
 									placeholder=""
 									onChange={this.onMarkChange}
 									value={this.state.carMark}

@@ -311,7 +311,7 @@ class OfferSelect extends Component {
 		
 		let calculationOfferList = [
 			{
-				logo: 'ingosstrakh.png',
+				logo: './logo/ingosstrakh.png',
 				offers: [
 					{
 						name: 'Обычный',
@@ -352,7 +352,7 @@ class OfferSelect extends Component {
 				]
 			},
 			{
-				logo: 'bck.png',
+				logo: './logo/bck.png',
 				offers: [
 					{
 						name: 'Необычный',
@@ -379,7 +379,7 @@ class OfferSelect extends Component {
 		if (step > 1) {
 			calculationOfferList = [
 				{
-					logo: 'ingosstrakh.png',
+					logo: './logo/ingosstrakh.png',
 					offers: [
 						{
 							name: 'Обычный',
@@ -423,7 +423,7 @@ class OfferSelect extends Component {
 
 							<CalculationOffers completed={true} selectedOffer={this.updateSelectedOffer} offersList={[
 								{
-									logo: 'bck.png',
+									logo: './logo/bck.png',
 									offers: [
 										{
 											name: 'Обычный',
@@ -460,43 +460,43 @@ class OfferSelect extends Component {
 										<KaskoOffers onOfferSelect={this.offersUpdate} slider={true} offersList={[
 											{
 												name: 'GAP',
-												price: '+ 10400',
+												price: 10400,
 												prefix: '',
 												suffix: '₽'
 											},
 											{
 												name: 'Несчастный случай',
-												price: '+ 10410',
+												price: 10410,
 												prefix: '',
 												suffix: '₽'
 											},
 											{
 												name: 'Аварийный комиссар',
-												price: '+ 10420',
+												price: 10420,
 												prefix: '',
 												suffix: '₽'
 											},
 											{
 												name: 'Стекла без справок',
-												price: '+ 10430',
+												price: 10430,
 												prefix: '',
 												suffix: '₽'
 											},
 											{
 												name: 'ОСАГО',
-												price: '+ 10410',
+												price: 10410,
 												prefix: '',
 												suffix: '₽'
 											},
 											{
 												name: 'Кредит',
-												price: '+ 10420',
+												price: 10420,
 												prefix: '',
 												suffix: '₽'
 											},
 											{
 												name: '123',
-												price: '+ 10430',
+												price: 10430,
 												prefix: '',
 												suffix: '₽'
 											}
@@ -560,7 +560,7 @@ class OfferSelect extends Component {
 											</Checkbox.Group>
 											</div>
 
-											<div className={"kasko-car-select__caption"}>Срок действия в месяцах</div>
+											<div className={"kasko-car-select__caption fz_12"}>Срок действия в месяцах</div>
 
 											<div className="kasko-car-select__controls radio_v3">
 											<Radio.Group defaultValue={periodOptions[0]} style={{width: '100%'}} onChange={this.onPeriodChange}>
@@ -614,7 +614,7 @@ class OfferSelect extends Component {
 																				onChange={this.onSMSCodeChange}
 																				defaultValue=""/>
 																			<div className="float_placeholder">Код подтверждения</div>
-																			<div className="ant-btn btn_green"
+																			<div className="gl_link"
 																				 onClick={this.toggleSMSSent}>Отправить код повторно</div>
 																		</div>
 																	</div>
