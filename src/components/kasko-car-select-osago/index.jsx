@@ -13,7 +13,7 @@ const {YearPicker} = DatePicker;
 
 moment().locale('ru', ru);
 
-class KaskoCarSelectNew extends Component {
+class KaskoCarSelectOsago extends Component {
 	constructor(props) {
 		super(props);
 		this.state = {
@@ -34,6 +34,8 @@ class KaskoCarSelectNew extends Component {
 			carVIN: '',
 			carPTS: '',
 			carPTSStart: '',
+			carDiagnosticCard: '',
+			carDiagnosticCardEnd: '',
 			carModel: '',
 			carMotorSize: '',
 			carBodyType: '',
@@ -259,6 +261,14 @@ class KaskoCarSelectNew extends Component {
 		this.setState({carPTSStart: e.target.value})
 	};
 
+	onCarDiagnosticCardChange = e => {
+		this.setState({carDiagnosticCard: e.target.value})
+	};
+
+	onCarDiagnosticCardEndChange = e => {
+		this.setState({carDiagnosticCardEnd: e.target.value})
+	};
+
 	onFinish = values => {
 		this.setState({formBusy: true})
 		
@@ -460,128 +470,10 @@ class KaskoCarSelectNew extends Component {
 								<div className="float_placeholder">Год выпуска</div>
 							</Col>
 						</Row>
-		
-						<Row className="kasko-car-select__controls" gutter={20}>
-							<Col span={6}>
-								<Input className={"w_100p custom_placeholder" + (this.state.carRegion.length ? "" : " _empty")}
-									   value={this.state.carRegion}
-									   onChange={this.onCarRegionChange} defaultValue=""/>
-								<div className="float_placeholder">Регион эксплуатации</div>
-							</Col>
-							<Col span={6}>
-								{/*<DatePicker format={dateFormat} value={this.state.carUsageStart ? moment(this.state.carUsageStart) : null}*/}
-								{/*			onChange={this.onCarUsageStartChange} placeholder=""*/}
-								{/*			className={"w_100p hide_picker_icon" + (this.state.carUsageStart && this.state.carUsageStart._isAMomentObject ? "" : " _empty")}/>*/}
-								<Input data-inputmask={dateFormatMask}
-									   className={"w_100p custom_placeholder" + ((this.state.carUsageStart + '').length ? "" : " _empty")}
-									   value={this.state.carUsageStart}
-									   onChange={this.onCarUsageStartChange} defaultValue=""/>
-								<div className="float_placeholder">{'Дата начала \n эксплуатации'}</div>
-							</Col>
-							<Col span={6}>
-								<Select
-									dropdownClassName="select_dropdown_v1"
-									className={"w_100p custom_placeholder" + (this.state.carPowerRange.length ? "" : " _empty")}
-									placeholder=""
-									onChange={this.onCarPowerRangeChange}
-									value={this.state.carPowerRange}
-								>
-									{this.state.carPowerList.map((e, i) => <Option key={i} value={e}>{e}</Option>)}
-								</Select>
-								<div className="float_placeholder">Мощность двигателя</div>
-							</Col>
-						</Row>
-		
-						<Row className="kasko-car-select__controls" gutter={20}>
-							<Col span={6}>
-								<Input data-inputmask={carPowerMask} 
-									   className={"w_100p custom_placeholder" + ((this.state.carMileage + '').length ? "" : " _empty")}
-									   value={this.state.carMileage}
-									   onChange={this.onСarMileageChange}
-									   defaultValue=""/>
-								<div className="float_placeholder">Пробег, км</div>
-							</Col>
-							<Col span={6}>
-								<Input
-									data-inputmask={carPriceMask}
-									className={"w_100p custom_placeholder" + ((this.state.carPrice + '').length ? "" : " _empty")}
-									value={this.state.carPrice}
-									onChange={this.onCarPriceChange} defaultValue=""/>
-								<div className="float_placeholder">Стоимость, ₽</div>
-							</Col>
-							<Col className="checkbox_middle check_v3">
-								<Row gutter={20}>
-									<Col>
-										<Checkbox checked={this.state.carForTaxi ? "checked" : null}
-												  onChange={this.onCarForTaxiChange}>Такси</Checkbox>
-									</Col>
-		
-									{
-										fullCalculation ?
-											<Col>
-												<Checkbox className={allFields ? "wrapper-error" : ""} checked={this.state.carAutoStart ? "checked" : null}
-														  onChange={this.onAutoStartChange}>Автозапуск</Checkbox>
-											</Col>
-											: ""
-									}
-								</Row>
-							</Col>
-						</Row>
-						
+										
 						{
 							fullCalculation ?
 								<>
-									<Row className="kasko-car-select__controls" gutter={20}>
-										<Col span={6}>
-											<Select
-												dropdownClassName="select_dropdown_v1"
-												className={"w_100p custom_placeholder" + (this.state.carMotorType.length ? "" : " _empty")}
-												placeholder=""
-												onChange={this.onCarMotorTypeChange}
-												value={this.state.carMotorType}
-											>
-												{this.state.carMotorTypeList.map((e, i) => <Option key={i} value={e}>{e}</Option>)}
-											</Select>
-											<div className="float_placeholder">Тип двигателя</div>
-										</Col>
-										<Col span={6}>
-											<Select
-												dropdownClassName="select_dropdown_v1"
-												className={"w_100p custom_placeholder" + (this.state.carBodyType.length ? "" : " _empty")}
-												placeholder=""
-												onChange={this.onCarBodyTypeChange}
-												value={this.state.carBodyType}
-											>
-												{this.state.carBodyTypeList.map((e, i) => <Option key={i} value={e}>{e}</Option>)}
-											</Select>
-											<div className="float_placeholder">Тип кузова</div>
-										</Col>
-										<Col span={6}>
-											<Select
-												dropdownClassName="select_dropdown_v1"
-												className={"w_100p custom_placeholder" + (this.state.carTransmissionType.length ? "" : " _empty")}
-												placeholder=""
-												onChange={this.onCarTransmissionTypeChange}
-												value={this.state.carTransmissionType}
-											>
-												{this.state.carTransmissionTypeList.map((e, i) => <Option key={i} value={e}>{e}</Option>)}
-											</Select>
-											<div className="float_placeholder">Тип КПП</div>
-										</Col>
-										<Col span={6}>
-											<Select
-												dropdownClassName="select_dropdown_v1"
-												className={"w_100p custom_placeholder" + (this.state.carMotorSize.length ? "" : " _empty")}
-												placeholder=""
-												onChange={this.onCarMotorSizeChange}
-												value={this.state.carMotorSize}
-											>
-												{this.state.carMotorSizeList.map((e, i) => <Option key={i} value={e}>{e}</Option>)}
-											</Select>
-											<div className="float_placeholder">Объем двигателя</div>
-										</Col>
-									</Row>
-									
 									<Row className="kasko-car-select__controls" gutter={20}>
 										<Col span={6}>
 											<Input
@@ -596,7 +488,7 @@ class KaskoCarSelectNew extends Component {
 												className={"w_100p custom_placeholder " + (allFields ? " input-error" : "") + ((this.state.carPTS + '').length ? "" : " _empty")}
 												value={this.state.carPTS}
 												onChange={this.onCarPTSChange} defaultValue=""/>
-											<div className="float_placeholder">ПТС</div>
+											<div className="float_placeholder">СТС</div>
 										</Col>
 										<Col span={6}>
 											<Input
@@ -604,68 +496,41 @@ class KaskoCarSelectNew extends Component {
 												className={"w_100p custom_placeholder " + (allFields ? " input-error" : "") + ((this.state.carPTSStart + '').length ? "" : " _empty")}
 												value={this.state.carPTSStart}
 												onChange={this.onCarPTSStartChange} defaultValue=""/>
-											<div className="float_placeholder">Дата выдачи ПТС</div>
+											<div className="float_placeholder">Дата выдачи СТС</div>
+										</Col>
+									</Row>
+									<Row className="kasko-car-select__controls" gutter={20}>
+										<Col span={6}>
+											<Input
+												data-inputmask={carVINMask}
+												className={"w_100p custom_placeholder " + (allFields ? " input-error" : "") + ((this.state.carDiagnosticCard + '').length ? "" : " _empty")}
+												value={this.state.carDiagnosticCard}
+												onChange={this.onCarDiagnosticCardChange} defaultValue=""/>
+											<div className="float_placeholder">Диагностическая карта</div>
 										</Col>
 										<Col span={6}>
-											<Select 
-												dropdownClassName="select_dropdown_v1"
-												className={"w_100p custom_placeholder " + (allFields ? "wrapper-error" : "") + (this.state.carATS.length ? "" : " _empty")}
-												placeholder=""
-												onChange={this.onCarATSChange}
-												value={this.state.carATS}
-											>
-												{this.state.carATSList.map((e, i) => <Option key={i} value={e}>{e}</Option>)}
-											</Select>
-											<div className="float_placeholder">Противоугонная система</div>
+											<Input
+												className={"w_100p custom_placeholder " + (allFields ? " input-error" : "") + ((this.state.carDiagnosticCardEnd + '').length ? "" : " _empty")}
+												value={this.state.carDiagnosticCardEnd}
+												onChange={this.onCarDiagnosticCardEndChange} defaultValue=""/>
+											<div className="float_placeholder">Срок действия</div>
 										</Col>
 									</Row>
 								</>
-								: ""
+							: ""
 						}
-		
-						<Row className="kasko-car-select__controls kasko-car-select__controls--price radio_v2 mb_45" gutter={20}>
-							<Col className="kasko-car-select__controls--credit">
-								<Radio.Group className={"w_100p " + (this.state.showAdditional ? "full_form" : "short_form")} onChange={this.onCarCreditChange}>
-									<Row gutter={20}>
-										<Col>
-											<Radio disabled={this.state.allowPayment ? null : "disabled"} checked={this.state.carCredit ? "checked" : ""} value={1}>В кредит</Radio>
-										</Col>
-										<Col>
-											<Radio disabled={this.state.allowPayment ? null : "disabled"} checked={!this.state.carCredit ? "checked" : ""} value={0}>За наличные</Radio>
-										</Col>
-									</Row>
-								</Radio.Group>
-							</Col>
-							
-							{
-								this.state.carCredit ?
-									<Col span={6} className="align_self_start">
-										<Select
-											dropdownClassName="select_dropdown_v1"
-											className={"w_100p custom_placeholder" + (this.state.carBankName.length ? "" : " _empty")}
-											placeholder=""
-											onChange={this.onCarBankNameChange}
-											value={this.state.carBankName}
-										>
-											{this.state.carBankNameList.map((e, i) => <Option key={i} value={e}>{e}</Option>)}
-										</Select>
-										<div className="float_placeholder">Банк</div>
-									</Col>
-									: ""
-							}
-						</Row>
 					</> 
 					: ""
 				}
 				
 				<Row className="kasko-car-select__controls mb_55" gutter={20}>
-					<Col span={6}>
-						<Input className={"w_100p custom_placeholder " + ((this.state.carKaskoDoc + '').length ? "" : " _empty")}
-							   value={(this.state.carKaskoDoc)}
-							   onChange={this.onCarKaskoDocChange}
-							   defaultValue=""/>
-						<div className="float_placeholder">{'Номер действующего \n полиса КАСКО'}</div>
-					</Col>
+					{/*<Col span={6}>*/}
+					{/*	<Input className={"w_100p custom_placeholder " + ((this.state.carKaskoDoc + '').length ? "" : " _empty")}*/}
+					{/*		   value={(this.state.carKaskoDoc)}*/}
+					{/*		   onChange={this.onCarKaskoDocChange}*/}
+					{/*		   defaultValue=""/>*/}
+					{/*	<div className="float_placeholder">{'Номер действующего \n полиса КАСКО'}</div>*/}
+					{/*</Col>*/}
 					<Col span={6}>
 						<Input
 							data-inputmask={dateFormatMask}
@@ -719,4 +584,4 @@ class KaskoCarSelectNew extends Component {
 	}
 }
 
-export default KaskoCarSelectNew;
+export default KaskoCarSelectOsago;

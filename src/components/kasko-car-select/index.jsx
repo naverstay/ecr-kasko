@@ -97,7 +97,7 @@ class KaskoCarSelect extends Component {
 					}
 				}
 
-				this.setState({carFound: allFieldsReady, allowPayment: allFieldsReady, carPrice: (allFieldsReady ? 1000000 : 0)})
+				this.setState({carFound: allFieldsReady, allowPayment: allFieldsReady, carPrice: (allFieldsReady ? 1534000 : 0)})
 
 				setTimeout(() => {
 					if (allFieldsReady) this.updateImage(this.state.carMark)
@@ -310,7 +310,7 @@ class KaskoCarSelect extends Component {
 							<Col span={6}>
 								<Input
 									data-inputmask={carNumberMask}
-									className={"ant-input w_100p text_upper" + (this.state.carNumber.length ? "" : " _empty")}
+									className={"w_100p custom_placeholder text_upper" + (this.state.carNumber.length ? "" : " _empty")}
 									   value={this.state.carNumber}
 									   onChange={this.onCarNumberChange} defaultValue=""/>
 								<div className="float_placeholder">Госномер автомобиля</div>
@@ -336,7 +336,7 @@ class KaskoCarSelect extends Component {
 				<Row className="kasko-car-select__controls" gutter={20}>
 					<Col span={6}>
 						<Select
-							dropdownClassName="select_dropdown_v1" className={"w_100p" + (this.state.carMark.length ? "" : " _empty" + (step === 1 ? " ant-select-focused" : ""))}
+							dropdownClassName="select_dropdown_v1" className={"w_100p custom_placeholder" + (this.state.carMark.length ? "" : " _empty" + (step === 1 ? " ant-select-focused" : ""))}
 							placeholder=""
 							onChange={this.onMarkChange}
 							value={this.state.carMark}
@@ -347,7 +347,7 @@ class KaskoCarSelect extends Component {
 					</Col>
 					<Col span={6}>
 						<Select
-							dropdownClassName="select_dropdown_v1" className={"w_100p" + (this.state.carModel.length ? "" : " _empty")}
+							dropdownClassName="select_dropdown_v1" className={"w_100p custom_placeholder" + (this.state.carModel.length ? "" : " _empty")}
 							placeholder=""
 							onChange={this.onModelChange}
 							value={this.state.carModel}
@@ -358,7 +358,7 @@ class KaskoCarSelect extends Component {
 					</Col>
 					<Col span={6}>
 						<Select
-							dropdownClassName="select_dropdown_v1" className={"w_100p" + (this.state.carEquipment.length ? "" : " _empty")}
+							dropdownClassName="select_dropdown_v1" className={"w_100p custom_placeholder" + (this.state.carEquipment.length ? "" : " _empty")}
 							placeholder=""
 							onChange={this.onEquipmentChange}
 							value={this.state.carEquipment}
@@ -373,7 +373,7 @@ class KaskoCarSelect extends Component {
 						<Select
 							disabled={this.state.newCar ? "disabled" : ""}
 							dropdownClassName="select_dropdown_v1"
-							className={"w_100p" + ((this.state.carYear + '').length ? "" : " _empty")}
+							className={"w_100p custom_placeholder" + ((this.state.carYear + '').length ? "" : " _empty")}
 							placeholder=""
 							onChange={this.onCarYearChange}
 							value={this.state.carYear}
@@ -391,19 +391,19 @@ class KaskoCarSelect extends Component {
 								<Col span={6}>
 									<Input
 										data-inputmask={carPriceMask}
-										className={"ant-input w_100p" + ((this.state.carPrice + '').length ? "" : " _empty")} 
+										className={"w_100p custom_placeholder" + ((this.state.carPrice + '').length ? "" : " _empty")} 
 										 value={this.state.carPrice}
 										 onChange={this.onCarPriceChange} defaultValue=""/>
 									<div className="float_placeholder">Стоимость, ₽</div>
 								</Col>
 								<Col span={6}>
-									<Input disabled className={"w_100p" + ((this.state.carMileage + '').length ? "" : " _empty")}
+									<Input disabled className={"w_100p custom_placeholder" + ((this.state.carMileage + '').length ? "" : " _empty")}
 										   value={formatMoney(this.state.carMileage)}
 										   defaultValue=""/>
 									<div className="float_placeholder">Пробег, км</div>
 								</Col>
 								<Col span={6}>
-									<Input className={"w_100p" + (this.state.carRegion.length ? "" : " _empty")}
+									<Input className={"w_100p custom_placeholder" + (this.state.carRegion.length ? "" : " _empty")}
 										   value={this.state.carRegion}
 										   onChange={this.onCarRegionChange} defaultValue=""/>
 									<div className="float_placeholder">Регион эксплуатации</div>
@@ -413,7 +413,7 @@ class KaskoCarSelect extends Component {
 									{/*			onChange={this.onCarUsageChange} placeholder=""*/}
 									{/*			className={"w_100p hide_picker_icon" + (this.state.carUsageStart && this.state.carUsageStart._isAMomentObject ? "" : " _empty")}/>*/}
 									<Input data-inputmask={dateFormatMask}
-										className={"w_100p" + ((this.state.carUsageStart + '').length ? "" : " _empty")}
+										className={"w_100p custom_placeholder" + ((this.state.carUsageStart + '').length ? "" : " _empty")}
 										   value={this.state.carUsageStart}
 										   onChange={this.onCarUsageChange} defaultValue=""/>
 									<div className="float_placeholder">{'Дата начала \n эксплуатации'}</div>
@@ -422,7 +422,7 @@ class KaskoCarSelect extends Component {
 
 							<Row className="kasko-car-select__controls" gutter={20}>
 								<Col span={6}>
-									<Input className={"w_100p" + ((this.state.carPower + '').length ? "" : " _empty")}
+									<Input className={"w_100p custom_placeholder" + ((this.state.carPower + '').length ? "" : " _empty")}
 										   data-inputmask={carPowerMask}
 										   value={this.state.carPower}
 										   onChange={this.onCarPowerChange} defaultValue=""/>
@@ -430,7 +430,7 @@ class KaskoCarSelect extends Component {
 								</Col>
 								<Col span={6}>
 									<Select
-										dropdownClassName="select_dropdown_v1" className={"w_100p" + (this.state.carATS.length ? "" : " _empty")}
+										dropdownClassName="select_dropdown_v1" className={"w_100p custom_placeholder" + (this.state.carATS.length ? "" : " _empty")}
 										placeholder=""
 										onChange={this.onATSChange}
 										value={this.state.carATS}
@@ -496,24 +496,32 @@ class KaskoCarSelect extends Component {
 						{
 							name: 'Кредит',
 							price: 10400,
+							button: 'Рассчитать',
+							link: '/credit',
 							prefix: 'от',
 							suffix: '₽/мес'
 						},
 						{
 							name: 'ОСАГО',
 							price: 10410,
+							button: 'Рассчитать',
+							link: '/osago',
 							prefix: 'от',
 							suffix: '₽'
 						},
 						{
 							name: 'КАСКО',
 							price: 10420,
+							button: 'Рассчитать',
+							link: '/kasko',
 							prefix: 'от',
 							suffix: '₽'
 						},
 						{
 							name: 'GAP',
 							price: 10430,
+							button: 'Рассчитать',
+							link: '/gap',
 							prefix: 'от',
 							suffix: '₽'
 						}
@@ -523,24 +531,28 @@ class KaskoCarSelect extends Component {
 						{
 							name: 'Кредит',
 							price: 0,
+							button: 'Рассчитать',
 							prefix: 'от',
 							suffix: '₽/мес'
 						},
 						{
 							name: 'ОСАГО',
 							price: 0,
+							button: 'Рассчитать',
 							prefix: 'от',
 							suffix: '₽'
 						},
 						{
 							name: 'КАСКО',
 							price: 0,
+							button: 'Рассчитать',
 							prefix: 'от',
 							suffix: '₽'
 						},
 						{
 							name: 'GAP',
 							price: 0,
+							button: 'Рассчитать',
 							prefix: 'от',
 							suffix: '₽'
 						}

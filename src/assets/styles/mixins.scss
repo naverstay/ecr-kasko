@@ -285,10 +285,10 @@
 		display: inline-block;
 		vertical-align: top;
 		position: relative;
-		padding: 8px 15px;
+		padding: 8px 5px;
 		margin-right: 0;
 		height: 60px;
-		min-width: 70px;
+		width: 70px;
 
 		&:hover {
 			.ant-checkbox-inner {
@@ -337,8 +337,12 @@
 		+ span {
 			@extend %text2;
 			padding: 0;
-			display: block;
+			//display: block;
 			text-align: center;
+			display: flex;
+			flex-flow: column nowrap;
+			justify-content: center;
+			height: 100%;
 		}
 
 		&:not(.ant-radio-checked) {
@@ -369,10 +373,10 @@
 		display: inline-block;
 		vertical-align: top;
 		position: relative;
-		padding: 8px 15px;
+		padding: 8px 5px;
 		margin-right: 0;
-		height: 60px;
-		min-width: 70px;
+		height: 70px;
+		width: 70px;
 		margin-top: 0;
 
 		&:hover {

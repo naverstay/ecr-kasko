@@ -175,6 +175,10 @@
 			}
 		}
 		
+		&.mb_0 {
+			margin-bottom: 0;
+		}
+		
 		&.mb_10 {
 			margin-bottom: 10px;
 		}
@@ -344,8 +348,7 @@
 		.slick-arrow {
 			cursor: pointer;
 			position: absolute;
-			top: 50%;
-			margin-top: -7px;
+			top: 53px;
 			font-size: 0;
 			width: 22px;
 			height: 22px;
@@ -392,13 +395,21 @@
 			@extend %h1;
 			display: block;
 			margin-bottom: 5px;
-			margin-top: 7px;
+			//margin-top: 7px;
 			color: inherit;
 			font-weight: 500;
+			
+			&.small {
+				font-size: 16px;
+				line-height: 18px;
+				max-width: 100%;
+				margin: 4px 0;
+				white-space: normal;
+			}
 		}
 		
 		&--label {
-			@extend %text1;
+			@extend %text3;
 			color: inherit;
 		}
 	}

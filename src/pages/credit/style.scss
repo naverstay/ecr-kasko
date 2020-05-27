@@ -33,10 +33,6 @@ $aside-size: 226px;
 		//padding: 0 10px;
 		//max-width: calc(100vw - #{$aside-size * 2 + 100px});
 		
-		&__wide {
-			margin: 0 -25.666667%;
-		}
-		
 		&__title {
 			@extend %h1;
 			text-align: center;

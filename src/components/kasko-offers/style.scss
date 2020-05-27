@@ -32,21 +32,52 @@
 			overflow: hidden;
 			max-width: 100%;
 			text-overflow: ellipsis;
+			display: flex;
+			justify-content: space-between;
+			align-items: center;
 
 			.kasko-offer__slide & {
 				font-size: 12px;
-				padding-left: 32px;
 
-				&:before {
-					font-family: $icomoon-font-family;
-					content: $i-chevron_r;
-					position: absolute;
-					left: 10px;
-					top: 50%;
-					margin-top: -8px;
-					font-size: 16px;
-					line-height: 1;
-					color: $color-grey;
+				&:not(.no_arrow) {
+					padding-left: 32px;
+
+					&:before {
+						transition: transform 0.5s;
+						font-family: $icomoon-font-family;
+						content: $i-chevron_r;
+						position: absolute;
+						left: 10px;
+						top: 50%;
+						margin-top: -8px;
+						font-size: 16px;
+						line-height: 1;
+						color: $color-grey;
+					}
+				}
+			}
+
+			.kasko-offer__slide.credit & {
+				font-size: 12px;
+
+				&.toggle_icon {
+					padding-right: 40px;
+
+					&:after {
+						font-family: $icomoon-font-family;
+						content: $i-plus;
+						position: absolute;
+						right: 15px;
+						top: 15px;
+						font-size: 14px;
+						color: #fff;
+						background: $color-green;
+						width: 20px;
+						height: 20px;
+						border-radius: 100%;
+						text-align: center;
+						line-height: 20px;
+					}
 				}
 			}
 		}
@@ -69,7 +100,7 @@
 				}
 			}
 			
-			.kasko-offer__slide & {
+			.kasko-offer__slide:not(.credit) & {
 				padding-left: 35px;
 				
 				&:before {
@@ -87,6 +118,30 @@
 					text-align: center;
 					line-height: 20px;
 				}
+			}
+		}
+		
+		&--btn {
+			@extend %text2;
+			position: relative;
+			display: inline-block;
+			vertical-align: top;
+			height: 26px;
+			border-radius: 13px;
+			color: #000;
+			padding: 6px 25px 6px 10px;
+			background: $color-blue-light;
+			box-sizing: border-box;
+			margin: -5px 0;
+
+			&:before {
+				color: #fff;
+				font-family: $icomoon-font-family;
+				content: $i-chevron_r;
+				position: absolute;
+				right: 8px;
+				top: 50%;
+				margin-top: -7px;
 			}
 		}
 		
@@ -119,7 +174,151 @@
 			padding: 0 4px;
 		}
 		
+		&--info {
+			display: none;
+			padding: 2px 15px;
+
+			.active & {
+				display: block;
+			}
+		}
+		
+		&--period {
+			@extend %text2;
+			color: #808080;
+			margin-bottom: 4px;
+		}
+		
+		&--info-close {
+			@extend %text2;
+			text-decoration: underline;
+			color: $color-grey;
+			display: inline-block;
+			vertical-align: top;
+			margin-top: 15px;
+			margin-bottom: 12px;
+
+			&:hover {
+				text-decoration: none;
+			}
+		}
+		
+		&--info-list {
+			margin: 8px -15px 0;
+			list-style: none;
+			padding: 13px 0 7px;
+			background: rgba(126, 191, 237, 0.15);
+			
+			li {
+				@extend %text3;
+				position: relative;
+				padding: 0 10px 0 31px;
+				margin-bottom: 8px;
+
+				&:before {
+					transition: transform .25s;
+					font-family: $icomoon-font-family;
+					content: $i-check;
+					color: $color-blue-light;
+					font-size: 11px;
+					top: 2px;
+					left: 12px;
+					position: absolute;
+				}
+			}
+		}
+		
+		&--period-input {
+			position: relative;
+			margin: 0 26px 8px;
+			width: 28px;
+			border: none;
+
+			.ant-input-number-handler-wrap {
+				width: 100%;
+				opacity: 1;
+				border: none;
+			}
+			
+			.ant-input-number-input-wrap {
+				position: relative;
+				z-index: 1;
+				
+				input.ant-input-number-input {
+					box-sizing: border-box;
+					margin: 0;
+					font-variant: tabular-nums;
+					list-style: none;
+					font-feature-settings: 'tnum';
+					position: relative;
+					display: inline-block;
+					width: 100%;
+					min-width: 0;
+					padding: 4px 2px;
+					text-align: center;
+					color: rgba(0, 0, 0, 0.65);
+					font-size: 14px;
+					line-height: 15px;
+					background-color: #fff;
+					background-image: none;
+					border: 1px solid #d9d9d9;
+					border-radius: 2px;
+					transition: all 0.3s;
+					height: 26px;
+				}
+			}
+
+			.ant-input-number-handler-up-inner, 
+			.ant-input-number-handler-down-inner {
+				display: none !important;
+			}
+			
+			.ant-input-number-handler {
+				position: absolute;
+				width: 16px;
+				height: 16px !important;
+				top: 50%;
+				margin-top: -8px;
+				border-radius: 100%;
+				text-align: center;
+				
+				svg {
+					display: none;
+				}
+
+				&:before {
+					font-family: $icomoon-font-family;
+					font-size: 10px;
+				}
+			}
+
+			.ant-input-number-handler-up {
+				color: #fff;
+				background: $color-green;
+				right: -26px;
+
+				&:before {
+					line-height: 16px;
+					content: $i-plus;
+				}
+			}
+
+			.ant-input-number-handler-down {
+				color: $color-grey;
+				background: #e5e5e5;
+				left: -26px;
+
+				&:before {
+					line-height: 14px;
+					content: $i-minus;
+				}
+			}
+			
+		}
+		
 		&.active {
+			border-color: $color-blue-light;
+			
 			.kasko-offer__item--title {
 				background: $color-blue-light;
 				
@@ -128,7 +327,18 @@
 				}
 			}
 
-			.kasko-offer__slide & {
+			&.collapsable .kasko-offer__item--title:before {
+				transform: rotate(90deg);
+			}
+
+			.kasko-offer__slide.credit & {
+				.kasko-offer__item--title.toggle_icon:after {
+					content: $i-minus;
+					background-color: opacify($color-grey, .5);
+				}
+			}
+
+			.kasko-offer__slide:not(.credit) & {
 				.kasko-offer__item--title {
 
 					&:before {

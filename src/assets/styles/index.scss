@@ -47,10 +47,9 @@ input {
 	.ant-select + & {
 		right: 40px;
 	}
-
 }
 
-.ant-select-selection-item {
+.custom_placeholder .ant-select-selection-item {
 	padding-top: 7px !important;
 }
 
@@ -58,7 +57,7 @@ input {
 	transform: translate(0, 6px);
 }
 
-.ant-input {
+.custom_placeholder.ant-input {
 	padding-top: 20px !important;
 	padding-bottom: 6px !important;
 }
@@ -70,8 +69,12 @@ input {
 	pointer-events: none;
 }
 
-.btn_green {
-	&.ant-btn {
+.ant-btn {
+	&.fz_14 {
+		font-size: 14px;
+	}
+	
+	&.btn_green {
 		&:not(.disabled) {
 			border-color: $color-green;
 			color: $color-green;
@@ -240,6 +243,24 @@ $spinner_time: 1s;
 
 	.ant-select-arrow {
 		display: none;
+	}
+}
+
+.ant-select {
+	&.select_v2 {
+		margin-left: -7px;
+
+		.ant-select-selector {
+			border: 0 !important;
+		}
+
+		.ant-select-selection-item {
+			text-decoration: underline;
+		}
+		
+		.ant-select-arrow {
+			margin-top: -7px;
+		}
 	}
 }
 

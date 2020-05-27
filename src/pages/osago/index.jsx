@@ -11,7 +11,7 @@ import PropTypes from 'prop-types';
 import './style.scss';
 import OfferSelect from "../../components/offer-select";
 
-class Kasko extends Component {
+class Osago extends Component {
 	constructor(props) {
 		super(props);
 		this.state = {
@@ -44,7 +44,7 @@ class Kasko extends Component {
 		if (step === 2) {
 			events.push({
 					progress: 1,
-					name: 'КАСКО',
+					name: 'ОСАГО',
 					status: 'Ожидание оплаты / Ингосстрах',
 					time: '9:50'
 				})
@@ -53,13 +53,13 @@ class Kasko extends Component {
 		if (step === 3) {
 			events.push({
 				progress: 2,
-				name: 'КАСКО',
+				name: 'ОСАГО',
 				status: 'Выпущено / ВСК',
 				time: '9:50'
 			})
 			events.push({
 				progress: 1,
-				name: 'КАСКО',
+				name: 'ОСАГО',
 				status: 'Ожидание оплаты / ВСК',
 				time: '9:50'
 			})
@@ -70,16 +70,7 @@ class Kasko extends Component {
 			<Row gutter={20} className="kasko-wrapper">
 				<Col span={4} className="kasko-aside"/>
 				<Col span={16} className="kasko-main">
-					{showOffers === false ?
-						<>
-							<h1 className="kasko-main__title">Автомобиль</h1>
-							<KaskoCarSelect imageCallback={this.imageCallback} step={step} image={this.state.carImage} />
-						</>
-						:
-						<>
-							<OfferSelect imageCallback={this.imageCallback} step={step} image={this.state.carImage} type={showOffers}/>
-						</>
-					}
+					<OfferSelect osago={true} imageCallback={this.imageCallback} step={step} image={this.state.carImage} type={showOffers}/>
 				</Col>
 				<Col span={4} className="kasko-aside"/>
 			</Row>
@@ -94,7 +85,7 @@ class Kasko extends Component {
 					</AsideBlock>
 
 					<AsideBlock>
-						<KaskoCarInfo step={step} notificationCount={step === 2 ? 1 : step === 3 ? 2 : 0}
+						<KaskoCarInfo osago={true} step={step} notificationCount={step === 2 ? 1 : step === 3 ? 2 : 0}
 									  carName={step === 1 ? '' : 'Hyundai'} carModel={step === 1 ? '' : 'Sonata'} image={this.state.carImage}
 									  info={step === 1 ? '' : "2020 Новый"}
 									  price={step === 1 ? '' : "1 534 000 ₽"}/>
@@ -122,4 +113,4 @@ class Kasko extends Component {
 	}
 }
 
-export default Kasko
+export default Osago

@@ -22,17 +22,16 @@ class KaskoOffers extends Component {
 	};
 
 	toggleActiveOffer = (offer) => {
-		console.log('toggleActiveOffer', offer);
-		//const active = e.target.classList.contain('active')
-		// e.target.classList.toggleClass('active', !active)
-		
-		
-		this.props.onOfferSelect(offer)
+		if (typeof this.props.onOfferSelect === 'function') {
+			this.props.onOfferSelect(offer)
+		}
 	}
 
 	render() {
-		let {offersList, slider, onOfferSelect, disabled} = this.props
+		let {offersList, slider, onOfferSelect, disabled, credit, active} = this.props
 
+		console.log('active', active);
+		
 		let carouselSettings = {
 			dots: false,
 			infinite: true,
@@ -45,13 +44,13 @@ class KaskoOffers extends Component {
 			slider ?
 				<Slider {...carouselSettings}>
 					{
-						offersList.map((o, i) => <OfferItem key={i} onOfferSelect={onOfferSelect} slider={true} index={i} offer={o} />)
+						offersList.map((o, i) => <OfferItem active={active && active.length && active.indexOf(i) > -1} key={i} credit={credit} onOfferSelect={onOfferSelect} slider={true} index={i} offer={o} />)
 					}
 				</Slider>
 			: 
 			<div className={"kasko-offer" + (disabled ? " disabled" : "")}>
 				<Row gutter={20} className="kasko-offer__list">
-					{offersList.map((o, i) => <OfferItem key={i} index={i} offer={o}/>)}
+					{offersList.map((o, i) => <OfferItem active={active && active.length && active.indexOf(i) > -1} key={i} index={i} offer={o}/>)}
 				</Row>
 
 				{disabled ? "" :

@@ -10,6 +10,7 @@ import DriverInfo from "../driver-info";
 import ClientInfo from "../client-info";
 import ClientInfoNew from "../client-info-new";
 import DriverCount from "../driver-count";
+import KaskoCarSelectOsago from "../kasko-car-select-osago";
 
 class CalculationPopup extends Component {
 	constructor(props) {
@@ -87,7 +88,7 @@ class CalculationPopup extends Component {
 	}
 
 	render() {
-		let {popupCloseFunc, step, allFields, updatePaymentState} = this.props
+		let {popupCloseFunc, step, allFields, updatePaymentState, osago} = this.props
 
 		let driverOptions = [];
 
@@ -100,14 +101,14 @@ class CalculationPopup extends Component {
 				<div className="calculation-popup__inner">
 					<div className="calculation-popup__close" onClick={popupCloseFunc}/>
 
-					<div className={"kasko-car-select__calculation" + (allFields || this.state.fullCalculation ? ' active' : '')}>
+					{!osago ? <div className={"kasko-car-select__calculation" + (allFields || this.state.fullCalculation ? ' active' : '')}>
 						<span className="kasko-car-select__calculation--text">Предварительный расчет</span>
 						<Switch checked={allFields || this.state.fullCalculation} className="kasko-car-select__calculation--switch" onChange={this.onCalculationTypeChange}/>
 						<span className="kasko-car-select__calculation--text">Окончательный расчет</span>
-					</div>
+					</div> : ""}
 
 					{
-						allFields ?
+						(!osago && allFields) ?
 							<>
 								<h1 className="kasko-main__title">Поля к заполнению</h1>
 								{/*<ClientInfo fullCalculation={this.state.fullCalculation}/>*/}
@@ -119,8 +120,11 @@ class CalculationPopup extends Component {
 					<h1 onClick={allFields ? this.onToggleCarFields : null} className={"kasko-main__title" + (allFields ? (this.state.showCarFields ? " expanded" : " collapsed") : "")}>Автомобиль</h1>
 					
 					{/*<KaskoCarSelect hideOffers={true} allFields={true}/>*/}
-					<KaskoCarSelectNew hideOffers={true} allFields={allFields} expanded={(step === void 0) || this.state.showCarFields} fullCalculation={this.state.fullCalculation}/>
-
+					{!osago ?
+						<KaskoCarSelectNew hideOffers={true} allFields={allFields} expanded={(step === void 0) || this.state.showCarFields} fullCalculation={this.state.fullCalculation}/>
+						: 
+						<KaskoCarSelectOsago hideOffers={true} allFields={allFields} expanded={(step === void 0) || this.state.showCarFields} fullCalculation={this.state.fullCalculation}/>
+					}
 					<h1 onClick={allFields ? this.onToggleClientFields : null} className={"kasko-main__title" + (allFields ? (this.state.showClientFields ? " expanded" : " collapsed") : "")}>Анкета клиента</h1>
 					
 					{
@@ -136,7 +140,7 @@ class CalculationPopup extends Component {
 							: ""
 					}
 					
-					<DriverInfo calculationSave={updatePaymentState} expanded={(step !== 2) || this.state.showClientFields} fullCalculation={this.state.fullCalculation} />
+					<DriverInfo osago={osago} calculationSave={updatePaymentState} expanded={(step !== 2) || this.state.showClientFields} fullCalculation={this.state.fullCalculation} />
 
 				</div>
 			</div>

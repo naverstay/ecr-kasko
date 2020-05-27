@@ -1,0 +1,67 @@
+@import 'src/assets/styles/global';
+
+.credit-additional {
+
+	&__list {
+		list-style-type: none;
+		margin: 0 0 30px;
+		padding: 0;
+		
+		> li {
+			margin-bottom: 5px;
+		}
+	}
+	
+	&__item {
+		background: #deeefa;
+		position: relative;
+		border-radius: 5px;
+		padding: 8px 20px 8px 17px;
+		
+		&--title {
+			@extend %text2;
+			font-weight: bold;
+		}
+	}
+	
+	&__remove {
+		position: absolute;
+		top: 10px;
+		right: 10px;
+		width: 10px;
+		height: 10px;
+		color: #fff;
+		transition: color .3s;
+
+		&:before {
+			font-family: $icomoon-font-family;
+			content: $i-close;
+			font-size: 10px;
+			line-height: 1;
+			top: 0;
+			cursor: pointer;
+			position: absolute;
+		}
+		
+		&:hover {
+			color: $color-prime;
+		}
+	}
+	
+	&__options {
+		list-style: none;
+		padding: 0;
+		margin: 0 0 4px;
+		overflow: hidden;
+	}
+	
+	&__option {
+		margin-top: 4px;
+		@extend %text2;
+
+		&.short {
+			float: left;
+			width: 50%;
+		}
+	}
+}

@@ -21,9 +21,10 @@ class OfferSelect extends Component {
 		super(props);
 		this.state = {
 			carFound: void 0,
-			fullCalculation: (this.props.step === 2),
+			fullCalculation: this.props.osago || (this.props.step === 2),
 			showCalculationOffers: this.props.step > 1,
 			showParams: false,
+			openParams: true,
 			SMSSent: true,
 			calculationPopupOpened: false,
 			formBusy: false,
@@ -68,7 +69,7 @@ class OfferSelect extends Component {
 			showCompare: false,
 			availablePayment: false,
 			showMoreDamages: false,
-			paramsChanged: false,
+			paramsChanged: true,
 			selectedOffers: [],
 			activeOffers: this.props.step > 1 ? [1] : []
 		};
@@ -147,6 +148,12 @@ class OfferSelect extends Component {
 				showPayment: value
 			})
 		}
+
+		if (this.props.osago) {
+			this.setState({
+				activeOffers: [1]
+			})
+		}
 		
 		this.toggleCalculationPopup()
 	}
@@ -171,7 +178,7 @@ class OfferSelect extends Component {
 	}
 
 	toggleShowParams = () => {
-		this.setState({showParams: !this.state.showParams})
+		this.state.showCalculationOffers && this.setState({openParams: !this.state.openParams})
 	}
 
 	toggleSMSSent = () => {
@@ -179,7 +186,7 @@ class OfferSelect extends Component {
 	}
 
 	calculationButtonText = () => {
-		return this.state.showPayment || (this.props.step === 2) ? 'Анкета КАСКО заполните 0 полей' : this.state.fullCalculation ? 'Для окончательного расчетазаполните 20 полей ' : 'Для расчета заполните  10 полей'
+		return (this.state.showPayment || (this.props.step === 2) || (this.props.osago && this.state.activeOffers.length)) ? 'Анкета ' + (this.props.osago ? 'ОСАГО' : 'КАСКО') + ' заполните 0 полей' : this.state.fullCalculation ? (this.props.osago ? 'Для расчета заполните 20 полей' : 'Для окончательного расчетазаполните 20 полей') : 'Для расчета заполните  10 полей'
 	}
 
 	offersUpdate = (offer) => {
@@ -196,23 +203,24 @@ class OfferSelect extends Component {
 		
 		this.setState({
 			activeOffers: activeOffers,
-			paramsChanged: true
+			//paramsChanged: true
 		});
 	};
 
 	toggleCalculationOffers = e => {
-		if (this.state.activeOffers.length && this.state.paramsChanged) {
+		if (this.state.paramsChanged) {
 			this.setState({
 				fullCalculation: true,
 				showCalculationOffers: true,
-				paramsChanged: false
+				openParams: false,
+				//paramsChanged: false
 			});
 		}
 	};
 	
 	onDamagesChange = (checkedValues) => {
 		this.setState({
-			paramsChanged: true
+			//paramsChanged: true
 		})
 	}
 
@@ -224,13 +232,13 @@ class OfferSelect extends Component {
 	
 	onPeriodChange = (e) => {
 		this.setState({
-			paramsChanged: true
+			//paramsChanged: true
 		})
 	}
 	
 	onFranchiseChange = e => {
 		this.setState({
-			paramsChanged: true,
+			//paramsChanged: true,
 			hasFranchise: e.target.value > 0,
 		});
 	};
@@ -249,7 +257,7 @@ class OfferSelect extends Component {
 
 	onCarCreditChange = e => {
 		this.setState({
-			paramsChanged: true,
+			//paramsChanged: true,
 			carCredit: !!e.target.value
 		});
 	};
@@ -267,7 +275,7 @@ class OfferSelect extends Component {
 	}
 	
 	render() {
-		const {step} = this.props;
+		const {step, osago} = this.props;
 		let {image} = this.props;
 		
 		const periodPlurals = ['месяц', 'месяца', 'месяцев'];
@@ -385,6 +393,8 @@ class OfferSelect extends Component {
 							name: 'Обычный',
 							price: 41450,
 							dealerFee: 4145,
+							dateStart: '20.02.19',
+							dateEnd: '19.02.20',
 							options: optionsFixtures
 						}
 					]
@@ -407,7 +417,7 @@ class OfferSelect extends Component {
 		return (
 			<>
 				<div className="kasko-car-select">
-					<h1 className="kasko-main__title">Рассчитать КАСКО</h1>
+					<h1 className="kasko-main__title">{'Рассчитать ' + (osago ? 'ОСАГО' : 'КАСКО')}</h1>
 	
 					<div className="kasko-car-select__controls">
 						<Link className="gl_link color_black" to="/kasko">Автомобиль</Link>
@@ -421,7 +431,7 @@ class OfferSelect extends Component {
 						<>
 							<h1 className="kasko-main__title">Полис оплачен</h1>
 
-							<CalculationOffers completed={true} selectedOffer={this.updateSelectedOffer} offersList={[
+							<CalculationOffers osago={osago} completed={true} selectedOffer={this.updateSelectedOffer} offersList={[
 								{
 									logo: './logo/bck.png',
 									offers: [
@@ -436,28 +446,67 @@ class OfferSelect extends Component {
 									]
 								}
 							]}/>
-						
+
+							<KaskoOffers active={[(osago ? 1 : 2)]} offersList={[
+								{
+									name: 'Кредит',
+									price: 10400,
+									button: 'Рассчитать',
+									link: '/credit',
+									prefix: 'от',
+									suffix: '₽/мес'
+								},
+								{
+									name: 'ОСАГО',
+									price: 10410,
+									button: 'Рассчитать',
+									link: '/osago',
+									prefix: 'от',
+									suffix: '₽'
+								},
+								{
+									name: 'КАСКО',
+									price: 10420,
+									button: 'Рассчитать',
+									link: '/kasko',
+									prefix: 'от',
+									suffix: '₽'
+								},
+								{
+									name: 'GAP',
+									price: 10430,
+									button: 'Рассчитать',
+									link: '/gap',
+									prefix: 'от',
+									suffix: '₽'
+								}
+							]}/>
+							
 						</>
 						:
 						<>
-							<div className={"kasko-car-select__calculation" + (this.state.fullCalculation ? ' active' : '') + (this.state.showPayment || (step === 2) ? ' disabled' : '')}>
-								<span className="kasko-car-select__calculation--text">Предварительный расчет</span>
-								<Switch checked={this.state.fullCalculation} className="kasko-car-select__calculation--switch" onChange={this.onCalculationTypeChange}/>
-								<span className="kasko-car-select__calculation--text">Окончательный расчет</span>
-							</div>
+							{!osago ? 
+								<div className={"kasko-car-select__calculation" + (this.state.fullCalculation ? ' active' : '') + (this.state.showPayment || (step === 2) ? ' disabled' : '')}>
+									<span className="kasko-car-select__calculation--text">Предварительный расчет</span>
+									<Switch checked={this.state.fullCalculation}
+											className="kasko-car-select__calculation--switch"
+											onChange={this.onCalculationTypeChange}/>
+									<span className="kasko-car-select__calculation--text">Окончательный расчет</span>
+								</div> 
+								: ""
+							}
 			
 							<div className="kasko-car-select__controls ant-row-center mb_45">
-								<Button htmlType="submit" className={"ant-btn-primary btn_wide"} onClick={this.toggleCalculationPopup}>{this.calculationButtonText()}</Button>
+								<Button htmlType="submit" className={"btn_wide" + ((osago && step === 2) ? " btn_green" : " ant-btn-primary")} onClick={this.toggleCalculationPopup}>{this.calculationButtonText()}</Button>
 							</div>
 							
 							{(step !== 2) ?
 								<>
-									<div className="kasko-car-select__caption">
-										Добавить в КАСКО
-									</div>
-									
-									<div className="kasko-car-select__carousel">
-										<KaskoOffers onOfferSelect={this.offersUpdate} slider={true} offersList={[
+									{!osago ? <>
+										<div className="kasko-car-select__caption">{'Добавить в КАСКО'}</div>
+										
+										<div className="kasko-car-select__carousel">
+										<KaskoOffers onOfferSelect={this.offersUpdate} credit={true} slider={true} offersList={[
 											{
 												name: 'GAP',
 												price: 10400,
@@ -503,87 +552,109 @@ class OfferSelect extends Component {
 										]}/>
 									</div>
 									
-									{
-										(!this.state.showCalculationOffers || this.state.showParams) ?
+									</> : "" }
+
+									{!osago ? <div onClick={this.toggleShowParams}
+										 className={"kasko-car-select__caption" + (this.state.showCalculationOffers ? (this.state.openParams ? " expanded" : " collapsed") : "")}>Параметры КАСКО</div> : "" }
+									
+									{(!this.state.showCalculationOffers || this.state.openParams || osago) ?
 										<>
-											<div className="kasko-car-select__controls radio_v2 wide_group">
-												<Radio.Group defaultValue={this.state.hasFranchise ? 1 : 0}
-															 onChange={this.onFranchiseChange}>
-													<Row gutter={20}>
-														<Col>
-															<Radio value={0}>Без франшизы</Radio>
-														</Col>
-														<Col>
-															<Radio value={1}>Франшиза с 1 случая</Radio>
-														</Col>
-														<Col>
-															<Radio value={2}>Франшиза со 2 случая</Radio>
-														</Col>
-			
-														{this.state.hasFranchise ?
-															<Col className={"kasko-car-select__controls--flex-1"}>
-																<Slider className="kasko-car-select__franchise"
-																		step={null}
-																		tooltipVisible={false}
-																		tipFormatter={this.onFranchiseTooltip}
-																		onAfterChange={this.onFranchiseValueChange}
-																		marks={franchiseSteps}
-																		defaultValue={franchiseSteps[2]}/>
-															</Col>
-															: ""
-														}
-													</Row>
-												</Radio.Group>
-											</div>
-
-											<div className="kasko-car-select__controls check_v2 mb_10">
-											<Checkbox.Group defaultValue={damageOptions.map((o, i) => i)} onChange={this.onDamagesChange}>
-											<Row gutter={20}>
-											{
+											{!osago ?
 												<>
-													{
-														damageOptions.slice(0, (this.state.showMoreDamages ? damageOptions.length : 3)).map((c, i) =>
-															<Col key={i}>
-																<Checkbox value={i}>{c}</Checkbox>
-															</Col>
-														)
-													}
-													<Col>
-														<div className="kasko-offer__more">
-															<div onClick={this.onShowMoreDamagesChange}
-																 className="gl_link">{this.state.showMoreDamages ? "Скрыть" : "Показать еще"}</div>
-														</div>
-													</Col>
+													<div className="kasko-car-select__controls radio_v2 wide_group">
+														<Radio.Group defaultValue={this.state.hasFranchise ? 1 : 0}
+																	 onChange={this.onFranchiseChange}>
+															<Row gutter={20}>
+																<Col>
+																	<Radio value={0}>Без франшизы</Radio>
+																</Col>
+																<Col>
+																	<Radio value={1}>Франшиза с 1 случая</Radio>
+																</Col>
+																<Col>
+																	<Radio value={2}>Франшиза со 2 случая</Radio>
+																</Col>
+	
+																{this.state.hasFranchise ?
+																	<Col className={"kasko-car-select__controls--flex-1"}>
+																		<Slider className="kasko-car-select__franchise"
+																				step={null}
+																				tooltipVisible={false}
+																				tipFormatter={this.onFranchiseTooltip}
+																				onAfterChange={this.onFranchiseValueChange}
+																				marks={franchiseSteps}
+																				defaultValue={franchiseSteps[2]}/>
+																	</Col>
+																	: ""
+																}
+															</Row>
+														</Radio.Group>
+													</div>
+	
+													<div className="kasko-car-select__controls check_v2 mb_10">
+														<Checkbox.Group defaultValue={damageOptions.map((o, i) => i)}
+																		onChange={this.onDamagesChange}>
+															<Row gutter={20}>
+																{
+																	<>
+																		{
+																			damageOptions.slice(0, (this.state.showMoreDamages ? damageOptions.length : 3)).map((c, i) =>
+																				<Col key={i}>
+																					<Checkbox value={i}>{c}</Checkbox>
+																				</Col>
+																			)
+																		}
+																		<Col>
+																			<div className="kasko-offer__more">
+																				<div onClick={this.onShowMoreDamagesChange}
+																					 className="gl_link">{this.state.showMoreDamages ? "Скрыть" : "Показать еще"}</div>
+																			</div>
+																		</Col>
+																	</>
+																}
+															</Row>
+														</Checkbox.Group>
+													</div>
 												</>
-											}
-											</Row>
-											</Checkbox.Group>
-											</div>
+											: ""}
 
-											<div className={"kasko-car-select__caption fz_12"}>Срок действия, месяцы</div>
+											{osago ?
+												<div onClick={this.toggleShowParams} className={"kasko-car-select__caption" + (this.state.activeOffers.length ? (this.state.openParams ? " expanded" : " collapsed") : "")}>Параметры ОСАГО</div>
+											: ""}
 
-											<div className="kasko-car-select__controls radio_v3">
-											<Radio.Group defaultValue={periodOptions[0]} style={{width: '100%'}} onChange={this.onPeriodChange}>
-											<Row gutter={20}>
-											{
-												periodOptions.map((c, i) => <Col key={i}>
-														<Radio value={c}>
-															<span className="kasko-car-select__period--value">{c}</span>
-															{/*<span className="kasko-car-select__period--label">{pluralFromArray(periodPlurals, c)}</span>*/}
-														</Radio>
-													</Col>
-												)
-											}
-											</Row>
-											</Radio.Group>
-											</div>
-			
-											<DriverCount step={step} driverOptions={driverOptions} />
-		
-											<div className="kasko-car-select__controls ant-row-center">
-												<div onClick={this.toggleCalculationOffers}
-													 className={"ant-btn ant-btn-primary btn_middle margin" + ((step !== 2 && this.state.activeOffers.length && this.state.paramsChanged) ? "" : " disabled")}>Получить расчет</div>
-											</div>
+											{(!osago || this.state.openParams) ?
+													<>
+														<div className={"kasko-car-select__caption fz_12"}>Срок
+															действия, месяцы
+														</div>
+
+														<div className="kasko-car-select__controls radio_v3">
+															<Radio.Group defaultValue={periodOptions[0]}
+																		 style={{width: '100%'}}
+																		 onChange={this.onPeriodChange}>
+																<Row gutter={20}>
+																	{
+																		periodOptions.map((c, i) => <Col key={i}>
+																				<Radio value={c}>
+																					<span
+																						className="kasko-car-select__period--value">{c}</span>
+																					{/*<span className="kasko-car-select__period--label">{pluralFromArray(periodPlurals, c)}</span>*/}
+																				</Radio>
+																			</Col>
+																		)
+																	}
+																</Row>
+															</Radio.Group>
+														</div>
+
+														<DriverCount step={step} driverOptions={driverOptions}/>
+
+														<div className="kasko-car-select__controls ant-row-center">
+															<div onClick={this.toggleCalculationOffers} className={"ant-btn ant-btn-primary btn_middle margin" + ((step !== 2 && this.state.paramsChanged) ? "" : " disabled")}>Получить расчет</div>
+														</div>
+														
+													</>
+											: "" }
 										</>
 										: ""
 									}
@@ -592,7 +663,7 @@ class OfferSelect extends Component {
 							
 							{this.state.showCalculationOffers ?
 									<>
-										<CalculationOffers allowCheck={this.state.showPayment} waiting={step === 2} selectedOffer={this.updateSelectedOffer} offersList={calculationOfferList}/>
+										<CalculationOffers allowCheck={this.state.showPayment || osago} osago={osago} waiting={step === 2} selectedOffer={this.updateSelectedOffer} offersList={calculationOfferList}/>
 		
 										<div className={"kasko-car-select__controls ant-row-center align_center"}>
 											{
@@ -601,7 +672,7 @@ class OfferSelect extends Component {
 														<div className="kasko-car-select__controls--group-w text_left">
 															<Tooltip overlayClassName="tooltip_v1" placement="bottomLeft"
 																	 title="Отменить операцию и вернуться к расчету">
-																<Link to="/" className={"ant-btn btn_green "}>Вернуться к расчету</Link>
+																<Link to="/" className={"ant-btn btn_green fz_14"}>Вернуться к расчету</Link>
 															</Tooltip>
 														</div>
 														
@@ -610,7 +681,7 @@ class OfferSelect extends Component {
 																<>
 																	<div className="kasko-car-select__controls--group-w text_center">
 																		<div className="offer-select__sms">
-																			<Input className={"ant-input w_100p" + (this.state.SMSCode.length ? "" : " _empty")}
+																			<Input className={"w_100p custom_placeholder" + (this.state.SMSCode.length ? "" : " _empty")}
 																				onChange={this.onSMSCodeChange}
 																				defaultValue=""/>
 																			<div className="float_placeholder">Код подтверждения</div>
@@ -641,12 +712,12 @@ class OfferSelect extends Component {
 																</>
 														}
 													</>
-												: this.state.showPayment ?
+												: (this.state.showPayment || osago) ?
 													<div className="kasko-car-select__controls--group payment">
 														{/*<div className="kasko-car-select__controls--group-l">*/}
 														{/*	<Link to="/" className={"gl_link color_black"}>Сохранить&nbsp;расчет</Link>*/}
 														{/*</div>*/}
-														<a href={this.state.availablePayment ? "/payment" : "#"} className={"ant-btn ant-btn-primary btn_middle" + ((this.state.availablePayment) ? "" : " disabled")}>{this.state.showCompare ? 'Сравнить' : 'Оплатить в кассу'}</a>
+														<a href={this.state.availablePayment ? (osago ? "/osago_payment" : "/payment") : "#"} className={"ant-btn ant-btn-primary btn_middle" + ((this.state.availablePayment) ? "" : " disabled")}>{this.state.showCompare ? 'Сравнить' : 'Оплатить в кассу'}</a>
 														<div className="kasko-car-select__controls--group-r">
 															<PaymentSwitch allowPayment={this.state.availablePayment} paymentStep={0}/>
 															{/*<Link to="/" className={"gl_link"}>Сравнить</Link>*/}
@@ -676,7 +747,7 @@ class OfferSelect extends Component {
 				<div ref={(el) => { this.messagesEnd = el }}/>
 				
 				{this.state.calculationPopupOpened ? 
-					<CalculationPopup updatePaymentState={this.updatePaymentState} step={this.state.showCalculationOffers ? 2 : step} allFields={this.state.showCalculationOffers || (step === 2)} fullCalculation={this.state.showCalculationOffers || this.state.fullCalculation} popupCloseFunc={this.toggleCalculationPopup} />
+					<CalculationPopup osago={osago} updatePaymentState={this.updatePaymentState} step={this.state.showCalculationOffers ? 2 : step} allFields={this.state.showCalculationOffers || (step === 2)} fullCalculation={this.state.showCalculationOffers || this.state.fullCalculation} popupCloseFunc={this.toggleCalculationPopup} />
 					: ""}
 			</>
 		);

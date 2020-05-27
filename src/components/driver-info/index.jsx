@@ -214,7 +214,7 @@ class DriverInfo extends Component {
 	};
 	
 	render() {
-		let {fullCalculation, allFields, expanded} = this.props
+		let {fullCalculation, allFields, expanded, osago} = this.props
 		//const dateFormat = "DD.MM.YY"
 		const dateFormatMask = "'mask': '99.99.9999', 'showMaskOnHover': 'false'"
 		const driverPhoneMask = "'mask': '[+7] (999)-999-99-99', 'showMaskOnHover': 'false'"
@@ -251,21 +251,21 @@ class DriverInfo extends Component {
 							<Row className="kasko-car-select__controls" gutter={20}>
 								<Col span={6}>
 									<Input
-										className={"w_100p" + ((this.state.driverLastName + '').length ? "" : " _empty")}
+										className={"w_100p custom_placeholder " + ((this.state.driverLastName + '').length ? "" : " _empty")}
 										value={this.state.driverLastName}
 										onChange={this.onDriverLastNameChange} defaultValue=""/>
 									<div className="float_placeholder">Фамилия</div>
 								</Col>
 								<Col span={6}>
 									<Input
-										className={"w_100p" + ((this.state.driverFirstName + '').length ? "" : " _empty")}
+										className={"w_100p custom_placeholder " + ((this.state.driverFirstName + '').length ? "" : " _empty")}
 										value={this.state.driverFirstName}
 										onChange={this.onDriverFirstNameChange} defaultValue=""/>
 									<div className="float_placeholder">Имя</div>
 								</Col>
 								<Col span={6}>
 									<Input
-										className={"w_100p" + ((this.state.driverFarthersName + '').length ? "" : " _empty")}
+										className={"w_100p custom_placeholder " + ((this.state.driverFarthersName + '').length ? "" : " _empty")}
 										value={this.state.driverFarthersName}
 										onChange={this.onDriverFarthersNameChange} defaultValue=""/>
 									<div className="float_placeholder">Отчество</div>
@@ -275,44 +275,55 @@ class DriverInfo extends Component {
 									{/*			onChange={this.onDriverBirthdayChange} placeholder=""*/}
 									{/*			className={"w_100p hide_picker_icon" + (this.state.driverBirthday && this.state.driverBirthday._isAMomentObject ? "" : " _empty")}/>*/}
 									<Input data-inputmask={dateFormatMask}
-										   className={"w_100p" + ((this.state.driverBirthday + '').length ? "" : " _empty")}
+										   className={"w_100p custom_placeholder " + ((this.state.driverBirthday + '').length ? "" : " _empty")}
 										   value={this.state.driverBirthday}
 										   onChange={this.onDriverBirthdayChange} defaultValue=""/>
 									<div className="float_placeholder">Дата рождения</div>
 								</Col>
 							</Row>
 
-							<Row className="kasko-car-select__controls" gutter={20}>
-								<Col span={6}>
-									<Select
-										dropdownClassName="select_dropdown_v1"
-										className={"w_100p" + (this.state.driverFamilyStatus.length ? "" : " _empty")}
-										placeholder=""
-										onChange={this.onDriverFamilyStatusChange}
-										value={this.state.driverFamilyStatus}
-									>
-										{this.state.driverFamilyStatusList ? this.state.driverFamilyStatusList.map((e, i) =>
-											<Option key={i}
-													value={e}>{e}</Option>) : ""}
-									</Select>
-									<div className="float_placeholder">Семейное положение</div>
-								</Col>
-								<Col className="checkbox_middle check_v3" span={6}>
-									<Checkbox onChange={this.onDriverProgenyNessChange}>Есть дети</Checkbox>
-								</Col>
-								
-								{/*{*/}
-								{/*	this.state.driverProgenyNess ?*/}
-								{/*	<Col span={6}>*/}
-								{/*		<Input*/}
-								{/*			className={"w_100p" + ((this.state.driverChildrenCount + '').length ? "" : " _empty")}*/}
-								{/*			value={this.state.driverChildrenCount}*/}
-								{/*			onChange={this.onDriverChildrenCountChange} defaultValue=""/>*/}
-								{/*		<div className="float_placeholder">Кол-во детей младше 21</div>*/}
-								{/*	</Col>*/}
-								{/*	: ""*/}
-								{/*}*/}
-							</Row>
+								{osago ?
+									<Row className="kasko-car-select__controls" gutter={20}>
+										<Col className="check_v3">
+											<Checkbox>Страхователь</Checkbox>
+										</Col>
+										<Col className="check_v3">
+											<Checkbox>Собственник</Checkbox>
+										</Col>
+									</Row>
+									: 
+									<Row className="kasko-car-select__controls" gutter={20}>
+										<Col span={6}>
+											<Select
+												dropdownClassName="select_dropdown_v1"
+												className={"w_100p custom_placeholder" + (this.state.driverFamilyStatus.length ? "" : " _empty")}
+												placeholder=""
+												onChange={this.onDriverFamilyStatusChange}
+												value={this.state.driverFamilyStatus}
+											>
+												{this.state.driverFamilyStatusList ? this.state.driverFamilyStatusList.map((e, i) =>
+													<Option key={i}
+															value={e}>{e}</Option>) : ""}
+											</Select>
+											<div className="float_placeholder">Семейное положение</div>
+										</Col>
+										<Col className="checkbox_middle check_v3" span={6}>
+											<Checkbox onChange={this.onDriverProgenyNessChange}>Есть дети</Checkbox>
+										</Col>
+
+										{/*{*/}
+										{/*	this.state.driverProgenyNess ?*/}
+										{/*	<Col span={6}>*/}
+										{/*		<Input*/}
+										{/*			className={"w_100p" + ((this.state.driverChildrenCount + '').length ? "" : " _empty")}*/}
+										{/*			value={this.state.driverChildrenCount}*/}
+										{/*			onChange={this.onDriverChildrenCountChange} defaultValue=""/>*/}
+										{/*		<div className="float_placeholder">Кол-во детей младше 21</div>*/}
+										{/*	</Col>*/}
+										{/*	: ""*/}
+										{/*}*/}
+									</Row>
+								}
 								
 								{
 									fullCalculation ? 
@@ -323,14 +334,14 @@ class DriverInfo extends Component {
 											<Row className="kasko-car-select__controls" gutter={20}>
 												<Col span={3}>
 													<Input data-inputmask={clientLicenseIDMask}
-														   className={"w_100p " + (allFields ? "input-error" : "") + ((this.state.clientLicenseID + '').length ? "" : " _empty")}
+														   className={"w_100p custom_placeholder " + (allFields ? "input-error" : "") + ((this.state.clientLicenseID + '').length ? "" : " _empty")}
 														   value={this.state.clientLicenseID}
 														   onChange={this.onClientLicenseIDIDChange} defaultValue=""/>
 													<div className="float_placeholder">Серия</div>
 												</Col>
 												<Col span={3}>
 													<Input data-inputmask={clientLicenseNumberMask}
-														   className={"w_100p " + (allFields ? "input-error" : "") + ((this.state.clientLicenseNumber + '').length ? "" : " _empty")}
+														   className={"w_100p custom_placeholder " + (allFields ? "input-error" : "") + ((this.state.clientLicenseNumber + '').length ? "" : " _empty")}
 														   value={this.state.clientLicenseNumber}
 														   onChange={this.onClientLicenseNumberChange} defaultValue=""/>
 													<div className="float_placeholder">Номер</div>
@@ -341,14 +352,14 @@ class DriverInfo extends Component {
 													{/*	onChange={this.onClientLicenseStartChange} placeholder=""*/}
 													{/*	className={"w_100p wrapper-error hide_picker_icon" + (this.state.clientLicenseStart && this.state.clientLicenseStart._isAMomentObject ? "" : " _empty")}/>*/}
 													<Input data-inputmask={dateFormatMask}
-														   className={"w_100p " + (allFields ? "input-error" : "") + ((this.state.clientLicenseStart + '').length ? "" : " _empty")}
+														   className={"w_100p custom_placeholder " + (allFields ? "input-error" : "") + ((this.state.clientLicenseStart + '').length ? "" : " _empty")}
 														   value={this.state.clientLicenseStart}
 														   onChange={this.onClientLicenseStartChange} defaultValue=""/>
 													<div className="float_placeholder">Дата выдачи</div>
 												</Col>
 												<Col span={6}>
 													<Input
-														className={"w_100p " + (allFields ? "input-error" : "") + ((this.state.clientLicenseDepID + '').length ? "" : " _empty")}
+														className={"w_100p custom_placeholder " + (allFields ? "input-error" : "") + ((this.state.clientLicenseDepID + '').length ? "" : " _empty")}
 														value={this.state.clientLicenseDepID}
 														onChange={this.onClientLicenseDepIDChange} defaultValue=""/>
 													<div className="float_placeholder">Код подразделения</div>
@@ -358,7 +369,7 @@ class DriverInfo extends Component {
 											<Row className="kasko-car-select__controls" gutter={20}>
 												<Col span={24}>
 													<Input
-														className={"w_100p " + (allFields ? "input-error" : "") + ((this.state.clientLicenseDepartment + '').length ? "" : " _empty")}
+														className={"w_100p custom_placeholder " + (allFields ? "input-error" : "") + ((this.state.clientLicenseDepartment + '').length ? "" : " _empty")}
 														value={this.state.clientLicenseDepartment}
 														onChange={this.onclientLicenseDepartmentChange}
 														defaultValue=""/>
@@ -371,21 +382,21 @@ class DriverInfo extends Component {
 											<Row className="kasko-car-select__controls" gutter={20}>
 												<Col span={18}>
 													<Input
-														className={"w_100p " + (allFields ? "input-error" : "") + ((this.state.clientAddress + '').length ? "" : " _empty")}
+														className={"w_100p custom_placeholder " + (allFields ? "input-error" : "") + ((this.state.clientAddress + '').length ? "" : " _empty")}
 														value={this.state.clientAddress}
 														onChange={this.onClientAddressChange} defaultValue=""/>
 													<div className="float_placeholder">Адрес</div>
 												</Col>
 												<Col span={3}>
 													<Input
-														className={"w_100p " + (allFields ? "input-error" : "") + ((this.state.clientFlat + '').length ? "" : " _empty")}
+														className={"w_100p custom_placeholder " + (allFields ? "input-error" : "") + ((this.state.clientFlat + '').length ? "" : " _empty")}
 														value={this.state.clientFlat}
 														onChange={this.onClientFlatChange} defaultValue=""/>
 													<div className="float_placeholder">Квартира</div>
 												</Col>
 												<Col span={3}>
 													<Input
-														className={"w_100p " + (allFields ? "input-error" : "") + ((this.state.clientPostCode + '').length ? "" : " _empty")}
+														className={"w_100p custom_placeholder " + (allFields ? "input-error" : "") + ((this.state.clientPostCode + '').length ? "" : " _empty")}
 														value={this.state.clientPostCode}
 														onChange={this.onClientPostCodeChange} defaultValue=""/>
 													<div className="float_placeholder">Индекс</div>
@@ -395,7 +406,7 @@ class DriverInfo extends Component {
 											<Row className="kasko-car-select__controls" gutter={20}>
 												<Col span={6}>
 													<Input data-inputmask={dateFormatMask}
-														   className={"w_100p " + (allFields ? "input-error" : "") + ((this.state.clientRegistrationStart + '').length ? "" : " _empty")}
+														   className={"w_100p custom_placeholder " + (allFields ? "input-error" : "") + ((this.state.clientRegistrationStart + '').length ? "" : " _empty")}
 														   value={this.state.clientRegistrationStart}
 														   onChange={this.onClientRegistrationStartChange} defaultValue=""/>
 													<div className="float_placeholder">Дата регистрации</div>
@@ -403,7 +414,7 @@ class DriverInfo extends Component {
 												<Col span={12}>
 													<Select
 														dropdownClassName="select_dropdown_v1"
-														className={"w_100p " + (allFields ? "wrapper-error" : "") + (this.state.clientFlatType.length ? "" : " _empty")}
+														className={"w_100p custom_placeholder " + (allFields ? "wrapper-error" : "") + (this.state.clientFlatType.length ? "" : " _empty")}
 														placeholder=""
 														onChange={this.onClientFlatTypeChange}
 														value={this.state.clientFlatType}
@@ -424,14 +435,14 @@ class DriverInfo extends Component {
 							<Row className="kasko-car-select__controls" gutter={20}>
 								<Col span={3}>
 									<Input data-inputmask={driverLicenseIDMask}
-										   className={"w_100p" + ((this.state.driverLicenseID + '').length ? "" : " _empty")}
+										   className={"w_100p custom_placeholder " + ((this.state.driverLicenseID + '').length ? "" : " _empty")}
 										   value={this.state.driverLicenseID}
 										   onChange={this.onDriverLicenseIDChange} defaultValue=""/>
 									<div className="float_placeholder">Серия</div>
 								</Col>
 								<Col span={3}>
 									<Input data-inputmask={driverLicenseNumberMask}
-										   className={"w_100p" + ((this.state.driverLicenseNumber + '').length ? "" : " _empty")}
+										   className={"w_100p custom_placeholder " + ((this.state.driverLicenseNumber + '').length ? "" : " _empty")}
 										   value={this.state.driverLicenseNumber}
 										   onChange={this.onDriverLicenseNumberChange} defaultValue=""/>
 									<div className="float_placeholder">Номер</div>
@@ -442,14 +453,14 @@ class DriverInfo extends Component {
 									{/*	onChange={this.onDriverLicenseStartChange} placeholder=""*/}
 									{/*	className={"w_100p hide_picker_icon" + (this.state.driverLicenseStart && this.state.driverLicenseStart._isAMomentObject ? "" : " _empty")}/>*/}
 									<Input data-inputmask={dateFormatMask}
-										   className={"w_100p" + ((this.state.driverLicenseStart + '').length ? "" : " _empty")}
+										   className={"w_100p custom_placeholder " + ((this.state.driverLicenseStart + '').length ? "" : " _empty")}
 										   value={this.state.driverLicenseStart}
 										   onChange={this.onDriverLicenseStartChange} defaultValue=""/>
 									<div className="float_placeholder">Дата выдачи</div>
 								</Col>
 								<Col span={6}>
 									<Input data-inputmask={dateFormatMask}
-										className={"w_100p" + ((this.state.driverExperienceStart + '').length ? "" : " _empty")}
+										className={"w_100p custom_placeholder " + ((this.state.driverExperienceStart + '').length ? "" : " _empty")}
 										value={this.state.driverExperienceStart}
 										onChange={this.onDriverExperienceStartChange} defaultValue=""/>
 									<div className="float_placeholder">Дата начала стажа</div>
@@ -489,14 +500,14 @@ class DriverInfo extends Component {
 
 									<Col span={3}>
 										<Input data-inputmask={driverLicenseIDMask}
-											   className={"w_100p" + ((this.state.driverPrevLicenseID + '').length ? "" : " _empty")}
+											   className={"w_100p custom_placeholder " + ((this.state.driverPrevLicenseID + '').length ? "" : " _empty")}
 											   value={this.state.driverPrevLicenseID}
 											   onChange={this.onDriverPrevLicenseIDChange} defaultValue=""/>
 										<div className="float_placeholder">Серия</div>
 									</Col>
 									<Col span={3}>
 										<Input data-inputmask={driverLicenseNumberMask}
-											   className={"w_100p" + ((this.state.driverPrevLicenseNumber + '').length ? "" : " _empty")}
+											   className={"w_100p custom_placeholder " + ((this.state.driverPrevLicenseNumber + '').length ? "" : " _empty")}
 											   value={this.state.driverPrevLicenseNumber}
 											   onChange={this.onDriverLicenseNumberPrevChange}
 											   defaultValue=""/>
@@ -504,7 +515,7 @@ class DriverInfo extends Component {
 									</Col>
 									<Col span={6}>
 										<Input data-inputmask={dateFormatMask}
-											className={"w_100p" + ((this.state.driverPrevLicenseStart + '').length ? "" : " _empty")}
+											className={"w_100p custom_placeholder " + ((this.state.driverPrevLicenseStart + '').length ? "" : " _empty")}
 											value={this.state.driverPrevLicenseStart}
 											onChange={this.onDriverPrevLicenseStartChange}
 											defaultValue=""/>
@@ -518,20 +529,20 @@ class DriverInfo extends Component {
 								<Row className="kasko-car-select__controls" gutter={20}>
 									<Col span={6}>
 										<Input disabled="disabled"
-											   className={"w_100p _empty"}
+											   className={"w_100p custom_placeholder _empty"}
 											   defaultValue=""/>
 										<div className="float_placeholder">Фамилия И. Клиента</div>
 									</Col>
 									<Col span={6}>
 										<Input data-inputmask={driverPhoneMask}
-											   className={"w_100p" + ((this.state.driverPhone + '').length ? "" : " _empty")}
+											   className={"w_100p custom_placeholder" + ((this.state.driverPhone + '').length ? "" : " _empty")}
 											   value={this.state.driverPhone}
 											   onChange={this.onDriverPhoneChange} defaultValue=""/>
 										<div className="float_placeholder">Мобильный телефон</div>
 									</Col>
 									<Col span={12}>
 										<Input data-inputmask={driverEmailMask}
-											   className={"w_100p" + ((this.state.driverEmail + '').length ? "" : " _empty")}
+											   className={"w_100p custom_placeholder" + ((this.state.driverEmail + '').length ? "" : " _empty")}
 											   value={this.state.driverEmail}
 											   onChange={this.onDriverEmailChange} defaultValue=""/>
 										<div className="float_placeholder">Емейл</div>

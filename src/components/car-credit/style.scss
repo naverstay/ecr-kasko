@@ -1,0 +1,54 @@
+@import 'src/assets/styles/global';
+
+.car-credit {
+	
+	p {
+		font-size: 12px;
+		margin-bottom: 5px;
+	}
+
+	input {
+		text-align: center;
+		font-size: 24px;
+		line-height: 1;
+		padding-top: 7px;
+		padding-bottom: 8px;
+	}
+
+	&__initial-fee {
+		width: 208px;
+		text-align: center;
+		float: right;
+	}
+	
+	&__percent {
+		float: left;
+		width: 93px;
+	}
+	
+	&__print {
+		width: 165px;
+		position: relative;
+		padding-left: 50px;
+		padding-top: 18px;
+		text-align: left;
+		font-size: 12px;
+
+		&:before {
+			color: $color-green;
+			font-family: $icomoon-font-family;
+			content: $i-printer;
+			position: absolute;
+			left: 10px;
+			top: 50%;
+			font-size: 26px;
+			line-height: 1;
+			margin-top: -13px;
+		}
+		
+		.gl_link {
+			margin: 6px 0;
+		}
+	}
+}
+

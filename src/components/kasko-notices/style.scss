@@ -6,6 +6,13 @@
 	&__list {
 		border-top: 2px solid $color-prime;
 	}
+	
+	&__link {
+		text-decoration: underline;
+		color: #000;
+		margin-top: 8px;
+		font-size: 12px;
+	}
 
 	&__caption {
 		font-weight: 500;
@@ -69,7 +76,6 @@
 			background: $color-green;
 			border: 1px solid $color-green;
 		}
-		
 	}
 	
 	&__head {
@@ -134,7 +140,6 @@
 	}
 
 	&__item {
-		
 		&--head {
 			padding: 8px 25px;
 			font-weight: bold;

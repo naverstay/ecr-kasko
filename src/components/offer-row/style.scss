@@ -4,10 +4,11 @@
 	
 	&__documents {
 		position: relative;
+		z-index: 2;
 	}
 	
 	&__date {
-		@extend %text1;
+		@extend %text2;
 	}
 	
 	&__bill {
@@ -38,16 +39,20 @@
 	
 	&__check {
 		.ant-checkbox-input {
-			width: 60vw;
-			left: -57vw;
-			top: -26px;
-			height: 74px;
+			width: 62vw;
+			left: -59vw;
+			top: -15px;
+			height: 53px;
 		}
 	}
 	
 	&__name {
 		@extend %text2;
 		text-align: left;
+		white-space: nowrap;
+		overflow: hidden;
+		max-width: 100%;
+		text-overflow: ellipsis;
 	}
 	
 	&__hint {
@@ -55,7 +60,7 @@
 		color: $color-grey;
 		float: left;
 		margin-top: 8px;
-		margin-bottom: -10px;
+		margin-bottom: -30px;
 		position: relative;
 		z-index: 2;
 	}
@@ -85,13 +90,48 @@
 				border-radius: 2px;
 				background: $color-blue-light;
 			}
+			
+			&.offer-row__credit {
+				padding-left: 0;
+				padding-right: 35px;
+				margin-bottom: 21px;
+				display: flex;
+				justify-content: space-between;
+				min-height: 14px;
+				
+				&:before {
+					display: none;
+				}
+			}
 		}
 	}
 	
 	&__logo {
+		@extend %text2;
+		
 		img {
 			display: inline-block;
 			max-width: 100%;
+		}
+		
+		&.info {
+			position: relative;
+			padding-left: 30px;
+
+			&:before {
+				font-family: $icomoon-font-family;
+				content: $i-info;
+				position: absolute;
+				left: 0;
+				top: 50%;
+				width: 22px;
+				height: 22px;
+				border-radius: 100%;
+				margin-top: -11px;
+				font-size: 22px;
+				line-height: 22px;
+				color: $color-green;
+			}
 		}
 	}
 	
@@ -127,10 +167,20 @@
 	
 	&__fee {
 		@extend %text2;
+		
+		p {
+			margin: 0;
+		}
 	}
 	
 	&__price {
 		@extend %h2;
+		white-space: nowrap;
 	}
 	
+	&__credit {
+		&--link {
+			font-weight: bold;
+		}
+	}
 }

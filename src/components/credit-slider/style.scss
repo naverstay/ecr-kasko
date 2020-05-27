@@ -1,0 +1,122 @@
+@import 'src/assets/styles/global';
+
+.credit-slider {
+	&.ant-slider {
+		position: absolute;
+		top: 0;
+		height: 100%;
+		left: 0;
+		right: 0;
+		margin: 0 40px;
+	}
+
+	&__holder {
+		position: relative;
+		padding-top: 20px;
+		padding-bottom: 15px;
+		margin-bottom: 65px;
+
+		.kasko-car-select__image {
+			margin: 0;
+		}
+	}
+	
+	&__circle {
+		
+	}
+
+	.ant-slider-track,
+	.ant-slider-rail {
+		display: none;
+	}
+
+	.ant-slider-handle {
+		top: 50%;
+		margin-top: -35px;
+		width: 75px;
+		height: 75px;
+		border: 0;
+		background: none;
+	}
+	
+	&__values {
+		text-align: center;
+		color: #fff;
+		font-size: 18px;
+		line-height: 75px;
+		position: absolute;
+		top: 46px;
+		pointer-events: none;
+		width: 75px;
+		left: -37px;
+		border-radius: 37px;
+		
+		&:before {
+			content: '';
+			position: absolute;
+			left: 37px;
+			top: -300px;
+			bottom: -300px;
+			width: 1000px;
+			background: #fff;
+			opacity: 0.5;
+			border-left: 1px solid #000;
+		}
+	}
+	
+	&__value {
+		float: left;
+		width: 50%;
+		position: relative;
+		z-index: 1;
+		
+		&:before {
+			font-family: $icomoon-font-family;
+			content: $i-chevron_r;
+			color: #fff;
+			font-size: 15px;
+			top: 0;
+			position: absolute;
+		}
+		
+		&--left {
+			background: $color-green;
+			border-radius: 35px 0 0 35px;
+			
+			&:before {
+				left: -15px;
+				transform: rotate(180deg);
+			}
+		}
+		
+		&--right {
+			background: #b5b5b5;
+			border-radius: 0 35px 35px 0;
+			
+			&:before {
+				right: -15px;
+			}
+		}
+	}
+	
+	&__tooltip {
+		position: absolute;
+		top: 0;
+		bottom: 0;
+		left: 0;
+		right: 0;
+		overflow: hidden;
+		
+		.ant-tooltip-inner {
+			padding: 0;
+			box-shadow: none;
+			border-radius: 0;
+		}
+		
+		.ant-tooltip-arrow {
+			display: none;
+		}
+	}
+	
+}
+

@@ -5,13 +5,12 @@ import AsideCrumbs from "../../components/aside-crumbs";
 import KaskoNotices from "../../components/kasko-notices";
 import KaskoUser from "../../components/kasko-user";
 import KaskoCarInfo from "../../components/kasko-car-info";
-import KaskoCarSelect from "../../components/kasko-car-select";
 import PropTypes from 'prop-types';
 
 import './style.scss';
-import OfferSelect from "../../components/offer-select";
+import CarCredit from "../../components/car-credit";
 
-class Kasko extends Component {
+class Credit extends Component {
 	constructor(props) {
 		super(props);
 		this.state = {
@@ -70,16 +69,7 @@ class Kasko extends Component {
 			<Row gutter={20} className="kasko-wrapper">
 				<Col span={4} className="kasko-aside"/>
 				<Col span={16} className="kasko-main">
-					{showOffers === false ?
-						<>
-							<h1 className="kasko-main__title">Автомобиль</h1>
-							<KaskoCarSelect imageCallback={this.imageCallback} step={step} image={this.state.carImage} />
-						</>
-						:
-						<>
-							<OfferSelect imageCallback={this.imageCallback} step={step} image={this.state.carImage} type={showOffers}/>
-						</>
-					}
+					<CarCredit carPrice={1048000} imageCallback={this.imageCallback} step={step} image={this.state.carImage} />
 				</Col>
 				<Col span={4} className="kasko-aside"/>
 			</Row>
@@ -108,7 +98,7 @@ class Kasko extends Component {
 						""
 						:
 						<AsideBlock>
-							<KaskoNotices step={step} status={step === 2 ? 1 : step === 3 ? 3 : 0} type={showOffers}/>
+							<KaskoNotices step={step} credit={true} status={0} type={showOffers}/>
 						</AsideBlock>
 					}
 
@@ -122,4 +112,4 @@ class Kasko extends Component {
 	}
 }
 
-export default Kasko
+export default Credit
