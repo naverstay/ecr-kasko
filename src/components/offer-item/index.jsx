@@ -4,7 +4,7 @@ import {Link} from "react-router-dom";
 import './style.scss';
 import PropTypes from "prop-types";
 import {formatMoney} from "../../helpers/formatMoney";
-import {Col, InputNumber, Select} from "antd";
+import {Col, InputNumber, Select, Switch} from "antd";
 import {langs} from "../navbar/sidebar/global-const";
 
 const {Option} = Select;
@@ -13,6 +13,10 @@ class OfferItem extends Component {
 	constructor(props) {
 		super(props);
 		this.state = {
+			offerCollapsed: true,
+			offerAdded: false,
+			offerCredit: true,
+			showOffer: false,
 			activeOffer: this.props.active,
 			newPrice: 0
 		};
@@ -24,9 +28,29 @@ class OfferItem extends Component {
 		innerWidth: PropTypes.number
 	};
 
+	toggleOfferAdded = (e, index) => {
+		e.stopPropagation()
+		this.setState({offerAdded: !this.state.offerAdded})
+		
+		setTimeout(() => {
+			if (typeof this.props.onOfferSelect === 'function') this.props.onOfferSelect({
+				id: index,
+				active: this.state.activeOffer
+			})
+		}, 0)
+		
+		return false;
+	}
+
 	toggleActiveOffer = (index) => {
 		let active = this.state.activeOffer
-		this.setState({activeOffer: !active})
+		this.setState({
+			activeOffer: true,
+			collapse: !this.state.collapse,
+			offerCollapsed: !this.state.offerCollapsed, 
+			showOffer: !this.state.showOffer,
+			offerAdded: true
+		})
 		
 		setTimeout(() => {
 			if (typeof this.props.onOfferSelect === 'function') this.props.onOfferSelect({id: index, active: this.state.activeOffer})
@@ -34,7 +58,15 @@ class OfferItem extends Component {
 	}
 	
 	onPeriodChange = (value) => {
-		console.log('changed', value);
+		this.setState({newPrice: (value === 1 ? 10000 : (value === 2 ? 15000 : 20000))})
+	}
+
+	onShowOfferChange = (value) => {
+		this.setState({offerCollapsed: !this.state.offerCollapsed})
+	}
+
+	onCreditChange = (value) => {
+		this.setState({offerCredit: !this.state.offerCredit})
 	}
 
 	goTo = (offer) => {
@@ -46,27 +78,28 @@ class OfferItem extends Component {
 
 	render() {
 		let {offer, slider, index, credit, active} = this.props
-		let prefix = (offer.price + '').replace(/\d/g, '')
+		let prefix = active ? '' : (offer.price + '').replace(/\d/g, '')
 		let price = formatMoney(((this.state.newPrice || offer.price) + '').replace(/\D/g, ''))
-
-		console.log('OfferItem active', index, active);
 		
 		return (
 			slider ?
 				<div key={index} className={"kasko-offer__slide" + (credit ? " credit" : "")}>
-					<div className={"kasko-offer__item" + (offer.collapse ? " collapsable" : "") + ((active || this.state.activeOffer) ? " active" : "")}>
+					<div className={"kasko-offer__item" + (offer.collapse ? " collapsable" : "") + ((active || this.state.offerAdded) ? " active" : "") + ((this.state.offerCollapsed) ? " collapsed" : "")}>
 						<div onClick={() => (offer.href ? this.goTo(offer) : this.toggleActiveOffer(index))}
 							className={"kasko-offer__item--title" + (offer.button ? " no_arrow" : " toggle_icon")}>
 							<span>{offer.name}</span>
-							{offer.button ? <span className="kasko-offer__item--btn">{offer.button}</span> : ""}
+							{offer.button ? 
+								<span className="kasko-offer__item--btn">{offer.button}</span> : 
+								<span onClick={(e) => this.toggleOfferAdded(e, index)} className={"kasko-offer__item--toggle"}/>
+							}
 						</div>
 						<div className="kasko-offer__item--body">
-							{offer.prefix}&nbsp;
+							{this.state.newPrice ? '' : offer.prefix}&nbsp;
 							<span className="kasko-offer__item--price">{(prefix ? prefix + ' ' : '') + price}</span>
 							&nbsp;{offer.suffix}
 						</div>
 
-						{(offer.collapse) ?
+						{(offer.collapse && !this.state.offerCollapsed) ?
 							<div className="kasko-offer__item--info">
 								<div className="kasko-offer__item--period">Срок действия, лет</div>
 								<InputNumber
@@ -80,15 +113,15 @@ class OfferItem extends Component {
 								/>
 
 								<div>
-									<Select
-										size="small"
-										dropdownClassName="select_dropdown_v1"
-										className={"select_v2"}
-										placeholder=""
-										value={'В кредит'}
-									>
-										{['В кредит', 'Наличные'].map((e, i) => <Option key={i} value={e}>{e}</Option>)}
-									</Select>
+									<div className={"kasko-car-select__calculation" + (this.state.offerCredit ? ' active' : '')}>
+										<span className="kasko-car-select__calculation--text">В кредит</span>
+										<Switch 
+											checked={this.state.offerCredit}
+											className="kasko-car-select__calculation--switch"
+											onChange={this.onCreditChange}
+										/>
+										<span className="kasko-car-select__calculation--text">Наличные</span>
+									</div>
 								</div>
 
 								{offer.options.length ? <ul className="kasko-offer__item--info-list">
@@ -96,7 +129,7 @@ class OfferItem extends Component {
 								</ul> : ""}
 
 								<div className="text_center">
-									<div onClick={() => this.toggleActiveOffer(index)}
+									<div onClick={() => this.onShowOfferChange(index)}
 										 className="kasko-offer__item--info-close">Свернуть</div>
 								</div>
 							</div>
@@ -113,7 +146,8 @@ class OfferItem extends Component {
 						</div>
 						<div className="kasko-offer__item--body">
 							<p>
-								{offer.prefix}&nbsp;
+								{active ? '' : offer.prefix}
+								{active ? '' : <>&nbsp;</>}
 								<span className="kasko-offer__item--price">{formatMoney(offer.price)}</span>
 								&nbsp;{offer.suffix}
 							</p>

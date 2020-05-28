@@ -6,71 +6,196 @@ import './App.scss';
 import {BrowserRouter, Link, Route} from "react-router-dom";
 import Credit from "./pages/credit";
 import Osago from "./pages/osago";
+import Orders from "./pages/orders";
+import CheryLayout from "./layouts/chery-layout";
+import Chat from "./components/orders/chat";
 
 function App() {
   return (
       <BrowserRouter>
-        <PageLayout>
-            <div className="dev-navigation">
-                <ul>
-                    <li>
-                        <Link to="/">home</Link>
-                    </li>
-                    <li>
-                        <Link to="/kasko">kasko</Link>
-                    </li>
-                    <li>
-                        <Link to="/offers">offers</Link>
-                    </li>
-                    <li>
-                        <Link to="/payment">payment</Link>
-                    </li>
-                    <li>
-                        <Link to="/done">done</Link>
-                    </li>
-                    <li>
-                        <Link to="/credit">credit</Link>
-                    </li>
-                    <li>
-                        <Link to="/osago">osago</Link>
-                    </li>
-                    <li>
-                        <Link to="/osago_payment">osago_payment</Link>
-                    </li>
-                    <li>
-                        <Link to="/osago_done">osago_done</Link>
-                    </li>
-                </ul>
-            </div>
+          <div className="dev-navigation">
+              <ul>
+                  <li>
+                      <Link to="/">home</Link>
+                  </li>
+                  <li>
+                      <Link to="/kasko">kasko</Link>
+                  </li>
+                  <li>
+                      <Link to="/offers">offers</Link>
+                  </li>
+                  <li>
+                      <Link to="/payment">payment</Link>
+                  </li>
+                  <li>
+                      <Link to="/done">done</Link>
+                  </li>
+                  <li>
+                      <Link to="/credit">credit</Link>
+                  </li>
+                  <li>
+                      <Link to="/osago">osago</Link>
+                  </li>
+                  <li>
+                      <Link to="/osago_payment">osago_payment</Link>
+                  </li>
+                  <li>
+                      <Link to="/osago_done">osago_done</Link>
+                  </li>
+                  <li>
+                      <Link to="/chery">chery</Link>
+                  </li>
+                  <li>
+                      <Link to="/orders">orders</Link>
+                  </li>
+              </ul>
+          </div>
+
+            {/*<Route exact path="/ecr-kasko" component={Home} />*/}
+          
             <Route exact path="/" render={(routeProps) => (
-                <Kasko {...routeProps} step={1} showOffers={false}/>
+                <PageLayout>
+                    <Kasko {...routeProps} step={1} showOffers={false}/>
+                </PageLayout>
             )}/>
-            <Route exact path="/ecr-kasko" component={Home} />
             <Route path="/kasko" render={(routeProps) => (
-                <Kasko {...routeProps} showOffers={false} />
+                <PageLayout>
+                    <Kasko {...routeProps} showOffers={false} />
+                </PageLayout>
             )} />
             <Route path="/offers" render={(routeProps) => (
-                <Kasko {...routeProps} showOffers={'каско'}/>
+                <PageLayout>
+                    <Kasko {...routeProps} step={1.1} showOffers={'каско'}/>
+                </PageLayout>
             )}/>
             <Route path="/payment" render={(routeProps) => (
-                <Kasko {...routeProps} step={2} showOffers={'каско'}/>
+                <PageLayout>
+                    <Kasko {...routeProps} step={2} showOffers={'каско'}/>
+                </PageLayout>
             )}/>
             <Route path="/done" render={(routeProps) => (
-                <Kasko {...routeProps} step={3} showOffers={'каско'}/>
+                <PageLayout>
+                    <Kasko {...routeProps} step={3} showOffers={'каско'}/>
+                </PageLayout>
             )}/>
             <Route path="/credit" render={(routeProps) => (
-                <Credit {...routeProps} showOffers={'кредит'}/>
+                <PageLayout>
+                    <Credit {...routeProps} showOffers={'кредит'}/>
+                </PageLayout>
             )}/>
             <Route path="/osago" render={(routeProps) => (
-                <Osago {...routeProps} showOffers={false}/>
+                <PageLayout>
+                    <Osago {...routeProps} showOffers={false}/>
+                </PageLayout>
             )}/>
             <Route path="/osago_payment" render={(routeProps) => (
-                <Osago {...routeProps} step={2} showOffers={'осаго'}/>
+                <PageLayout>
+                    <Osago {...routeProps} step={2} showOffers={'осаго'}/>
+                </PageLayout>
             )}/>
             <Route path="/osago_done" render={(routeProps) => (
-                <Osago {...routeProps} step={3} showOffers={'осаго'}/>
+                <PageLayout>
+                    <Osago {...routeProps} step={3} showOffers={'осаго'}/>
+                </PageLayout>
             )}/>
-        </PageLayout>
+            <Route path="/orders" render={(routeProps) => (
+                <>
+                    <Chat classList={['open']} title={'Уведомления'} total='123' data={[
+                        {
+                            date: 'Понедельник, 20.02.19',
+                            count: '5',
+                            msg: [
+                                {
+                                    author: 'Константинопольский М.',
+                                    time: '9:50',
+                                    bank: 'Русфинансбанк',
+                                    statusColor: 'status_green',
+                                    status: 'Договор прислан'
+                                },
+                                {
+                                    author: 'Рябоконь С.Ю.',
+                                    time: '9:50',
+                                    bank: 'Московский Кредитбанк',
+                                    statusColor: 'status_green',
+                                    status: 'Одобрена'
+                                },
+                                {
+                                    author: 'Салямин А.В.',
+                                    time: '9:50',
+                                    bank: 'Совкомбанк',
+                                    statusColor: 'status_red',
+                                    status: 'Отказ',
+                                    info: 'По заявке принято отрицательное решение. Коваль Марина Руководитель по розничному бизнесу. Тел. +7 (916) 000 0000, Тел. +7 (495) 541 7845, доб. 108, mkoval@sovkom.ru Полное информирование будет направлено офисом клиенту'
+                                },
+                                {
+                                    author: 'Рябоконь С.Ю.',
+                                    time: '9:50',
+                                    bank: 'Русфинансбанк',
+                                    statusColor: 'status_blue',
+                                    status: 'Запрос Банка',
+                                    opacity: true
+                                },
+                                {
+                                    author: 'Константинопольский М.',
+                                    time: '9:50',
+                                    bank: 'Русфинансбанк',
+                                    statusColor: 'status_green',
+                                    status: 'Договор прислан'
+                                },
+                                {
+                                    author: 'Рябоконь С.Ю.',
+                                    time: '9:50',
+                                    bank: 'Московский Кредитбанк',
+                                    statusColor: 'status_green',
+                                    status: 'Одобрена'
+                                },
+                                {
+                                    author: 'Салямин А.В.',
+                                    time: '9:50',
+                                    bank: 'Совкомбанк',
+                                    statusColor: 'status_red',
+                                    status: 'Отказ',
+                                    opacity: true
+                                },
+                                {
+                                    author: 'Рябоконь С.Ю.',
+                                    time: '9:50',
+                                    bank: 'Русфинансбанк',
+                                    statusColor: 'status_blue',
+                                    status: 'Запрос Банка'
+                                }
+                            ]
+                        },
+                        {
+                            date: 'Понедельник, 20.02.19',
+                            count: '1',
+                            msg: [
+                                {
+                                    author: 'Салямин А.В.',
+                                    time: '9:50',
+                                    bank: 'Совкомбанк',
+                                    statusColor: 'status_red',
+                                    status: 'Отказ',
+                                    info: 'По заявке принято отрицательное решение. Коваль Марина Руководитель по розничному бизнесу. Тел. +7 (916) 000 0000, Тел. +7 (495) 541 7845, доб. 108, mkoval@sovkom.ru Полное информирование будет направлено офисом клиенту'
+                                }
+                            ]
+                        },
+                        {
+                            date: 'Четверг, 16.02.19',
+                            msg: []
+                        }
+                    ]}/>
+                    <PageLayout>
+                        <Orders/>
+                    </PageLayout>
+                </>
+            )}/>
+            <Route path="/chery" render={(routeProps) => (
+                <CheryLayout>
+                    <Kasko {...routeProps} cabinet={true} step={1} showOffers={false}/>
+                </CheryLayout>
+            )}/>
+
       </BrowserRouter>
   )
 }

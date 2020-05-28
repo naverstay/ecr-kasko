@@ -1,0 +1,129 @@
+@import '../../assets/styles/vars.scss';
+
+.bank-unit {
+	display: flex;
+	flex-flow: row nowrap;
+	padding: 15px 11px 17px;
+	position: relative;
+	font-size: 12px;
+	
+	&__cell {
+		padding-right: 18px;
+
+		&.cell_size-1 {
+			max-width: 247px;
+			flex: 1 1 247px;
+		}
+
+		&.cell_size-2 {
+			max-width: 97px;
+			flex: 1 1 97px;
+		}
+
+		&.cell_size-3 {
+			max-width: 82px;
+			flex: 1 1 82px;
+		}
+
+		&.cell_size-4 {
+			max-width: 65px;
+			flex: 1 1 65px;
+			padding-right: 0;
+			text-align: center;
+		}
+	}
+	
+	&__name {
+		font-weight: bold;
+		margin-bottom: 5px;
+	}
+
+	&__programme {
+		white-space: nowrap;
+		overflow: hidden;
+		max-width: 100%;
+		text-overflow: ellipsis;
+	}
+	
+	&__price {
+		font-weight: bold;
+		font-size: 15px;
+		margin-bottom: 5px;
+		white-space: nowrap;
+	}
+	
+	&__fee {
+		font-size: 10px;
+	}
+
+	&__chat {
+		position: relative;
+		cursor: pointer;
+		width: 30px;
+		height: 30px;
+		margin-top: 2px;
+		display: inline-block;
+
+		&:before {
+			content: '\e917';
+			font-family: 'ecr_icons', sans-serif;
+			position: absolute;
+			right: 0;
+			top: 4px;
+			font-size: 22px;
+			color: #000;
+		}
+	}
+
+	&__status {
+		position: relative;
+		text-align: center;
+		padding-top: 16px;
+		font-size: 10px;
+		margin-top: 8px;
+		
+		&:before {
+			content: '';
+			position: absolute;
+			top: 0;
+			left: 50%;
+			margin-left: -6px;
+			width: 12px;
+			height: 12px;
+			border-radius: 100%;
+			background: $color-grey;
+		}
+		
+		&.status_green {
+			color: $color-green;
+			
+			&:before {
+				background: $color-green;
+			}
+		}
+		
+		&.status_blue {
+			color: $color-blue;
+			
+			&:before {
+				background: $color-blue;
+			}
+		}
+		
+		&.status_yellow {
+			color: $color-yellow;
+			
+			&:before {
+				background: $color-yellow;
+			}
+		}
+		
+		&.status_red {
+			color: $color-prime;
+			
+			&:before {
+				background: $color-prime;
+			}
+		}
+	}
+}

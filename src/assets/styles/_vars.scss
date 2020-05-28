@@ -149,3 +149,7 @@ $desktop-upper-boundary: 1800px;
 		transform: rotate(360deg);
 	}
 }
+
+%global_flex_block_row_nowrap_space_between_center {
+	@include flex_block(row nowrap, space-between, center);
+}

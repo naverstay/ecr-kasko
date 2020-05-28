@@ -1,0 +1,49 @@
+@import '../../assets/styles/vars.scss';
+
+.svetofor {
+	&-wrapper {
+		position: relative;
+		
+		&__center {
+			text-align: center;
+		}
+	}
+	
+	&-item {
+		display: inline-block;
+		vertical-align: top;
+		border-radius: 100%;
+		width: 20px;
+		height: 20px;
+		font-size: 13px;
+		line-height: 16px;
+		text-align: center;
+		color: #000;
+		border: 2px solid $color-grey;
+		margin: 3px 5px 3px 0;
+		
+		&__yellow {
+			background: $color-yellow;
+			border-color: $color-yellow;
+		}
+		
+		&__green {
+			color: #fff;
+			background: $color-green;
+			border-color: $color-green;
+		}
+		
+		&__red {
+			color: #fff;
+			background: $color-prime;
+			border-color: $color-prime;
+		}
+		
+		&__blue {
+			color: #fff;
+			background: $color-blue;
+			border-color: $color-blue;
+		}
+		
+	}
+}

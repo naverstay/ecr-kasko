@@ -497,7 +497,7 @@ class OfferSelect extends Component {
 							}
 			
 							<div className="kasko-car-select__controls ant-row-center mb_45">
-								<Button htmlType="submit" className={"btn_wide" + ((osago && step === 2) ? " btn_green" : " ant-btn-primary")} onClick={this.toggleCalculationPopup}>{this.calculationButtonText()}</Button>
+								<Button htmlType="submit" className={"btn_wide" + (((this.state.showPayment || (this.props.step === 2) || (this.props.osago && this.state.activeOffers.length))) ? " btn_green" : " ant-btn-primary")} onClick={this.toggleCalculationPopup}>{this.calculationButtonText()}</Button>
 							</div>
 							
 							{(step !== 2) ?

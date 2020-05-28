@@ -10,7 +10,7 @@ import {
 } from '@fortawesome/free-solid-svg-icons';
 import cn from 'classnames';
 import SidebarButton from '../sidebar/sidebar-button';
-import Filters from '../../filters';
+//import Filters from '../../filters';
 import './style.scss';
 
 
@@ -160,7 +160,7 @@ function Topbar(props) {
 				</div>
 				<div className={classListBody(['filters'], 'filters')}>
 					<div className='topbar__body-container__inner'>
-						<Filters />
+						{/*<Filters />*/}
 					</div>
 				</div>
 			</div>

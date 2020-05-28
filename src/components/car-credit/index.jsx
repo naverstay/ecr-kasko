@@ -13,6 +13,7 @@ import CreditOffers from "../credit-offers";
 import CreditAdditionals from "../credit-additionals";
 import PaymentSwitch from "../payment-switch";
 import Osago from "../../pages/osago";
+import CalculationPopup from "../calculation-popup";
 
 const {Option} = Select;
 //const {YearPicker} = DatePicker;
@@ -96,6 +97,11 @@ class CarCredit extends Component {
 			this.scrollToBottom();
 		}, 100)
 	};
+
+	toggleCalculationPopup = () => {
+		this.setState({calculationPopupOpened: !this.state.calculationPopupOpened})
+		document.body.classList.toggle('no-overflow', !this.state.calculationPopupOpened)
+	}
 	
 	componentDidMount() {
 		this.props.allFields && this.setState({showAdditional: true, newCar: false})
@@ -207,7 +213,7 @@ class CarCredit extends Component {
 		for (let i = 0; i < banks.length; i++) {
 			offersList.push({
 				name: banks[i],
-				info: (i < 2),
+				//info: (i < 2),
 				offers: credOffers
 			})
 		}
@@ -373,95 +379,95 @@ class CarCredit extends Component {
 					<div className="kasko-main__wide">
 						<Row gutter={20}>
 							<Col span={4}>
-								<div className="kasko-car-select__caption text_center">Добавлено в кредит</div>
-								<CreditAdditionals additionalList={[
-									{
-										title: 'КАСКО дилера',
-										additionals: [
-											{
-												option: 'Зетта-Страхование'
-											},
-											{
-												option: '123 456 ₽'
-											},
-											{
-												option: 'В кредит / 1 год'
-											},
-										]
-									},
-									{
-										title: 'GAP дилера',
-										additionals: [
-											{
-												option: 'Зетта-Страхование'
-											},
-											{
-												option: '123 456 ₽'
-											},
-											{
-												option: 'На весь срок'
-											},
-										]
-									},
-									{
-										title: 'СЖ дилера',
-										additionals: [
-											{
-												option: 'Зетта-Страхование'
-											},
-											{
-												option: '123 456 ₽'
-											},
-											{
-												option: 'На весь срок'
-											},
-										]
-									},
-									{
-										title: 'Услуги дилера',
-										additionals: [
-											{
-												option: 'Карта РАТ',
-												short: true
-											},
-											{
-												option: '5 000 ₽',
-												short: true
-											},
-											{
-												option: 'Вручную',
-												short: true
-											},
-											{
-												option: '15 000 ₽',
-												short: true
-											},
-											{
-												option: 'В кредит'
-											}
-										]
-									},
-									{
-										title: 'Шоколад',
-										additionals: [
-											{
-												option: '123 456 ₽'
-											},
-										]
-									}
-								]} />
-								<div className="kasko-car-select__caption text_center">Параметры кредита</div>
-								<CreditAdditionals additionalList={[
-									{
-										title: '2 документа'
-									},
-									{
-										title: 'Все типы кредитов'
-									},
-									{
-										title: '24 месяца'
-									}
-								]}/>
+								{/*<div className="kasko-car-select__caption text_center">Добавлено в кредит</div>*/}
+								{/*<CreditAdditionals additionalList={[*/}
+								{/*	{*/}
+								{/*		title: 'КАСКО дилера',*/}
+								{/*		additionals: [*/}
+								{/*			{*/}
+								{/*				option: 'Зетта-Страхование'*/}
+								{/*			},*/}
+								{/*			{*/}
+								{/*				option: '123 456 ₽'*/}
+								{/*			},*/}
+								{/*			{*/}
+								{/*				option: 'В кредит / 1 год'*/}
+								{/*			},*/}
+								{/*		]*/}
+								{/*	},*/}
+								{/*	{*/}
+								{/*		title: 'GAP дилера',*/}
+								{/*		additionals: [*/}
+								{/*			{*/}
+								{/*				option: 'Зетта-Страхование'*/}
+								{/*			},*/}
+								{/*			{*/}
+								{/*				option: '123 456 ₽'*/}
+								{/*			},*/}
+								{/*			{*/}
+								{/*				option: 'На весь срок'*/}
+								{/*			},*/}
+								{/*		]*/}
+								{/*	},*/}
+								{/*	{*/}
+								{/*		title: 'СЖ дилера',*/}
+								{/*		additionals: [*/}
+								{/*			{*/}
+								{/*				option: 'Зетта-Страхование'*/}
+								{/*			},*/}
+								{/*			{*/}
+								{/*				option: '123 456 ₽'*/}
+								{/*			},*/}
+								{/*			{*/}
+								{/*				option: 'На весь срок'*/}
+								{/*			},*/}
+								{/*		]*/}
+								{/*	},*/}
+								{/*	{*/}
+								{/*		title: 'Услуги дилера',*/}
+								{/*		additionals: [*/}
+								{/*			{*/}
+								{/*				option: 'Карта РАТ',*/}
+								{/*				short: true*/}
+								{/*			},*/}
+								{/*			{*/}
+								{/*				option: '5 000 ₽',*/}
+								{/*				short: true*/}
+								{/*			},*/}
+								{/*			{*/}
+								{/*				option: 'Вручную',*/}
+								{/*				short: true*/}
+								{/*			},*/}
+								{/*			{*/}
+								{/*				option: '15 000 ₽',*/}
+								{/*				short: true*/}
+								{/*			},*/}
+								{/*			{*/}
+								{/*				option: 'В кредит'*/}
+								{/*			}*/}
+								{/*		]*/}
+								{/*	},*/}
+								{/*	{*/}
+								{/*		title: 'Шоколад',*/}
+								{/*		additionals: [*/}
+								{/*			{*/}
+								{/*				option: '123 456 ₽'*/}
+								{/*			},*/}
+								{/*		]*/}
+								{/*	}*/}
+								{/*]} />*/}
+								{/*<div className="kasko-car-select__caption text_center">Параметры кредита</div>*/}
+								{/*<CreditAdditionals additionalList={[*/}
+								{/*	{*/}
+								{/*		title: '2 документа'*/}
+								{/*	},*/}
+								{/*	{*/}
+								{/*		title: 'Все типы кредитов'*/}
+								{/*	},*/}
+								{/*	{*/}
+								{/*		title: '24 месяца'*/}
+								{/*	}*/}
+								{/*]}/>*/}
 							</Col>
 							<Col span={16}>
 								<CreditOffers completed={true} selectedOffer={this.updateSelectedOffer} offersList={offersList}/>
@@ -471,7 +477,7 @@ class CarCredit extends Component {
 										<Button htmlType="submit"
 												style={{padding: '0 50px'}}
 												className={"ant-btn-primary btn_middle"}
-												onClick={this.toggleSMSSent}>Сохранить расчет и заполнить анкету</Button>
+												onClick={this.toggleCalculationPopup}>Сохранить расчет и заполнить анкету</Button>
 										<div className="kasko-car-select__controls--group-r">
 											<div className="car-credit__print">
 												<a className="gl_link color_black" href="#">Кредитный расчет</a>
@@ -488,6 +494,10 @@ class CarCredit extends Component {
 				}
 				
 				<div ref={(el) => { this.messagesEnd = el }}/>
+				
+				{this.state.calculationPopupOpened ? 
+					<CalculationPopup updatePaymentState={this.updatePaymentState} step={this.state.showCalculationOffers ? 2 : step} allFields={this.state.showCalculationOffers || (step === 2)} fullCalculation={this.state.showCalculationOffers || this.state.fullCalculation} popupCloseFunc={this.toggleCalculationPopup} />
+					: ""}
 			</div>
 		);
 	}

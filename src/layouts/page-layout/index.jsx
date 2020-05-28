@@ -16,10 +16,10 @@ class PageLayout extends Component {
 		const { children } = this.props;
 		return (
 			<>
-				<Navbar/>
 				<div className='page__layout'>
 					<div className='page__content _kasko'>{children}</div>
 				</div>
+				<Navbar/>
 			</>
 		);
 	}

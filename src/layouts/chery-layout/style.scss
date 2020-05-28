@@ -1,0 +1,48 @@
+@import '../../assets/styles/vars.scss';
+
+.page {
+	&__layout {
+		display: flex;
+		min-height: 100vh;
+		max-width: $layout-maxwidth;
+		flex-direction: column;
+		overflow-x: hidden;
+		
+		@include for-size(desktop-up) {
+			margin-left: $aside-size-small;
+		}
+		
+		&.chery {
+			margin-left: 0;
+			padding-top: 10px;
+
+			.kasko-wrapper__fixed {
+				top: 163px;
+				left: $content-padding;
+			}
+		}
+	}
+
+	&__content {
+		margin-top: 50px;
+		height: 100%;
+		flex-basis: 100%;
+		display: flex;
+		flex-flow: column;
+		padding: 2rem;
+
+		@include for-size(desktop-up) {
+			margin-top: 85px;
+
+			&._kasko {
+				margin-top: 0;
+				padding: 7px $content-padding;
+				font-family: Roboto, sans-serif;
+				
+				.chery & {
+					margin-top: 10px;
+				}
+			}
+		}
+	}
+}

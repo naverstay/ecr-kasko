@@ -1,0 +1,116 @@
+@import '../../assets/styles/vars.scss';
+
+.bank-status {
+	position: relative;
+	padding: 10px 8px;
+	
+	&__day {
+		margin-bottom: 20px;
+		
+		&:last-child {
+			margin-bottom: 0;
+		}
+	}
+	
+	&__date {
+		text-align: center;
+		font-size: 8px;
+		margin-bottom: 15px;
+		font-weight: bold;
+		color: $color-grey;
+	}
+	
+	&__msg {
+		position: relative;
+		overflow: hidden;
+		
+		&:before {
+			font-family: 'ecr_icons', sans-serif;
+			position: absolute;
+			width: 26px;
+			height: 26px;
+			border-radius: 100%;
+			text-align: center;
+			font-size: 18px;
+			line-height: 26px;
+			font-weight: 300;
+		}
+		
+		&--text {
+			padding: 9px 11px;
+			font-size: 10px;
+			margin-bottom: 11px;
+		}
+		
+		&--time {
+			position: absolute;
+			bottom: 0;
+			width: 26px;
+			text-align: center;
+			font-size: 8px;
+			color: $color-grey;
+		}
+
+		&.msg_client {
+			padding-right: 40px;
+			
+			&:before {
+				content: '\e90d';
+				right: 7px;
+				color: #fff;
+				background: $color-grey;
+			}
+
+			.bank-status__msg--time {
+				right: 7px;
+			}
+			
+			.bank-status__msg--text {
+				float: right;
+				color: #fff;
+				background: $color-grey;
+			}
+			
+			~ .msg_client {
+				&:before {
+					display: none;
+				}
+
+				.bank-status__msg--time {
+					bottom: 10px;
+				}
+			}
+		}
+
+		&.msg_bank {
+			padding-left: 36px;
+			
+			&:before {
+				content: '\e906';
+				left: 2px;
+				color: #808080;
+				background: $color-table-header;
+			}
+
+			.bank-status__msg--time {
+				left: 2px;
+			}
+			
+			.bank-status__msg--text {
+				float: left;
+				color: #000;
+				background: $color-table-header;
+			}
+			
+			~ .msg_bank {
+				&:before {
+					display: none;
+				}
+				
+				.bank-status__msg--time {
+					bottom: 10px;
+				}
+			}
+		}
+	}
+}

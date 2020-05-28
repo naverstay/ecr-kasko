@@ -1,0 +1,108 @@
+@import '../../assets/styles/vars.scss';
+
+.comments {
+	&-holder {
+		display: flex;
+		flex-flow: column nowrap;
+		height: 100%;
+	}
+	
+	&-title {
+		color: $color-grey;
+		font-size: 13px;
+		font-weight: 500;
+		padding: 24px 10px;
+		text-align: center;
+		border-bottom: 2px solid $color-prime;
+		background: $color-table-header;
+	}
+	
+	&-content {
+		flex: 1 1 100%;
+		background: $color-table-header;
+		padding: 15px 16px;
+		max-height: 380px;
+		overflow-y: auto;
+	}
+	
+	&-msg {
+		background: #fff;
+		padding: 7px 8px;
+		margin-bottom: 16px;
+		
+		&:last-child {
+			margin-bottom: 0;
+		}
+		
+		&__author {
+			font-size: 11px;
+			color: $color-grey;
+			float: left;
+			margin-bottom: 14px;
+		}
+		
+		&__date {
+			font-size: 11px;
+			color: $color-grey;
+			float: right;
+			margin-bottom: 14px;
+			
+			span {
+				padding-right: 9px;
+			}
+		}
+		
+		&__text {
+			clear: both;
+			font-size: 13px;
+			color: #000;
+			padding-right: 85px;
+			margin-bottom: 5px;
+		}
+	}
+	
+	&-form {
+		position: relative;
+		flex: 1 1 50px;
+		margin-top: 3px;
+		height: 50px;
+		background: #fff;
+		border: 2px solid $color-table-header;
+		
+		&__text {
+			resize: none;
+			width: 100%;
+			height: 50px;
+			border: 0;
+			padding: 8px 52px 8px 8px;
+			font-size: 11px;
+
+			&::-moz-placeholder {
+				color: $color-grey;
+			}
+
+			&::-webkit-input-placeholder {
+				color: $color-grey;
+			}
+		}
+		
+		&__btn {
+			position: absolute;
+			top: 2px;
+			right: 2px;
+			bottom: 2px;
+			width: 50px;
+			text-align: center;
+			color: $color-grey;
+			font-size: 18px;
+			font-weight: bold;
+			text-decoration: underline;
+			cursor: pointer;
+			
+			&:hover {
+				text-decoration: none;
+				color: $color-prime;
+			}
+		}
+	}
+}

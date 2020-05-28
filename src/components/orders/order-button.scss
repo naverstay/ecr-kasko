@@ -1,0 +1,19 @@
+@import '../../assets/styles/vars.scss';
+
+.order-button {
+	color: $color-prime;
+	border: 1px solid $color-prime;
+	height: 32px;
+	font-size: 13px;
+	text-align: center;
+	display: flex;
+	align-items: center;
+	justify-content: center;
+	cursor: pointer;
+	transition: all 0.3s;
+	
+	&:hover {
+		color: #fff;
+		background: $color-prime;
+	}
+}
