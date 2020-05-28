@@ -55,21 +55,32 @@
 
 	&__scroller {
 		overflow-y: auto;
+		min-height: calc(100vh - 150px);
 	}
 
 	&__header {
 		background: $color-table-header;
 
 		.orders-table__cell {
-			padding: 10px 10px;
+			padding: 15px 10px;
 			color: $color-grey;
 		}
 	}
 
 	&__body {
 		.orders-table__cell {
-			padding: 12px 10px;
+			font-size: 12px;
+			line-height: 14px;
+			padding: 14px 10px;
 			color: #808080;
+			
+			p {
+				white-space: nowrap;
+				max-width: 100%;
+				overflow: hidden;
+				text-overflow: ellipsis;
+				margin: 0;
+			}
 		}
 	}
 
@@ -272,13 +283,21 @@
 
 		.orders-table__header-btn {
 			position: relative;
+			font-size: 12px;
+			
+			&.wide {
+				margin-right: -100%;
+			}
 		}
 
 		&.sortable-asc {
 			.orders-table__header-btn {
-				padding-right: 20px;
+				padding-right: 15px;
 				float: left;
 				cursor: pointer;
+				max-width: 100%;
+				overflow: hidden;
+				text-overflow: ellipsis;
 
 				&:before {
 					font-family: 'ecr_icons', sans-serif;
@@ -333,49 +352,60 @@
 		}
 
 		&.cell_size-2 {
-			padding-left: 25px;
-			max-width: 170px;
-			flex: 1 1 170px;
+			padding-left: 15px;
+			max-width: 160px;
+			flex: 1 1 160px;
 		}
 
 		&.cell_size-3 {
+			max-width: 160px;
+			flex: 1 1 160px;
+		}
+
+		&.cell_size-4 {
+			max-width: 135px;
+			flex: 1 1 135px;
+		}
+
+		&.cell_size-5 {
 			max-width: 200px;
 			flex: 1 1 200px;
 		}
 
-		&.cell_size-4 {
-			max-width: 190px;
-			flex: 1 1 190px;
-		}
-
-		&.cell_size-5 {
-			max-width: 167px;
-			flex: 1 1 167px;
-		}
-
 		&.cell_size-6 {
+			max-width: 95px;
+			flex: 1 1 95px;
+		}
+
+		&.cell_size-7 {
 			max-width: 100px;
 			flex: 1 1 100px;
 		}
 
-		&.cell_size-7 {
-			max-width: 163px;
-			flex: 1 1 163px;
-		}
-
 		&.cell_size-8 {
-			max-width: 73px;
-			flex: 1 1 73px;
+			max-width: 65px;
+			flex: 1 1 65px;
 		}
 
 		&.cell_size-9 {
-			max-width: 73px;
-			flex: 1 1 73px;
+			max-width: 65px;
+			flex: 1 1 65px;
 		}
 
 		&.cell_size-10 {
-			max-width: 115px;
-			flex: 1 1 115px;
+			max-width: 90px;
+			flex: 1 1 90px;
+			padding-right: 0;
+		}
+
+		&.cell_size-11 {
+			max-width: 105px;
+			flex: 1 1 105px;
+		}
+
+		&.cell_size-12 {
+			max-width: 85px;
+			flex: 1 1 85px;
 		}
 	}
 }

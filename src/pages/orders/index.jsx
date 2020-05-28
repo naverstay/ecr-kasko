@@ -3,7 +3,7 @@ import React from 'react';
 import TableCell from '../../components/orders/table-cell';
 import TableOrderRow from '../../components/orders/table-order-row';
 import TableHeaderButton from '../../components/orders/table-header-button';
-import CheckBox from '../../components/orders/checkbox';
+//import CheckBox from '../../components/orders/checkbox';
 import Svetofor from '../../components/orders/svetofor';
 import OrderButton from '../../components/orders/order-button';
 import OrderInfo from '../../components/orders/order-info';
@@ -14,6 +14,7 @@ import PropTypes from "prop-types";
 import cn from "classnames";
 import './style.scss';
 import {FormattedMessage} from "react-intl";
+import {Checkbox, Col} from "antd";
 
 let showOrderInfo = index => () => {
 	console.log('showOrderInfo', index);
@@ -127,8 +128,8 @@ const Orders = props => {
 						<div className="orders-table">
 							<div className="orders-table__header">
 								<div className="orders-table__row">
-									<TableCell classList={['orders-table__cell', 'cell_size-1']}>
-										<CheckBox classList={['checkbox_v1']} id='check_order_all' name='check_order_all' />
+									<TableCell classList={['orders-table__cell', 'cell_size-1', 'check_v3']}>
+										<Checkbox />
 									</TableCell>
 									<TableCell classList={['orders-table__cell', 'cell_size-2', 'sortable-desc']}>
 										<TableHeaderButton label={<>Дилер</>}/>
@@ -137,16 +138,16 @@ const Orders = props => {
 										<TableHeaderButton label={<>КСО <br /> МОП</>} />
 									</TableCell>
 									<TableCell classList={['orders-table__cell', 'cell_size-4']}>
-										<TableHeaderButton label={<>Клиент <br /> Дата заявки</>} />
+										<TableHeaderButton label={<>Источник <br /> Дата заявки</>} />
 									</TableCell>
 									<TableCell classList={['orders-table__cell', 'cell_size-5']}>
-										<TableHeaderButton label={<>Марка и <br /> Модель</>} />
+										<TableHeaderButton label={<>Клиент</>} />
 									</TableCell>
-									<TableCell classList={['orders-table__cell', 'cell_size-6', 'sortable-asc']}>
-										<TableHeaderButton label={<>Статус <br /> заявки</>} />
+									<TableCell classList={['orders-table__cell', 'cell_size-6']}>
+										<TableHeaderButton classList={['wide']} label={<>Статус заявки</>} />
 									</TableCell>
 									<TableCell classList={['orders-table__cell', 'cell_size-7']}>
-										<TableHeaderButton label={<>Статус <br /> кредита</>} />
+										<TableHeaderButton label={<>&nbsp;</>} />
 									</TableCell>
 									<TableCell classList={['orders-table__cell', 'cell_size-8']}>
 										<TableHeaderButton label={<>ОСАГО</>} />
@@ -161,31 +162,92 @@ const Orders = props => {
 							<div className="orders-table__body">
 								{/* row 1*/}
 								<TableOrderRow>
-									<TableCell classList={['orders-table__cell', 'cell_size-1']}>
-										<CheckBox classList={['checkbox_v1']} id='check_order_1' name='check_order_1' />
+									<TableCell classList={['orders-table__cell', 'cell_size-1', 'check_v3']}>
+										<Checkbox />
 									</TableCell>
 									<TableCell toggleInfoRow={true} classList={['orders-table__cell', 'cell_size-2']}>
 										<div className='orders-table__cell-content orders-table__cell--collapse'>
-											200 ЕвросибАвто Пулково Санкт-Петербург
+											<p>200 ЕвросибАвто</p>
+											<p>Пулково Санкт-Петербург</p>
 										</div>
 									</TableCell>
 									<TableCell toggleInfoRow={true} classList={['orders-table__cell', 'cell_size-3']}>
-										<div className='orders-table__cell-content'>Константинопольский<br/>Ларин</div>
+										<div className='orders-table__cell-content'>
+											<p>* Абдрахманов И. </p>
+											<p>Ларин</p>
+										</div>
 									</TableCell>
 									<TableCell toggleInfoRow={true} classList={['orders-table__cell', 'cell_size-4']}>
-										<div className='orders-table__cell-content'><b className={'color-black'}>Константинопольский
-											<br/>Максим</b>
-											<br/>20.02.19
+										<div className='orders-table__cell-content'>
+											<p>Отдел продаж</p>
+											<p>20.02.19</p>
 										</div>
 									</TableCell>
 									<TableCell toggleInfoRow={true} classList={['orders-table__cell', 'cell_size-5']}>
-										<div className='orders-table__cell-content'><span
-											className={'color-black'}>Mersedes Benz</span>
-											<br/> E200 Special Edition
+										<div className='orders-table__cell-content'>
+											<p className="color_black">Константинопольский</p>
+											<p className="color_black">Максим</p>
 										</div>
 									</TableCell>
 									<TableCell toggleInfoRow={true} classList={['orders-table__cell', 'cell_size-6']}>
-										<div className='orders-table__cell-content'><span className={'color-black'}>Запрос <br/> договора</span></div>
+										<div className='orders-table__cell-content'>&nbsp;</div>
+									</TableCell>
+									<TableCell toggleInfoRow={true} classList={['orders-table__cell', 'cell_size-7']}>
+										<div className='orders-table__cell-content'>
+											&nbsp;
+										</div>
+									</TableCell>
+									<TableCell toggleInfoRow={true} classList={['orders-table__cell', 'cell_size-8']}>
+										<div className='orders-table__cell-content'>
+											<Svetofor classList={['svetofor-wrapper__center']} data={[{}]} />
+										</div>
+									</TableCell>
+									<TableCell toggleInfoRow={true} classList={['orders-table__cell', 'cell_size-9']}>
+										<div className='orders-table__cell-content'>
+											<Svetofor classList={['svetofor-wrapper__center']} data={[{}]} />
+										</div>
+									</TableCell>
+									<TableCell classList={['orders-table__cell', 'cell_size-10']}>
+										<div className='orders-table__cell-content'>
+											<OrderButton text={'Открыть'} />
+										</div>
+									</TableCell>
+									{ orderInfoRow() }
+								</TableOrderRow>
+								
+								{/* row 2*/}
+								<TableOrderRow>
+									<TableCell classList={['orders-table__cell', 'cell_size-1', 'check_v3']}>
+										<Checkbox />
+									</TableCell>
+									<TableCell toggleInfoRow={true} classList={['orders-table__cell', 'cell_size-2']}>
+										<div className='orders-table__cell-content orders-table__cell--collapse'>
+											<p>200 ЕвросибАвто</p>
+											<p>Пулково Санкт-Петербург</p>
+										</div>
+									</TableCell>
+									<TableCell toggleInfoRow={true} classList={['orders-table__cell', 'cell_size-3']}>
+										<div className='orders-table__cell-content'>
+											<p>* Абдрахманов И. </p>
+											<p>Ларин</p>
+										</div>
+									</TableCell>
+									<TableCell toggleInfoRow={true} classList={['orders-table__cell', 'cell_size-4']}>
+										<div className='orders-table__cell-content'>
+											<p>Отдел продаж</p>
+											<p>20.02.19</p>
+										</div>
+									</TableCell>
+									<TableCell toggleInfoRow={true} classList={['orders-table__cell', 'cell_size-5']}>
+										<div className='orders-table__cell-content'>
+											<p className="color_black">Константинопольский</p>
+											<p className="color_black">Максим</p>
+										</div>
+									</TableCell>
+									<TableCell toggleInfoRow={true} classList={['orders-table__cell', 'cell_size-6']}>
+										<div className='orders-table__cell-content'>
+											<p>Одобрение</p>
+										</div>
 									</TableCell>
 									<TableCell toggleInfoRow={true} classList={['orders-table__cell', 'cell_size-7']}>
 										<div className='orders-table__cell-content'>
@@ -215,526 +277,106 @@ const Orders = props => {
 									</TableCell>
 									{ orderInfoRow() }
 								</TableOrderRow>
-								{/* row 2*/}
-								<TableOrderRow>
-									<TableCell classList={['orders-table__cell', 'cell_size-1']}>
-										<CheckBox classList={['checkbox_v1']} id='check_order_1' name='check_order_1' />
-									</TableCell>
-									<TableCell toggleInfoRow={true}classList={['orders-table__cell', 'cell_size-2']}>
-										<div className='orders-table__cell-content orders-table__cell--collapse'>
-											200 ЕвросибАвто
-											Пулково Санкт-
-											Петербург
-										</div>
-									</TableCell>
-									<TableCell toggleInfoRow={true}classList={['orders-table__cell', 'cell_size-3']}>
-										<div className='orders-table__cell-content'>
-											Ларин
-											Середкин
-										</div>
-									</TableCell>
-									<TableCell toggleInfoRow={true}classList={['orders-table__cell', 'cell_size-4']}>
-										<div className='orders-table__cell-content'>
-											<b className={'color-black'}>
-												Рябоконь<br/>Светлана Юрьевна
-											</b>
-											<br/>20.02.19
-										</div>
-									</TableCell>
-									<TableCell toggleInfoRow={true}classList={['orders-table__cell', 'cell_size-5']}>
-										<div className='orders-table__cell-content'><span
-											className={'color-black'}>Mersedes Benz</span>
-											<br/> E200 Special Edition
-										</div>
-									</TableCell>
-									<TableCell toggleInfoRow={true}classList={['orders-table__cell', 'cell_size-6']}>
-										<div className='orders-table__cell-content'><span className={'color-black'}>Запрос <br/> договора</span></div>
-									</TableCell>
-									<TableCell toggleInfoRow={true}classList={['orders-table__cell', 'cell_size-7']}>
-										<div className='orders-table__cell-content'>
-											<Svetofor data={[
-												{},
-												{className: 'svetofor-item__yellow', value: 5},
-												{className: 'svetofor-item__green', value: 1},
-												{className: 'svetofor-item__blue', value: 3},
-												{className: 'svetofor-item__red', value: 6}
-											]} />
-										</div>
-									</TableCell>
-									<TableCell toggleInfoRow={true}classList={['orders-table__cell', 'cell_size-8']}>
-										<div className='orders-table__cell-content'>
-											<Svetofor classList={['svetofor-wrapper__center']} data={[{className: 'svetofor-item__yellow'}]} />
-										</div>
-									</TableCell>
-									<TableCell toggleInfoRow={true}classList={['orders-table__cell', 'cell_size-9']}>
-										<div className='orders-table__cell-content'>
-											<Svetofor classList={['svetofor-wrapper__center']} data={[{className: 'svetofor-item__yellow'}]} />
-										</div>
-									</TableCell>
-									<TableCell classList={['orders-table__cell', 'cell_size-10']}>
-										<div className='orders-table__cell-content'>
-											<OrderButton text={'Открыть'} />
-										</div>
-									</TableCell>
-									{orderInfoRow()}
-								</TableOrderRow>
+								
 								{/* row 3*/}
 								<TableOrderRow>
-									<TableCell classList={['orders-table__cell', 'cell_size-1']}>
-										<CheckBox classList={['checkbox_v1']} id='check_order_1' name='check_order_1' />
-									</TableCell>
-									<TableCell toggleInfoRow={true}classList={['orders-table__cell', 'cell_size-2']}>
-										<div className='orders-table__cell-content orders-table__cell--collapse'>
-											КИА Центр
-											Кемерово-Юг
-										</div>
-									</TableCell>
-									<TableCell toggleInfoRow={true}classList={['orders-table__cell', 'cell_size-3']}>
-										<div className='orders-table__cell-content'>
-											Ларин
-											Середкин
-										</div>
-									</TableCell>
-									<TableCell toggleInfoRow={true}classList={['orders-table__cell', 'cell_size-4']}>
-										<div className='orders-table__cell-content'>
-											<b className={'color-black'}>
-												Рябоконь<br/>Светлана Юрьевна
-											</b>
-											<br/>20.02.19
-										</div>
-									</TableCell>
-									<TableCell toggleInfoRow={true}classList={['orders-table__cell', 'cell_size-5']}>
-										<div className='orders-table__cell-content'><span
-											className={'color-black'}>Mersedes Benz</span>
-											<br/> E200 Special Edition
-										</div>
-									</TableCell>
-									<TableCell toggleInfoRow={true}classList={['orders-table__cell', 'cell_size-6']}>
-										<div className='orders-table__cell-content'><span className={'color-black'}>Запрос <br/> договора</span></div>
-									</TableCell>
-									<TableCell toggleInfoRow={true}classList={['orders-table__cell', 'cell_size-7']}>
-										<div className='orders-table__cell-content'>
-											<Svetofor data={[
-												{},
-												{className: 'svetofor-item__yellow', value: 5},
-												{className: 'svetofor-item__green', value: 1},
-												{className: 'svetofor-item__blue', value: 3},
-												{className: 'svetofor-item__red', value: 6}
-											]} />
-										</div>
-									</TableCell>
-									<TableCell toggleInfoRow={true}classList={['orders-table__cell', 'cell_size-8']}>
-										<div className='orders-table__cell-content'>
-											<Svetofor classList={['svetofor-wrapper__center']} data={[{className: 'svetofor-item__green'}]} />
-										</div>
-									</TableCell>
-									<TableCell toggleInfoRow={true}classList={['orders-table__cell', 'cell_size-9']}>
-										<div className='orders-table__cell-content'>
-											<Svetofor classList={['svetofor-wrapper__center']} data={[{className: 'svetofor-item__red'}]} />
-										</div>
-									</TableCell>
-									<TableCell classList={['orders-table__cell', 'cell_size-10']}>
-										<div className='orders-table__cell-content'>
-											<OrderButton text={'Открыть'} />
-										</div>
-									</TableCell>
-									{ orderInfoRow() }
-								</TableOrderRow>
-								{/* row 4*/}
-								<TableOrderRow>
-									<TableCell classList={['orders-table__cell', 'cell_size-1']}>
-										<CheckBox classList={['checkbox_v1']} id='check_order_1' name='check_order_1' />
-									</TableCell>
-									<TableCell toggleInfoRow={true}classList={['orders-table__cell', 'cell_size-2']}>
-										<div className='orders-table__cell-content orders-table__cell--collapse'>
-											200 ЕвросибАвто
-											Пулково Санкт-
-											Петербург
-										</div>
-									</TableCell>
-									<TableCell toggleInfoRow={true}classList={['orders-table__cell', 'cell_size-3']}>
-										<div className='orders-table__cell-content'>
-											Ларин
-											Солохов
-										</div>
-									</TableCell>
-									<TableCell toggleInfoRow={true}classList={['orders-table__cell', 'cell_size-4']}>
-										<div className='orders-table__cell-content'>
-											<b className={'color-black'}>
-												Рябоконь<br/>Светлана Юрьевна
-											</b>
-											<br/>20.02.19
-										</div>
-									</TableCell>
-									<TableCell toggleInfoRow={true}classList={['orders-table__cell', 'cell_size-5']}>
-										<div className='orders-table__cell-content'><span
-											className={'color-black'}>Mersedes Benz</span>
-											<br/> E200 Special Edition
-										</div>
-									</TableCell>
-									<TableCell toggleInfoRow={true}classList={['orders-table__cell', 'cell_size-6']}>
-										<div className='orders-table__cell-content'><span className={'color-black'}>Запрос <br/> договора</span></div>
-									</TableCell>
-									<TableCell toggleInfoRow={true}classList={['orders-table__cell', 'cell_size-7']}>
-										<div className='orders-table__cell-content'>
-											<Svetofor data={[
-												{},
-												{className: 'svetofor-item__yellow', value: 5},
-												{className: 'svetofor-item__green', value: 1},
-												{className: 'svetofor-item__blue', value: 3},
-												{className: 'svetofor-item__red', value: 6}
-											]} />
-										</div>
-									</TableCell>
-									<TableCell toggleInfoRow={true}classList={['orders-table__cell', 'cell_size-8']}>
-										<div className='orders-table__cell-content'>
-											<Svetofor classList={['svetofor-wrapper__center']} data={[{className: 'svetofor-item__yellow'}]} />
-										</div>
-									</TableCell>
-									<TableCell toggleInfoRow={true}classList={['orders-table__cell', 'cell_size-9']}>
-										<div className='orders-table__cell-content'>
-											<Svetofor classList={['svetofor-wrapper__center']} data={[{}]} />
-										</div>
-									</TableCell>
-									<TableCell classList={['orders-table__cell', 'cell_size-10']}>
-										<div className='orders-table__cell-content'>
-											<OrderButton text={'Открыть'} />
-										</div>
-									</TableCell>
-									{ orderInfoRow() }
-								</TableOrderRow>
-								{/* row 5*/}
-								<TableOrderRow>
-									<TableCell classList={['orders-table__cell', 'cell_size-1']}>
-										<CheckBox classList={['checkbox_v1']} id='check_order_1' name='check_order_1' />
-									</TableCell>
-									<TableCell toggleInfoRow={true}classList={['orders-table__cell', 'cell_size-2']}>
-										<div className='orders-table__cell-content orders-table__cell--collapse'>
-											200 ЕвросибАвто
-											Пулково Санкт-
-											Петербург
-										</div>
-									</TableCell>
-									<TableCell toggleInfoRow={true}classList={['orders-table__cell', 'cell_size-3']}>
-										<div className='orders-table__cell-content'>
-											Ларин
-											Солохов
-										</div>
-									</TableCell>
-									<TableCell toggleInfoRow={true}classList={['orders-table__cell', 'cell_size-4']}>
-										<div className='orders-table__cell-content'>
-											<b className={'color-black'}>
-												Рябоконь<br/>Светлана Юрьевна
-											</b>
-											<br/>20.02.19
-										</div>
-									</TableCell>
-									<TableCell toggleInfoRow={true}classList={['orders-table__cell', 'cell_size-5']}>
-										<div className='orders-table__cell-content'><span
-											className={'color-black'}>Mersedes Benz</span>
-											<br/> E200 Special Edition
-										</div>
-									</TableCell>
-									<TableCell toggleInfoRow={true}classList={['orders-table__cell', 'cell_size-6']}>
-										<div className='orders-table__cell-content'><span className={'color-black'}>Запрос <br/> договора</span></div>
-									</TableCell>
-									<TableCell toggleInfoRow={true}classList={['orders-table__cell', 'cell_size-7']}>
-										<div className='orders-table__cell-content'>
-											<Svetofor data={[
-												{value: 12}
-											]} />
-										</div>
-									</TableCell>
-									<TableCell toggleInfoRow={true}classList={['orders-table__cell', 'cell_size-8']}>
-										<div className='orders-table__cell-content'>
-											<Svetofor classList={['svetofor-wrapper__center']} data={[{className: 'svetofor-item__green'}]} />
-										</div>
-									</TableCell>
-									<TableCell toggleInfoRow={true}classList={['orders-table__cell', 'cell_size-9']}>
-										<div className='orders-table__cell-content'>
-											<Svetofor classList={['svetofor-wrapper__center']} data={[{className: 'svetofor-item__yellow'}]}/>
-										</div>
-									</TableCell>
-									<TableCell classList={['orders-table__cell', 'cell_size-10']}>
-										<div className='orders-table__cell-content'>
-											<OrderButton text={'Открыть'} />
-										</div>
-									</TableCell>
-									{ orderInfoRow() }
-								</TableOrderRow>
-								{/* row 6*/}
-								<TableOrderRow>
-									<TableCell classList={['orders-table__cell', 'cell_size-1']}>
-										<CheckBox classList={['checkbox_v1']} id='check_order_1' name='check_order_1' />
-									</TableCell>
-									<TableCell toggleInfoRow={true}classList={['orders-table__cell', 'cell_size-2']}>
-										<div className='orders-table__cell-content orders-table__cell--collapse'>
-											200 ЕвросибАвто
-											Пулково Санкт-
-											Петербург
-										</div>
-									</TableCell>
-									<TableCell toggleInfoRow={true}classList={['orders-table__cell', 'cell_size-3']}>
-										<div className='orders-table__cell-content'>
-											Ларин
-											Середкин
-										</div>
-									</TableCell>
-									<TableCell toggleInfoRow={true}classList={['orders-table__cell', 'cell_size-4']}>
-										<div className='orders-table__cell-content'><b className={'color-black'}>
-											Салямин
-											Александр
-											Владимирович</b>
-											<br/>20.02.19
-										</div>
-									</TableCell>
-									<TableCell toggleInfoRow={true}classList={['orders-table__cell', 'cell_size-5']}>
-										<div className='orders-table__cell-content'><span
-											className={'color-black'}>Mersedes Benz</span>
-											<br/> E200 Special Edition
-										</div>
-									</TableCell>
-									<TableCell toggleInfoRow={true}classList={['orders-table__cell', 'cell_size-6']}>
-										<div className='orders-table__cell-content'><span className={'color-black'}>Запрос <br/> договора</span></div>
-									</TableCell>
-									<TableCell toggleInfoRow={true}classList={['orders-table__cell', 'cell_size-7']}>
-									</TableCell>
-									<TableCell toggleInfoRow={true}classList={['orders-table__cell', 'cell_size-8']}>
-										<div className='orders-table__cell-content'>
-											<Svetofor classList={['svetofor-wrapper__center']} data={[{className: 'svetofor-item__green'}]} />
-										</div>
-									</TableCell>
-									<TableCell toggleInfoRow={true}classList={['orders-table__cell', 'cell_size-9']}>
-										<div className='orders-table__cell-content'>
-											<Svetofor classList={['svetofor-wrapper__center']} data={[{}]}/>
-										</div>
-									</TableCell>
-									<TableCell classList={['orders-table__cell', 'cell_size-10']}>
-										<div className='orders-table__cell-content'>
-											<OrderButton text={'Открыть'} />
-										</div>
-									</TableCell>
-									{ orderInfoRow() }
-								</TableOrderRow>
-								{/* row 7*/}
-								<TableOrderRow>
-									<TableCell classList={['orders-table__cell', 'cell_size-1']}>
-										<CheckBox classList={['checkbox_v1']} id='check_order_1' name='check_order_1' />
-									</TableCell>
-									<TableCell toggleInfoRow={true}classList={['orders-table__cell', 'cell_size-2']}>
-										<div className='orders-table__cell-content orders-table__cell--collapse'>
-											200 ЕвросибАвто
-											Пулково Санкт-
-											Петербург
-										</div>
-									</TableCell>
-									<TableCell toggleInfoRow={true}classList={['orders-table__cell', 'cell_size-3']}>
-										<div className='orders-table__cell-content'>
-											Ларин
-											Середкин
-										</div>
-									</TableCell>
-									<TableCell toggleInfoRow={true}classList={['orders-table__cell', 'cell_size-4']}>
-										<div className='orders-table__cell-content'><b className={'color-black'}>
-											Салямин
-											Александр
-											Владимирович</b>
-											<br/>20.02.19
-										</div>
-									</TableCell>
-									<TableCell toggleInfoRow={true}classList={['orders-table__cell', 'cell_size-5']}>
-										<div className='orders-table__cell-content'><span
-											className={'color-black'}>Mersedes Benz</span>
-											<br/> E200 Special Edition
-										</div>
-									</TableCell>
-									<TableCell toggleInfoRow={true}classList={['orders-table__cell', 'cell_size-6']}>
-										<div className='orders-table__cell-content'><span className={'color-black'}>Договор<br />прислан</span></div>
-									</TableCell>
-									<TableCell toggleInfoRow={true}classList={['orders-table__cell', 'cell_size-7']}>
-										<Svetofor data={[
-											{},
-											{className: 'svetofor-item__yellow', value: 5},
-											{className: 'svetofor-item__green', value: 1},
-											{className: 'svetofor-item__blue', value: 3},
-											{className: 'svetofor-item__red', value: 6}
-										]}/>
-									</TableCell>
-									<TableCell toggleInfoRow={true}classList={['orders-table__cell', 'cell_size-8']}>
-										<div className='orders-table__cell-content'>
-											<Svetofor classList={['svetofor-wrapper__center']} data={[{className: 'svetofor-item__red'}]} />
-										</div>
-									</TableCell>
-									<TableCell toggleInfoRow={true}classList={['orders-table__cell', 'cell_size-9']}>
-										<div className='orders-table__cell-content'>
-											<Svetofor classList={['svetofor-wrapper__center']} data={[{}]}/>
-										</div>
-									</TableCell>
-									<TableCell classList={['orders-table__cell', 'cell_size-10']}>
-										<div className='orders-table__cell-content'>
-											<OrderButton text={'Открыть'} />
-										</div>
-									</TableCell>
-									{ orderInfoRow() }
-								</TableOrderRow>
-								{/* row 8*/}
-								<TableOrderRow>
-									<TableCell classList={['orders-table__cell', 'cell_size-1']}>
-										<CheckBox classList={['checkbox_v1']} id='check_order_1' name='check_order_1' />
-									</TableCell>
-									<TableCell toggleInfoRow={true}classList={['orders-table__cell', 'cell_size-2']}>
-										<div className='orders-table__cell-content orders-table__cell--collapse'>
-											200 ЕвросибАвто
-											Пулково Санкт-
-											Петербург
-										</div>
-									</TableCell>
-									<TableCell toggleInfoRow={true}classList={['orders-table__cell', 'cell_size-3']}>
-										<div className='orders-table__cell-content'>
-											Ларин
-											Середкин
-										</div>
-									</TableCell>
-									<TableCell toggleInfoRow={true}classList={['orders-table__cell', 'cell_size-4']}>
-										<div className='orders-table__cell-content'><b className={'color-black'}>
-											Салямин
-											Александр
-											Владимирович</b>
-											<br/>20.02.19
-										</div>
-									</TableCell>
-									<TableCell toggleInfoRow={true}classList={['orders-table__cell', 'cell_size-5']}>
-										<div className='orders-table__cell-content'><span
-											className={'color-black'}>Mersedes Benz</span>
-											<br/> E200 Special Edition
-										</div>
-									</TableCell>
-									<TableCell toggleInfoRow={true}classList={['orders-table__cell', 'cell_size-6']}>
-										<div className='orders-table__cell-content'><span className={'color-black'}>Одобрена</span></div>
-									</TableCell>
-									<TableCell toggleInfoRow={true}classList={['orders-table__cell', 'cell_size-7']}>
-										<Svetofor data={[
-											{},
-											{className: 'svetofor-item__yellow', value: 5},
-											{className: 'svetofor-item__green', value: 1},
-											{className: 'svetofor-item__blue', value: 3},
-											{className: 'svetofor-item__red', value: 6}
-										]}/>
-									</TableCell>
-									<TableCell toggleInfoRow={true}classList={['orders-table__cell', 'cell_size-8']}>
-										<div className='orders-table__cell-content'>
-											<Svetofor classList={['svetofor-wrapper__center']} data={[{}]} />
-										</div>
-									</TableCell>
-									<TableCell toggleInfoRow={true}classList={['orders-table__cell', 'cell_size-9']}>
-										<div className='orders-table__cell-content'>
-											<Svetofor classList={['svetofor-wrapper__center']} data={[{className: 'svetofor-item__red'}]}/>
-										</div>
-									</TableCell>
-									<TableCell classList={['orders-table__cell', 'cell_size-10']}>
-										<div className='orders-table__cell-content'>
-											<OrderButton text={'Открыть'} />
-										</div>
-									</TableCell>
-									{ orderInfoRow() }
-								</TableOrderRow>
-								{/* row 9*/}
-								<TableOrderRow>
-									<TableCell classList={['orders-table__cell', 'cell_size-1']}>
-										<CheckBox classList={['checkbox_v1']} id='check_order_1' name='check_order_1' />
-									</TableCell>
-									<TableCell toggleInfoRow={true}classList={['orders-table__cell', 'cell_size-2']}>
-										<div className='orders-table__cell-content orders-table__cell--collapse'>
-											200 ЕвросибАвто
-											Пулково Санкт-
-											Петербург
-										</div>
-									</TableCell>
-									<TableCell toggleInfoRow={true}classList={['orders-table__cell', 'cell_size-3']}>
-										<div className='orders-table__cell-content'>
-											Ларин
-											Середкин
-										</div>
-									</TableCell>
-									<TableCell toggleInfoRow={true}classList={['orders-table__cell', 'cell_size-4']}>
-										<div className='orders-table__cell-content'><b className={'color-black'}>
-											Салямин
-											Александр
-											Владимирович</b>
-											<br/>20.02.19
-										</div>
-									</TableCell>
-									<TableCell toggleInfoRow={true}classList={['orders-table__cell', 'cell_size-5']}>
-										<div className='orders-table__cell-content'><span
-											className={'color-black'}>Mersedes Benz</span>
-											<br/> E200 Special Edition
-										</div>
-									</TableCell>
-									<TableCell toggleInfoRow={true}classList={['orders-table__cell', 'cell_size-6']}>
-										<div className='orders-table__cell-content'><span className={'color-black'}>Тест-драйв</span></div>
-									</TableCell>
-									<TableCell toggleInfoRow={true}classList={['orders-table__cell', 'cell_size-7']}>
-									</TableCell>
-									<TableCell toggleInfoRow={true}classList={['orders-table__cell', 'cell_size-8']}>
-										<div className='orders-table__cell-content'>
-											<Svetofor classList={['svetofor-wrapper__center']} data={[{}]} />
-										</div>
-									</TableCell>
-									<TableCell toggleInfoRow={true}classList={['orders-table__cell', 'cell_size-9']}>
-										<div className='orders-table__cell-content'>
-											<Svetofor classList={['svetofor-wrapper__center']} data={[{}]}/>
-										</div>
-									</TableCell>
-									<TableCell classList={['orders-table__cell', 'cell_size-10']}>
-										<div className='orders-table__cell-content'>
-											<OrderButton text={'Открыть'} />
-										</div>
-									</TableCell>
-									{ orderInfoRow() }
-								</TableOrderRow>
-								{/* row 10*/}
-								<TableOrderRow>
-									<TableCell classList={['orders-table__cell', 'cell_size-1']}>
-										<CheckBox classList={['checkbox_v1']} id='check_order_1' name='check_order_1' />
+									<TableCell classList={['orders-table__cell', 'cell_size-1', 'check_v3']}>
+										<Checkbox />
 									</TableCell>
 									<TableCell toggleInfoRow={true} classList={['orders-table__cell', 'cell_size-2']}>
 										<div className='orders-table__cell-content orders-table__cell--collapse'>
-											200 ЕвросибАвто
-											Пулково Санкт-
-											Петербург
+											<p>200 ЕвросибАвто</p>
+											<p>Пулково Санкт-Петербург</p>
 										</div>
 									</TableCell>
 									<TableCell toggleInfoRow={true} classList={['orders-table__cell', 'cell_size-3']}>
 										<div className='orders-table__cell-content'>
-											Ларин
-											Середкин
+											<p>* Абдрахманов И. </p>
+											<p>Ларин</p>
 										</div>
 									</TableCell>
 									<TableCell toggleInfoRow={true} classList={['orders-table__cell', 'cell_size-4']}>
-										<div className='orders-table__cell-content'><b className={'color-black'}>
-											Салямин
-											Александр
-											Владимирович</b>
-											<br/>20.02.19
+										<div className='orders-table__cell-content'>
+											<p>Отдел продаж</p>
+											<p>20.02.19</p>
 										</div>
 									</TableCell>
 									<TableCell toggleInfoRow={true} classList={['orders-table__cell', 'cell_size-5']}>
-										<div className='orders-table__cell-content'><span
-											className={'color-black'}>Mersedes Benz</span>
-											<br/> E200 Special Edition
+										<div className='orders-table__cell-content'>
+											<p className="color_black">Константинопольский</p>
+											<p className="color_black">Максим</p>
 										</div>
 									</TableCell>
 									<TableCell toggleInfoRow={true} classList={['orders-table__cell', 'cell_size-6']}>
-										<div className='orders-table__cell-content'><span className={'color-black'}>Расчет</span></div>
+										<div className='orders-table__cell-content'>
+											&nbsp;
+										</div>
 									</TableCell>
 									<TableCell toggleInfoRow={true} classList={['orders-table__cell', 'cell_size-7']}>
-										<Svetofor data={[
-											{value: 12}
-										]}/>
+										<div className='orders-table__cell-content'>
+											&nbsp;
+										</div>
 									</TableCell>
 									<TableCell toggleInfoRow={true} classList={['orders-table__cell', 'cell_size-8']}>
 										<div className='orders-table__cell-content'>
-											<Svetofor classList={['svetofor-wrapper__center']} data={[{}]} />
+											<Svetofor classList={['svetofor-wrapper__center']}
+													  data={[{className: 'svetofor-item__green'}]} />
+										</div>
+									</TableCell>
+									<TableCell toggleInfoRow={true} classList={['orders-table__cell', 'cell_size-9']}>
+										<div className='orders-table__cell-content'>
+											<Svetofor classList={['svetofor-wrapper__center']}
+													  data={[{className: 'svetofor-item__green'}]} />
+										</div>
+									</TableCell>
+									<TableCell classList={['orders-table__cell', 'cell_size-10']}>
+										<div className='orders-table__cell-content'>
+											<OrderButton text={'Открыть'} />
+										</div>
+									</TableCell>
+									{ orderInfoRow() }
+								</TableOrderRow>
+
+								{/* row 4*/}
+								<TableOrderRow>
+									<TableCell classList={['orders-table__cell', 'cell_size-1', 'check_v3']}>
+										<Checkbox/>
+									</TableCell>
+									<TableCell toggleInfoRow={true} classList={['orders-table__cell', 'cell_size-2']}>
+										<div className='orders-table__cell-content orders-table__cell--collapse'>
+											<p>200 ЕвросибАвто</p>
+											<p>Пулково Санкт-Петербург</p>
+										</div>
+									</TableCell>
+									<TableCell toggleInfoRow={true} classList={['orders-table__cell', 'cell_size-3']}>
+										<div className='orders-table__cell-content'>
+											<p>* Абдрахманов И. </p>
+											<p>Ларин</p>
+										</div>
+									</TableCell>
+									<TableCell toggleInfoRow={true} classList={['orders-table__cell', 'cell_size-4']}>
+										<div className='orders-table__cell-content'>
+											<p>Отдел продаж</p>
+											<p>20.02.19</p>
+										</div>
+									</TableCell>
+									<TableCell toggleInfoRow={true} classList={['orders-table__cell', 'cell_size-5']}>
+										<div className='orders-table__cell-content'>
+											<p className="color_black">Константинопольский</p>
+											<p className="color_black">Максим</p>
+										</div>
+									</TableCell>
+									<TableCell toggleInfoRow={true} classList={['orders-table__cell', 'cell_size-6']}>
+										<div className='orders-table__cell-content'>&nbsp;</div>
+									</TableCell>
+									<TableCell toggleInfoRow={true} classList={['orders-table__cell', 'cell_size-7']}>
+										<div className='orders-table__cell-content'>
+											&nbsp;
+										</div>
+									</TableCell>
+									<TableCell toggleInfoRow={true} classList={['orders-table__cell', 'cell_size-8']}>
+										<div className='orders-table__cell-content'>
+											<Svetofor classList={['svetofor-wrapper__center']} data={[{}]}/>
 										</div>
 									</TableCell>
 									<TableCell toggleInfoRow={true} classList={['orders-table__cell', 'cell_size-9']}>
@@ -744,11 +386,371 @@ const Orders = props => {
 									</TableCell>
 									<TableCell classList={['orders-table__cell', 'cell_size-10']}>
 										<div className='orders-table__cell-content'>
-											<OrderButton text={'Открыть'} />
+											<OrderButton text={'Открыть'}/>
 										</div>
 									</TableCell>
 									{orderInfoRow()}
 								</TableOrderRow>
+
+								{/* row 5*/}
+								<TableOrderRow>
+									<TableCell classList={['orders-table__cell', 'cell_size-1', 'check_v3']}>
+										<Checkbox/>
+									</TableCell>
+									<TableCell toggleInfoRow={true} classList={['orders-table__cell', 'cell_size-2']}>
+										<div className='orders-table__cell-content orders-table__cell--collapse'>
+											<p>200 ЕвросибАвто</p>
+											<p>Пулково Санкт-Петербург</p>
+										</div>
+									</TableCell>
+									<TableCell toggleInfoRow={true} classList={['orders-table__cell', 'cell_size-3']}>
+										<div className='orders-table__cell-content'>
+											<p>* Абдрахманов И. </p>
+											<p>Ларин</p>
+										</div>
+									</TableCell>
+									<TableCell toggleInfoRow={true} classList={['orders-table__cell', 'cell_size-4']}>
+										<div className='orders-table__cell-content'>
+											<p>Отдел продаж</p>
+											<p>20.02.19</p>
+										</div>
+									</TableCell>
+									<TableCell toggleInfoRow={true} classList={['orders-table__cell', 'cell_size-5']}>
+										<div className='orders-table__cell-content'>
+											<p className="color_black">Константинопольский</p>
+											<p className="color_black">Максим</p>
+										</div>
+									</TableCell>
+									<TableCell toggleInfoRow={true} classList={['orders-table__cell', 'cell_size-6']}>
+										<div className='orders-table__cell-content'>
+											<p>Одобрение</p>
+										</div>
+									</TableCell>
+									<TableCell toggleInfoRow={true} classList={['orders-table__cell', 'cell_size-7']}>
+										<div className='orders-table__cell-content'>
+											<Svetofor data={[
+												{value: 5},
+												{className: 'svetofor-item__yellow', value: 5},
+												{className: 'svetofor-item__green', value: 1},
+												{className: 'svetofor-item__blue', value: 3},
+												{className: 'svetofor-item__red', value: 6}
+											]}/>
+										</div>
+									</TableCell>
+									<TableCell toggleInfoRow={true} classList={['orders-table__cell', 'cell_size-8']}>
+										<div className='orders-table__cell-content'>
+											<Svetofor classList={['svetofor-wrapper__center']} data={[{}]}/>
+										</div>
+									</TableCell>
+									<TableCell toggleInfoRow={true} classList={['orders-table__cell', 'cell_size-9']}>
+										<div className='orders-table__cell-content'>
+											<Svetofor classList={['svetofor-wrapper__center']} data={[{}]}/>
+										</div>
+									</TableCell>
+									<TableCell classList={['orders-table__cell', 'cell_size-10']}>
+										<div className='orders-table__cell-content'>
+											<OrderButton text={'Открыть'}/>
+										</div>
+									</TableCell>
+									{orderInfoRow()}
+								</TableOrderRow>
+
+								{/* row 6*/}
+								<TableOrderRow>
+									<TableCell classList={['orders-table__cell', 'cell_size-1', 'check_v3']}>
+										<Checkbox/>
+									</TableCell>
+									<TableCell toggleInfoRow={true} classList={['orders-table__cell', 'cell_size-2']}>
+										<div className='orders-table__cell-content orders-table__cell--collapse'>
+											<p>200 ЕвросибАвто</p>
+											<p>Пулково Санкт-Петербург</p>
+										</div>
+									</TableCell>
+									<TableCell toggleInfoRow={true} classList={['orders-table__cell', 'cell_size-3']}>
+										<div className='orders-table__cell-content'>
+											<p>* Абдрахманов И. </p>
+											<p>Ларин</p>
+										</div>
+									</TableCell>
+									<TableCell toggleInfoRow={true} classList={['orders-table__cell', 'cell_size-4']}>
+										<div className='orders-table__cell-content'>
+											<p>Отдел продаж</p>
+											<p>20.02.19</p>
+										</div>
+									</TableCell>
+									<TableCell toggleInfoRow={true} classList={['orders-table__cell', 'cell_size-5']}>
+										<div className='orders-table__cell-content'>
+											<p className="color_black">Константинопольский</p>
+											<p className="color_black">Максим</p>
+										</div>
+									</TableCell>
+									<TableCell toggleInfoRow={true} classList={['orders-table__cell', 'cell_size-6']}>
+										<div className='orders-table__cell-content'>
+											&nbsp;
+										</div>
+									</TableCell>
+									<TableCell toggleInfoRow={true} classList={['orders-table__cell', 'cell_size-7']}>
+										<div className='orders-table__cell-content'>
+											&nbsp;
+										</div>
+									</TableCell>
+									<TableCell toggleInfoRow={true} classList={['orders-table__cell', 'cell_size-8']}>
+										<div className='orders-table__cell-content'>
+											<Svetofor classList={['svetofor-wrapper__center']}
+													  data={[{className: 'svetofor-item__green'}]}/>
+										</div>
+									</TableCell>
+									<TableCell toggleInfoRow={true} classList={['orders-table__cell', 'cell_size-9']}>
+										<div className='orders-table__cell-content'>
+											<Svetofor classList={['svetofor-wrapper__center']}
+													  data={[{className: 'svetofor-item__green'}]}/>
+										</div>
+									</TableCell>
+									<TableCell classList={['orders-table__cell', 'cell_size-10']}>
+										<div className='orders-table__cell-content'>
+											<OrderButton text={'Открыть'}/>
+										</div>
+									</TableCell>
+									{orderInfoRow()}
+								</TableOrderRow>
+
+								{/* row 7*/}
+								<TableOrderRow>
+									<TableCell classList={['orders-table__cell', 'cell_size-1', 'check_v3']}>
+										<Checkbox/>
+									</TableCell>
+									<TableCell toggleInfoRow={true} classList={['orders-table__cell', 'cell_size-2']}>
+										<div className='orders-table__cell-content orders-table__cell--collapse'>
+											<p>200 ЕвросибАвто</p>
+											<p>Пулково Санкт-Петербург</p>
+										</div>
+									</TableCell>
+									<TableCell toggleInfoRow={true} classList={['orders-table__cell', 'cell_size-3']}>
+										<div className='orders-table__cell-content'>
+											<p>* Абдрахманов И. </p>
+											<p>Ларин</p>
+										</div>
+									</TableCell>
+									<TableCell toggleInfoRow={true} classList={['orders-table__cell', 'cell_size-4']}>
+										<div className='orders-table__cell-content'>
+											<p>Отдел продаж</p>
+											<p>20.02.19</p>
+										</div>
+									</TableCell>
+									<TableCell toggleInfoRow={true} classList={['orders-table__cell', 'cell_size-5']}>
+										<div className='orders-table__cell-content'>
+											<p className="color_black">Константинопольский</p>
+											<p className="color_black">Максим</p>
+										</div>
+									</TableCell>
+									<TableCell toggleInfoRow={true} classList={['orders-table__cell', 'cell_size-6']}>
+										<div className='orders-table__cell-content'>&nbsp;</div>
+									</TableCell>
+									<TableCell toggleInfoRow={true} classList={['orders-table__cell', 'cell_size-7']}>
+										<div className='orders-table__cell-content'>
+											&nbsp;
+										</div>
+									</TableCell>
+									<TableCell toggleInfoRow={true} classList={['orders-table__cell', 'cell_size-8']}>
+										<div className='orders-table__cell-content'>
+											<Svetofor classList={['svetofor-wrapper__center']} data={[{}]}/>
+										</div>
+									</TableCell>
+									<TableCell toggleInfoRow={true} classList={['orders-table__cell', 'cell_size-9']}>
+										<div className='orders-table__cell-content'>
+											<Svetofor classList={['svetofor-wrapper__center']} data={[{}]}/>
+										</div>
+									</TableCell>
+									<TableCell classList={['orders-table__cell', 'cell_size-10']}>
+										<div className='orders-table__cell-content'>
+											<OrderButton text={'Открыть'}/>
+										</div>
+									</TableCell>
+									{orderInfoRow()}
+								</TableOrderRow>
+
+								{/* row 8*/}
+								<TableOrderRow>
+									<TableCell classList={['orders-table__cell', 'cell_size-1', 'check_v3']}>
+										<Checkbox/>
+									</TableCell>
+									<TableCell toggleInfoRow={true} classList={['orders-table__cell', 'cell_size-2']}>
+										<div className='orders-table__cell-content orders-table__cell--collapse'>
+											<p>200 ЕвросибАвто</p>
+											<p>Пулково Санкт-Петербург</p>
+										</div>
+									</TableCell>
+									<TableCell toggleInfoRow={true} classList={['orders-table__cell', 'cell_size-3']}>
+										<div className='orders-table__cell-content'>
+											<p>* Абдрахманов И. </p>
+											<p>Ларин</p>
+										</div>
+									</TableCell>
+									<TableCell toggleInfoRow={true} classList={['orders-table__cell', 'cell_size-4']}>
+										<div className='orders-table__cell-content'>
+											<p>Отдел продаж</p>
+											<p>20.02.19</p>
+										</div>
+									</TableCell>
+									<TableCell toggleInfoRow={true} classList={['orders-table__cell', 'cell_size-5']}>
+										<div className='orders-table__cell-content'>
+											<p className="color_black">Константинопольский</p>
+											<p className="color_black">Максим</p>
+										</div>
+									</TableCell>
+									<TableCell toggleInfoRow={true} classList={['orders-table__cell', 'cell_size-6']}>
+										<div className='orders-table__cell-content'>
+											<p>Одобрение</p>
+										</div>
+									</TableCell>
+									<TableCell toggleInfoRow={true} classList={['orders-table__cell', 'cell_size-7']}>
+										<div className='orders-table__cell-content'>
+											<Svetofor data={[
+												{value: 5},
+												{className: 'svetofor-item__yellow', value: 5},
+												{className: 'svetofor-item__green', value: 1},
+												{className: 'svetofor-item__blue', value: 3},
+												{className: 'svetofor-item__red', value: 6}
+											]}/>
+										</div>
+									</TableCell>
+									<TableCell toggleInfoRow={true} classList={['orders-table__cell', 'cell_size-8']}>
+										<div className='orders-table__cell-content'>
+											<Svetofor classList={['svetofor-wrapper__center']} data={[{}]}/>
+										</div>
+									</TableCell>
+									<TableCell toggleInfoRow={true} classList={['orders-table__cell', 'cell_size-9']}>
+										<div className='orders-table__cell-content'>
+											<Svetofor classList={['svetofor-wrapper__center']} data={[{}]}/>
+										</div>
+									</TableCell>
+									<TableCell classList={['orders-table__cell', 'cell_size-10']}>
+										<div className='orders-table__cell-content'>
+											<OrderButton text={'Открыть'}/>
+										</div>
+									</TableCell>
+									{orderInfoRow()}
+								</TableOrderRow>
+
+								{/* row 9*/}
+								<TableOrderRow>
+									<TableCell classList={['orders-table__cell', 'cell_size-1', 'check_v3']}>
+										<Checkbox/>
+									</TableCell>
+									<TableCell toggleInfoRow={true} classList={['orders-table__cell', 'cell_size-2']}>
+										<div className='orders-table__cell-content orders-table__cell--collapse'>
+											<p>200 ЕвросибАвто</p>
+											<p>Пулково Санкт-Петербург</p>
+										</div>
+									</TableCell>
+									<TableCell toggleInfoRow={true} classList={['orders-table__cell', 'cell_size-3']}>
+										<div className='orders-table__cell-content'>
+											<p>* Абдрахманов И. </p>
+											<p>Ларин</p>
+										</div>
+									</TableCell>
+									<TableCell toggleInfoRow={true} classList={['orders-table__cell', 'cell_size-4']}>
+										<div className='orders-table__cell-content'>
+											<p>Отдел продаж</p>
+											<p>20.02.19</p>
+										</div>
+									</TableCell>
+									<TableCell toggleInfoRow={true} classList={['orders-table__cell', 'cell_size-5']}>
+										<div className='orders-table__cell-content'>
+											<p className="color_black">Константинопольский</p>
+											<p className="color_black">Максим</p>
+										</div>
+									</TableCell>
+									<TableCell toggleInfoRow={true} classList={['orders-table__cell', 'cell_size-6']}>
+										<div className='orders-table__cell-content'>
+											&nbsp;
+										</div>
+									</TableCell>
+									<TableCell toggleInfoRow={true} classList={['orders-table__cell', 'cell_size-7']}>
+										<div className='orders-table__cell-content'>
+											&nbsp;
+										</div>
+									</TableCell>
+									<TableCell toggleInfoRow={true} classList={['orders-table__cell', 'cell_size-8']}>
+										<div className='orders-table__cell-content'>
+											<Svetofor classList={['svetofor-wrapper__center']}
+													  data={[{className: 'svetofor-item__yellow'}]}/>
+										</div>
+									</TableCell>
+									<TableCell toggleInfoRow={true} classList={['orders-table__cell', 'cell_size-9']}>
+										<div className='orders-table__cell-content'>
+											<Svetofor classList={['svetofor-wrapper__center']}
+													  data={[{className: 'svetofor-item__green'}]}/>
+										</div>
+									</TableCell>
+									<TableCell classList={['orders-table__cell', 'cell_size-10']}>
+										<div className='orders-table__cell-content'>
+											<OrderButton text={'Открыть'}/>
+										</div>
+									</TableCell>
+									{orderInfoRow()}
+								</TableOrderRow>
+								
+								{/* row 10*/}
+								<TableOrderRow>
+									<TableCell classList={['orders-table__cell', 'cell_size-1', 'check_v3']}>
+										<Checkbox/>
+									</TableCell>
+									<TableCell toggleInfoRow={true} classList={['orders-table__cell', 'cell_size-2']}>
+										<div className='orders-table__cell-content orders-table__cell--collapse'>
+											<p>200 ЕвросибАвто</p>
+											<p>Пулково Санкт-Петербург</p>
+										</div>
+									</TableCell>
+									<TableCell toggleInfoRow={true} classList={['orders-table__cell', 'cell_size-3']}>
+										<div className='orders-table__cell-content'>
+											<p>* Абдрахманов И. </p>
+											<p>Ларин</p>
+										</div>
+									</TableCell>
+									<TableCell toggleInfoRow={true} classList={['orders-table__cell', 'cell_size-4']}>
+										<div className='orders-table__cell-content'>
+											<p>Отдел продаж</p>
+											<p>20.02.19</p>
+										</div>
+									</TableCell>
+									<TableCell toggleInfoRow={true} classList={['orders-table__cell', 'cell_size-5']}>
+										<div className='orders-table__cell-content'>
+											<p className="color_black">Константинопольский</p>
+											<p className="color_black">Максим</p>
+										</div>
+									</TableCell>
+									<TableCell toggleInfoRow={true} classList={['orders-table__cell', 'cell_size-6']}>
+										<div className='orders-table__cell-content'>
+											&nbsp;
+										</div>
+									</TableCell>
+									<TableCell toggleInfoRow={true} classList={['orders-table__cell', 'cell_size-7']}>
+										<div className='orders-table__cell-content'>
+											&nbsp;
+										</div>
+									</TableCell>
+									<TableCell toggleInfoRow={true} classList={['orders-table__cell', 'cell_size-8']}>
+										<div className='orders-table__cell-content'>
+											<Svetofor classList={['svetofor-wrapper__center']}
+													  data={[{}]}/>
+										</div>
+									</TableCell>
+									<TableCell toggleInfoRow={true} classList={['orders-table__cell', 'cell_size-9']}>
+										<div className='orders-table__cell-content'>
+											<Svetofor classList={['svetofor-wrapper__center']}
+													  data={[{className: 'svetofor-item__red'}]}/>
+										</div>
+									</TableCell>
+									<TableCell classList={['orders-table__cell', 'cell_size-10']}>
+										<div className='orders-table__cell-content'>
+											<OrderButton text={'Открыть'}/>
+										</div>
+									</TableCell>
+									{orderInfoRow()}
+								</TableOrderRow>
+
+
 							</div>
 						</div>
 					</div>
