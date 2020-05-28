@@ -21,7 +21,6 @@ import './style.scss';
 import SidebarButton from './sidebar-button';
 import SubMenu from './SubMenu';
 
-import TestButton from '../sidebar-nav/nav-item';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import {
 	faCloudDownloadAlt,
@@ -68,6 +67,8 @@ class Sidebar extends Component {
 			navbarToggle,
 			navbarOpen,
 		} = this.props;
+
+		console.log('nav click', nav, isOpen);
 
 		if (nav.name !== activeNav.name) {
 			navbarSetActive(nav);
@@ -167,7 +168,7 @@ class Sidebar extends Component {
 					noHover={nav.noHover}
 					classList={nav.classList}
 					customIcon={nav.customIcon}
-					active={this.props.activeNav.name}
+					active={this.props.activeNav ? this.props.activeNav.name : false}
 					selected={selected}
 					onMouseEnter={this.navMouseEnterHandler(nav)}
 					onMouseLeave={this.navMouseLeaveHandler(nav)}
@@ -217,9 +218,6 @@ class Sidebar extends Component {
 				<div className='sidebar__header'>
 					<div className='sidebar__button-wrapper'>
 						{topButtonsNodes}
-						{/*<TestButton>
-							<FontAwesomeIcon icon={faCloudDownloadAlt} />
-						</TestButton>*/}
 					</div>
 					<div className='sidebar__button-wrapper'>
 						{middleButtonsNodes}
@@ -273,7 +271,7 @@ class Sidebar extends Component {
 						<SidebarButton
 							name='exit'
 							classList={['sidebar__button-icon', 'exit']}
-							active={this.props.activeNav.name}
+							active={this.props.activeNav ? this.props.activeNav.name : false}
 							onClick={this.exitClickHandler}
 							children={
 								<div className={'sidebar__button-label'}>
@@ -290,13 +288,12 @@ class Sidebar extends Component {
 				<div className={bodyClassList}>
 					<CurrentActiveComp props={this.props.activeNav} />
 				</div>
-				<div
-					className={backdropClassList}
+				<div className={backdropClassList}
 					onClick={this.backdropClickHandler}
-				></div>
+				/>
 			</div>
 		);
 	}
 }
 
-export default enhance(Sidebar);
+export default Sidebar;

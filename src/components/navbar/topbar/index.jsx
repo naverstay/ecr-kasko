@@ -12,7 +12,10 @@ import cn from 'classnames';
 import SidebarButton from '../sidebar/sidebar-button';
 //import Filters from '../../filters';
 import './style.scss';
-
+import SubMenu from "../sidebar/SubMenu";
+import {connect} from "react-redux";
+import {navbarClose, navbarOpen, navbarSetActive, navbarToggle} from "../../../store/navbar";
+import {userLogout} from "../../../store/user";
 
 function Topbar(props) {
 	const [active, setActive] = useState('');

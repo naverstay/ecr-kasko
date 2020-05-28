@@ -10,7 +10,7 @@
 	display: flex;
 	flex-flow: row;
 	align-items: stretch;
-
+	
 	&__backdrop {
 		position: fixed;
 		z-index: -10;
@@ -70,7 +70,7 @@
 			list-style: none;
 			padding: 0;
 			margin: 0;
-
+			
 			&.align-bottom {
 				justify-content: flex-end;
 				flex: 1;
@@ -83,14 +83,12 @@
 
 	&__header {
 		position: relative;
-		background: #f0f0f0;
 		display: flex;
 		flex-flow: column;
 		justify-content: flex-start;
 		overflow-y: auto;
 
 		&-line {
-			content: '';
 			position: fixed;
 			background: $color-prime;
 			top: 0;
@@ -98,7 +96,7 @@
 			left: 0;
 			width: $aside-size-small;
 		}
-
+		
 		.lang-select {
 			&__control {
 				border: 0 !important;
@@ -115,7 +113,7 @@
 					}
 				}
 			}
-
+			
 			&__value-container {
 				padding-left: 0;
 				cursor: pointer;
@@ -124,7 +122,7 @@
 			&__single-value {
 				padding-right: 20px;
 				margin-left: 0;
-
+				
 				&:after {
 					content: '';
 					position: absolute;
@@ -136,7 +134,7 @@
 					border-top: 6px solid #000;
 				}
 			}
-
+			
 			&__placeholder {
 				margin-left: 0;
 			}
@@ -148,14 +146,17 @@
 			&__indicator-separator {
 				display: none;
 			}
-
+			
 			&__menu {
+				
 			}
 
 			&__menu-list {
+				
 			}
 
 			&__option {
+				
 			}
 		}
 	}
@@ -174,7 +175,7 @@
 			}
 		}
 	}
-
+	
 	//&:hover,
 	&.open,
 	&.hover {
@@ -194,30 +195,31 @@
 	}
 
 	&__button {
+		
 		@include for-size(desktop-up) {
 			display: flex;
 			flex-wrap: nowrap;
 			align-items: stretch;
 			position: relative;
 		}
-
+		
 		&.button-wide {
 			flex: 1;
 		}
-
+		
 		&-wrapper {
 			position: relative;
 			z-index: 1;
 			display: flex;
 			flex-flow: column;
-			pointer-events: none;
+			//pointer-events: none;
 			width: $aside-size-small;
 			//overflow: hidden;
 
-			&:nth-child(2) {
+			&:nth-child(2){
 				flex: 1 1;
 			}
-
+			
 			&:last-child {
 				padding-bottom: 17px;
 				justify-content: flex-end;
@@ -226,7 +228,7 @@
 					padding-top: $aside-size-small;
 				}
 			}
-
+			
 			&:first-child {
 				padding-top: 0;
 
@@ -271,15 +273,15 @@
 				font-family: 'ecr_icons', sans-serif;
 				color: white;
 			}
-
+			
 			&.empty {
 				visibility: hidden;
 				pointer-events: none;
 			}
 
-			&.search {
+			&.search{
 				align-self: flex-start;
-
+				
 				&:before {
 					content: '\e900';
 				}
@@ -330,12 +332,18 @@
 					}
 				}
 			}
-
+			
 			&.home {
 				background: black;
 				cursor: pointer;
 				pointer-events: all;
+				font-size: 18px;
 
+				svg {
+					width: 1em;
+					height: 1em;
+				}
+				
 				&:hover {
 					background: $color-prime;
 				}
@@ -345,24 +353,25 @@
 					height: $aside-logo-size;
 				}
 			}
-
+			
 			.avatar-initials {
 				border-radius: 100%;
-				border: 1px solid #fff;
-				color: #fff;
+				border: 1px solid #e5e5e5;
+				background: #e5e5e5;
+				color: #808080;
 				width: 32px;
 				height: 32px;
 				text-align: center;
 				font-size: 15px;
 				font-weight: 500;
-				line-height: 30px;
+				line-height: 32px;
 			}
 
 			.avatar-image {
 				width: $avatar-size;
 				height: $avatar-size;
 			}
-
+			
 			&.selected {
 				background-color: white;
 
@@ -371,13 +380,17 @@
 				}
 			}
 		}
-
+		
+		&.active {
+			
+		}
+		
 		&-submenu {
 			list-style-type: none;
 			padding: 0;
 			margin: 0;
 			display: none;
-
+			
 			&.open {
 				display: block;
 			}
@@ -386,7 +399,7 @@
 				min-height: 20px;
 				padding: 0;
 				margin-bottom: 15px;
-
+				
 				&.submenu-item__parent {
 					margin-bottom: 5px;
 				}
@@ -399,10 +412,11 @@
 				font-size: 13px;
 			}
 		}
-
+		
 		&:not(.label-nohover) {
 			cursor: pointer;
-
+			
+			&:hover,
 			&.selected {
 				.sidebar__button-icon {
 					background-color: white;
@@ -474,17 +488,17 @@
 		padding: 2px 0;
 		flex: 1 1;
 		min-height: 90px;
-
+		
 		&-form {
 			position: relative;
 		}
-
+		
 		&-tip {
 			font-size: 13px;
 			color: #808080;
 			margin: 10px 10px 3px;
 		}
-
+		
 		&-input {
 			display: block;
 			width: 100%;
@@ -494,7 +508,7 @@
 			font-size: 13px;
 			padding: 5px 40px 5px 10px;
 		}
-
+		
 		&-button {
 			cursor: pointer;
 			position: absolute;
@@ -512,14 +526,15 @@
 				font-size: 22px;
 				line-height: 33px;
 			}
-
+			
 			&:hover {
 				color: $color-prime;
 			}
 		}
 	}
-
+	
 	&__user {
+		
 		&-role {
 			font-size: 13px;
 			line-height: 1.4;
@@ -527,16 +542,16 @@
 			color: #808080;
 		}
 	}
-
+	
 	&__fix {
 		position: relative;
 		padding-right: 50px;
 		flex: 1 1;
-
+		
 		&-wrapper {
 			border-bottom: 1px solid $color-prime;
 		}
-
+		
 		&-button {
 			cursor: pointer;
 			position: absolute;
@@ -561,15 +576,15 @@
 				top: 50%;
 				margin-top: -6px;
 			}
-
+			
 			&:before {
 				left: 5px;
 			}
-
+			
 			&:after {
 				right: 4px;
 			}
-
+			
 			&:hover {
 				box-shadow: 0 0 2px inset $color-prime;
 			}
@@ -581,7 +596,7 @@
 	position: relative;
 	padding: 7px 5px 7px 10px;
 	min-height: 50px;
-
+	
 	&__parent {
 		pointer-events: none;
 		margin-bottom: -7px;
@@ -593,11 +608,11 @@
 
 	&__child {
 		min-height: 34px;
-
+		
 		+ .submenu-item__parent {
 			margin-top: 10px;
 		}
-
+		
 		.submenu-link {
 			padding-left: 55px;
 
@@ -615,7 +630,7 @@
 	position: relative;
 	line-height: 50px;
 	padding: 0 20px;
-	// margin: -7px -10px;
+	margin: -7px -10px;
 	font-size: 15px;
 	font-weight: 400;
 	text-decoration: none;

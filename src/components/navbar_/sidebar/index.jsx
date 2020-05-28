@@ -21,6 +21,7 @@ import './style.scss';
 import SidebarButton from './sidebar-button';
 import SubMenu from './SubMenu';
 
+import TestButton from '../sidebar-nav/nav-item';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import {
 	faCloudDownloadAlt,
@@ -67,8 +68,6 @@ class Sidebar extends Component {
 			navbarToggle,
 			navbarOpen,
 		} = this.props;
-
-		console.log('nav click', nav, isOpen);
 
 		if (nav.name !== activeNav.name) {
 			navbarSetActive(nav);
@@ -218,6 +217,9 @@ class Sidebar extends Component {
 				<div className='sidebar__header'>
 					<div className='sidebar__button-wrapper'>
 						{topButtonsNodes}
+						{/*<TestButton>
+							<FontAwesomeIcon icon={faCloudDownloadAlt} />
+						</TestButton>*/}
 					</div>
 					<div className='sidebar__button-wrapper'>
 						{middleButtonsNodes}
@@ -288,9 +290,10 @@ class Sidebar extends Component {
 				<div className={bodyClassList}>
 					<CurrentActiveComp props={this.props.activeNav} />
 				</div>
-				<div className={backdropClassList}
+				<div
+					className={backdropClassList}
 					onClick={this.backdropClickHandler}
-				/>
+				></div>
 			</div>
 		);
 	}

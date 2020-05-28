@@ -13,6 +13,7 @@ let NoP = e => {
 }
 
 let langChangeHandler = (e) => {
+	console.log('langChangeHandler', e.value)
 }
 
 export const topNavButtons = [
@@ -147,7 +148,7 @@ export const bottomNavButtons = [
 		link: false,
 		listClassName: 'align-bottom',
 		submenu: [
-			{to: '/sales-performance', title: 'Эффективность продаж', classList: ['submenu-item']},
+			{to: '/sales-perfomance', title: 'Эффективность продаж', classList: ['submenu-item']},
 			{to: '/profit', title: 'Доходность', classList: ['submenu-item']},
 			{to: '/employee-performance', title: 'Эффективность сотрудников', classList: ['submenu-item']},
 			{to: '/bank-efficiency', title: 'Эффективность банков', classList: ['submenu-item']},

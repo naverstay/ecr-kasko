@@ -24,7 +24,10 @@ class ToggleButton extends PureComponent {
 
 	render() {
 		return (
-			<div className='sidebar__fix-button' onClick={this.toggleHandler}></div>
+			<div
+				className='sidebar-nav__toggle-button'
+				onClick={this.toggleHandler}
+			></div>
 		);
 	}
 }
