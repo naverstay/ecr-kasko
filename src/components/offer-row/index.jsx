@@ -146,7 +146,7 @@ class OfferRow extends Component {
 													<ul className="offer-row__options">
 														{o.options.map(opt => <li className="offer-row__credit">
 															<div className="offer-row__credit--name">{opt.option || ''}</div>
-															<div className="offer-row__credit--link gl_link">{opt.price || ''}</div>
+															<div className={"offer-row__credit--link" + (opt.link ? ' gl_link' : '')}>{opt.price || ''}</div>
 														</li>)}
 													</ul>
 												</td>

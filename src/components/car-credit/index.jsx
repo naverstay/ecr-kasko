@@ -102,6 +102,22 @@ class CarCredit extends Component {
 		this.setState({calculationPopupOpened: !this.state.calculationPopupOpened})
 		document.body.classList.toggle('no-overflow', !this.state.calculationPopupOpened)
 	}
+
+	updatePaymentState = (value) => {
+		if (this.state.showCalculationOffers) {
+			this.setState({
+				showPayment: value
+			})
+		}
+
+		if (this.props.osago) {
+			this.setState({
+				activeOffers: [1]
+			})
+		}
+
+		this.toggleCalculationPopup()
+	}
 	
 	componentDidMount() {
 		this.props.allFields && this.setState({showAdditional: true, newCar: false})
@@ -155,6 +171,7 @@ class CarCredit extends Component {
 		const optionsFixtures = [
 			{
 				option: 'Доход дилера',
+				link: true,
 				price: 'Показать'
 			},
 			{
@@ -163,6 +180,7 @@ class CarCredit extends Component {
 			},
 			{
 				option: 'Остаточный платеж',
+				link: true,
 				price: '478 500 ₽'
 			},
 			{
@@ -175,22 +193,27 @@ class CarCredit extends Component {
 			},
 			{
 				option: 'Доп. услуги дилера',
+				link: true,
 				price: '—'
 			},
 			{
 				option: 'Доп. услуги банка',
+				link: true,
 				price: '—'
 			},
 			{
 				option: 'КАСКО',
+				link: true,
 				price: '—'
 			},
 			{
 				option: 'СЖ',
+				link: true,
 				price: '—'
 			},
 			{
 				option: 'GAP',
+				link: true,
 				price: '23 279 ₽'
 			},
 		]

@@ -65,7 +65,7 @@ function App() {
             )} />
             <Route path="/offers" render={(routeProps) => (
                 <PageLayout>
-                    <Kasko {...routeProps} step={1.1} showOffers={'каско'}/>
+                    <Kasko {...routeProps} showOffers={'каско'}/>
                 </PageLayout>
             )}/>
             <Route path="/payment" render={(routeProps) => (

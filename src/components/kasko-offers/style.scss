@@ -203,6 +203,10 @@
 			display: none;
 			padding: 2px 15px;
 
+			.kasko-car-select__calculation {
+				font-size: 12px;
+			}
+			
 			.active & {
 				display: block;
 			}
@@ -255,9 +259,10 @@
 		
 		&--period-input.ant-input-number {
 			position: relative;
-			margin: 0 26px 8px;
+			margin: 0 auto 8px;
 			width: 28px;
 			border: none;
+			display: block;
 
 			.ant-input-number-handler-wrap {
 				width: 100%;

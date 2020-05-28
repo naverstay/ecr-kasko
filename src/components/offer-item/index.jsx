@@ -27,7 +27,7 @@ class OfferItem extends Component {
 		onOfferSelect: PropTypes.func,
 		innerWidth: PropTypes.number
 	};
-
+	
 	toggleOfferAdded = (e, index) => {
 		e.stopPropagation()
 		this.setState({offerAdded: !this.state.offerAdded})
@@ -45,13 +45,14 @@ class OfferItem extends Component {
 	toggleActiveOffer = (index) => {
 		let active = this.state.activeOffer
 		this.setState({
+			newPrice: 10000,
 			activeOffer: true,
 			collapse: !this.state.collapse,
 			offerCollapsed: !this.state.offerCollapsed, 
 			showOffer: !this.state.showOffer,
 			offerAdded: true
 		})
-		
+
 		setTimeout(() => {
 			if (typeof this.props.onOfferSelect === 'function') this.props.onOfferSelect({id: index, active: this.state.activeOffer})
 		}, 0)
@@ -76,6 +77,28 @@ class OfferItem extends Component {
 		//window.location = offer.href
 	}
 
+//	componentWillUnmount() {
+//		document.removeEventListener('click', this.handleClickOutside, false);
+//	}
+//
+//	componentWillMount() {
+//		document.addEventListener('click', this.handleClickOutside, false);
+//	}
+
+	//handleClickOutside(event) {
+	//	// Получаем элемент, на который произведен клик
+	//	const domNode = ReactDOM.findDOMNode(this);
+	//
+	//	// Проверяем, что элемент присутствует в переменной,
+	//	// а так же, является ли "domNode" узел потомком "event.target" узла.
+	//	// Если не является, то скрываем элемент.
+	//	if ((!domNode || !domNode.contains(event.target))) {
+	//		this.setState({
+	//			visible: false
+	//		});
+	//	}
+	//}
+
 	render() {
 		let {offer, slider, index, credit, active} = this.props
 		let prefix = active ? '' : (offer.price + '').replace(/\d/g, '')
@@ -83,7 +106,7 @@ class OfferItem extends Component {
 		
 		return (
 			slider ?
-				<div key={index} className={"kasko-offer__slide" + (credit ? " credit" : "")}>
+				<div ref={(el) => { this.node = el }} key={index} className={"kasko-offer__slide" + (credit ? " credit" : "")}>
 					<div className={"kasko-offer__item" + (offer.collapse ? " collapsable" : "") + ((active || this.state.offerAdded) ? " active" : "") + ((this.state.offerCollapsed) ? " collapsed" : "")}>
 						<div onClick={() => (offer.href ? this.goTo(offer) : this.toggleActiveOffer(index))}
 							className={"kasko-offer__item--title" + (offer.button ? " no_arrow" : " toggle_icon")}>
@@ -139,7 +162,7 @@ class OfferItem extends Component {
 				</div>
 			:
 				<Col span={6} key={index}>
-					<Link to={offer.link ? offer.link : "/offers"} className={"kasko-offer__item" + ((active || this.state.activeOffer) ? " active" : "")}>
+					<Link ref={(el) => { this.node = el }} to={offer.link ? offer.link : "/offers"} className={"kasko-offer__item" + ((active || this.state.activeOffer) ? " active" : "")}>
 						<div className={"kasko-offer__item--title" + (offer.button ? " no_arrow" : " toggle_icon")}>
 							<span>{offer.name}</span>
 							{offer.button ? <span className="kasko-offer__item--btn">{offer.button}</span> : ""}

@@ -65,7 +65,7 @@ class OfferSelect extends Component {
 				"Executive",
 				"GT S Sports Car"
 			],
-			showPayment: this.props.step > 1,
+			showPayment: this.props.osago ? this.props.step > 1 : false,
 			showCompare: false,
 			availablePayment: false,
 			showMoreDamages: false,
@@ -459,7 +459,7 @@ class OfferSelect extends Component {
 								{
 									name: 'ОСАГО',
 									price: 10410,
-									button: 'Рассчитать',
+									button: (!osago ? 'Рассчитать' : 'Выпущено'),
 									link: '/osago',
 									prefix: 'от',
 									suffix: '₽'
@@ -467,7 +467,7 @@ class OfferSelect extends Component {
 								{
 									name: 'КАСКО',
 									price: 10420,
-									button: 'Рассчитать',
+									button: (osago ? 'Рассчитать' : 'Выпущено'),
 									link: '/kasko',
 									prefix: 'от',
 									suffix: '₽'
