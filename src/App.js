@@ -22,16 +22,10 @@ function App() {
                       <Link to="/kasko">kasko</Link>
                   </li>
                   <li>
-                      <Link to="/offers">offers</Link>
+                      <Link to="/kasko_payment">kasko_payment</Link>
                   </li>
                   <li>
-                      <Link to="/payment">payment</Link>
-                  </li>
-                  <li>
-                      <Link to="/done">done</Link>
-                  </li>
-                  <li>
-                      <Link to="/credit">credit</Link>
+                      <Link to="/kasko_done">kasko_done</Link>
                   </li>
                   <li>
                       <Link to="/osago">osago</Link>
@@ -43,6 +37,9 @@ function App() {
                       <Link to="/osago_done">osago_done</Link>
                   </li>
                   <li>
+                      <Link to="/credit">credit</Link>
+                  </li>
+                  <li>
                       <Link to="/chery">chery</Link>
                   </li>
                   <li>
@@ -50,8 +47,6 @@ function App() {
                   </li>
               </ul>
           </div>
-
-            {/*<Route exact path="/ecr-kasko" component={Home} />*/}
           
             <Route exact path="/" render={(routeProps) => (
                 <PageLayout>
@@ -60,20 +55,15 @@ function App() {
             )}/>
             <Route path="/kasko" render={(routeProps) => (
                 <PageLayout>
-                    <Kasko {...routeProps} showOffers={false} />
-                </PageLayout>
-            )} />
-            <Route path="/offers" render={(routeProps) => (
-                <PageLayout>
                     <Kasko {...routeProps} showOffers={'каско'}/>
                 </PageLayout>
-            )}/>
-            <Route path="/payment" render={(routeProps) => (
+            )} />
+            <Route path="/kasko_payment" render={(routeProps) => (
                 <PageLayout>
                     <Kasko {...routeProps} step={2} showOffers={'каско'}/>
                 </PageLayout>
             )}/>
-            <Route path="/done" render={(routeProps) => (
+            <Route path="/kasko_done" render={(routeProps) => (
                 <PageLayout>
                     <Kasko {...routeProps} step={3} showOffers={'каско'}/>
                 </PageLayout>

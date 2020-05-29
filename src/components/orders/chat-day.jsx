@@ -9,7 +9,7 @@ class ChatDay extends Component {
 	constructor(props) {
 		super(props)
 		this.toggleDayHandle = this.toggleDayHandle.bind(this)
-		this.state = {dayOpen: false}
+		this.state = {dayOpen: true}
 	}
 	
 	static propTypes = {
@@ -45,7 +45,7 @@ class ChatDay extends Component {
 					<span>{date}</span>
 				</div>
 
-				{(count && this.state.dayOpen) && msg.map((m) => {
+				{(count && this.state.dayOpen) && msg.map((m, i) => {
 					const classMsg = cn([
 						'chat-msg',
 						m.statusColor,
@@ -53,7 +53,7 @@ class ChatDay extends Component {
 					]);
 
 					return (
-						<ChatMsg classMsg={classMsg} msg={m} />
+						<ChatMsg key={i} classMsg={classMsg} msg={m} />
 					)
 				})}
 			</div>

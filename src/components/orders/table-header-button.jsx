@@ -7,7 +7,7 @@ import './table-header-button.scss';
 class TableHeaderButton extends Component {
 	static propTypes = {
 		classList: PropTypes.array,
-		label: PropTypes.string,
+		label: PropTypes.any,
 		onMouseEnter: PropTypes.func,
 		onMouseLeave: PropTypes.func,
 		onClick: PropTypes.func

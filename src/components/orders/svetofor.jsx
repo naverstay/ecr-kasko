@@ -23,10 +23,10 @@ class Svetofor extends Component {
 
 		return (
 			<div className={className}>
-				{data.map((s) => {
+				{data.map((s, i) => {
 					let cls = cn(['svetofor-item', s.className])
 					return (
-						<span className={cls}>{s.value || ''}</span>
+						<span key={i} className={cls}>{s.value || ''}</span>
 					)
 				})}
 			</div>

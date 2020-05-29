@@ -14,6 +14,7 @@ class Credit extends Component {
 	constructor(props) {
 		super(props);
 		this.state = {
+			kaskoWidget: {show: false},
 			carImage: this.props.step === 1 ? 'car' : 'Hyundai',
 			markList: [
 				"Hyundai",
@@ -33,6 +34,10 @@ class Credit extends Component {
 
 	imageCallback = (img) => {
 		this.setState({carImage: img})
+	}
+
+	updateRightAside = (wdgt) => {
+		this.setState({kaskoWidget: wdgt})
 	}
 
 	render() {
@@ -69,7 +74,7 @@ class Credit extends Component {
 			<Row gutter={20} className="kasko-wrapper">
 				<Col span={4} className="kasko-aside"/>
 				<Col span={16} className="kasko-main">
-					<CarCredit carPrice={1048000} imageCallback={this.imageCallback} step={step} image={this.state.carImage} />
+					<CarCredit showKaskoWidget={this.updateRightAside} carPrice={1048000} imageCallback={this.imageCallback} step={step} image={this.state.carImage} />
 				</Col>
 				<Col span={4} className="kasko-aside"/>
 			</Row>
@@ -100,6 +105,13 @@ class Credit extends Component {
 						<AsideBlock>
 							<KaskoNotices step={step} credit={true} status={0} type={showOffers}/>
 						</AsideBlock>
+					}
+					
+					{this.state.kaskoWidget.show ?
+						<AsideBlock>
+							<KaskoNotices step={this.state.kaskoWidget.step} kasko={true} status={0} type={'Каско'}/>
+						</AsideBlock>
+						: ""
 					}
 
 					<AsideBlock>

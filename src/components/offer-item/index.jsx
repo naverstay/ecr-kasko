@@ -1,4 +1,4 @@
-import React, {Component} from "react";
+import React, {Component, useState, useEffect, useRef} from "react";
 import {Link} from "react-router-dom";
 
 import './style.scss';
@@ -15,11 +15,14 @@ class OfferItem extends Component {
 		this.state = {
 			offerCollapsed: true,
 			offerAdded: false,
-			offerCredit: true,
+			offerCash: false,
 			showOffer: false,
 			activeOffer: this.props.active,
 			newPrice: 0
 		};
+
+		this.setWrapperRef = this.setWrapperRef.bind(this);
+		this.handleClickOutside = this.handleClickOutside.bind(this);
 	}
 	
 	static propTypes = {
@@ -67,52 +70,65 @@ class OfferItem extends Component {
 	}
 
 	onCreditChange = (value) => {
-		this.setState({offerCredit: !this.state.offerCredit})
+		this.setState({offerCash: !this.state.offerCash})
 	}
 
-	goTo = (offer) => {
-		this.setState({newPrice: 45450})
-
-		this.toggleActiveOffer()
-		//window.location = offer.href
+	goTo = (offer, goto) => {
+		if (goto) {
+			window.location = offer.href
+		} else {
+			this.setState({newPrice: 45450})
+			this.toggleActiveOffer()
+		}
+	}
+	
+	componentDidMount() {
+		document.addEventListener('mousedown', this.handleClickOutside);
 	}
 
-//	componentWillUnmount() {
-//		document.removeEventListener('click', this.handleClickOutside, false);
-//	}
-//
-//	componentWillMount() {
-//		document.addEventListener('click', this.handleClickOutside, false);
-//	}
+	componentWillUnmount() {
+		document.removeEventListener('mousedown', this.handleClickOutside);
+	}
 
-	//handleClickOutside(event) {
-	//	// Получаем элемент, на который произведен клик
-	//	const domNode = ReactDOM.findDOMNode(this);
-	//
-	//	// Проверяем, что элемент присутствует в переменной,
-	//	// а так же, является ли "domNode" узел потомком "event.target" узла.
-	//	// Если не является, то скрываем элемент.
-	//	if ((!domNode || !domNode.contains(event.target))) {
-	//		this.setState({
-	//			visible: false
-	//		});
-	//	}
-	//}
+	setWrapperRef(node) {
+		this.wrapperRef = node;
+	}
+	
+	searchTree = (element, target) => {
+		if (!element || ! target) return null;
+		if (element.isEqualNode(target)) {
+			return element;
+		} else if (element.children != null) {
+			let i;
+			let result = null;
+			for (i = 0; result == null && i < element.children.length; i++) {
+				result = this.searchTree(element.children[i], target);
+			}
+			return result;
+		}
+		return null;
+	}
 
+	handleClickOutside(event) {
+		if (!this.searchTree(this.wrapperRef, event.target)) {
+			this.setState({offerCollapsed: true})
+		}
+	}
+	
 	render() {
-		let {offer, slider, index, credit, active} = this.props
+		let {offer, slider, index, credit, active, completed} = this.props
 		let prefix = active ? '' : (offer.price + '').replace(/\d/g, '')
 		let price = formatMoney(((this.state.newPrice || offer.price) + '').replace(/\D/g, ''))
-		
+
 		return (
 			slider ?
-				<div ref={(el) => { this.node = el }} key={index} className={"kasko-offer__slide" + (credit ? " credit" : "")}>
-					<div className={"kasko-offer__item" + (offer.collapse ? " collapsable" : "") + ((active || this.state.offerAdded) ? " active" : "") + ((this.state.offerCollapsed) ? " collapsed" : "")}>
-						<div onClick={() => (offer.href ? this.goTo(offer) : this.toggleActiveOffer(index))}
+				<div key={index} className={"kasko-offer__slide" + (credit ? " credit" : "")}>
+					<div ref={this.setWrapperRef} className={"kasko-offer__item" + (offer.collapse ? " collapsable" : "") + ((active || this.state.offerAdded) && !completed ? " active" : "") + (completed ? " completed" : "") + ((this.state.offerCollapsed) ? " collapsed" : "")}>
+						<div onClick={() => (offer.href ? this.goTo(offer) : offer.func ? null : (this.toggleActiveOffer(index)))}
 							className={"kasko-offer__item--title" + (offer.button ? " no_arrow" : " toggle_icon")}>
 							<span>{offer.name}</span>
 							{offer.button ? 
-								<span className="kasko-offer__item--btn">{offer.button}</span> : 
+								<span onClick={(e) => (typeof offer.func === 'function' && offer.func())} className="kasko-offer__item--btn">{offer.button}</span> : 
 								<span onClick={(e) => this.toggleOfferAdded(e, index)} className={"kasko-offer__item--toggle"}/>
 							}
 						</div>
@@ -124,7 +140,7 @@ class OfferItem extends Component {
 
 						{(offer.collapse && !this.state.offerCollapsed) ?
 							<div className="kasko-offer__item--info">
-								<div className="kasko-offer__item--period">Срок действия, лет</div>
+								<div className="kasko-offer__item--period text_center">Срок действия, лет</div>
 								<InputNumber
 									className="kasko-offer__item--period-input"
 									defaultValue={1}
@@ -136,10 +152,10 @@ class OfferItem extends Component {
 								/>
 
 								<div>
-									<div className={"kasko-car-select__calculation" + (this.state.offerCredit ? ' active' : '')}>
+									<div className={"kasko-car-select__calculation" + (this.state.offerCash ? ' active' : '')}>
 										<span className="kasko-car-select__calculation--text">В кредит</span>
 										<Switch 
-											checked={this.state.offerCredit}
+											checked={this.state.offerCash}
 											className="kasko-car-select__calculation--switch"
 											onChange={this.onCreditChange}
 										/>
@@ -162,7 +178,7 @@ class OfferItem extends Component {
 				</div>
 			:
 				<Col span={6} key={index}>
-					<Link ref={(el) => { this.node = el }} to={offer.link ? offer.link : "/offers"} className={"kasko-offer__item" + ((active || this.state.activeOffer) ? " active" : "")}>
+					<Link ref={(el) => { this.node = el }} to={offer.link ? offer.link : "/offers"} className={"kasko-offer__item" + (completed ? " completed" : "") + ((active || this.state.activeOffer) && !completed ? " active" : "")}>
 						<div className={"kasko-offer__item--title" + (offer.button ? " no_arrow" : " toggle_icon")}>
 							<span>{offer.name}</span>
 							{offer.button ? <span className="kasko-offer__item--btn">{offer.button}</span> : ""}
@@ -183,5 +199,9 @@ class OfferItem extends Component {
 		);
 	}
 }
+
+OfferItem.propTypes = {
+	children: PropTypes.element.isRequired,
+};
 
 export default OfferItem;

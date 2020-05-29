@@ -35,15 +35,15 @@ class Comments extends Component {
 					{title}
 				</div>
 				<div className="comments-content">
-					{msg.map((m) => {
+					{msg.map((m, i) => {
 						return (
-							<div className="comments-msg">
+							<div key={i} className="comments-msg">
 								<div className="comments-msg__author">
 									{m.author}
 								</div>
 								<div className="comments-msg__date">
-									{m.date.map((d) => {
-										return <span>{d}</span>
+									{m.date.map((d, k) => {
+										return <span key={k}>{d}</span>
 									})}
 								</div>
 								<div className="comments-msg__text">
@@ -54,8 +54,7 @@ class Comments extends Component {
 					})}
 				</div>
 				<div className="comments-form">
-					<textarea className='comments-form__text'
-							  placeholder="Комментарий для внутреннего использования"></textarea>
+					<textarea className='comments-form__text' placeholder="Комментарий для внутреннего использования"/>
 					<button className='comments-form__btn'>OK</button>
 				</div>
 			</div>

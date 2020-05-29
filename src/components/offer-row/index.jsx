@@ -153,7 +153,7 @@ class OfferRow extends Component {
 											</>
 											:
 											<>
-												<td colSpan={4}>
+												<td colSpan={5}>
 													<ul className="offer-row__options">
 														{o.options.map(opt => <li>{opt}</li>)}
 													</ul>

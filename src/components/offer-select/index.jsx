@@ -275,7 +275,7 @@ class OfferSelect extends Component {
 	}
 	
 	render() {
-		const {step, osago} = this.props;
+		const {step, osago, popup} = this.props;
 		let {image} = this.props;
 		
 		const periodPlurals = ['месяц', 'месяца', 'месяцев'];
@@ -403,7 +403,9 @@ class OfferSelect extends Component {
 		}
 		
 		if (step === 3) {
-			image = "Hyundai"
+			if (image !== false) {
+				image = "Hyundai"
+			}
 		}
 		
 		franchise.forEach((f, i) => {
@@ -418,14 +420,18 @@ class OfferSelect extends Component {
 			<>
 				<div className="kasko-car-select">
 					<h1 className="kasko-main__title">{'Рассчитать ' + (osago ? 'ОСАГО' : 'КАСКО')}</h1>
+
+					{popup ? "" :
+						<div className="kasko-car-select__controls">
+							<Link className="gl_link color_black" to="/kasko">Автомобиль</Link>
+						</div>
+					}
 	
-					<div className="kasko-car-select__controls">
-						<Link className="gl_link color_black" to="/kasko">Автомобиль</Link>
-					</div>
-	
-					<div className="kasko-car-select__image">
-						<img src={'./cars/' + image + '.png'} alt=""/>
-					</div>
+					{image === false ? "" : 
+						<div className="kasko-car-select__image">
+							<img src={'./cars/' + image + '.png'} alt=""/>
+						</div>
+					}
 	
 					{step === 3 ?
 						<>
@@ -447,7 +453,7 @@ class OfferSelect extends Component {
 								}
 							]}/>
 
-							<KaskoOffers active={[(osago ? 1 : 2)]} offersList={[
+							<KaskoOffers active={[(osago ? 1 : 2)]} completed={[(osago ? 1 : 2)]} offersList={[
 								{
 									name: 'Кредит',
 									price: 10400,
@@ -486,7 +492,7 @@ class OfferSelect extends Component {
 						:
 						<>
 							{!osago ? 
-								<div className={"kasko-car-select__calculation" + (this.state.fullCalculation ? ' active' : '') + (this.state.showPayment || (step === 2) ? ' disabled' : '')}>
+								<div className={"kasko-car-select__calculation" + (image === false ? " no-img" : "") + (this.state.fullCalculation ? ' active' : '') + (this.state.showPayment || (step === 2) ? ' disabled' : '')}>
 									<span className="kasko-car-select__calculation--text">Предварительный расчет</span>
 									<Switch checked={this.state.fullCalculation}
 											className="kasko-car-select__calculation--switch"
@@ -663,7 +669,7 @@ class OfferSelect extends Component {
 							
 							{this.state.showCalculationOffers ?
 									<>
-										<CalculationOffers allowCheck={this.state.showPayment || osago} osago={osago} waiting={step === 2} selectedOffer={this.updateSelectedOffer} offersList={calculationOfferList}/>
+										<CalculationOffers allowCheck={this.state.showPayment || osago || popup} osago={osago} waiting={step === 2} selectedOffer={this.updateSelectedOffer} offersList={calculationOfferList}/>
 		
 										<div className={"kasko-car-select__controls ant-row-center align_center"}>
 											{

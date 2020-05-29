@@ -14,6 +14,7 @@ import CreditAdditionals from "../credit-additionals";
 import PaymentSwitch from "../payment-switch";
 import Osago from "../../pages/osago";
 import CalculationPopup from "../calculation-popup";
+import KaskoPopup from "../kasko-popup";
 
 const {Option} = Select;
 //const {YearPicker} = DatePicker;
@@ -25,10 +26,13 @@ class CarCredit extends Component {
 		super(props);
 		this.state = {
 			activeOffers: [],
+			activeKasko: false,
 			openParams: true,
 			paramsChanged: true,
 			showMoreParams: false,
 			showCreditOffers: false,
+			calculationPopupOpened: false,
+			calculationPopupKasko: false,
 			carPrice: this.props.carPrice,
 			creditValue: formatMoney(this.props.carPrice / 2) + " ₽",
 			creditPercent: "50 %"
@@ -40,6 +44,7 @@ class CarCredit extends Component {
 		allFields: PropTypes.bool,
 		innerWidth: PropTypes.number,
 		imageCallback: PropTypes.func,
+		showKaskoWidget: PropTypes.func,
 		step: PropTypes.number
 	};
 
@@ -103,6 +108,27 @@ class CarCredit extends Component {
 		document.body.classList.toggle('no-overflow', !this.state.calculationPopupOpened)
 	}
 
+	toggleKaskoPopup = () => {
+		let wdgt = {show: true}
+		
+		if (this.state.calculationPopupKasko) {
+			wdgt.step = 2
+		}
+		
+		this.setState({calculationPopupKasko: !this.state.calculationPopupKasko, activeKasko: !!wdgt.step})
+		typeof this.props.showKaskoWidget === 'function' && this.props.showKaskoWidget(wdgt)
+		
+		document.body.classList.toggle('no-overflow', !this.state.calculationPopupKasko)
+	}
+
+	updateKaskoState = (value) => {
+		console.log('toggleKaskoPopup');
+
+		typeof this.props.showKaskoWidget === 'function' && this.props.showKaskoWidget({show: true, step: 2})
+
+		this.toggleKaskoPopup()
+	}
+	
 	updatePaymentState = (value) => {
 		if (this.state.showCalculationOffers) {
 			this.setState({
@@ -275,13 +301,13 @@ class CarCredit extends Component {
 				<div className="kasko-car-select__caption">Добавить в кредит</div>
 				
 				<div className="kasko-car-select__carousel">
-					<KaskoOffers onOfferSelect={this.offersUpdate} active={[]} slider={true} credit={true} offersList={[
+					<KaskoOffers onOfferSelect={this.offersUpdate} active={[(this.state.activeKasko ? 0 : null)]} slider={true} credit={true} offersList={[
 						{
 							name: 'КАСКО',
 							button: 'Рассчитать',
-							href: '/kasko',
-							price: '15400',
-							prefix: 'от',
+							func: this.toggleKaskoPopup,
+							price: this.state.activeKasko ? '41450' : '15400',
+							prefix: this.state.activeKasko ? '' : 'от',
 							suffix: '₽'
 						},
 						{
@@ -521,6 +547,11 @@ class CarCredit extends Component {
 				{this.state.calculationPopupOpened ? 
 					<CalculationPopup updatePaymentState={this.updatePaymentState} step={this.state.showCalculationOffers ? 2 : step} allFields={this.state.showCalculationOffers || (step === 2)} fullCalculation={this.state.showCalculationOffers || this.state.fullCalculation} popupCloseFunc={this.toggleCalculationPopup} />
 					: ""}
+					
+				{this.state.calculationPopupKasko ?
+					<KaskoPopup updatePaymentState={this.updateKaskoState} popupCloseFunc={this.toggleKaskoPopup} />
+					: ""
+				}
 			</div>
 		);
 	}

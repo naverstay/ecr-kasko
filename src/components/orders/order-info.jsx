@@ -60,7 +60,7 @@ class OrderInfo extends Component {
 					<ul className="orders-table__info--banks-list">
 						{order.banks.map((b, i) => {
 							return (
-								<li className={"orders-table__info--banks-unit" + (i === 0 ? ' unit_active' : '')}>
+								<li key={i} className={"orders-table__info--banks-unit" + (i === 0 ? ' unit_active' : '')}>
 									<BankUnit
 										bankName={b.bankName}
 										programmeName={b.programmeName}

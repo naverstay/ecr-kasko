@@ -26,7 +26,7 @@ class KaskoNotices extends Component {
 	}
 
 	render() {
-		const {noticeList, type, status, step, credit} = this.props;
+		const {noticeList, type, status, step, credit, kasko} = this.props;
 		const statusClasses = {
 			0: 'calculation',
 			1: 'waiting',
@@ -123,6 +123,30 @@ class KaskoNotices extends Component {
 											</li>
 										</ul>
 									:
+									kasko ?
+										<ul className={"kasko-notice__price"}>
+											<li>
+												<div className="kasko-notice__price--label">Стоимость</div>
+												<div className="kasko-notice__price--value">
+													{step >= 2 ? <span>41 450 ₽</span> : ''}
+												</div>
+											</li>
+											<li>
+												<div className="kasko-notice__price--label">СК</div>
+												<div
+													className="kasko-notice__price--value">{step >= 2 ? 'Ингосстрах' : ''}</div>
+											</li>
+											<li>
+												<div className="kasko-notice__price--label">Срок</div>
+												<div
+													className="kasko-notice__price--value">{step >= 2 ? <>21.09.19<br/>20.09.20</> : ''}</div>
+											</li>
+											<li>
+												<div className="kasko-notice__price--label">Полис</div>
+												<div className="kasko-notice__price--value"/>
+											</li>
+										</ul>
+										:
 										<ul className={"kasko-notice__price"}>
 											<li>
 												<div className="kasko-notice__price--label">Стоимость</div>
@@ -145,7 +169,6 @@ class KaskoNotices extends Component {
 												<div className="kasko-notice__price--value"/>
 											</li>
 										</ul>
-							
 							: ""}
 					</div>
 				</div>

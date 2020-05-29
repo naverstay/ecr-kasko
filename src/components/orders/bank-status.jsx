@@ -31,7 +31,7 @@ class BankStatus extends Component {
 			return (
 				msg.map((m, i) => {
 					return (
-						<div className={'bank-status__msg msg_' + m.author}>
+						<div key={i} className={'bank-status__msg msg_' + m.author}>
 							<div className='bank-status__msg--text'>{m.text}</div>
 							<div className='bank-status__msg--time'>{m.time}</div>
 						</div>
@@ -42,9 +42,9 @@ class BankStatus extends Component {
 		
 		return (
 			<div className={className} onMouseEnter={onMouseEnter} onMouseLeave={onMouseLeave} onClick={onClick}>
-				{data.map((m) => {
+				{data.map((m, i) => {
 					return (
-						<div className='bank-status__day'>
+						<div key={i} className='bank-status__day'>
 							<div className='bank-status__date'>{m.date}</div>
 							{msgBuilder(m.msg)}
 						</div>

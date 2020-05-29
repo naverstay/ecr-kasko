@@ -31,7 +31,7 @@ class TableOrderRow extends Component {
 
 		let childrengarden = React.Children.map(this.props.children, child =>
 			React.cloneElement(child, {
-				toggleInfoHandle: this.toggleInfoHandle
+				//toggleInfoHandle: this.toggleInfoHandle
 			})
 		);
 		
