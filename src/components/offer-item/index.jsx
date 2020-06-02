@@ -151,10 +151,15 @@ class OfferItem extends Component {
 									onChange={this.onPeriodChange}
 								/>
 
+								{offer.options.length ? <ul className="kasko-offer__item--info-list">
+									{offer.options.map((o, i) => <li key={i}>{o}</li>)}
+								</ul> : ""}
+
 								<div>
-									<div className={"kasko-car-select__calculation" + (this.state.offerCash ? ' active' : '')}>
+									<div
+										className={"kasko-car-select__calculation" + (this.state.offerCash ? ' active' : '')}>
 										<span className="kasko-car-select__calculation--text">В кредит</span>
-										<Switch 
+										<Switch
 											checked={this.state.offerCash}
 											className="kasko-car-select__calculation--switch"
 											onChange={this.onCreditChange}
@@ -162,11 +167,7 @@ class OfferItem extends Component {
 										<span className="kasko-car-select__calculation--text">Наличные</span>
 									</div>
 								</div>
-
-								{offer.options.length ? <ul className="kasko-offer__item--info-list">
-									{offer.options.map((o, i) => <li key={i}>{o}</li>)}
-								</ul> : ""}
-
+								
 								<div className="text_center">
 									<div onClick={() => this.onShowOfferChange(index)}
 										 className="kasko-offer__item--info-close">Свернуть</div>
@@ -178,30 +179,89 @@ class OfferItem extends Component {
 				</div>
 			:
 				<Col span={6} key={index}>
-					<Link ref={(el) => { this.node = el }} to={offer.link ? offer.link : "/offers"} className={"kasko-offer__item" + (completed ? " completed" : "") + ((active || this.state.activeOffer) && !completed ? " active" : "")}>
-						<div className={"kasko-offer__item--title" + (offer.button ? " no_arrow" : " toggle_icon")}>
-							<span>{offer.name}</span>
-							{offer.button ? <span className="kasko-offer__item--btn">{offer.button}</span> : ""}
+					{offer.collapse ?
+						<div key={index} className={"kasko-offer__slide" + (credit ? " credit" : "")}>
+							<div ref={this.setWrapperRef} className={"kasko-offer__item" + (offer.collapse ? " collapsable" : "") + ((active || this.state.offerAdded) && !completed ? " active" : "") + (completed ? " completed" : "") + ((this.state.offerCollapsed) ? " collapsed" : "")}>
+								<div onClick={() => (offer.href ? this.goTo(offer) : offer.func ? null : (this.toggleActiveOffer(index)))}
+									className={"kasko-offer__item--title" + (offer.button ? " no_arrow" : " toggle_icon")}>
+									<span>{offer.name}</span>
+									{offer.button ? 
+										<span onClick={(e) => (typeof offer.func === 'function' && offer.func())} className="kasko-offer__item--btn">{offer.button}</span> : 
+										<span onClick={(e) => this.toggleOfferAdded(e, index)} className={"kasko-offer__item--toggle"}/>
+									}
+								</div>
+								<div className="kasko-offer__item--body">
+									{this.state.newPrice ? '' : offer.prefix}&nbsp;
+									<span className="kasko-offer__item--price">{(prefix ? prefix + ' ' : '') + price}</span>
+									&nbsp;{offer.suffix}
+								</div>
+		
+								{(offer.collapse && !this.state.offerCollapsed) ?
+									<div className="kasko-offer__item--info">
+										<div className="kasko-offer__item--period text_center">Срок действия, лет</div>
+										<InputNumber
+											className="kasko-offer__item--period-input"
+											defaultValue={1}
+											min={1}
+											max={30}
+											//formatter={value => `${value}%`}
+											//parser={value => value.replace('%', '')}
+											onChange={this.onPeriodChange}
+										/>
+		
+										{offer.options.length ? <ul className="kasko-offer__item--info-list">
+											{offer.options.map((o, i) => <li key={i}>{o}</li>)}
+										</ul> : ""}
+		
+										<div>
+											<div
+												className={"kasko-car-select__calculation" + (this.state.offerCash ? ' active' : '')}>
+												<span className="kasko-car-select__calculation--text">В кредит</span>
+												<Switch
+													checked={this.state.offerCash}
+													className="kasko-car-select__calculation--switch"
+													onChange={this.onCreditChange}
+												/>
+												<span className="kasko-car-select__calculation--text">Наличные</span>
+											</div>
+										</div>
+										
+										<div className="text_center">
+											<div onClick={() => this.onShowOfferChange(index)}
+												 className="kasko-offer__item--info-close">Свернуть</div>
+										</div>
+									</div>
+									: ""
+								}
+							</div>
 						</div>
-						<div className="kasko-offer__item--body">
-							<p>
-								{active ? '' : offer.prefix}
-								{active ? '' : <>&nbsp;</>}
-								<span className="kasko-offer__item--price">{formatMoney(offer.price)}</span>
-								&nbsp;{offer.suffix}
-							</p>
-							{/*<p className="text_center">*/}
-							{/*	<span className="kasko-offer__item--link">Рассчитать</span>*/}
-							{/*</p>*/}
-						</div>
-					</Link>
+						:
+						<Link ref={(el) => {this.node = el}} to={offer.link ? offer.link : "/offers"}
+							  className={"kasko-offer__item" + (completed ? " completed" : "") + ((active || this.state.activeOffer) && !completed ? " active" : "")}>
+							<div className={"kasko-offer__item--title" + (offer.button ? " no_arrow" : " toggle_icon")}>
+								<span>{offer.name}</span>
+								{offer.button ? <span className="kasko-offer__item--btn">{offer.button}</span> : ""}
+							</div>
+							<div className="kasko-offer__item--body">
+								<p>
+									{active ? '' : offer.prefix}
+									{active ? '' : <>&nbsp;</>}
+									<span className="kasko-offer__item--price">{formatMoney(offer.price)}</span>
+									&nbsp;{offer.suffix}
+								</p>
+								{/*<p className="text_center">*/}
+								{/*	<span className="kasko-offer__item--link">Рассчитать</span>*/}
+								{/*</p>*/}
+							</div>
+						</Link>
+					}
 				</Col>
 		);
 	}
 }
 
-OfferItem.propTypes = {
-	children: PropTypes.element.isRequired,
-};
+//OfferItem.propTypes = {
+//	children: PropTypes.element.isRequired,
+//};
 
 export default OfferItem;

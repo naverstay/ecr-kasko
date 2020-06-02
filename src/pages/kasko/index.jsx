@@ -111,15 +111,11 @@ class Kasko extends Component {
 					
 					{cabinet ?
 						<Col span={4} className="kasko-aside">
-								<Button onClick={this.toggleAuth}
-										className={"ant-btn ant-btn-primary kasko-aside__btn"}>Личный кабинет</Button>
+								<Button onClick={this.toggleAuth} className={"ant-btn ant-btn-primary kasko-aside__btn"}>Личный кабинет</Button>
 
-							{showOffers === false ?
-								""
-								:
+							{showOffers === false ? "" :
 								<AsideBlock>
-									<KaskoNotices step={step} status={step === 2 ? 1 : step === 3 ? 3 : 0}
-												  type={showOffers}/>
+									<KaskoNotices step={step} status={step === 2 ? 1 : step === 3 ? 3 : 0} type={showOffers}/>
 								</AsideBlock>
 							}
 

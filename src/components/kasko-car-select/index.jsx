@@ -17,23 +17,24 @@ class KaskoCarSelect extends Component {
 	constructor(props) {
 		super(props);
 		this.state = {
+			activeFields: (this.props.step === 1 ? ['carMark'] : []),
 			carFound: void 0,
-			allowPayment: false,
 			showAdditional: false,
 			formBusy: false,
 			carAutoStart: false,
-			newCar: true,
 			carCredit: true,
-			carPrice: 0,
-			carPower: 0,
-			carMileage: 0,
-			carRegion: '',
-			carMark: '',
-			carModel: '',
-			carEquipment: '',
-			carATS: '',
-			carNumber: '',
-			carUsageStart: '',
+			newCar: this.props.fill ? true : null,
+			allowPayment: this.props.fill,
+			carPrice: this.props.fill ? 1534000 : 0,
+			carPower: this.props.fill ? 245 : 0,
+			carMileage: this.props.fill ? 245000 : 0,
+			carRegion: this.props.fill ? 'г. Москва' : '',
+			carMark: this.props.fill ? 'Hyundai' : '',
+			carModel: this.props.fill ? 'Sonata' : '',
+			carEquipment: this.props.fill ? '2.0 MPI - 6AT' : '',
+			carATS: this.props.fill ? 'Noname' : '',
+			carNumber: this.props.fill ? 'A 123 AA 177' : '',
+			carUsageStart: this.props.fill ? '18.05.2015' : '',
 			markList: [
 				"Hyundai",
 				"Mazda",
@@ -59,7 +60,7 @@ class KaskoCarSelect extends Component {
 			]
 		};
 
-		this.state['carYear'] = this.state.newCar ? '' + (new Date()).getFullYear() : ''
+		this.state['carYear'] = this.props.fill ? '2015' : this.state.newCar ? '' + (new Date()).getFullYear() : ''
 	}
 
 	static propTypes = {
@@ -109,6 +110,8 @@ class KaskoCarSelect extends Component {
 	onCarYearChange = (value) => {
 		this.setState({carYear: value})
 		this.checkReadyState()
+		this.removeActiveField('carYear')
+		this.addActiveField('carNumber')
 	};
 
 	onCarUsageChange = e => {
@@ -123,17 +126,49 @@ class KaskoCarSelect extends Component {
 	onCarNumberChange = e => {
 		this.setState({carNumber: e.target.value, carFound: void 0})
 		this.checkReadyState()
+		
+	};
+
+	removeActiveField = (field) => {
+		let fields = this.state.activeFields.slice(0)
+		let index = fields.indexOf(field)
+
+		if (index > -1) {
+			fields.splice(index, 1);
+			
+			this.setState({activeFields: fields})
+		}
+	};
+
+	addActiveField = (field) => {
+		setTimeout(() => {
+			let fields = this.state.activeFields.slice(0)
+			
+			if (fields.indexOf(field) < 0) {
+				fields.push(field)
+				
+				this.setState({activeFields: fields})
+			}
+		}, 100)
+	};
+
+	activeClass = (field) => {
+		return (this.state.activeFields.indexOf(field) > -1 ? " control-focused" : "")
 	};
 
 	onMarkChange = value => {
 		this.setState({carMark: value})
 		this.checkReadyState()
 		this.updateImage(value)
+		this.removeActiveField('carMark')
+		this.addActiveField('carModel')
 	};
 
 	onModelChange = value => {
 		this.setState({carModel: value})
 		this.checkReadyState()
+		this.removeActiveField('carModel')
+		this.addActiveField('carEquipment')
 	};
 
 	onCarPowerChange = e => {
@@ -154,6 +189,11 @@ class KaskoCarSelect extends Component {
 	onEquipmentChange = value => {
 		this.setState({carEquipment: value})
 		this.checkReadyState()
+		this.removeActiveField('carEquipment')
+		
+		if (!this.state.newCar) {
+			this.addActiveField('carYear')
+		}
 	};
 
 	onATSChange = value => {
@@ -180,7 +220,7 @@ class KaskoCarSelect extends Component {
 					carEquipment: '2.0 MPI - 6AT',
 					carNumber: 'A 123 AA 177',
 					carRegion: 'г. Москва',
-					carPrice: 14800000,
+					carPrice: 1534000,
 					carPower: 245,
 					carMileage: 24500,
 					carYear: '2015',
@@ -244,7 +284,7 @@ class KaskoCarSelect extends Component {
 	};
 	
 	render() {
-		const {allFields, step, hideOffers} = this.props;
+		const {allFields, step, hideOffers, fill} = this.props;
 		let {image} = this.props;
 		//const dateFormat = "DD.MM.YY"
 		let dateFormatMask = "'mask': '99.99.9999', 'showMaskOnHover': 'false'"
@@ -253,6 +293,8 @@ class KaskoCarSelect extends Component {
 		for (let y = (new Date()).getFullYear(); y > 1980; y--) {
 			yearList.push(y)
 		}
+
+		console.log('this.state.activeFields', this.state.activeFields);
 		
 		//dateFormatMask = "'regex': '" + String.raw`^(?:(?:31(\/|-|\.)(?:0?[13578]|1[02]))\1|(?:(?:29|30)(\/|-|\.)(?:0?[1,3-9]|1[0-2])\2))(?:(?:1[6-9]|[2-9]\d)?\d{2})$|^(?:29(\/|-|\.)0?2\3(?:(?:(?:1[6-9]|[2-9]\d)?(?:0[48]|[2468][048]|[13579][26])|(?:(?:16|[2468][048]|[3579][26])00))))$|^(?:0?[1-9]|1\d|2[0-8])(\/|-|\.)(?:(?:0?[1-9])|(?:1[0-2]))\4(?:(?:1[6-9]|[2-9]\d)?\d{2})$` + "', 'showMaskOnHover': 'false'"
 		
@@ -304,13 +346,13 @@ class KaskoCarSelect extends Component {
 					</Radio.Group>
 				</div>
 
-				{this.state.newCar ? null :
+				{this.state.newCar === null || this.state.newCar ? null :
 					<Form {...layout} ref={this.formRef} name="control-ref" onFinish={this.onFinish}>
 						<Row className="kasko-car-select__controls" gutter={20}>
 							<Col span={6}>
 								<Input
 									data-inputmask={carNumberMask}
-									className={"w_100p custom_placeholder text_upper" + (this.state.carNumber.length ? "" : " _empty")}
+									className={"w_100p custom_placeholder text_upper" + (this.state.carNumber.length ? "" : " _empty") + (this.state.carFound ? '' : this.activeClass('carNumber'))}
 									   value={this.state.carNumber}
 									   onChange={this.onCarNumberChange} defaultValue=""/>
 								<div className="float_placeholder">Госномер автомобиля</div>
@@ -333,10 +375,11 @@ class KaskoCarSelect extends Component {
 					</Form>
 				}
 
-				<Row className="kasko-car-select__controls" gutter={20}>
+				{this.state.newCar === null ? null :
+					<Row className="kasko-car-select__controls" gutter={20}>
 					<Col span={6}>
 						<Select
-							dropdownClassName="select_dropdown_v1" className={"w_100p custom_placeholder" + (this.state.carMark.length ? "" : " _empty" + (step === 1 ? " ant-select-focused" : ""))}
+							dropdownClassName="select_dropdown_v1" className={"w_100p custom_placeholder" + (this.state.carMark.length ? "" : " _empty") + (this.activeClass('carMark'))}
 							placeholder=""
 							onChange={this.onMarkChange}
 							value={this.state.carMark}
@@ -347,7 +390,7 @@ class KaskoCarSelect extends Component {
 					</Col>
 					<Col span={6}>
 						<Select
-							dropdownClassName="select_dropdown_v1" className={"w_100p custom_placeholder" + (this.state.carModel.length ? "" : " _empty")}
+							dropdownClassName="select_dropdown_v1" className={"w_100p custom_placeholder" + (this.state.carModel.length ? "" : " _empty") + (this.activeClass('carModel'))}
 							placeholder=""
 							onChange={this.onModelChange}
 							value={this.state.carModel}
@@ -358,7 +401,7 @@ class KaskoCarSelect extends Component {
 					</Col>
 					<Col span={6}>
 						<Select
-							dropdownClassName="select_dropdown_v1" className={"w_100p custom_placeholder" + (this.state.carEquipment.length ? "" : " _empty")}
+							dropdownClassName="select_dropdown_v1" className={"w_100p custom_placeholder" + (this.state.carEquipment.length ? "" : " _empty") + (this.activeClass('carEquipment'))}
 							placeholder=""
 							onChange={this.onEquipmentChange}
 							value={this.state.carEquipment}
@@ -373,7 +416,7 @@ class KaskoCarSelect extends Component {
 						<Select
 							disabled={this.state.newCar ? "disabled" : ""}
 							dropdownClassName="select_dropdown_v1"
-							className={"w_100p custom_placeholder" + ((this.state.carYear + '').length ? "" : " _empty")}
+							className={"w_100p custom_placeholder" + ((this.state.carYear + '').length ? "" : " _empty") + (this.activeClass('carYear'))}
 							placeholder=""
 							onChange={this.onCarYearChange}
 							value={this.state.carYear}
@@ -383,7 +426,8 @@ class KaskoCarSelect extends Component {
 						<div className="float_placeholder">Год выпуска</div>
 					</Col>
 				</Row>
-
+				}
+				
 				{
 					this.state.showAdditional ?
 						<>
@@ -450,113 +494,191 @@ class KaskoCarSelect extends Component {
 						: ""
 				}
 
-				<Radio.Group className={"w_100p " + (this.state.showAdditional ? "full_form" : "short_form")} onChange={this.onCarCreditChange}>
-					<Row className="kasko-car-select__controls kasko-car-select__controls--price radio_v2" gutter={20}>
-						<Col>
-							<Radio disabled={this.state.allowPayment ? null : "disabled"} checked={this.state.carCredit ? "checked" : ""} value={1}>В кредит</Radio>
-						</Col>
-						<Col>
-							<Radio disabled={this.state.allowPayment ? null : "disabled"} checked={!this.state.carCredit ? "checked" : ""} value={0}>За наличные</Radio>
-						</Col>
-						
-						{
-							this.state.showAdditional ?
-								""
-								:
-								<>
-									<Col className="kasko-car-select__price--holder">
-										<div className="kasko-car-select__price">
-											<div className="kasko-car-select__price--label _inactive">Стоимость автомобиля
+				{this.state.newCar === null ? null :
+					<Radio.Group defaultValue={0} className={"w_100p " + (this.state.showAdditional ? "full_form" : "short_form")} onChange={this.onCarCreditChange}>
+						<Row className="kasko-car-select__controls kasko-car-select__controls--price radio_v2" gutter={20}>
+							<Col className={this.state.allowPayment ? "" : "vis_hidden"}>
+								<Radio disabled={this.state.allowPayment ? null : "disabled"} value={1}>В кредит</Radio>
+							</Col>
+							<Col className={this.state.allowPayment ? "" : "vis_hidden"}>
+								<Radio disabled={this.state.allowPayment ? null : "disabled"} value={0}>За наличные</Radio>
+							</Col>
+							
+							{
+								this.state.showAdditional ? "" :
+									<>
+										<Col className={"kasko-car-select__price--holder" + (this.state.allowPayment ? "" : " vis_hidden")}>
+											<div className="kasko-car-select__price">
+												<div className="kasko-car-select__price--label _inactive">Стоимость автомобиля
+												</div>
+												<div
+													className={"kasko-car-select__price--value" + (this.state.carPrice > 0 ? "" : " _inactive")}>{this.state.carPrice > 0 ? formatMoney(this.state.carPrice) : 0} ₽
+												</div>
 											</div>
-											<div
-												className={"kasko-car-select__price--value" + (this.state.carPrice > 0 ? "" : " _inactive")}>{this.state.carPrice > 0 ? formatMoney(this.state.carPrice) : 0} ₽
-											</div>
-										</div>
-									</Col>
-									<Col className="kasko-car-select__additional _inactive">
-										<div className="gl_link" onClick={this.toggleAdditionalFields}>Дополнительно</div>
-									</Col>
-								</>
-						}
-						
-					</Row>
-				</Radio.Group>
+										</Col>
+										<Col className="kasko-car-select__additional _inactive">
+											<div className="gl_link" onClick={this.toggleAdditionalFields}>Дополнительно</div>
+										</Col>
+									</>
+							}
+						</Row>
+					</Radio.Group>
+				}
 				
 				{
-					allFields ?
-					""
-					: 
-					(1 || this.state.carFound) ? <div className={"kasko-car-select__image" + (step === 1 && !this.state.allowPayment ? " _inactive__" : "")}>
+					allFields ? "" : 
+					(image !== false && this.state.carFound) ? <div className={"kasko-car-select__image" + (step === 1 && !this.state.allowPayment ? " _inactive__" : "")}>
 						<img src={'./cars/' + image + '.png'} alt=""/>
 					</div> : ""
 				}
 
-				{(!this.state.formBusy && this.state.carFound && !hideOffers) ?
-					<KaskoOffers offersList={[
-						{
-							name: 'Кредит',
-							price: 10400,
-							button: 'Рассчитать',
-							link: '/credit',
-							prefix: 'от',
-							suffix: '₽/мес'
-						},
-						{
-							name: 'ОСАГО',
-							price: 10410,
-							button: 'Рассчитать',
-							link: '/osago',
-							prefix: 'от',
-							suffix: '₽'
-						},
-						{
-							name: 'КАСКО',
-							price: 10420,
-							button: 'Рассчитать',
-							link: '/kasko',
-							prefix: 'от',
-							suffix: '₽'
-						},
-						{
-							name: 'GAP',
-							price: 10430,
-							button: 'Рассчитать',
-							link: '/gap',
-							prefix: 'от',
-							suffix: '₽'
+				{fill ? "" :
+					<>
+						{(!this.state.formBusy && this.state.carFound && !hideOffers) ?
+							<KaskoOffers offersList={this.state.carCredit ?
+								[
+									{
+										name: 'Кредит',
+										price: 10400,
+										button: 'Рассчитать',
+										link: '/credit',
+										prefix: 'от',
+										suffix: '₽/мес'
+									},
+									{
+										name: 'ОСАГО',
+										price: 10410,
+										button: 'Рассчитать',
+										link: '/osago',
+										prefix: 'от',
+										suffix: '₽'
+									},
+									{
+										name: 'КАСКО',
+										price: 10420,
+										button: 'Рассчитать',
+										link: '/kasko',
+										prefix: 'от',
+										suffix: '₽'
+									},
+									//{
+									//	name: 'GAP',
+									//	price: 10430,
+									//	button: 'Рассчитать',
+									//	link: '/gap',
+									//	prefix: 'от',
+									//	suffix: '₽'
+									//},
+									{
+										name: 'Ассистанс',
+										price: '15400',
+										collapse: true,
+										options: [
+											'эвакуация',
+											'юридическая помощь',
+											'аварийный комиссар',
+											'подвоз бензина',
+											'вскрытие автомобиля',
+											'запуск автомобиля',
+											'трезвый водитель',
+											'выездной шиномонтаж'
+										],
+										prefix: 'от',
+										suffix: '₽'
+									}]
+								:
+									[{
+										name: 'ОСАГО',
+										price: 10410,
+										button: 'Рассчитать',
+										link: '/osago',
+										prefix: 'от',
+										suffix: '₽'
+									},
+									{
+										name: 'КАСКО',
+										price: 10420,
+										button: 'Рассчитать',
+										link: '/kasko',
+										prefix: 'от',
+										suffix: '₽'
+									},
+									//{
+									//	name: 'GAP',
+									//	price: 10430,
+									//	button: 'Рассчитать',
+									//	link: '/gap',
+									//	prefix: 'от',
+									//	suffix: '₽'
+									//},
+									{
+										name: 'Ассистанс',
+										price: '15400',
+										collapse: true,
+										options: [
+											'эвакуация',
+											'юридическая помощь',
+											'аварийный комиссар',
+											'подвоз бензина',
+											'вскрытие автомобиля',
+											'запуск автомобиля',
+											'трезвый водитель',
+											'выездной шиномонтаж'
+										],
+										prefix: 'от',
+										suffix: '₽'
+									},
+									{
+										name: 'Шоколад',
+										price: 10555,
+										collapse: true,
+										options: [
+											'эвакуация',
+											'юридическая помощь',
+											'аварийный комиссар',
+											'подвоз бензина',
+											'вскрытие автомобиля',
+											'запуск автомобиля',
+											'трезвый водитель',
+											'выездной шиномонтаж'
+										],
+										prefix: 'от',
+										suffix: '₽'
+									}]
+							}/>
+							:
+							<KaskoOffers disabled={true} offersList={[
+								{
+									name: 'Кредит',
+									price: 0,
+									button: 'Рассчитать',
+									prefix: 'от',
+									suffix: '₽/мес'
+								},
+								{
+									name: 'ОСАГО',
+									price: 0,
+									button: 'Рассчитать',
+									prefix: 'от',
+									suffix: '₽'
+								},
+								{
+									name: 'КАСКО',
+									price: 0,
+									button: 'Рассчитать',
+									prefix: 'от',
+									suffix: '₽'
+								},
+								{
+									name: 'GAP',
+									price: 0,
+									button: 'Рассчитать',
+									prefix: 'от',
+									suffix: '₽'
+								}
+							]}/>
 						}
-					]} />
-				:
-					<KaskoOffers disabled={true} offersList={[
-						{
-							name: 'Кредит',
-							price: 0,
-							button: 'Рассчитать',
-							prefix: 'от',
-							suffix: '₽/мес'
-						},
-						{
-							name: 'ОСАГО',
-							price: 0,
-							button: 'Рассчитать',
-							prefix: 'от',
-							suffix: '₽'
-						},
-						{
-							name: 'КАСКО',
-							price: 0,
-							button: 'Рассчитать',
-							prefix: 'от',
-							suffix: '₽'
-						},
-						{
-							name: 'GAP',
-							price: 0,
-							button: 'Рассчитать',
-							prefix: 'от',
-							suffix: '₽'
-						}
-					]}/>
+					</>
 				}
 			</div>
 		);

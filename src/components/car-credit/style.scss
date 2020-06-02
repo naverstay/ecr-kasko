@@ -2,6 +2,10 @@
 
 .car-credit {
 	
+	&.mt_15 {
+		margin-top: 15px;
+	}
+	
 	p {
 		font-size: 12px;
 		margin-bottom: 5px;
@@ -13,6 +17,7 @@
 		line-height: 1;
 		padding-top: 7px;
 		padding-bottom: 8px;
+		color: #000;
 	}
 
 	&__initial-fee {
@@ -20,16 +25,26 @@
 		text-align: center;
 		float: right;
 	}
+
+	&__price {
+		width: 208px;
+		text-align: center;
+		float: left;
+
+		input[disabled] {
+			color: #000;
+		}
+	}
 	
 	&__percent {
-		float: left;
-		width: 93px;
+		//float: left;
+		//width: 93px;
 	}
 	
 	&__print {
 		width: 165px;
 		position: relative;
-		padding-left: 50px;
+		padding-left: 38px;
 		padding-top: 18px;
 		text-align: left;
 		font-size: 12px;
@@ -39,7 +54,7 @@
 			font-family: $icomoon-font-family;
 			content: $i-printer;
 			position: absolute;
-			left: 10px;
+			left: 0;
 			top: 50%;
 			font-size: 26px;
 			line-height: 1;

@@ -577,7 +577,7 @@ class DriverInfo extends Component {
 						<div className="kasko-car-select__controls--group-l">
 							<div onClick={() => this.driverInfoSave(false)} className={"gl_link"}>Отмена</div>
 						</div>
-						<div onClick={() => this.driverInfoSave(true)} className={"ant-btn ant-btn-primary btn_middle"}>Сохранить</div>
+						<div onClick={() => this.driverInfoSave(true)} className={"ant-btn ant-btn-primary btn_middle"}>Получить расчет</div>
 					</div>
 				</div>
 			</div>

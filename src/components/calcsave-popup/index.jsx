@@ -6,7 +6,7 @@ import {Col, Row, Input, Button, Form} from "antd";
 import moment from "moment";
 
 
-class AuthPopup extends Component {
+class CalcsavePopup extends Component {
 	constructor(props) {
 		super(props);
 		this.state = {
@@ -31,6 +31,8 @@ class AuthPopup extends Component {
 
 		setTimeout(() => {
 			this.setState({formBusy: false, SMSSent: true})
+			
+			typeof this.props.popupCloseFunc === 'function' && this.props.popupCloseFunc()
 		}, 200)
 	};
 
@@ -72,52 +74,38 @@ class AuthPopup extends Component {
 		let formDisabled = !this.state.clientPhone.length || this.state.clientPhone.indexOf('_') > -1 || this.state.formBusy
 
 		return (
-			<div className="auth-popup">
-				<div className="auth-popup__close" onClick={popupCloseFunc}/>
-				<div className="auth-popup__title">Вход в Личный кабинет</div>
-				<p className="text_center">
-					Введите данные, которые указывали при расчете, <br /> 
-					и мы отправим вам на мобильный телефон код для входа.
-				</p>
+			<div className="calcsave-popup">
+				<div className="calcsave-popup__close" onClick={popupCloseFunc}/>
+				<div className="calcsave-popup__title">Ваши контакты</div>
 
 				<Form ref={this.formRef} name="control-ref" onFinish={this.onFinish}>
-					<div className="auth-popup__form">
+					<div className="calcsave-popup__form">
 						<Row className="kasko-car-select__controls" gutter={20}>
 							<Col span={24}>
 								<Input
 									className={"w_100p custom_placeholder " + ((this.state.clientLastName + '').length ? "" : " _empty")}
 									value={this.state.clientLastName}
 									onChange={this.onClientLastNameChange} defaultValue=""/>
-								<div className="float_placeholder">Фамилия</div>
+								<div className="float_placeholder">Фамилия и Имя</div>
 							</Col>
 						</Row>
-						<Row className="kasko-car-select__controls" gutter={20}>
+						<Row className="kasko-car-select__controls mb_30" gutter={20}>
 							<Col span={24}>
 								<Input data-inputmask={clientPhoneMask}
 									   className={"w_100p custom_placeholder" + ((this.state.clientPhone + '').length ? "" : " _empty")}
 									   value={this.state.clientPhone}
 									   onChange={this.onClientPhoneChange} defaultValue=""/>
-								<div className="float_placeholder">Мобильный телефон</div>
+								<div className="float_placeholder">Телефон</div>
 							</Col>
 						</Row>
 						<Row className="kasko-car-select__controls" gutter={20}>
-							<Col span={24}>
-								{this.state.SMSSent ?
-									<div className="offer-select__sms">
-										<Input
-											className={"w_100p custom_placeholder" + (this.state.SMSCode.length ? "" : " _empty")}
-											onChange={this.onSMSCodeChange}
-											defaultValue=""/>
-										<div className="float_placeholder">Код подтверждения</div>
-										<div className="gl_link"
-											 onClick={this.toggleSMSSent}>Отправить код повторно</div>
-									</div>
-									:
-									<Button htmlType={formDisabled ? null : "submit"}
-											className={"w_100p " + (this.state.carFound !== void 0 ? "btn_grey" :
-												this.state.formBusy ? "btn_grey" : "ant-btn-primary")}
-											disabled={formDisabled ? 'disabled' : null}>Получить код</Button>
-								}
+							<Col>
+								<div className="ant-btn btn_green fz_14">Отменить</div>
+							</Col>
+							<Col>
+								<Button htmlType={formDisabled ? null : "submit"}
+										className={"w_100p " + (this.state.formBusy ? "btn_grey" : "ant-btn-primary")}
+										disabled={formDisabled ? 'disabled' : null}>Сохранить расчет</Button>
 							</Col>
 						</Row>
 					</div>
@@ -127,4 +115,4 @@ class AuthPopup extends Component {
 	}
 }
 
-export default AuthPopup;
+export default CalcsavePopup;

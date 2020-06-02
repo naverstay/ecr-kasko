@@ -15,6 +15,9 @@ import PaymentSwitch from "../payment-switch";
 import Osago from "../../pages/osago";
 import CalculationPopup from "../calculation-popup";
 import KaskoPopup from "../kasko-popup";
+import PopupOverlay from "../popup-overlay";
+import CalcsavePopup from "../calcsave-popup";
+import KaskoCarSelect from "../kasko-car-select";
 
 const {Option} = Select;
 //const {YearPicker} = DatePicker;
@@ -26,11 +29,13 @@ class CarCredit extends Component {
 		super(props);
 		this.state = {
 			activeOffers: [],
+			showCarOptions: false,
 			activeKasko: false,
 			openParams: true,
 			paramsChanged: true,
 			showMoreParams: false,
 			showCreditOffers: false,
+			saveCalculationPopupOpened: false,
 			calculationPopupOpened: false,
 			calculationPopupKasko: false,
 			carPrice: this.props.carPrice,
@@ -54,6 +59,11 @@ class CarCredit extends Component {
 			creditPercent: credit + " %"
 		});
 	};
+
+	toggleCarOptions = () => {
+		console.log('toggleCarOptions');
+		this.setState({showCarOptions: !this.state.showCarOptions})
+	}
 
 	toggleShowParams = () => {
 		this.setState({
@@ -102,6 +112,11 @@ class CarCredit extends Component {
 			this.scrollToBottom();
 		}, 100)
 	};
+
+	toggleSaveCalculationPopup = () => {
+		this.setState({saveCalculationPopupOpened: !this.state.saveCalculationPopupOpened})
+		document.body.classList.toggle('no-overflow', !this.state.saveCalculationPopupOpened)
+	}
 
 	toggleCalculationPopup = () => {
 		this.setState({calculationPopupOpened: !this.state.calculationPopupOpened})
@@ -272,12 +287,17 @@ class CarCredit extends Component {
 				<h1 className="kasko-main__title">Рассчитать кредит</h1>
 
 				<div className="kasko-car-select__controls">
-					<Link className="gl_link color_black" to="/kasko">Автомобиль</Link>
+					<span onClick={this.toggleCarOptions} className={"gl_link color_black kasko-car-select__controls--toggle " + (this.state.showCarOptions ? ' expanded' : 'collapsed')}>Автомобиль</span>
 				</div>
+
+				{this.state.showCarOptions ?
+					<KaskoCarSelect imageCallback={this.imageCallback} fill={true} step={step} image={false}/>
+					: ""
+				}
 				
 				<div className="credit-slider__wrapper">
-					<Row className="kasko-car-select__controls car-credit" gutter={20}>
-						<Col span={12}>
+					<Row className={"kasko-car-select__controls car-credit" + (this.state.showCarOptions ? " mt_15" : "")} gutter={20}>
+						<Col span={10}>
 							<div className="car-credit__initial-fee">
 								<p>Первоначальный взнос</p>
 								<Input
@@ -285,12 +305,20 @@ class CarCredit extends Component {
 									defaultValue=""/>
 							</div>
 						</Col>
-						<Col span={12}>
+						<Col span={4}>
 							<div className="car-credit__percent">
 								<p>&nbsp;</p>
 								<Input
 									value={this.state.creditPercent}
 									defaultValue=""/>
+							</div>
+						</Col>
+						<Col span={10}>
+							<div className="car-credit__price">
+								<p>Стоимость автомобиля</p>
+								<Input
+									disabled="disabled"
+									defaultValue="1 524 000 ₽"/>
 							</div>
 						</Col>
 					</Row>
@@ -311,14 +339,14 @@ class CarCredit extends Component {
 							suffix: '₽'
 						},
 						{
-							name: 'ОСАГО',
+							name: 'СЖ',
 							price: '5400',
 							prefix: 'от',
 							suffix: '₽'
 						},
 						{
-							name: 'КАСКО',
-							price: '5400',
+							name: 'GAP',
+							price: '15400',
 							prefix: 'от',
 							suffix: '₽'
 						},
@@ -340,14 +368,8 @@ class CarCredit extends Component {
 							suffix: '₽'
 						},
 						{
-							name: 'GAP',
+							name: 'Шоколад',
 							price: '15400',
-							prefix: 'от',
-							suffix: '₽'
-						},
-						{
-							name: 'СЖ',
-							price: '5400',
 							prefix: 'от',
 							suffix: '₽'
 						}
@@ -521,21 +543,31 @@ class CarCredit extends Component {
 							<Col span={16}>
 								<CreditOffers completed={true} selectedOffer={this.updateSelectedOffer} offersList={offersList}/>
 
-								<div className={"kasko-car-select__controls ant-row-center align_center"} style={{marginBottom: '50px'}}>
-									<div className="kasko-car-select__controls--group text_center">
+								<Row gutter={20} className={"kasko-car-select__controls ant-row-center align_center"} style={{marginBottom: '50px'}}>
+									<Col span={6}>
+										<div onClick={this.toggleSaveCalculationPopup} className={"ant-btn btn_green ant-btn-block"}>Сохранить расчет</div>
+									</Col>
+									
+									<Col span={12}>
 										<Button htmlType="submit"
 												style={{padding: '0 50px'}}
-												className={"ant-btn-primary btn_middle"}
-												onClick={this.toggleCalculationPopup}>Сохранить расчет и заполнить анкету</Button>
-										<div className="kasko-car-select__controls--group-r">
-											<div className="car-credit__print">
-												<a className="gl_link color_black" href="#">Кредитный расчет</a>
-												<a className="gl_link color_black" href="#">График платежей</a>
-												<a className="gl_link" href="#">PDF в DOC</a>
-											</div>
+												className={"ant-btn-primary btn_middle ant-btn-block"}
+												onClick={this.toggleCalculationPopup}>Заполнить анкету и отправить в банк</Button>
+									</Col>
+
+									<Col span={6}>
+										<div className="car-credit__print">
+											<a className="gl_link color_black" href="#">Кредитный расчет</a>
+											<a className="gl_link color_black" href="#">График платежей</a>
+											<a className="gl_link" href="#">PDF в DOC</a>
 										</div>
-									</div>
-								</div>
+									</Col>
+									{/*<div className="kasko-car-select__controls--group text_center">*/}
+									{/*	<div className="kasko-car-select__controls--group-r">*/}
+									{/*		*/}
+									{/*	</div>*/}
+									{/*</div>*/}
+								</Row>
 							</Col>
 						</Row>
 					</div>
@@ -550,6 +582,13 @@ class CarCredit extends Component {
 					
 				{this.state.calculationPopupKasko ?
 					<KaskoPopup updatePaymentState={this.updateKaskoState} popupCloseFunc={this.toggleKaskoPopup} />
+					: ""
+				}
+
+				{this.state.saveCalculationPopupOpened ?
+					<PopupOverlay>
+						<CalcsavePopup popupCloseFunc={this.toggleSaveCalculationPopup}/>
+					</PopupOverlay>
 					: ""
 				}
 			</div>

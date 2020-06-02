@@ -284,7 +284,7 @@ class KaskoCarSelectOsago extends Component {
 					carEquipment: '2.0 MPI - 6AT',
 					carNumber: 'A 123 AA 177',
 					carRegion: 'г. Москва',
-					carPrice: 14800000,
+					carPrice: 1534000,
 					carPower: 245,
 					carMileage: 24500,
 					carYear: moment('2015'),

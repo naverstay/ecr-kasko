@@ -53,7 +53,7 @@ class DriverCount extends Component {
 	};
 	
 	render() {
-		const {driverOptions} = this.props
+		const {driverOptions, children} = this.props
 		
 		return (
 			<div className="kasko-car-select__controls check_v2">
@@ -80,6 +80,7 @@ class DriverCount extends Component {
 								</Tooltip>
 							</Col>
 						}
+						{children}
 					</Row>
 			</div>
 		);

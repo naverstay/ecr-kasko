@@ -29,8 +29,6 @@ class KaskoOffers extends Component {
 
 	render() {
 		let {offersList, slider, onOfferSelect, disabled, credit, active, completed} = this.props
-
-		console.log('active', active);
 		
 		let carouselSettings = {
 			dots: false,

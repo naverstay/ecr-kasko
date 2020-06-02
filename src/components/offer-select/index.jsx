@@ -13,6 +13,7 @@ import pluralFromArray from "../../helpers/pluralFromArray";
 import CalculationOffers from "../calculation-offers";
 import PaymentSwitch from "../payment-switch";
 import DriverCount from "../driver-count";
+import KaskoCarSelect from "../kasko-car-select";
 
 moment().locale('ru', ru);
 
@@ -23,6 +24,7 @@ class OfferSelect extends Component {
 			carFound: void 0,
 			fullCalculation: this.props.osago || (this.props.step === 2),
 			showCalculationOffers: this.props.step > 1,
+			showCarOptions: false,
 			showParams: false,
 			openParams: true,
 			SMSSent: true,
@@ -143,8 +145,10 @@ class OfferSelect extends Component {
 	}
 
 	updatePaymentState = (value) => {
+		console.log('updatePaymentState', value);
 		if (this.state.showCalculationOffers) {
 			this.setState({
+				showCalculationOffers: true,
 				showPayment: value
 			})
 		}
@@ -156,13 +160,15 @@ class OfferSelect extends Component {
 		}
 		
 		this.toggleCalculationPopup()
+
+		this.toggleCalculationOffers()
 	}
 
 	onSMSCodeChange = e => {
 		this.setState({SMSCode: e.target.value})
 		
 		if (('' + e.target.value).length === 4) {
-			window.location = '/done'
+			window.location = this.props.osago ? '/osago_done' : '/kasko_done'
 		}
 	};
 	
@@ -171,8 +177,14 @@ class OfferSelect extends Component {
 			fullCalculation: (this.props.step === 2) || checked
 		})
 	}
+
+	toggleCarOptions = () => {
+		console.log('toggleCarOptions', this.state.showCarOptions);
+		this.setState({showCarOptions: !this.state.showCarOptions})
+	}
 	
 	toggleCalculationPopup = () => {
+		this.setState({fullCalculation: true})
 		this.setState({calculationPopupOpened: !this.state.calculationPopupOpened})
 		document.body.classList.toggle('no-overflow', !this.state.calculationPopupOpened)
 	}
@@ -186,7 +198,7 @@ class OfferSelect extends Component {
 	}
 
 	calculationButtonText = () => {
-		return (this.state.showPayment || (this.props.step === 2) || (this.props.osago && this.state.activeOffers.length)) ? 'Анкета ' + (this.props.osago ? 'ОСАГО' : 'КАСКО') + ' заполните 0 полей' : this.state.fullCalculation ? (this.props.osago ? 'Для расчета заполните 20 полей' : 'Для окончательного расчетазаполните 20 полей') : 'Для расчета заполните  10 полей'
+		return (this.state.showPayment || (this.props.step === 2) || (this.props.osago && this.state.activeOffers.length)) ? 'Анкета ' + (this.props.osago ? 'ОСАГО' : 'КАСКО') + ' заполните 0 полей' : this.state.fullCalculation ? (this.props.osago ? 'Для расчета заполните 20 полей' : 'Для окончательного расчета заполните 20 полей') : 'Для расчета заполните  10 полей'
 	}
 
 	offersUpdate = (offer) => {
@@ -285,7 +297,7 @@ class OfferSelect extends Component {
 		
 		let driverOptions = [];
 		
-		if (step > 1) {
+		if (step > 1 || this.state.showCalculationOffers) {
 			driverOptions = ['Фомин Сергей М.', 'Фомина Алла К.', 'Фомина Марина Ф.']
 		}
 		
@@ -323,36 +335,42 @@ class OfferSelect extends Component {
 				offers: [
 					{
 						name: 'Обычный',
+						franchise: 10000,
 						price: 41450,
 						dealerFee: 4145,
 						options: optionsFixtures
 					},
 					{
 						name: 'Обычный 2',
+						franchise: 10000,
 						price: 51450,
 						dealerFee: 5145,
 						options: optionsFixtures
 					},
 					{
 						name: 'Обычный 3',
+						franchise: 10000,
 						price: 61450,
 						dealerFee: 6145,
 						options: optionsFixtures
 					},
 					{
 						name: 'Обычный 4',
+						franchise: 10000,
 						price: 11450,
 						dealerFee: 1145,
 						options: optionsFixtures
 					},
 					{
 						name: 'Обычный 5',
+						franchise: 10000,
 						price: 21450,
 						dealerFee: 2145,
 						options: optionsFixtures
 					},
 					{
 						name: 'Обычный 6',
+						franchise: 10000,
 						price: 31450,
 						dealerFee: 3145,
 						options: optionsFixtures
@@ -364,18 +382,21 @@ class OfferSelect extends Component {
 				offers: [
 					{
 						name: 'Необычный',
+						franchise: 10000,
 						price: 30450,
 						dealerFee: 3045,
 						options: optionsFixtures
 					},
 					{
 						name: 'Необычный 2',
+						franchise: 10000,
 						price: 30450,
 						dealerFee: 3045,
 						options: optionsFixtures
 					},
 					{
 						name: 'Необычный 3',
+						franchise: 10000,
 						price: 30450,
 						dealerFee: 3045,
 						options: optionsFixtures
@@ -391,6 +412,7 @@ class OfferSelect extends Component {
 					offers: [
 						{
 							name: 'Обычный',
+							franchise: 10000,
 							price: 41450,
 							dealerFee: 4145,
 							dateStart: '20.02.19',
@@ -412,7 +434,7 @@ class OfferSelect extends Component {
 			const index = i === 0 ? 0 : i === franchise.length - 1 ? 100 : parseInt(i * (100 / ((franchise.length - 1) || 1)))
 
 			franchiseSteps[index] = {
-				label: <span className={"kasko-car-select__franchise--label" + (index === this.state.franchiseVal ? " active" : "")}>{formatMoney(f)}</span>,
+				label: <span className={"kasko-car-select__franchise--label" + (index === this.state.franchiseVal ? " active" : "")}>{(i ? '' : 'до ') + formatMoney(f)}</span>,
 			}
 		})
 
@@ -423,14 +445,17 @@ class OfferSelect extends Component {
 
 					{popup ? "" :
 						<div className="kasko-car-select__controls">
-							<Link className="gl_link color_black" to="/kasko">Автомобиль</Link>
+							<span onClick={this.toggleCarOptions} className={"gl_link color_black kasko-car-select__controls--toggle " + (this.state.showCarOptions ? 'expanded' : 'collapsed')}>Автомобиль</span>
 						</div>
 					}
 	
-					{image === false ? "" : 
-						<div className="kasko-car-select__image">
-							<img src={'./cars/' + image + '.png'} alt=""/>
-						</div>
+					{this.state.showCarOptions ?
+						<KaskoCarSelect imageCallback={this.imageCallback} fill={true} step={step} image={image}/>
+						: 
+						image === false ? "" : 
+							<div className="kasko-car-select__image">
+								<img src={'./cars/' + image + '.png'} alt=""/>
+							</div>
 					}
 	
 					{step === 3 ?
@@ -446,6 +471,7 @@ class OfferSelect extends Component {
 											document: 'СС 12345678',
 											dateStart: '20.02.19',
 											dateEnd: '19.02.20',
+											franchise: 10000,
 											price: 41450,
 											dealerFee: 4145
 										}
@@ -453,59 +479,96 @@ class OfferSelect extends Component {
 								}
 							]}/>
 
-							<KaskoOffers active={[(osago ? 1 : 2)]} completed={[(osago ? 1 : 2)]} offersList={[
-								{
-									name: 'Кредит',
-									price: 10400,
-									button: 'Рассчитать',
-									link: '/credit',
-									prefix: 'от',
-									suffix: '₽/мес'
-								},
-								{
-									name: 'ОСАГО',
-									price: 10410,
-									button: (!osago ? 'Рассчитать' : 'Выпущено'),
-									link: '/osago',
-									prefix: 'от',
-									suffix: '₽'
-								},
-								{
-									name: 'КАСКО',
-									price: 10420,
-									button: (osago ? 'Рассчитать' : 'Выпущено'),
-									link: '/kasko',
-									prefix: 'от',
-									suffix: '₽'
-								},
-								{
-									name: 'GAP',
-									price: 10430,
-									button: 'Рассчитать',
-									link: '/gap',
-									prefix: 'от',
-									suffix: '₽'
-								}
-							]}/>
+							<KaskoOffers active={[(osago ? 0 : 1)]} completed={[(osago ? 0 : 1)]} offersList={osago ?
+								[
+									{
+										name: 'ОСАГО',
+										price: 10410,
+										button: (!osago ? 'Рассчитать' : 'Выпущено'),
+										link: '/osago',
+										prefix: 'от',
+										suffix: '₽'
+									},
+									{
+										name: 'КАСКО',
+										price: 10420,
+										button: (osago ? 'Рассчитать' : 'Выпущено'),
+										link: '/kasko',
+										prefix: 'от',
+										suffix: '₽'
+									},
+									{
+										name: 'GAP',
+										price: 10430,
+										button: 'Рассчитать',
+										link: '/gap',
+										prefix: 'от',
+										suffix: '₽'
+									},
+									{
+										name: 'Ассистанс',
+										price: '15400',
+										collapse: true,
+										options: [
+											'эвакуация',
+											'юридическая помощь',
+											'аварийный комиссар',
+											'подвоз бензина',
+											'вскрытие автомобиля',
+											'запуск автомобиля',
+											'трезвый водитель',
+											'выездной шиномонтаж'
+										],
+										prefix: 'от',
+										suffix: '₽'
+									}]
+								: 
+									[{
+										name: 'ОСАГО',
+										price: 10410,
+										button: (!osago ? 'Рассчитать' : 'Выпущено'),
+										link: '/osago',
+										prefix: 'от',
+										suffix: '₽'
+									},
+									{
+										name: 'КАСКО',
+										price: 10420,
+										button: (osago ? 'Рассчитать' : 'Выпущено'),
+										link: '/kasko',
+										prefix: 'от',
+										suffix: '₽'
+									},
+									{
+										name: 'GAP',
+										price: 10430,
+										button: 'Рассчитать',
+										link: '/gap',
+										prefix: 'от',
+										suffix: '₽'
+									},
+									{
+										name: 'Ассистанс',
+										price: '15400',
+										collapse: true,
+										options: [
+											'эвакуация',
+											'юридическая помощь',
+											'аварийный комиссар',
+											'подвоз бензина',
+											'вскрытие автомобиля',
+											'запуск автомобиля',
+											'трезвый водитель',
+											'выездной шиномонтаж'
+										],
+										prefix: 'от',
+										suffix: '₽'
+									}]
+							}/>
 							
 						</>
 						:
 						<>
-							{!osago ? 
-								<div className={"kasko-car-select__calculation" + (image === false ? " no-img" : "") + (this.state.fullCalculation ? ' active' : '') + (this.state.showPayment || (step === 2) ? ' disabled' : '')}>
-									<span className="kasko-car-select__calculation--text">Предварительный расчет</span>
-									<Switch checked={this.state.fullCalculation}
-											className="kasko-car-select__calculation--switch"
-											onChange={this.onCalculationTypeChange}/>
-									<span className="kasko-car-select__calculation--text">Окончательный расчет</span>
-								</div> 
-								: ""
-							}
-			
-							<div className="kasko-car-select__controls ant-row-center mb_45">
-								<Button htmlType="submit" className={"btn_wide" + (((this.state.showPayment || (this.props.step === 2) || (this.props.osago && this.state.activeOffers.length))) ? " btn_green" : " ant-btn-primary")} onClick={this.toggleCalculationPopup}>{this.calculationButtonText()}</Button>
-							</div>
-							
 							{(step !== 2) ?
 								<>
 									{!osago ? <>
@@ -544,7 +607,7 @@ class OfferSelect extends Component {
 												suffix: '₽'
 											},
 											{
-												name: 'Кредит',
+												name: 'Шоколад',
 												price: 10420,
 												prefix: '',
 												suffix: '₽'
@@ -567,6 +630,18 @@ class OfferSelect extends Component {
 										<>
 											{!osago ?
 												<>
+													<div className="kasko-car-select__controls radio_v2 wide_group mb_0">
+														<Radio.Group defaultValue={popup ? 1 : 0} className={"w_100p"} onChange={this.onCarCreditChange}>
+															<Row gutter={20}>
+																<Col>
+																	<Radio value={1}>В кредит</Radio>
+																</Col>
+																<Col>
+																	<Radio value={0}>За наличные</Radio>
+																</Col>
+															</Row>
+														</Radio.Group>
+													</div>
 													<div className="kasko-car-select__controls radio_v2 wide_group">
 														<Radio.Group defaultValue={this.state.hasFranchise ? 1 : 0}
 																	 onChange={this.onFranchiseChange}>
@@ -653,11 +728,43 @@ class OfferSelect extends Component {
 															</Radio.Group>
 														</div>
 
-														<DriverCount step={step} driverOptions={driverOptions}/>
+														<DriverCount step={step} driverOptions={driverOptions}>
+															{step > 1 || this.state.showCalculationOffers ?
+																<Col>
+																	<div className="kasko-offer__more">
+																		<span onClick={this.toggleCalculationPopup}
+																			  className="gl_link">Анкета КАСКО</span>
+																	</div>
+																</Col>
+															: ""}
+														</DriverCount>
 
-														<div className="kasko-car-select__controls ant-row-center">
-															<div onClick={this.toggleCalculationOffers} className={"ant-btn ant-btn-primary btn_middle margin" + ((step !== 2 && this.state.paramsChanged) ? "" : " disabled")}>Получить расчет</div>
-														</div>
+														{this.state.showCalculationOffers ? "" :
+															<>
+																{!osago ?
+																	<div
+																		className={"kasko-car-select__calculation" + (image === false ? " no-img" : "") + (this.state.fullCalculation ? ' active' : '') + (this.state.showPayment || (step === 2) ? ' disabled' : '')}>
+																		<span className="kasko-car-select__calculation--text">Предварительный расчет</span>
+																		<Switch checked={this.state.fullCalculation}
+																				className="kasko-car-select__calculation--switch"
+																				onChange={this.onCalculationTypeChange}/>
+																		<span className="kasko-car-select__calculation--text">Окончательный расчет</span>
+																	</div>
+																	: ""
+																}
+																
+																<div
+																	className="kasko-car-select__controls ant-row-center mb_45">
+																	<Button htmlType="submit"
+																			className={"btn_wide" + (((this.state.showPayment || (this.props.step === 2) || (this.props.osago && this.state.activeOffers.length))) ? " btn_green" : " ant-btn-primary")}
+																			onClick={this.toggleCalculationPopup}>{this.calculationButtonText()}</Button>
+																</div>
+															</>
+														}
+														
+														{/*<div className="kasko-car-select__controls ant-row-center">*/}
+														{/*	<div onClick={this.toggleCalculationOffers} className={"ant-btn ant-btn-primary btn_middle margin" + ((step !== 2 && this.state.paramsChanged) ? "" : " disabled")}>Получить расчет</div>*/}
+														{/*</div>*/}
 														
 													</>
 											: "" }
@@ -669,7 +776,7 @@ class OfferSelect extends Component {
 							
 							{this.state.showCalculationOffers ?
 									<>
-										<CalculationOffers allowCheck={this.state.showPayment || osago || popup} osago={osago} waiting={step === 2} selectedOffer={this.updateSelectedOffer} offersList={calculationOfferList}/>
+										<CalculationOffers franchise={this.state.hasFranchise} allowCheck={this.state.showPayment || osago || popup} osago={osago} waiting={step === 2} selectedOffer={this.updateSelectedOffer} offersList={calculationOfferList}/>
 		
 										<div className={"kasko-car-select__controls ant-row-center align_center"}>
 											{
@@ -719,26 +826,56 @@ class OfferSelect extends Component {
 														}
 													</>
 												: (this.state.showPayment || osago) ?
-													<div className="kasko-car-select__controls--group payment">
-														{/*<div className="kasko-car-select__controls--group-l">*/}
-														{/*	<Link to="/" className={"gl_link color_black"}>Сохранить&nbsp;расчет</Link>*/}
-														{/*</div>*/}
-														<a href={this.state.availablePayment ? (osago ? "/osago_payment" : "/payment") : "#"} className={"ant-btn ant-btn-primary btn_middle" + ((this.state.availablePayment) ? "" : " disabled")}>{this.state.showCompare ? 'Сравнить' : 'Оплатить в кассу'}</a>
-														<div className="kasko-car-select__controls--group-r">
-															<PaymentSwitch allowPayment={this.state.availablePayment} paymentStep={0}/>
-															{/*<Link to="/" className={"gl_link"}>Сравнить</Link>*/}
+													<>
+														<div className="kasko-car-select__controls--group payment">
+															{/*<div className="kasko-car-select__controls--group-l">*/}
+															{/*	<Link to="/" className={"gl_link color_black"}>Сохранить&nbsp;расчет</Link>*/}
+															{/*</div>*/}
+
+															{/*<p className="text_center">*/}
+															{/*	<span onClick={this.toggleCalculationPopup}*/}
+															{/*		  className="gl_link">Анкета КАСКО</span>*/}
+															{/*</p>*/}
+															
+															<a href={this.state.availablePayment ? (osago ? "/osago_payment" : "/kasko_payment") : "#"} className={"ant-btn ant-btn-primary btn_middle" + ((this.state.availablePayment) ? "" : " disabled")}>{this.state.showCompare ? 'Сравнить' : 'Оплатить в кассу'}</a>
+															<div className="kasko-car-select__controls--group-r _bottom">
+																<PaymentSwitch allowPayment={this.state.availablePayment} paymentStep={0}/>
+																{/*<Link to="/" className={"gl_link"}>Сравнить</Link>*/}
+															</div>
 														</div>
-													</div>
+													</>
 													:
-													<div className="kasko-car-select__controls--group">
+													<div className="kasko-car-select__controls--group text_center">
 														{/*<div className="kasko-car-select__controls--group-l">*/}
 														{/*	<Link to="/" className={"gl_link color_black"}>Сохранить&nbsp;расчет</Link>*/}
 														{/*</div>*/}
-														<Button htmlType="submit" className={"ant-btn-primary btn_wide"}
-																onClick={this.toggleCalculationPopup}>{this.calculationButtonText()}</Button>
+														
+														{popup ?
+															<>
+																<Button htmlType="submit"
+																		className={"ant-btn-primary btn_wide"}
+																		onClick={this.toggleCalculationPopup}>Добавить в кредит</Button>
+
+																<Button htmlType="submit"
+																		className={"btn_wide"}
+																		onClick={this.toggleCalculationPopup}>{this.calculationButtonText()}</Button>
+															</>
+														:
+															<>
+																<Button htmlType="submit"
+																		className={"ant-btn-primary btn_wide"}
+																		onClick={this.toggleCalculationPopup}>{this.calculationButtonText()}</Button>
+
+																<Button htmlType="submit"
+																		className={"btn_wide"}
+																		onClick={this.toggleCalculationPopup}>Добавить в кредит</Button>
+															</>
+														}
+														
 														{/*<div className="kasko-car-select__controls--group-r">*/}
 														{/*	<Link to="/" className={"gl_link"}>Сравнить</Link>*/}
 														{/*</div>*/}
+
 													</div>
 											}
 											

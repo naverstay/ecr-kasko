@@ -49,6 +49,14 @@ input {
 	}
 }
 
+.ant-input.control-focused:not(.ant-input-disabled),
+.ant-select.control-focused:not(.ant-select-disabled) .ant-select-selector {
+	border-color: #acdcfa !important;
+	border-right-width: 1px !important;
+	outline: 0;
+	box-shadow: 0 0 0 2px rgba(126, 191, 237, 0.2);
+}
+
 .custom_placeholder .ant-select-selection-item {
 	padding-top: 7px !important;
 }
@@ -157,6 +165,11 @@ $spinner_time: 1s;
 	.ant-picker-suffix {
 		display: none;
 	}
+}
+
+.vis_hidden {
+	pointer-events: none;
+	visibility: hidden;
 }
 
 .gl_link {

@@ -20,7 +20,7 @@ class CalculationOffers extends Component {
 	};
 
 	render() {
-		const {offersList, selectedOffer, completed, waiting, allowCheck, osago} = this.props
+		const {offersList, selectedOffer, completed, waiting, allowCheck, osago, franchise} = this.props
 		
 		return (
 			<div className="calculation-offers">
@@ -28,7 +28,8 @@ class CalculationOffers extends Component {
 					<thead>
 						<tr>
 							<th className={"calculation-offers__table--col-1" + (osago ? " wide" : "") + ((completed || waiting) ? " small" : "")}>Страховая компания</th>
-							{!osago ? <th className={"calculation-offers__table--col-2" + ((completed || waiting) ? " small" : "")}>Тариф</th> : ""}
+							{!osago ? <th className={(franchise ? "calculation-offers__table--col-10" : "calculation-offers__table--col-2") + ((completed || waiting) ? " small" : "")}>Тариф</th> : ""}
+							{(!osago && franchise) ? <th className={"calculation-offers__table--col-9" + ((completed || waiting) ? " small" : "")}>Франшиза</th> : ""}
 							<th className={"calculation-offers__table--col-3" + ((completed || waiting) ? " small" : "")}>Стоимость</th>
 							<th className={"calculation-offers__table--col-4" + ((completed || waiting) ? " small" : "")}>Доход <br />дилера</th>
 							{(completed || waiting) ?
@@ -48,7 +49,7 @@ class CalculationOffers extends Component {
 					</thead>
 					<tbody>
 						{offersList.length ? offersList.map((o, i) => {
-							return (<OfferRow allowCheck={allowCheck} osago={osago} completed={completed} waiting={waiting} selectedOffer={selectedOffer} key={i} company={i} logo={o.logo} offers={o.offers} />)
+							return (<OfferRow franchise={!osago && franchise} allowCheck={allowCheck} osago={osago} completed={completed} waiting={waiting} selectedOffer={selectedOffer} key={i} company={i} logo={o.logo} offers={o.offers} />)
 						}) : ""}
 					</tbody>
 				</table>

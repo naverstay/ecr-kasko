@@ -26,7 +26,7 @@ class KaskoNotices extends Component {
 	}
 
 	render() {
-		const {noticeList, type, status, step, credit, kasko} = this.props;
+		const {noticeList, type, status, step, credit, kasko, osago} = this.props;
 		const statusClasses = {
 			0: 'calculation',
 			1: 'waiting',
@@ -91,13 +91,20 @@ class KaskoNotices extends Component {
 											<li>
 												<div className="kasko-notice__price--label">Платеж в мес.</div>
 												<div className="kasko-notice__price--value">
-													{step >= 2 ? <span>41 450 ₽</span> : ''}
+													{step >= 2 ?
+														<>
+															<span>41 450 ₽</span>
+															<span className="kasko-notice__status calculation">Наличные</span>
+														</>
+														: ''}
 												</div>
 											</li>
 											<li>
 												<div className="kasko-notice__price--label">Срок</div>
 												<div
-													className="kasko-notice__price--value">{step >= 2 ? 'ВСК' : ''}</div>
+													className="kasko-notice__price--value">{step >= 2 ? 'ВСК' : ''}
+												</div>
+												
 											</li>
 											<li>
 												<div className="kasko-notice__price--label">ПВ</div>
@@ -151,13 +158,20 @@ class KaskoNotices extends Component {
 											<li>
 												<div className="kasko-notice__price--label">Стоимость</div>
 												<div className="kasko-notice__price--value">
-													{step >= 2 ? <span>41 450 ₽</span> : ''}
+													{step >= 2 ? 
+														<>
+															<span>41 450 ₽</span>
+															{osago ? "" : <span
+																className="kasko-notice__status calculation">Наличные</span>}
+														</>
+														: ''}
 												</div>
 											</li>
 											<li>
 												<div className="kasko-notice__price--label">СК</div>
 												<div
-													className="kasko-notice__price--value">{step >= 2 ? 'ВСК' : ''}</div>
+													className="kasko-notice__price--value">{step >= 2 ? 'ВСК' : ''}
+												</div>
 											</li>
 											<li>
 												<div className="kasko-notice__price--label">Срок</div>

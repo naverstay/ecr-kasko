@@ -53,7 +53,7 @@ class OfferRow extends Component {
 	}
 
 	render() {
-		const {offers, logo, name, info, credit, company, completed, waiting, allowCheck, osago} = this.props
+		const {offers, logo, name, info, credit, company, completed, waiting, allowCheck, osago, franchise} = this.props
 		const moreLink = 'еще ' + (offers.length - 1) + ' ' + pluralFromArray(['тариф', 'тарифа', 'тарифов'], (offers.length - 1))
 		const lessLink = 'скрыть ' + (offers.length - 1) + ' ' + pluralFromArray(['тариф', 'тарифа', 'тарифов'], (offers.length - 1))
 		
@@ -63,8 +63,6 @@ class OfferRow extends Component {
 					const show = (i === 0 || !this.state.rowsCollapsed)
 					const showOptions = (i in this.state.optionsToggle) && this.state.optionsToggle[i]
 					const offerSelected = (i in this.state.offerSelected) && this.state.offerSelected[i]
-
-					console.log('o', o);
 					
 					return (show ? 
 							<>
@@ -77,6 +75,13 @@ class OfferRow extends Component {
 										{(this.state.rowsCollapsed && i === 0 && offers.length > 1) ? <div onClick={this.onCollapseToggle} className="offer-row__hint gl_link">{moreLink}</div> : ""}
 										{(!this.state.rowsCollapsed && (i === offers.length - 1) && offers.length > 1) ? <div onClick={this.onCollapseToggle} className="offer-row__hint gl_link">{lessLink}</div> : ""}
 									</td> : ""}
+																	
+									{franchise ?
+										<td>
+											<div className="offer-row__fee">{o.franchise}</div>
+										</td>
+									: ""}
+
 									<td>
 										<div className="offer-row__price">{formatMoney(o.price)} ₽</div>
 									</td>
@@ -153,7 +158,9 @@ class OfferRow extends Component {
 											</>
 											:
 											<>
-												<td colSpan={5}>
+												<td>&nbsp;</td>
+												{franchise ? <td>&nbsp;</td> : ""}
+												<td colSpan={4}>
 													<ul className="offer-row__options">
 														{o.options.map(opt => <li>{opt}</li>)}
 													</ul>

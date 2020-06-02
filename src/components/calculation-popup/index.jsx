@@ -92,7 +92,7 @@ class CalculationPopup extends Component {
 
 		let driverOptions = [];
 
-		if (step > 1) {
+		if (step > 1 || this.state.showCalculationOffers) {
 			driverOptions = ['Фомин Сергей М.', 'Фомина Алла К.', 'Фомина Марина Ф.']
 		}
 		

@@ -99,7 +99,7 @@ class Osago extends Component {
 						""
 						:
 						<AsideBlock>
-							<KaskoNotices step={step} status={step === 2 ? 1 : step === 3 ? 3 : 0} type={showOffers}/>
+							<KaskoNotices osago={true} step={step} status={step === 2 ? 1 : step === 3 ? 3 : 0} type={showOffers}/>
 						</AsideBlock>
 					}
 

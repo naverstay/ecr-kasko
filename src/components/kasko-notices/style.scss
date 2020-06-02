@@ -76,6 +76,12 @@
 			background: $color-green;
 			border: 1px solid $color-green;
 		}
+		
+		.kasko-notice__price--value & {
+			display: inline-block;
+			vertical-align: top;
+			margin: 7px 0;
+		}
 	}
 	
 	&__head {
@@ -262,7 +268,7 @@
 			@extend %text2;
 			width: 50%;
 			
-			span {
+			span:not([class]) {
 				@extend %h2;
 				margin-top: -7px;
 			}

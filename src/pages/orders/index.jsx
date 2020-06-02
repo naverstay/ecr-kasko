@@ -179,7 +179,7 @@ const Orders = props => {
 									</TableCell>
 									<TableCell toggleInfoRow={true} classList={['orders-table__cell', 'cell_size-4']}>
 										<div className='orders-table__cell-content'>
-											<p>Отдел продаж</p>
+											<p className="color_green">auto.ru</p>
 											<p>20.02.19</p>
 										</div>
 									</TableCell>
@@ -234,7 +234,7 @@ const Orders = props => {
 									</TableCell>
 									<TableCell toggleInfoRow={true} classList={['orders-table__cell', 'cell_size-4']}>
 										<div className='orders-table__cell-content'>
-											<p>Отдел продаж</p>
+											<p className="color_green">hyundai.ru</p>
 											<p>20.02.19</p>
 										</div>
 									</TableCell>
