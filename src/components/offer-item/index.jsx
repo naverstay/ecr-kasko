@@ -125,11 +125,13 @@ class OfferItem extends Component {
 		let prefix = active ? '' : (offer.price + '').replace(/\d/g, '')
 		let price = formatMoney(((this.state.newPrice || offer.price) + '').replace(/\D/g, ''))
 
+		console.log('offer', offer);
+		
 		return (
 			slider ?
-				<div key={index} className={"kasko-offer__slide" + (credit ? " credit" : "")}>
+				<div key={index} className={"kasko-offer__slide slider " + (credit ? " credit" : "")}>
 					<div ref={this.setWrapperRef} className={"kasko-offer__item" + (offer.collapse ? " collapsable" : "") + ((active || this.state.offerAdded) && !completed ? " active" : "") + (completed ? " completed" : "") + ((this.state.offerCollapsed) ? " collapsed" : "")}>
-						<div onClick={() => ((offer.func && typeof offer.func === 'function') ? offer.func() : offer.href ? this.goTo(offer) : (this.toggleActiveOffer(index)))}
+						<div onClick={() => ((offer.func && typeof offer.func === 'function') ? offer.func() : offer.href ? this.goTo(offer, offer.goto) : (this.toggleActiveOffer(index)))}
 							className={"kasko-offer__item--title" + (offer.button ? " no_arrow" : " toggle_icon")}>
 							<span>{offer.name}</span>
 							{offer.button ? 
@@ -189,7 +191,7 @@ class OfferItem extends Component {
 					{offer.collapse ?
 						<div key={index} className={"kasko-offer__slide" + (credit ? " credit" : "")}>
 							<div ref={this.setWrapperRef} className={"kasko-offer__item" + (offer.collapse ? " collapsable" : "") + ((active || this.state.offerAdded) && !completed ? " active" : "") + (completed ? " completed" : "") + ((this.state.offerCollapsed) ? " collapsed" : "")}>
-								<div onClick={() => ((offer.func && typeof offer.func === 'function') ? offer.func() : offer.href ? this.goTo(offer) : (this.toggleActiveOffer(index)))}
+								<div onClick={() => ((offer.func && typeof offer.func === 'function') ? offer.func() : offer.href ? this.goTo(offer, offer.goto) : (this.toggleActiveOffer(index)))}
 									className={"kasko-offer__item--title" + (offer.button ? " no_arrow" : " toggle_icon")}>
 									<span>{offer.name}</span>
 									{offer.button ? 

@@ -166,6 +166,11 @@ class CarCredit extends Component {
 		this.toggleKaskoTaxPopup()
 	}
 	
+	creditPopupCallback = (e) => {
+		console.log('creditPopupCallback', e);
+		this.toggleCalculationPopup()
+	};
+	
 	updatePaymentState = (value) => {
 		if (this.state.showCalculationOffers) {
 			this.setState({
@@ -593,36 +598,36 @@ class CarCredit extends Component {
 							</Col>
 						</Row>
 					</div>
-					: ""
+					: null
 				}
 				
 				<div ref={(el) => { this.messagesEnd = el }}/>
 				
 				{this.state.calculationPopupOpened ?
 					<PopupOverlay span={16}>
-						<CreditPopup updatePaymentState={this.updatePaymentState} step={this.state.showCalculationOffers ? 2 : step} allFields={this.state.showCalculationOffers || (step === 2)} fullCalculation={true} popupCloseFunc={this.toggleCalculationPopup} />
+						<CreditPopup popupCallback={this.creditPopupCallback} updatePaymentState={this.updatePaymentState} step={this.state.showCalculationOffers ? 2 : step} allFields={this.state.showCalculationOffers || (step === 2)} fullCalculation={true} popupCloseFunc={this.toggleCalculationPopup} />
 					</PopupOverlay>
-					: ""}
+					: null}
 					
 				{this.state.calculationPopupKasko ?
 					<PopupOverlay span={16}>
 						<KaskoPopup updatePaymentState={this.updateKaskoState} popupCloseFunc={this.toggleKaskoPopup} />
 					</PopupOverlay>
-					: ""
+					: null
 				}
 					
 				{this.state.KaskoTaxPopup ?
 					<PopupOverlay span={8}>
 						<KaskotaxPopup updatePaymentState={this.updateKaskoTaxState} popupCloseFunc={this.toggleKaskoTaxPopup} />
 					</PopupOverlay>
-					: ""
+					: null
 				}
 
 				{this.state.saveCalculationPopupOpened ?
 					<PopupOverlay span={12}>
 						<CalcsavePopup popupCloseFunc={this.toggleSaveCalculationPopup}/>
 					</PopupOverlay>
-					: ""
+					: null
 				}
 			</div>
 		);

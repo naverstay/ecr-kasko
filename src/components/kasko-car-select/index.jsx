@@ -358,7 +358,8 @@ class KaskoCarSelect extends Component {
 				name: 'Кредит',
 				price: 10432,
 				button: 'Рассчитать',
-				link: '/credit',
+				href: '/credit',
+				goto: true,
 				prefix: 'от',
 				suffix: '₽/мес'
 			},
@@ -366,7 +367,8 @@ class KaskoCarSelect extends Component {
 				name: 'ОСАГО',
 				price: 10410,
 				button: 'Рассчитать',
-				link: '/osago',
+				href: '/osago',
+				goto: true,
 				prefix: 'от',
 				suffix: '₽'
 			},
@@ -374,7 +376,8 @@ class KaskoCarSelect extends Component {
 				name: 'КАСКО',
 				price: 10420,
 				button: 'Рассчитать',
-				link: '/kasko',
+				href: '/kasko',
+				goto: true,
 				prefix: 'от',
 				suffix: '₽'
 			},
@@ -382,7 +385,7 @@ class KaskoCarSelect extends Component {
 			//	name: 'GAP',
 			//	price: 10430,
 			//	button: 'Рассчитать',
-			//	link: '/gap',
+			//	href: '/gap',
 			//	prefix: 'от',
 			//	suffix: '₽'
 			//},
@@ -390,7 +393,8 @@ class KaskoCarSelect extends Component {
 				name: 'Сервис меню',
 				price: 10789,
 				button: 'Рассчитать',
-				link: '/service',
+				href: '/service',
+				goto: true,
 				prefix: 'от',
 				suffix: '₽'
 			},
