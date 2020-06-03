@@ -92,11 +92,9 @@ class KaskoPopup extends Component {
 		
 		return (
 			<div className="calculation-popup">
-				<div className="calculation-popup__inner">
-					<div className="calculation-popup__close" onClick={popupCloseFunc}/>
+				<div className="calculation-popup__close" onClick={popupCloseFunc}/>
 
-					<OfferSelect imageCallback={this.imageCallback} image={false} popup={true} />
-				</div>
+				<OfferSelect imageCallback={this.imageCallback} image={false} popup={true} />
 			</div>
 		);
 	}

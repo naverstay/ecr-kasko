@@ -80,8 +80,8 @@ class CalcsavePopup extends Component {
 
 				<Form ref={this.formRef} name="control-ref" onFinish={this.onFinish}>
 					<div className="calcsave-popup__form">
-						<Row className="kasko-car-select__controls" gutter={20}>
-							<Col span={24}>
+						<Row className="kasko-car-select__controls ant-row-center" gutter={20}>
+							<Col span={16}>
 								<Input
 									className={"w_100p custom_placeholder " + ((this.state.clientLastName + '').length ? "" : " _empty")}
 									value={this.state.clientLastName}
@@ -89,8 +89,8 @@ class CalcsavePopup extends Component {
 								<div className="float_placeholder">Фамилия и Имя</div>
 							</Col>
 						</Row>
-						<Row className="kasko-car-select__controls mb_30" gutter={20}>
-							<Col span={24}>
+						<Row className="kasko-car-select__controls ant-row-center mb_30" gutter={20}>
+							<Col span={16}>
 								<Input data-inputmask={clientPhoneMask}
 									   className={"w_100p custom_placeholder" + ((this.state.clientPhone + '').length ? "" : " _empty")}
 									   value={this.state.clientPhone}
@@ -99,6 +99,7 @@ class CalcsavePopup extends Component {
 							</Col>
 						</Row>
 						<Row className="kasko-car-select__controls" gutter={20}>
+							<Col span={4} />
 							<Col>
 								<div className="ant-btn btn_green fz_14">Отменить</div>
 							</Col>

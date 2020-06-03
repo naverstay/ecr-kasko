@@ -554,7 +554,7 @@ class KaskoCarSelectOsago extends Component {
 					<KaskoOffers offersList={[
 						{
 							name: 'Кредит',
-							price: 10400,
+							price: 13400,
 							prefix: 'от',
 							suffix: '₽/мес'
 						},

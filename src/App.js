@@ -40,6 +40,9 @@ function App() {
                       <Link to="/credit">credit</Link>
                   </li>
                   <li>
+                      <Link to="/credit_kasko">credit_kasko</Link>
+                  </li>
+                  <li>
                       <Link to="/chery">chery</Link>
                   </li>
                   <li>
@@ -71,6 +74,11 @@ function App() {
             <Route path="/credit" render={(routeProps) => (
                 <PageLayout>
                     <Credit {...routeProps} showOffers={'кредит'}/>
+                </PageLayout>
+            )}/>
+            <Route path="/credit_kasko" render={(routeProps) => (
+                <PageLayout>
+                    <Credit {...routeProps} kasko={true} showOffers={'кредит'}/>
                 </PageLayout>
             )}/>
             <Route path="/osago" render={(routeProps) => (

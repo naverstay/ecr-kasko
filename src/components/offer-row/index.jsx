@@ -149,9 +149,9 @@ class OfferRow extends Component {
 												<td>&nbsp;</td>
 												<td colSpan={6}>
 													<ul className="offer-row__options">
-														{o.options.map(opt => <li className="offer-row__credit">
+														{o.options.map((opt, k) => <li key={k} className="offer-row__credit">
 															<div className="offer-row__credit--name">{opt.option || ''}</div>
-															<div className={"offer-row__credit--link" + (opt.link ? ' gl_link' : '')}>{opt.price || ''}</div>
+															<div onClick={() => {opt.func && opt.func()}} className={"offer-row__credit--link" + ((opt.link || opt.func) ? ' gl_link' : '')}>{opt.price || ''}</div>
 														</li>)}
 													</ul>
 												</td>
@@ -162,7 +162,7 @@ class OfferRow extends Component {
 												{franchise ? <td>&nbsp;</td> : ""}
 												<td colSpan={4}>
 													<ul className="offer-row__options">
-														{o.options.map(opt => <li>{opt}</li>)}
+														{o.options.map((opt, k) => <li key={k}>{opt}</li>)}
 													</ul>
 												</td>
 												<td>&nbsp;</td>
@@ -170,9 +170,7 @@ class OfferRow extends Component {
 										}
 									</tr>
 									: ""}
-							</>
-							: ""
-					)
+							</> : "")
 				})}
 			</>
 		);
@@ -180,4 +178,3 @@ class OfferRow extends Component {
 }
 
 export default OfferRow;
-

@@ -41,7 +41,7 @@ class Credit extends Component {
 	}
 
 	render() {
-		const {showOffers, step, progress} = this.props;
+		const {showOffers, step, progress, kasko} = this.props;
 		
 		const events = []
 		
@@ -74,7 +74,7 @@ class Credit extends Component {
 			<Row gutter={20} className="kasko-wrapper">
 				<Col span={4} className="kasko-aside"/>
 				<Col span={16} className="kasko-main">
-					<CarCredit showKaskoWidget={this.updateRightAside} carPrice={1048000} imageCallback={this.imageCallback} step={step} image={this.state.carImage} />
+					<CarCredit kasko={kasko} showKaskoWidget={this.updateRightAside} carPrice={1048000} imageCallback={this.imageCallback} step={step} image={this.state.carImage} />
 				</Col>
 				<Col span={4} className="kasko-aside"/>
 			</Row>

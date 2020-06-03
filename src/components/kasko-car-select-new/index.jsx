@@ -181,7 +181,7 @@ class KaskoCarSelectNew extends Component {
 		this.checkReadyState()
 	};
 
-	onСarMileageChange = e => {
+	onCarMileageChange = e => {
 		this.setState({carMileage: e.target.value})
 		this.checkReadyState()
 	};
@@ -497,7 +497,7 @@ class KaskoCarSelectNew extends Component {
 								<Input data-inputmask={carPowerMask} 
 									   className={"w_100p custom_placeholder" + ((this.state.carMileage + '').length ? "" : " _empty")}
 									   value={this.state.carMileage}
-									   onChange={this.onСarMileageChange}
+									   onChange={this.onCarMileageChange}
 									   defaultValue=""/>
 								<div className="float_placeholder">Пробег, км</div>
 							</Col>
@@ -641,7 +641,7 @@ class KaskoCarSelectNew extends Component {
 								this.state.carCredit ?
 									<Col span={6} className="align_self_start">
 										<Select
-											dropdownClassName="select_dropdown_v1"
+											dropdownClassName={"select_dropdown_v1"}
 											className={"w_100p custom_placeholder" + (this.state.carBankName.length ? "" : " _empty")}
 											placeholder=""
 											onChange={this.onCarBankNameChange}
@@ -689,7 +689,7 @@ class KaskoCarSelectNew extends Component {
 					<KaskoOffers offersList={[
 						{
 							name: 'Кредит',
-							price: 10400,
+							price: 12400,
 							prefix: 'от',
 							suffix: '₽/мес'
 						},

@@ -387,20 +387,20 @@ class DriverInfo extends Component {
 														onChange={this.onClientAddressChange} defaultValue=""/>
 													<div className="float_placeholder">Адрес</div>
 												</Col>
-												<Col span={3}>
-													<Input
-														className={"w_100p custom_placeholder " + (allFields ? "input-error" : "") + ((this.state.clientFlat + '').length ? "" : " _empty")}
-														value={this.state.clientFlat}
-														onChange={this.onClientFlatChange} defaultValue=""/>
-													<div className="float_placeholder">Квартира</div>
-												</Col>
-												<Col span={3}>
-													<Input
-														className={"w_100p custom_placeholder " + (allFields ? "input-error" : "") + ((this.state.clientPostCode + '').length ? "" : " _empty")}
-														value={this.state.clientPostCode}
-														onChange={this.onClientPostCodeChange} defaultValue=""/>
-													<div className="float_placeholder">Индекс</div>
-												</Col>
+												{/*<Col span={3}>*/}
+												{/*	<Input*/}
+												{/*		className={"w_100p custom_placeholder " + (allFields ? "input-error" : "") + ((this.state.clientFlat + '').length ? "" : " _empty")}*/}
+												{/*		value={this.state.clientFlat}*/}
+												{/*		onChange={this.onClientFlatChange} defaultValue=""/>*/}
+												{/*	<div className="float_placeholder">Квартира</div>*/}
+												{/*</Col>*/}
+												{/*<Col span={3}>*/}
+												{/*	<Input*/}
+												{/*		className={"w_100p custom_placeholder " + (allFields ? "input-error" : "") + ((this.state.clientPostCode + '').length ? "" : " _empty")}*/}
+												{/*		value={this.state.clientPostCode}*/}
+												{/*		onChange={this.onClientPostCodeChange} defaultValue=""/>*/}
+												{/*	<div className="float_placeholder">Индекс</div>*/}
+												{/*</Col>*/}
 											</Row>
 											
 											<Row className="kasko-car-select__controls" gutter={20}>
@@ -420,8 +420,7 @@ class DriverInfo extends Component {
 														value={this.state.clientFlatType}
 													>
 														{this.state.clientFlatTypeList ? this.state.clientFlatTypeList.map((e, i) =>
-															<Option key={i}
-																	value={e}>{e}</Option>) : ""}
+															<Option key={i} value={e}>{e}</Option>) : ""}
 													</Select>
 													<div className="float_placeholder">Тип жилья</div>
 												</Col>

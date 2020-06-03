@@ -12,7 +12,7 @@ import ClientInfoNew from "../client-info-new";
 import DriverCount from "../driver-count";
 import KaskoCarSelectOsago from "../kasko-car-select-osago";
 
-class CalculationPopup extends Component {
+class CreditPopup extends Component {
 	constructor(props) {
 		super(props);
 		this.state = {
@@ -99,31 +99,13 @@ class CalculationPopup extends Component {
 		return (
 			<div className="calculation-popup">
 					<div className="calculation-popup__close" onClick={popupCloseFunc}/>
-
-					{!osago ? <div className={"kasko-car-select__calculation" + (allFields || this.state.fullCalculation ? ' active' : '')}>
-						<span className="kasko-car-select__calculation--text">Предварительный расчет</span>
-						<Switch checked={allFields || this.state.fullCalculation} className="kasko-car-select__calculation--switch" onChange={this.onCalculationTypeChange}/>
-						<span className="kasko-car-select__calculation--text">Окончательный расчет</span>
-					</div> : ""}
-
-					{
-						(!osago && allFields) ?
-							<>
-								<h1 className="kasko-main__title">Поля к заполнению</h1>
-								{/*<ClientInfo fullCalculation={this.state.fullCalculation}/>*/}
-								<ClientInfoNew fullCalculation={this.state.fullCalculation}/>
-							</>
-							: ""
-					}
 					
 					<h1 onClick={allFields ? this.onToggleCarFields : null} className={"kasko-main__title" + (allFields ? (this.state.showCarFields ? " expanded" : " collapsed") : "")}>Автомобиль</h1>
 					
 					{/*<KaskoCarSelect hideOffers={true} allFields={true}/>*/}
-					{!osago ?
-						<KaskoCarSelectNew hideOffers={true} allFields={allFields} expanded={(step === void 0) || this.state.showCarFields} fullCalculation={this.state.fullCalculation}/>
-						: 
-						<KaskoCarSelectOsago hideOffers={true} allFields={allFields} expanded={(step === void 0) || this.state.showCarFields} fullCalculation={this.state.fullCalculation}/>
-					}
+					
+					<KaskoCarSelectNew hideOffers={true} allFields={allFields} expanded={true} fullCalculation={this.state.fullCalculation}/>
+						
 					<h1 onClick={allFields ? this.onToggleClientFields : null} className={"kasko-main__title" + (allFields ? (this.state.showClientFields ? " expanded" : " collapsed") : "")}>Анкета клиента</h1>
 					
 					{
@@ -146,4 +128,4 @@ class CalculationPopup extends Component {
 	}
 }
 
-export default CalculationPopup;
+export default CreditPopup;

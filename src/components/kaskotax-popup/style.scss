@@ -1,12 +1,12 @@
 @import 'src/assets/styles/global';
 
-.calcsave-popup {
+.kaskotax-popup {
 	position: absolute;
 	left: 50%;
 	top: 50%;
 	width: 100%;
 	transform: translate(-50%, -50%);
-	padding: 30px 30px 50px;
+	padding: 30px 20px 30px;
 	background: #fff;
 
 	p {
@@ -58,5 +58,4 @@
 			color: $color-grey;
 		}
 	}
-	
 }

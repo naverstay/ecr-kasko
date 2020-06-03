@@ -229,18 +229,18 @@ class ClientInfoNew extends Component {
 							   onChange={this.onClientAddressChange} defaultValue=""/>
 						<div className="float_placeholder">Адрес</div>
 					</Col>
-					<Col span={3}>
-						<Input className={"w_100p custom_placeholder " + ((this.state.clientFlat + '').length ? "" : " _empty")}
-							   value={this.state.clientFlat}
-							   onChange={this.onClientFlatChange} defaultValue=""/>
-						<div className="float_placeholder">Квартира</div>
-					</Col>
-					<Col span={3}>
-						<Input className={"w_100p custom_placeholder " + ((this.state.clientPostCode + '').length ? "" : " _empty")}
-							   value={this.state.clientPostCode}
-							   onChange={this.onClientPostCodeChange} defaultValue=""/>
-						<div className="float_placeholder">Индекс</div>
-					</Col>
+					{/*<Col span={3}>*/}
+					{/*	<Input className={"w_100p custom_placeholder " + ((this.state.clientFlat + '').length ? "" : " _empty")}*/}
+					{/*		   value={this.state.clientFlat}*/}
+					{/*		   onChange={this.onClientFlatChange} defaultValue=""/>*/}
+					{/*	<div className="float_placeholder">Квартира</div>*/}
+					{/*</Col>*/}
+					{/*<Col span={3}>*/}
+					{/*	<Input className={"w_100p custom_placeholder " + ((this.state.clientPostCode + '').length ? "" : " _empty")}*/}
+					{/*		   value={this.state.clientPostCode}*/}
+					{/*		   onChange={this.onClientPostCodeChange} defaultValue=""/>*/}
+					{/*	<div className="float_placeholder">Индекс</div>*/}
+					{/*</Col>*/}
 				</Row>
 				
 				{/*<Row gutter={20}>*/}

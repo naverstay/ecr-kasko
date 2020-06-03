@@ -229,6 +229,8 @@
 		}
 		
 		&--toggle {
+			@extend %h3;
+			
 			&.expanded,
 			&.collapsed {
 				padding-left: 20px;

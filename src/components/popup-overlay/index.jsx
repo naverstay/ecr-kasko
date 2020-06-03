@@ -1,8 +1,8 @@
 import React, {Component} from "react";
+import {Col, Row} from "antd";
 
 import './style.scss';
 import PropTypes from "prop-types";
-
 
 class PopupOverlay extends Component {
 	static propTypes = {
@@ -11,10 +11,14 @@ class PopupOverlay extends Component {
 	};
 
 	render() {
-		const {children} = this.props;
+		const {children, span} = this.props;
 		return (
 			<div className="popup-overlay">
-				{children}
+				<Row gutter={20} className="ant-row-center">
+					<Col span={span || 8}>
+						{children}
+					</Col>
+				</Row>
 			</div>
 		);
 	}

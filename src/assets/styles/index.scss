@@ -161,6 +161,10 @@ $spinner_time: 1s;
 	color: #000;
 }
 
+.wnw {
+	white-space: nowrap;
+}
+
 .hide_picker_icon {
 	.ant-picker-suffix {
 		display: none;
@@ -278,6 +282,11 @@ $spinner_time: 1s;
 }
 
 .select_dropdown_v1 {
+	
+	&.popup {
+		//z-index: 1051;
+	}
+	
 	.ant-select-item-option-content {
 		transition: color .3s;
 	}

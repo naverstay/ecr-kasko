@@ -280,7 +280,7 @@ class KaskoCarSelect extends Component {
 	};
 
 	updateImage = (img) => {
-		if ('imageCallback' in this.props && this.state.carFound) this.props.imageCallback(img)
+		if (this.props.imageCallback && this.state.carFound) this.props.imageCallback(img)
 	};
 	
 	render() {
@@ -495,7 +495,7 @@ class KaskoCarSelect extends Component {
 				}
 
 				{this.state.newCar === null ? null :
-					<Radio.Group defaultValue={0} className={"w_100p " + (this.state.showAdditional ? "full_form" : "short_form")} onChange={this.onCarCreditChange}>
+					<Radio.Group defaultValue={step === 1 ? 1 : 0} className={"w_100p " + (this.state.showAdditional ? "full_form" : "short_form")} onChange={this.onCarCreditChange}>
 						<Row className="kasko-car-select__controls kasko-car-select__controls--price radio_v2" gutter={20}>
 							<Col className={this.state.allowPayment ? "" : "vis_hidden"}>
 								<Radio disabled={this.state.allowPayment ? null : "disabled"} value={1}>В кредит</Radio>
@@ -527,7 +527,7 @@ class KaskoCarSelect extends Component {
 				
 				{
 					allFields ? "" : 
-					(image !== false && this.state.carFound) ? <div className={"kasko-car-select__image" + (step === 1 && !this.state.allowPayment ? " _inactive__" : "")}>
+					(1) ? <div className={"kasko-car-select__image" + (step === 1 && !this.state.allowPayment ? " _inactive__" : "")}>
 						<img src={'./cars/' + image + '.png'} alt=""/>
 					</div> : ""
 				}
@@ -539,7 +539,7 @@ class KaskoCarSelect extends Component {
 								[
 									{
 										name: 'Кредит',
-										price: 10400,
+										price: 10432,
 										button: 'Рассчитать',
 										link: '/credit',
 										prefix: 'от',
@@ -570,8 +570,16 @@ class KaskoCarSelect extends Component {
 									//	suffix: '₽'
 									//},
 									{
-										name: 'Ассистанс',
-										price: '15400',
+										name: 'Сервис меню',
+										price: 10789,
+										button: 'Рассчитать',
+										link: '/service',
+										prefix: 'от',
+										suffix: '₽'
+									},
+									{
+										name: 'Шоколад',
+										price: 10555,
 										collapse: true,
 										options: [
 											'эвакуация',
@@ -589,7 +597,7 @@ class KaskoCarSelect extends Component {
 								:
 									[{
 										name: 'ОСАГО',
-										price: 10410,
+										price: 10456,
 										button: 'Рассчитать',
 										link: '/osago',
 										prefix: 'от',

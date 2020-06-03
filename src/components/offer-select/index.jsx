@@ -14,6 +14,7 @@ import CalculationOffers from "../calculation-offers";
 import PaymentSwitch from "../payment-switch";
 import DriverCount from "../driver-count";
 import KaskoCarSelect from "../kasko-car-select";
+import PopupOverlay from "../popup-overlay";
 
 moment().locale('ru', ru);
 
@@ -83,6 +84,10 @@ class OfferSelect extends Component {
 		innerWidth: PropTypes.number
 	};
 
+	imageCallback = (img) => {
+		this.setState({carImage: img})
+	}
+	
 	updateSelectedOffer = (company, offers) => {
 		let offerList = this.state.selectedOffers;
 		let compare = true;
@@ -483,7 +488,7 @@ class OfferSelect extends Component {
 								[
 									{
 										name: 'ОСАГО',
-										price: 10410,
+										price: 10333,
 										button: (!osago ? 'Рассчитать' : 'Выпущено'),
 										link: '/osago',
 										prefix: 'от',
@@ -508,6 +513,23 @@ class OfferSelect extends Component {
 									{
 										name: 'Ассистанс',
 										price: '15400',
+										collapse: true,
+										options: [
+											'эвакуация',
+											'юридическая помощь',
+											'аварийный комиссар',
+											'подвоз бензина',
+											'вскрытие автомобиля',
+											'запуск автомобиля',
+											'трезвый водитель',
+											'выездной шиномонтаж'
+										],
+										prefix: 'от',
+										suffix: '₽'
+									},
+									{
+										name: 'Шоколад',
+										price: 10555,
 										collapse: true,
 										options: [
 											'эвакуация',
@@ -525,7 +547,7 @@ class OfferSelect extends Component {
 								: 
 									[{
 										name: 'ОСАГО',
-										price: 10410,
+										price: 10444,
 										button: (!osago ? 'Рассчитать' : 'Выпущено'),
 										link: '/osago',
 										prefix: 'от',
@@ -563,7 +585,24 @@ class OfferSelect extends Component {
 										],
 										prefix: 'от',
 										suffix: '₽'
-									}]
+									},
+										{
+											name: 'Шоколад',
+											price: 10555,
+											collapse: true,
+											options: [
+												'эвакуация',
+												'юридическая помощь',
+												'аварийный комиссар',
+												'подвоз бензина',
+												'вскрытие автомобиля',
+												'запуск автомобиля',
+												'трезвый водитель',
+												'выездной шиномонтаж'
+											],
+											prefix: 'от',
+											suffix: '₽'
+										}]
 							}/>
 							
 						</>
@@ -574,52 +613,52 @@ class OfferSelect extends Component {
 									{!osago ? <>
 										<div className="kasko-car-select__caption">{'Добавить в КАСКО'}</div>
 										
-										<div className="kasko-car-select__carousel">
-										<KaskoOffers onOfferSelect={this.offersUpdate} credit={true} slider={true} offersList={[
-											{
-												name: 'GAP',
-												price: 10400,
-												prefix: '',
-												suffix: '₽'
-											},
-											{
-												name: 'Несчастный случай',
-												price: 10410,
-												prefix: '',
-												suffix: '₽'
-											},
-											{
-												name: 'Аварийный комиссар',
-												price: 10420,
-												prefix: '',
-												suffix: '₽'
-											},
-											{
-												name: 'Стекла без справок',
-												price: 10430,
-												prefix: '',
-												suffix: '₽'
-											},
-											{
-												name: 'ОСАГО',
-												price: 10410,
-												prefix: '',
-												suffix: '₽'
-											},
-											{
-												name: 'Шоколад',
-												price: 10420,
-												prefix: '',
-												suffix: '₽'
-											},
-											{
-												name: '123',
-												price: 10430,
-												prefix: '',
-												suffix: '₽'
-											}
-										]}/>
-									</div>
+										{/*<div className="kasko-car-select__carousel">*/}
+											<KaskoOffers onOfferSelect={this.offersUpdate} credit={true} slider={true} offersList={[
+												{
+													name: 'GAP',
+													price: 11400,
+													prefix: '',
+													suffix: '₽'
+												},
+												{
+													name: 'Несчастный случай',
+													price: 10410,
+													prefix: '',
+													suffix: '₽'
+												},
+												{
+													name: 'Аварийный комиссар',
+													price: 10420,
+													prefix: '',
+													suffix: '₽'
+												},
+												{
+													name: 'Стекла без справок',
+													price: 10430,
+													prefix: '',
+													suffix: '₽'
+												},
+												{
+													name: 'ОСАГО',
+													price: 10410,
+													prefix: '',
+													suffix: '₽'
+												},
+												{
+													name: 'Шоколад',
+													price: 10420,
+													prefix: '',
+													suffix: '₽'
+												},
+												{
+													name: '123',
+													price: 10430,
+													prefix: '',
+													suffix: '₽'
+												}
+											]}/>
+										{/*</div>*/}
 									
 									</> : "" }
 
@@ -866,9 +905,7 @@ class OfferSelect extends Component {
 																		className={"ant-btn-primary btn_wide"}
 																		onClick={this.toggleCalculationPopup}>{this.calculationButtonText()}</Button>
 
-																<Button htmlType="submit"
-																		className={"btn_wide"}
-																		onClick={this.toggleCalculationPopup}>Добавить в кредит</Button>
+																<Link to="/credit_kasko" className={"btn_wide"}>Добавить в кредит</Link>
 															</>
 														}
 														
@@ -889,8 +926,10 @@ class OfferSelect extends Component {
 				
 				<div ref={(el) => { this.messagesEnd = el }}/>
 				
-				{this.state.calculationPopupOpened ? 
-					<CalculationPopup osago={osago} updatePaymentState={this.updatePaymentState} step={this.state.showCalculationOffers ? 2 : step} allFields={this.state.showCalculationOffers || (step === 2)} fullCalculation={this.state.showCalculationOffers || this.state.fullCalculation} popupCloseFunc={this.toggleCalculationPopup} />
+				{this.state.calculationPopupOpened ?
+					<PopupOverlay span={16}>
+						<CalculationPopup osago={osago} updatePaymentState={this.updatePaymentState} step={this.state.showCalculationOffers ? 2 : step} allFields={this.state.showCalculationOffers || (step === 2)} fullCalculation={this.state.showCalculationOffers || this.state.fullCalculation} popupCloseFunc={this.toggleCalculationPopup} />
+					</PopupOverlay>
 					: ""}
 			</>
 		);

@@ -4,7 +4,7 @@ import {Link} from "react-router-dom";
 import './style.scss';
 import PropTypes from "prop-types";
 import {formatMoney} from "../../helpers/formatMoney";
-import {Col, InputNumber, Select, Switch} from "antd";
+import {Col, InputNumber, Select, Switch, Tooltip} from "antd";
 import {langs} from "../navbar/sidebar/global-const";
 
 const {Option} = Select;
@@ -31,7 +31,8 @@ class OfferItem extends Component {
 		innerWidth: PropTypes.number
 	};
 	
-	toggleOfferAdded = (e, index) => {
+	toggleOfferAdded = (e, index, offer) => {
+		console.log('toggleOfferAdded');
 		e.stopPropagation()
 		this.setState({offerAdded: !this.state.offerAdded})
 		
@@ -40,6 +41,10 @@ class OfferItem extends Component {
 				id: index,
 				active: this.state.activeOffer
 			})
+
+			//if (offer.func && typeof offer.func === 'function') {
+			//	offer.func()
+			//}			
 		}, 0)
 		
 		return false;
@@ -124,12 +129,14 @@ class OfferItem extends Component {
 			slider ?
 				<div key={index} className={"kasko-offer__slide" + (credit ? " credit" : "")}>
 					<div ref={this.setWrapperRef} className={"kasko-offer__item" + (offer.collapse ? " collapsable" : "") + ((active || this.state.offerAdded) && !completed ? " active" : "") + (completed ? " completed" : "") + ((this.state.offerCollapsed) ? " collapsed" : "")}>
-						<div onClick={() => (offer.href ? this.goTo(offer) : offer.func ? null : (this.toggleActiveOffer(index)))}
+						<div onClick={() => ((offer.func && typeof offer.func === 'function') ? offer.func() : offer.href ? this.goTo(offer) : (this.toggleActiveOffer(index)))}
 							className={"kasko-offer__item--title" + (offer.button ? " no_arrow" : " toggle_icon")}>
 							<span>{offer.name}</span>
 							{offer.button ? 
-								<span onClick={(e) => (typeof offer.func === 'function' && offer.func())} className="kasko-offer__item--btn">{offer.button}</span> : 
-								<span onClick={(e) => this.toggleOfferAdded(e, index)} className={"kasko-offer__item--toggle"}/>
+								<span className="kasko-offer__item--btn">{offer.button}</span> : 
+								<Tooltip overlayClassName="tooltip_v1" placement="top" title={this.state.offerAdded ? "Удалить" : "Добавить"}>
+									<span onClick={(e) => this.toggleOfferAdded(e, index, offer)} className={"kasko-offer__item--toggle"}/>
+								</Tooltip>
 							}
 						</div>
 						<div className="kasko-offer__item--body">
@@ -182,12 +189,14 @@ class OfferItem extends Component {
 					{offer.collapse ?
 						<div key={index} className={"kasko-offer__slide" + (credit ? " credit" : "")}>
 							<div ref={this.setWrapperRef} className={"kasko-offer__item" + (offer.collapse ? " collapsable" : "") + ((active || this.state.offerAdded) && !completed ? " active" : "") + (completed ? " completed" : "") + ((this.state.offerCollapsed) ? " collapsed" : "")}>
-								<div onClick={() => (offer.href ? this.goTo(offer) : offer.func ? null : (this.toggleActiveOffer(index)))}
+								<div onClick={() => ((offer.func && typeof offer.func === 'function') ? offer.func() : offer.href ? this.goTo(offer) : (this.toggleActiveOffer(index)))}
 									className={"kasko-offer__item--title" + (offer.button ? " no_arrow" : " toggle_icon")}>
 									<span>{offer.name}</span>
 									{offer.button ? 
-										<span onClick={(e) => (typeof offer.func === 'function' && offer.func())} className="kasko-offer__item--btn">{offer.button}</span> : 
-										<span onClick={(e) => this.toggleOfferAdded(e, index)} className={"kasko-offer__item--toggle"}/>
+										<span className="kasko-offer__item--btn">{offer.button}</span> : 
+										<Tooltip overlayClassName="tooltip_v1" placement="top" title={this.state.offerAdded ? "Удалить" : "Добавить"}>
+											<span onClick={(e) => this.toggleOfferAdded(e, index, offer)} className={"kasko-offer__item--toggle"}/>
+										</Tooltip>
 									}
 								</div>
 								<div className="kasko-offer__item--body">

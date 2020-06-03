@@ -227,12 +227,12 @@ class ClientInfo extends Component {
 							   onChange={this.onClientAddressChange} defaultValue=""/>
 						<div className="float_placeholder">Адрес</div>
 					</Col>
-					<Col span={4}>
-						<Input className={"w_100p input-error custom_placeholder " + ((this.state.clientFlat + '').length ? "" : " _empty")}
-							   value={this.state.clientFlat}
-							   onChange={this.onClientFlatChange} defaultValue=""/>
-						<div className="float_placeholder">Квартира</div>
-					</Col>
+					{/*<Col span={4}>*/}
+					{/*	<Input className={"w_100p input-error custom_placeholder " + ((this.state.clientFlat + '').length ? "" : " _empty")}*/}
+					{/*		   value={this.state.clientFlat}*/}
+					{/*		   onChange={this.onClientFlatChange} defaultValue=""/>*/}
+					{/*	<div className="float_placeholder">Квартира</div>*/}
+					{/*</Col>*/}
 				</Row>
 				
 				<Row gutter={20}>

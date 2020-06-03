@@ -82,6 +82,8 @@
 			}
 
 			.disabled & {
+				color: transparent !important;
+
 				> * {
 					visibility: hidden;
 				}
@@ -91,6 +93,7 @@
 		&--body {
 			@extend %text2;
 			background: #fff;
+			text-align: center;
 			padding: 5px 15px 8px 15px;
 			white-space: nowrap;
 			overflow: hidden;
@@ -127,6 +130,8 @@
 			}
 			
 			.disabled & {
+				color: transparent !important;
+
 				> * {
 					visibility: hidden;
 				}

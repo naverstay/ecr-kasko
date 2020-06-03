@@ -87,7 +87,7 @@ class CreditSlider extends Component {
 	};
 
 	updateImage = (img) => {
-		if ('imageCallback' in this.props && this.state.carFound) this.props.imageCallback(img)
+		if ('imageCallback' in this.props && this.state.carFound && (typeof this.props.imageCallback === 'function')) this.props.imageCallback(img)
 	};
 	
 	render() {
