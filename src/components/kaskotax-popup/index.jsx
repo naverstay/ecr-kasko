@@ -99,7 +99,7 @@ class KaskotaxPopup extends Component {
 
 	render() {
 		const {popupCloseFunc} = this.props;
-		const clientPhoneMask = "'mask': '[+7] (999)-999-99-99', 'showMaskOnHover': 'false'"
+		//const clientPhoneMask = "'mask': '[+7] (999)-999-99-99', 'showMaskOnHover': 'false'"
 		
 		let formDisabled = !this.state.insuranceCompName.length || !this.state.insuranceTaxName.length || !this.state.insurancePrice.length || this.state.formBusy
 		

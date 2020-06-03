@@ -153,7 +153,7 @@ class Sidebar extends Component {
 			let selected = false;
 
 			if (nav.submenu && nav.submenu.length) {
-				nav.submenu.map(sm => {
+				nav.submenu.map(function (sm) {
 					if (window.location.pathname === sm.to) {
 						selected = true;
 					}

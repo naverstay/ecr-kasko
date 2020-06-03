@@ -68,19 +68,19 @@ class OfferRow extends Component {
 							<>
 								<tr key={i} className={(showOptions ? "expanded" : "") + (offerSelected ? " selected" : "")}>
 									<td>
-										{i === 0 ? logo ? <div className={"offer-row__logo"}><img src={logo} alt=""/></div> : <div className={"offer-row__logo" + (info ? " info" : "")}>{name}</div> : ""}
+										{i === 0 ? logo ? <div className={"offer-row__logo"}><img src={logo} alt=""/></div> : <div className={"offer-row__logo" + (info ? " info" : "")}>{name}</div> : null}
 									</td>
 									{!osago ? <td>
 										<div className="offer-row__name">{o.name}</div>
 										{(this.state.rowsCollapsed && i === 0 && offers.length > 1) ? <div onClick={this.onCollapseToggle} className="offer-row__hint gl_link">{moreLink}</div> : ""}
 										{(!this.state.rowsCollapsed && (i === offers.length - 1) && offers.length > 1) ? <div onClick={this.onCollapseToggle} className="offer-row__hint gl_link">{lessLink}</div> : ""}
-									</td> : ""}
+									</td> : null}
 																	
 									{franchise ?
 										<td>
 											<div className="offer-row__fee">{o.franchise}</div>
 										</td>
-									: ""}
+									: null}
 
 									<td>
 										<div className="offer-row__price">{formatMoney(o.price)} ₽</div>
@@ -90,7 +90,7 @@ class OfferRow extends Component {
 										<td>
 											<div className="offer-row__fee">{o.rate}</div>
 										</td>
-									: ""}
+									: null}
 			
 									<td>
 										<div className="offer-row__fee">{formatMoney(o.dealerFee)} ₽</div>
@@ -136,7 +136,7 @@ class OfferRow extends Component {
 											</td>
 											{!osago ? <td>
 												<div onClick={() => this.addOptionFlag(i)} className="offer-row__link"/>
-											</td> : ""}
+											</td> : null}
 										</>
 									}
 								</tr>
@@ -159,7 +159,7 @@ class OfferRow extends Component {
 											:
 											<>
 												<td>&nbsp;</td>
-												{franchise ? <td>&nbsp;</td> : ""}
+												{franchise ? <td>&nbsp;</td> : null}
 												<td colSpan={4}>
 													<ul className="offer-row__options">
 														{o.options.map((opt, k) => <li key={k}>{opt}</li>)}
@@ -169,8 +169,8 @@ class OfferRow extends Component {
 											</>
 										}
 									</tr>
-									: ""}
-							</> : "")
+									: null}
+							</> : null)
 				})}
 			</>
 		);

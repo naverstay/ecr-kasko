@@ -1,4 +1,5 @@
 import React, {Component} from "react";
+import {Link} from "react-router-dom";
 
 import './style.scss';
 import PropTypes from "prop-types";
@@ -120,13 +121,13 @@ class KaskoNotices extends Component {
 												<div className="kasko-notice__price--value"/>
 											</li>
 											<li>
-												<a href="#" className="kasko-notice__link">Рассчитать кредит</a>
+												<Link to="#" className="kasko-notice__link">Рассчитать кредит</Link>
 											</li>
 											<li>
-												<a href="#" className="kasko-notice__link">Подготовить заявку</a>
+												<Link to="#" className="kasko-notice__link">Подготовить заявку</Link>
 											</li>
 											<li>
-												<a href="#" className="kasko-notice__link">Оформить кредит</a>
+												<Link to="#" className="kasko-notice__link">Оформить кредит</Link>
 											</li>
 										</ul>
 									:

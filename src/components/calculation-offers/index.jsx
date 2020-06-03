@@ -29,7 +29,7 @@ class CalculationOffers extends Component {
 						<tr>
 							<th className={"calculation-offers__table--col-1" + (osago ? " wide" : "") + ((completed || waiting) ? " small" : "")}>Страховая компания</th>
 							{!osago ? <th className={(franchise ? "calculation-offers__table--col-10" : "calculation-offers__table--col-2") + ((completed || waiting) ? " small" : "")}>Тариф</th> : ""}
-							{(!osago && franchise) ? <th className={"calculation-offers__table--col-9" + ((completed || waiting) ? " small" : "")}>Франшиза</th> : ""}
+							{(!osago && franchise) ? <th className={"calculation-offers__table--col-9" + ((completed || waiting) ? " small" : "")}>Франшиза</th> : null}
 							<th className={"calculation-offers__table--col-3" + ((completed || waiting) ? " small" : "")}>Стоимость</th>
 							<th className={"calculation-offers__table--col-4" + ((completed || waiting) ? " small" : "")}>Доход <br />дилера</th>
 							{(completed || waiting) ?
@@ -42,22 +42,25 @@ class CalculationOffers extends Component {
 								<>
 									<th className="calculation-offers__table--col-4-1">&nbsp;</th>
 									<th className="calculation-offers__table--col-5">Выбрать</th>
-									{!osago ? <th className="calculation-offers__table--col-6">&nbsp;</th> : ""}
+									{!osago ? <th className="calculation-offers__table--col-6">&nbsp;</th> : null}
 								</>
 							}
 						</tr>
 					</thead>
-					<tbody>
-						{offersList.length ? offersList.map((o, i) => {
-							return (<OfferRow franchise={!osago && franchise} allowCheck={allowCheck} osago={osago} completed={completed} waiting={waiting} selectedOffer={selectedOffer} key={i} company={i} logo={o.logo} offers={o.offers} />)
-						}) : ""}
-					</tbody>
+					
+					{offersList.length ? 
+						<tbody>{offersList.map((o, i) => {
+								return (<OfferRow franchise={!osago && franchise} allowCheck={allowCheck} osago={osago}
+												  completed={completed} waiting={waiting} selectedOffer={selectedOffer}
+												  key={i} company={i} logo={o.logo} offers={o.offers}/>)
+							})}</tbody>: null}
+						
 				</table>
 				{!osago && waiting ?
 					<div className="kasko-offer__more">
 						<div className="gl_link">Показать все предложения</div>
 					</div>
-					: ""
+					: null
 				}
 			</div>
 		);

@@ -10,15 +10,11 @@ import OrderInfo from '../../components/orders/order-info';
 import Pagination from '../../components/pagination';
 import {Tab, Tabs, TabList, TabPanel} from 'react-tabs';
 import 'react-tabs/style/react-tabs.css';
-import PropTypes from "prop-types";
-import cn from "classnames";
+//import PropTypes from "prop-types";
+//import cn from "classnames";
 import './style.scss';
-import {FormattedMessage} from "react-intl";
-import {Checkbox, Col} from "antd";
-
-let showOrderInfo = index => () => {
-	console.log('showOrderInfo', index);
-}
+//import {FormattedMessage} from "react-intl";
+import {Checkbox} from "antd";
 
 let orderInfoRow = () => {
 	return (

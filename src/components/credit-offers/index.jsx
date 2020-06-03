@@ -118,11 +118,14 @@ class CreditOffers extends Component {
 							<th className="calculation-offers__table--col-6">&nbsp;</th>
 						</tr>
 					</thead>
-					<tbody>
-						{offersList.length ? offersList.map((o, i) => {
-							return (<OfferRow allowCheck={true} credit={true} selectedOffer={selectedOffer} key={i} company={i} logo={o.logo} info={o.info} name={o.name} offers={o.offers} />)
-						}) : ""}
-					</tbody>
+					
+					{offersList.length ?
+						<tbody>{
+							offersList.map((o, i) => {
+								return (<OfferRow allowCheck={true} credit={true} selectedOffer={selectedOffer} key={i} company={i} logo={o.logo} info={o.info} name={o.name} offers={o.offers} />)
+							})
+						}</tbody> : null}
+						
 				</table>
 				{waiting ?
 					<div className="kasko-offer__more">

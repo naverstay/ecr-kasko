@@ -1,9 +1,9 @@
 import React, {Component} from "react";
-import {Checkbox, Col, Switch} from "antd";
+//import {Checkbox, Col, Switch} from "antd";
 
 import './style.scss';
 import PropTypes from "prop-types";
-import KaskoCarSelect from "../kasko-car-select";
+//import KaskoCarSelect from "../kasko-car-select";
 import OfferSelect from "../offer-select";
 
 class KaskoPopup extends Component {

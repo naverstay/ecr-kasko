@@ -4,6 +4,10 @@ import {Row} from "antd";
 import './style.scss';
 import PropTypes from "prop-types";
 import Slider from "react-slick";
+// Import css files
+import "slick-carousel/slick/slick.css";
+import "slick-carousel/slick/slick-theme.css";
+
 import OfferItem from "../offer-item";
 
 class KaskoOffers extends Component {

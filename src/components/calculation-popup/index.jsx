@@ -1,5 +1,5 @@
 import React, {Component} from "react";
-import {Checkbox, Col, Switch} from "antd";
+import {Checkbox, Switch} from "antd";
 
 import './style.scss';
 import PropTypes from "prop-types";
@@ -7,7 +7,7 @@ import PropTypes from "prop-types";
 import KaskoCarSelectNew from "../kasko-car-select-new";
 import ClientQuestionnaire from "../client-questionnaire";
 import DriverInfo from "../driver-info";
-import ClientInfo from "../client-info";
+//import ClientInfo from "../client-info";
 import ClientInfoNew from "../client-info-new";
 import DriverCount from "../driver-count";
 import KaskoCarSelectOsago from "../kasko-car-select-osago";

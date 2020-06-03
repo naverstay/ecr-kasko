@@ -1,13 +1,14 @@
 import React, {Component} from "react";
-import {Input, Col, Row, Select, Checkbox} from "antd";
+
+//import {Input, Col, Row, Select, Checkbox} from "antd";
 import './style.scss';
 import PropTypes from "prop-types";
 
-import InsurancePolicy from "../insurance-policy";
-import {Link} from "react-router-dom";
-import Inputmask from "inputmask";
+//import InsurancePolicy from "../insurance-policy";
+//import {Link} from "react-router-dom";
+//import Inputmask from "inputmask";
 
-const {Option} = Select;
+//const {Option} = Select;
 
 class CheryFooter extends Component {
 	constructor(props) {

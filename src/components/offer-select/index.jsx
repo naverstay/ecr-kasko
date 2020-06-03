@@ -9,7 +9,7 @@ import {Link} from "react-router-dom";
 import {Switch, Checkbox} from "antd";
 import CalculationPopup from "../calculation-popup";
 import {formatMoney} from "../../helpers/formatMoney";
-import pluralFromArray from "../../helpers/pluralFromArray";
+//import pluralFromArray from "../../helpers/pluralFromArray";
 import CalculationOffers from "../calculation-offers";
 import PaymentSwitch from "../payment-switch";
 import DriverCount from "../driver-count";
@@ -295,7 +295,7 @@ class OfferSelect extends Component {
 		const {step, osago, popup} = this.props;
 		let {image} = this.props;
 		
-		const periodPlurals = ['месяц', 'месяца', 'месяцев'];
+		//const periodPlurals = ['месяц', 'месяца', 'месяцев'];
 		const periodOptions = [12, 9, 6, 3];
 		const damageOptions = ['Ущерб', 'Полная гибель', 'Угон', 'Шины/Диски', 'ЛКП', 'Стекла', 'Фары', 'Бамперы и зеркала'];
 		const franchise = this.state.franchise;
