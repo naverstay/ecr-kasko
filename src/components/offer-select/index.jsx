@@ -80,7 +80,7 @@ class OfferSelect extends Component {
 
 	static propTypes = {
 		children: PropTypes.node,
-		type: PropTypes.string,
+		type: PropTypes.any,
 		innerWidth: PropTypes.number
 	};
 

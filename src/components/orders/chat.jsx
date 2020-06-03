@@ -58,7 +58,7 @@ class Chat extends Component {
 							(d.count === void 0) ? 'msg-nocount' : ''
 						]);
 						
-						return <ChatDay classDay={classDay} classCaption={classCaption} msg={d.msg} date={d.date} count={d.count} />
+						return <ChatDay key={i} classDay={classDay} classCaption={classCaption} msg={d.msg} date={d.date} count={d.count} />
 					})}
 				</div>
 			</div>

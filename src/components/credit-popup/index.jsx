@@ -11,6 +11,7 @@ import ClientInfo from "../client-info";
 import ClientInfoNew from "../client-info-new";
 import DriverCount from "../driver-count";
 import KaskoCarSelectOsago from "../kasko-car-select-osago";
+import CreditCarSelect from "../credit-car-select";
 
 class CreditPopup extends Component {
 	constructor(props) {
@@ -102,9 +103,7 @@ class CreditPopup extends Component {
 					
 					<h1 onClick={allFields ? this.onToggleCarFields : null} className={"kasko-main__title" + (allFields ? (this.state.showCarFields ? " expanded" : " collapsed") : "")}>Автомобиль</h1>
 					
-					{/*<KaskoCarSelect hideOffers={true} allFields={true}/>*/}
-					
-					<KaskoCarSelectNew hideOffers={true} allFields={allFields} expanded={true} fullCalculation={this.state.fullCalculation}/>
+					<CreditCarSelect hideOffers={true} allFields={allFields} expanded={true} fullCalculation={this.state.fullCalculation}/>
 						
 					<h1 onClick={allFields ? this.onToggleClientFields : null} className={"kasko-main__title" + (allFields ? (this.state.showClientFields ? " expanded" : " collapsed") : "")}>Анкета клиента</h1>
 					
