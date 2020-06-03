@@ -293,6 +293,124 @@ class KaskoCarSelect extends Component {
 		for (let y = (new Date()).getFullYear(); y > 1980; y--) {
 			yearList.push(y)
 		}
+		
+		let carNonCreditList = [{
+				name: 'ОСАГО',
+				price: 10456,
+				button: 'Рассчитать',
+				link: '/osago',
+				prefix: 'от',
+				suffix: '₽'
+			},
+				{
+					name: 'КАСКО',
+					price: 10420,
+					button: 'Рассчитать',
+					link: '/kasko',
+					prefix: 'от',
+					suffix: '₽'
+				},
+				//{
+				//	name: 'GAP',
+				//	price: 10430,
+				//	button: 'Рассчитать',
+				//	link: '/gap',
+				//	prefix: 'от',
+				//	suffix: '₽'
+				//},
+				{
+					name: 'Ассистанс',
+					price: '15400',
+					collapse: true,
+					options: [
+						'эвакуация',
+						'юридическая помощь',
+						'аварийный комиссар',
+						'подвоз бензина',
+						'вскрытие автомобиля',
+						'запуск автомобиля',
+						'трезвый водитель',
+						'выездной шиномонтаж'
+					],
+					prefix: 'от',
+					suffix: '₽'
+				},
+				{
+					name: 'Шоколад',
+					price: 10555,
+					collapse: true,
+					options: [
+						'эвакуация',
+						'юридическая помощь',
+						'аварийный комиссар',
+						'подвоз бензина',
+						'вскрытие автомобиля',
+						'запуск автомобиля',
+						'трезвый водитель',
+						'выездной шиномонтаж'
+					],
+					prefix: 'от',
+					suffix: '₽'
+				}]
+		
+		let carCreditList = [
+			{
+				name: 'Кредит',
+				price: 10432,
+				button: 'Рассчитать',
+				link: '/credit',
+				prefix: 'от',
+				suffix: '₽/мес'
+			},
+			{
+				name: 'ОСАГО',
+				price: 10410,
+				button: 'Рассчитать',
+				link: '/osago',
+				prefix: 'от',
+				suffix: '₽'
+			},
+			{
+				name: 'КАСКО',
+				price: 10420,
+				button: 'Рассчитать',
+				link: '/kasko',
+				prefix: 'от',
+				suffix: '₽'
+			},
+			//{
+			//	name: 'GAP',
+			//	price: 10430,
+			//	button: 'Рассчитать',
+			//	link: '/gap',
+			//	prefix: 'от',
+			//	suffix: '₽'
+			//},
+			{
+				name: 'Сервис меню',
+				price: 10789,
+				button: 'Рассчитать',
+				link: '/service',
+				prefix: 'от',
+				suffix: '₽'
+			},
+			{
+				name: 'Шоколад',
+				price: 10555,
+				collapse: true,
+				options: [
+					'эвакуация',
+					'юридическая помощь',
+					'аварийный комиссар',
+					'подвоз бензина',
+					'вскрытие автомобиля',
+					'запуск автомобиля',
+					'трезвый водитель',
+					'выездной шиномонтаж'
+				],
+				prefix: 'от',
+				suffix: '₽'
+			}]
 
 		console.log('this.state.activeFields', this.state.activeFields);
 		
@@ -428,70 +546,69 @@ class KaskoCarSelect extends Component {
 				</Row>
 				}
 				
-				{
-					this.state.showAdditional ?
-						<>
-							<Row className="kasko-car-select__controls" gutter={20}>
-								<Col span={6}>
-									<Input
-										data-inputmask={carPriceMask}
-										className={"w_100p custom_placeholder" + ((this.state.carPrice + '').length ? "" : " _empty")} 
-										 value={this.state.carPrice}
-										 onChange={this.onCarPriceChange} defaultValue=""/>
-									<div className="float_placeholder">Стоимость, ₽</div>
-								</Col>
-								<Col span={6}>
-									<Input disabled className={"w_100p custom_placeholder" + ((this.state.carMileage + '').length ? "" : " _empty")}
-										   value={formatMoney(this.state.carMileage)}
-										   defaultValue=""/>
-									<div className="float_placeholder">Пробег, км</div>
-								</Col>
-								<Col span={6}>
-									<Input className={"w_100p custom_placeholder" + (this.state.carRegion.length ? "" : " _empty")}
-										   value={this.state.carRegion}
-										   onChange={this.onCarRegionChange} defaultValue=""/>
-									<div className="float_placeholder">Регион эксплуатации</div>
-								</Col>
-								<Col span={6}>
-									{/*<DatePicker format={dateFormat} value={this.state.carUsageStart ? moment(this.state.carUsageStart) : null}*/}
-									{/*			onChange={this.onCarUsageChange} placeholder=""*/}
-									{/*			className={"w_100p hide_picker_icon" + (this.state.carUsageStart && this.state.carUsageStart._isAMomentObject ? "" : " _empty")}/>*/}
-									<Input data-inputmask={dateFormatMask}
-										className={"w_100p custom_placeholder" + ((this.state.carUsageStart + '').length ? "" : " _empty")}
-										   value={this.state.carUsageStart}
-										   onChange={this.onCarUsageChange} defaultValue=""/>
-									<div className="float_placeholder">{'Дата начала \n эксплуатации'}</div>
-								</Col>
-							</Row>
+				{this.state.showAdditional ?
+					<>
+						<Row className="kasko-car-select__controls" gutter={20}>
+							<Col span={6}>
+								<Input
+									data-inputmask={carPriceMask}
+									className={"w_100p custom_placeholder" + ((this.state.carPrice + '').length ? "" : " _empty")} 
+									 value={this.state.carPrice}
+									 onChange={this.onCarPriceChange} defaultValue=""/>
+								<div className="float_placeholder">Стоимость, ₽</div>
+							</Col>
+							<Col span={6}>
+								<Input disabled className={"w_100p custom_placeholder" + ((this.state.carMileage + '').length ? "" : " _empty")}
+									   value={formatMoney(this.state.carMileage)}
+									   defaultValue=""/>
+								<div className="float_placeholder">Пробег, км</div>
+							</Col>
+							<Col span={6}>
+								<Input className={"w_100p custom_placeholder" + (this.state.carRegion.length ? "" : " _empty")}
+									   value={this.state.carRegion}
+									   onChange={this.onCarRegionChange} defaultValue=""/>
+								<div className="float_placeholder">Регион эксплуатации</div>
+							</Col>
+							<Col span={6}>
+								{/*<DatePicker format={dateFormat} value={this.state.carUsageStart ? moment(this.state.carUsageStart) : null}*/}
+								{/*			onChange={this.onCarUsageChange} placeholder=""*/}
+								{/*			className={"w_100p hide_picker_icon" + (this.state.carUsageStart && this.state.carUsageStart._isAMomentObject ? "" : " _empty")}/>*/}
+								<Input data-inputmask={dateFormatMask}
+									className={"w_100p custom_placeholder" + ((this.state.carUsageStart + '').length ? "" : " _empty")}
+									   value={this.state.carUsageStart}
+									   onChange={this.onCarUsageChange} defaultValue=""/>
+								<div className="float_placeholder">{'Дата начала \n эксплуатации'}</div>
+							</Col>
+						</Row>
 
-							<Row className="kasko-car-select__controls" gutter={20}>
-								<Col span={6}>
-									<Input className={"w_100p custom_placeholder" + ((this.state.carPower + '').length ? "" : " _empty")}
-										   data-inputmask={carPowerMask}
-										   value={this.state.carPower}
-										   onChange={this.onCarPowerChange} defaultValue=""/>
-									<div className="float_placeholder">Мощность двигателя, л.с.</div>
-								</Col>
-								<Col span={6}>
-									<Select
-										dropdownClassName="select_dropdown_v1" className={"w_100p custom_placeholder" + (this.state.carATS.length ? "" : " _empty")}
-										placeholder=""
-										onChange={this.onATSChange}
-										value={this.state.carATS}
-									>
-										{this.state.carATSList.map((e, i) => <Option key={i} value={e}>{e}</Option>)}
-									</Select>
-									<div className="float_placeholder">Противоугонная система</div>
-								</Col>
-								<Col span={6} className="checkbox_middle check_v3">
-									<Checkbox onChange={this.onAutoStartChange}>Автозапуск</Checkbox>
-								</Col>
-								<Col span={6} className="kasko-car-select__additional _inactive text_right">
-									<div className="gl_link" onClick={this.toggleAdditionalFields}>Скрыть</div>
-								</Col>
-							</Row>
-						</>
-						: ""
+						<Row className="kasko-car-select__controls" gutter={20}>
+							<Col span={6}>
+								<Input className={"w_100p custom_placeholder" + ((this.state.carPower + '').length ? "" : " _empty")}
+									   data-inputmask={carPowerMask}
+									   value={this.state.carPower}
+									   onChange={this.onCarPowerChange} defaultValue=""/>
+								<div className="float_placeholder">Мощность двигателя, л.с.</div>
+							</Col>
+							<Col span={6}>
+								<Select
+									dropdownClassName="select_dropdown_v1" className={"w_100p custom_placeholder" + (this.state.carATS.length ? "" : " _empty")}
+									placeholder=""
+									onChange={this.onATSChange}
+									value={this.state.carATS}
+								>
+									{this.state.carATSList.map((e, i) => <Option key={i} value={e}>{e}</Option>)}
+								</Select>
+								<div className="float_placeholder">Противоугонная система</div>
+							</Col>
+							<Col span={6} className="checkbox_middle check_v3">
+								<Checkbox onChange={this.onAutoStartChange}>Автозапуск</Checkbox>
+							</Col>
+							<Col span={6} className="kasko-car-select__additional _inactive text_right">
+								<div className="gl_link" onClick={this.toggleAdditionalFields}>Скрыть</div>
+							</Col>
+						</Row>
+					</>
+					: null
 				}
 
 				{this.state.newCar === null ? null :
@@ -505,7 +622,7 @@ class KaskoCarSelect extends Component {
 							</Col>
 							
 							{
-								this.state.showAdditional ? "" :
+								this.state.showAdditional ? null :
 									<>
 										<Col className={"kasko-car-select__price--holder" + (this.state.allowPayment ? "" : " vis_hidden")}>
 											<div className="kasko-car-select__price">
@@ -526,136 +643,17 @@ class KaskoCarSelect extends Component {
 				}
 				
 				{
-					allFields ? "" : 
-					(1) ? <div className={"kasko-car-select__image" + (step === 1 && !this.state.allowPayment ? " _inactive__" : "")}>
+					allFields ? null : 
+					<div className={"kasko-car-select__image" + (step === 1 && !this.state.allowPayment ? " _inactive__" : "")}>
 						<img src={'./cars/' + image + '.png'} alt=""/>
-					</div> : ""
+					</div> 
 				}
 
-				{fill ? "" :
-					<>
-						{(!this.state.formBusy && this.state.carFound && !hideOffers) ?
-							<KaskoOffers offersList={this.state.carCredit ?
-								[
-									{
-										name: 'Кредит',
-										price: 10432,
-										button: 'Рассчитать',
-										link: '/credit',
-										prefix: 'от',
-										suffix: '₽/мес'
-									},
-									{
-										name: 'ОСАГО',
-										price: 10410,
-										button: 'Рассчитать',
-										link: '/osago',
-										prefix: 'от',
-										suffix: '₽'
-									},
-									{
-										name: 'КАСКО',
-										price: 10420,
-										button: 'Рассчитать',
-										link: '/kasko',
-										prefix: 'от',
-										suffix: '₽'
-									},
-									//{
-									//	name: 'GAP',
-									//	price: 10430,
-									//	button: 'Рассчитать',
-									//	link: '/gap',
-									//	prefix: 'от',
-									//	suffix: '₽'
-									//},
-									{
-										name: 'Сервис меню',
-										price: 10789,
-										button: 'Рассчитать',
-										link: '/service',
-										prefix: 'от',
-										suffix: '₽'
-									},
-									{
-										name: 'Шоколад',
-										price: 10555,
-										collapse: true,
-										options: [
-											'эвакуация',
-											'юридическая помощь',
-											'аварийный комиссар',
-											'подвоз бензина',
-											'вскрытие автомобиля',
-											'запуск автомобиля',
-											'трезвый водитель',
-											'выездной шиномонтаж'
-										],
-										prefix: 'от',
-										suffix: '₽'
-									}]
-								:
-									[{
-										name: 'ОСАГО',
-										price: 10456,
-										button: 'Рассчитать',
-										link: '/osago',
-										prefix: 'от',
-										suffix: '₽'
-									},
-									{
-										name: 'КАСКО',
-										price: 10420,
-										button: 'Рассчитать',
-										link: '/kasko',
-										prefix: 'от',
-										suffix: '₽'
-									},
-									//{
-									//	name: 'GAP',
-									//	price: 10430,
-									//	button: 'Рассчитать',
-									//	link: '/gap',
-									//	prefix: 'от',
-									//	suffix: '₽'
-									//},
-									{
-										name: 'Ассистанс',
-										price: '15400',
-										collapse: true,
-										options: [
-											'эвакуация',
-											'юридическая помощь',
-											'аварийный комиссар',
-											'подвоз бензина',
-											'вскрытие автомобиля',
-											'запуск автомобиля',
-											'трезвый водитель',
-											'выездной шиномонтаж'
-										],
-										prefix: 'от',
-										suffix: '₽'
-									},
-									{
-										name: 'Шоколад',
-										price: 10555,
-										collapse: true,
-										options: [
-											'эвакуация',
-											'юридическая помощь',
-											'аварийный комиссар',
-											'подвоз бензина',
-											'вскрытие автомобиля',
-											'запуск автомобиля',
-											'трезвый водитель',
-											'выездной шиномонтаж'
-										],
-										prefix: 'от',
-										suffix: '₽'
-									}]
-							}/>
-							:
-							<KaskoOffers disabled={true} offersList={[
+				{fill ? null :
+					(!this.state.formBusy && this.state.carFound && !hideOffers) ?
+						<KaskoOffers offersList={this.state.carCredit ? carCreditList : carNonCreditList}/>
+						:
+						<KaskoOffers disabled={true} offersList={[
 								{
 									name: 'Кредит',
 									price: 0,
@@ -685,8 +683,6 @@ class KaskoCarSelect extends Component {
 									suffix: '₽'
 								}
 							]}/>
-						}
-					</>
 				}
 			</div>
 		);

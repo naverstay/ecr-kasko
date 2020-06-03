@@ -43,7 +43,6 @@ class KaskoOffers extends Component {
 		};
 		
 		return (
-			//slider ?
 			<div className="kasko-car-select__carousel">
 				<Slider className={"kasko-offer" + (disabled ? " disabled" : "")} {...carouselSettings}>
 					{
@@ -51,18 +50,6 @@ class KaskoOffers extends Component {
 					}
 				</Slider>
 			</div>
-			//: 
-			//<div className={"kasko-offer" + (disabled ? " disabled" : "")}>
-			//	<Row gutter={20} className="kasko-offer__list">
-			//		{offersList.map((o, i) => <OfferItem active={active && active.length && active.indexOf(i) > -1} completed={completed && completed.length && completed.indexOf(i) > -1} key={i} index={i} offer={o}/>)}
-			//	</Row>
-			//
-			//	{disabled ? "" :
-			//		<div className="kasko-offer__more">
-			//			<div className="gl_link">Показать все F&I меню</div>
-			//		</div>
-			//	}
-			//</div>
 		);
 	}
 }

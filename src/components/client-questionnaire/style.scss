@@ -20,7 +20,9 @@
 			}
 			
 			.ant-upload-btn {
-				display: block;
+				display: flex;
+				flex-flow: column nowrap;
+				justify-content: center;
 			}
 		}
 
@@ -72,6 +74,18 @@
 			margin-bottom: 5px;
 		}
 		
+		&--name {
+			@extend %text1;
+			max-width: 49%;
+			font-weight: bold;
+		}
+		
+		&--link {
+			@extend %text1;
+			max-width: 49%;
+			text-decoration: underline;
+		}
+		
 		&--item {
 			position: relative;
 			padding: 11px 2px 10px 30px;
@@ -102,6 +116,18 @@
 				color: $color-grey;
 				margin-bottom: 0;
 			}
+			
+			&.completed {
+				padding-left: 0;
+				display: flex;
+				flex-flow: row nowrap;
+				justify-content: space-between;
+				
+				&:before {
+					display: none;
+				}
+			}
+			
 		}
 		
 	}

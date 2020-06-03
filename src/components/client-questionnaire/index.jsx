@@ -13,6 +13,8 @@ class ClientQuestionnaire extends Component {
 	};
 
 	render() {
+		const {credit} = this.props
+
 		const uploadProps = {
 			name: 'file',
 			multiple: true,
@@ -48,14 +50,42 @@ class ClientQuestionnaire extends Component {
 					</Col>
 					<Col span={12}>
 						<ul className="client-questionnaire__faq">
-							<li className="client-questionnaire__faq--item">
-								<div className="client-questionnaire__faq--title">Паспорт РФ</div>
-								<p>Банки требуют все страницы паспорта, в т.ч. незаполненные.</p>
-							</li>
-							<li className="client-questionnaire__faq--item">
-								<div className="client-questionnaire__faq--title">Водительское удостоверение / Второй документ</div>
-								<p>Большинство банков в качестве второго документа принимают только ВУ. Необходим скан с двух сторон</p>
-							</li>
+							{credit ? 
+								<>
+									<li className="client-questionnaire__faq--item completed">
+										<div className="client-questionnaire__faq--name">Документы Заемщика И.</div>
+										<div className="client-questionnaire__faq--link">Документы Созаемщика И.</div>
+										
+									</li>
+									<li className="client-questionnaire__faq--item">
+										<div className="client-questionnaire__faq--title">Паспорт РФ</div>
+										<p>Банки требуют все страницы паспорта, в т.ч. незаполненные.</p>
+									</li>
+									<li className="client-questionnaire__faq--item">
+										<div className="client-questionnaire__faq--title">Водительское удостоверение / Второй документ</div>
+										<p>Большинство банков в качестве второго документа принимают только ВУ.
+											Необходим скан с двух сторон</p>
+									</li>
+									<li className="client-questionnaire__faq--item">
+										<div className="client-questionnaire__faq--title">Анкета клиента</div>
+									</li>
+									<li className="client-questionnaire__faq--item">
+										<div className="client-questionnaire__faq--title">Согласие на обработку персональных данных</div>
+									</li>
+								</>
+							: 
+								<>
+									<li className="client-questionnaire__faq--item">
+										<div className="client-questionnaire__faq--title">Паспорт РФ</div>
+										<p>Банки требуют все страницы паспорта, в т.ч. незаполненные.</p>
+									</li>
+									<li className="client-questionnaire__faq--item">
+										<div className="client-questionnaire__faq--title">Водительское удостоверение / Второй документ</div>
+										<p>Большинство банков в качестве второго документа принимают только ВУ.
+											Необходим скан с двух сторон</p>
+									</li>
+								</>
+							}
 						</ul>
 					</Col>
 				</Row>

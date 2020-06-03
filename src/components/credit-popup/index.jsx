@@ -6,12 +6,13 @@ import PropTypes from "prop-types";
 //import KaskoCarSelect from "../kasko-car-select";
 //import KaskoCarSelectNew from "../kasko-car-select-new";
 import ClientQuestionnaire from "../client-questionnaire";
-import DriverInfo from "../driver-info";
+//import DriverInfo from "../driver-info";
 //import ClientInfo from "../client-info";
 //import ClientInfoNew from "../client-info-new";
 import DriverCount from "../driver-count";
 //import KaskoCarSelectOsago from "../kasko-car-select-osago";
 import CreditCarSelect from "../credit-car-select";
+import CreditDriverInfo from "../credit-driver-info";
 
 class CreditPopup extends Component {
 	constructor(props) {
@@ -114,13 +115,13 @@ class CreditPopup extends Component {
 									<Checkbox checked={this.state.useOCR ? "checked" : null}
 											  onChange={this.onUseOCRChange}>Не распознавать документы</Checkbox>
 								</div>
-								<ClientQuestionnaire/>
+								<ClientQuestionnaire credit={true}/>
 								<DriverCount step={step} driverOptions={driverOptions}/>
 							</>
 							: ""
 					}
 					
-					<DriverInfo osago={osago} calculationSave={updatePaymentState} expanded={(step !== 2) || this.state.showClientFields} fullCalculation={this.state.fullCalculation} />
+					<CreditDriverInfo calculationSave={updatePaymentState} expanded={(step !== 2) || this.state.showClientFields} fullCalculation={this.state.fullCalculation} />
 
 				</div>
 		);

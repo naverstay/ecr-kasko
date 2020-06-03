@@ -71,54 +71,54 @@ class Credit extends Component {
 		
 		return (
 			<>
-			<Row gutter={20} className="kasko-wrapper">
-				<Col span={4} className="kasko-aside"/>
-				<Col span={16} className="kasko-main">
-					<CarCredit kasko={kasko} showKaskoWidget={this.updateRightAside} carPrice={1048000} imageCallback={this.imageCallback} step={step} image={this.state.carImage} />
-				</Col>
-				<Col span={4} className="kasko-aside"/>
-			</Row>
-
-			<Row gutter={20} className="kasko-wrapper kasko-wrapper__fixed">
-				<Col span={4} className="kasko-aside">
-					<AsideCrumbs crumbs={['Главная']}/>
-					<AsideBlock>
-						<KaskoUser firstName={step === 1 ? '' : 'Сергей'} lastName={step === 1 ? '' : 'Фомин'}
-								   avatar="" phone={step > 1 ? "+ 7 (916) 111 11 11" : ""} docs="" trustees=""
-								   autos=''/>
-					</AsideBlock>
-
-					<AsideBlock>
-						<KaskoCarInfo step={step} notificationCount={step === 2 ? 1 : step === 3 ? 2 : 0}
-									  carName={step === 1 ? '' : 'Hyundai'} carModel={step === 1 ? '' : 'Sonata'} image={this.state.carImage}
-									  info={step === 1 ? '' : "2020 Новый"}
-									  price={step === 1 ? '' : "1 534 000 ₽"}/>
-					</AsideBlock>
-				</Col>
-
-				<Col span={16} className="kasko-main"/>
-
-				<Col span={4} className="kasko-aside">
-					{showOffers === false ?
-						""
-						:
+				<Row gutter={20} className="kasko-wrapper">
+					<Col span={4} className="kasko-aside"/>
+					<Col span={16} className="kasko-main">
+						<CarCredit kasko={kasko} showKaskoWidget={this.updateRightAside} carPrice={1048000} imageCallback={this.imageCallback} step={step} image={this.state.carImage} />
+					</Col>
+					<Col span={4} className="kasko-aside"/>
+				</Row>
+	
+				<Row gutter={20} className="kasko-wrapper kasko-wrapper__fixed">
+					<Col span={4} className="kasko-aside">
+						<AsideCrumbs crumbs={['Главная']}/>
 						<AsideBlock>
-							<KaskoNotices step={step} credit={true} status={0} type={showOffers}/>
+							<KaskoUser firstName={step === 1 ? '' : 'Сергей'} lastName={step === 1 ? '' : 'Фомин'}
+									   avatar="" phone={step > 1 ? "+ 7 (916) 111 11 11" : ""} docs="" trustees=""
+									   autos=''/>
 						</AsideBlock>
-					}
-					
-					{this.state.kaskoWidget.show ?
+	
 						<AsideBlock>
-							<KaskoNotices step={this.state.kaskoWidget.step} kasko={true} status={0} type={'Каско'}/>
+							<KaskoCarInfo step={step} notificationCount={step === 2 ? 1 : step === 3 ? 2 : 0}
+										  carName={step === 1 ? '' : 'Hyundai'} carModel={step === 1 ? '' : 'Sonata'} image={this.state.carImage}
+										  info={step === 1 ? '' : "2020 Новый"}
+										  price={step === 1 ? '' : "1 534 000 ₽"}/>
 						</AsideBlock>
-						: ""
-					}
-
-					<AsideBlock>
-						<KaskoNotices noticeList={[{title: 'Сегодня, Пон 20.02.19', list: events}]}/>
-					</AsideBlock>
-				</Col>
-			</Row>
+					</Col>
+	
+					<Col span={16} className="kasko-main"/>
+	
+					<Col span={4} className="kasko-aside">
+						{showOffers === false ?
+							""
+							:
+							<AsideBlock>
+								<KaskoNotices step={step} credit={true} status={0} type={showOffers}/>
+							</AsideBlock>
+						}
+						
+						{this.state.kaskoWidget.show ?
+							<AsideBlock>
+								<KaskoNotices step={this.state.kaskoWidget.step} kasko={true} status={0} type={'Каско'}/>
+							</AsideBlock>
+							: ""
+						}
+	
+						<AsideBlock>
+							<KaskoNotices noticeList={[{title: 'Сегодня, Пон 20.02.19', list: events}]}/>
+						</AsideBlock>
+					</Col>
+				</Row>
 			</>
 		);
 	}

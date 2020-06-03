@@ -314,7 +314,7 @@ class CarCredit extends Component {
 
 				{this.state.showCarOptions ?
 					<KaskoCarSelect imageCallback={this.imageCallback} fill={true} step={step} image={false}/>
-					: ""
+					: null
 				}
 				
 				<div className="credit-slider__wrapper">
