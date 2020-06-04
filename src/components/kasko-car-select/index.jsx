@@ -456,7 +456,7 @@ class KaskoCarSelect extends Component {
 		return (
 			<div className="kasko-car-select">
 				<div className="kasko-car-select__controls radio_v2">
-					<Radio.Group defaultValue={step === 1 ? null : this.state.newCar ? 1 : 0} onChange={this.onCarNewChange}>
+					<Radio.Group defaultValue={step === 1 ? null : this.state.newCar ? 1 : null} onChange={this.onCarNewChange}>
 						<Row gutter={20}>
 							<Col>
 								<Radio value={1}>Новый</Radio>

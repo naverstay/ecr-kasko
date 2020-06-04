@@ -1,0 +1,87 @@
+@import 'src/assets/styles/global';
+
+$aside-size: 226px;
+
+.kasko {
+	
+	&-wrapper {
+		display: flex;
+		flex-flow: row nowrap;
+		//margin: 0 -10px;
+		//padding-right: 14px;
+		min-height: 100vh;
+		
+		&__fixed {
+			position: fixed;
+			top: 0;
+			right: $content-padding;
+			left: $aside-size-small + $content-padding;
+			height: 0;
+			min-height: 0;
+			max-width: $layout-maxwidth - $content-padding;
+
+			.kasko-main {
+				height: 0 !important;
+				overflow: hidden;
+			}
+		}
+	}
+	
+	&-main {
+		position: relative;
+		flex: 1 0 auto;
+		//padding: 0 10px;
+		//max-width: calc(100vw - #{$aside-size * 2 + 100px});
+		
+		&__wide {
+			margin: 0 -25.666667%;
+		}
+		
+		&__title {
+			@extend %h1;
+			text-align: center;
+			margin-bottom: 32px;
+
+			&.expanded,
+			&.collapsed {
+				cursor: pointer;
+				position: relative;
+
+				&:before {
+					transition: transform .25s;
+					font-family: $icomoon-font-family;
+					content: $i-chevron_r;
+					color: $color-grey;
+					font-size: 16px;
+					margin-right: 10px;
+					margin-left: -20px;
+					position: absolute;
+				}
+			}
+			
+			&.collapsed {
+				.calculation-popup & {
+					margin-bottom: 55px;
+				}
+			}
+			
+			&.expanded {
+				&:before {
+					transform: rotate(90deg);
+				}
+			}
+		}
+	}
+	
+	&-aside {
+		position: relative;
+		//flex: 0 1 $aside-size;
+		//padding: 0 10px;
+		//max-width: $aside-size;
+		
+		&__btn {
+			margin-bottom: 8px;
+			width: 100%;
+		}
+	}
+}

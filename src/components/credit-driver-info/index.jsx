@@ -158,7 +158,7 @@ class CreditDriverInfo extends Component {
 	};
 	
 	render() {
-		let {allFields, expanded, osago} = this.props
+		let {allFields, expanded, familyInfo, professionalActivity, incomesExpenses, contactsFull, additioanalChecks} = this.props
 		//const dateFormat = "DD.MM.YY"
 		const dateFormatMask = "'mask': '99.99.9999', 'showMaskOnHover': 'false'"
 		const driverPhoneMask = "'mask': '[+7] (999)-999-99-99', 'showMaskOnHover': 'false'"
@@ -244,168 +244,195 @@ class CreditDriverInfo extends Component {
 										   placeholder="Место рождения" controlName={'clientBirthLocation'} value={''}/>
 							</Row>
 
-							<Row className="kasko-car-select__controls" gutter={20}>
-								<FormSelect span={6} onChangeCallback={this.formControlCallback}
-											options={this.state.driverFamilyStatusList}
-											placeholder="Семейное положение" controlName={'clientFamilyStatus'}
-											value={this.state.driverFamilyStatus}/>
-											
-								<FormCheckbox onChangeCallback={this.formControlCallback}
-											  text="Есть дети"
-											  className="checkbox_middle check_v3"
-											  value={1} span={6}
-											  controlName={'clientProgenyNess'} checked={false}/>
+							{familyInfo ?
+								<>
+									<Row className="kasko-car-select__controls" gutter={20}>
+										<FormSelect span={6} onChangeCallback={this.formControlCallback}
+													options={this.state.driverFamilyStatusList}
+													placeholder="Семейное положение" controlName={'clientFamilyStatus'}
+													value={this.state.driverFamilyStatus}/>
+	
+										<FormCheckbox onChangeCallback={this.formControlCallback}
+													  text="Есть дети"
+													  className="checkbox_middle check_v3"
+													  value={1} span={6}
+													  controlName={'clientProgenyNess'} checked={false}/>
+	
+										{this.state.driverProgenyNess ?
+											<>
+												<FormInput span={6} onChangeCallback={this.formControlCallback}
+														   placeholder="Кол-во детей младше 21"
+														   controlName={'clientChildrenCount'} value={''}/>
+	
+												<FormInput span={6} onChangeCallback={this.formControlCallback}
+														   placeholder="Кол-во иждивенцев"
+														   controlName={'clientEncmbranceCount'} value={''}/>
+											</>
+											: null
+										}
+									</Row>
 
-								{this.state.driverProgenyNess ?
-									<>
+									<div className="driver-info__caption">Данные о супруге</div>
+
+									<Row className="kasko-car-select__controls" gutter={20}>
 										<FormInput span={6} onChangeCallback={this.formControlCallback}
-												   placeholder="Кол-во детей младше 21" controlName={'clientChildrenCount'} value={''}/>
-												   
+												   placeholder="Фамилия" controlName={'spouseLastName'} value={''}/>
+
 										<FormInput span={6} onChangeCallback={this.formControlCallback}
-												   placeholder="Кол-во иждивенцев" controlName={'clientEncmbranceCount'} value={''}/>
-									</>
-									: null
-								}
-							</Row>
+												   placeholder="Имя" controlName={'spouseFirstName'} value={''}/>
 
-							<div className="driver-info__caption">Данные о супруге</div>
+										<FormInput span={6} onChangeCallback={this.formControlCallback}
+												   placeholder="Отчество" controlName={'spouseFarthersName'}
+												   value={''}/>
 
-							<Row className="kasko-car-select__controls" gutter={20}>
-								<FormInput span={6} onChangeCallback={this.formControlCallback}
-										   placeholder="Фамилия" controlName={'spouseLastName'} value={''}/>
+									</Row>
 
-								<FormInput span={6} onChangeCallback={this.formControlCallback}
-										   placeholder="Имя" controlName={'spouseFirstName'} value={''}/>
+									<Row className="kasko-car-select__controls" gutter={20}>
+										<FormCheckbox onChangeCallback={this.formControlCallback}
+													  text="Ранее ФИО было изменено"
+													  value={1}
+													  controlName={'spouseNameWasChanged'} checked={false}/>
+									</Row>
 
-								<FormInput span={6} onChangeCallback={this.formControlCallback}
-										   placeholder="Отчество" controlName={'spouseFarthersName'} value={''}/>
-										   
-							</Row>
+									<Row className="kasko-car-select__controls" gutter={20}>
+										<FormInput span={6} onChangeCallback={this.formControlCallback}
+												   placeholder="Кол-во лет в браке" controlName={'marriageDuration'}
+												   value={''}/>
 
-							<Row className="kasko-car-select__controls" gutter={20}>
-								<FormCheckbox onChangeCallback={this.formControlCallback}
-											  text="Ранее ФИО было изменено"
-											  value={1}
-											  controlName={'spouseNameWasChanged'} checked={false} />
-							</Row>
+										<FormInput span={6} onChangeCallback={this.formControlCallback}
+												   inputmask={dateFormatMask}
+												   placeholder="Дата рождения" controlName={'spouseBirthDay'}
+												   value={''}/>
+									</Row>
 
-							<Row className="kasko-car-select__controls" gutter={20}>
-								<FormInput span={6} onChangeCallback={this.formControlCallback} 
-										   placeholder="Кол-во лет в браке" controlName={'marriageDuration'} value={''}/>
+									<Row className="kasko-car-select__controls" gutter={20}>
+										<FormInput span={24} onChangeCallback={this.formControlCallback}
+												   className={allFields ? "input-error" : ""}
+												   placeholder="Место рождения" controlName={'spouseBirthLocation'}
+												   value={''}/>
+									</Row>
 
-								<FormInput span={6} onChangeCallback={this.formControlCallback}
-										   inputmask={dateFormatMask}
-										   placeholder="Дата рождения" controlName={'spouseBirthDay'} value={''}/>
-							</Row>
+									<Row className="kasko-car-select__controls" gutter={20}>
+										<FormSelect span={12} onChangeCallback={this.formControlCallback}
+													options={this.state.driverFamilyStatusList}
+													placeholder="Социальный статус" controlName={'spouseSocialStatus'}
+													value={this.state.driverFamilyStatus}/>
+									</Row>
+								</>
+								: null
+							}
 
-							<Row className="kasko-car-select__controls" gutter={20}>
-								<FormInput span={24} onChangeCallback={this.formControlCallback}
-										   className={allFields ? "input-error" : ""}
-										   placeholder="Место рождения" controlName={'spouseBirthLocation'}
-										   value={''}/>
-							</Row>
-							
-							<Row className="kasko-car-select__controls" gutter={20}>
-								<FormSelect span={12} onChangeCallback={this.formControlCallback}
-											options={this.state.driverFamilyStatusList}
-											placeholder="Социальный статус" controlName={'spouseSocialStatus'}
-											value={this.state.driverFamilyStatus}/>
-							</Row>
+							{professionalActivity ? 
+								<>
+									<div className="driver-info__caption">Профессиональная деятельность клиента</div>
 
-							<div className="driver-info__caption">Профессиональная деятельность клиента</div>
+									<Row className="kasko-car-select__controls" gutter={20}>
+										<FormSelect span={12} onChangeCallback={this.formControlCallback}
+													options={this.state.driverFamilyStatusList}
+													placeholder="Социальный статус" controlName={'clientSocialStatus'}
+													value={this.state.driverFamilyStatus}/>
 
-							<Row className="kasko-car-select__controls" gutter={20}>
-								<FormSelect span={12} onChangeCallback={this.formControlCallback}
-											options={this.state.driverFamilyStatusList}
-											placeholder="Социальный статус" controlName={'clientSocialStatus'}
-											value={this.state.driverFamilyStatus}/>
-											
-								<FormSelect span={12} onChangeCallback={this.formControlCallback}
-											options={this.state.driverFamilyStatusList}
-											placeholder="Образование" controlName={'clientEducation'}
-											value={this.state.driverFamilyStatus}/>
-							</Row>
-							
-							<Row className="kasko-car-select__controls" gutter={20}>
-								<FormSelect span={6} onChangeCallback={this.formControlCallback}
-											options={this.state.driverFamilyStatusList}
-											placeholder="Тип организации" controlName={'clientOrganizationType'}
-											value={this.state.driverFamilyStatus}/>
+										<FormSelect span={12} onChangeCallback={this.formControlCallback}
+													options={this.state.driverFamilyStatusList}
+													placeholder="Образование" controlName={'clientEducation'}
+													value={this.state.driverFamilyStatus}/>
+									</Row>
 
-								<FormInput span={18} onChangeCallback={this.formControlCallback}
-										   placeholder="Юридическое название места работы" controlName={'clientOrganizationLocation'} value={''}/>
-							</Row>
-							
-							<Row className="kasko-car-select__controls" gutter={20}>
-								<FormInput span={18} onChangeCallback={this.formControlCallback}
-										   placeholder="Юридический адрес работодателя " controlName={'clientOrganizationLocation'} value={''}/>
-										   
-								<FormInput span={3} onChangeCallback={this.formControlCallback}
-										   placeholder="Офис" controlName={'clientOrganizationOffice'} value={''}/>
-										   
-								<FormInput span={3} onChangeCallback={this.formControlCallback}
-										   placeholder="Индекс" controlName={'clientOrganizationPostCode'} value={''}/>
-							</Row>
+									<Row className="kasko-car-select__controls" gutter={20}>
+										<FormSelect span={6} onChangeCallback={this.formControlCallback}
+													options={this.state.driverFamilyStatusList}
+													placeholder="Тип организации" controlName={'clientOrganizationType'}
+													value={this.state.driverFamilyStatus}/>
 
-							<Row className="kasko-car-select__controls" gutter={20}>
-								<FormCheckbox onChangeCallback={this.formControlCallback}
-											  text="Совпадает с фактическим адресом"
-											  value={1}
-											  controlName={'equalsRealAddress'} checked={false}/>
-							</Row>
+										<FormInput span={18} onChangeCallback={this.formControlCallback}
+												   placeholder="Юридическое название места работы"
+												   controlName={'clientOrganizationLocation'} value={''}/>
+									</Row>
 
-							<Row className="kasko-car-select__controls" gutter={20}>
-								<FormInput span={6} onChangeCallback={this.formControlCallback}
-										   placeholder="ИНН организации"
-										   controlName={'clientOrganizationINN'} value={''}/>
-								<FormInput span={6} onChangeCallback={this.formControlCallback}
-										   placeholder="Рабочий телефон"
-										   inputmask={driverPhoneMask}
-										   controlName={'clientOrganizationPhone'} value={''}/>
-							</Row>
+									<Row className="kasko-car-select__controls" gutter={20}>
+										<FormInput span={18} onChangeCallback={this.formControlCallback}
+												   placeholder="Юридический адрес работодателя "
+												   controlName={'clientOrganizationLocation'} value={''}/>
 
-							<Row className="kasko-car-select__controls" gutter={20}>
-								<FormSelect span={12} onChangeCallback={this.formControlCallback}
-											options={this.state.driverFamilyStatusList}
-											placeholder="Тип должности" controlName={'clientPostType'}
-											value={this.state.driverFamilyStatus}/>
-							</Row>
-							
-							<Row className="kasko-car-select__controls" gutter={20}>
-								<FormInput span={12} onChangeCallback={this.formControlCallback}
-										   placeholder="Название должности"
-										   controlName={'clientPostName'} value={''}/>
-								<FormSelect span={6} onChangeCallback={this.formControlCallback}
-											options={this.state.driverFamilyStatusList}
-											placeholder="Стаж на данном месте" controlName={'clientPostPeriod'}
-											value={this.state.driverFamilyStatus}/>
-							</Row>
+										<FormInput span={3} onChangeCallback={this.formControlCallback}
+												   placeholder="Офис" controlName={'clientOrganizationOffice'}
+												   value={''}/>
 
-							<div className="driver-info__caption">Ежемесячные доходы/расходы</div>
+										<FormInput span={3} onChangeCallback={this.formControlCallback}
+												   placeholder="Индекс" controlName={'clientOrganizationPostCode'}
+												   value={''}/>
+									</Row>
 
-							<Row className="kasko-car-select__controls" gutter={20}>
-								<FormInput span={6} onChangeCallback={this.formControlCallback}
-										   placeholder={"Доход по основному месту \n работы"} controlName={'clientMainIncome'}
-										   value={''}/>
-										   
-								<FormInput span={6} onChangeCallback={this.formControlCallback}
-										   placeholder={"Дополнительный доход"} controlName={'clientAdditionalIncome'}
-										   value={''}/>
-										   
-								<FormInput span={6} onChangeCallback={this.formControlCallback}
-										   placeholder={"Доход супруги/ супруга"} controlName={'spouselIncome'}
-										   value={''}/>
-							</Row>
-							
-							<Row className="kasko-car-select__controls" gutter={20}>
-								<FormInput span={6} onChangeCallback={this.formControlCallback}
-										   placeholder={"Общие расходы"} controlName={'clientGeneralExpenses'}
-										   value={''}/>
-										   
-								<FormInput span={6} onChangeCallback={this.formControlCallback}
-										   placeholder={"Расходы на кредиты"} controlName={'clientCreditExpenses'}
-										   value={''}/>
-							</Row>
+									<Row className="kasko-car-select__controls" gutter={20}>
+										<FormCheckbox onChangeCallback={this.formControlCallback}
+													  text="Совпадает с фактическим адресом"
+													  value={1}
+													  controlName={'equalsRealAddress'} checked={false}/>
+									</Row>
+
+									<Row className="kasko-car-select__controls" gutter={20}>
+										<FormInput span={6} onChangeCallback={this.formControlCallback}
+												   placeholder="ИНН организации"
+												   controlName={'clientOrganizationINN'} value={''}/>
+										<FormInput span={6} onChangeCallback={this.formControlCallback}
+												   placeholder="Рабочий телефон"
+												   inputmask={driverPhoneMask}
+												   controlName={'clientOrganizationPhone'} value={''}/>
+									</Row>
+
+									<Row className="kasko-car-select__controls" gutter={20}>
+										<FormSelect span={12} onChangeCallback={this.formControlCallback}
+													options={this.state.driverFamilyStatusList}
+													placeholder="Тип должности" controlName={'clientPostType'}
+													value={this.state.driverFamilyStatus}/>
+									</Row>
+
+									<Row className="kasko-car-select__controls" gutter={20}>
+										<FormInput span={12} onChangeCallback={this.formControlCallback}
+												   placeholder="Название должности"
+												   controlName={'clientPostName'} value={''}/>
+										<FormSelect span={6} onChangeCallback={this.formControlCallback}
+													options={this.state.driverFamilyStatusList}
+													placeholder="Стаж на данном месте" controlName={'clientPostPeriod'}
+													value={this.state.driverFamilyStatus}/>
+									</Row>
+								</>
+								: null
+							}
+
+							{incomesExpenses ?
+								<>
+									<div className="driver-info__caption">Ежемесячные доходы/расходы</div>
+
+									<Row className="kasko-car-select__controls" gutter={20}>
+										<FormInput span={6} onChangeCallback={this.formControlCallback}
+												   placeholder={"Доход по основному месту \n работы"}
+												   controlName={'clientMainIncome'}
+												   value={''}/>
+
+										<FormInput span={6} onChangeCallback={this.formControlCallback}
+												   placeholder={"Дополнительный доход"}
+												   controlName={'clientAdditionalIncome'}
+												   value={''}/>
+
+										<FormInput span={6} onChangeCallback={this.formControlCallback}
+												   placeholder={"Доход супруги/ супруга"} controlName={'spouselIncome'}
+												   value={''}/>
+									</Row>
+
+									<Row className="kasko-car-select__controls" gutter={20}>
+										<FormInput span={6} onChangeCallback={this.formControlCallback}
+												   placeholder={"Общие расходы"} controlName={'clientGeneralExpenses'}
+												   value={''}/>
+
+										<FormInput span={6} onChangeCallback={this.formControlCallback}
+												   placeholder={"Расходы на кредиты"}
+												   controlName={'clientCreditExpenses'}
+												   value={''}/>
+									</Row>
+								</>
+								: null
+							}
 
 							<div className="driver-info__caption">Паспорт</div>
 
@@ -437,12 +464,15 @@ class CreditDriverInfo extends Component {
 										   value={''}/>
 							</Row>
 
-							<Row className="kasko-car-select__controls" gutter={20}>
-								<FormCheckbox onChangeCallback={this.formControlCallback}
-											  text="Подтверждаю, что ранее паспорт не менялся"
-											  value={1}
-											  controlName={'nonChangedPassportApproval'} checked={true}/>
-							</Row>
+							{additioanalChecks ?
+								<Row className="kasko-car-select__controls" gutter={20}>
+									<FormCheckbox onChangeCallback={this.formControlCallback}
+												  text="Подтверждаю, что ранее паспорт не менялся"
+												  value={1}
+												  controlName={'nonChangedPassportApproval'} checked={true}/>
+								</Row>
+								: null
+							}
 
 							<div className="driver-info__caption">Адрес регистрации</div>
 
@@ -472,12 +502,15 @@ class CreditDriverInfo extends Component {
 											value={this.state.driverFamilyStatus}/>
 							</Row>
 
-							<Row className="kasko-car-select__controls" gutter={20}>
-								<FormCheckbox onChangeCallback={this.formControlCallback}
-											  text="Совпадает с адресом проживания"
-											  value={1}
-											  controlName={'sameAsRealAddress'} checked={true}/>
-							</Row>
+							{additioanalChecks ?
+								<Row className="kasko-car-select__controls" gutter={20}>
+									<FormCheckbox onChangeCallback={this.formControlCallback}
+												  text="Совпадает с адресом проживания"
+												  value={1}
+												  controlName={'sameAsRealAddress'} checked={true}/>
+								</Row>
+								: null
+							}
 
 							<div className="driver-info__caption">Водительское удостоверение</div>
 
@@ -568,38 +601,43 @@ class CreditDriverInfo extends Component {
 									<div className="float_placeholder">Емейл</div>
 								</Col>
 							</Row>
-
-							<Row className="kasko-car-select__controls" gutter={20}>
-								<FormSelect span={6} onChangeCallback={this.formControlCallback}
-											options={this.state.driverFamilyStatusList}
-											placeholder="Второй контакт" controlName={'clientSecondContact'}
-											value={this.state.driverFamilyStatus}/>
-								<FormInput span={6} onChangeCallback={this.formControlCallback}
-										   placeholder="Мобильный телефон"
-										   inputmask={driverPhoneMask}
-										   controlName={'clientSecondPhone'} value={''}/>
-							</Row>
-
-							<Row className="kasko-car-select__controls" gutter={20}>
-								<FormCheckbox onChangeCallback={this.formControlCallback}
-											  text="Согласие на запрос из БКИ"
-											  value={1}
-											  controlName={'BKIAgreement'} checked={true}/>
-							</Row>
 							
-							<Row className="kasko-car-select__controls" gutter={20}>
-								<FormCheckbox onChangeCallback={this.formControlCallback}
-											  text="Согласие на обработку ПД"
-											  value={1}
-											  controlName={'DataPrecessingAgreement'} checked={true}/>
-							</Row>
-							
-							<Row className="kasko-car-select__controls" gutter={20}>
-								<FormCheckbox onChangeCallback={this.formControlCallback}
-											  text="Согласие на электронное подписание документов"
-											  value={1}
-											  controlName={'eSignAgreement'} checked={true}/>
-							</Row>
+							{contactsFull ? 
+								<>
+									<Row className="kasko-car-select__controls" gutter={20}>
+										<FormSelect span={6} onChangeCallback={this.formControlCallback}
+													options={this.state.driverFamilyStatusList}
+													placeholder="Второй контакт" controlName={'clientSecondContact'}
+													value={this.state.driverFamilyStatus}/>
+										<FormInput span={6} onChangeCallback={this.formControlCallback}
+												   placeholder="Мобильный телефон"
+												   inputmask={driverPhoneMask}
+												   controlName={'clientSecondPhone'} value={''}/>
+									</Row>
+
+									<Row className="kasko-car-select__controls" gutter={20}>
+										<FormCheckbox onChangeCallback={this.formControlCallback}
+													  text="Согласие на запрос из БКИ"
+													  value={1}
+													  controlName={'BKIAgreement'} checked={true}/>
+									</Row>
+
+									<Row className="kasko-car-select__controls" gutter={20}>
+										<FormCheckbox onChangeCallback={this.formControlCallback}
+													  text="Согласие на обработку ПД"
+													  value={1}
+													  controlName={'DataPrecessingAgreement'} checked={true}/>
+									</Row>
+
+									<Row className="kasko-car-select__controls" gutter={20}>
+										<FormCheckbox onChangeCallback={this.formControlCallback}
+													  text="Согласие на электронное подписание документов"
+													  value={1}
+													  controlName={'eSignAgreement'} checked={true}/>
+									</Row>
+								</>
+							 : null
+							}
 						</div>)
 					}) : null
 				}

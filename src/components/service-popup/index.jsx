@@ -1,20 +1,20 @@
 import React, {Component} from "react";
-import {Checkbox, Col, Row} from "antd";
+import {Checkbox, Col, Row, Switch} from "antd";
 
 import './style.scss';
 import PropTypes from "prop-types";
 //import KaskoCarSelect from "../kasko-car-select";
-//import KaskoCarSelectNew from "../kasko-car-select-new";
+import KaskoCarSelectNew from "../kasko-car-select-new";
 import ClientQuestionnaire from "../client-questionnaire";
-//import DriverInfo from "../driver-info";
+import DriverInfo from "../driver-info";
 //import ClientInfo from "../client-info";
-//import ClientInfoNew from "../client-info-new";
+import ClientInfoNew from "../client-info-new";
 import DriverCount from "../driver-count";
-//import KaskoCarSelectOsago from "../kasko-car-select-osago";
-import CreditCarSelect from "../credit-car-select";
+import KaskoCarSelectOsago from "../kasko-car-select-osago";
+import ServiceCarSelect from "../service-car-select";
 import CreditDriverInfo from "../credit-driver-info";
 
-class CreditPopup extends Component {
+class ServicePopup extends Component {
 	constructor(props) {
 		super(props);
 		this.state = {
@@ -69,6 +69,14 @@ class CreditPopup extends Component {
 		});
 	};
 
+	formSave = () => {
+		typeof this.props.popupCallback === 'function' && this.props.popupCallback(true)
+	}
+
+	formCancel = () => {
+		typeof this.props.popupCallback === 'function' && this.props.popupCallback(false)
+	}
+
 	onToggleClientFields = e => {
 		this.setState({
 			showClientFields: !this.state.showClientFields
@@ -80,14 +88,6 @@ class CreditPopup extends Component {
 			showCarFields: !this.state.showCarFields
 		});
 	};
-
-	formSave = () => {
-		typeof this.props.popupCallback === 'function' && this.props.popupCallback(true)
-	}
-
-	formCancel = () => {
-		typeof this.props.popupCallback === 'function' && this.props.popupCallback(false)
-	}
 
 	onCalculationTypeChange = (checked) => {
 		this.setState({fullCalculation: checked})
@@ -111,36 +111,37 @@ class CreditPopup extends Component {
 				<div className="calculation-popup__close" onClick={popupCloseFunc}/>
 				
 				<h1 onClick={allFields ? this.onToggleCarFields : null} className={"kasko-main__title" + (allFields ? (this.state.showCarFields ? " expanded" : " collapsed") : "")}>Автомобиль</h1>
+			
+				<ServiceCarSelect hideOffers={true} allFields={false} expanded={true} fullCalculation={true}/>
 				
-				<CreditCarSelect hideOffers={true} allFields={allFields} expanded={true} fullCalculation={this.state.fullCalculation}/>
-					
 				<h1 onClick={allFields ? this.onToggleClientFields : null} className={"kasko-main__title" + (allFields ? (this.state.showClientFields ? " expanded" : " collapsed") : "")}>Анкета клиента</h1>
 				
-				{
-					((step === void 0) || (step !== 2) || this.state.showClientFields) ?
-						<>
-							<div className={"kasko-car-select__controls ant-row-center align_center"}>
-								<Checkbox checked={this.state.useOCR ? "checked" : null}
-										  onChange={this.onUseOCRChange}>Не распознавать документы</Checkbox>
-							</div>
-							<ClientQuestionnaire credit={true}/>
-							<DriverCount step={step} driverOptions={driverOptions}/>
-						</>
-						: null
+				{((step === void 0) || (step !== 2) || this.state.showClientFields) ?
+					<>
+						<div className={"kasko-car-select__controls ant-row-center align_center"}>
+							<Checkbox checked={this.state.useOCR ? "checked" : null}
+									  onChange={this.onUseOCRChange}>Не распознавать документы</Checkbox>
+						</div>
+						<ClientQuestionnaire/>
+					</>
+					: null
 				}
-				
-				<CreditDriverInfo familyInfo={true} professionalActivity={true} incomesExpenses={true} contactsFull={true}
-								  additioanalChecks={true} calculationSave={updatePaymentState} expanded={(step !== 2) || this.state.showClientFields} fullCalculation={this.state.fullCalculation} />
+
+				<CreditDriverInfo familyInfo={false} professionalActivity={false} incomesExpenses={false} contactsFull={false}
+								  additioanalChecks={false}
+								  expanded={(step !== 2) || this.state.showClientFields}
+								  fullCalculation={this.state.fullCalculation}/>
 
 				<Row gutter={20} className="kasko-car-select__controls">
 					<Col span={3}/>
-					<Col span={6}>
-						<div onClick={() => {
-							this.formCancel()
-						}} className="ant-btn btn_green fz_14 w_100p">Отмена</div>
+					<Col span={3}>
+						<div onClick={() => {this.formCancel()}} className="ant-btn btn_green fz_14 w_100p"
+						>Отмена</div>
 					</Col>
-					<Col span={6}>
-						<div onClick={() => this.formSave()} className={"ant-btn ant-btn-primary btn_middle w_100p"}>Отправить заявку в банк</div>
+					<Col span={12}>
+						<div onClick={() => this.formSave()}
+							 className={"ant-btn ant-btn-primary btn_middle w_100p"}
+						>Сохранить и оформить карты</div>
 					</Col>
 				</Row>
 			</div>
@@ -148,4 +149,4 @@ class CreditPopup extends Component {
 	}
 }
 
-export default CreditPopup;
+export default ServicePopup;

@@ -9,11 +9,12 @@ import Osago from "./pages/osago";
 import Orders from "./pages/orders";
 import CheryLayout from "./layouts/chery-layout";
 import Chat from "./components/orders/chat";
+import Service from "./pages/service";
 
 function App() {
   return (
       <BrowserRouter>
-          <div className="dev-navigation">
+            <div className="dev-navigation">
               <ul>
                   <li>
                       <Link to="/">home</Link>
@@ -43,13 +44,22 @@ function App() {
                       <Link to="/credit_kasko">credit_kasko</Link>
                   </li>
                   <li>
+                      <Link to="/service">service</Link>
+                  </li>
+                  <li>
+                      <Link to="/service_payment">service_payment</Link>
+                  </li>
+                  <li>
+                      <Link to="/service_done">service_done</Link>
+                  </li>
+                  <li>
                       <Link to="/chery">chery</Link>
                   </li>
                   <li>
                       <Link to="/orders">orders</Link>
                   </li>
               </ul>
-          </div>
+            </div>
           
             <Route exact path="/" render={(routeProps) => (
                 <PageLayout>
@@ -71,6 +81,21 @@ function App() {
                     <Kasko {...routeProps} step={3} showOffers={'каско'}/>
                 </PageLayout>
             )}/>
+          <Route path="/service" render={(routeProps) => (
+              <PageLayout>
+                  <Service {...routeProps} showOffers={'сервис меню'} service={true}/>
+              </PageLayout>
+          )}/>
+          <Route path="/service_payment" render={(routeProps) => (
+              <PageLayout>
+                  <Service {...routeProps} step={2} showOffers={'сервис меню'} service={true}/>
+              </PageLayout>
+          )}/>
+          <Route path="/service_done" render={(routeProps) => (
+              <PageLayout>
+                  <Service {...routeProps} step={3} showOffers={'сервис меню'} service={true}/>
+              </PageLayout>
+          )}/>
             <Route path="/credit" render={(routeProps) => (
                 <PageLayout>
                     <Credit {...routeProps} showOffers={'кредит'}/>

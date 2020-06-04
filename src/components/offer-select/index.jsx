@@ -448,7 +448,7 @@ class OfferSelect extends Component {
 				<div className="kasko-car-select">
 					<h1 className="kasko-main__title">{'Рассчитать ' + (osago ? 'ОСАГО' : 'КАСКО')}</h1>
 
-					{popup ? "" :
+					{popup ? null :
 						<div className="kasko-car-select__controls">
 							<span onClick={this.toggleCarOptions} className={"gl_link color_black kasko-car-select__controls--toggle " + (this.state.showCarOptions ? 'expanded' : 'collapsed')}>Автомобиль</span>
 						</div>
@@ -457,7 +457,7 @@ class OfferSelect extends Component {
 					{this.state.showCarOptions ?
 						<KaskoCarSelect imageCallback={this.imageCallback} fill={true} step={step} image={image}/>
 						: 
-						image === false ? "" : 
+						image === false ? null : 
 							<div className="kasko-car-select__image">
 								<img src={'./cars/' + image + '.png'} alt=""/>
 							</div>
@@ -660,10 +660,10 @@ class OfferSelect extends Component {
 											]}/>
 										{/*</div>*/}
 									
-									</> : "" }
+									</> : null }
 
 									{!osago ? <div onClick={this.toggleShowParams}
-										 className={"kasko-car-select__caption" + (this.state.showCalculationOffers ? (this.state.openParams ? " expanded" : " collapsed") : "")}>Параметры КАСКО</div> : "" }
+										 className={"kasko-car-select__caption" + (this.state.showCalculationOffers ? (this.state.openParams ? " expanded" : " collapsed") : "")}>Параметры КАСКО</div> : null }
 									
 									{(!this.state.showCalculationOffers || this.state.openParams || osago) ?
 										<>
@@ -736,11 +736,11 @@ class OfferSelect extends Component {
 														</Checkbox.Group>
 													</div>
 												</>
-											: ""}
+											: null}
 
 											{osago ?
-												<div onClick={this.toggleShowParams} className={"kasko-car-select__caption" + (this.state.activeOffers.length ? (this.state.openParams ? " expanded" : " collapsed") : "")}>Параметры ОСАГО</div>
-											: ""}
+												<div onClick={this.toggleShowParams} className={"kasko-car-select__caption" + (this.state.activeOffers.length ? (this.state.openParams ? " expanded" : " collapsed") : null)}>Параметры ОСАГО</div>
+											: null}
 
 											{(!osago || this.state.openParams) ?
 													<>
@@ -775,10 +775,10 @@ class OfferSelect extends Component {
 																			  className="gl_link">Анкета КАСКО</span>
 																	</div>
 																</Col>
-															: ""}
+															: null}
 														</DriverCount>
 
-														{this.state.showCalculationOffers ? "" :
+														{this.state.showCalculationOffers ? null :
 															<>
 																{!osago ?
 																	<div
@@ -789,7 +789,7 @@ class OfferSelect extends Component {
 																				onChange={this.onCalculationTypeChange}/>
 																		<span className="kasko-car-select__calculation--text">Окончательный расчет</span>
 																	</div>
-																	: ""
+																	: null
 																}
 																
 																<div
@@ -806,11 +806,11 @@ class OfferSelect extends Component {
 														{/*</div>*/}
 														
 													</>
-											: "" }
+											: null }
 										</>
-										: ""
+										: null
 									}
-								</> : ""
+								</> : null
 							}
 							
 							{this.state.showCalculationOffers ?
@@ -865,30 +865,15 @@ class OfferSelect extends Component {
 														}
 													</>
 												: (this.state.showPayment || osago) ?
-													<>
-														<div className="kasko-car-select__controls--group payment">
-															{/*<div className="kasko-car-select__controls--group-l">*/}
-															{/*	<Link to="/" className={"gl_link color_black"}>Сохранить&nbsp;расчет</Link>*/}
-															{/*</div>*/}
-
-															{/*<p className="text_center">*/}
-															{/*	<span onClick={this.toggleCalculationPopup}*/}
-															{/*		  className="gl_link">Анкета КАСКО</span>*/}
-															{/*</p>*/}
-															
-															<a href={this.state.availablePayment ? (osago ? "/osago_payment" : "/kasko_payment") : "#"} className={"ant-btn ant-btn-primary btn_middle" + ((this.state.availablePayment) ? "" : " disabled")}>{this.state.showCompare ? 'Сравнить' : 'Оплатить в кассу'}</a>
-															<div className="kasko-car-select__controls--group-r _bottom">
-																<PaymentSwitch allowPayment={this.state.availablePayment} paymentStep={0}/>
-																{/*<Link to="/" className={"gl_link"}>Сравнить</Link>*/}
-															</div>
+													<div className="kasko-car-select__controls--group payment">
+														<a href={this.state.availablePayment ? (osago ? "/osago_payment" : "/kasko_payment") : "#"} className={"ant-btn ant-btn-primary btn_middle" + ((this.state.availablePayment) ? "" : " disabled")}>{this.state.showCompare ? 'Сравнить' : 'Оплатить в кассу'}</a>
+														<div className="kasko-car-select__controls--group-r _bottom">
+															<PaymentSwitch allowPayment={this.state.availablePayment} paymentStep={0}/>
+															{/*<Link to="/" className={"gl_link"}>Сравнить</Link>*/}
 														</div>
-													</>
+													</div>
 													:
 													<div className="kasko-car-select__controls--group text_center">
-														{/*<div className="kasko-car-select__controls--group-l">*/}
-														{/*	<Link to="/" className={"gl_link color_black"}>Сохранить&nbsp;расчет</Link>*/}
-														{/*</div>*/}
-														
 														{popup ?
 															<>
 																<Button htmlType="submit"
@@ -905,20 +890,14 @@ class OfferSelect extends Component {
 																		className={"ant-btn-primary btn_wide"}
 																		onClick={this.toggleCalculationPopup}>{this.calculationButtonText()}</Button>
 
-																<Link to="/credit_kasko" className={"btn_wide"}>Добавить в кредит</Link>
+																<Link to="/credit_kasko" className={"btn_wide ant-btn"}>Добавить в кредит</Link>
 															</>
 														}
-														
-														{/*<div className="kasko-car-select__controls--group-r">*/}
-														{/*	<Link to="/" className={"gl_link"}>Сравнить</Link>*/}
-														{/*</div>*/}
-
 													</div>
 											}
-											
 										</div>
 									</>
-								: ""
+								: null
 							}
 						</>
 					}
@@ -930,7 +909,8 @@ class OfferSelect extends Component {
 					<PopupOverlay span={16}>
 						<CalculationPopup osago={osago} updatePaymentState={this.updatePaymentState} step={this.state.showCalculationOffers ? 2 : step} allFields={this.state.showCalculationOffers || (step === 2)} fullCalculation={this.state.showCalculationOffers || this.state.fullCalculation} popupCloseFunc={this.toggleCalculationPopup} />
 					</PopupOverlay>
-					: ""}
+					: null
+				}
 			</>
 		);
 	}

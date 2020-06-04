@@ -1,5 +1,5 @@
 import React, {Component} from "react";
-import {Checkbox, Switch} from "antd";
+import {Checkbox, Col, Switch} from "antd";
 
 import './style.scss';
 import PropTypes from "prop-types";
@@ -7,7 +7,7 @@ import PropTypes from "prop-types";
 import KaskoCarSelectNew from "../kasko-car-select-new";
 import ClientQuestionnaire from "../client-questionnaire";
 import DriverInfo from "../driver-info";
-//import ClientInfo from "../client-info";
+import ClientInfo from "../client-info";
 import ClientInfoNew from "../client-info-new";
 import DriverCount from "../driver-count";
 import KaskoCarSelectOsago from "../kasko-car-select-osago";
@@ -104,7 +104,7 @@ class CalculationPopup extends Component {
 						<span className="kasko-car-select__calculation--text">Предварительный расчет</span>
 						<Switch checked={allFields || this.state.fullCalculation} className="kasko-car-select__calculation--switch" onChange={this.onCalculationTypeChange}/>
 						<span className="kasko-car-select__calculation--text">Окончательный расчет</span>
-					</div> : ""}
+					</div> : null}
 
 					{
 						(!osago && allFields) ?
@@ -113,7 +113,7 @@ class CalculationPopup extends Component {
 								{/*<ClientInfo fullCalculation={this.state.fullCalculation}/>*/}
 								<ClientInfoNew fullCalculation={this.state.fullCalculation}/>
 							</>
-							: ""
+							: null
 					}
 					
 					<h1 onClick={allFields ? this.onToggleCarFields : null} className={"kasko-main__title" + (allFields ? (this.state.showCarFields ? " expanded" : " collapsed") : "")}>Автомобиль</h1>
@@ -136,7 +136,7 @@ class CalculationPopup extends Component {
 								<ClientQuestionnaire/>
 								<DriverCount step={step} driverOptions={driverOptions}/>
 							</>
-							: ""
+							: null
 					}
 					
 					<DriverInfo osago={osago} calculationSave={updatePaymentState} expanded={(step !== 2) || this.state.showClientFields} fullCalculation={this.state.fullCalculation} />

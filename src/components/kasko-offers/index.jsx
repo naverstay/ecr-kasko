@@ -36,7 +36,7 @@ class KaskoOffers extends Component {
 		
 		let carouselSettings = {
 			dots: false,
-			infinite: true,
+			infinite: false,
 			slidesToShow: 4,
 			slidesToScroll: 1,
 			variableWidth: false

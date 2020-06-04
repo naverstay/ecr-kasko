@@ -607,7 +607,8 @@ class CarCredit extends Component {
 					<PopupOverlay span={16}>
 						<CreditPopup popupCallback={this.creditPopupCallback} updatePaymentState={this.updatePaymentState} step={this.state.showCalculationOffers ? 2 : step} allFields={this.state.showCalculationOffers || (step === 2)} fullCalculation={true} popupCloseFunc={this.toggleCalculationPopup} />
 					</PopupOverlay>
-					: null}
+					: null
+				}
 					
 				{this.state.calculationPopupKasko ?
 					<PopupOverlay span={16}>

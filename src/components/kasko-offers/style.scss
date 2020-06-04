@@ -27,7 +27,8 @@
 			@extend %text1;
 			background: $color-grey-light;
 			position: relative;
-			padding: 15px;
+			height: 48px;
+			padding: 3px 15px;
 			white-space: nowrap;
 			overflow: hidden;
 			max-width: 100%;
@@ -164,6 +165,14 @@
 			}
 		}
 		
+		&--name {
+			line-height: 1.2;
+			
+			.kasko-offer__item--btn + & {
+				white-space: normal;
+			}
+		}
+		
 		&--btn {
 			@extend %text2;
 			position: relative;
@@ -176,6 +185,7 @@
 			background: $color-blue-light;
 			box-sizing: border-box;
 			margin: -5px 0;
+			order: 1;
 
 			&:before {
 				color: #fff;

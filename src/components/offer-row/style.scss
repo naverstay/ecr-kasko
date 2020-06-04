@@ -104,6 +104,28 @@
 				}
 			}
 		}
+		
+		&.cols-3 {
+			column-count: 3;
+		}
+		
+		&.check {
+			li {
+				&:before {
+					font-family: $icomoon-font-family;
+					content: $i-check;
+					background: none;
+					left: -3px;
+					top: 1px;
+					color: $color-blue-light;
+					border-radius: 0;
+					width: 10px;
+					height: 10px;
+					font-size: 10px;
+				}
+			}
+		}
+		
 	}
 	
 	&__logo {
@@ -133,6 +155,10 @@
 				color: $color-green;
 			}
 		}
+	}
+	
+	&__dealer {
+		color: $color-grey;
 	}
 	
 	&__link {

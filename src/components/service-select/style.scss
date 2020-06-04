@@ -1,0 +1,33 @@
+@import 'src/assets/styles/global';
+
+.offer-select {
+
+	&__sms {
+		position: relative;
+		width: 226px;
+		padding: 0 10px;
+		display: inline-block;
+		vertical-align: top;
+		text-align: left;
+
+		.ant-btn {
+			font-size: 14px;
+			margin-top: 15px;
+			position: absolute;
+			top: 100%;
+			left: 10px;
+			right: 10px;
+		}
+
+		.gl_link {
+			@extend %text2;
+			white-space: nowrap;
+			margin-top: 15px;
+			position: absolute;
+			top: 100%;
+			left: 50%;
+			transform: translate(-50%, 0);
+			color: $color-grey;
+		}
+	}
+}

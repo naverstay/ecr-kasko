@@ -2,7 +2,6 @@ import React, {Component} from "react";
 import {Button, Col, Row} from "antd";
 import AsideBlock from "../../components/aside-block";
 import AsideCrumbs from "../../components/aside-crumbs";
-import KaskoNotices from "../../components/kasko-notices";
 import KaskoUser from "../../components/kasko-user";
 import KaskoCarInfo from "../../components/kasko-car-info";
 import KaskoCarSelect from "../../components/kasko-car-select";
@@ -12,8 +11,10 @@ import './style.scss';
 import OfferSelect from "../../components/offer-select";
 import AuthPopup from "../../components/auth-popup";
 import PopupOverlay from "../../components/popup-overlay";
+import ServiceSelect from "../../components/service-select";
+import ServiceNotices from "../../components/service-notices";
 
-class Kasko extends Component {
+class Service extends Component {
 	constructor(props) {
 		super(props);
 		this.state = {
@@ -44,32 +45,34 @@ class Kasko extends Component {
 	}
 
 	render() {
-		const {showOffers, step, progress, cabinet} = this.props;
+		const {showOffers, step, service, cabinet} = this.props;
 		
-		const events = []
-		
-		if (step === 2) {
-			events.push({
-					progress: 1,
+		let events = []
+
+		if (!service) {
+			if (step === 2) {
+				events.push({
+						progress: 1,
+						name: 'КАСКО',
+						status: 'Ожидание оплаты / Ингосстрах',
+						time: '9:50'
+					})
+			}
+			
+			if (step === 3) {
+				events.push({
+					progress: 2,
 					name: 'КАСКО',
-					status: 'Ожидание оплаты / Ингосстрах',
+					status: 'Выпущено / ВСК',
 					time: '9:50'
 				})
-		}
-		
-		if (step === 3) {
-			events.push({
-				progress: 2,
-				name: 'КАСКО',
-				status: 'Выпущено / ВСК',
-				time: '9:50'
-			})
-			events.push({
-				progress: 1,
-				name: 'КАСКО',
-				status: 'Ожидание оплаты / ВСК',
-				time: '9:50'
-			})
+				events.push({
+					progress: 1,
+					name: 'КАСКО',
+					status: 'Ожидание оплаты / ВСК',
+					time: '9:50'
+				})
+			}
 		}
 		
 		return (
@@ -85,7 +88,7 @@ class Kasko extends Component {
 							</AsideBlock>
 
 							<AsideBlock>
-								<KaskoCarInfo step={step} notificationCount={step === 2 ? 1 : step === 3 ? 2 : 0}
+								<KaskoCarInfo step={0} notificationCount={0}
 											  carName={step === 1 ? '' : 'Hyundai'}
 											  carModel={step === 1 ? '' : 'Sonata'} image={this.state.carImage}
 											  info={step === 1 ? '' : "2020 Новый"}
@@ -100,11 +103,17 @@ class Kasko extends Component {
 						{showOffers === false ?
 							<>
 								<h1 className="kasko-main__title">Автомобиль</h1>
-								<KaskoCarSelect imageCallback={this.imageCallback} step={step} image={this.state.carImage} />
+								<KaskoCarSelect fill={false} imageCallback={this.imageCallback} step={step} image={this.state.carImage} />
 							</>
 							:
 							<>
-								<OfferSelect imageCallback={this.imageCallback} step={step} image={this.state.carImage} type={showOffers}/>
+								{service ?
+									<ServiceSelect imageCallback={this.imageCallback} step={step}
+												 image={this.state.carImage} type={showOffers}/>
+									: 
+									<OfferSelect imageCallback={this.imageCallback} step={step}
+											   image={this.state.carImage} type={showOffers}/>
+								}
 							</>
 						}
 					</Col>
@@ -113,14 +122,14 @@ class Kasko extends Component {
 						<Col span={4} className="kasko-aside">
 								<Button onClick={this.toggleAuth} className={"ant-btn ant-btn-primary kasko-aside__btn"}>Личный кабинет</Button>
 
-							{showOffers === false ? "" :
+							{showOffers === false ? null :
 								<AsideBlock>
-									<KaskoNotices step={step} status={step === 2 ? 1 : step === 3 ? 3 : 0} type={showOffers}/>
+									<ServiceNotices step={step} status={step === 2 ? 1 : step === 3 ? 3 : 0} type={showOffers}/>
 								</AsideBlock>
 							}
 
 							<AsideBlock>
-								<KaskoNotices noticeList={[{title: 'Сегодня, Пон 20.02.19', list: events}]}/>
+								<ServiceNotices noticeList={[{title: 'Сегодня, Пон 20.02.19', list: events}]}/>
 							</AsideBlock>
 						</Col>
 						: <Col span={4} className="kasko-aside"/>
@@ -139,7 +148,7 @@ class Kasko extends Component {
 							</AsideBlock>
 		
 							<AsideBlock>
-								<KaskoCarInfo step={step} notificationCount={step === 2 ? 1 : step === 3 ? 2 : 0}
+								<KaskoCarInfo step={0} notificationCount={0}
 											  carName={step === 1 ? '' : 'Hyundai'} carModel={step === 1 ? '' : 'Sonata'} image={this.state.carImage}
 											  info={step === 1 ? '' : "2020 Новый"}
 											  price={step === 1 ? '' : "1 534 000 ₽"}/>
@@ -150,19 +159,19 @@ class Kasko extends Component {
 		
 						<Col span={4} className="kasko-aside">
 							{showOffers === false ?
-								""
+								null
 								:
 								<AsideBlock>
-									<KaskoNotices step={step} status={step === 2 ? 1 : step === 3 ? 3 : 0} type={showOffers}/>
+									<ServiceNotices step={step} status={step === 2 ? 1 : step === 3 ? 3 : 0} type={showOffers}/>
 								</AsideBlock>
 							}
 		
 							<AsideBlock>
-								<KaskoNotices noticeList={[{title: 'Сегодня, Пон 20.02.19', list: events}]}/>
+								<ServiceNotices noticeList={[{title: 'Сегодня, Пон 20.02.19', list: events}]}/>
 							</AsideBlock>
 						</Col>
 					</Row> 
-					: "" }
+					: null }
 				
 				{this.state.showAuthForm ?
 					<PopupOverlay>
@@ -175,4 +184,4 @@ class Kasko extends Component {
 	}
 }
 
-export default Kasko
+export default Service

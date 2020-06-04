@@ -59,12 +59,12 @@ class KaskoNotices extends Component {
 						<div className="kasko-notice__unit--time">{l.time}</div>
 						<div className="kasko-notice__unit--status">{l.status}</div>
 					</div>)
-				: ""
+				: null
 			}
 			
-		</li>) : "";
+		</li>) : null;
 
-		const progressHtml = [] 
+		let progressHtml = []
 		
 		if (status !== void 0) {
 			for (let p in progressNames) {
@@ -74,133 +74,132 @@ class KaskoNotices extends Component {
 			}
 		}
 		
-		return (
-			type ?
-				<div className="kasko-notice">
-					<div className={"kasko-notice" + (this.state.noticeOpened ? " open" : "")}>
-						<div className="kasko-notice__head">
-							<div className={"kasko-notice__caption offer" + (this.state.noticeOpened ? " open" : "")}
-								 onClick={this.toggleOpened}>{(type).toUpperCase()}</div>
-							<div className={"kasko-notice__status " + (statusClasses[status])}>{statusNames[status]}</div>
-						</div>
-						<ul className="kasko-notice__progress">
-							{progressHtml}
-						</ul>
-						{this.state.noticeOpened ?
-								credit ?
-										<ul className={"kasko-notice__price"}>
-											<li>
-												<div className="kasko-notice__price--label">Платеж в мес.</div>
-												<div className="kasko-notice__price--value">
-													{step >= 2 ?
-														<>
-															<span>41 450 ₽</span>
-															<span className="kasko-notice__status calculation">Наличные</span>
-														</>
-														: ''}
-												</div>
-											</li>
-											<li>
-												<div className="kasko-notice__price--label">Срок</div>
-												<div
-													className="kasko-notice__price--value">{step >= 2 ? 'ВСК' : ''}
-												</div>
-												
-											</li>
-											<li>
-												<div className="kasko-notice__price--label">ПВ</div>
-												<div
-													className="kasko-notice__price--value">{step >= 2 ? <>21.09.19<br/>20.09.20</> : ''}</div>
-											</li>
-											<li>
-												<div className="kasko-notice__price--label">Сумма кредита</div>
-												<div className="kasko-notice__price--value"/>
-											</li>
-											<li>
-												<div className="kasko-notice__price--label">Включено</div>
-												<div className="kasko-notice__price--value"/>
-											</li>
-											<li>
-												<Link to="#" className="kasko-notice__link">Рассчитать кредит</Link>
-											</li>
-											<li>
-												<Link to="#" className="kasko-notice__link">Подготовить заявку</Link>
-											</li>
-											<li>
-												<Link to="#" className="kasko-notice__link">Оформить кредит</Link>
-											</li>
-										</ul>
-									:
-									kasko ?
-										<ul className={"kasko-notice__price"}>
-											<li>
-												<div className="kasko-notice__price--label">Стоимость</div>
-												<div className="kasko-notice__price--value">
-													{step >= 2 ? <span>41 450 ₽</span> : ''}
-												</div>
-											</li>
-											<li>
-												<div className="kasko-notice__price--label">СК</div>
-												<div
-													className="kasko-notice__price--value">{step >= 2 ? 'Ингосстрах' : ''}</div>
-											</li>
-											<li>
-												<div className="kasko-notice__price--label">Срок</div>
-												<div
-													className="kasko-notice__price--value">{step >= 2 ? <>21.09.19<br/>20.09.20</> : ''}</div>
-											</li>
-											<li>
-												<div className="kasko-notice__price--label">Полис</div>
-												<div className="kasko-notice__price--value"/>
-											</li>
-										</ul>
-										:
-										<ul className={"kasko-notice__price"}>
-											<li>
-												<div className="kasko-notice__price--label">Стоимость</div>
-												<div className="kasko-notice__price--value">
-													{step >= 2 ? 
-														<>
-															<span>41 450 ₽</span>
-															{osago ? "" : <span
-																className="kasko-notice__status calculation">Наличные</span>}
-														</>
-														: ''}
-												</div>
-											</li>
-											<li>
-												<div className="kasko-notice__price--label">СК</div>
-												<div
-													className="kasko-notice__price--value">{step >= 2 ? 'ВСК' : ''}
-												</div>
-											</li>
-											<li>
-												<div className="kasko-notice__price--label">Срок</div>
-												<div
-													className="kasko-notice__price--value">{step >= 2 ? <>21.09.19<br/>20.09.20</> : ''}</div>
-											</li>
-											<li>
-												<div className="kasko-notice__price--label">Полис</div>
-												<div className="kasko-notice__price--value"/>
-											</li>
-										</ul>
-							: ""}
-					</div>
-				</div>
-			:
+		return (type ?
+			<div className="kasko-notice">
 				<div className={"kasko-notice" + (this.state.noticeOpened ? " open" : "")}>
 					<div className="kasko-notice__head">
-						<div
-							className={"kasko-notice__caption color_red" + (this.state.noticeOpened ? " open" : "")}
-							onClick={this.toggleOpened}>Уведомления</div>
-						<div className="kasko-notice__settings"/>
+						<div className={"kasko-notice__caption offer" + (this.state.noticeOpened ? " open" : "")}
+							 onClick={this.toggleOpened}>{(type).toUpperCase()}</div>
+						<div className={"kasko-notice__status " + (statusClasses[status])}>{statusNames[status]}</div>
 					</div>
+					<ul className="kasko-notice__progress">
+						{progressHtml}
+					</ul>
 					{this.state.noticeOpened ?
-						<ul className="kasko-notice__list">
-							{noticeHtml}
-						</ul>
-						: ""}
+						credit ?
+								<ul className={"kasko-notice__price"}>
+									<li>
+										<div className="kasko-notice__price--label">Платеж в мес.</div>
+										<div className="kasko-notice__price--value">
+											{step >= 2 ?
+												<>
+													<span>41 450 ₽</span>
+													<span className="kasko-notice__status calculation">Наличные</span>
+												</>
+												: null}
+										</div>
+									</li>
+									<li>
+										<div className="kasko-notice__price--label">Срок</div>
+										<div
+											className="kasko-notice__price--value">{step >= 2 ? 'ВСК' : ''}
+										</div>
+										
+									</li>
+									<li>
+										<div className="kasko-notice__price--label">ПВ</div>
+										<div
+											className="kasko-notice__price--value">{step >= 2 ? <>21.09.19<br/>20.09.20</> : ''}</div>
+									</li>
+									<li>
+										<div className="kasko-notice__price--label">Сумма кредита</div>
+										<div className="kasko-notice__price--value"/>
+									</li>
+									<li>
+										<div className="kasko-notice__price--label">Включено</div>
+										<div className="kasko-notice__price--value"/>
+									</li>
+									<li>
+										<Link to="#" className="kasko-notice__link">Рассчитать кредит</Link>
+									</li>
+									<li>
+										<Link to="#" className="kasko-notice__link">Подготовить заявку</Link>
+									</li>
+									<li>
+										<Link to="#" className="kasko-notice__link">Оформить кредит</Link>
+									</li>
+								</ul>
+							:
+							kasko ?
+								<ul className={"kasko-notice__price"}>
+									<li>
+										<div className="kasko-notice__price--label">Стоимость</div>
+										<div className="kasko-notice__price--value">
+											{step >= 2 ? <span>41 450 ₽</span> : null}
+										</div>
+									</li>
+									<li>
+										<div className="kasko-notice__price--label">СК</div>
+										<div
+											className="kasko-notice__price--value">{step >= 2 ? 'Ингосстрах' : ''}</div>
+									</li>
+									<li>
+										<div className="kasko-notice__price--label">Срок</div>
+										<div
+											className="kasko-notice__price--value">{step >= 2 ? <>21.09.19<br/>20.09.20</> : ''}</div>
+									</li>
+									<li>
+										<div className="kasko-notice__price--label">Полис</div>
+										<div className="kasko-notice__price--value"/>
+									</li>
+								</ul>
+								:
+								<ul className={"kasko-notice__price"}>
+									<li>
+										<div className="kasko-notice__price--label">Стоимость</div>
+										<div className="kasko-notice__price--value">
+											{step >= 2 ? 
+												<>
+													<span>41 450 ₽</span>
+													{osago ? null : <span
+														className="kasko-notice__status calculation">Наличные</span>}
+												</>
+												: null}
+										</div>
+									</li>
+									<li>
+										<div className="kasko-notice__price--label">СК</div>
+										<div
+											className="kasko-notice__price--value">{step >= 2 ? 'ВСК' : ''}
+										</div>
+									</li>
+									<li>
+										<div className="kasko-notice__price--label">Срок</div>
+										<div
+											className="kasko-notice__price--value">{step >= 2 ? <>21.09.19<br/>20.09.20</> : ''}</div>
+									</li>
+									<li>
+										<div className="kasko-notice__price--label">Полис</div>
+										<div className="kasko-notice__price--value"/>
+									</li>
+								</ul>
+						: null}
 				</div>
+			</div>
+			:
+			<div className={"kasko-notice" + (this.state.noticeOpened ? " open" : null)}>
+				<div className="kasko-notice__head">
+					<div
+						className={"kasko-notice__caption color_red" + (this.state.noticeOpened ? " open" : "")}
+						onClick={this.toggleOpened}>Уведомления</div>
+					<div className="kasko-notice__settings"/>
+				</div>
+				{this.state.noticeOpened ?
+					<ul className="kasko-notice__list">
+						{noticeHtml}
+					</ul>
+					: null}
+			</div>
 		);
 	}
 }

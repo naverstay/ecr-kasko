@@ -1,0 +1,284 @@
+@import 'src/assets/styles/global';
+
+.kasko-notice {
+	color: #000;
+
+	&__list {
+		border-top: 2px solid $color-prime;
+	}
+	
+	&__link {
+		text-decoration: underline;
+		color: #000;
+		margin-top: 8px;
+		font-size: 12px;
+	}
+
+	&__caption {
+		font-weight: 500;
+		font-size: 12px;
+		line-height: 14px;
+		position: relative;
+		padding: 8px 11px;
+		margin-right: 20px;
+		cursor: pointer;
+		display: inline-block;
+		vertical-align: top;
+
+		&:before {
+			transition: transform .25s;
+			font-family: $icomoon-font-family;
+			content: $i-chevron_r;
+			position: absolute;
+			left: -10px;
+			top: 8px;
+			color: $color-grey;
+			font-size: 16px;
+		}
+		
+		&.offer {
+			font-size: 14px;
+			padding: 2px 11px;
+			
+			&:before {
+				top: 3px;
+			}
+		}
+		
+		&.open {
+			&:before {
+				transform: rotate(90deg);
+			}
+		}
+	}
+	
+	&__status {
+		@extend %text2;
+		border-radius: 9px;
+		padding: 1px 7px;
+		min-width: 75px;
+		margin-right: -6px;
+		text-align: center;
+		
+		&.calculation {
+			color: $color-grey;
+			background: #fff;
+			border: 1px solid #b5b5b5;
+		}
+		
+		&.waiting {
+			background: $color-yellow;
+			border: 1px solid $color-yellow;
+		}
+		
+		&.approved {
+			color: #fff;
+			background: $color-green;
+			border: 1px solid $color-green;
+		}
+		
+		.kasko-notice__price--value & {
+			display: inline-block;
+			vertical-align: top;
+			margin: 7px 0;
+		}
+	}
+	
+	&__head {
+		position: relative;
+		display: flex;
+		flex-flow: row;
+		justify-content: space-between;
+		align-items: flex-start;
+	}
+	
+	&__list {
+		padding: 0;
+		list-style: none;
+		margin: 14px -15px 1px;
+		min-height: 54px;
+	}
+
+	&__unit {
+		position: relative;
+		padding: 10px;
+		
+		+ .kasko-notice__unit {
+			border-top: 1px solid #c4c4c4;
+		}
+		
+		&--status {
+			@extend %text3;
+			margin-top: 10px;
+		}
+		
+		&--time {
+			@extend %text3;
+			position: absolute;
+			top: 10px;
+			right: 8px;
+			color: $color-grey;
+		}
+		
+		&--caption {
+			@extend %text2;
+			padding: 0 24px;
+			position: relative;
+			
+			&:before {
+				content: '';
+				position: absolute;
+				left: 0;
+				top: 0;
+				border-radius: 100%;
+				width: 14px;
+				height: 14px;
+			}
+			
+			&.waiting:before {
+				background: $color-yellow;
+			}
+
+			&.approved:before {
+				background: $color-green;
+			}
+		}
+	}
+
+	&__item {
+		&--head {
+			padding: 8px 25px;
+			font-weight: bold;
+			font-size: 12px;
+			line-height: 14px;
+			color: #808080;
+			background: #fff;
+			position: relative;
+			border-bottom: 1px solid #c4c4c4;
+
+			&:before {
+				content: '';
+				position: absolute;
+				top: 12px;
+				left: 8px;
+				width: 0;
+				height: 0;
+				border-left: 6px solid transparent;
+				border-right: 6px solid transparent;
+				border-top: 6px solid $color-grey;
+			}
+		}
+		
+		&--count {
+			border-radius: 100%;
+			background: #000;
+			width: 14px;
+			height: 14px;
+			font-size: 12px;
+			line-height: 14px;
+			text-align: center;
+			display: inline-block;
+			vertical-align: top;
+			color: #fff;
+			margin-right: 5px;
+		}
+	}
+
+	&__settings {
+		cursor: pointer;
+		position: absolute;
+		right: -5px;
+		top: 4px;
+		width: 22px;
+		height: 22px;
+
+		&:before {
+			font-family: $icomoon-font-family;
+			content: $i-settings;
+			position: absolute;
+			right: 0;
+			top: 0;
+			font-size: 22px;
+			line-height: 1;
+			color: $color-grey;
+		}
+	}
+	
+	&__progress {
+		display: flex;
+		flex-flow: row nowrap;
+		padding: 0;
+		margin: 30px -3px -9px -8px;
+		list-style: none;
+				
+		&--unit {
+			margin-left: 1px;
+			height: 5px;
+			position: relative;
+			flex: 1 0 25%;
+			background: $color-grey-light;
+			color: #808080;
+			
+			span {
+				@extend %text3;
+				position: absolute;
+				bottom: 100%;
+				margin-bottom: 2px;
+				left: 50%;
+				transform: translate(-50%, 0);
+			}
+			
+			&:first-child {
+				border-radius: 0 0 2px 2px;
+				
+				span {
+					left: 0;
+					transform: translate(0, 0);
+				}
+			}
+			
+			&:last-child {
+				border-radius: 0 2px 2px 0;
+				
+				span {
+					transform: translate(0, 0);
+					right: 0;
+					left: auto;
+				}
+			}
+			
+			&.active {
+				background: $color-grey;
+			}
+		}
+	}
+	
+	&__price {
+		list-style: none;
+		padding: 0;
+		margin: 35px -5px 0;
+		
+		li {
+			display: flex;
+			flex-flow: row nowrap;
+			margin-top: 9px;
+		}
+		
+		&--value {
+			@extend %text2;
+			width: 50%;
+			
+			span:not([class]) {
+				@extend %h2;
+				margin-top: -7px;
+			}
+		}
+		
+		&--label {
+			@extend %text3;
+			width: 50%;
+			padding-right: 10px;
+			color: $color-grey;
+		}
+	}
+}

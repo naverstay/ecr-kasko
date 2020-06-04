@@ -61,8 +61,20 @@
 		&--switch {
 			&.ant-switch{
 				background: #b5b5b5;
-				//height: 16px;
+				height: 14px;
 
+				.ant-switch-handle {
+					width: 20px;
+					height: 20px;
+					margin-top: -5px;
+					margin-left: -3px;
+					
+					&:before {
+						background: $color-green;
+						border-radius: 100%;
+					}
+				}
+				
 				&:after {
 					width: 20px;
 					height: 20px;

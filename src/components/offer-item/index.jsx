@@ -39,7 +39,7 @@ class OfferItem extends Component {
 		setTimeout(() => {
 			if (typeof this.props.onOfferSelect === 'function') this.props.onOfferSelect({
 				id: index,
-				active: this.state.activeOffer
+				active: this.state.offerAdded
 			})
 
 			//if (offer.func && typeof offer.func === 'function') {
@@ -133,13 +133,13 @@ class OfferItem extends Component {
 					<div ref={this.setWrapperRef} className={"kasko-offer__item" + (offer.collapse ? " collapsable" : "") + ((active || this.state.offerAdded) && !completed ? " active" : "") + (completed ? " completed" : "") + ((this.state.offerCollapsed) ? " collapsed" : "")}>
 						<div onClick={() => ((offer.func && typeof offer.func === 'function') ? offer.func() : offer.href ? this.goTo(offer, offer.goto) : (this.toggleActiveOffer(index)))}
 							className={"kasko-offer__item--title" + (offer.button ? " no_arrow" : " toggle_icon")}>
-							<span>{offer.name}</span>
 							{offer.button ? 
 								<span className="kasko-offer__item--btn">{offer.button}</span> : 
 								<Tooltip overlayClassName="tooltip_v1" placement="top" title={this.state.offerAdded ? "Удалить" : "Добавить"}>
 									<span onClick={(e) => this.toggleOfferAdded(e, index, offer)} className={"kasko-offer__item--toggle"}/>
 								</Tooltip>
 							}
+							<span className="kasko-offer__item--name">{offer.name}</span>
 						</div>
 						<div className="kasko-offer__item--body">
 							{this.state.newPrice ? '' : offer.prefix}&nbsp;
@@ -193,13 +193,13 @@ class OfferItem extends Component {
 							<div ref={this.setWrapperRef} className={"kasko-offer__item" + (offer.collapse ? " collapsable" : "") + ((active || this.state.offerAdded) && !completed ? " active" : "") + (completed ? " completed" : "") + ((this.state.offerCollapsed) ? " collapsed" : "")}>
 								<div onClick={() => ((offer.func && typeof offer.func === 'function') ? offer.func() : offer.href ? this.goTo(offer, offer.goto) : (this.toggleActiveOffer(index)))}
 									className={"kasko-offer__item--title" + (offer.button ? " no_arrow" : " toggle_icon")}>
-									<span>{offer.name}</span>
 									{offer.button ? 
 										<span className="kasko-offer__item--btn">{offer.button}</span> : 
 										<Tooltip overlayClassName="tooltip_v1" placement="top" title={this.state.offerAdded ? "Удалить" : "Добавить"}>
 											<span onClick={(e) => this.toggleOfferAdded(e, index, offer)} className={"kasko-offer__item--toggle"}/>
 										</Tooltip>
 									}
+									<span className="kasko-offer__item--name">{offer.name}</span>
 								</div>
 								<div className="kasko-offer__item--body">
 									{this.state.newPrice ? '' : offer.prefix}&nbsp;
@@ -250,8 +250,8 @@ class OfferItem extends Component {
 						<Link ref={(el) => {this.node = el}} to={offer.link ? offer.link : "/offers"}
 							  className={"kasko-offer__item" + (completed ? " completed" : "") + ((active || this.state.activeOffer) && !completed ? " active" : "")}>
 							<div className={"kasko-offer__item--title" + (offer.button ? " no_arrow" : " toggle_icon")}>
-								<span>{offer.name}</span>
 								{offer.button ? <span className="kasko-offer__item--btn">{offer.button}</span> : ""}
+								<span className="kasko-offer__item--name">{offer.name}</span>
 							</div>
 							<div className="kasko-offer__item--body">
 								<p>
