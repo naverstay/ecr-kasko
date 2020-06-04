@@ -104,7 +104,7 @@ class AuthPopup extends Component {
 							<Col span={24}>
 								{this.state.SMSSent ?
 									<div className="offer-select__sms">
-										<Input
+										<Input maxLength={4}
 											className={"w_100p custom_placeholder" + (this.state.SMSCode.length ? "" : " _empty")}
 											onChange={this.onSMSCodeChange}
 											defaultValue=""/>

@@ -358,9 +358,9 @@ class CreditDriverInfo extends Component {
 												   placeholder="Офис" controlName={'clientOrganizationOffice'}
 												   value={''}/>
 
-										<FormInput span={3} onChangeCallback={this.formControlCallback}
-												   placeholder="Индекс" controlName={'clientOrganizationPostCode'}
-												   value={''}/>
+										{/*<FormInput span={3} onChangeCallback={this.formControlCallback}*/}
+										{/*		   placeholder="Индекс" controlName={'clientOrganizationPostCode'}*/}
+										{/*		   value={''}/>*/}
 									</Row>
 
 									<Row className="kasko-car-select__controls" gutter={20}>
@@ -482,12 +482,12 @@ class CreditDriverInfo extends Component {
 										   controlName={'clientAddress'}
 										   value={''}/>
 
-								<FormInput span={3} onChangeCallback={this.formControlCallback}
-										   placeholder="Квартира" controlName={'clientAddressFlat'} value={''}/>
+								{/*<FormInput span={3} onChangeCallback={this.formControlCallback}*/}
+								{/*		   placeholder="Квартира" controlName={'clientAddressFlat'} value={''}/>*/}
 
-								<FormInput span={3} onChangeCallback={this.formControlCallback}
-										   placeholder="Индекс" controlName={'clientAddressPostCode'}
-										   value={''}/>
+								{/*<FormInput span={3} onChangeCallback={this.formControlCallback}*/}
+								{/*		   placeholder="Индекс" controlName={'clientAddressPostCode'}*/}
+								{/*		   value={''}/>*/}
 							</Row>
 							
 							<Row className="kasko-car-select__controls" gutter={20}>

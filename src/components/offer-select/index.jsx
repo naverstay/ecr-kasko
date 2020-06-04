@@ -833,7 +833,7 @@ class OfferSelect extends Component {
 																<>
 																	<div className="kasko-car-select__controls--group-w text_center">
 																		<div className="offer-select__sms">
-																			<Input className={"w_100p custom_placeholder" + (this.state.SMSCode.length ? "" : " _empty")}
+																			<Input maxLength={4} className={"w_100p custom_placeholder" + (this.state.SMSCode.length ? "" : " _empty")}
 																				onChange={this.onSMSCodeChange}
 																				defaultValue=""/>
 																			<div className="float_placeholder">Код подтверждения</div>

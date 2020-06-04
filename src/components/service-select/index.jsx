@@ -70,7 +70,7 @@ class ServiceSelect extends Component {
 				"Executive",
 				"GT S Sports Car"
 			],
-			showPayment: this.props.osago ? this.props.step > 1 : false,
+			showPayment: this.props.step === 1,
 			showCompare: false,
 			availablePayment: false,
 			showMoreDamages: false,
@@ -504,12 +504,11 @@ class ServiceSelect extends Component {
 														<div
 															className="kasko-car-select__controls--group-w text_center">
 															<div className="offer-select__sms">
-																<Input
+																<Input maxLength={4}
 																	className={"w_100p custom_placeholder" + (this.state.SMSCode.length ? "" : " _empty")}
 																	onChange={this.onSMSCodeChange}
 																	defaultValue=""/>
-																<div className="float_placeholder">Код подтверждения
-																</div>
+																<div className="float_placeholder">Код подтверждения</div>
 																<div className="gl_link"
 																	 onClick={this.toggleSMSSent}>Отправить код повторно
 																</div>
@@ -539,21 +538,23 @@ class ServiceSelect extends Component {
 													</>
 											}
 										</>
-										: (this.state.showPayment) ?
-											<Row gutter={20} className="kasko-car-select__controls">
-												<Col span={9}/>
-												<Col span={6}>
-													<a href={this.state.availablePayment ? ("/service_payment") : "#"}
-													   className={"ant-btn ant-btn-primary btn_middle" + ((this.state.availablePayment) ? "" : " disabled")}>{this.state.showCompare ? 'Сравнить' : 'Оплатить в кассу'}</a>
-												</Col>
-												<Col span={6}>
-													<PaymentSwitch allowPayment={this.state.availablePayment}
-																   paymentStep={0}/>
-												</Col>
-											</Row>
-											: null
+										: null
 								}
 							</div>
+							
+							{(step === void 0) ?
+								<Row gutter={20} className="kasko-car-select__controls">
+									<Col span={9}/>
+									<Col span={6}>
+										<a href={this.state.availablePayment ? ("/service_payment") : "#"}
+										   className={"ant-btn ant-btn-primary btn_middle" + ((this.state.availablePayment) ? "" : " disabled")}>{'Оплатить в кассу'}</a>
+									</Col>
+									<Col span={6}>
+										<PaymentSwitch allowPayment={this.state.availablePayment} paymentStep={0}/>
+									</Col>
+								</Row>
+								: null
+							}
 						</>
 						: null
 					}

@@ -287,7 +287,7 @@ class KaskoCarSelectOsago extends Component {
 					carPrice: 1534000,
 					carPower: 245,
 					carMileage: 24500,
-					carYear: moment('2015'),
+					carYear: '2015',
 					carUsageStart: '18.05.2020'
 				})
 			}
@@ -459,6 +459,7 @@ class KaskoCarSelectOsago extends Component {
 							<Col span={6}>
 								{/*<YearPicker format="YYYY" disabledDate={disabledDate} value={this.state.carYear ? moment(this.state.carYear) : null} onChange={this.onCarYearChange} placeholder="" className={"w_100p hide_picker_icon" + (this.state.carYear && this.state.carYear._isAMomentObject ? "" : " _empty")}/>*/}
 								<Select
+									disabled={this.state.newCar ? "disabled" : ""}
 									dropdownClassName="select_dropdown_v1"
 									className={"w_100p custom_placeholder" + ((this.state.carYear + '').length ? "" : " _empty")}
 									placeholder=""

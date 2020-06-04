@@ -93,14 +93,22 @@ class ServiceNotices extends Component {
 									<div className="kasko-notice__price--label">Продленная <br/>гарантия</div>
 									<div className="kasko-notice__price--value">
 										{step >= 2 ?
-											<span>10 000 ₽</span>
+											<>
+												<span className="kasko-notice__price--big">10 000 ₽</span>
+												<span className={"offer-row__status " + (statusClasses[status])}/>
+											</>
 											: null}
 									</div>
 								</li>
 								<li>
 									<div className="kasko-notice__price--label">Ассистанс</div>
-									<div
-										className="kasko-notice__price--value">{step >= 2 ? '10 000 ₽' : ''}
+									<div className="kasko-notice__price--value">
+										{step >= 2 ?
+											<>
+												<span className="kasko-notice__price--big">10 000 ₽</span>
+												<span className={"offer-row__status " + (statusClasses[status])}/>
+											</>
+											: null}
 									</div>
 								</li>
 							</ul>

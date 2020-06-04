@@ -24,8 +24,11 @@
 				flex-flow: column nowrap;
 				justify-content: center;
 			}
+			
+			&.ant-upload-drag-hover {
+				border-color: $color-blue-light;
+			}
 		}
-
 		
 		&--icon {
 			position: relative;

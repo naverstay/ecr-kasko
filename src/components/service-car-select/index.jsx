@@ -45,7 +45,7 @@ class ServiceCarSelect extends Component {
 			carBankName: '',
 			carTransmissionType: '',
 			carNumber: '',
-			carYear: '',
+			carYear: '' + (new Date()).getFullYear(),
 			carUsageStart: '',
 			markList: [
 				"Hyundai",
@@ -265,22 +265,23 @@ class ServiceCarSelect extends Component {
 		setTimeout(() => {
 			this.setState({formBusy: false, carFound: true})
 			
-			if (this.state.carFound) {
-				this.setState({
-					allowPayment: true,
-					carATS: 'Noname',
-					carMark: 'Hyundai',
-					carModel: 'Sonata',
-					carEquipment: '2.0 MPI - 6AT',
-					carNumber: 'A 123 AA 177',
-					carRegion: 'г. Москва',
-					carPrice: 1534000,
-					carPower: 245,
-					carMileage: 24500,
-					carYear: moment('2015'),
-					carUsageStart: '18.05.2020'
-				})
-			}
+			this.setState({
+				allowPayment: true,
+				carATS: 'Noname',
+				carMark: 'Hyundai',
+				carModel: 'Sonata',
+				carEquipment: '2.0 MPI - 6AT',
+				carNumber: 'A 123 AA 177',
+				carRegion: 'г. Москва',
+				carPrice: 1534000,
+				carPower: 245,
+				carMileage: 24500,
+				carYear: '2015',
+				carVIN: 'XMCLRDG3A4F044785',
+				carPTS: 'ПТС',
+				carPTSStart: '20.05.2016',
+				carUsageStart: '18.05.2016'
+			})
 		}, 200)
 	};
 
@@ -449,6 +450,7 @@ class ServiceCarSelect extends Component {
 							<Col span={6}>
 								{/*<YearPicker format="YYYY" disabledDate={disabledDate} value={this.state.carYear ? moment(this.state.carYear) : null} onChange={this.onCarYearChange} placeholder="" className={"w_100p hide_picker_icon" + (this.state.carYear && this.state.carYear._isAMomentObject ? "" : " _empty")}/>*/}
 								<Select
+									disabled={this.state.newCar ? "disabled" : ""}
 									dropdownClassName="select_dropdown_v1"
 									className={"w_100p custom_placeholder" + ((this.state.carYear + '').length ? "" : " _empty")}
 									placeholder=""

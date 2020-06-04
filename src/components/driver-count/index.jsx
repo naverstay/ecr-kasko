@@ -88,4 +88,3 @@ class DriverCount extends Component {
 }
 
 export default DriverCount;
-
