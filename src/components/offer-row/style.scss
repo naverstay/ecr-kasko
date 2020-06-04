@@ -160,6 +160,26 @@
 	&__dealer {
 		color: $color-grey;
 	}
+
+	&__info {
+		position: relative;
+		z-index: 2;
+		display: inline-block;
+		vertical-align: middle;
+		margin-left: 7px;
+		margin-top: -2px;
+		width: 15px;
+		height: 15px;
+		
+		&:before {
+			font-family: $icomoon-font-family;
+			content: $i-info;
+			border-radius: 100%;
+			font-size: 15px;
+			line-height: 15px;
+			color: #b5b5b5;
+		}
+	}
 	
 	&__link {
 		position: relative;

@@ -32,7 +32,7 @@ class ServiceOffers extends Component {
 							<th className={"calculation-offers__table--col-9"}>Срок <br />действия</th>
 							<th className={"calculation-offers__table--col-3"}>Оплата</th>
 							<th className={"calculation-offers__table--col-4"}>Номер карты</th>
-							<th className={"calculation-offers__table--col-8"}>Получатель ДС</th>
+							<th className={"calculation-offers__table--col-10"}>Получатель ДС</th>
 							{(completed || waiting) ?
 								<th className="calculation-offers__table--col-7 text_left">Статус <br/>выпуска</th>
 							:

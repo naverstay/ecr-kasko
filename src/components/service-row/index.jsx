@@ -1,5 +1,5 @@
 import React, {Component} from "react";
-import {Checkbox} from "antd";
+import {Checkbox, Tooltip} from "antd";
 
 import './style.scss';
 import PropTypes from "prop-types";
@@ -87,31 +87,28 @@ class ServiceRow extends Component {
 
 									<td>&nbsp;</td>
 
+									<td>{o.recipient}
+										<Tooltip overlayClassName="tooltip_v1" placement="top"
+												 title={o.recipientInfo}>
+											<span className={"offer-row__info"} />
+										</Tooltip>
+									</td>
+
 									{(completed || waiting) ?
-										<>
-											<td className="text_left">
-												<div className="offer-row__documents">
-													<div className="gl_link color_black">{o.document}</div>
-													<div className="offer-row__bill gl_link">Счет на оплату</div>
-												</div>
-											</td>
-											<td>
-												<div className={"offer-row__status " + (completed ? "approved" : "waiting")}/>
-											</td>
-										</>
+										<td>
+											<div className={"offer-row__status " + (completed ? "approved" : "waiting")}/>
+										</td>
 									: 
-										<>
-											<td>&nbsp;</td>
-											<td>
-												<Checkbox disabled={((allowCheck) ? null : "disabled")} className="offer-row__check" onChange={(e) => this.onSelectOfferToggle(company, i, e)}/>
-											</td>
-											<td>
-												<div onClick={() => this.addOptionFlag(i)} className="offer-row__link"/>
-											</td>
-										</>
+										<td>
+											<Checkbox disabled={((allowCheck) ? null : "disabled")} className="offer-row__check" onChange={(e) => this.onSelectOfferToggle(company, i, e)}/>
+										</td>
 									}
+									
+									<td>
+										<div onClick={() => this.addOptionFlag(i)} className="offer-row__link"/>
+									</td>
 								</tr>
-								{(!completed && showOptions) ?
+								{showOptions ?
 									<tr key={i + 100000} className={(offerSelected ? "selected" : "")}>
 										<td>&nbsp;</td>
 										<td colSpan={5}>

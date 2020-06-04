@@ -29,7 +29,7 @@ class ServiceSelect extends Component {
 			showCalculationOffers: this.props.step > 1,
 			showCarOptions: false,
 			showParams: false,
-			openParams: true,
+			openParams: this.props.step === 3,
 			SMSSent: true,
 			calculationPopupOpened: false,
 			formBusy: false,
@@ -76,7 +76,7 @@ class ServiceSelect extends Component {
 			showMoreDamages: false,
 			paramsChanged: true,
 			selectedOffers: [],
-			activeOffers: this.props.step > 1 ? [1] : []
+			activeOffers: this.props.step === 2 ? [1] : []
 		};
 	}
 
@@ -175,7 +175,7 @@ class ServiceSelect extends Component {
 		this.setState({SMSCode: e.target.value})
 		
 		if (('' + e.target.value).length === 4) {
-			window.location = this.props.osago ? '/osago_done' : '/kasko_done'
+			window.location = '/service_done'
 		}
 	};
 	
@@ -351,6 +351,7 @@ class ServiceSelect extends Component {
 						period: '2 года',
 						payment: 'Наличные',
 						recipient: 'ООО ВЭР',
+						recipientInfo: 'ООО ВЭР длинное описание',
 						options: optionsFixtures
 					}
 				]
@@ -366,30 +367,12 @@ class ServiceSelect extends Component {
 						period: '3 года',
 						payment: 'Наличные',
 						recipient: 'ИП Иванов',
+						recipientInfo: 'ИП Иванов длинное описание',
 						options: optionsFixtures
 					}
 				]
 			}
 		]
-		
-		if (step > 1) {
-			calculationOfferList = [
-				{
-					logo: './logo/ingosstrakh.png',
-					offers: [
-						{
-							name: 'Обычный',
-							franchise: 10000,
-							price: 41450,
-							dealerFee: 4145,
-							dateStart: '20.02.19',
-							dateEnd: '19.02.20',
-							options: optionsFixtures
-						}
-					]
-				},
-			]
-		}
 		
 		if (step === 3) {
 			if (image !== false) {
@@ -404,6 +387,76 @@ class ServiceSelect extends Component {
 				label: <span className={"kasko-car-select__franchise--label" + (index === this.state.franchiseVal ? " active" : "")}>{(i ? '' : 'до ') + formatMoney(f)}</span>,
 			}
 		})
+		
+		let dealerOffers = <>
+			<div onClick={() => {this.state.showCalculationOffers && this.toggleShowParams()}}
+				 className={"kasko-car-select__caption" + (this.state.showCalculationOffers ? (this.state.openParams ? " expanded" : " collapsed") : "")}
+			>Дополнительные продукты дилера
+			</div>
+
+			{!this.state.showCalculationOffers || this.state.openParams ?
+				<>
+					<KaskoOffers onOfferSelect={this.offersUpdate} credit={true} slider={true} offersList={[
+						{
+							name: 'Продленная гарантия',
+							price: 11498,
+							prefix: '',
+							suffix: '₽'
+						},
+						{
+							name: 'Шоколад',
+							price: 10410,
+							prefix: '',
+							suffix: '₽'
+						},
+						{
+							name: 'Карта РАТ',
+							price: 10420,
+							prefix: '',
+							suffix: '₽'
+						},
+						{
+							name: 'Ассистанс',
+							price: 10430,
+							prefix: '',
+							suffix: '₽'
+						},
+						{
+							name: 'Шоколад',
+							price: 10420,
+							prefix: '',
+							suffix: '₽'
+						},
+						{
+							name: '123',
+							price: 10430,
+							prefix: '',
+							suffix: '₽'
+						}
+					]}/>
+
+					<Row gutter={20}
+						 className={"kasko-car-select__controls" + (this.state.showCalculationOffers ? " mb_30" : "")}>
+						<Col span={3}/>
+						<Col span={6}>
+							<div onClick={() => {
+								this.addToCredit()
+							}}
+								 className={"ant-btn btn_green fz_14 w_100p" + (this.state.activeOffers.length ? "" : " disabled")}
+							>Добавить в кредит
+							</div>
+						</Col>
+						<Col span={6}>
+							<div onClick={() => this.toggleCalculationPopup()}
+								 className={"ant-btn ant-btn-primary btn_middle w_100p" + (this.state.activeOffers.length ? "" : " disabled")}
+							>Заполнить анкету
+							</div>
+						</Col>
+					</Row>
+				</>
+				: null
+			}
+		</>
 
 		return (
 			<>
@@ -425,91 +478,87 @@ class ServiceSelect extends Component {
 							</div>
 					}
 
-					<div onClick={() => {this.state.showCalculationOffers && this.toggleShowParams()}}
-						 className={"kasko-car-select__caption" + (this.state.showCalculationOffers ? (this.state.openParams ? " expanded" : " collapsed") : "")}
-						>Дополнительные продукты дилера</div>
+					{step === 3 ? null : dealerOffers}
 
-					{!this.state.showCalculationOffers || this.state.openParams ?
-						<>
-							<KaskoOffers onOfferSelect={this.offersUpdate} credit={true} slider={true} offersList={[
-								{
-									name: 'Продленная гарантия',
-									price: 11498,
-									prefix: '',
-									suffix: '₽'
-								},
-								{
-									name: 'Шоколад',
-									price: 10410,
-									prefix: '',
-									suffix: '₽'
-								},
-								{
-									name: 'Карта РАТ',
-									price: 10420,
-									prefix: '',
-									suffix: '₽'
-								},
-								{
-									name: 'Ассистанс',
-									price: 10430,
-									prefix: '',
-									suffix: '₽'
-								},
-								{
-									name: 'Шоколад',
-									price: 10420,
-									prefix: '',
-									suffix: '₽'
-								},
-								{
-									name: '123',
-									price: 10430,
-									prefix: '',
-									suffix: '₽'
-								}
-							]}/>
-
-							<Row gutter={20} className={"kasko-car-select__controls" + (this.state.showCalculationOffers ? " mb_30" : "")}>
-								<Col span={3}/>
-								<Col span={6}>
-									<div onClick={() => {
-										this.addToCredit()
-									}}
-										 className={"ant-btn btn_green fz_14 w_100p" + (this.state.activeOffers.length ? "" : " disabled")}
-									>Добавить в кредит
-									</div>
-								</Col>
-								<Col span={6}>
-									<div onClick={() => this.toggleCalculationPopup()}
-										 className={"ant-btn ant-btn-primary btn_middle w_100p" + (this.state.activeOffers.length ? "" : " disabled")}
-									>Заполнить анкету
-									</div>
-								</Col>
-							</Row>
-						</>
-						: null
-					}
-					
 					{this.state.showCalculationOffers ?
 						<>
-							<ServiceOffers allowCheck={true} 
-											   waiting={step === 2} selectedOffer={this.updateSelectedOffer}
-											   offersList={calculationOfferList}/>
+							<ServiceOffers allowCheck={true}
+										   completed={step === 3}
+										   waiting={step === 2} selectedOffer={this.updateSelectedOffer}
+										   offersList={calculationOfferList}/>
 
-							<Row gutter={20} className="kasko-car-select__controls">
-								<Col span={9}/>
-								<Col span={6}>
-									<a href={this.state.availablePayment ? ("/service_payment") : "#"}
-									   className={"ant-btn ant-btn-primary btn_middle" + ((this.state.availablePayment) ? "" : " disabled")}>{this.state.showCompare ? 'Сравнить' : 'Оплатить в кассу'}</a>
-								</Col>
-								<Col span={6}>
-									<PaymentSwitch allowPayment={this.state.availablePayment} paymentStep={0}/>
-								</Col>
-							</Row>
+							<div className={"kasko-car-select__controls ant-row-center align_center"}>
+								{
+									(step === 2) ?
+										<>
+											<div className="kasko-car-select__controls--group-w text_left">
+												<Tooltip overlayClassName="tooltip_v1" placement="bottomLeft"
+														 title="Отменить операцию и вернуться к расчету">
+													<Link to="/" className={"ant-btn btn_green fz_14"}>Вернуться к расчету</Link>
+												</Tooltip>
+											</div>
+
+											{
+												this.state.SMSSent ?
+													<>
+														<div
+															className="kasko-car-select__controls--group-w text_center">
+															<div className="offer-select__sms">
+																<Input
+																	className={"w_100p custom_placeholder" + (this.state.SMSCode.length ? "" : " _empty")}
+																	onChange={this.onSMSCodeChange}
+																	defaultValue=""/>
+																<div className="float_placeholder">Код подтверждения
+																</div>
+																<div className="gl_link"
+																	 onClick={this.toggleSMSSent}>Отправить код повторно
+																</div>
+															</div>
+														</div>
+														<div className="kasko-car-select__controls--group-w text_left">
+															<p>
+																Попросите клиента продиктовать код, <br/>
+																который был отправлен ему <br/>
+																на мобильный телефон
+															</p>
+														</div>
+													</>
+													:
+													<>
+														<div
+															className="kasko-car-select__controls--group-w text_center">
+															<Button htmlType="submit"
+																	className={"ant-btn-primary btn_middle"}
+																	onClick={this.toggleSMSSent}
+															>Оплатить в кассу</Button>
+														</div>
+														<div
+															className="kasko-car-select__controls--group-w text_right">
+															<div className={"gl_link"}>Отправить ссылку повторно</div>
+														</div>
+													</>
+											}
+										</>
+										: (this.state.showPayment) ?
+											<Row gutter={20} className="kasko-car-select__controls">
+												<Col span={9}/>
+												<Col span={6}>
+													<a href={this.state.availablePayment ? ("/service_payment") : "#"}
+													   className={"ant-btn ant-btn-primary btn_middle" + ((this.state.availablePayment) ? "" : " disabled")}>{this.state.showCompare ? 'Сравнить' : 'Оплатить в кассу'}</a>
+												</Col>
+												<Col span={6}>
+													<PaymentSwitch allowPayment={this.state.availablePayment}
+																   paymentStep={0}/>
+												</Col>
+											</Row>
+											: null
+								}
+							</div>
 						</>
 						: null
 					}
+
+					{step === 3 ? dealerOffers : null}
 				</div>
 
 				<div ref={(el) => { this.messagesEnd = el }}/>

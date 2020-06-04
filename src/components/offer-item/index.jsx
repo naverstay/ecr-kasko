@@ -162,7 +162,7 @@ class OfferItem extends Component {
 
 								{offer.options.length ? <ul className="kasko-offer__item--info-list">
 									{offer.options.map((o, i) => <li key={i}>{o}</li>)}
-								</ul> : ""}
+								</ul> : null}
 
 								<div>
 									<div
@@ -182,7 +182,7 @@ class OfferItem extends Component {
 										 className="kasko-offer__item--info-close">Свернуть</div>
 								</div>
 							</div>
-							: ""
+							: null
 						}
 					</div>
 				</div>
@@ -222,7 +222,7 @@ class OfferItem extends Component {
 		
 										{offer.options.length ? <ul className="kasko-offer__item--info-list">
 											{offer.options.map((o, i) => <li key={i}>{o}</li>)}
-										</ul> : ""}
+										</ul> : null}
 		
 										<div>
 											<div
@@ -242,7 +242,7 @@ class OfferItem extends Component {
 												 className="kasko-offer__item--info-close">Свернуть</div>
 										</div>
 									</div>
-									: ""
+									: null
 								}
 							</div>
 						</div>
@@ -250,19 +250,16 @@ class OfferItem extends Component {
 						<Link ref={(el) => {this.node = el}} to={offer.link ? offer.link : "/offers"}
 							  className={"kasko-offer__item" + (completed ? " completed" : "") + ((active || this.state.activeOffer) && !completed ? " active" : "")}>
 							<div className={"kasko-offer__item--title" + (offer.button ? " no_arrow" : " toggle_icon")}>
-								{offer.button ? <span className="kasko-offer__item--btn">{offer.button}</span> : ""}
+								{offer.button ? <span className="kasko-offer__item--btn">{offer.button}</span> : null}
 								<span className="kasko-offer__item--name">{offer.name}</span>
 							</div>
 							<div className="kasko-offer__item--body">
 								<p>
-									{active ? '' : offer.prefix}
-									{active ? '' : <>&nbsp;</>}
+									{active ? null : offer.prefix}
+									{active ? null : <>&nbsp;</>}
 									<span className="kasko-offer__item--price">{formatMoney(offer.price)}</span>
 									&nbsp;{offer.suffix}
 								</p>
-								{/*<p className="text_center">*/}
-								{/*	<span className="kasko-offer__item--link">Рассчитать</span>*/}
-								{/*</p>*/}
 							</div>
 						</Link>
 					}
