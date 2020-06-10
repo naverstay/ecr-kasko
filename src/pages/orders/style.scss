@@ -202,11 +202,11 @@
 
 		&--list {
 			list-style-type: none;
-			padding: 12px 14px;
+			padding: 12px 14px 10px;
 			margin: 0;
 			flex: 1 1 100%;
 			display: flex;
-			border-bottom: 2px solid $color-prime;
+			border-bottom: 1px solid #b5b5b5;
 		}
 
 		&--item {
@@ -291,7 +291,7 @@
 				top: 0;
 				bottom: 0;
 				width: 1px;
-				left: 56.4%;
+				left: 47.9%;
 				background: $color-grey;
 			}
 
@@ -299,7 +299,7 @@
 				list-style-type: none;
 				margin: 0;
 				padding: 0;
-				width: 56.4%;
+				width: 47.9%;
 				float: left;
 				max-height: 100%;
 				overflow-y: auto;
@@ -308,11 +308,76 @@
 			&-info {
 				list-style-type: none;
 				margin: 0;
-				padding: 0;
-				width: 43.6%;
+				padding: 0 0 45px;
+				width: 52.1%;
 				float: right;
 				max-height: 100%;
 				overflow-y: auto;
+				border-right: 1px solid #b5b5b5;
+			}
+
+			&-msg {
+				position: absolute;
+				width: inherit;
+				right: 0;
+				bottom: 0;
+				height: 45px;
+				background: #fff;
+				border: 1px solid #b5b5b5;
+				z-index: 1;
+			}
+
+			&-comment {
+				width: 100%;
+				height: 45px;
+				padding: 12px 100px 12px 15px;
+				font-size: 16px;
+				line-height: 19px;
+				@include placeholder;
+			}
+			
+			&-attach {
+				position: absolute;
+				top: 6px;
+				right: 60px;
+				width: 30px;
+				height: 30px;
+				text-align: center;
+				
+				&:after {
+					position: absolute;
+					top: 0;
+					bottom: 0;
+					left: 0;
+					right: 0;
+					font-family: $icomoon-font-family;
+					content: $i-attach;
+					font-size: 16px;
+					line-height: 30px;
+					color: $color-grey;
+				}
+			}
+			
+			&-send {
+				position: absolute;
+				top: 6px;
+				right: 15px;
+				width: 30px;
+				height: 30px;
+				text-align: center;
+				
+				&:after {
+					position: absolute;
+					top: 0;
+					bottom: 0;
+					left: 0;
+					right: 0;
+					font-family: $icomoon-font-family;
+					content: $i-plane;
+					font-size: 16px;
+					line-height: 30px;
+					color: #fff;
+				}
 			}
 
 			&-unit {

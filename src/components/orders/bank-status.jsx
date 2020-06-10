@@ -32,8 +32,9 @@ class BankStatus extends Component {
 				msg.map((m, i) => {
 					return (
 						<div key={i} className={'bank-status__msg msg_' + m.author}>
-							<div className='bank-status__msg--text'>{m.text}</div>
-							<div className='bank-status__msg--time'>{m.time}</div>
+							<div className='bank-status__msg--text'>{m.text}
+								<div className='bank-status__msg--time'>{m.time}</div>
+							</div>
 						</div>
 					)
 				})

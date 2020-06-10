@@ -68,7 +68,7 @@
 		height: 50px;
 		background: #fff;
 		border: 2px solid $color-table-header;
-		
+
 		&__text {
 			resize: none;
 			width: 100%;
@@ -104,5 +104,23 @@
 				color: $color-prime;
 			}
 		}
+
+
+		.orders-table__info--list & {
+			margin: -13px -24px -13px 0;
+			border: 1px solid #b5b5b5;
+
+			.comments-form__text {
+				font-size: 12px;
+				padding-right: 40px;
+			}
+
+			.comments-form__btn {
+				font-size: 12px;
+				color: $color-prime;
+				padding-top: 30px;
+			}
+		}
+
 	}
 }

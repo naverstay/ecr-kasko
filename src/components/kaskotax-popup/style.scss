@@ -8,9 +8,8 @@
 	transform: translate(-50%, -50%);
 	padding: 30px 20px 30px;
 	background: #fff;
-
 	
-	p {
+	> p {
 		@extend %text1;
 		line-height: 20px;
 		margin-bottom: 30px;
@@ -19,6 +18,11 @@
 	&__form {
 		.manager-popup & {
 			max-width: 430px;
+			margin: 0 auto;
+		}
+		
+		.attach-popup & {
+			max-width: 970px;
 			margin: 0 auto;
 		}
 		

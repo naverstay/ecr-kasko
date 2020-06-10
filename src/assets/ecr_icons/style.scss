@@ -3,9 +3,9 @@
 @font-face {
   font-family: '#{$icomoon-font-family}';
   src:
-    url('#{$icomoon-font-path}/#{$icomoon-font-family}.ttf?x5enst') format('truetype'),
-    url('#{$icomoon-font-path}/#{$icomoon-font-family}.woff?x5enst') format('woff'),
-    url('#{$icomoon-font-path}/#{$icomoon-font-family}.svg?x5enst##{$icomoon-font-family}') format('svg');
+    url('#{$icomoon-font-path}/#{$icomoon-font-family}.ttf?b38btk') format('truetype'),
+    url('#{$icomoon-font-path}/#{$icomoon-font-family}.woff?b38btk') format('woff'),
+    url('#{$icomoon-font-path}/#{$icomoon-font-family}.svg?b38btk##{$icomoon-font-family}') format('svg');
   font-weight: normal;
   font-style: normal;
   font-display: block;
@@ -14,7 +14,7 @@
 [class^="i-"], [class*=" i-"] {
   /* use !important to prevent issues with browser extensions that change fonts */
   font-family: '#{$icomoon-font-family}' !important;
-  speak: none;
+  speak: never;
   font-style: normal;
   font-weight: normal;
   font-variant: normal;
@@ -26,6 +26,21 @@
   -moz-osx-font-smoothing: grayscale;
 }
 
+.i-plane {
+  &:before {
+    content: $i-plane; 
+  }
+}
+.i-minus {
+  &:before {
+    content: $i-minus; 
+  }
+}
+.i-attach {
+  &:before {
+    content: $i-attach; 
+  }
+}
 .i-alert {
   &:before {
     content: $i-alert; 
@@ -189,11 +204,6 @@
 .i-spinner {
   &:before {
     content: $i-spinner; 
-  }
-}
-.i-minus {
-  &:before {
-    content: $i-minus; 
   }
 }
 

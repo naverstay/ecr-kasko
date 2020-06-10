@@ -54,12 +54,14 @@ class BankUnit extends Component {
 				</div>
 				<div className="bank-unit__cell cell_size-3">
 					{
-						(statusColor && status && <div className={classStatus}>{status}</div>)
+						(statusColor && status && <div className={classStatus}>
+							{/*{status}*/}
+						</div>)
 					}
 				</div>
-				<div className="bank-unit__cell cell_size-4">
-					<div className="bank-unit__chat"/>
-				</div>
+				{/*<div className="bank-unit__cell cell_size-4">*/}
+				{/*	<div className="bank-unit__chat"/>*/}
+				{/*</div>*/}
 			</div>
 		)
 	}

@@ -474,3 +474,37 @@
 		}
 	}
 }
+
+@mixin placeholder($color: rgba(24, 24, 24, 0.2)) {
+	&::-webkit-input-placeholder {
+		color: $color;
+	}
+
+	&:-moz-placeholder {
+		color: $color;
+	}
+
+	&::-moz-placeholder {
+		color: $color;
+	}
+
+	&:-ms-input-placeholder {
+		color: $color;
+	}
+
+	&:focus::-webkit-input-placeholder {
+		color: transparent
+	}
+
+	&:focus::-moz-placeholder {
+		color: transparent
+	}
+
+	&:focus:-moz-placeholder {
+		color: transparent
+	}
+
+	&:focus:-ms-input-placeholder {
+		color: transparent
+	}
+}
