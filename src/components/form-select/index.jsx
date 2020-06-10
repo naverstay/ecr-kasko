@@ -28,21 +28,30 @@ class FormSelect extends Component {
 	render() {
 		const {value, controlName, span, placeholder, options} = this.props;
 
+		let slct = <>
+			<Select
+				name={controlName}
+				dropdownClassName="select_dropdown_v1"
+				className={"w_100p custom_placeholder FormSelect " + (this.state.controlValue.length ? "" : " _empty")}
+				placeholder=""
+				onChange={this.onChange}
+				value={this.state.controlValue}
+			>
+				{(options && options.length) ? options.map((e, i) =>
+					<Option key={i} value={e}>{e}</Option>) : null}
+			</Select>
+			{placeholder ? <div className="float_placeholder">{placeholder}</div> : null}
+		</>
+		
 		return (
-			<Col span={span || null}>
-				<Select
-					name={controlName}
-					dropdownClassName="select_dropdown_v1"
-					className={"w_100p custom_placeholder" + (this.state.controlValue.length ? "" : " _empty")}
-					placeholder=""
-					onChange={this.onChange}
-					value={this.state.controlValue}
-				>
-					{(options && options.length) ? options.map((e, i) =>
-						<Option key={i} value={e}>{e}</Option>) : null}
-				</Select>
-				{placeholder ? <div className="float_placeholder">{placeholder}</div> : null}
-			</Col>
+			span === null ? 
+				<>
+					{slct}
+				</>
+				:
+				<Col span={span}>
+					{slct}
+				</Col>
 		);
 	}
 }

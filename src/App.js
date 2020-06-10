@@ -58,6 +58,9 @@ function App() {
                   <li>
                       <Link to="/orders">orders</Link>
                   </li>
+                  <li>
+                      <Link to="/details">details</Link>
+                  </li>
               </ul>
             </div>
           
@@ -123,7 +126,7 @@ function App() {
             )}/>
             <Route path="/orders" render={(routeProps) => (
                 <>
-                    <Chat classList={['open']} title={'Уведомления'} total='123' data={[
+                    <Chat open={true} title={'Уведомления'} total='123' data={[
                         {
                             date: 'Понедельник, 20.02.19',
                             count: '5',
@@ -132,29 +135,29 @@ function App() {
                                     author: 'Константинопольский М.',
                                     time: '9:50',
                                     bank: 'Русфинансбанк',
-                                    statusColor: 'status_green',
+                                    statusColor: 'green',
                                     status: 'Договор прислан'
                                 },
                                 {
                                     author: 'Рябоконь С.Ю.',
                                     time: '9:50',
                                     bank: 'Московский Кредитбанк',
-                                    statusColor: 'status_green',
+                                    statusColor: 'green',
                                     status: 'Одобрена'
                                 },
                                 {
                                     author: 'Салямин А.В.',
                                     time: '9:50',
                                     bank: 'Совкомбанк',
-                                    statusColor: 'status_red',
+                                    statusColor: 'red',
                                     status: 'Отказ',
-                                    info: 'По заявке принято отрицательное решение. Коваль Марина Руководитель по розничному бизнесу. Тел. +7 (916) 000 0000, Тел. +7 (495) 541 7845, доб. 108, mkoval@sovkom.ru Полное информирование будет направлено офисом клиенту'
+                                    info: 'По заявке принято отрицательное решение. Коваль Марина Руководитель по розничному бизнесу. \n Тел. +7 (916) 000 0000, \n Тел. +7 (495) 541 7845, доб. 108, \n mkoval@sovkom.ru \n Полное информирование будет направлено офисом клиенту'
                                 },
                                 {
                                     author: 'Рябоконь С.Ю.',
                                     time: '9:50',
                                     bank: 'Русфинансбанк',
-                                    statusColor: 'status_blue',
+                                    statusColor: 'blue',
                                     status: 'Запрос Банка',
                                     opacity: true
                                 },
@@ -162,21 +165,21 @@ function App() {
                                     author: 'Константинопольский М.',
                                     time: '9:50',
                                     bank: 'Русфинансбанк',
-                                    statusColor: 'status_green',
+                                    statusColor: 'green',
                                     status: 'Договор прислан'
                                 },
                                 {
                                     author: 'Рябоконь С.Ю.',
                                     time: '9:50',
                                     bank: 'Московский Кредитбанк',
-                                    statusColor: 'status_green',
+                                    statusColor: 'green',
                                     status: 'Одобрена'
                                 },
                                 {
                                     author: 'Салямин А.В.',
                                     time: '9:50',
                                     bank: 'Совкомбанк',
-                                    statusColor: 'status_red',
+                                    statusColor: 'red',
                                     status: 'Отказ',
                                     opacity: true
                                 },
@@ -184,7 +187,7 @@ function App() {
                                     author: 'Рябоконь С.Ю.',
                                     time: '9:50',
                                     bank: 'Русфинансбанк',
-                                    statusColor: 'status_blue',
+                                    statusColor: 'blue',
                                     status: 'Запрос Банка'
                                 }
                             ]
@@ -197,9 +200,9 @@ function App() {
                                     author: 'Салямин А.В.',
                                     time: '9:50',
                                     bank: 'Совкомбанк',
-                                    statusColor: 'status_red',
+                                    statusColor: 'red',
                                     status: 'Отказ',
-                                    info: 'По заявке принято отрицательное решение. Коваль Марина Руководитель по розничному бизнесу. Тел. +7 (916) 000 0000, Тел. +7 (495) 541 7845, доб. 108, mkoval@sovkom.ru Полное информирование будет направлено офисом клиенту'
+                                    info: 'По заявке принято отрицательное решение. Коваль Марина Руководитель по розничному бизнесу. \n Тел. +7 (916) 000 0000, \n Тел. +7 (495) 541 7845, доб. 108, \n mkoval@sovkom.ru \n Полное информирование будет направлено офисом клиенту'
                                 }
                             ]
                         },
@@ -210,6 +213,13 @@ function App() {
                     ]}/>
                     <PageLayout>
                         <Orders/>
+                    </PageLayout>
+                </>
+            )}/>
+            <Route path="/details" render={(routeProps) => (
+                <>
+                    <PageLayout>
+                        <Credit {...routeProps} details={true} showOffers={'кредит'}/>
                     </PageLayout>
                 </>
             )}/>

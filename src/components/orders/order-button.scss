@@ -1,11 +1,11 @@
 @import '../../assets/styles/vars.scss';
 
 .order-button {
-	color: $color-prime;
-	border: 1px solid $color-prime;
+	color: $color-grey;
+	border: 1px solid #b5b5b5;
 	height: 30px;
 	width: 80px;
-	font-size: 13px;
+	font-size: 14px;
 	text-align: center;
 	display: flex;
 	align-items: center;
@@ -14,7 +14,7 @@
 	transition: all 0.3s;
 	
 	&:hover {
-		color: #fff;
-		background: $color-prime;
+		color: $color-green;
+		border-color: $color-green
 	}
 }

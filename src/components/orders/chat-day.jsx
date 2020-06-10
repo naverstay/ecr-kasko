@@ -42,13 +42,13 @@ class ChatDay extends Component {
 			<div className={dayClassName}>
 				<div className={classCaption} onClick={this.toggleDayHandle}>
 					{count && <span className="chat-counter">{count}</span>}
-					<span>{date}</span>
+					<span className="chat-name">{date}</span>
 				</div>
 
 				{(count && this.state.dayOpen) && msg.map((m, i) => {
 					const classMsg = cn([
 						'chat-msg',
-						m.statusColor,
+						'status_' + m.statusColor,
 						m.opacity ? 'msg_opacity' : ''
 					]);
 

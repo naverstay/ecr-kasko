@@ -184,6 +184,26 @@
 		}
 	}
 
+	&__search {
+		cursor: pointer;
+		position: absolute;
+		right: 30px;
+		top: 4px;
+		width: 22px;
+		height: 22px;
+
+		&:before {
+			font-family: $icomoon-font-family;
+			content: $i-search;
+			position: absolute;
+			right: 0;
+			top: 0;
+			font-size: 22px;
+			line-height: 1;
+			color: $color-grey;
+		}
+	}
+	
 	&__settings {
 		cursor: pointer;
 		position: absolute;

@@ -73,6 +73,12 @@ class KaskoPopup extends Component {
 		});
 	};
 
+	addCreditCallback = (checked) => {
+		console.log('addCreditCallback');
+		
+		typeof this.props.popupCloseFunc === 'function' && this.props.popupCloseFunc()
+	}
+
 	onCalculationTypeChange = (checked) => {
 		this.setState({fullCalculation: checked})
 	}
@@ -94,7 +100,7 @@ class KaskoPopup extends Component {
 			<div className="calculation-popup">
 				<div className="calculation-popup__close" onClick={popupCloseFunc}/>
 
-				<OfferSelect imageCallback={this.imageCallback} image={false} popup={true} />
+				<OfferSelect imageCallback={this.imageCallback} addCreditCallback={this.addCreditCallback} image={false} popup={true} />
 			</div>
 		);
 	}

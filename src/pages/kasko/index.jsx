@@ -113,7 +113,7 @@ class Kasko extends Component {
 						<Col span={4} className="kasko-aside">
 								<Button onClick={this.toggleAuth} className={"ant-btn ant-btn-primary kasko-aside__btn"}>Личный кабинет</Button>
 
-							{showOffers === false ? "" :
+							{showOffers === false ? null :
 								<AsideBlock>
 									<KaskoNotices step={step} status={step === 2 ? 1 : step === 3 ? 3 : 0} type={showOffers}/>
 								</AsideBlock>
@@ -150,7 +150,7 @@ class Kasko extends Component {
 		
 						<Col span={4} className="kasko-aside">
 							{showOffers === false ?
-								""
+								null
 								:
 								<AsideBlock>
 									<KaskoNotices step={step} status={step === 2 ? 1 : step === 3 ? 3 : 0} type={showOffers}/>
@@ -162,10 +162,10 @@ class Kasko extends Component {
 							</AsideBlock>
 						</Col>
 					</Row> 
-					: "" }
+					: null }
 				
 				{this.state.showAuthForm ?
-					<PopupOverlay>
+					<PopupOverlay span={8}>
 						<AuthPopup popupCloseFunc={this.toggleAuth}/>
 					</PopupOverlay>	
 					: null

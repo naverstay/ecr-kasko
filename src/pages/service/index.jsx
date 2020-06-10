@@ -174,7 +174,7 @@ class Service extends Component {
 					: null }
 				
 				{this.state.showAuthForm ?
-					<PopupOverlay>
+					<PopupOverlay span={8}>
 						<AuthPopup popupCloseFunc={this.toggleAuth}/>
 					</PopupOverlay>	
 					: null

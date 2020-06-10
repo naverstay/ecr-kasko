@@ -169,6 +169,11 @@ class CarCredit extends Component {
 	creditPopupCallback = (e) => {
 		console.log('creditPopupCallback', e);
 		this.toggleCalculationPopup()
+		
+		if (e) {
+			window.location = '/details'
+		}
+		
 	};
 	
 	updatePaymentState = (value) => {

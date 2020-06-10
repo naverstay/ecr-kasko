@@ -27,7 +27,7 @@ class KaskoNotices extends Component {
 	}
 
 	render() {
-		const {noticeList, type, status, step, credit, kasko, osago} = this.props;
+		const {noticeList, type, status, step, credit, kasko, osago, search} = this.props;
 		const statusClasses = {
 			0: 'calculation',
 			1: 'waiting',
@@ -192,6 +192,12 @@ class KaskoNotices extends Component {
 					<div
 						className={"kasko-notice__caption color_red" + (this.state.noticeOpened ? " open" : "")}
 						onClick={this.toggleOpened}>Уведомления</div>
+					{
+						search ?
+							<div className="kasko-notice__search"/>
+							: null
+					}
+					
 					<div className="kasko-notice__settings"/>
 				</div>
 				{this.state.noticeOpened ?

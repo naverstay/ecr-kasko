@@ -9,6 +9,7 @@ import PropTypes from 'prop-types';
 
 import './style.scss';
 import CarCredit from "../../components/car-credit";
+import Details from "../details";
 
 class Credit extends Component {
 	constructor(props) {
@@ -41,7 +42,7 @@ class Credit extends Component {
 	}
 
 	render() {
-		const {showOffers, step, progress, kasko} = this.props;
+		const {showOffers, step, progress, kasko, details} = this.props;
 		
 		const events = []
 		
@@ -74,7 +75,12 @@ class Credit extends Component {
 				<Row gutter={20} className="kasko-wrapper">
 					<Col span={4} className="kasko-aside"/>
 					<Col span={16} className="kasko-main">
-						<CarCredit kasko={kasko} showKaskoWidget={this.updateRightAside} carPrice={1048000} imageCallback={this.imageCallback} step={step} image={this.state.carImage} />
+						{details ?
+							<Details />
+						:
+							<CarCredit kasko={kasko} showKaskoWidget={this.updateRightAside} carPrice={1048000}
+									   imageCallback={this.imageCallback} step={step} image={this.state.carImage}/>
+						}
 					</Col>
 					<Col span={4} className="kasko-aside"/>
 				</Row>
@@ -100,7 +106,7 @@ class Credit extends Component {
 	
 					<Col span={4} className="kasko-aside">
 						{showOffers === false ?
-							""
+							null
 							:
 							<AsideBlock>
 								<KaskoNotices step={step} credit={true} status={0} type={showOffers}/>
@@ -111,7 +117,7 @@ class Credit extends Component {
 							<AsideBlock>
 								<KaskoNotices step={this.state.kaskoWidget.step} kasko={true} status={0} type={'Каско'}/>
 							</AsideBlock>
-							: ""
+							: null
 						}
 	
 						<AsideBlock>

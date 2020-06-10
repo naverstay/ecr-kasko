@@ -15,6 +15,7 @@ import PaymentSwitch from "../payment-switch";
 import DriverCount from "../driver-count";
 import KaskoCarSelect from "../kasko-car-select";
 import PopupOverlay from "../popup-overlay";
+import FormInput from "../form-input";
 
 moment().locale('ru', ru);
 
@@ -81,6 +82,7 @@ class OfferSelect extends Component {
 	static propTypes = {
 		children: PropTypes.node,
 		type: PropTypes.any,
+		addCreditCallback: PropTypes.func,
 		innerWidth: PropTypes.number
 	};
 
@@ -169,6 +171,22 @@ class OfferSelect extends Component {
 		this.toggleCalculationOffers()
 	}
 
+	formControlCallback = (name, value) => {
+		console.log('formControlCallback', name, value);
+
+		switch (name) {
+			case 'SMSCode':
+				this.setState({SMSCode: value})
+
+				if (('' + value).length === 4) {
+					window.location = this.props.osago ? '/osago_done' : '/kasko_done'
+				}
+				
+				break
+		}
+
+	};
+
 	onSMSCodeChange = e => {
 		this.setState({SMSCode: e.target.value})
 		
@@ -186,6 +204,13 @@ class OfferSelect extends Component {
 	toggleCarOptions = () => {
 		console.log('toggleCarOptions', this.state.showCarOptions);
 		this.setState({showCarOptions: !this.state.showCarOptions})
+	}
+
+	addToCredit = () => {
+		console.log('addToCredit');
+		this.setState({calculationPopupOpened: !this.state.calculationPopupOpened})
+		document.body.classList.toggle('no-overflow', !this.state.calculationPopupOpened)
+		typeof this.props.addCreditCallback === 'function' && this.props.addCreditCallback() 
 	}
 	
 	toggleCalculationPopup = () => {
@@ -545,33 +570,50 @@ class OfferSelect extends Component {
 										suffix: '₽'
 									}]
 								: 
-									[{
-										name: 'ОСАГО',
-										price: 10444,
-										button: (!osago ? 'Рассчитать' : 'Выпущено'),
-										link: '/osago',
-										prefix: 'от',
-										suffix: '₽'
-									},
+								[{
+									name: 'ОСАГО',
+									price: 10444,
+									button: (!osago ? 'Рассчитать' : 'Выпущено'),
+									link: '/osago',
+									prefix: 'от',
+									suffix: '₽'
+								},
+								{
+									name: 'КАСКО',
+									price: 10420,
+									button: (osago ? 'Рассчитать' : 'Выпущено'),
+									link: '/kasko',
+									prefix: 'от',
+									suffix: '₽'
+								},
+								{
+									name: 'GAP',
+									price: 10430,
+									button: 'Рассчитать',
+									link: '/gap',
+									prefix: 'от',
+									suffix: '₽'
+								},
+								{
+									name: 'Ассистанс',
+									price: '15400',
+									collapse: true,
+									options: [
+										'эвакуация',
+										'юридическая помощь',
+										'аварийный комиссар',
+										'подвоз бензина',
+										'вскрытие автомобиля',
+										'запуск автомобиля',
+										'трезвый водитель',
+										'выездной шиномонтаж'
+									],
+									prefix: 'от',
+									suffix: '₽'
+								},
 									{
-										name: 'КАСКО',
-										price: 10420,
-										button: (osago ? 'Рассчитать' : 'Выпущено'),
-										link: '/kasko',
-										prefix: 'от',
-										suffix: '₽'
-									},
-									{
-										name: 'GAP',
-										price: 10430,
-										button: 'Рассчитать',
-										link: '/gap',
-										prefix: 'от',
-										suffix: '₽'
-									},
-									{
-										name: 'Ассистанс',
-										price: '15400',
+										name: 'Шоколад',
+										price: 10555,
 										collapse: true,
 										options: [
 											'эвакуация',
@@ -585,24 +627,7 @@ class OfferSelect extends Component {
 										],
 										prefix: 'от',
 										suffix: '₽'
-									},
-										{
-											name: 'Шоколад',
-											price: 10555,
-											collapse: true,
-											options: [
-												'эвакуация',
-												'юридическая помощь',
-												'аварийный комиссар',
-												'подвоз бензина',
-												'вскрытие автомобиля',
-												'запуск автомобиля',
-												'трезвый водитель',
-												'выездной шиномонтаж'
-											],
-											prefix: 'от',
-											suffix: '₽'
-										}]
+									}]
 							}/>
 							
 						</>
@@ -833,10 +858,12 @@ class OfferSelect extends Component {
 																<>
 																	<div className="kasko-car-select__controls--group-w text_center">
 																		<div className="offer-select__sms">
-																			<Input maxLength={4} className={"w_100p custom_placeholder" + (this.state.SMSCode.length ? "" : " _empty")}
-																				onChange={this.onSMSCodeChange}
-																				defaultValue=""/>
-																			<div className="float_placeholder">Код подтверждения</div>
+																			<FormInput span={null}
+																					   maxLength={4}
+																					   onChangeCallback={this.formControlCallback}
+																					   placeholder="Код подтверждения"
+																					   controlName={'SMSCode'}
+																					   value={''}/>
 																			<div className="gl_link"
 																				 onClick={this.toggleSMSSent}>Отправить код повторно</div>
 																		</div>
@@ -878,7 +905,7 @@ class OfferSelect extends Component {
 															<>
 																<Button htmlType="submit"
 																		className={"ant-btn-primary btn_wide"}
-																		onClick={this.toggleCalculationPopup}>Добавить в кредит</Button>
+																		onClick={this.addToCredit}>Добавить в кредит</Button>
 
 																<Button htmlType="submit"
 																		className={"btn_wide"}
