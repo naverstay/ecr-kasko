@@ -266,15 +266,16 @@
 
 	&-search {
 		position: relative;
-		margin: 15px 5px;
 
 		&__input {
 			width: 100%;
-			height: 30px;
+			height: 46px;
 			background: #fff;
-			font-size: 13px;
-			padding: 6px 50px 6px 10px;
-
+			font-size: 12px;
+			line-height: 30px;
+			padding: 12px 10px 12px 10px;
+			border: 1px solid #b5b5b5;
+			
 			&::-moz-placeholder {
 				color: $color-grey;
 			}
@@ -317,6 +318,10 @@
 		overflow-y: auto;
 		//padding-right: 10px;
 		height: calc(100% - 110px);
+
+		.chat-search + & {
+			height: calc(100% - 156px);
+		}
 	}
 
 	&-msg {

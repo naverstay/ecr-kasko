@@ -11,7 +11,11 @@ class Chat extends Component {
 	constructor(props) {
 		super(props)
 		this.toggleChat = this.toggleChat.bind(this)
-		this.state = {chatOpen: this.props.open, settingsOpen: false}
+		this.state = {
+			chatOpen: this.props.open,
+			settingsOpen: false,
+			searchOpen: false
+		}
 
 		this.setWrapperRef = this.setWrapperRef.bind(this);
 		this.handleClickOutside = this.handleClickOutside.bind(this);
@@ -29,12 +33,14 @@ class Chat extends Component {
 	};
 	
 	toggleSettings = () => {
-		console.log('toggleSettings');
 		this.setState({settingsOpen: !this.state.settingsOpen})
+	}
+
+	toggleSearch = () => {
+		this.setState({searchOpen: !this.state.searchOpen})
 	}
 	
 	toggleChat = () => {
-		console.log('toggleChat');
 		this.setState({chatOpen: !this.state.chatOpen})
 	}
 
@@ -86,7 +92,7 @@ class Chat extends Component {
 							{title}
 						</div>
 						<div onClick={this.toggleSettings} className="chat-title__settings"/>
-						<div className="chat-title__search"/>
+						<div onClick={this.toggleSearch} className="chat-title__search"/>
 						{this.state.settingsOpen ? 
 							<div ref={this.setWrapperRef} className="chat-title__menu">
 								<ul className="chat-title__menu--list">
@@ -99,10 +105,12 @@ class Chat extends Component {
 							: null
 						}
 					</div>
-					{/*<div className="chat-search">*/}
-					{/*	<input className="chat-search__input" type="text" placeholder="Поиск по имени или фамилии"/>*/}
-					{/*	<button className="chat-search__btn"/>*/}
-					{/*</div>*/}
+					{this.state.searchOpen ? 
+						<div className="chat-search">
+							<input className="chat-search__input" type="text" placeholder="Поиск по уведомлениям"/>
+						</div>
+						: null
+					}
 					<div className="chat-scroller">
 						{data.map((d, i) => {
 							const classDay = cn([
