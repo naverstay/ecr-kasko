@@ -333,6 +333,10 @@
 		&.msg_info {
 			background: #fff;
 			//border-color: #fff;
+			
+			&:not(.msg_open) {
+				cursor: pointer;
+			}
 		}
 
 		&:last-child {
