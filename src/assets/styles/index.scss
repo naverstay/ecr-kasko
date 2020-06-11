@@ -333,6 +333,41 @@ $spinner_time: 1s;
 	}
 }
 
+.check_v4 {
+	.ant-checkbox-wrapper {
+		position: relative;
+	}
+	
+	.ant-checkbox {
+		position: absolute;
+		right: 100%;
+		top: -4px;
+		
+		+ span {
+			@extend %text2;
+			padding: 0;
+		}
+	}
+
+	.ant-checkbox-inner {
+		border: 0 !important;
+	}
+
+	.ant-checkbox-checked {
+		&:after {
+			display: none !important;
+		}
+		
+		.ant-checkbox-inner {
+			background: #fff;
+
+			&:after {
+				border-color: #000;
+			}
+		}
+	}
+}
+
 .input-error {
 	color: $color-prime !important;
 	border-color: $color-prime !important;
@@ -404,6 +439,61 @@ $spinner_time: 1s;
 					border: solid $color-grey;
 					border-width: 1px 0 0 1px;
 				}
+			}
+		}
+	}
+}
+
+.tooltip_v2 {
+	&.ant-tooltip {
+		.ant-tooltip-content {
+			box-shadow: none;
+		}
+
+		.ant-tooltip-inner {
+			min-height: 15px;
+			line-height: 15px;
+			padding: 0 10px;
+			font-size: 10px;
+			box-shadow: none;
+			border-radius: 7px;
+		}
+	}
+	
+	&.ant-tooltip-placement {
+		&-top {
+			.ant-tooltip-arrow {
+				display: none;
+			}
+		}
+	}
+	
+	&.tooltip__state {
+		&--red {
+			.ant-tooltip-inner {
+				background: $color-prime;
+				color: #fff;
+			}
+		}
+		
+		&--green {
+			.ant-tooltip-inner {
+				background: $color-green;
+				color: #fff;
+			}
+		}
+		
+		&--yellow {
+			.ant-tooltip-inner {
+				background: $color-yellow;
+				color: #000;
+			}
+		}
+		
+		&--blue {
+			.ant-tooltip-inner {
+				background: $color-blue;
+				color: #fff;
 			}
 		}
 	}

@@ -160,6 +160,43 @@ class Orders extends Component {
 			}
 		]
 		
+		let svetoforTooltip = <Svetofor data={[
+				{
+					value: 5,
+					tooltipWide: true,
+					tooltipList: ['Райффайзенбанк', 'Плюс Банк', 'Совкомбанк', 'ВТБ'],
+					tooltipTitle: 'Одобрение'
+				},
+				{
+					className: 'svetofor-item--yellow',
+					value: 5,
+					tooltipWide: true,
+					tooltipList: ['Райффайзенбанк', 'Плюс Банк', 'Совкомбанк', 'ВТБ'],
+					tooltipTitle: 'Ожидание'
+				},
+				{
+					className: 'svetofor-item--green',
+					value: 1,
+					tooltipWide: true,
+					tooltipList: ['Райффайзенбанк', 'Плюс Банк', 'Совкомбанк', 'ВТБ'],
+					tooltipTitle: 'Оформление'
+				},
+				{
+					className: 'svetofor-item--blue',
+					value: 3,
+					tooltipWide: true,
+					tooltipList: ['Райффайзенбанк', 'Плюс Банк', 'Совкомбанк', 'ВТБ'],
+					tooltipTitle: 'Расслабление'
+				},
+				{
+					className: 'svetofor-item--red',
+					value: 6,
+					tooltipWide: true,
+					tooltipList: ['Райффайзенбанк', 'Плюс Банк', 'Совкомбанк', 'ВТБ'],
+					tooltipTitle: 'Отказ'
+				}
+			]}/>
+		
 		return (
 			<>
 				<Row gutter={20} className="kasko-wrapper">
@@ -275,8 +312,7 @@ class Orders extends Component {
 														<p className="color_black">Максим</p>
 													</div>
 												</TableCell>
-												<TableCell toggleInfoRow={true}
-														   classList={['orders-table__cell', 'cell_size-6']}>
+												<TableCell classList={['orders-table__cell', 'cell_size-6']}>
 													<div>
 														&nbsp;
 													</div>
@@ -332,17 +368,9 @@ class Orders extends Component {
 														<p className="color_black">Максим</p>
 													</div>
 												</TableCell>
-												<TableCell toggleInfoRow={true}
-														   classList={['orders-table__cell', 'cell_size-6']}>
+												<TableCell classList={['orders-table__cell', 'cell_size-6']}>
 													<div className='orders-table__cell-content'>
-														<Svetofor data={[
-															{value: 5},
-															{className: 'svetofor-item__yellow', value: 5},
-															{className: 'svetofor-item__green', value: 1},
-															{className: 'svetofor-item__blue', value: 3},
-															{className: 'svetofor-item__red', value: 6}
-														]}/>
-														<p>Одобрение</p>
+														{svetoforTooltip}
 													</div>
 												</TableCell>
 												<TableCell toggleInfoRow={true}
@@ -396,8 +424,7 @@ class Orders extends Component {
 														<p className="color_black">Максим</p>
 													</div>
 												</TableCell>
-												<TableCell toggleInfoRow={true}
-														   classList={['orders-table__cell', 'cell_size-6']}>
+												<TableCell classList={['orders-table__cell', 'cell_size-6']}>
 													<div className='orders-table__cell-content'>
 														&nbsp;
 													</div>
@@ -406,14 +433,14 @@ class Orders extends Component {
 														   classList={['orders-table__cell', 'cell_size-8']}>
 													<div className='orders-table__cell-content'>
 														<Svetofor classList={['svetofor-wrapper__center']}
-																  data={[{className: 'svetofor-item__green'}]}/>
+																  data={[{className: 'svetofor-item--green', tooltipShort: true, tooltipTitle: 'Оформление'}]}/>
 													</div>
 												</TableCell>
 												<TableCell toggleInfoRow={true}
 														   classList={['orders-table__cell', 'cell_size-9']}>
 													<div className='orders-table__cell-content'>
 														<Svetofor classList={['svetofor-wrapper__center']}
-																  data={[{className: 'svetofor-item__green'}]}/>
+																  data={[{className: 'svetofor-item--green', tooltipShort: true, tooltipTitle: 'Оформление'}]}/>
 													</div>
 												</TableCell>
 												<TableCell classList={['orders-table__cell', 'cell_size-10']}>
@@ -455,10 +482,44 @@ class Orders extends Component {
 														<p className="color_black">Максим</p>
 													</div>
 												</TableCell>
-												<TableCell toggleInfoRow={true}
-														   classList={['orders-table__cell', 'cell_size-6']}>
-													<div>
-														&nbsp;
+												<TableCell classList={['orders-table__cell', 'cell_size-6']}>
+													<div className='orders-table__cell-content'>
+														<div className="orders-table__tooltip-holder">
+															<div className="orders-table__state orders-table__state--green">Оформление</div>
+															<div className="orders-table__tooltip orders-table__tooltip--bottom">
+																<ul className="orders-table__tooltip-list">
+																	<li>
+																		<div className="orders-table__state orders-table__state--green">Оформление</div>
+																		<div className="orders-table__state-caption">Райффайзенбанк</div>
+																		<div className="color_gray">
+																			Банк направил
+																			документы
+																			для подписания
+																		</div>
+																	</li>
+																	<li>
+																		<div className="orders-table__state orders-table__state--green">Одобрено</div>
+																		<div className="orders-table__tooltip-item">ЮниКредит Банк</div>
+																		<div className="orders-table__tooltip-item">Совкомбанк</div>
+																		<div className="orders-table__tooltip-item">ОТП Банк</div>
+																		<div className="orders-table__tooltip-item">Банк Союз</div>
+																		<div className="orders-table__tooltip-item">Уралсиб</div>
+																	</li>
+																	<li>
+																		<div className="orders-table__state orders-table__state--yellow">Ожидание</div>
+																		<div className="orders-table__tooltip-item">Тинькофф</div>
+																		<div className="orders-table__tooltip-item">ВТБ</div>
+																		<div className="orders-table__tooltip-item">Экспобанк</div>
+																		<div className="orders-table__tooltip-item">Балтинвестбанк</div>
+																	</li>
+																	<li>
+																		<div className="orders-table__state orders-table__state--red">Отказ</div>
+																		<div className="orders-table__tooltip-item">Банк Зенит</div>
+																		<div className="orders-table__tooltip-item">ПлюсБанк</div>
+																	</li>
+																</ul>
+															</div>
+														</div>
 													</div>
 												</TableCell>
 												<TableCell toggleInfoRow={true}
@@ -512,17 +573,9 @@ class Orders extends Component {
 														<p className="color_black">Максим</p>
 													</div>
 												</TableCell>
-												<TableCell toggleInfoRow={true}
-														   classList={['orders-table__cell', 'cell_size-6']}>
+												<TableCell classList={['orders-table__cell', 'cell_size-6']}>
 													<div className='orders-table__cell-content'>
-														<Svetofor data={[
-															{value: 5},
-															{className: 'svetofor-item__yellow', value: 5},
-															{className: 'svetofor-item__green', value: 1},
-															{className: 'svetofor-item__blue', value: 3},
-															{className: 'svetofor-item__red', value: 6}
-														]}/>
-														<p>Одобрение</p>
+														{svetoforTooltip}
 													</div>
 												</TableCell>
 												<TableCell toggleInfoRow={true}
@@ -576,8 +629,7 @@ class Orders extends Component {
 														<p className="color_black">Максим</p>
 													</div>
 												</TableCell>
-												<TableCell toggleInfoRow={true}
-														   classList={['orders-table__cell', 'cell_size-6']}>
+												<TableCell classList={['orders-table__cell', 'cell_size-6']}>
 													<div className='orders-table__cell-content'>
 														&nbsp;
 													</div>
@@ -586,14 +638,14 @@ class Orders extends Component {
 														   classList={['orders-table__cell', 'cell_size-8']}>
 													<div className='orders-table__cell-content'>
 														<Svetofor classList={['svetofor-wrapper__center']}
-																  data={[{className: 'svetofor-item__green'}]}/>
+																  data={[{className: 'svetofor-item--green', tooltipShort: true, tooltipTitle: 'Оформление'}]}/>
 													</div>
 												</TableCell>
 												<TableCell toggleInfoRow={true}
 														   classList={['orders-table__cell', 'cell_size-9']}>
 													<div className='orders-table__cell-content'>
 														<Svetofor classList={['svetofor-wrapper__center']}
-																  data={[{className: 'svetofor-item__green'}]}/>
+																  data={[{className: 'svetofor-item--green', tooltipShort: true, tooltipTitle: 'Оформление'}]}/>
 													</div>
 												</TableCell>
 												<TableCell classList={['orders-table__cell', 'cell_size-10']}>
@@ -635,8 +687,7 @@ class Orders extends Component {
 														<p className="color_black">Максим</p>
 													</div>
 												</TableCell>
-												<TableCell toggleInfoRow={true}
-														   classList={['orders-table__cell', 'cell_size-6']}>
+												<TableCell classList={['orders-table__cell', 'cell_size-6']}>
 													<div>
 														&nbsp;
 													</div>
@@ -692,17 +743,9 @@ class Orders extends Component {
 														<p className="color_black">Максим</p>
 													</div>
 												</TableCell>
-												<TableCell toggleInfoRow={true}
-														   classList={['orders-table__cell', 'cell_size-6']}>
+												<TableCell classList={['orders-table__cell', 'cell_size-6']}>
 													<div className='orders-table__cell-content'>
-														<Svetofor data={[
-															{value: 5},
-															{className: 'svetofor-item__yellow', value: 5},
-															{className: 'svetofor-item__green', value: 1},
-															{className: 'svetofor-item__blue', value: 3},
-															{className: 'svetofor-item__red', value: 6}
-														]}/>
-														<p>Одобрение</p>
+														{svetoforTooltip}
 													</div>
 												</TableCell>
 												<TableCell toggleInfoRow={true}
@@ -756,8 +799,7 @@ class Orders extends Component {
 														<p className="color_black">Максим</p>
 													</div>
 												</TableCell>
-												<TableCell toggleInfoRow={true}
-														   classList={['orders-table__cell', 'cell_size-6']}>
+												<TableCell classList={['orders-table__cell', 'cell_size-6']}>
 													<div className='orders-table__cell-content'>
 														&nbsp;
 													</div>
@@ -766,14 +808,14 @@ class Orders extends Component {
 														   classList={['orders-table__cell', 'cell_size-8']}>
 													<div className='orders-table__cell-content'>
 														<Svetofor classList={['svetofor-wrapper__center']}
-																  data={[{className: 'svetofor-item__yellow'}]}/>
+																  data={[{className: 'svetofor-item--yellow', tooltipShort: true, tooltipTitle: 'Ожидание'}]}/>
 													</div>
 												</TableCell>
 												<TableCell toggleInfoRow={true}
 														   classList={['orders-table__cell', 'cell_size-9']}>
 													<div className='orders-table__cell-content'>
 														<Svetofor classList={['svetofor-wrapper__center']}
-																  data={[{className: 'svetofor-item__green'}]}/>
+																  data={[{className: 'svetofor-item--green', tooltipShort: true, tooltipTitle: 'Оформление'}]}/>
 													</div>
 												</TableCell>
 												<TableCell classList={['orders-table__cell', 'cell_size-10']}>
@@ -815,8 +857,7 @@ class Orders extends Component {
 														<p className="color_black">Максим</p>
 													</div>
 												</TableCell>
-												<TableCell toggleInfoRow={true}
-														   classList={['orders-table__cell', 'cell_size-6']}>
+												<TableCell classList={['orders-table__cell', 'cell_size-6']}>
 													<div className='orders-table__cell-content'>
 														&nbsp;
 													</div>
@@ -831,8 +872,7 @@ class Orders extends Component {
 												<TableCell toggleInfoRow={true}
 														   classList={['orders-table__cell', 'cell_size-9']}>
 													<div className='orders-table__cell-content'>
-														<Svetofor classList={['svetofor-wrapper__center']}
-																  data={[{className: 'svetofor-item__red'}]}/>
+														<Svetofor classList={['svetofor-wrapper__center']} data={[{className: 'svetofor-item--red', tooltipShort: true, tooltipTitle: 'Отказ'}]}/>
 													</div>
 												</TableCell>
 												<TableCell classList={['orders-table__cell', 'cell_size-10']}>

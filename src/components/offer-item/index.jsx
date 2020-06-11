@@ -4,6 +4,7 @@ import {Link} from "react-router-dom";
 import './style.scss';
 import PropTypes from "prop-types";
 import {formatMoney} from "../../helpers/formatMoney";
+import searchTree from "../../helpers/searchTree";
 import {Col, InputNumber, Select, Switch, Tooltip} from "antd";
 import {langs} from "../navbar/sidebar/global-const";
 
@@ -98,34 +99,18 @@ class OfferItem extends Component {
 	setWrapperRef(node) {
 		this.wrapperRef = node;
 	}
-	
-	searchTree = (element, target) => {
-		if (!element || ! target) return null;
-		if (element.isEqualNode(target)) {
-			return element;
-		} else if (element.children != null) {
-			let i;
-			let result = null;
-			for (i = 0; result == null && i < element.children.length; i++) {
-				result = this.searchTree(element.children[i], target);
-			}
-			return result;
-		}
-		return null;
-	}
 
 	handleClickOutside(event) {
-		if (!this.searchTree(this.wrapperRef, event.target)) {
+		if (!searchTree(this.wrapperRef, event.target)) {
 			this.setState({offerCollapsed: true})
 		}
 	}
+	
 	
 	render() {
 		let {offer, slider, index, credit, active, completed} = this.props
 		let prefix = active ? '' : (offer.price + '').replace(/\d/g, '')
 		let price = formatMoney(((this.state.newPrice || offer.price) + '').replace(/\D/g, ''))
-
-		console.log('offer', offer);
 		
 		return (
 			slider ?

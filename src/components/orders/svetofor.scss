@@ -22,28 +22,27 @@
 		border: 1px solid $color-grey;
 		margin: 3px 7px 3px 0;
 		
-		&__yellow {
+		&--yellow {
 			background: $color-yellow;
 			border-color: $color-yellow;
 		}
 		
-		&__green {
+		&--green {
 			color: #fff;
 			background: $color-green;
 			border-color: $color-green;
 		}
 		
-		&__red {
+		&--red {
 			color: #fff;
 			background: $color-prime;
 			border-color: $color-prime;
 		}
 		
-		&__blue {
+		&--blue {
 			color: #fff;
 			background: $color-blue;
 			border-color: $color-blue;
 		}
-		
 	}
 }

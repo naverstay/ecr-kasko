@@ -96,7 +96,36 @@
 		border-bottom: 2px solid $color-prime;
 		display: flex;
 		align-items: center;
+		position: relative;
 
+		&__menu {
+			position: absolute;
+			top: 100%;
+			left: 0;
+			z-index: 1;
+			background: #fff;
+			border: 1px solid #b5b5b5;
+			padding: 12px 0 6px;
+			
+			&--list {
+				list-style: none;
+				padding: 0;
+				margin: 0;
+			}
+			
+			&--item {
+				@extend %text2;
+				cursor: pointer;
+				padding: 6px 14px 6px 26px;
+			}
+			
+			&--split {
+				margin-top: 4px;
+				padding-top: 12px;
+				border-top: 1px solid #b5b5b5;
+			}
+		}
+		
 		&__text {
 			font-size: 13px;
 			font-weight: 500;

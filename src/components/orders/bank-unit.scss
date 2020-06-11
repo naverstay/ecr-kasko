@@ -3,7 +3,7 @@
 .bank-unit {
 	display: flex;
 	flex-flow: row nowrap;
-	padding: 15px 11px 17px;
+	padding: 12px 15px;
 	position: relative;
 	font-size: 12px;
 	
@@ -11,21 +11,26 @@
 		padding-right: 18px;
 
 		&.cell_size-1 {
-			max-width: 247px;
-			flex: 1 1 247px;
+			$cell-size: 450px;
+			max-width: $cell-size;
+			flex: 1 1 $cell-size;
 		}
 
 		&.cell_size-2 {
-			max-width: 97px;
-			flex: 1 1 97px;
+			$cell-size: 125px;
+			max-width: $cell-size;
+			flex: 1 1 $cell-size;
 		}
 
 		&.cell_size-3 {
-			max-width: 82px;
-			flex: 1 1 82px;
+			$cell-size: 30px;
+			max-width: $cell-size;
+			flex: 1 1 $cell-size;
+			padding-right: 0;
 		}
 
 		&.cell_size-4 {
+			$cell-size: 350px;
 			max-width: 65px;
 			flex: 1 1 65px;
 			padding-right: 0;
@@ -53,7 +58,7 @@
 	}
 	
 	&__fee {
-		font-size: 10px;
+		font-size: 12px;
 	}
 
 	&__chat {
@@ -80,16 +85,16 @@
 		text-align: center;
 		padding-top: 16px;
 		font-size: 10px;
-		margin-top: 8px;
+		margin-top: 5px;
 		
 		&:before {
 			content: '';
 			position: absolute;
 			top: 0;
 			left: 50%;
-			margin-left: -6px;
-			width: 12px;
-			height: 12px;
+			margin-left: -5px;
+			width: 18px;
+			height: 18px;
 			border-radius: 100%;
 			background: $color-grey;
 		}

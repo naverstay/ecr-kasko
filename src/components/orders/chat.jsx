@@ -2,6 +2,8 @@ import React, {Component} from 'react';
 import PropTypes from 'prop-types';
 import cn from 'classnames';
 import ChatDay from '../orders/chat-day';
+import searchTree from "../../helpers/searchTree";
+import {Checkbox} from "antd";
 
 import './chat.scss';
 
@@ -9,7 +11,10 @@ class Chat extends Component {
 	constructor(props) {
 		super(props)
 		this.toggleChat = this.toggleChat.bind(this)
-		this.state = {chatOpen: this.props.open}
+		this.state = {chatOpen: this.props.open, settingsOpen: false}
+
+		this.setWrapperRef = this.setWrapperRef.bind(this);
+		this.handleClickOutside = this.handleClickOutside.bind(this);
 	}
 	
 	static propTypes = {
@@ -25,11 +30,30 @@ class Chat extends Component {
 	
 	toggleSettings = () => {
 		console.log('toggleSettings');
+		this.setState({settingsOpen: !this.state.settingsOpen})
 	}
 	
 	toggleChat = () => {
 		console.log('toggleChat');
 		this.setState({chatOpen: !this.state.chatOpen})
+	}
+
+	componentDidMount() {
+		document.addEventListener('mousedown', this.handleClickOutside);
+	}
+
+	componentWillUnmount() {
+		document.removeEventListener('mousedown', this.handleClickOutside);
+	}
+	
+	setWrapperRef(node) {
+		this.wrapperRef = node;
+	}
+	
+	handleClickOutside(event) {
+		if (!event.target.classList.contains('chat-title__settings') && !searchTree(this.wrapperRef, event.target)) {
+			this.setState({settingsOpen: false})
+		}
 	}
 	
 	render() {
@@ -63,6 +87,17 @@ class Chat extends Component {
 						</div>
 						<div onClick={this.toggleSettings} className="chat-title__settings"/>
 						<div className="chat-title__search"/>
+						{this.state.settingsOpen ? 
+							<div ref={this.setWrapperRef} className="chat-title__menu">
+								<ul className="chat-title__menu--list">
+									<li className="chat-title__menu--item check_v4"><Checkbox>Сортировать по времени</Checkbox></li>
+									<li className="chat-title__menu--item check_v4"><Checkbox>Сортировать по прочитанному</Checkbox></li>
+									<li className="chat-title__menu--item chat-title__menu--split">Пометить все как прочитанное</li>
+									<li className="chat-title__menu--item">Удалить прочитанное</li>
+								</ul>
+							</div> 
+							: null
+						}
 					</div>
 					{/*<div className="chat-search">*/}
 					{/*	<input className="chat-search__input" type="text" placeholder="Поиск по имени или фамилии"/>*/}
