@@ -28,7 +28,19 @@
 		margin-top: 10px;
 
 		+ .kasko-user__info {
-			margin-top: 15px;
+			margin-top: 5px;
+		}
+		
+		&._phone {
+			margin-bottom: 30px;
+		}
+		
+		&._small {
+			@extend %text3;
+		}
+		
+		&:last-child {
+			margin-bottom: 15px;
 		}
 	}
 }

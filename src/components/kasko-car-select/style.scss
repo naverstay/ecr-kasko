@@ -145,7 +145,27 @@
 		font-size: 14px;
 		line-height: 18px;
 	}
-
+	
+	&__description {
+		padding: 20px 17px;
+		
+		.kasko-car-select__controls--toggle {
+			@extend %h1;
+			margin-left: -17px;
+			text-decoration: underline;
+		}
+		
+		&--price {
+			@extend %h2;
+			margin-bottom: 15px;
+		}
+		
+		&--link {
+			@extend %text2;
+			color: $color-grey;
+		}
+	}
+	
 	&__info {
 		margin-top: 8px;
 		font-size: 12px;
@@ -214,7 +234,7 @@
 		
 		.ant-radio-wrapper {
 			@extend %text2;
-			margin-top: 12px;
+			margin-top: 8px;
 		}
 		
 		&--stretch {

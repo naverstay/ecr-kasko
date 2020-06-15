@@ -455,6 +455,18 @@ class KaskoCarSelect extends Component {
 
 		return (
 			<div className="kasko-car-select">
+				{!this.state.carFound ?
+					<h1 className="kasko-main__title">Выберите автомобиль</h1> :
+					<div className="kasko-car-select__description">
+						<div className="kasko-car-select__controls">
+							<span onClick={this.toggleCarOptions}
+								  className={"gl_link color_black kasko-car-select__controls--toggle " + (this.state.showCarOptions ? 'expanded' : 'collapsed')}>Hyundai Sonata</span>
+						</div>
+						<div className="kasko-car-select__description--price">1 524 000 ₽</div>
+						<div className="kasko-car-select__description--link gl_link">В архив</div>
+					</div>
+				}
+				
 				<div className="kasko-car-select__controls radio_v2">
 					<Radio.Group defaultValue={step === 1 ? null : this.state.newCar ? 1 : null} onChange={this.onCarNewChange}>
 						<Row gutter={20}>
@@ -653,41 +665,41 @@ class KaskoCarSelect extends Component {
 					</div> 
 				}
 
-				{fill ? null :
-					(!this.state.formBusy && this.state.carFound && !hideOffers) ?
-						<KaskoOffers offersList={this.state.carCredit ? carCreditList : carNonCreditList}/>
-						:
-						<KaskoOffers disabled={true} offersList={[
-								{
-									name: 'Кредит',
-									price: 0,
-									button: 'Рассчитать',
-									prefix: 'от',
-									suffix: '₽/мес'
-								},
-								{
-									name: 'ОСАГО',
-									price: 0,
-									button: 'Рассчитать',
-									prefix: 'от',
-									suffix: '₽'
-								},
-								{
-									name: 'КАСКО',
-									price: 0,
-									button: 'Рассчитать',
-									prefix: 'от',
-									suffix: '₽'
-								},
-								{
-									name: 'GAP',
-									price: 0,
-									button: 'Рассчитать',
-									prefix: 'от',
-									suffix: '₽'
-								}
-							]}/>
-				}
+				{/*{fill ? null :*/}
+				{/*	(!this.state.formBusy && this.state.carFound && !hideOffers) ?*/}
+				{/*		<KaskoOffers offersList={this.state.carCredit ? carCreditList : carNonCreditList}/>*/}
+				{/*		:*/}
+				{/*		<KaskoOffers disabled={true} offersList={[*/}
+				{/*				{*/}
+				{/*					name: 'Кредит',*/}
+				{/*					price: 0,*/}
+				{/*					button: 'Рассчитать',*/}
+				{/*					prefix: 'от',*/}
+				{/*					suffix: '₽/мес'*/}
+				{/*				},*/}
+				{/*				{*/}
+				{/*					name: 'ОСАГО',*/}
+				{/*					price: 0,*/}
+				{/*					button: 'Рассчитать',*/}
+				{/*					prefix: 'от',*/}
+				{/*					suffix: '₽'*/}
+				{/*				},*/}
+				{/*				{*/}
+				{/*					name: 'КАСКО',*/}
+				{/*					price: 0,*/}
+				{/*					button: 'Рассчитать',*/}
+				{/*					prefix: 'от',*/}
+				{/*					suffix: '₽'*/}
+				{/*				},*/}
+				{/*				{*/}
+				{/*					name: 'GAP',*/}
+				{/*					price: 0,*/}
+				{/*					button: 'Рассчитать',*/}
+				{/*					prefix: 'от',*/}
+				{/*					suffix: '₽'*/}
+				{/*				}*/}
+				{/*			]}/>*/}
+				{/*}*/}
 			</div>
 		);
 	}
