@@ -13,7 +13,7 @@ class AsideCrumbs extends Component {
 	render() {
 		const {crumbs} = this.props;
 		
-		const crumbHtml = crumbs.map((c, i) => <li key={i}><a className="aside-crumbs__item" href="/">{c}</a></li>);
+		const crumbHtml = crumbs.map((c, i) => <li key={i}><a className="aside-crumbs__item ant-btn btn_green" href="/">{c}</a></li>);
 		
 		return (
 			<ul className="aside-crumbs">

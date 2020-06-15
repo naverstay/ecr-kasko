@@ -7,30 +7,30 @@
 
 	li {
 		width: 100%;
+		margin-top: 15px;
 	}
 	
 	&__item {
 		display: block;
 		width: 100%;
 		height: 45px;
-		border-radius: 22px;
 		position: relative;
-		color: #000;
+		//color: $color-green;
 		font-size: 14px;
 		line-height: 21px;
-		padding: 12px 30px 12px 15px;
-		background: $color-blue-light;
+		padding: 12px 15px;
 		box-sizing: border-box;
-		margin-top: 8px;
+		text-align: center;
+		//border: 1px solid $color-green;
 
-		&:before {
-			color: #fff;
+		&:after {
+			color: $color-green;
 			font-family: $icomoon-font-family;
 			content: $i-chevron_r;
-			position: absolute;
-			right: 12px;
-			top: 50%;
-			margin-top: -10px;
+			padding-left: 15px;
+			display: inline-block;
+			vertical-align: top;
+			padding-top: 1px;
 		}
 	}
 }

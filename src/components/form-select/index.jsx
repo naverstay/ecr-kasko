@@ -26,8 +26,10 @@ class FormSelect extends Component {
 	};
 
 	render() {
-		const {value, controlName, span, placeholder, options} = this.props;
+		const {cellClass, controlName, span, placeholder, options} = this.props;
 
+		console.log('controlValue', this.state.controlValue, '#');
+		
 		let slct = <>
 			<Select
 				name={controlName}
@@ -49,7 +51,7 @@ class FormSelect extends Component {
 					{slct}
 				</>
 				:
-				<Col span={span}>
+				<Col className={cellClass || ''} span={span}>
 					{slct}
 				</Col>
 		);

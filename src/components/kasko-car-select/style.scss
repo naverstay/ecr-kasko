@@ -177,6 +177,11 @@
 				margin-bottom: 15px;
 			}
 		}
+
+		&.radio_v2-1 {
+			@extend %radio_v2;
+			margin-bottom: 0;
+		}
 		
 		&.radio_v3 {
 			@extend %radio_v3;
