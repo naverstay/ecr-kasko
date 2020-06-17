@@ -154,18 +154,6 @@ class KaskoCarSelect extends Component {
 			}
 		}, 0)
 	};
-	
-	onCarYearChange = (value) => {
-		this.setState({carYear: value})
-		this.checkReadyState()
-		this.removeActiveField('carYear')
-		this.addActiveField('carNumber')
-	};
-
-	onCarUsageChange = e => {
-		this.setState({carUsageStart: e.target.value})
-		this.checkReadyState()
-	};
 
 	toggleAdditionalFields = e => {
 		this.setState({showAdditional: !this.state.showAdditional})
@@ -203,52 +191,7 @@ class KaskoCarSelect extends Component {
 	activeClass = (field) => {
 		return (this.state.activeFields.indexOf(field) > -1 ? " control-focused" : "")
 	};
-
-	onMarkChange = value => {
-		this.setState({carMark: value})
-		this.checkReadyState()
-		this.updateImage(value)
-		this.removeActiveField('carMark')
-		this.addActiveField('carModel')
-	};
-
-	onModelChange = value => {
-		this.setState({carModel: value})
-		this.checkReadyState()
-		this.removeActiveField('carModel')
-		this.addActiveField('carEquipment')
-	};
-
-	onCarPowerChange = e => {
-		this.setState({carPower: e.target.value})
-		this.checkReadyState()
-	};
 	
-	onCarPriceChange = e => {
-		this.setState({carPrice: e.target.value})
-		this.checkReadyState()
-	};
-
-	onCarRegionChange = e => {
-		this.setState({carRegion: e.target.value})
-		this.checkReadyState()
-	};
-
-	onEquipmentChange = value => {
-		this.setState({carEquipment: value})
-		this.checkReadyState()
-		this.removeActiveField('carEquipment')
-		
-		if (!this.state.newCar) {
-			this.addActiveField('carYear')
-		}
-	};
-
-	onATSChange = value => {
-		this.setState({carATS: value})
-		this.checkReadyState()
-	};
-
 	onAutoStartChange = e => {
 		this.setState({carAutoStart: e.target.checked})
 	};

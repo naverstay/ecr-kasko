@@ -19,6 +19,7 @@ class KaskoCarSelectNew extends Component {
 	constructor(props) {
 		super(props);
 		this.state = {
+			activeFields: (this.props.step === 1 ? ['carMark'] : []),
 			carFound: void 0,
 			allowPayment: true,
 			showAdditional: false,
@@ -144,18 +145,31 @@ class KaskoCarSelectNew extends Component {
 		}, 0)
 	};
 
-	onCarUsageStartChange = e => {
-		this.setState({carUsageStart: e.target.value})
-		this.checkReadyState()
+	removeActiveField = (field) => {
+		let fields = this.state.activeFields.slice(0)
+		let index = fields.indexOf(field)
+
+		if (index > -1) {
+			fields.splice(index, 1);
+
+			this.setState({activeFields: fields})
+		}
 	};
 
-	toggleAdditionalFields = e => {
-		this.setState({showAdditional: !this.state.showAdditional})
+	addActiveField = (field) => {
+		setTimeout(() => {
+			let fields = this.state.activeFields.slice(0)
+
+			if (fields.indexOf(field) < 0) {
+				fields.push(field)
+
+				this.setState({activeFields: fields})
+			}
+		}, 100)
 	};
 
-	onCarNumberChange = e => {
-		this.setState({carNumber: e.target.value, carFound: void 0})
-		this.checkReadyState()
+	activeClass = (field) => {
+		return (this.state.activeFields.indexOf(field) > -1 ? " control-focused" : "")
 	};
 	
 	formControlCallback = (name, value) => {
@@ -194,79 +208,33 @@ class KaskoCarSelectNew extends Component {
 
 			this.setState(obj)
 			this.checkReadyState()
-		} else {
-			switch (name) {
-				case 'carMark':
-					this.setState({carMark: value})
-					this.checkReadyState()
-					break
-				
-			}
-		}
+		} 
 		
+		switch (name) {
+			case 'carMark':
+				this.removeActiveField('carMark')
+				this.addActiveField('carModel')
+				break
+			case 'carModel':
+				this.removeActiveField('carModel')
+				this.addActiveField('carEquipment')
+				break
+			case 'carEquipment':
+				this.removeActiveField('carEquipment')
+
+				if (!this.state.newCar) {
+					this.addActiveField('carYear')
+				}
+				break
+			case 'carYear':
+				this.removeActiveField('carYear')
+				this.addActiveField('carNumber')
+				break
+		}
 	};
 	
-	onCarPowerRangeChange = value => {
-		this.setState({carPowerRange: value})
-		this.checkReadyState()
-	};
-	
-	onCarPowerChange = e => {
-		this.setState({carPower: e.target.value})
-		this.checkReadyState()
-	};
-
-	onCarMileageChange = e => {
-		this.setState({carMileage: e.target.value})
-		this.checkReadyState()
-	};
-	
-	onCarPriceChange = e => {
-		this.setState({carPrice: e.target.value})
-		this.checkReadyState()
-	};
-
-	onCarKaskoDocChange = e => {
-		this.setState({carKaskoDoc: e.target.value})
-	};
-
 	onCarKaskoDocStartChange = e => {
 		this.setState({carKaskoDocStart: e.target.value})
-	};
-
-	onCarRegionChange = e => {
-		this.setState({carRegion: e.target.value})
-		this.checkReadyState()
-	};
-	
-	onCarBodyTypeChange = value => {
-		this.setState({carBodyType: value})
-		this.checkReadyState()
-	};
-
-	onCarMotorTypeChange = value => {
-		this.setState({carMotorType: value})
-		this.checkReadyState()
-	};
-
-	onCarTransmissionTypeChange = value => {
-		this.setState({carTransmissionType: value})
-		this.checkReadyState()
-	};
-
-	onCarMotorSizeChange = value => {
-		this.setState({carMotorSize: value})
-		this.checkReadyState()
-	};
-
-	onCarATSChange = value => {
-		this.setState({carATS: value})
-		this.checkReadyState()
-	};
-
-	onCarBankNameChange = value => {
-		this.setState({carBankName: value})
-		this.checkReadyState()
 	};
 
 	onCarForTaxiChange = e => {
@@ -275,18 +243,6 @@ class KaskoCarSelectNew extends Component {
 
 	onAutoStartChange = e => {
 		this.setState({carAutoStart: e.target.checked})
-	};
-
-	onCarVINChange = e => {
-		this.setState({carVIN: e.target.value})
-	};
-
-	onCarPTSChange = e => {
-		this.setState({carPTS: e.target.value})
-	};
-
-	onCarPTSStartChange = e => {
-		this.setState({carPTSStart: e.target.value})
 	};
 
 	onFinish = values => {

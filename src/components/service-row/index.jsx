@@ -66,7 +66,7 @@ class ServiceRow extends Component {
 					
 					return (show ? 
 							<>
-								<tr key={i} className={(showOptions ? "expanded" : "") + (offerSelected ? " selected" : "")}>
+								<tr key={i} className={(showOptions ? "expanded" : "") + ((!(completed || waiting) && offerSelected) ? " selected" : "")}>
 									<td>
 										{i === 0 ? logo ? <div className={"offer-row__logo"}><img src={logo} alt=""/></div> : <div className={"offer-row__logo" + (info ? " info" : "")}>{name}</div> : null}
 										
@@ -109,7 +109,7 @@ class ServiceRow extends Component {
 									</td>
 								</tr>
 								{showOptions ?
-									<tr key={i + 100000} className={(offerSelected ? "selected" : "")}>
+									<tr key={i + 100000} className={((!(completed || waiting) && offerSelected) ? "selected" : "")}>
 										<td>&nbsp;</td>
 										<td colSpan={5}>
 											<ul className="offer-row__options check cols-3">

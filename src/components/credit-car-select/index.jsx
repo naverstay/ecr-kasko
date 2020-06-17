@@ -20,6 +20,7 @@ class CreditCarSelect extends Component {
 	constructor(props) {
 		super(props);
 		this.state = {
+			activeFields: (this.props.step === 1 ? ['carMark'] : []),
 			carFound: void 0,
 			allowPayment: true,
 			showAdditional: false,

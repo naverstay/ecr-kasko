@@ -65,112 +65,112 @@ class OfferRow extends Component {
 					const offerSelected = (i in this.state.offerSelected) && this.state.offerSelected[i]
 					
 					return (show ? 
-							<>
-								<tr key={i} className={(showOptions ? "expanded" : "") + (offerSelected ? " selected" : "")}>
-									<td>
-										{i === 0 ? logo ? <div className={"offer-row__logo"}><img src={logo} alt=""/></div> : <div className={"offer-row__logo" + (info ? " info" : "")}>{name}</div> : null}
-									</td>
-									{!osago ? <td>
-										<div className="offer-row__name">{o.name}</div>
-										{(this.state.rowsCollapsed && i === 0 && offers.length > 1) ? <div onClick={this.onCollapseToggle} className="offer-row__hint gl_link">{moreLink}</div> : ""}
-										{(!this.state.rowsCollapsed && (i === offers.length - 1) && offers.length > 1) ? <div onClick={this.onCollapseToggle} className="offer-row__hint gl_link">{lessLink}</div> : ""}
-									</td> : null}
-																	
-									{franchise ?
-										<td>
-											<div className="offer-row__fee">{o.franchise}</div>
-										</td>
-									: null}
+						<>
+							<tr key={i} className={(showOptions ? "expanded" : "") + (offerSelected ? " selected" : "")}>
+								<td>
+									{i === 0 ? logo ? <div className={"offer-row__logo"}><img src={logo} alt=""/></div> : <div className={"offer-row__logo" + (info ? " info" : "")}>{name}</div> : null}
+								</td>
+								{!osago ? <td>
+									<div className="offer-row__name">{o.name}</div>
+									{(this.state.rowsCollapsed && i === 0 && offers.length > 1) ? <div onClick={this.onCollapseToggle} className="offer-row__hint gl_link">{moreLink}</div> : ""}
+									{(!this.state.rowsCollapsed && (i === offers.length - 1) && offers.length > 1) ? <div onClick={this.onCollapseToggle} className="offer-row__hint gl_link">{lessLink}</div> : ""}
+								</td> : null}
 
+								{franchise ?
 									<td>
-										<div className="offer-row__price">{formatMoney(o.price)} ₽</div>
+										<div className="offer-row__fee">{o.franchise}</div>
 									</td>
-									
-									{credit ?
+								: null}
+	
+								<td>
+									<div className="offer-row__price">{formatMoney(o.price)} ₽</div>
+								</td>
+								
+								{credit ?
+									<td>
+										<div className="offer-row__fee">{o.rate}</div>
+									</td>
+								: null}
+		
+								<td>
+									<div className="offer-row__fee">{formatMoney(o.dealerFee)} ₽</div>
+								</td>
+								
+								{(completed || waiting) ?
+									<>
 										<td>
-											<div className="offer-row__fee">{o.rate}</div>
+											<div className="offer-row__date">{o.dateStart}</div>
+											<div className="offer-row__date">{o.dateEnd}</div>
 										</td>
-									: null}
-			
-									<td>
-										<div className="offer-row__fee">{formatMoney(o.dealerFee)} ₽</div>
-									</td>
-									
-									{(completed || waiting) ?
-										<>
+										<td className="text_left">
+											<div className="offer-row__documents">
+												<div className="gl_link color_black">{o.document}</div>
+												<div className="offer-row__bill gl_link">Счет на оплату</div>
+											</div>
+										</td>
+										<td>
+											<div className={"offer-row__status " + (completed ? "approved" : "waiting")}/>
+										</td>
+									</>
+								: 
+									<>
+										{credit ?
 											<td>
-												<div className="offer-row__date">{o.dateStart}</div>
-												<div className="offer-row__date">{o.dateEnd}</div>
-											</td>
-											<td className="text_left">
-												<div className="offer-row__documents">
-													<div className="gl_link color_black">{o.document}</div>
-													<div className="offer-row__bill gl_link">Счет на оплату</div>
+												<div className="offer-row__fee text_left">
+													{ o.params.map((p, i) => <p key={i}>{p}</p>) }
 												</div>
 											</td>
-											<td>
-												<div className={"offer-row__status " + (completed ? "approved" : "waiting")}/>
-											</td>
-										</>
-									: 
-										<>
-											{credit ?
-												<td>
-													<div className="offer-row__fee text_left">
-														{ o.params.map((p, i) => <p key={i}>{p}</p>) }
+										:
+											osago ?
+												<td className="text_left">
+													<div className="offer-row__documents">
+														<div className="offer-row__bill gl_link">Счет на оплату</div>
 													</div>
 												</td>
 											:
-												osago ?
-													<td className="text_left">
-														<div className="offer-row__documents">
-															<div className="offer-row__bill gl_link">Счет на оплату</div>
-														</div>
-													</td>
-												:
-													<td>&nbsp;</td>
-											}
-										
-											<td>
-												<Checkbox disabled={((allowCheck || osago) ? null : "disabled")} className="offer-row__check" onChange={(e) => this.onSelectOfferToggle(company, i, e)}/>
+												<td>&nbsp;</td>
+										}
+									
+										<td>
+											<Checkbox disabled={((allowCheck || osago) ? null : "disabled")} className="offer-row__check" onChange={(e) => this.onSelectOfferToggle(company, i, e)}/>
+										</td>
+										{!osago ? <td>
+											<div onClick={() => this.addOptionFlag(i)} className="offer-row__link"/>
+										</td> : null}
+									</>
+								}
+							</tr>
+							{!osago && (!(completed || waiting) && showOptions) ?
+								<tr key={i + 100000} className={(offerSelected ? "selected" : "")}>
+									<td>&nbsp;</td>
+									
+									{credit ?
+										<>
+											<td>&nbsp;</td>
+											<td colSpan={6}>
+												<ul className="offer-row__options">
+													{o.options.map((opt, k) => <li key={k} className="offer-row__credit">
+														<div className="offer-row__credit--name">{opt.option || ''}</div>
+														<div onClick={() => {opt.func && opt.func()}} className={"offer-row__credit--link" + ((opt.link || opt.func) ? ' gl_link' : '')}>{opt.price || ''}</div>
+													</li>)}
+												</ul>
 											</td>
-											{!osago ? <td>
-												<div onClick={() => this.addOptionFlag(i)} className="offer-row__link"/>
-											</td> : null}
+										</>
+										:
+										<>
+											<td>&nbsp;</td>
+											{franchise ? <td>&nbsp;</td> : null}
+											<td colSpan={4}>
+												<ul className="offer-row__options">
+													{o.options.map((opt, k) => <li key={k}>{opt}</li>)}
+												</ul>
+											</td>
+											<td>&nbsp;</td>
 										</>
 									}
 								</tr>
-								{!osago && (!completed && showOptions) ?
-									<tr key={i + 100000} className={(offerSelected ? "selected" : "")}>
-										<td>&nbsp;</td>
-										
-										{credit ?
-											<>
-												<td>&nbsp;</td>
-												<td colSpan={6}>
-													<ul className="offer-row__options">
-														{o.options.map((opt, k) => <li key={k} className="offer-row__credit">
-															<div className="offer-row__credit--name">{opt.option || ''}</div>
-															<div onClick={() => {opt.func && opt.func()}} className={"offer-row__credit--link" + ((opt.link || opt.func) ? ' gl_link' : '')}>{opt.price || ''}</div>
-														</li>)}
-													</ul>
-												</td>
-											</>
-											:
-											<>
-												<td>&nbsp;</td>
-												{franchise ? <td>&nbsp;</td> : null}
-												<td colSpan={4}>
-													<ul className="offer-row__options">
-														{o.options.map((opt, k) => <li key={k}>{opt}</li>)}
-													</ul>
-												</td>
-												<td>&nbsp;</td>
-											</>
-										}
-									</tr>
-									: null}
-							</> : null)
+								: null}
+						</> : null)
 				})}
 			</>
 		);

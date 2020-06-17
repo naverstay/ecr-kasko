@@ -74,7 +74,7 @@ function App() {
             )}/>          
             <Route exact path="/tabs" render={(routeProps) => (
                 <PageLayout>
-                    <Kasko {...routeProps} step={1} tabs={true} dev={true} showOffers={false}/>
+                    <Kasko {...routeProps} step={1} tabs={true} dev={process.env.NODE_ENV !== 'production'} showOffers={false}/>
                 </PageLayout>
             )}/>
             <Route path="/kasko" render={(routeProps) => (

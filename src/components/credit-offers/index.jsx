@@ -131,7 +131,7 @@ class CreditOffers extends Component {
 					<div className="kasko-offer__more">
 						<div className="gl_link">Показать все предложения</div>
 					</div>
-					: ""
+					: null
 				}
 			</div>
 		);
