@@ -6296,31 +6296,31 @@ textarea::-moz-placeholder {
 	border: 1px solid blue;
 }
 
-.tooltip_v1 {
-	-webkit-transition: opacity 0.3s;
-	-ms-transition: opacity 0.3s;
-	transition: opacity 0.3s;
-	z-index: 3;
-	background: #fff;
-	padding: 8px 10px;
-	font-size: 12px;
-	color: #000;
-	left: 100%;
-	float: left;
-	border-radius: 2px;
-	box-shadow: 0 0 13px rgba(44, 50, 65, 0.45);
-	opacity: 0;
-}
-
-.tooltip_v1:before {
-	content: '';
-	position: absolute;
-	top: 100%;
-	left: 12px;
-	border-left: 5px solid transparent;
-	border-right: 5px solid transparent;
-	border-top: 5px solid #fff;
-}
+//.tooltip_v1 {
+//	-webkit-transition: opacity 0.3s;
+//	-ms-transition: opacity 0.3s;
+//	transition: opacity 0.3s;
+//	z-index: 3;
+//	background: #fff;
+//	padding: 8px 10px;
+//	font-size: 12px;
+//	color: #000;
+//	left: 100%;
+//	float: left;
+//	border-radius: 2px;
+//	box-shadow: 0 0 13px rgba(44, 50, 65, 0.45);
+//	opacity: 0;
+//}
+//
+//.tooltip_v1:before {
+//	content: '';
+//	position: absolute;
+//	top: 100%;
+//	left: 12px;
+//	border-left: 5px solid transparent;
+//	border-right: 5px solid transparent;
+//	border-top: 5px solid #fff;
+//}
 
 .form_cell {
 	position: relative;

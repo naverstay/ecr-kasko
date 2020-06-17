@@ -44,7 +44,7 @@ class Credit extends Component {
 	render() {
 		const {showOffers, step, progress, kasko, details} = this.props;
 		
-		const events = []
+		let events = []
 		
 		if (step === 2) {
 			events.push({

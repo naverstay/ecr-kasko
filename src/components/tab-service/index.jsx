@@ -6,21 +6,15 @@ import moment from 'moment';
 import ru from 'moment/locale/ru';
 import KaskoOffers from "../kasko-offers";
 import {Link} from "react-router-dom";
-import {Switch, Checkbox} from "antd";
-import CalculationPopup from "../calculation-popup";
 import {formatMoney} from "../../helpers/formatMoney";
-//import pluralFromArray from "../../helpers/pluralFromArray";
-import CalculationOffers from "../calculation-offers";
 import PaymentSwitch from "../payment-switch";
-import DriverCount from "../driver-count";
-import KaskoCarSelect from "../kasko-car-select";
 import PopupOverlay from "../popup-overlay";
 import ServicePopup from "../service-popup";
 import ServiceOffers from "../service-offers";
 
 moment().locale('ru', ru);
 
-class ServiceSelect extends Component {
+class TabService extends Component {
 	constructor(props) {
 		super(props);
 		this.state = {
@@ -83,6 +77,7 @@ class ServiceSelect extends Component {
 	static propTypes = {
 		children: PropTypes.node,
 		type: PropTypes.any,
+		tabCallback: PropTypes.func,
 		innerWidth: PropTypes.number
 	};
 
@@ -175,7 +170,7 @@ class ServiceSelect extends Component {
 		this.setState({SMSCode: e.target.value})
 		
 		if (('' + e.target.value).length === 4) {
-			window.location = '/service_done'
+			this.nextStep(3)
 		}
 	};
 	
@@ -203,6 +198,12 @@ class ServiceSelect extends Component {
 
 	toggleShowParams = () => {
 		this.state.showCalculationOffers && this.setState({openParams: !this.state.openParams})
+	}
+
+	nextStep = (step) => {
+		console.log('nextStep', step);
+		
+		typeof this.props.tabCallback === 'function' && this.props.tabCallback(step)
 	}
 
 	toggleSMSSent = () => {
@@ -245,50 +246,6 @@ class ServiceSelect extends Component {
 				//paramsChanged: false
 			});
 		}
-	};
-	
-	onDamagesChange = (checkedValues) => {
-		this.setState({
-			//paramsChanged: true
-		})
-	}
-
-	onShowMoreDamagesChange = (checkedValues) => {
-		this.setState({
-			showMoreDamages: !this.state.showMoreDamages
-		})
-	}
-	
-	onPeriodChange = (e) => {
-		this.setState({
-			//paramsChanged: true
-		})
-	}
-	
-	onFranchiseChange = e => {
-		this.setState({
-			//paramsChanged: true,
-			hasFranchise: e.target.value > 0,
-		});
-	};
-	
-	onFranchiseValueChange = val => {
-		this.setState({
-			franchiseVal: val
-		})
-	};
-
-	onFranchiseTooltip = value => {
-		//console.log('onFranchiseTooltip', value);
-		
-		return null // formatMoney(scaleValue(value, [0, 100], [this.state.franchise[0], this.state.franchise[this.state.franchise.length - 1]]))
-	};
-
-	onCarCreditChange = e => {
-		this.setState({
-			//paramsChanged: true,
-			carCredit: !!e.target.value
-		});
 	};
 
 	scrollToBottom = () => {
@@ -391,33 +348,15 @@ class ServiceSelect extends Component {
 		let dealerOffers = <>
 			<div onClick={() => {this.state.showCalculationOffers && this.toggleShowParams()}}
 				 className={"kasko-car-select__caption" + (this.state.showCalculationOffers ? (this.state.openParams ? " expanded" : " collapsed") : "")}
-			>Дополнительные продукты дилера
-			</div>
+			>Дополнительные продукты дилера</div>
 
 			{!this.state.showCalculationOffers || this.state.openParams ?
 				<>
 					<KaskoOffers onOfferSelect={this.offersUpdate} credit={true} slider={true} offersList={[
 						{
-							name: 'Продленная гарантия',
-							price: 11498,
-							prefix: '',
-							suffix: '₽'
-						},
-						{
-							name: 'Шоколад',
-							price: 10410,
-							prefix: '',
-							suffix: '₽'
-						},
-						{
-							name: 'Карта РАТ',
-							price: 10420,
-							prefix: '',
-							suffix: '₽'
-						},
-						{
 							name: 'Ассистанс',
 							price: '15400',
+							dealerFee: 'от 540 ₽',
 							collapse: true,
 							options: [
 								'эвакуация',
@@ -433,36 +372,90 @@ class ServiceSelect extends Component {
 							suffix: '₽'
 						},
 						{
-							name: 'Шоколад',
-							price: 10420,
+							name: 'Продленная гарантия',
+							price: 11498,
+							dealerFee: 'от 540 ₽',
+							collapse: true,
+							options: [
+								'эвакуация',
+								'юридическая помощь',
+								'аварийный комиссар',
+								'подвоз бензина',
+								'вскрытие автомобиля',
+								'запуск автомобиля',
+								'трезвый водитель',
+								'выездной шиномонтаж'
+							],
 							prefix: '',
 							suffix: '₽'
 						},
 						{
-							name: '123',
-							price: 10430,
+							name: 'Шоколад',
+							price: 10410,
+							dealerFee: 'от 540 ₽',
+							collapse: true,
+							options: [
+								'эвакуация',
+								'юридическая помощь',
+								'аварийный комиссар',
+								'подвоз бензина',
+								'вскрытие автомобиля',
+								'запуск автомобиля',
+								'трезвый водитель',
+								'выездной шиномонтаж'
+							],
+							prefix: '',
+							suffix: '₽'
+						},
+						{
+							name: 'Чечевица',
+							price: 10420,
+							dealerFee: 'от 540 ₽',
+							collapse: true,
+							options: [
+								'эвакуация',
+								'юридическая помощь',
+								'аварийный комиссар',
+								'подвоз бензина',
+								'вскрытие автомобиля',
+								'запуск автомобиля',
+								'трезвый водитель',
+								'выездной шиномонтаж'
+							],
+							prefix: '',
+							suffix: '₽'
+						},
+						{
+							name: 'Карта РАТ',
+							price: 10420,
+							dealerFee: 'от 540 ₽',
+							collapse: true,
+							options: [
+								'эвакуация',
+								'юридическая помощь',
+								'аварийный комиссар',
+								'подвоз бензина',
+								'вскрытие автомобиля',
+								'запуск автомобиля',
+								'трезвый водитель',
+								'выездной шиномонтаж'
+							],
 							prefix: '',
 							suffix: '₽'
 						}
 					]}/>
 
-					<Row gutter={20}
-						 className={"kasko-car-select__controls" + (this.state.showCalculationOffers ? " mb_30" : "")}>
-						<Col span={3}/>
-						<Col span={6}>
-							<div onClick={() => {
-								this.addToCredit()
-							}}
-								 className={"ant-btn btn_green fz_14 w_100p" + (this.state.activeOffers.length ? "" : " disabled")}
-							>Добавить в кредит
-							</div>
-						</Col>
-						<Col span={6}>
-							<div onClick={() => this.toggleCalculationPopup()}
-								 className={"ant-btn ant-btn-primary btn_middle w_100p" + (this.state.activeOffers.length ? "" : " disabled")}
-							>Заполнить анкету</div>
-						</Col>
-					</Row>
+					{this.state.showCalculationOffers ? null :
+						<Row gutter={20}
+							 className={"kasko-car-select__controls ant-row-center" + (this.state.showCalculationOffers ? " mb_30" : "")}>
+							<Col span={6}>
+								<Button onClick={() => this.toggleCalculationPopup()}
+									 disabled={this.state.activeOffers.length ? null : "disabled"}
+									 className={"ant-btn ant-btn-primary btn_middle w_100p"}
+								>Оформить</Button>
+							</Col>
+						</Row>
+					}
 				</>
 				: null
 			}
@@ -471,24 +464,7 @@ class ServiceSelect extends Component {
 		return (
 			<>
 				<div className="kasko-car-select">
-					<h1 className="kasko-main__title">Сервис меню</h1>
-
-					{popup ? null :
-						<div className="kasko-car-select__controls">
-							<span onClick={this.toggleCarOptions} className={"gl_link color_black kasko-car-select__controls--toggle " + (this.state.showCarOptions ? 'expanded' : 'collapsed')}>Автомобиль</span>
-						</div>
-					}
-	
-					{this.state.showCarOptions ?
-						<KaskoCarSelect imageCallback={this.imageCallback} fill={true} step={step} image={image}/>
-						: 
-						image === false ? null : 
-							<div className="kasko-car-select__image">
-								<img src={'./cars/' + image + '.png'} alt=""/>
-							</div>
-					}
-
-					{step === 3 ? null : dealerOffers}
+					{dealerOffers}
 
 					{this.state.showCalculationOffers ?
 						<>
@@ -504,7 +480,7 @@ class ServiceSelect extends Component {
 											<Col span={6} className="text_left">
 												<Tooltip overlayClassName="tooltip_v1" placement="bottomLeft"
 														 title="Отменить операцию и вернуться к расчету">
-													<Link to="/" className={"ant-btn btn_green fz_14 w_100p"}>Вернуться к расчету</Link>
+													<Button onClick={() => {this.nextStep(void 0)}} className={"ant-btn btn_green fz_14 w_100p"}>Вернуться к расчету</Button>
 												</Tooltip>
 											</Col>
 											<Col span={3}/>
@@ -553,12 +529,12 @@ class ServiceSelect extends Component {
 								}
 							</Row>
 							
-							{(step === void 0) ?
+							{(step === void 0 || step === 1) ?
 								<Row gutter={20} className="kasko-car-select__controls">
 									<Col span={9}/>
 									<Col span={6}>
-										<a href={this.state.availablePayment ? ("/service_payment") : "#"}
-										   className={"ant-btn ant-btn-primary btn_middle" + ((this.state.availablePayment) ? "" : " disabled")}>{'Оплатить в кассу'}</a>
+										<div onClick={() => {this.state.availablePayment && this.nextStep(2)}}
+										   className={"ant-btn ant-btn-primary btn_middle" + ((this.state.availablePayment) ? "" : " disabled")}>{'Оплатить в кассу'}</div>
 									</Col>
 									<Col span={6}>
 										<PaymentSwitch allowPayment={this.state.availablePayment} paymentStep={0}/>
@@ -570,7 +546,6 @@ class ServiceSelect extends Component {
 						: null
 					}
 
-					{step === 3 ? dealerOffers : null}
 				</div>
 
 				<div ref={(el) => { this.messagesEnd = el }}/>
@@ -586,4 +561,4 @@ class ServiceSelect extends Component {
 	}
 }
 
-export default ServiceSelect;
+export default TabService;

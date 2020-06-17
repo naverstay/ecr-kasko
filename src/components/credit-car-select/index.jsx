@@ -118,23 +118,50 @@ class CreditCarSelect extends Component {
 	formControlCallback = (name, value) => {
 		console.log('formControlCallback', name, value);
 
-		let selects = ['carMark', 'carModel', 'carEquipment', 'carYear', 'carNumber']
+		let selects = [
+			'carATS',
+			'carAutoStart',
+			'carBankName',
+			'carBodyType',
+			'carEquipment',
+			'carEquipment',
+			'carForTaxi',
+			'carKaskoDocStart',
+			'carMark',
+			'carMileage',
+			'carModel',
+			'carMotorSize',
+			'carMotorType',
+			'carPower',
+			'carPowerRange',
+			'carPrice',
+			'carPTS',
+			'carPTSStart',
+			'carRegion',
+			'carTransmissionType',
+			'carUsageStart',
+			'carVIN',
+			'carYear',
+			'showAdditional',
+		]
 
 		if (selects.indexOf(name) > -1) {
 			let obj = {}
 			obj[name] = value
 
+			console.log('setState', obj);
+			
 			this.setState(obj)
 			this.checkReadyState()
 		} else {
 			switch (name) {
-				case 'carForTaxi':
-					this.setState({carForTaxi: value})
+				case 'carNumber':
+					this.setState({carNumber: value, carFound: void 0})
+					this.checkReadyState()
 					break
 
 			}
 		}
-		
 	};
 	
 	checkReadyState = () => {
@@ -166,122 +193,36 @@ class CreditCarSelect extends Component {
 			}
 		}, 0)
 	};
-	
-	onCarYearChange = (value) => {
-		this.setState({carYear: value})
-		this.checkReadyState()
+
+	removeActiveField = (field) => {
+		let fields = this.state.activeFields.slice(0)
+		let index = fields.indexOf(field)
+
+		if (index > -1) {
+			fields.splice(index, 1);
+
+			this.setState({activeFields: fields})
+		}
 	};
 
-	onCarUsageStartChange = e => {
-		this.setState({carUsageStart: e.target.value})
-		this.checkReadyState()
+	addActiveField = (field) => {
+		setTimeout(() => {
+			let fields = this.state.activeFields.slice(0)
+
+			if (fields.indexOf(field) < 0) {
+				fields.push(field)
+
+				this.setState({activeFields: fields})
+			}
+		}, 100)
 	};
 
-	toggleAdditionalFields = e => {
-		this.setState({showAdditional: !this.state.showAdditional})
-	};
-
-	onCarNumberChange = e => {
-		this.setState({carNumber: e.target.value, carFound: void 0})
-		this.checkReadyState()
-	};
-
-	onMarkChange = value => {
-		this.setState({carMark: value})
-		this.checkReadyState()
-	};
-
-	onCarPowerRangeChange = value => {
-		this.setState({carPowerRange: value})
-		this.checkReadyState()
-	};
-
-	onModelChange = value => {
-		this.setState({carModel: value})
-		this.checkReadyState()
-	};
-
-	onCarPowerChange = e => {
-		this.setState({carPower: e.target.value})
-		this.checkReadyState()
-	};
-
-	onCarMileageChange = e => {
-		this.setState({carMileage: e.target.value})
-		this.checkReadyState()
-	};
-	
-	onCarPriceChange = e => {
-		this.setState({carPrice: e.target.value})
-		this.checkReadyState()
+	activeClass = (field) => {
+		return (this.state.activeFields.indexOf(field) > -1 ? " control-focused" : "")
 	};
 
 	onCarKaskoDocChange = e => {
 		this.setState({carKaskoDoc: e.target.value})
-	};
-
-	onCarKaskoDocStartChange = e => {
-		this.setState({carKaskoDocStart: e.target.value})
-	};
-
-	onCarRegionChange = e => {
-		this.setState({carRegion: e.target.value})
-		this.checkReadyState()
-	};
-
-	onEquipmentChange = value => {
-		this.setState({carEquipment: value})
-		this.checkReadyState()
-	};
-
-	onCarBodyTypeChange = value => {
-		this.setState({carBodyType: value})
-		this.checkReadyState()
-	};
-
-	onCarMotorTypeChange = value => {
-		this.setState({carMotorType: value})
-		this.checkReadyState()
-	};
-
-	onCarTransmissionTypeChange = value => {
-		this.setState({carTransmissionType: value})
-		this.checkReadyState()
-	};
-
-	onCarMotorSizeChange = value => {
-		this.setState({carMotorSize: value})
-		this.checkReadyState()
-	};
-
-	onCarATSChange = value => {
-		this.setState({carATS: value})
-		this.checkReadyState()
-	};
-
-	onCarBankNameChange = value => {
-		this.setState({carBankName: value})
-		this.checkReadyState()
-	};
-
-	onCarForTaxiChange = e => {
-		this.setState({carForTaxi: e.target.checked})
-	};
-
-	onAutoStartChange = e => {
-		this.setState({carAutoStart: e.target.checked})
-	};
-
-	onCarVINChange = e => {
-		this.setState({carVIN: e.target.value})
-	};
-
-	onCarPTSChange = e => {
-		this.setState({carPTS: e.target.value})
-	};
-
-	onCarPTSStartChange = e => {
-		this.setState({carPTSStart: e.target.value})
 	};
 
 	onFinish = values => {
@@ -408,7 +349,7 @@ class CreditCarSelect extends Component {
 							</Radio.Group>
 						</div>
 		
-						{this.state.newCar ? "" :
+						{this.state.newCar ? null :
 							<Form {...layout} ref={this.formRef} name="control-ref" onFinish={this.onFinish}>
 								<Row className="kasko-car-select__controls" gutter={20}>
 									<FormInput span={6} onChangeCallback={this.formControlCallback}
@@ -435,25 +376,29 @@ class CreditCarSelect extends Component {
 						}
 		
 						<Row className="kasko-car-select__controls" gutter={20}>
-
 							<FormSelect span={6} onChangeCallback={this.formControlCallback}
 										options={this.state.markList}
+										className={this.activeClass('carMark')}
 										placeholder="Марка" controlName={'carMark'}
 										value={this.state.carMark}/>
-
+	
 							<FormSelect span={6} onChangeCallback={this.formControlCallback}
 										options={this.state.modelList}
+										className={this.activeClass('carModel')}
 										placeholder="Модель" controlName={'carModel'}
 										value={this.state.carModel}/>
-
+	
 							<FormSelect span={6} onChangeCallback={this.formControlCallback}
 										options={this.state.equipmentList}
+										className={this.activeClass('carEquipment')}
 										placeholder="Комплектация" controlName={'carEquipment'}
 										value={this.state.carEquipment}/>
-
+	
 							<FormSelect span={6} onChangeCallback={this.formControlCallback}
 										options={yearList}
-										placeholder="Комплектация" controlName={'carYear'}
+										className={this.activeClass('carYear')}
+										disabled={this.state.newCar ? "disabled" : ""}
+										placeholder="Год выпуска" controlName={'carYear'}
 										value={this.state.carYear}/>
 						</Row>
 		
@@ -464,8 +409,8 @@ class CreditCarSelect extends Component {
 									   controlName={'carRegion'} value={''}/>
 									   
 							<FormInput span={6} onChangeCallback={this.formControlCallback}
-									   placeholder="Дата начала \n эксплуатации"
-									   inputmask={carNumberMask}
+									   placeholder={"Дата начала \n эксплуатации"}
+									   inputmask={dateFormatMask}
 									   controlName={'carUsageStart'} value={''}/>
 
 							<FormSelect span={6} onChangeCallback={this.formControlCallback}
@@ -484,7 +429,6 @@ class CreditCarSelect extends Component {
 									   placeholder="Стоимость, ₽"
 									   inputmask={carPriceMask}
 									   controlName={'carPrice'} value={''}/>
-										   
 									   
 							<Col className="checkbox_middle check_v3">
 								<Row gutter={20}>

@@ -39,7 +39,7 @@ class Osago extends Component {
 	render() {
 		const {showOffers, step, progress} = this.props;
 		
-		const events = []
+		let events = []
 		
 		if (step === 2) {
 			events.push({

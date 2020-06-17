@@ -17,44 +17,59 @@
 	
 	&__item {
 		display: block;
-		border: 1px solid $color-grey-light;
-		border-radius: 5px;
 		margin-bottom: 15px;
-		overflow: hidden;
-		cursor: pointer;
+
+		&--open {
+			position: absolute;
+			width: 20px;
+			height: 20px;
+			left: 5px;
+			top: 15px;
+			cursor: pointer;
+			
+			&:before {
+				transition: transform 0.5s;
+				font-family: $icomoon-font-family;
+				content: $i-chevron_r;
+				position: absolute;
+				left: 0;
+				right: 0;
+				top: 50%;
+				margin-top: -8px;
+				font-size: 16px;
+				line-height: 1;
+				color: $color-grey;
+				text-align: center;
+			}
+		}
 		
 		&--title {
 			@extend %text1;
 			background: $color-grey-light;
 			position: relative;
-			height: 48px;
+			height: 51px;
 			padding: 3px 15px;
-			white-space: nowrap;
 			overflow: hidden;
 			max-width: 100%;
 			text-overflow: ellipsis;
 			display: flex;
 			justify-content: space-between;
 			align-items: center;
+			cursor: pointer;
+			border-radius: 5px;
+			border: 1px solid $color-grey-light;
 
+			.kasko-offer__item--price {
+				font-size: 18px;
+				line-height: 21px;
+				white-space: nowrap;
+			}
+			
 			.kasko-offer__slide & {
 				font-size: 12px;
 
 				&:not(.no_arrow) {
 					padding-left: 32px;
-
-					&:before {
-						transition: transform 0.5s;
-						font-family: $icomoon-font-family;
-						content: $i-chevron_r;
-						position: absolute;
-						left: 10px;
-						top: 50%;
-						margin-top: -8px;
-						font-size: 16px;
-						line-height: 1;
-						color: $color-grey;
-					}
 				}
 			}
 
@@ -243,16 +258,46 @@
 		}
 		
 		&--info {
-			display: none;
-			padding: 2px 15px;
-
+			//display: none;
+			padding: 10px 15px 2px;
+			border: 1px solid $color-grey-light;
+			border-top-width: 0;
+			border-radius: 0 0 5px 5px;
+			position: relative;
+			
+			&.wide {
+				margin-top: 5px;
+				padding-top: 20px;
+				border-top-width: 1px;
+				margin-right: calc(-100% - 20px);
+				
+				&:before {
+					content: '';
+					position: absolute;
+					left: -1px;
+					right: 0;
+					height: 5px;
+					bottom: 100%;
+					max-width: calc(50% - 9px);
+					margin-bottom: 1px;
+					background: $color-grey-light;
+				}
+			}
+			
 			.kasko-car-select__calculation {
 				font-size: 12px;
 			}
 			
 			.active & {
-				display: block;
+				//display: block;
 			}
+		}
+		
+		&--fee {
+			@extend %text2;
+			text-align: center;
+			color: $color-grey;
+			margin-bottom: 20px;
 		}
 		
 		&--period {
@@ -269,6 +314,7 @@
 			vertical-align: top;
 			margin-top: 1px;
 			margin-bottom: 12px;
+			cursor: pointer;
 
 			&:hover {
 				text-decoration: none;
@@ -400,19 +446,34 @@
 			}
 		}
 		
+		&.collapsable:not(.collapsed) {
+			.kasko-offer__item--title {
+				border-radius: 5px 5px 0 0;
+			}
+			
+			.kasko-offer__item--open:before {
+				transform: rotate(90deg);
+			}
+		}
+		
 		&.active {
 			border-color: $color-blue-light;
 			
 			.kasko-offer__item--title {
 				background: $color-blue-light;
+				border-color: $color-blue-light;
 				
-				&:before {
+				.kasko-offer__item--open:before {
 					color: #fff;
 				}
 			}
-
-			&.collapsable:not(.collapsed) .kasko-offer__item--title:before {
-				transform: rotate(90deg);
+			
+			.kasko-offer__item--info {
+				border-color: $color-blue-light;
+				
+				&.wide:before {
+					background: $color-blue-light;
+				}
 			}
 
 			.kasko-offer__slide.credit & {

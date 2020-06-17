@@ -19,13 +19,16 @@ import CalcsavePopup from "../calcsave-popup";
 import KaskoCarSelect from "../kasko-car-select";
 import KaskotaxPopup from "../kaskotax-popup";
 import CreditPopup from "../credit-popup";
+import FormInput from "../form-input";
+import KaskotaxForm from "../kaskotax-form";
+import FormSwitch from "../form-switch";
 
 const {Option} = Select;
 //const {YearPicker} = DatePicker;
 
 moment().locale('ru', ru);
 
-class CarCredit extends Component {
+class TabCredit extends Component {
 	constructor(props) {
 		super(props);
 		this.state = {
@@ -316,69 +319,37 @@ class CarCredit extends Component {
 		
 		return (
 			<div className="kasko-car-select">
-				<h1 className="kasko-main__title">Рассчитать кредит</h1>
-
-				<div className="kasko-car-select__controls">
-					<span onClick={this.toggleCarOptions} className={"gl_link color_black kasko-car-select__controls--toggle " + (this.state.showCarOptions ? ' expanded' : 'collapsed')}>Автомобиль</span>
-				</div>
-
-				{this.state.showCarOptions ?
-					<KaskoCarSelect imageCallback={this.imageCallback} fill={true} step={step} image={false}/>
-					: null
-				}
-				
-				<div className="credit-slider__wrapper">
-					<Row className={"kasko-car-select__controls car-credit" + (this.state.showCarOptions ? " mt_15" : "")} gutter={20}>
-						<Col span={10}>
-							<div className="car-credit__initial-fee">
-								<p>Первоначальный взнос</p>
-								<Input
-									value={this.state.creditValue}
-									defaultValue=""/>
-							</div>
-						</Col>
-						<Col span={4}>
-							<div className="car-credit__percent">
-								<p>&nbsp;</p>
-								<Input
-									value={this.state.creditPercent}
-									defaultValue=""/>
-							</div>
-						</Col>
-						<Col span={10}>
-							<div className="car-credit__price">
-								<p>Стоимость автомобиля</p>
-								<Input
-									disabled="disabled"
-									defaultValue="1 524 000 ₽"/>
-							</div>
-						</Col>
-					</Row>
-					
-					<CreditSlider onSliderChange={this.onCreditChange} creditMax={100} creditMin={0} image={image}/>
-				</div>
-
 				<div className="kasko-car-select__caption">Добавить в кредит</div>
 				
-				{/*<div className="kasko-car-select__carousel">*/}
-					<KaskoOffers onOfferSelect={this.offersUpdate} active={[(this.state.activeKasko ? 0 : null)]} slider={true} credit={true} offersList={[
+				<KaskoOffers onOfferSelect={this.offersUpdate} active={[0,1,2,3,4,5]} slider={true} credit={true} offersList={[
 						{
 							name: 'КАСКО',
 							//button: 'Рассчитать',
-							func: this.toggleKaskoPopup,
+							//func: this.toggleKaskoPopup,
+							collapse: true,
+							dropdown: 'KaskotaxPopup',
+							dropdownCallback: function () {
+								console.log('dropdownCallback КАСКО');
+							},
 							price: this.state.activeKasko ? '41450' : '15400',
 							prefix: this.state.activeKasko ? '' : 'от',
 							suffix: '₽'
 						},
 						{
-							name: 'СЖ',
-							price: '10123',
+							name: 'GAP',
+							price: '5400',
 							prefix: 'от',
 							suffix: '₽'
 						},
 						{
-							name: 'GAP',
-							price: '15400',
+							name: 'Страхование жизни',
+							price: '5401',
+							prefix: 'от',
+							suffix: '₽'
+						},
+						{
+							name: 'Продленная гарантия',
+							price: '5402',
 							prefix: 'от',
 							suffix: '₽'
 						},
@@ -406,13 +377,24 @@ class CarCredit extends Component {
 							suffix: '₽'
 						}
 					]}/>
-				{/*</div>*/}
-
+			
 				<div onClick={this.toggleShowParams} className={"kasko-car-select__caption" + (this.state.openParams ? " expanded" : " collapsed")}>Параметры кредита</div>
 
 				{
 					this.state.openParams ?
 						<>
+							<div className="kasko-car-select__caption mt_30">Первоначальный взнос</div>
+							<Row className={"kasko-car-select__controls car-credit mb_30"} gutter={20}>
+								<FormInput span={5} onChangeCallback={this.formControlCallback}
+										   className="text_right"
+										   controlName="creditValue"
+										   value={this.state.creditValue}/>
+										   
+								<FormInput span={3} onChangeCallback={this.formControlCallback}
+										   className="text_center"
+										   controlName="creditPercent"
+										   value={this.state.creditPercent}/>
+							</Row>
 							<div className="kasko-car-select__controls radio_v2 wide_group">
 								<Radio.Group defaultValue={0}>
 									<Row gutter={20}>
@@ -438,7 +420,7 @@ class CarCredit extends Component {
 																<Checkbox value={i}>{c}</Checkbox>
 															</Col>
 														:
-															<Col span={24} />
+															<Col key={i} span={24} />
 													)
 												}
 												<Col>
@@ -461,7 +443,8 @@ class CarCredit extends Component {
 				<div className="kasko-car-select__controls radio_v3">
 					<Radio.Group defaultValue={periodOptions[4]} style={{width: '100%'}}>
 						<Row gutter={20}>
-							{periodOptions.map((c, i) => <Col key={i}>
+							{periodOptions.map((c, i) => 
+									<Col key={i}>
 										<Radio value={c}>
 											<span className={"kasko-car-select__period--value" + (i === periodOptions.length - 1 ? " small" : "")}>{c}</span>
 											{i === periodOptions.length - 1 ? "" : <span className="kasko-car-select__period--label">13 450 ₽</span>}
@@ -474,8 +457,9 @@ class CarCredit extends Component {
 				</div>
 				
 				<div className={"kasko-car-select__controls ant-row-center" + (this.state.openParams ? " mb_0" : "")}>
-					{this.state.openParams ? <div onClick={this.toggleCalculationOffers}
-						 className={"ant-btn ant-btn-primary btn_middle margin" + (this.state.paramsChanged ? "" : " disabled")}>Получить расчет</div> : ""}
+					<div onClick={this.toggleCalculationOffers}
+						 className={"ant-btn ant-btn-primary btn_middle margin" + (this.state.paramsChanged ? "" : " disabled")}
+						 >Получить расчет</div>
 				</div>
 				
 				{this.state.showCreditOffers ? 
@@ -640,4 +624,4 @@ class CarCredit extends Component {
 	}
 }
 
-export default CarCredit;
+export default TabCredit;

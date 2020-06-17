@@ -7,6 +7,8 @@ import moment from 'moment';
 import ru from 'moment/locale/ru';
 import KaskoOffers from "../kasko-offers";
 import {formatMoney} from "../../helpers/formatMoney";
+import FormInput from "../form-input";
+import FormSelect from "../form-select";
 
 const {Option} = Select;
 const {YearPicker} = DatePicker;
@@ -113,6 +115,51 @@ class KaskoCarSelectOsago extends Component {
 	};
 
 	formRef = React.createRef();
+
+	formControlCallback = (name, value) => {
+		console.log('formControlCallback', name, value);
+
+		let selects = [
+			'carATS',
+			'carAutoStart',
+			'carBankName',
+			'carBodyType',
+			'carEquipment',
+			'carForTaxi',
+			'carMark',
+			'carModel',
+			'carMotorSize',
+			'carMotorType',
+			'carNumber',
+			'carPower',
+			'carPowerRange',
+			'carPrice',
+			'carPTS',
+			'carPTSStart',
+			'carRegion',
+			'carTransmissionType',
+			'carUsageStart',
+			'carVIN',
+			'carYear',
+			'insurancePrice',
+			'insuranceTaxName',
+			'showAdditional',
+		]
+
+		if (selects.indexOf(name) > -1) {
+			let obj = {}
+			obj[name] = value
+
+			this.setState(obj)
+			this.checkReadyState()
+		} else {
+			switch (name) {
+				case 'offerCash':
+					this.setState({offerCash: value})
+					break
+			}
+		}
+	};
 	
 	checkReadyState = () => {
 		setTimeout(() => {
@@ -393,17 +440,14 @@ class KaskoCarSelectOsago extends Component {
 							</Radio.Group>
 						</div>
 		
-						{this.state.newCar ? "" :
+						{this.state.newCar ? null :
 							<Form {...layout} ref={this.formRef} name="control-ref" onFinish={this.onFinish}>
 								<Row className="kasko-car-select__controls" gutter={20}>
-									<Col span={6}>
-										<Input
-											data-inputmask={carNumberMask}
-											className={"w_100p custom_placeholder text_upper" + (this.state.carNumber.length ? "" : " _empty")}
-											   value={this.state.carNumber}
-											   onChange={this.onCarNumberChange} defaultValue=""/>
-										<div className="float_placeholder">Госномер автомобиля</div>
-									</Col>
+									<FormInput span={6} onChangeCallback={this.formControlCallback}
+											   placeholder="Госномер автомобиля"
+											   inputmask={carNumberMask}
+											   controlName={'carNumber'} value={''}/>
+											   
 									<Col span={6}>
 										<Button htmlType={searchDisabled ? null : "submit"} className={"w_100p " + (this.state.carFound !== void 0 ? "btn_grey" :
 											this.state.formBusy ? "btn_grey" : "ant-btn-primary")} 
@@ -423,53 +467,30 @@ class KaskoCarSelectOsago extends Component {
 						}
 		
 						<Row className="kasko-car-select__controls" gutter={20}>
-							<Col span={6}>
-								<Select
-									dropdownClassName="select_dropdown_v1" className={"w_100p custom_placeholder" + (this.state.carMark.length ? "" : " _empty") + (step === 1 ? " ant-select-focused" : "")}
-									placeholder=""
-									onChange={this.onMarkChange}
-									value={this.state.carMark}
-								>
-									{this.state.markList.map((e, i) => <Option key={i} value={e}>{e}</Option>)}
-								</Select>
-								<div className="float_placeholder">Марка</div>
-							</Col>
-							<Col span={6}>
-								<Select
-									dropdownClassName="select_dropdown_v1" className={"w_100p custom_placeholder" + (this.state.carModel.length ? "" : " _empty")}
-									placeholder=""
-									onChange={this.onModelChange}
-									value={this.state.carModel}
-								>
-									{this.state.modelList.map( (e, i) => <Option key={i} value={e}>{e}</Option>)}
-								</Select>
-								<div className="float_placeholder">Модель</div>
-							</Col>
-							<Col span={6}>
-								<Select
-									dropdownClassName="select_dropdown_v1" className={"w_100p custom_placeholder" + (this.state.carEquipment.length ? "" : " _empty")}
-									placeholder=""
-									onChange={this.onEquipmentChange}
-									value={this.state.carEquipment}
-								>
-									{this.state.equipmentList.map( (e, i) => <Option key={i} value={e}>{e}</Option>)}
-								</Select>
-								<div className="float_placeholder">Комплектация</div>
-							</Col>
-							<Col span={6}>
-								{/*<YearPicker format="YYYY" disabledDate={disabledDate} value={this.state.carYear ? moment(this.state.carYear) : null} onChange={this.onCarYearChange} placeholder="" className={"w_100p hide_picker_icon" + (this.state.carYear && this.state.carYear._isAMomentObject ? "" : " _empty")}/>*/}
-								<Select
-									disabled={this.state.newCar ? "disabled" : ""}
-									dropdownClassName="select_dropdown_v1"
-									className={"w_100p custom_placeholder" + ((this.state.carYear + '').length ? "" : " _empty")}
-									placeholder=""
-									onChange={this.onCarYearChange}
-									value={this.state.carYear}
-								>
-									{yearList.map((e, i) => <Option key={i} value={e}>{e}</Option>)}
-								</Select>
-								<div className="float_placeholder">Год выпуска</div>
-							</Col>
+							<FormSelect span={6} onChangeCallback={this.formControlCallback}
+										options={this.state.markList}
+										className={this.activeClass('carMark')}
+										placeholder="Марка" controlName={'carMark'}
+										value={this.state.carMark}/>
+	
+							<FormSelect span={6} onChangeCallback={this.formControlCallback}
+										options={this.state.modelList}
+										className={this.activeClass('carModel')}
+										placeholder="Модель" controlName={'carModel'}
+										value={this.state.carModel}/>
+	
+							<FormSelect span={6} onChangeCallback={this.formControlCallback}
+										options={this.state.equipmentList}
+										className={this.activeClass('carEquipment')}
+										placeholder="Комплектация" controlName={'carEquipment'}
+										value={this.state.carEquipment}/>
+	
+							<FormSelect span={6} onChangeCallback={this.formControlCallback}
+										options={yearList}
+										className={this.activeClass('carYear')}
+										disabled={this.state.newCar ? "disabled" : ""}
+										placeholder="Год выпуска" controlName={'carYear'}
+										value={this.state.carYear}/>
 						</Row>
 										
 						{
@@ -518,10 +539,10 @@ class KaskoCarSelectOsago extends Component {
 										</Col>
 									</Row>
 								</>
-							: ""
+							: null
 						}
 					</> 
-					: ""
+					: null
 				}
 				
 				<Row className="kasko-car-select__controls mb_55" gutter={20}>
@@ -578,7 +599,7 @@ class KaskoCarSelectOsago extends Component {
 							suffix: '₽'
 						}
 					]} />
-				: "" }
+				: null }
 				
 			</div>
 		);

@@ -509,7 +509,7 @@ class OfferSelect extends Component {
 								}
 							]}/>
 
-							<KaskoOffers active={[(osago ? 0 : 1)]} completed={[(osago ? 0 : 1)]} offersList={osago ?
+							<KaskoOffers step={step} active={[(osago ? 0 : 1)]} completed={[(osago ? 0 : 1)]} offersList={osago ?
 								[
 									{
 										name: 'ОСАГО',
@@ -635,57 +635,56 @@ class OfferSelect extends Component {
 						<>
 							{(step !== 2) ?
 								<>
-									{!osago ? <>
-										<div className="kasko-car-select__caption">{'Добавить в КАСКО'}</div>
-										
-										{/*<div className="kasko-car-select__carousel">*/}
-											<KaskoOffers onOfferSelect={this.offersUpdate} credit={true} slider={true} offersList={[
-												{
-													name: 'GAP',
-													price: 11400,
-													prefix: '',
-													suffix: '₽'
-												},
-												{
-													name: 'Несчастный случай',
-													price: 10410,
-													prefix: '',
-													suffix: '₽'
-												},
-												{
-													name: 'Аварийный комиссар',
-													price: 10420,
-													prefix: '',
-													suffix: '₽'
-												},
-												{
-													name: 'Стекла без справок',
-													price: 10430,
-													prefix: '',
-													suffix: '₽'
-												},
-												{
-													name: 'ОСАГО',
-													price: 10410,
-													prefix: '',
-													suffix: '₽'
-												},
-												{
-													name: 'Шоколад',
-													price: 10420,
-													prefix: '',
-													suffix: '₽'
-												},
-												{
-													name: '123',
-													price: 10430,
-													prefix: '',
-													suffix: '₽'
-												}
-											]}/>
-										{/*</div>*/}
-									
-									</> : null }
+									{!osago ? 
+										<>
+											<div className="kasko-car-select__caption">{'Добавить в КАСКО'}</div>
+											
+											<KaskoOffers step={step} onOfferSelect={this.offersUpdate} credit={true} slider={true} offersList={[
+													{
+														name: 'GAP',
+														price: 11400,
+														prefix: '',
+														suffix: '₽'
+													},
+													{
+														name: 'Несчастный случай',
+														price: 10410,
+														prefix: '',
+														suffix: '₽'
+													},
+													{
+														name: 'Аварийный комиссар',
+														price: 10420,
+														prefix: '',
+														suffix: '₽'
+													},
+													{
+														name: 'Стекла без справок',
+														price: 10430,
+														prefix: '',
+														suffix: '₽'
+													},
+													{
+														name: 'ОСАГО',
+														price: 10410,
+														prefix: '',
+														suffix: '₽'
+													},
+													{
+														name: 'Шоколад',
+														price: 10420,
+														prefix: '',
+														suffix: '₽'
+													},
+													{
+														name: '123',
+														price: 10430,
+														prefix: '',
+														suffix: '₽'
+													}
+												]}/>
+										</> 
+										: null }
 
 									{!osago ? <div onClick={this.toggleShowParams}
 										 className={"kasko-car-select__caption" + (this.state.showCalculationOffers ? (this.state.openParams ? " expanded" : " collapsed") : "")}>Параметры КАСКО</div> : null }
@@ -764,7 +763,7 @@ class OfferSelect extends Component {
 											: null}
 
 											{osago ?
-												<div onClick={this.toggleShowParams} className={"kasko-car-select__caption" + (this.state.activeOffers.length ? (this.state.openParams ? " expanded" : " collapsed") : null)}>Параметры ОСАГО</div>
+												<div onClick={this.toggleShowParams} className={"kasko-car-select__caption" + (this.state.activeOffers.length ? (this.state.openParams ? " expanded" : " collapsed") : "")}>Параметры ОСАГО</div>
 											: null}
 
 											{(!osago || this.state.openParams) ?
@@ -817,12 +816,13 @@ class OfferSelect extends Component {
 																	: null
 																}
 																
-																<div
-																	className="kasko-car-select__controls ant-row-center mb_45">
-																	<Button htmlType="submit"
-																			className={"btn_wide" + (((this.state.showPayment || (this.props.step === 2) || (this.props.osago && this.state.activeOffers.length))) ? " btn_green" : " ant-btn-primary")}
-																			onClick={this.toggleCalculationPopup}>{this.calculationButtonText()}</Button>
-																</div>
+																<Row gutter={20} className="kasko-car-select__controls ant-row-center mb_45">
+																	<Col span={12}>
+																		<Button htmlType="submit"
+																				className={"w_100p" + (((this.state.showPayment || (this.props.step === 2) || (this.props.osago && this.state.activeOffers.length))) ? " btn_green" : " ant-btn-primary")}
+																				onClick={this.toggleCalculationPopup}>{this.calculationButtonText()}</Button>
+																	</Col>
+																</Row>
 															</>
 														}
 														
@@ -842,21 +842,23 @@ class OfferSelect extends Component {
 									<>
 										<CalculationOffers franchise={this.state.hasFranchise} allowCheck={this.state.showPayment || osago || popup} osago={osago} waiting={step === 2} selectedOffer={this.updateSelectedOffer} offersList={calculationOfferList}/>
 		
-										<div className={"kasko-car-select__controls ant-row-center align_center"}>
+										<Row gutter={20} className={"kasko-car-select__controls ant-row-center align_center"}>
 											{
 												(step === 2) ?
 													<>
-														<div className="kasko-car-select__controls--group-w text_left">
-															<Tooltip overlayClassName="tooltip_v1" placement="bottomLeft"
-																	 title="Отменить операцию и вернуться к расчету">
-																<Link to="/" className={"ant-btn btn_green fz_14"}>Вернуться к расчету</Link>
-															</Tooltip>
-														</div>
-														
+														<>
+															<Col span={6} className="text_left">
+																<Tooltip overlayClassName="tooltip_v1" placement="bottomLeft"
+																		 title="Отменить операцию и вернуться к расчету">
+																	<Link to="/" className={"ant-btn btn_green fz_14 w_100p"}>Вернуться к расчету</Link>
+																</Tooltip>
+															</Col>
+															<Col span={3}/>
+														</>
 														{
 															this.state.SMSSent ?
 																<>
-																	<div className="kasko-car-select__controls--group-w text_center">
+																	<Col span={6} className="text_center">
 																		<div className="offer-select__sms">
 																			<FormInput span={null}
 																					   maxLength={4}
@@ -867,62 +869,75 @@ class OfferSelect extends Component {
 																			<div className="gl_link"
 																				 onClick={this.toggleSMSSent}>Отправить код повторно</div>
 																		</div>
-																	</div>
-																	<div className="kasko-car-select__controls--group-w text_left">
+																	</Col>
+																	<Col span={9} className="kasko-car-select__controls--group-w text_left">
 																		<p>
 																			Попросите клиента продиктовать код, <br />
 																			который был отправлен ему <br/>
 																			на мобильный телефон
 																		</p>
-																	</div>
+																	</Col>
 																</>
 																:
 																<>
-																	<div
-																		className="kasko-car-select__controls--group-w text_center">
+																	<Col span={6}
+																		className="text_center">
 																		<Button htmlType="submit"
 																				className={"ant-btn-primary btn_middle"}
 																				onClick={this.toggleSMSSent}>Оплатить в кассу</Button>
-																	</div>
-																	<div
-																		className="kasko-car-select__controls--group-w text_right">
+																	</Col>
+																	<Col span={9}
+																		className="text_right">
 																		<div className={"gl_link"}>Отправить ссылку повторно</div>
-																	</div>
+																	</Col>
 																</>
 														}
 													</>
 												: (this.state.showPayment || osago) ?
-													<div className="kasko-car-select__controls--group payment">
-														<a href={this.state.availablePayment ? (osago ? "/osago_payment" : "/kasko_payment") : "#"} className={"ant-btn ant-btn-primary btn_middle" + ((this.state.availablePayment) ? "" : " disabled")}>{this.state.showCompare ? 'Сравнить' : 'Оплатить в кассу'}</a>
-														<div className="kasko-car-select__controls--group-r _bottom">
-															<PaymentSwitch allowPayment={this.state.availablePayment} paymentStep={0}/>
-															{/*<Link to="/" className={"gl_link"}>Сравнить</Link>*/}
-														</div>
-													</div>
+													<>
+														<Col span={6}/>
+														<Col span={6}>
+															<a href={this.state.availablePayment ? (osago ? "/osago_payment" : "/kasko_payment") : "#"}
+															   className={"ant-btn ant-btn-primary w_100p" + ((this.state.availablePayment) ? "" : " disabled")}>{this.state.showCompare ? 'Сравнить' : 'Оплатить в кассу'}</a>
+														</Col>
+														<Col span={6}>
+															<PaymentSwitch
+																allowPayment={this.state.availablePayment}
+																paymentStep={0}/>
+														</Col>
+													</>
 													:
-													<div className="kasko-car-select__controls--group text_center">
-														{popup ?
-															<>
+													popup ?
+														<>
+															<Col span={12}>
 																<Button htmlType="submit"
 																		className={"ant-btn-primary btn_wide"}
 																		onClick={this.addToCredit}>Добавить в кредит</Button>
-
+															</Col>
+															<Col span={24}/>
+															<Col span={12}>
 																<Button htmlType="submit"
-																		className={"btn_wide"}
-																		onClick={this.toggleCalculationPopup}>{this.calculationButtonText()}</Button>
-															</>
+																	className={"btn_wide"}
+																	onClick={this.toggleCalculationPopup}>{this.calculationButtonText()}</Button>
+															</Col>
+														</>
 														:
-															<>
+														<>
+															<Col span={6}>
+																<Link to="/credit_kasko" className={"w_100p ant-btn"}>Отказ клиента</Link>
+															</Col>
+															<Col span={12}>
 																<Button htmlType="submit"
-																		className={"ant-btn-primary btn_wide"}
-																		onClick={this.toggleCalculationPopup}>{this.calculationButtonText()}</Button>
-
-																<Link to="/credit_kasko" className={"btn_wide ant-btn"}>Добавить в кредит</Link>
-															</>
-														}
-													</div>
+																	className={"ant-btn-primary w_100p"}
+																	onClick={this.toggleCalculationPopup}>{this.calculationButtonText()}</Button>
+															</Col>
+															<Col span={6}>
+																<Link to="/credit_kasko" className={"w_100p ant-btn"}>Добавить в кредит</Link>
+															</Col>
+														</>
+												
 											}
-										</div>
+										</Row>
 									</>
 								: null
 							}

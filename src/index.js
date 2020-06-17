@@ -4,13 +4,11 @@ import "antd/dist/antd.less";
 
 import './index.scss';
 import App from './App';
-import AppTab from './AppTab';
 import * as serviceWorker from './serviceWorker';
 
 ReactDOM.render(
   <React.StrictMode>
-    {/*<App />*/}
-    <AppTab />
+    <App />
   </React.StrictMode>,
   document.getElementById('root')
 );

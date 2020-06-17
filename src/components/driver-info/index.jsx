@@ -567,6 +567,7 @@ class DriverInfo extends Component {
 
 				<InsurancePolicy />
 
+				
 				<div className="kasko-car-select__controls ant-row-center">
 					<div className="driver-info__add gl_link">Добавить водителя</div>
 				</div>

@@ -6,11 +6,10 @@ import {Col, Row, Input, Button, Form, Checkbox, Select} from "antd";
 import FormSwitch from "../form-switch";
 import FormSelect from "../form-select";
 import FormInput from "../form-input";
-import KaskotaxForm from "../kaskotax-form";
 
 const {Option} = Select;
 
-class KaskotaxPopup extends Component {
+class KaskotaxForm extends Component {
 	constructor(props) {
 		super(props);
 		this.state = {
@@ -47,6 +46,10 @@ class KaskotaxPopup extends Component {
 
 	formRef = React.createRef();
 
+	formUpdate = () => {
+		
+	}
+	
 	formControlCallback = (name, value) => {
 		console.log('formControlCallback', name, value);
 
@@ -104,26 +107,20 @@ class KaskotaxPopup extends Component {
 					break
 			}
 		}
-	};
-	
-	onFinish = values => {
-		this.setState({formBusy: true})
-
+		
 		setTimeout(() => {
-			this.setState({formBusy: false, SMSSent: true})
-			
-			typeof this.props.popupCloseFunc === 'function' && this.props.popupCloseFunc()
-		}, 200)
+			this.formUpdate()
+		})
 	};
 	
 	render() {
-		const {popupCloseFunc, dropdown} = this.props;
+		const {className, size} = this.props;
 		//const clientPhoneMask = "'mask': '[+7] (999)-999-99-99', 'showMaskOnHover': 'false'"
 		
 		let formDisabled = !this.state.insuranceCompName.length || !this.state[(this.state.manualPriceCheck ? 'insurancePrice' : 'insuranceTaxName')].length || this.state.formBusy
 		
-		let kaskoForm = 
-			<>
+		return (
+			<div className={className || ''}>
 				<Row gutter={20} className="kasko-car-select__controls mb_20 ant-row-cente">
 					<Col span={24}>
 						<FormSwitch controlName="kaskoDealerBank" value={this.state.kaskoDealerBank}
@@ -131,28 +128,28 @@ class KaskotaxPopup extends Component {
 									leftText="КАСКО дилера" rightText="КАСКО банка"/>
 					</Col>
 				</Row>
-	
+				
 				<Row className="kasko-car-select__controls ant-row-center" gutter={20}>
-					<FormSelect span={dropdown ? 20 : 17} onChangeCallback={this.formControlCallback}
+					<FormSelect span={size || 17} onChangeCallback={this.formControlCallback}
 								dropdownClassName="select_dropdown_v1 popup"
 								options={this.state.insuranceCompaniesList}
 								placeholder="Страховая компания" controlName={'insuranceCompName'}
 								value={this.state.insuranceCompName}/>
 				</Row>
-	
+				
 				<Row className="kasko-car-select__controls ant-row-center mb_20" gutter={20}>
 					{this.state.manualPriceCheck ?
-						<FormInput span={dropdown ? 20 : 17} onChangeCallback={this.formControlCallback}
+						<FormInput span={size || 17} onChangeCallback={this.formControlCallback}
 								   placeholder="Введите стоимость"
 								   controlName={'insurancePrice'} value={''}/>
-						: <FormSelect span={dropdown ? 20 : 17} onChangeCallback={this.formControlCallback}
-									  dropdownClassName="select_dropdown_v1 popup"
-									  options={this.state.insuranceTaxList}
-									  placeholder="Тариф" controlName={'insuranceTaxName'}
-									  value={this.state.insuranceTaxName}/>
+						: <FormSelect span={size || 17} onChangeCallback={this.formControlCallback}
+								  dropdownClassName="select_dropdown_v1 popup"
+								  options={this.state.insuranceTaxList}
+								  placeholder="Тариф" controlName={'insuranceTaxName'}
+								  value={this.state.insuranceTaxName}/>
 					}
 				</Row>
-	
+
 				<Row gutter={20} className="kasko-car-select__controls mb_0 ant-row-cente">
 					<Col span={24}>
 						<FormSwitch controlName="kaskoFirstYear" value={this.state.kaskoFirstYear}
@@ -160,7 +157,7 @@ class KaskotaxPopup extends Component {
 									leftText="На первый год" rightText="На весь срок кредита"/>
 					</Col>
 				</Row>
-	
+
 				<Row gutter={20} className="kasko-car-select__controls mb_20 ant-row-cente">
 					<Col span={24}>
 						<FormSwitch controlName="kaskoCash" value={this.state.kaskoCash}
@@ -168,45 +165,9 @@ class KaskotaxPopup extends Component {
 									leftText="В кредит" rightText="Наличные"/>
 					</Col>
 				</Row>
-			</>
-		
-		return (
-			dropdown ?
-				<Form ref={this.formRef} name="control-ref" onFinish={this.onFinish}>
-					{kaskoForm}
-
-					<Row gutter={20} className="kasko-car-select__controls mb_20 ant-row-center">
-						<Col span={20}>
-							<Button htmlType={formDisabled ? null : "submit"}
-									className={"w_100p fz_14 " + (this.state.formBusy ? "btn_grey" : "btn_green")}
-									disabled={formDisabled ? 'disabled' : null}>Или рассчитать <span className="i-chevron_r btn_icon"/></Button>
-						</Col>
-					</Row>
-				</Form>
-			:
-			<div className="kaskotax-popup">
-				<div className="kaskotax-popup__close" onClick={popupCloseFunc}/>
-				<div className="kaskotax-popup__title">Страхование КАСКО</div>
-
-				<Form ref={this.formRef} name="control-ref" onFinish={this.onFinish}>
-					<div className="kaskotax-popup__form">
-						{kaskoForm}
-					
-						<Row className="kasko-car-select__controls" gutter={20}>
-							<Col span={6}>
-								<div onClick={() => {typeof this.props.popupCloseFunc === 'function' && this.props.popupCloseFunc()}} className="ant-btn btn_green fz_14">Отменить</div>
-							</Col>
-							<Col span={12}>
-								<Button htmlType={formDisabled ? null : "submit"}
-										className={"w_100p " + (this.state.formBusy ? "btn_grey" : "ant-btn-primary")}
-										disabled={formDisabled ? 'disabled' : null}>Сохранить</Button>
-							</Col>
-						</Row>
-					</div>
-				</Form>
 			</div>
 		);
 	}
 }
 
-export default KaskotaxPopup;
+export default KaskotaxForm;

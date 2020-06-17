@@ -26,6 +26,10 @@ $aside-size: 226px;
 			justify-content: space-between;
 			align-items: center;
 			
+			&--text {
+				flex: 0 1 auto;
+			}
+			
 			&--val {
 				color: #b5b5b5;
 				font-size: 12px;
@@ -33,6 +37,13 @@ $aside-size: 226px;
 				b {
 					font-size: 16px;
 				}
+			}
+
+			.kasko-notice__status {
+				margin-right: 0;
+				margin-left: 5px;
+				flex-shrink: 0;
+				min-width: 20px;
 			}
 		}
 	}
@@ -50,11 +61,14 @@ $aside-size: 226px;
 			
 			&.active {
 				pointer-events: all;
-				border-bottom-color: $color-blue;
 
 				.kasko-tab__panel-name {
 					color: #000;
 				}
+			}
+			
+			&.selected {
+				border-bottom-color: $color-blue-light;
 			}
 		}
 		
@@ -70,7 +84,7 @@ $aside-size: 226px;
 				.active & {
 					.kasko-tab__panel-name {
 						background: #fff;
-						border-color: $color-blue;
+						border-color: $color-blue-light;
 						border-bottom-color: #fff;
 						position: relative;
 						z-index: 1;

@@ -26,13 +26,14 @@ class FormInput extends Component {
 	};
 
 	render() {
-		const {value, controlName, span, placeholder, inputmask, className, maxLength} = this.props;
+		const {value, controlName, span, placeholder, inputmask, className, maxLength, disabled} = this.props;
 		
 		let inp = <>
 			<Input name={controlName}
+				   disabled={disabled || null}
 				   maxLength={maxLength}
 				   data-inputmask={inputmask ? inputmask : null}
-				   className={className + " w_100p custom_placeholder " + ((this.state.controlValue + '').length ? "" : " _empty")}
+				   className={(className || "") + " w_100p" + (placeholder ? " custom_placeholder" : " no_placeholder") + ((this.state.controlValue + '').length ? "" : " _empty")}
 				   value={this.state.controlValue}
 				   onChange={this.onChange} defaultValue={value}/>
 			{placeholder ? <div className="float_placeholder">{placeholder}</div> : null}

@@ -61,12 +61,20 @@ function App() {
                   <li>
                       <Link to="/details">details</Link>
                   </li>
+                  <li>
+                      <Link to="/tabs">tabs</Link>
+                  </li>
               </ul>
             </div>
           
             <Route exact path="/" render={(routeProps) => (
                 <PageLayout>
                     <Kasko {...routeProps} step={1} showOffers={false}/>
+                </PageLayout>
+            )}/>          
+            <Route exact path="/tabs" render={(routeProps) => (
+                <PageLayout>
+                    <Kasko {...routeProps} step={1} tabs={true} dev={true} showOffers={false}/>
                 </PageLayout>
             )}/>
             <Route path="/kasko" render={(routeProps) => (
@@ -217,11 +225,9 @@ function App() {
                 </>
             )}/>
             <Route path="/details" render={(routeProps) => (
-                <>
-                    <PageLayout>
-                        <Credit {...routeProps} details={true} showOffers={'кредит'}/>
-                    </PageLayout>
-                </>
+                <PageLayout>
+                    <Credit {...routeProps} details={true} showOffers={'кредит'}/>
+                </PageLayout>
             )}/>
             <Route path="/chery" render={(routeProps) => (
                 <CheryLayout>
