@@ -158,11 +158,11 @@ class CarCredit extends Component {
 		this.toggleKaskoPopup()
 	}
 	
-	updateKaskoTaxState = (value) => {
-		console.log('updateKaskoTaxState');
-
+	updateKaskoTaxState = (action) => {
+		console.log('updateKaskoTaxState', action);
+		
 		typeof this.props.showKaskoWidget === 'function' && this.props.showKaskoWidget({show: true, step: 2})
-
+		
 		this.toggleKaskoTaxPopup()
 	}
 	

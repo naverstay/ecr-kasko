@@ -266,7 +266,7 @@ class CarSelect extends Component {
 	};
 	
 	render() {
-		const {allFields, step, hideOffers, fill} = this.props;
+		const {allFields, step, hideOffers, fill, collapseCarInfo} = this.props;
 		let {image} = this.props;
 		//const dateFormat = "DD.MM.YY"
 		let dateFormatMask = "'mask': '99.99.9999', 'showMaskOnHover': 'false'"
@@ -437,8 +437,9 @@ class CarSelect extends Component {
 
 		return (
 			<div className="kasko-car-select">
-				{!this.state.carFound ?
-					<h1 className="kasko-main__title">Выберите автомобиль</h1> :
+				{!this.state.carFound || !collapseCarInfo ?
+					<h1 className="kasko-main__title">Выберите автомобиль</h1> 
+					:
 					<div className="kasko-car-select__description">
 						<div className="kasko-car-select__controls">
 							<span onClick={this.toggleCarOptions}
@@ -449,7 +450,7 @@ class CarSelect extends Component {
 					</div>
 				}
 				
-				{this.state.showCarOptions || !this.state.carFound ? 
+				{this.state.showCarOptions || !this.state.carFound || !collapseCarInfo ? 
 					<>
 						<div className="kasko-car-select__controls radio_v2">
 							<Radio.Group defaultValue={step === 1 ? (this.state.reopen ? (this.state.newCar ? 1 : 0) : null) : this.state.newCar ? 1 : null} onChange={this.onCarNewChange}>
@@ -569,12 +570,12 @@ class CarSelect extends Component {
 						{this.state.newCar === null ? null :
 							<Radio.Group defaultValue={step === 1 ? 1 : 0} className={"w_100p " + (this.state.showAdditional ? "full_form" : "short_form")} onChange={this.onCarCreditChange}>
 								<Row className="kasko-car-select__controls kasko-car-select__controls--price radio_v2" gutter={20}>
-									<Col className={this.state.allowPayment ? "" : "vis_hidden"}>
-										<Radio disabled={this.state.allowPayment ? null : "disabled"} value={1}>В кредит</Radio>
-									</Col>
-									<Col className={this.state.allowPayment ? "" : "vis_hidden"}>
-										<Radio disabled={this.state.allowPayment ? null : "disabled"} value={0}>За наличные</Radio>
-									</Col>
+									{/*<Col className={this.state.allowPayment ? "" : "vis_hidden"}>*/}
+									{/*	<Radio disabled={this.state.allowPayment ? null : "disabled"} value={1}>В кредит</Radio>*/}
+									{/*</Col>*/}
+									{/*<Col className={this.state.allowPayment ? "" : "vis_hidden"}>*/}
+									{/*	<Radio disabled={this.state.allowPayment ? null : "disabled"} value={0}>За наличные</Radio>*/}
+									{/*</Col>*/}
 									
 									{
 										this.state.showAdditional ? null :

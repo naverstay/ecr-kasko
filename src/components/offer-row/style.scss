@@ -41,6 +41,14 @@
 		&.waiting {
 			background: $color-yellow;
 		}
+		
+		&.blue {
+			background: $color-blue;
+		}
+		
+		&.green {
+			background: $color-green;
+		}
 	}
 	
 	&__check {
@@ -109,10 +117,28 @@
 					display: none;
 				}
 			}
+			
+			&.offer-row__product {
+				padding-left: 0;
+				padding-right: 0;
+				margin-bottom: 0;
+				display: flex;
+				justify-content: space-between;
+				min-height: 14px;
+				
+				&:before {
+					display: none;
+				}
+			}
 		}
 		
 		&.cols-3 {
 			column-count: 3;
+		}
+		
+		&.cols-1 {
+			column-count: 1;
+			margin: 0;
 		}
 		
 		&.check {
@@ -131,7 +157,6 @@
 				}
 			}
 		}
-		
 	}
 	
 	&__logo {

@@ -147,6 +147,8 @@ class Kasko extends Component {
 		let tabStatus = <div className={"kasko-notice__status " + (statusClasses[status])}
 			>{statusNames[status] + (this.state.tabIndex === 3 && this.state.productCount ? ' (' + this.state.productCount + ')' : '')}</div>
 
+		console.log('this.state.tabIndex', this.state.tabIndex);
+		
 		return (
 			<>
 				<Row gutter={20} className="kasko-wrapper">
@@ -174,7 +176,7 @@ class Kasko extends Component {
 					<Col span={16} className="kasko-main">
 						{tabs ?
 							<>
-								<CarSelect showCarOptions={(this.state.tabIndex !== null)}
+								<CarSelect collapseCarInfo={this.state.tabIndex !== null} showCarOptions={(this.state.tabIndex !== null)}
 										   imageCallback={this.imageCallback} step={step} image={this.state.carImage}/>
 								<Tabs selectedIndex={this.state.tabIndex === null ? -1 : this.state.tabIndex}
 									  onSelect={this.updateTab} className={'kasko-tabs__wrapper'}>

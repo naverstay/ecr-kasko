@@ -544,12 +544,12 @@ class KaskoCarSelect extends Component {
 				{this.state.newCar === null || popup ? null :
 					<Radio.Group defaultValue={step === 1 ? 1 : 0} className={"w_100p " + (this.state.showAdditional ? "full_form" : "short_form")} onChange={this.onCarCreditChange}>
 						<Row className="kasko-car-select__controls kasko-car-select__controls--price radio_v2" gutter={20}>
-							<Col className={this.state.allowPayment ? "" : "vis_hidden"}>
-								<Radio disabled={this.state.allowPayment ? null : "disabled"} value={1}>В кредит</Radio>
-							</Col>
-							<Col className={this.state.allowPayment ? "" : "vis_hidden"}>
-								<Radio disabled={this.state.allowPayment ? null : "disabled"} value={0}>За наличные</Radio>
-							</Col>
+							{/*<Col className={this.state.allowPayment ? "" : "vis_hidden"}>*/}
+							{/*	<Radio disabled={this.state.allowPayment ? null : "disabled"} value={1}>В кредит</Radio>*/}
+							{/*</Col>*/}
+							{/*<Col className={this.state.allowPayment ? "" : "vis_hidden"}>*/}
+							{/*	<Radio disabled={this.state.allowPayment ? null : "disabled"} value={0}>За наличные</Radio>*/}
+							{/*</Col>*/}
 							
 							{
 								this.state.showAdditional ? null :

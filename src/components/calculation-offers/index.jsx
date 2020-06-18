@@ -48,13 +48,18 @@ class CalculationOffers extends Component {
 						</tr>
 					</thead>
 					
-					{offersList.length ? 
-						<tbody>{offersList.map((o, i) => {
-								return (<OfferRow franchise={!osago && franchise} allowCheck={allowCheck} osago={osago}
-												  completed={completed} waiting={waiting} selectedOffer={selectedOffer}
-												  key={i} company={i} logo={o.logo} offers={o.offers}/>)
-							})}</tbody>: null}
-						
+					{offersList && offersList.length ?  
+						<tbody>
+							{offersList.map((o, i) => {
+									return (<OfferRow franchise={!osago && franchise} allowCheck={allowCheck} osago={osago}
+													  completed={completed} waiting={waiting} selectedOffer={selectedOffer}
+													  key={i} company={i} logo={o.logo} offers={o.offers}/>)
+								})
+							}
+						</tbody>
+						: null
+					}
+					
 				</table>
 				{!osago && waiting ?
 					<div className="kasko-offer__more">

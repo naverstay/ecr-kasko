@@ -51,7 +51,7 @@ class ServiceOffers extends Component {
 							</td>
 						</tr>
 					</tfoot>
-					{offersList.length ? 
+					{offersList && offersList.length ?  
 						<tbody>{offersList.map((o, i) => {
 								return (<ServiceRow allowCheck={allowCheck}
 												  completed={completed} waiting={waiting} selectedOffer={selectedOffer}

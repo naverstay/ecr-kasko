@@ -274,12 +274,6 @@ class TabService extends Component {
 		const damageOptions = ['Ущерб', 'Полная гибель', 'Угон', 'Шины/Диски', 'ЛКП', 'Стекла', 'Фары', 'Бамперы и зеркала'];
 		const franchise = this.state.franchise;
 		
-		let driverOptions = [];
-		
-		if (step > 1 || this.state.showCalculationOffers) {
-			driverOptions = ['Фомин Сергей М.', 'Фомина Алла К.', 'Фомина Марина Ф.']
-		}
-		
 		let franchiseSteps = {
 			//10000 : '10 000',
 			//15000 : '15 000',
@@ -357,7 +351,7 @@ class TabService extends Component {
 
 			{!this.state.showCalculationOffers || this.state.openParams ?
 				<>
-					<KaskoOffers opened={[0,1,2,3,4]} onOfferSelect={this.offersUpdate} credit={true} slider={true} offersList={[
+					<KaskoOffers opened={[0,1,2,3,4]} noCollapse={true} onOfferSelect={this.offersUpdate} credit={true} slider={true} offersList={[
 						{
 							name: 'Ассистанс',
 							price: '15400',
@@ -454,18 +448,16 @@ class TabService extends Component {
 							suffix: '₽'
 						}
 					]}/>
-
-					{this.state.showCalculationOffers ? null :
-						<Row gutter={20}
-							 className={"kasko-car-select__controls ant-row-center" + (this.state.showCalculationOffers ? " mb_30" : "")}>
-							<Col span={6}>
-								<Button onClick={() => this.toggleCalculationPopup()}
-									 disabled={this.state.activeOffers.length ? null : "disabled"}
-									 className={"ant-btn ant-btn-primary btn_middle w_100p"}
-								>Оформить</Button>
-							</Col>
-						</Row>
-					}
+					
+					<Row gutter={20}
+						 className={"kasko-car-select__controls ant-row-center" + (this.state.showCalculationOffers ? " mb_30" : "")}>
+						<Col span={6}>
+							<Button onClick={() => this.toggleCalculationPopup()}
+								 disabled={this.state.activeOffers.length ? null : "disabled"}
+								 className={"ant-btn ant-btn-primary btn_middle w_100p"}
+							>Оформить</Button>
+						</Col>
+					</Row>
 				</>
 				: null
 			}

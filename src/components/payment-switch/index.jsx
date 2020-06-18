@@ -30,7 +30,8 @@ class PaymentSwitch extends Component {
 			<div className="payment-switch">
 				<Tooltip overlayClassName="tooltip_v1" placement="top" title="Оплатить на сайте страховой компании">
 					<Button onClick={this.togglePaymentOptions} 
-							className={"payment-switch__label ant-btn w_100p btn_green" + (allowPayment ? null : " disabled")}>Оплатить онлайн</Button>
+							className={"payment-switch__label ant-btn w_100p btn_green" + (allowPayment ? null : " disabled")}
+							>Оплатить онлайн</Button>
 				</Tooltip>
 				{
 					(allowPayment && this.state.showPaymentOptions) ?
@@ -54,7 +55,7 @@ class PaymentSwitch extends Component {
 								</li>
 							</ul>
 						</div>
-						: ""
+						: null
 				}
 			</div>
 		);

@@ -311,13 +311,7 @@ class ServiceSelect extends Component {
 		const periodOptions = [12, 9, 6, 3];
 		const damageOptions = ['Ущерб', 'Полная гибель', 'Угон', 'Шины/Диски', 'ЛКП', 'Стекла', 'Фары', 'Бамперы и зеркала'];
 		const franchise = this.state.franchise;
-		
-		let driverOptions = [];
-		
-		if (step > 1 || this.state.showCalculationOffers) {
-			driverOptions = ['Фомин Сергей М.', 'Фомина Алла К.', 'Фомина Марина Ф.']
-		}
-		
+				
 		let franchiseSteps = {
 			//10000 : '10 000',
 			//15000 : '15 000',
@@ -391,7 +385,7 @@ class ServiceSelect extends Component {
 		let dealerOffers = <>
 			<div onClick={() => {this.state.showCalculationOffers && this.toggleShowParams()}}
 				 className={"kasko-car-select__caption" + (this.state.showCalculationOffers ? (this.state.openParams ? " expanded" : " collapsed") : "")}
-			>Дополнительные продукты дилера
+				>Дополнительные продукты дилера
 			</div>
 
 			{!this.state.showCalculationOffers || this.state.openParams ?
@@ -460,7 +454,7 @@ class ServiceSelect extends Component {
 						<Col span={6}>
 							<div onClick={() => this.toggleCalculationPopup()}
 								 className={"ant-btn ant-btn-primary btn_middle w_100p" + (this.state.activeOffers.length ? "" : " disabled")}
-							>Заполнить анкету</div>
+								>Заполнить анкету</div>
 						</Col>
 					</Row>
 				</>

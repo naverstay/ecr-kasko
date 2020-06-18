@@ -172,6 +172,20 @@
 		line-height: 14px;
 	}
 
+	&__dropdown--text {
+		display: flex;
+		flex-flow: column nowrap;
+		justify-content: center;
+		min-height: 227px;
+		padding-bottom: 25px;
+		
+		p {
+			font-size: 12px;
+			line-height: 18px;
+			color: #000;
+		}
+	}
+	
 	&__controls {
 		display: flex;
 		flex-flow: row;

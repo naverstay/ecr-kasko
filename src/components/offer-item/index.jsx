@@ -95,7 +95,7 @@ class OfferItem extends Component {
 	}
 
 	onShowOfferChange = (value) => {
-		this.setState({offerCollapsed: !this.state.offerCollapsed})
+		!this.props.noCollapse && this.setState({offerCollapsed: !this.state.offerCollapsed})
 	}
 
 	dropdownCallback = (action) => {
@@ -117,11 +117,11 @@ class OfferItem extends Component {
 	}
 	
 	componentDidMount() {
-		document.addEventListener('mousedown', this.handleClickOutside);
+		!this.props.noCollapse && document.addEventListener('mousedown', this.handleClickOutside);
 	}
 
 	componentWillUnmount() {
-		document.removeEventListener('mousedown', this.handleClickOutside);
+		!this.props.noCollapse && document.removeEventListener('mousedown', this.handleClickOutside);
 	}
 
 	setWrapperRef(node) {

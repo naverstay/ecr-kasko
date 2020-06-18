@@ -32,7 +32,7 @@ class KaskoOffers extends Component {
 	}
 
 	render() {
-		let {offersList, opened, onOfferSelect, disabled, credit, active, completed, step} = this.props
+		let {offersList, opened, onOfferSelect, disabled, credit, active, completed, step, noCollapse} = this.props
 		
 		let carouselSettings = {
 			dots: false,
@@ -48,7 +48,8 @@ class KaskoOffers extends Component {
 			<div className="kasko-car-select__carousel" id="kasko-offers">
 				<Slider className={"kasko-offer" + (disabled ? " disabled" : "")} {...carouselSettings}>
 					{
-						offersList.map((o, i) => <OfferItem 
+						offersList.map((o, i) => <OfferItem
+							noCollapse={noCollapse}
 							offerItemCallback={this.props.offerItemCallback} step={step}
 							opened={opened && opened.length && opened.indexOf(i) > -1} 
 							active={active && active.length && active.indexOf(i) > -1} 

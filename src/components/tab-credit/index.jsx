@@ -22,6 +22,7 @@ import CreditPopup from "../credit-popup";
 import FormInput from "../form-input";
 import KaskotaxForm from "../kaskotax-form";
 import FormSwitch from "../form-switch";
+import CreditProgrammes from "../credit-programmes";
 
 const {Option} = Select;
 //const {YearPicker} = DatePicker;
@@ -66,8 +67,8 @@ class TabCredit extends Component {
 		});
 	};
 
-	setTab = (index) => {
-		this.props.tabCallback && typeof this.props.tabCallback === 'function' && this.props.tabCallback({newStep: index})
+	updateTab = (index) => {
+		this.props.tabCallback && typeof this.props.tabCallback === 'function' && this.props.tabCallback({tabIndex: index})
 	};
 
 	toggleCarOptions = () => {
@@ -179,7 +180,7 @@ class TabCredit extends Component {
 		this.toggleCalculationPopup()
 		
 		if (e) {
-			
+			this.props.tabCallback && typeof this.props.tabCallback === 'function' && this.props.tabCallback({newStep: 2})
 		}
 	};
 	
@@ -311,6 +312,56 @@ class TabCredit extends Component {
 			})
 		}
 		
+		let creditProducts = [
+			{
+				option: 'КАСКО',
+				price: 50000
+			},
+			{
+				option: 'СЖ',
+				price: 0
+			},
+			{
+				option: 'GAP',
+				price: 45000
+			},
+			{
+				option: 'Доп. услуги',
+				price: 25000
+			}
+		]
+		
+		let creditOffersList = [
+			{
+				name: 'ЮниКредит Банк',
+				offers: [
+					{
+						programme: 'Стандарт (СЖ дилера)',
+						price: 23719,
+						rate: '15,90%',
+						dealerFee: 4145,
+						status: 'green',
+						products: creditProducts,
+						options: optionsFixtures
+					}
+				]
+			},
+			{
+				name: 'ВТБ',
+				offers: [
+					{
+						programme: 'АвтоСтандарт (СЖ дилера)',
+						price: 23719,
+						rate: '15,90%',
+						dealerFee: 3045,
+						status: 'blue',
+						products: creditProducts,
+						options: optionsFixtures
+					}
+				]
+			}
+		]
+		
 		let offersList = []
 
 		for (let i = 0; i < banks.length; i++) {
@@ -321,10 +372,37 @@ class TabCredit extends Component {
 			})
 		}
 		
+		let offers = <>
+			<div className={"kasko-car-select__caption fz_12"}>Срок действия, месяцы</div>
+
+			<div className="kasko-car-select__controls radio_v3">
+				<Radio.Group defaultValue={periodOptions[4]} style={{width: '100%'}}>
+					<Row gutter={20}>
+						{periodOptions.map((c, i) =>
+							<Col key={i}>
+								<Radio value={c}>
+									<span
+										className={"kasko-car-select__period--value" + (i === periodOptions.length - 1 ? " small" : "")}>{c}</span>
+									{i === periodOptions.length - 1 ? "" :
+										<span className="kasko-car-select__period--label">13 450 ₽</span>}
+								</Radio>
+							</Col>
+						)
+						}
+					</Row>
+				</Radio.Group>
+			</div>
+
+			<div className={"kasko-car-select__controls ant-row-center" + (this.state.openParams ? " mb_0" : "")}>
+				<div onClick={this.toggleCalculationOffers}
+					 className={"ant-btn ant-btn-primary btn_middle margin" + (this.state.paramsChanged ? "" : " disabled")}
+				>Получить расчет
+				</div>
+			</div>
+		</>
+		
 		return (
 			<div className="kasko-car-select">
-				<div className="kasko-car-select__caption">Добавить в кредит</div>
-				
 				<KaskoOffers onOfferSelect={this.offersUpdate} offerItemCallback={this} active={[0,1,2,3,4,5]} slider={true} credit={true} offersList={[
 						{
 							name: 'КАСКО',
@@ -336,7 +414,7 @@ class TabCredit extends Component {
 								console.log('dropdownCallback КАСКО', action);
 								
 								if ('setTab' in action) {
-									this.setTab(action.setTab)
+									this.updateTab(action.setTab)
 								}
 							},
 							price: this.state.activeKasko ? '41450' : '15400',
@@ -386,12 +464,14 @@ class TabCredit extends Component {
 						}
 					]}/>
 			
-				<div onClick={this.toggleShowParams} className={"kasko-car-select__caption" + (this.state.openParams ? " expanded" : " collapsed")}>Параметры кредита</div>
+				<div onClick={this.toggleShowParams} className={"kasko-car-select__caption" + (this.state.openParams ? " expanded" : " collapsed")}>
+					{step >= 2 ? 'Кредитный калькулятор' : 'Параметры кредита'}
+				</div>
 
 				{
 					this.state.openParams ?
 						<>
-							<div className="kasko-car-select__caption mt_30">Первоначальный взнос</div>
+							<div className="kasko-car-select__caption mt_30 fz_12">Первоначальный взнос</div>
 							<Row className={"kasko-car-select__controls car-credit mb_30"} gutter={20}>
 								<FormInput span={5} onChangeCallback={this.formControlCallback}
 										   className="text_right"
@@ -442,35 +522,26 @@ class TabCredit extends Component {
 									</Row>
 								</Checkbox.Group>
 							</div>
+							
+							{step >= 2 ? offers : null}
 						</>
 					: null
 				}
 
-				<div className={"kasko-car-select__caption fz_12"}>Срок действия, месяцы</div>
+				{step >= 2 ? null : offers}
+				
+				{step >= 2 ?
+					<>
+						<CreditProgrammes offersList={creditOffersList} allowCheck={true} />
 
-				<div className="kasko-car-select__controls radio_v3">
-					<Radio.Group defaultValue={periodOptions[4]} style={{width: '100%'}}>
-						<Row gutter={20}>
-							{periodOptions.map((c, i) => 
-									<Col key={i}>
-										<Radio value={c}>
-											<span className={"kasko-car-select__period--value" + (i === periodOptions.length - 1 ? " small" : "")}>{c}</span>
-											{i === periodOptions.length - 1 ? "" : <span className="kasko-car-select__period--label">13 450 ₽</span>}
-										</Radio>
-									</Col>
-								)
-							}
+						<Row gutter={20} className={"kasko-car-select__controls ant-row-center align_center"}>
+							<Col span={6}>
+								<Button className={"ant-btn-primary btn_middle ant-btn-block"}
+										onClick={() => {this.props.tabCallback({newStep: 3})}}>Оформить кредит</Button>
+							</Col>
 						</Row>
-					</Radio.Group>
-				</div>
-				
-				<div className={"kasko-car-select__controls ant-row-center" + (this.state.openParams ? " mb_0" : "")}>
-					<div onClick={this.toggleCalculationOffers}
-						 className={"ant-btn ant-btn-primary btn_middle margin" + (this.state.paramsChanged ? "" : " disabled")}
-						 >Получить расчет</div>
-				</div>
-				
-				{this.state.showCreditOffers ? 
+					</>
+					: this.state.showCreditOffers ? 
 					<div className="kasko-main__wide">
 						<Row gutter={20}>
 							<Col span={4}>

@@ -73,6 +73,7 @@ class TabOffer extends Component {
 			],
 			showPayment: this.props.osago ? this.props.step > 1 : false,
 			showCompare: false,
+			availableAddCredit: false,
 			availablePayment: false,
 			showMoreDamages: false,
 			paramsChanged: true,
@@ -97,7 +98,7 @@ class TabOffer extends Component {
 		let compare = true;
 		
 		let companyOffers = offerList.find((c) => c.company === company)
-
+		
 		if (companyOffers) {
 			for (let o in offers) {
 				if (offers.hasOwnProperty(o)) {
@@ -110,26 +111,26 @@ class TabOffer extends Component {
 						if (index > -1) {
 							companyOffers.offers.splice(index, 1);
 						}
-						
+
 						if (!companyOffers.offers.length) {
 							for (let i = 0; i < offerList.length; i++) {
 								if (offerList[i].company === company) {
 									offerList.splice(i, 1)
 								}
-								
+
 							}
 						}
 					}
 				}
 			}
-			
+
 		} else {
 			let arr = []
 
 			for (let o in offers) {
 				if (offers.hasOwnProperty(o)) {
 					let offer = offers[o]
-					
+
 					if (offer) {
 						arr.push(o)
 					}
@@ -139,18 +140,24 @@ class TabOffer extends Component {
 			offerList.push({company: company, offers: arr})
 		}
 		
-		if (offerList.length === 1) {
-			if (offerList[0].offers.length === 1) {
-				compare = false
+		if (this.state.showPayment || this.props.osago) {
+			if (offerList.length === 1) {
+				if (offerList[0].offers.length === 1) {
+					compare = false
+				}
 			}
+
+			this.setState({
+				selectedOffers: offerList,
+				showPayment: true,
+				showCompare: offerList.length > 1 && compare,
+				availablePayment: offerList.length > 0
+			})
+		} else {
+			this.setState({
+				availableAddCredit: offerList.length > 0
+			})
 		}
-		
-		this.setState({
-			selectedOffers: offerList,
-			showPayment: true,
-			showCompare: offerList.length > 1 && compare,
-			availablePayment: offerList.length > 0
-		})
 	}
 
 	updatePolicyState = () => {
@@ -834,7 +841,7 @@ class TabOffer extends Component {
 							
 							{this.state.showCalculationOffers ?
 									<>
-										<CalculationOffers franchise={this.state.hasFranchise} allowCheck={this.state.showPayment || osago || popup} osago={osago} waiting={step === 2} selectedOffer={this.updateSelectedOffer} offersList={calculationOfferList}/>
+										<CalculationOffers franchise={this.state.hasFranchise} allowCheck={true} osago={osago} waiting={step === 2} selectedOffer={this.updateSelectedOffer} offersList={calculationOfferList}/>
 		
 										<Row gutter={20} className={"kasko-car-select__controls ant-row-center align_center"}>
 											{
@@ -926,10 +933,11 @@ class TabOffer extends Component {
 																	onClick={this.toggleCalculationPopup}>{this.calculationButtonText()}</Button>
 															</Col>
 															<Col span={6}>
-																<Button onClick={() => {this.changeTab(0)}} className={"w_100p ant-btn"}>Добавить в кредит</Button>
+																<Button disabled={this.state.availableAddCredit ? null : "disabled"}
+																	onClick={() => {this.changeTab(0)}} className={"w_100p btn_green"}
+																	>Добавить в кредит</Button>
 															</Col>
 														</>
-												
 											}
 										</Row>
 									</>

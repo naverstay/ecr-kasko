@@ -32,7 +32,7 @@ class OfferRow extends Component {
 		
 		setTimeout(() => {
 			console.log('onSelectOfferToggle', company, this.state.offerSelected);
-			if (typeof this.props.selectedOffer === 'function') this.props.selectedOffer(company, this.state.offerSelected)
+			this.props.selectedOffer && typeof this.props.selectedOffer === 'function' && this.props.selectedOffer(company, this.state.offerSelected)
 		})
 	}
 	
@@ -66,7 +66,7 @@ class OfferRow extends Component {
 					
 					return (show ? 
 						<>
-							<tr key={i} className={(showOptions ? "expanded" : "") + (offerSelected ? " selected" : "")}>
+							<tr key={i} className={(showOptions ? "expanded" : "") + ((offerSelected && !(completed || waiting)) ? " selected" : "")}>
 								<td>
 									{i === 0 ? logo ? <div className={"offer-row__logo"}><img src={logo} alt=""/></div> : <div className={"offer-row__logo" + (info ? " info" : "")}>{name}</div> : null}
 								</td>
