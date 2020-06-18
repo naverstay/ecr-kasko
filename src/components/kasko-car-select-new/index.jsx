@@ -175,40 +175,15 @@ class KaskoCarSelectNew extends Component {
 	formControlCallback = (name, value) => {
 		console.log('formControlCallback', name, value);
 
-		let selects = [
-			'carATS',
-			'carAutoStart',
-			'carBankName',
-			'carBodyType',
-			'carEquipment',
-			'carForTaxi',
-			'carMark',
-			'carModel',
-			'carMotorSize',
-			'carMotorType',
-			'carNumber',
-			'carPower',
-			'carPowerRange',
-			'carPrice',
-			'carPTS',
-			'carPTSStart',
-			'carRegion',
-			'carTransmissionType',
-			'carUsageStart',
-			'carVIN',
-			'carYear',
-			'insurancePrice',
-			'insuranceTaxName',
-			'showAdditional',
-		]
-		
-		if (selects.indexOf(name) > -1) {
+		if (name in this.state) {
 			let obj = {}
 			obj[name] = value
 
 			this.setState(obj)
 			this.checkReadyState()
-		} 
+		} else {
+			console.log('no name in state', name);
+		}
 		
 		switch (name) {
 			case 'carMark':

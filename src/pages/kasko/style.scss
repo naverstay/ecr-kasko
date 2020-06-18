@@ -31,7 +31,7 @@ $aside-size: 226px;
 			}
 			
 			&--val {
-				color: #b5b5b5;
+				color: $color-grey-dark;
 				font-size: 12px;
 
 				b {
@@ -56,7 +56,7 @@ $aside-size: 226px;
 		&__list {
 			display: flex;
 			justify-content: stretch;
-			border-bottom: 1px solid #b5b5b5;
+			border-bottom: 1px solid $color-grey-dark;
 			pointer-events: none;
 			
 			&.active {

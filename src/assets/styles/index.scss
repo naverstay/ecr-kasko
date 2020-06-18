@@ -30,7 +30,7 @@ input {
 	right: 20px;
 	top: 50%;
 	transform: translate(0, -50%);
-	color: #b5b5b5;
+	color: $color-grey-dark;
 	pointer-events: none;
 	white-space: pre-line;
 
@@ -106,7 +106,7 @@ input {
 			border-color: rgba(181, 181, 181, 0.3);
 		}
 		
-		&:not([disabled]) {
+		&:not(.disabled):not([disabled]) {
 			//border-color: $color-green;
 			color: $color-green;
 

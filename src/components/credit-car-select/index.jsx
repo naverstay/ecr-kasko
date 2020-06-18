@@ -119,34 +119,7 @@ class CreditCarSelect extends Component {
 	formControlCallback = (name, value) => {
 		console.log('formControlCallback', name, value);
 
-		let selects = [
-			'carATS',
-			'carAutoStart',
-			'carBankName',
-			'carBodyType',
-			'carEquipment',
-			'carEquipment',
-			'carForTaxi',
-			'carKaskoDocStart',
-			'carMark',
-			'carMileage',
-			'carModel',
-			'carMotorSize',
-			'carMotorType',
-			'carPower',
-			'carPowerRange',
-			'carPrice',
-			'carPTS',
-			'carPTSStart',
-			'carRegion',
-			'carTransmissionType',
-			'carUsageStart',
-			'carVIN',
-			'carYear',
-			'showAdditional',
-		]
-
-		if (selects.indexOf(name) > -1) {
+		if (name in this.state) {
 			let obj = {}
 			obj[name] = value
 
@@ -155,13 +128,15 @@ class CreditCarSelect extends Component {
 			this.setState(obj)
 			this.checkReadyState()
 		} else {
-			switch (name) {
-				case 'carNumber':
-					this.setState({carNumber: value, carFound: void 0})
-					this.checkReadyState()
-					break
+			console.log('no name in state', name);
+		}
+		
+		switch (name) {
+			case 'carNumber':
+				this.setState({carNumber: value, carFound: void 0})
+				this.checkReadyState()
+				break
 
-			}
 		}
 	};
 	

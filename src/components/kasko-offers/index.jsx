@@ -32,7 +32,7 @@ class KaskoOffers extends Component {
 	}
 
 	render() {
-		let {offersList, slider, onOfferSelect, disabled, credit, active, completed, step} = this.props
+		let {offersList, opened, onOfferSelect, disabled, credit, active, completed, step} = this.props
 		
 		let carouselSettings = {
 			dots: false,
@@ -41,12 +41,19 @@ class KaskoOffers extends Component {
 			slidesToScroll: 1,
 			variableWidth: false
 		};
+
+		console.log('opened', opened);
 		
 		return (
 			<div className="kasko-car-select__carousel" id="kasko-offers">
 				<Slider className={"kasko-offer" + (disabled ? " disabled" : "")} {...carouselSettings}>
 					{
-						offersList.map((o, i) => <OfferItem step={step} active={active && active.length && active.indexOf(i) > -1} completed={completed && completed.length && completed.indexOf(i) > -1} key={i} credit={credit} onOfferSelect={onOfferSelect} slider={true} index={i} offer={o} />)
+						offersList.map((o, i) => <OfferItem 
+							offerItemCallback={this.props.offerItemCallback} step={step}
+							opened={opened && opened.length && opened.indexOf(i) > -1} 
+							active={active && active.length && active.indexOf(i) > -1} 
+							completed={completed && completed.length && completed.indexOf(i) > -1} 
+							key={i} credit={credit} onOfferSelect={onOfferSelect} slider={true} index={i} offer={o} />)
 					}
 				</Slider>
 			</div>

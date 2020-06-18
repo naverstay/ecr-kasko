@@ -8,12 +8,25 @@
 			position: relative;
 			text-align: left;
 			background: #f7f7f7;
-			border: 2px dashed #b5b5b5;
+			border: 2px dashed $color-grey-dark;
 			display: flex;
 			flex-flow: row nowrap;
 			min-height: 135px;
 			padding: 12px 50px;
 
+			&.small {
+				padding: 0 50px;
+				min-height: 60px;
+
+				.ant-upload {
+					padding: 5px 0;
+				}
+
+				.client-questionnaire__upload--icon:before {
+					top: -12px;
+				}
+			}
+			
 			.ant-upload-drag-container {
 				display: flex;
 				flex-flow: row nowrap;

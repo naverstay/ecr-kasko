@@ -60,7 +60,7 @@
 
 		&--switch {
 			&.ant-switch{
-				background: #b5b5b5;
+				background: $color-grey-dark;
 				height: 14px;
 
 				.ant-switch-handle {
@@ -95,7 +95,7 @@
 			top: 50%;
 			transform: translate(0, -50%);
 			transition: opacity .3s;
-			//color: #b5b5b5;
+			//color: $color-grey-dark;
 			
 			&:first-child {
 				right: 50%;
@@ -446,7 +446,7 @@
 				margin-top: -7px;
 				font-size: 14px;
 				line-height: 1;
-				color: #b5b5b5;
+				color: $color-grey-dark;
 			}
 			
 			&:after {

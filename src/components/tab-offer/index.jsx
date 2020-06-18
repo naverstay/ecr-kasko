@@ -16,6 +16,7 @@ import DriverCount from "../driver-count";
 import KaskoCarSelect from "../kasko-car-select";
 import PopupOverlay from "../popup-overlay";
 import FormInput from "../form-input";
+import PolicyPopup from "../policy-popup";
 
 moment().locale('ru', ru);
 
@@ -31,6 +32,7 @@ class TabOffer extends Component {
 			openParams: true,
 			SMSSent: true,
 			calculationPopupOpened: false,
+			policyPopupOpened: false,
 			formBusy: false,
 			hasFranchise: this.props.step > 1,
 			franchiseVal: 0,
@@ -151,6 +153,12 @@ class TabOffer extends Component {
 		})
 	}
 
+	updatePolicyState = () => {
+		console.log('updatePolicyState')
+		this.togglePolicyPopup()
+		this.props.tabCallback({newStep: 3})
+	}
+
 	updatePaymentState = (value) => {
 		console.log('updatePaymentState', value);
 		if (this.state.showCalculationOffers) {
@@ -204,6 +212,12 @@ class TabOffer extends Component {
 		document.body.classList.toggle('no-overflow', !this.state.calculationPopupOpened)
 	}
 
+	togglePolicyPopup = () => {
+		//this.setState({fullCalculation: true})
+		this.setState({policyPopupOpened: !this.state.policyPopupOpened})
+		document.body.classList.toggle('no-overflow', !this.state.policyPopupOpened)
+	}
+
 	toggleShowParams = () => {
 		this.state.showCalculationOffers && this.setState({openParams: !this.state.openParams})
 	}
@@ -211,7 +225,13 @@ class TabOffer extends Component {
 	nextStep = (step) => {
 		console.log('nextStep', step);
 
-		typeof this.props.tabCallback === 'function' && this.props.tabCallback(step)
+		typeof this.props.tabCallback === 'function' && this.props.tabCallback({newStep: step})
+	}
+
+	changeTab = (tab) => {
+		console.log('nextStep', tab);
+
+		typeof this.props.tabCallback === 'function' && this.props.tabCallback({tabIndex: tab})
 	}
 
 	toggleSMSSent = () => {
@@ -791,6 +811,7 @@ class TabOffer extends Component {
 																	{osago ? null :
 																		<Col span={6}>
 																			<Button to="/credit_kasko"
+																					onClick={this.togglePolicyPopup}
 																					className={"w_100p ant-btn"}
 																			>Внести полис вручную</Button>
 																		</Col>
@@ -897,7 +918,7 @@ class TabOffer extends Component {
 														:
 														<>
 															<Col span={6}>
-																<Link to="/credit_kasko" className={"w_100p ant-btn"}>Отказ клиента</Link>
+																<Button className={"w_100p ant-btn"}>Отказ клиента</Button>
 															</Col>
 															<Col span={12}>
 																<Button htmlType="submit"
@@ -905,7 +926,7 @@ class TabOffer extends Component {
 																	onClick={this.toggleCalculationPopup}>{this.calculationButtonText()}</Button>
 															</Col>
 															<Col span={6}>
-																<Link to="/credit_kasko" className={"w_100p ant-btn"}>Добавить в кредит</Link>
+																<Button onClick={() => {this.changeTab(0)}} className={"w_100p ant-btn"}>Добавить в кредит</Button>
 															</Col>
 														</>
 												
@@ -923,6 +944,13 @@ class TabOffer extends Component {
 				{this.state.calculationPopupOpened ?
 					<PopupOverlay span={16}>
 						<CalculationPopup osago={osago} updatePaymentState={this.updatePaymentState} step={this.state.showCalculationOffers ? 2 : step} allFields={this.state.showCalculationOffers || (step === 2)} fullCalculation={this.state.showCalculationOffers || this.state.fullCalculation} popupCloseFunc={this.toggleCalculationPopup} />
+					</PopupOverlay>
+					: null
+				}
+				
+				{this.state.policyPopupOpened ?
+					<PopupOverlay span={16}>
+						<PolicyPopup popupConfirmation={this.updatePolicyState} step={this.state.showCalculationOffers ? 2 : step} allFields={this.state.showCalculationOffers || (step === 2)} fullCalculation={this.state.showCalculationOffers || this.state.fullCalculation} popupCloseFunc={this.togglePolicyPopup} />
 					</PopupOverlay>
 					: null
 				}

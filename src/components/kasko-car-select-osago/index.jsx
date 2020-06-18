@@ -19,6 +19,7 @@ class KaskoCarSelectOsago extends Component {
 	constructor(props) {
 		super(props);
 		this.state = {
+			activeFields: (this.props.step === 1 ? ['carMark'] : []),
 			carFound: void 0,
 			allowPayment: true,
 			showAdditional: false,
@@ -119,45 +120,20 @@ class KaskoCarSelectOsago extends Component {
 	formControlCallback = (name, value) => {
 		console.log('formControlCallback', name, value);
 
-		let selects = [
-			'carATS',
-			'carAutoStart',
-			'carBankName',
-			'carBodyType',
-			'carEquipment',
-			'carForTaxi',
-			'carMark',
-			'carModel',
-			'carMotorSize',
-			'carMotorType',
-			'carNumber',
-			'carPower',
-			'carPowerRange',
-			'carPrice',
-			'carPTS',
-			'carPTSStart',
-			'carRegion',
-			'carTransmissionType',
-			'carUsageStart',
-			'carVIN',
-			'carYear',
-			'insurancePrice',
-			'insuranceTaxName',
-			'showAdditional',
-		]
-
-		if (selects.indexOf(name) > -1) {
+		if (name in this.state) {
 			let obj = {}
 			obj[name] = value
 
 			this.setState(obj)
 			this.checkReadyState()
 		} else {
-			switch (name) {
-				case 'offerCash':
-					this.setState({offerCash: value})
-					break
-			}
+			console.log('no name in state', name);
+		}
+		
+		switch (name) {
+			case 'offerCash':
+				this.setState({offerCash: value})
+				break
 		}
 	};
 	
@@ -190,132 +166,34 @@ class KaskoCarSelectOsago extends Component {
 			}
 		}, 0)
 	};
-	
-	onCarYearChange = (value) => {
-		this.setState({carYear: value})
-		this.checkReadyState()
+
+	removeActiveField = (field) => {
+		let fields = this.state.activeFields.slice(0)
+		let index = fields.indexOf(field)
+
+		if (index > -1) {
+			fields.splice(index, 1);
+
+			this.setState({activeFields: fields})
+		}
 	};
 
-	onCarUsageStartChange = e => {
-		this.setState({carUsageStart: e.target.value})
-		this.checkReadyState()
+	addActiveField = (field) => {
+		setTimeout(() => {
+			let fields = this.state.activeFields.slice(0)
+
+			if (fields.indexOf(field) < 0) {
+				fields.push(field)
+
+				this.setState({activeFields: fields})
+			}
+		}, 100)
 	};
 
-	toggleAdditionalFields = e => {
-		this.setState({showAdditional: !this.state.showAdditional})
-	};
-
-	onCarNumberChange = e => {
-		this.setState({carNumber: e.target.value, carFound: void 0})
-		this.checkReadyState()
-	};
-
-	onMarkChange = value => {
-		this.setState({carMark: value})
-		this.checkReadyState()
-	};
-
-	onCarPowerRangeChange = value => {
-		this.setState({carPowerRange: value})
-		this.checkReadyState()
-	};
-
-	onModelChange = value => {
-		this.setState({carModel: value})
-		this.checkReadyState()
-	};
-
-	onCarPowerChange = e => {
-		this.setState({carPower: e.target.value})
-		this.checkReadyState()
-	};
-
-	onСarMileageChange = e => {
-		this.setState({carMileage: e.target.value})
-		this.checkReadyState()
+	activeClass = (field) => {
+		return (this.state.activeFields.indexOf(field) > -1 ? " control-focused" : "")
 	};
 	
-	onCarPriceChange = e => {
-		this.setState({carPrice: e.target.value})
-		this.checkReadyState()
-	};
-
-	onCarKaskoDocChange = e => {
-		this.setState({carKaskoDoc: e.target.value})
-	};
-
-	onCarKaskoDocStartChange = e => {
-		this.setState({carKaskoDocStart: e.target.value})
-	};
-
-	onCarRegionChange = e => {
-		this.setState({carRegion: e.target.value})
-		this.checkReadyState()
-	};
-
-	onEquipmentChange = value => {
-		this.setState({carEquipment: value})
-		this.checkReadyState()
-	};
-
-	onCarBodyTypeChange = value => {
-		this.setState({carBodyType: value})
-		this.checkReadyState()
-	};
-
-	onCarMotorTypeChange = value => {
-		this.setState({carMotorType: value})
-		this.checkReadyState()
-	};
-
-	onCarTransmissionTypeChange = value => {
-		this.setState({carTransmissionType: value})
-		this.checkReadyState()
-	};
-
-	onCarMotorSizeChange = value => {
-		this.setState({carMotorSize: value})
-		this.checkReadyState()
-	};
-
-	onCarATSChange = value => {
-		this.setState({carATS: value})
-		this.checkReadyState()
-	};
-
-	onCarBankNameChange = value => {
-		this.setState({carBankName: value})
-		this.checkReadyState()
-	};
-
-	onCarForTaxiChange = e => {
-		this.setState({carForTaxi: e.target.checked})
-	};
-
-	onAutoStartChange = e => {
-		this.setState({carAutoStart: e.target.checked})
-	};
-
-	onCarVINChange = e => {
-		this.setState({carVIN: e.target.value})
-	};
-
-	onCarPTSChange = e => {
-		this.setState({carPTS: e.target.value})
-	};
-
-	onCarPTSStartChange = e => {
-		this.setState({carPTSStart: e.target.value})
-	};
-
-	onCarDiagnosticCardChange = e => {
-		this.setState({carDiagnosticCard: e.target.value})
-	};
-
-	onCarDiagnosticCardEndChange = e => {
-		this.setState({carDiagnosticCardEnd: e.target.value})
-	};
-
 	onFinish = values => {
 		this.setState({formBusy: true})
 		
@@ -356,12 +234,6 @@ class KaskoCarSelectOsago extends Component {
 		this.setState({
 			newCar: !!e.target.value,
 			carNumber: ''
-		});
-	};
-
-	onCarCreditChange = e => {
-		this.setState({
-			carCredit: !!e.target.value
 		});
 	};
 	
@@ -497,46 +369,33 @@ class KaskoCarSelectOsago extends Component {
 							fullCalculation ?
 								<>
 									<Row className="kasko-car-select__controls" gutter={20}>
-										<Col span={6}>
-											<Input
-												data-inputmask={carVINMask}
-												className={"w_100p custom_placeholder " + (allFields ? " input-error" : "") + ((this.state.carVIN + '').length ? "" : " _empty")}
-												value={this.state.carVIN}
-												onChange={this.onCarVINChange} defaultValue=""/>
-											<div className="float_placeholder">VIN</div>
-										</Col>
-										<Col span={6}>
-											<Input
-												className={"w_100p custom_placeholder " + (allFields ? " input-error" : "") + ((this.state.carPTS + '').length ? "" : " _empty")}
-												value={this.state.carPTS}
-												onChange={this.onCarPTSChange} defaultValue=""/>
-											<div className="float_placeholder">СТС</div>
-										</Col>
-										<Col span={6}>
-											<Input
-												data-inputmask={dateFormatMask}
-												className={"w_100p custom_placeholder " + (allFields ? " input-error" : "") + ((this.state.carPTSStart + '').length ? "" : " _empty")}
-												value={this.state.carPTSStart}
-												onChange={this.onCarPTSStartChange} defaultValue=""/>
-											<div className="float_placeholder">Дата выдачи СТС</div>
-										</Col>
+										<FormInput span={6} onChangeCallback={this.formControlCallback}
+												   placeholder="VIN"
+												   className={(allFields ? " input-error" : "")}
+												   inputmask={carVINMask}
+												   controlName={'carVIN'} value={''}/>
+												   
+										<FormInput span={6} onChangeCallback={this.formControlCallback}
+												   placeholder="СТС"
+												   className={(allFields ? " input-error" : "")}
+												   controlName={'carPTS'} value={''}/>
+												   
+										<FormInput span={6} onChangeCallback={this.formControlCallback}
+												   placeholder="Дата выдачи СТС"
+												   className={(allFields ? " input-error" : "")}
+												   inputmask={dateFormatMask}
+												   controlName={'carPTSStart'} value={''}/>
 									</Row>
 									<Row className="kasko-car-select__controls" gutter={20}>
-										<Col span={6}>
-											<Input
-												data-inputmask={carVINMask}
-												className={"w_100p custom_placeholder " + (allFields ? " input-error" : "") + ((this.state.carDiagnosticCard + '').length ? "" : " _empty")}
-												value={this.state.carDiagnosticCard}
-												onChange={this.onCarDiagnosticCardChange} defaultValue=""/>
-											<div className="float_placeholder">Диагностическая карта</div>
-										</Col>
-										<Col span={6}>
-											<Input
-												className={"w_100p custom_placeholder " + (allFields ? " input-error" : "") + ((this.state.carDiagnosticCardEnd + '').length ? "" : " _empty")}
-												value={this.state.carDiagnosticCardEnd}
-												onChange={this.onCarDiagnosticCardEndChange} defaultValue=""/>
-											<div className="float_placeholder">Срок действия</div>
-										</Col>
+										<FormInput span={6} onChangeCallback={this.formControlCallback}
+												   placeholder="Диагностическая карта"
+												   className={(allFields ? " input-error" : "")}
+												   controlName={'carDiagnosticCard'} value={''}/>
+												   
+										<FormInput span={6} onChangeCallback={this.formControlCallback}
+												   placeholder="Срок действия"
+												   className={(allFields ? " input-error" : "")}
+												   controlName={'carDiagnosticCardEnd'} value={''}/>
 									</Row>
 								</>
 							: null
@@ -553,14 +412,11 @@ class KaskoCarSelectOsago extends Component {
 					{/*		   defaultValue=""/>*/}
 					{/*	<div className="float_placeholder">{'Номер действующего \n полиса КАСКО'}</div>*/}
 					{/*</Col>*/}
-					<Col span={6}>
-						<Input
-							data-inputmask={dateFormatMask}
-							className={"w_100p custom_placeholder " + ((this.state.carKaskoDocStart + '').length ? "" : " _empty")}
-							value={this.state.carKaskoDocStart}
-							onChange={this.onCarKaskoDocStartChange} defaultValue=""/>
-						<div className="float_placeholder">{'Дата начала действия \n нового полиса КАСКО'}</div>
-					</Col>
+
+					<FormInput span={6} onChangeCallback={this.formControlCallback}
+							   inputmask={dateFormatMask}
+							   placeholder={"Дата начала действия \n нового полиса КАСКО"}
+							   controlName={'carKaskoDocStart'} value={(this.state.carKaskoDocStart)}/>
 				</Row>
 				
 				{/*{*/}

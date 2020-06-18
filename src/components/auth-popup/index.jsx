@@ -5,7 +5,6 @@ import PropTypes from "prop-types";
 import {Col, Row, Input, Button, Form} from "antd";
 import moment from "moment";
 
-
 class AuthPopup extends Component {
 	constructor(props) {
 		super(props);

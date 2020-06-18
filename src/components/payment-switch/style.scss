@@ -16,7 +16,7 @@
 		width: 225px;
 		margin-top: 10px;
 		background: #fff;
-		border: 1px solid #b5b5b5;
+		border: 1px solid $color-grey-dark;
 		z-index: 1;
 		
 		p {
@@ -35,7 +35,7 @@
 			
 			&.separator {
 				padding-top: 14px;
-				border-top: 1px solid #b5b5b5;
+				border-top: 1px solid $color-grey-dark;
 			}
 		}
 	}

@@ -27,6 +27,7 @@ class Kasko extends Component {
 			newStep: null,
 			tabIndex: null,
 			showAuthForm: false,
+			productCount: 0,
 			carFound: this.props.dev || false,
 			carImage: this.props.step === 1 ? 'car' : 'Hyundai',
 			markList: [
@@ -57,10 +58,20 @@ class Kasko extends Component {
 		this.setState({carImage: img, carFound: true})
 	}
 
-	changeStep = (step) => {
-		console.log('changeStep', step);
+	changeTabState = (action) => {
+		console.log('changeTabState', action);
 
-		this.setState({newStep: step})
+		if ('tabIndex' in action) {
+			this.setState({tabIndex: action.tabIndex})
+		}
+		
+		if ('newStep' in action) {
+			this.setState({newStep: action.newStep})
+		}
+		
+		if ('productCount' in action) {
+			this.setState({productCount: action.productCount})
+		}
 	}
 
 	render() {
@@ -133,7 +144,8 @@ class Kasko extends Component {
 				break
 		}
 		
-		let tabStatus = <div className={"kasko-notice__status " + (statusClasses[status])}>{statusNames[status] + (status === 1 ? ' (2)' : '')}</div>
+		let tabStatus = <div className={"kasko-notice__status " + (statusClasses[status])}
+			>{statusNames[status] + (this.state.tabIndex === 3 && this.state.productCount ? ' (' + this.state.productCount + ')' : '')}</div>
 
 		return (
 			<>
@@ -226,25 +238,25 @@ class Kasko extends Component {
 
 									<TabPanel className="kasko-tab__panel">
 										{this.state.tabIndex === null || !this.state.carFound ? null :
-											<TabCredit step={step} carPrice={762000 * 2}/>
+											<TabCredit tabCallback={this.changeTabState} step={step} carPrice={762000 * 2}/>
 										}
 									</TabPanel>
 									<TabPanel className="kasko-tab__panel">
 										{this.state.tabIndex === null || !this.state.carFound ? null :
-											<TabOffer tabCallback={this.changeStep} imageCallback={this.imageCallback}
+											<TabOffer tabCallback={this.changeTabState} imageCallback={this.imageCallback}
 													  step={step} image={this.state.carImage} type={showOffers}/>
 										}
 									</TabPanel>
 									<TabPanel className="kasko-tab__panel">
 										{this.state.tabIndex === null || !this.state.carFound ? null :
-											<TabOffer tabCallback={this.changeStep} imageCallback={this.imageCallback}
+											<TabOffer tabCallback={this.changeTabState} imageCallback={this.imageCallback}
 													  osago={true}
 													  step={step} image={this.state.carImage} type={showOffers}/>
 										}
 									</TabPanel>
 									<TabPanel className="kasko-tab__panel">
 										{this.state.tabIndex === null || !this.state.carFound ? null :
-											<TabService step={step} tabCallback={this.changeStep}/>
+											<TabService step={step} tabCallback={this.changeTabState} />
 										}
 									</TabPanel>
 									<TabPanel className="kasko-tab__panel">

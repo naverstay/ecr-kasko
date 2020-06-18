@@ -60,7 +60,7 @@
 
 %radio_v1 {
 	$checkbox-color: $color-green;
-	$checkbox-grey: #b5b5b5;
+	$checkbox-grey: $color-grey-dark;
 
 	.ant-radio {
 		position: absolute;
@@ -144,7 +144,7 @@
 
 %radio_v2 {
 	$checkbox-color: $color-blue-light;
-	$checkbox-grey: #b5b5b5;
+	$checkbox-grey: $color-grey-dark;
 	
 	.ant-radio-input {
 		position: absolute;
@@ -224,7 +224,7 @@
 
 %check_v1 {
 	$checkbox-color: $color-blue-light;
-	$checkbox-grey: #b5b5b5;
+	$checkbox-grey: $color-grey-dark;
 	
 	.ant-checkbox-input {
 		position: absolute;
@@ -308,7 +308,7 @@
 
 %radio_v3 {
 	$checkbox-color: $color-blue-light;
-	$checkbox-grey: #b5b5b5;
+	$checkbox-grey: $color-grey-dark;
 	
 	.ant-radio-input {
 		position: absolute;
@@ -397,7 +397,7 @@
 
 %check_v2 {
 	$checkbox-color: $color-blue-light;
-	$checkbox-grey: #b5b5b5;
+	$checkbox-grey: $color-grey-dark;
 	
 	.ant-checkbox-input {
 		position: absolute;

@@ -16,8 +16,8 @@ class OfferItem extends Component {
 	constructor(props) {
 		super(props);
 		this.state = {
-			offerCollapsed: true,
-			offerAdded: false,
+			offerCollapsed: !this.props.opened,
+			offerAdded: this.props.active,
 			offerCash: false,
 			activeOffer: this.props.active,
 			newPrice: 0
@@ -36,46 +36,22 @@ class OfferItem extends Component {
 	formControlCallback = (name, value) => {
 		console.log('formControlCallback', name, value);
 
-		let selects = [
-			'carATS',
-			'carAutoStart',
-			'carBankName',
-			'carBodyType',
-			'carEquipment',
-			'carForTaxi',
-			'carMark',
-			'carModel',
-			'carMotorSize',
-			'carMotorType',
-			'carNumber',
-			'carPower',
-			'carPowerRange',
-			'carPrice',
-			'carPTS',
-			'carPTSStart',
-			'carRegion',
-			'carTransmissionType',
-			'carUsageStart',
-			'carVIN',
-			'carYear',
-			'insurancePrice',
-			'insuranceTaxName',
-			'showAdditional',
-		]
-
-		if (selects.indexOf(name) > -1) {
+		if (name in this.state) {
 			let obj = {}
 			obj[name] = value
 
 			this.setState(obj)
-			this.checkReadyState()
+			//this.checkReadyState()
 		} else {
-			switch (name) {
-				case 'offerCash':
-					this.setState({offerCash: value})
-					break
-			}
+			console.log('no name in state', name);
 		}
+		
+		switch (name) {
+			case 'offerCash':
+				this.setState({offerCash: value})
+				break
+		}
+		
 	};
 	
 	toggleOfferAdded = (e, index, offer) => {
@@ -101,7 +77,7 @@ class OfferItem extends Component {
 		
 		let active = this.state.activeOffer
 		this.setState({
-			newPrice: 10000,
+			newPrice: !active ? 10000 : 0,
 			activeOffer: !active,
 			//offerCollapsed: !this.state.offerCollapsed, 
 			offerAdded: !this.state.offerAdded
@@ -122,9 +98,13 @@ class OfferItem extends Component {
 		this.setState({offerCollapsed: !this.state.offerCollapsed})
 	}
 
+	dropdownCallback = (action) => {
+		this.onShowOfferChange()
+		this.props.offer.dropdownCallback && typeof this.props.offer.dropdownCallback === 'function' && this.props.offer.dropdownCallback(action)
+	}
+
 	dropdownClose = (value) => {
 		this.onShowOfferChange()
-		this.props.offer.dropdownCallback && typeof this.props.offer.dropdownCallback === 'function' && this.props.offer.dropdownCallback()
 	}
 
 	goTo = (offer, goto) => {
@@ -163,7 +143,7 @@ class OfferItem extends Component {
 		return (
 			slider ?
 				<div key={index} className={"kasko-offer__slide slider " + (credit ? " credit" : "")}>
-					<div ref={this.setWrapperRef} className={"kasko-offer__item" + (offer.collapse ? " collapsable" : "") + ((active || this.state.offerAdded) && !completed ? " active" : "") + (completed ? " completed" : "") + ((this.state.offerCollapsed) ? " collapsed" : "")}>
+					<div ref={this.setWrapperRef} className={"kasko-offer__item" + (offer.collapse ? " collapsable": "") + ((this.state.offerAdded) && !completed ? " active" : "") + (completed ? " completed" : "") + ((this.state.offerCollapsed) ? " collapsed" : "")}>
 						<div onClick={(e) => ((offer.func && typeof offer.func === 'function') ? offer.func() : offer.href ? this.goTo(offer, offer.goto) : (this.toggleActiveOffer(e, index)))}
 							className={"kasko-offer__item--title" + (offer.button || step > 1 ? " no_arrow" : " toggle_icon__")}>
 
@@ -199,7 +179,7 @@ class OfferItem extends Component {
 						{(offer.collapse && !this.state.offerCollapsed) ?
 							offer.dropdown === 'KaskotaxPopup' ?
 								<div className="kasko-offer__item--info wide">
-									<KaskotaxPopup popupCloseFunc={this.dropdownClose} dropdown={true}/>
+									<KaskotaxPopup updatePaymentState={this.dropdownCallback} popupCloseFunc={this.dropdownClose} dropdown={true}/>
 								</div>
 							: <div className="kasko-offer__item--info">
 								{offer.dealerFee ? 

@@ -199,7 +199,7 @@
 			text-align: center;
 			cursor: pointer;
 			margin-right: 32px;
-			color: #b5b5b5;
+			color: $color-grey-dark;
 			transition: color .3s;
 
 			&:before {
@@ -343,7 +343,7 @@
 			margin: 0;
 			flex: 1 1 100%;
 			display: flex;
-			border-bottom: 1px solid #b5b5b5;
+			border-bottom: 1px solid $color-grey-dark;
 		}
 
 		&--item {
@@ -451,7 +451,7 @@
 				float: right;
 				max-height: 100%;
 				overflow-y: auto;
-				border-right: 1px solid #b5b5b5;
+				border-right: 1px solid $color-grey-dark;
 			}
 
 			&-msg {
@@ -461,7 +461,7 @@
 				bottom: 0;
 				height: 45px;
 				background: #fff;
-				border-top: 1px solid #b5b5b5;
+				border-top: 1px solid $color-grey-dark;
 				z-index: 1;
 			}
 

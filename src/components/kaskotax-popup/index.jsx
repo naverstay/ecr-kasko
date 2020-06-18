@@ -42,6 +42,7 @@ class KaskotaxPopup extends Component {
 	static propTypes = {
 		children: PropTypes.node,
 		popupCloseFunc: PropTypes.func,
+		updatePaymentState: PropTypes.func,
 		innerWidth: PropTypes.number,
 	};
 
@@ -50,60 +51,40 @@ class KaskotaxPopup extends Component {
 	formControlCallback = (name, value) => {
 		console.log('formControlCallback', name, value);
 
-		let selects = [
-			'carATS',
-			'carAutoStart',
-			'carBankName',
-			'carBodyType',
-			'carEquipment',
-			'carForTaxi',
-			'carMark',
-			'carModel',
-			'carMotorSize',
-			'carMotorType',
-			'carNumber',
-			'carPower',
-			'carPowerRange',
-			'carPrice',
-			'carPTS',
-			'carPTSStart',
-			'carRegion',
-			'carTransmissionType',
-			'carUsageStart',
-			'carVIN',
-			'carYear',
-			'insurancePrice',
-			'insuranceTaxName',
-			'showAdditional',
-		]
-
-		if (selects.indexOf(name) > -1) {
+		if (name in this.state) {
 			let obj = {}
 			obj[name] = value
 
 			this.setState(obj)
 		} else {
-			switch (name) {
-				case 'insuranceCompName':
-					let manual = value === this.state.insuranceCompaniesList[this.state.insuranceCompaniesList.length - 1]
-					
-					this.setState({
-						insuranceCompName: value,
-						insuranceTaxName: manual ? '' : this.state.insuranceTaxName,
-						manualPriceCheck: manual
-					})
-					break
-				case 'kaskoCash':
-					this.setState({kaskoCash: value})
-					break
-				case 'kaskoDealerBank':
-					this.setState({kaskoDealerBank: value})
-					break
-				case 'kaskoFirstYear':
-					this.setState({kaskoFirstYear: value})
-					break
-			}
+			console.log('no name in state', name);
 		}
+		
+		switch (name) {
+			case 'insuranceCompName':
+				let manual = value === this.state.insuranceCompaniesList[this.state.insuranceCompaniesList.length - 1]
+				
+				this.setState({
+					insuranceCompName: value,
+					insuranceTaxName: manual ? '' : this.state.insuranceTaxName,
+					manualPriceCheck: manual
+				})
+				break
+			case 'kaskoCash':
+				this.setState({kaskoCash: value})
+				break
+			case 'kaskoDealerBank':
+				this.setState({kaskoDealerBank: value})
+				break
+			case 'kaskoFirstYear':
+				this.setState({kaskoFirstYear: value})
+				break
+		}
+		
+	};
+
+	popupAction = () => {
+		this.props.updatePaymentState && typeof this.props.updatePaymentState === 'function' && this.props.updatePaymentState({setTab: 1})
 	};
 	
 	onFinish = values => {
@@ -153,7 +134,7 @@ class KaskotaxPopup extends Component {
 					}
 				</Row>
 	
-				<Row gutter={20} className="kasko-car-select__controls mb_0 ant-row-cente">
+				<Row gutter={20} className="kasko-car-select__controls mb_0 ant-row-center">
 					<Col span={24}>
 						<FormSwitch controlName="kaskoFirstYear" value={this.state.kaskoFirstYear}
 									onChangeCallback={this.formControlCallback}
@@ -172,17 +153,17 @@ class KaskotaxPopup extends Component {
 		
 		return (
 			dropdown ?
-				<Form ref={this.formRef} name="control-ref" onFinish={this.onFinish}>
+				<>
 					{kaskoForm}
 
 					<Row gutter={20} className="kasko-car-select__controls mb_20 ant-row-center">
 						<Col span={20}>
-							<Button htmlType={formDisabled ? null : "submit"}
+							<Button onClick={() => {this.popupAction()}}
 									className={"w_100p fz_14 " + (this.state.formBusy ? "btn_grey" : "btn_green")}
-									disabled={formDisabled ? 'disabled' : null}>Или рассчитать <span className="i-chevron_r btn_icon"/></Button>
+									>Или рассчитать <span className="i-chevron_r btn_icon"/></Button>
 						</Col>
 					</Row>
-				</Form>
+				</>
 			:
 			<div className="kaskotax-popup">
 				<div className="kaskotax-popup__close" onClick={popupCloseFunc}/>

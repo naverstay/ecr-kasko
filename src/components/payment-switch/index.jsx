@@ -2,7 +2,7 @@ import React, {Component} from "react";
 
 import './style.scss';
 import PropTypes from "prop-types";
-import {Tooltip} from "antd";
+import {Tooltip, Button} from "antd";
 
 class PaymentSwitch extends Component {
 	constructor(props) {
@@ -28,9 +28,9 @@ class PaymentSwitch extends Component {
 		
 		return (
 			<div className="payment-switch">
-				<Tooltip overlayClassName="tooltip_v1" placement="top"
-						 title="Оплатить на сайте страховой компании">
-					<div onClick={this.togglePaymentOptions} className={"payment-switch__label ant-btn w_100p btn_green" + (allowPayment ? "" : " disabled")}>Оплатить онлайн</div>
+				<Tooltip overlayClassName="tooltip_v1" placement="top" title="Оплатить на сайте страховой компании">
+					<Button onClick={this.togglePaymentOptions} 
+							className={"payment-switch__label ant-btn w_100p btn_green" + (allowPayment ? null : " disabled")}>Оплатить онлайн</Button>
 				</Tooltip>
 				{
 					(allowPayment && this.state.showPaymentOptions) ?

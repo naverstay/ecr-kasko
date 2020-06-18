@@ -86,6 +86,8 @@ class TabService extends Component {
 	}
 	
 	updateSelectedOffer = (company, offers) => {
+		console.log('updateSelectedOffer', company, offers);
+
 		let offerList = this.state.selectedOffers;
 		let compare = true;
 		
@@ -144,6 +146,8 @@ class TabService extends Component {
 			showCompare: offerList.length > 1 && compare,
 			availablePayment: offerList.length > 0
 		})
+
+		typeof this.props.tabCallback === 'function' && this.props.tabCallback({productCount: offerList.length})
 	}
 
 	updatePaymentState = (value) => {
@@ -203,7 +207,7 @@ class TabService extends Component {
 	nextStep = (step) => {
 		console.log('nextStep', step);
 		
-		typeof this.props.tabCallback === 'function' && this.props.tabCallback(step)
+		typeof this.props.tabCallback === 'function' && this.props.tabCallback({newStep: step})
 	}
 
 	toggleSMSSent = () => {
@@ -233,8 +237,9 @@ class TabService extends Component {
 		
 		setTimeout(()=> {
 			console.log('offersUpdate', offer, this.state.activeOffers);
+
+			typeof this.props.tabCallback === 'function' && this.props.tabCallback({productCount: this.state.activeOffers.length})
 		}, 10)
-		
 	};
 
 	toggleCalculationOffers = e => {
@@ -352,12 +357,13 @@ class TabService extends Component {
 
 			{!this.state.showCalculationOffers || this.state.openParams ?
 				<>
-					<KaskoOffers onOfferSelect={this.offersUpdate} credit={true} slider={true} offersList={[
+					<KaskoOffers opened={[0,1,2,3,4]} onOfferSelect={this.offersUpdate} credit={true} slider={true} offersList={[
 						{
 							name: 'Ассистанс',
 							price: '15400',
 							dealerFee: 'от 540 ₽',
 							collapse: true,
+							opened: true,
 							options: [
 								'эвакуация',
 								'юридическая помощь',
@@ -376,6 +382,7 @@ class TabService extends Component {
 							price: 11498,
 							dealerFee: 'от 540 ₽',
 							collapse: true,
+							opened: true,
 							options: [
 								'эвакуация',
 								'юридическая помощь',
@@ -394,6 +401,7 @@ class TabService extends Component {
 							price: 10410,
 							dealerFee: 'от 540 ₽',
 							collapse: true,
+							opened: true,
 							options: [
 								'эвакуация',
 								'юридическая помощь',
@@ -412,6 +420,7 @@ class TabService extends Component {
 							price: 10420,
 							dealerFee: 'от 540 ₽',
 							collapse: true,
+							opened: true,
 							options: [
 								'эвакуация',
 								'юридическая помощь',
@@ -430,6 +439,7 @@ class TabService extends Component {
 							price: 10420,
 							dealerFee: 'от 540 ₽',
 							collapse: true,
+							opened: true,
 							options: [
 								'эвакуация',
 								'юридическая помощь',

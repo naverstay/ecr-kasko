@@ -25,7 +25,7 @@ class KaskoCarSelect extends Component {
 			formBusy: false,
 			carAutoStart: false,
 			carCredit: true,
-			newCar: this.props.fill ? true : null,
+			newCar: this.props.popup || this.props.fill ? true : null,
 			allowPayment: this.props.fill,
 			carPrice: this.props.fill ? 1534000 : 0,
 			carPower: this.props.fill ? 245 : 0,
@@ -78,46 +78,21 @@ class KaskoCarSelect extends Component {
 	formControlCallback = (name, value) => {
 		console.log('formControlCallback', name, value);
 
-		let selects = [
-			'carATS',
-			'carAutoStart',
-			'carBankName',
-			'carBodyType',
-			'carEquipment',
-			'carForTaxi',
-			'carMark',
-			'carModel',
-			'carMotorSize',
-			'carMotorType',
-			'carNumber',
-			'carPower',
-			'carPowerRange',
-			'carPrice',
-			'carPTS',
-			'carPTSStart',
-			'carRegion',
-			'carTransmissionType',
-			'carUsageStart',
-			'carVIN',
-			'carYear',
-			'insurancePrice',
-			'insuranceTaxName',
-			'showAdditional',
-		]
-
-		if (selects.indexOf(name) > -1) {
+		if (name in this.state) {
 			let obj = {}
 			obj[name] = value
 
 			this.setState(obj)
 			this.checkReadyState()
 		} else {
-			switch (name) {
-				case 'carForTaxi':
-					this.setState({carForTaxi: value})
-					break
+			console.log('no name in state', name);
+		}
+		
+		switch (name) {
+			case 'carForTaxi':
+				this.setState({carForTaxi: value})
+				break
 
-			}
 		}
 	};
 	
@@ -275,7 +250,7 @@ class KaskoCarSelect extends Component {
 	};
 	
 	render() {
-		const {allFields, step, hideOffers, fill} = this.props;
+		const {allFields, step, hideOffers, fill, popup} = this.props;
 		let {image} = this.props;
 		//const dateFormat = "DD.MM.YY"
 		let dateFormatMask = "'mask': '99.99.9999', 'showMaskOnHover': 'false'"
@@ -566,7 +541,7 @@ class KaskoCarSelect extends Component {
 					: null
 				}
 
-				{this.state.newCar === null ? null :
+				{this.state.newCar === null || popup ? null :
 					<Radio.Group defaultValue={step === 1 ? 1 : 0} className={"w_100p " + (this.state.showAdditional ? "full_form" : "short_form")} onChange={this.onCarCreditChange}>
 						<Row className="kasko-car-select__controls kasko-car-select__controls--price radio_v2" gutter={20}>
 							<Col className={this.state.allowPayment ? "" : "vis_hidden"}>
@@ -598,7 +573,7 @@ class KaskoCarSelect extends Component {
 				}
 				
 				{
-					allFields ? null : 
+					allFields || popup ? null : 
 					<div className={"kasko-car-select__image" + (step === 1 && !this.state.allowPayment ? " _inactive__" : "")}>
 						<img src={'./cars/' + image + '.png'} alt=""/>
 					</div> 

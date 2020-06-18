@@ -55,6 +55,7 @@ class TabCredit extends Component {
 		innerWidth: PropTypes.number,
 		imageCallback: PropTypes.func,
 		showKaskoWidget: PropTypes.func,
+		tabCallback: PropTypes.func,
 		step: PropTypes.number
 	};
 
@@ -63,6 +64,10 @@ class TabCredit extends Component {
 			creditValue: formatMoney(credit * this.props.carPrice / 100) + " ₽",
 			creditPercent: credit + " %"
 		});
+	};
+
+	setTab = (index) => {
+		this.props.tabCallback && typeof this.props.tabCallback === 'function' && this.props.tabCallback({newStep: index})
 	};
 
 	toggleCarOptions = () => {
@@ -174,9 +179,8 @@ class TabCredit extends Component {
 		this.toggleCalculationPopup()
 		
 		if (e) {
-			window.location = '/details'
+			
 		}
-		
 	};
 	
 	updatePaymentState = (value) => {
@@ -321,15 +325,19 @@ class TabCredit extends Component {
 			<div className="kasko-car-select">
 				<div className="kasko-car-select__caption">Добавить в кредит</div>
 				
-				<KaskoOffers onOfferSelect={this.offersUpdate} active={[0,1,2,3,4,5]} slider={true} credit={true} offersList={[
+				<KaskoOffers onOfferSelect={this.offersUpdate} offerItemCallback={this} active={[0,1,2,3,4,5]} slider={true} credit={true} offersList={[
 						{
 							name: 'КАСКО',
 							//button: 'Рассчитать',
 							//func: this.toggleKaskoPopup,
 							collapse: true,
 							dropdown: 'KaskotaxPopup',
-							dropdownCallback: function () {
-								console.log('dropdownCallback КАСКО');
+							dropdownCallback: (action) => {
+								console.log('dropdownCallback КАСКО', action);
+								
+								if ('setTab' in action) {
+									this.setTab(action.setTab)
+								}
 							},
 							price: this.state.activeKasko ? '41450' : '15400',
 							prefix: this.state.activeKasko ? '' : 'от',

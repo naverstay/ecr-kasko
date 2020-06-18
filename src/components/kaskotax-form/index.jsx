@@ -53,59 +53,34 @@ class KaskotaxForm extends Component {
 	formControlCallback = (name, value) => {
 		console.log('formControlCallback', name, value);
 
-		let selects = [
-			'carATS',
-			'carAutoStart',
-			'carBankName',
-			'carBodyType',
-			'carEquipment',
-			'carForTaxi',
-			'carMark',
-			'carModel',
-			'carMotorSize',
-			'carMotorType',
-			'carNumber',
-			'carPower',
-			'carPowerRange',
-			'carPrice',
-			'carPTS',
-			'carPTSStart',
-			'carRegion',
-			'carTransmissionType',
-			'carUsageStart',
-			'carVIN',
-			'carYear',
-			'insurancePrice',
-			'insuranceTaxName',
-			'showAdditional',
-		]
-
-		if (selects.indexOf(name) > -1) {
+		if (name in this.state) {
 			let obj = {}
 			obj[name] = value
 
 			this.setState(obj)
 		} else {
-			switch (name) {
-				case 'insuranceCompName':
-					let manual = value === this.state.insuranceCompaniesList[this.state.insuranceCompaniesList.length - 1]
-					
-					this.setState({
-						insuranceCompName: value,
-						insuranceTaxName: manual ? '' : this.state.insuranceTaxName,
-						manualPriceCheck: manual
-					})
-					break
-				case 'kaskoCash':
-					this.setState({kaskoCash: value})
-					break
-				case 'kaskoDealerBank':
-					this.setState({kaskoDealerBank: value})
-					break
-				case 'kaskoFirstYear':
-					this.setState({kaskoFirstYear: value})
-					break
-			}
+			console.log('no name in state', name);
+		}
+		
+		switch (name) {
+			case 'insuranceCompName':
+				let manual = value === this.state.insuranceCompaniesList[this.state.insuranceCompaniesList.length - 1]
+				
+				this.setState({
+					insuranceCompName: value,
+					insuranceTaxName: manual ? '' : this.state.insuranceTaxName,
+					manualPriceCheck: manual
+				})
+				break
+			case 'kaskoCash':
+				this.setState({kaskoCash: value})
+				break
+			case 'kaskoDealerBank':
+				this.setState({kaskoDealerBank: value})
+				break
+			case 'kaskoFirstYear':
+				this.setState({kaskoFirstYear: value})
+				break
 		}
 		
 		setTimeout(() => {
@@ -150,7 +125,7 @@ class KaskotaxForm extends Component {
 					}
 				</Row>
 
-				<Row gutter={20} className="kasko-car-select__controls mb_0 ant-row-cente">
+				<Row gutter={20} className="kasko-car-select__controls mb_0 ant-row-center">
 					<Col span={24}>
 						<FormSwitch controlName="kaskoFirstYear" value={this.state.kaskoFirstYear}
 									onChangeCallback={this.formControlCallback}

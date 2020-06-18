@@ -63,7 +63,7 @@
 		&.calculation {
 			color: $color-grey;
 			background: #fff;
-			border: 1px solid #b5b5b5;
+			border: 1px solid $color-grey-dark;
 		}
 		
 		&.waiting {

@@ -1,6 +1,8 @@
+@import 'src/assets/styles/global';
+
 .aside-block {
 	background: #f7f7f7;
-	border: 1px solid #b5b5b5;
+	border: 1px solid $color-grey-dark;
 	padding: 15px;
 	margin: 15px 0;
 	position: relative;

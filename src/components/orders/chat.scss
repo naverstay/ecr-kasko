@@ -44,7 +44,7 @@
 	}
 
 	&-day {
-		border: 1px solid #b5b5b5;
+		border: 1px solid $color-grey-dark;
 		
 		&:first-child {
 			border-top-width: 0;
@@ -104,7 +104,7 @@
 			left: 0;
 			z-index: 1;
 			background: #fff;
-			border: 1px solid #b5b5b5;
+			border: 1px solid $color-grey-dark;
 			padding: 12px 0 6px;
 			
 			&--list {
@@ -122,7 +122,7 @@
 			&--split {
 				margin-top: 4px;
 				padding-top: 12px;
-				border-top: 1px solid #b5b5b5;
+				border-top: 1px solid $color-grey-dark;
 			}
 		}
 		
@@ -274,7 +274,7 @@
 			font-size: 12px;
 			line-height: 30px;
 			padding: 12px 10px 12px 10px;
-			border: 1px solid #b5b5b5;
+			border: 1px solid $color-grey-dark;
 			
 			&::-moz-placeholder {
 				color: $color-grey;
@@ -326,7 +326,7 @@
 
 	&-msg {
 		background: #f7f7f7;
-		border-bottom: 1px solid #b5b5b5;
+		border-bottom: 1px solid $color-grey-dark;
 		padding: 10px 17px 11px;
 		font-size: 13px;
 		

@@ -32,7 +32,7 @@ class ServiceRow extends Component {
 		
 		setTimeout(() => {
 			console.log('onSelectOfferToggle', company, this.state.offerSelected);
-			if (typeof this.props.selectedOffer === 'function') this.props.selectedOffer(company, this.state.offerSelected)
+			this.props.selectedOffer && typeof this.props.selectedOffer === 'function' && this.props.selectedOffer(company, this.state.offerSelected)
 		})
 	}
 	
