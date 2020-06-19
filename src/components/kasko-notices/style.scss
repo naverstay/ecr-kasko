@@ -77,6 +77,12 @@
 			border: 1px solid $color-green;
 		}
 		
+		&.done {
+			color: #fff;
+			background: $color-blue;
+			border: 1px solid $color-blue;
+		}
+		
 		.kasko-notice__price--value & {
 			display: inline-block;
 			vertical-align: top;

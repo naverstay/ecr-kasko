@@ -21,10 +21,20 @@ class CreditProgrammes extends Component {
 	};
 
 	render() {
-		const {offersList, selectedOffer, completed, waiting, allowCheck} = this.props
+		const {offersList, selectedOffer, completed, waiting, allowCheck, headMenu} = this.props
 		
 		return (
 			<div className="calculation-offers">
+				{headMenu ?
+					<div className="calculation-offers__menu">
+						<ul className="calculation-offers__menu-list">
+							<li><span className="gl_link">Подать заново</span></li>
+							<li><span className="gl_link">Отказ клиента</span></li>
+							<li><span className="gl_link color_gray">Выбрать все</span></li>
+						</ul>
+					</div>
+					: null
+				}
 				<table className="calculation-offers__table">
 					<thead>
 						<tr>
@@ -43,7 +53,7 @@ class CreditProgrammes extends Component {
 					{offersList && offersList.length ?  
 						<tbody>
 							{offersList.map((o, i) => {
-									return (<CreditOfferRow allowCheck={allowCheck} name={o.name}
+									return (<CreditOfferRow allowCheck={allowCheck} name={o.name} 
 													  completed={completed} waiting={waiting} selectedOffer={selectedOffer}
 													  key={i} company={i} offers={o.offers}/>)
 								})

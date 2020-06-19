@@ -3,12 +3,45 @@
 .calculation-offers {
 	margin-bottom: 30px;
 	min-height: 147px;
+	position: relative;
+	
+	&__menu {
+		position: absolute;
+		top: 0;
+		right: 0;
+		left: 0;
+		z-index: 1;
+		padding: 11px 26px;
+		height: 38px;
+		background: #f7f7f7;
+
+		&-list {
+			padding: 0;
+			margin: 0;
+			text-align: right;
+			
+			li {
+				display: inline-block;
+				vertical-align: middle;
+				padding-left: 35px;
+			}
+			
+			.gl_link {
+				font-size: 12px;
+				text-decoration: underline;
+				
+				&:hover {
+					text-decoration: none;
+				}
+			}
+		}
+	}
 	
 	&__table {
 		width: 100%;
 		margin-bottom: 15px;
 		border-collapse: collapse;
-
+		
 		th {
 			@extend %text2;
 			background: #f7f7f7;

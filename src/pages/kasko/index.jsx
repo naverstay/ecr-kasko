@@ -82,7 +82,7 @@ class Kasko extends Component {
 			0: 'calculation',
 			1: 'waiting',
 			2: 'approved',
-			3: 'approved'
+			3: 'done'
 		}
 		const statusNames = {
 			0: 'Расчет',
@@ -147,6 +147,13 @@ class Kasko extends Component {
 		let tabStatus = <div className={"kasko-notice__status " + (statusClasses[status])}
 			>{statusNames[status] + (this.state.tabIndex === 3 && this.state.productCount ? ' (' + this.state.productCount + ')' : '')}</div>
 
+		if (this.state.tabIndex === 0 && step === 3) {
+			tabStatus = <>
+				<div className={"kasko-notice__status small " + (statusClasses[status])}>1</div>
+				<div className={"kasko-notice__status small " + (statusClasses[status + 1])}>3</div>
+			</>
+		}
+		
 		console.log('this.state.tabIndex', this.state.tabIndex);
 		
 		return (

@@ -199,7 +199,7 @@ class KaskotaxPopup extends Component {
 					<div className="kaskotax-popup__form">
 						{kaskoForm}
 
-						{this.state.kaskoDealerBank ? saveMode : calcMode}
+						{saveMode}
 					</div>
 				</Form>
 			</div>

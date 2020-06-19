@@ -23,6 +23,7 @@ import FormInput from "../form-input";
 import KaskotaxForm from "../kaskotax-form";
 import FormSwitch from "../form-switch";
 import CreditProgrammes from "../credit-programmes";
+import CalculationOffers from "../calculation-offers";
 
 const {Option} = Select;
 //const {YearPicker} = DatePicker;
@@ -46,7 +47,8 @@ class TabCredit extends Component {
 			KaskoTaxPopup: false,
 			carPrice: this.props.carPrice,
 			creditValue: formatMoney(this.props.carPrice / 2) + " ₽",
-			creditPercent: "50 %"
+			creditPercent: "50 %",
+			selectedOffers: []
 		};
 	}
 
@@ -157,6 +159,66 @@ class TabCredit extends Component {
 	toggleKaskoTaxPopup = () => {
 		this.setState({KaskoTaxPopup: !this.state.KaskoTaxPopup})
 		document.body.classList.toggle('no-overflow', !this.state.KaskoTaxPopup)
+	}
+
+	updateSelectedOffer = (company, offers) => {
+		let offerList = this.state.selectedOffers;
+		let compare = true;
+
+		let companyOffers = offerList.find((c) => c.company === company)
+
+		if (companyOffers) {
+			for (let o in offers) {
+				if (offers.hasOwnProperty(o)) {
+					let offer = offers[o]
+
+					if (offer) {
+						companyOffers.offers.push(o)
+					} else {
+						const index = companyOffers.offers.indexOf(o + '');
+						if (index > -1) {
+							companyOffers.offers.splice(index, 1);
+						}
+
+						if (!companyOffers.offers.length) {
+							for (let i = 0; i < offerList.length; i++) {
+								if (offerList[i].company === company) {
+									offerList.splice(i, 1)
+								}
+
+							}
+						}
+					}
+				}
+			}
+		} else {
+			let arr = []
+
+			for (let o in offers) {
+				if (offers.hasOwnProperty(o)) {
+					let offer = offers[o]
+
+					if (offer) {
+						arr.push(o)
+					}
+				}
+			}
+
+			offerList.push({company: company, offers: arr})
+		}
+
+		if (offerList.length === 1) {
+			if (offerList[0].offers.length === 1) {
+				compare = false
+			}
+		}
+
+		this.setState({
+			selectedOffers: offerList,
+			showPayment: true,
+			showCompare: offerList.length > 1 && compare,
+			availablePayment: offerList.length > 0
+		})
 	}
 
 	updateKaskoState = (value) => {
@@ -532,7 +594,7 @@ class TabCredit extends Component {
 				
 				{step >= 2 ?
 					<>
-						<CreditProgrammes offersList={creditOffersList} allowCheck={true} />
+						<CreditProgrammes headMenu={this.state.selectedOffers.length} selectedOffer={this.updateSelectedOffer} offersList={creditOffersList} allowCheck={true} />
 
 						<Row gutter={20} className={"kasko-car-select__controls ant-row-center align_center"}>
 							<Col span={6}>

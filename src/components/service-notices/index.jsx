@@ -32,7 +32,7 @@ class ServiceNotices extends Component {
 			0: 'calculation',
 			1: 'waiting',
 			2: 'approved',
-			3: 'approved'
+			3: 'done'
 		}
 		const statusNames = {
 			0: 'Расчет',

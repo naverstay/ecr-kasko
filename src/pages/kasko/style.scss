@@ -41,9 +41,17 @@ $aside-size: 226px;
 
 			.kasko-notice__status {
 				margin-right: 0;
-				margin-left: 5px;
+				margin-left: 7px;
 				flex-shrink: 0;
-				min-width: 20px;
+				min-width: 18px;
+				
+				&.small {
+					padding: 1px 4px;
+					
+					&:first-of-type {
+						margin-left: auto;
+					}
+				}
 			}
 		}
 	}
