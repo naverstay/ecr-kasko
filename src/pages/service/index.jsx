@@ -82,8 +82,8 @@ class Service extends Component {
 						<Col span={4} className="kasko-aside">
 							<AsideCrumbs crumbs={['Главная']}/>
 							<AsideBlock>
-								<KaskoUser firstName={step === 1 ? '' : 'Сергей'} lastName={step === 1 ? '' : 'Фомин'}
-										   avatar="" phone={step > 1 ? "+ 7 (916) 111 11 11" : ""} docs="" trustees=""
+								<KaskoUser firstName={step === 1 ? '' : 'Кирилл'} lastName={step === 1 ? '' : 'Лучкин'}
+										   avatar={step === 1 ? '' : 'users/luchkin.png'} phone={step > 1 ? "+ 7 (916) 111 11 11" : ""} docs="" trustees=""
 										   autos=''/>
 							</AsideBlock>
 
@@ -142,8 +142,8 @@ class Service extends Component {
 						<Col span={4} className="kasko-aside">
 							<AsideCrumbs crumbs={['Главная']}/>
 							<AsideBlock>
-								<KaskoUser firstName={step === 1 ? '' : 'Сергей'} lastName={step === 1 ? '' : 'Фомин'}
-										   avatar="" phone={step > 1 ? "+ 7 (916) 111 11 11" : ""} docs="" trustees=""
+								<KaskoUser firstName={step === 1 ? '' : 'Кирилл'} lastName={step === 1 ? '' : 'Лучкин'}
+										   avatar={step === 1 ? '' : 'users/luchkin.png'} phone={step > 1 ? "+ 7 (916) 111 11 11" : ""} docs="" trustees=""
 										   autos=''/>
 							</AsideBlock>
 		

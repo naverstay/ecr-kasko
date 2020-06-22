@@ -1,10 +1,12 @@
 import React, {Component} from "react";
-import {Checkbox, Tooltip} from "antd";
+import {Checkbox, Select, Tooltip} from "antd";
 
 import './style.scss';
 import PropTypes from "prop-types";
 import pluralFromArray from "../../helpers/pluralFromArray";
 import {formatMoney} from "../../helpers/formatMoney";
+
+const {Option} = Select;
 
 class ServiceRow extends Component {
 	constructor(props) {
@@ -42,7 +44,7 @@ class ServiceRow extends Component {
 
 	addOptionFlag (index) {
 		let options = Object.assign({}, this.state.optionsToggle)
-
+		
 		if (index in options) {
 			options[index] = !options[index]
 		} else {
@@ -56,7 +58,12 @@ class ServiceRow extends Component {
 		const {offers, logo, name, info, dealer, company, completed, waiting, allowCheck} = this.props
 		const moreLink = 'еще ' + (offers.length - 1) + ' ' + pluralFromArray(['тариф', 'тарифа', 'тарифов'], (offers.length - 1))
 		const lessLink = 'скрыть ' + (offers.length - 1) + ' ' + pluralFromArray(['тариф', 'тарифа', 'тарифов'], (offers.length - 1))
-		
+
+		let paymentOptions = [
+			'В кредит',
+			'Наличные'
+		]
+
 		return (
 			<>
 				{offers.map((o, i) => {
@@ -73,26 +80,45 @@ class ServiceRow extends Component {
 										{dealer ? <div className={"offer-row__dealer"}>{dealer}</div> : null}
 									</td>
 
+									<td>{o.recipient}
+										<Tooltip overlayClassName="tooltip_v1" placement="top"
+												 title={o.recipientInfo}>
+											<span className={"offer-row__info"}/>
+										</Tooltip>
+									</td>
+
+									<td>
+										{(completed || waiting) ?
+											<div className="offer-row__fee">{o.payment}</div>
+											:
+											<Select
+												size="small"
+												dropdownClassName="select_dropdown_v1"
+												className={"w_100p small_select"}
+												placeholder=""
+											>
+												{paymentOptions.map((e, i) =>
+													<Option key={i} value={e}>{e}</Option>)}
+											</Select>
+										}
+									</td>
+
 									<td>
 										<div className="offer-row__price">{formatMoney(o.price)} ₽</div>
+									</td>
+									
+									<td>
+										<div className="offer-row__fee">{formatMoney(o.dealerFee)} ₽</div>
 									</td>
 									
 									<td>
 										<div className="offer-row__fee">{o.period}</div>
 									</td>
 
-									<td>
-										<div className="offer-row__fee">{o.payment}</div>
-									</td>
-
-									<td>&nbsp;</td>
-
-									<td>{o.recipient}
-										<Tooltip overlayClassName="tooltip_v1" placement="top"
-												 title={o.recipientInfo}>
-											<span className={"offer-row__info"} />
-										</Tooltip>
-									</td>
+									<td>{completed ?
+										<div className="gl_link color_black">СС 12345678</div>
+										: <>&nbsp;</>
+									}</td>
 
 									{(completed || waiting) ?
 										<td>
@@ -116,8 +142,7 @@ class ServiceRow extends Component {
 												{o.options.map((opt, k) => <li key={k}>{opt}</li>)}
 											</ul>
 										</td>
-										<td>&nbsp;</td>
-										<td>&nbsp;</td>
+										<td colSpan={3}>&nbsp;</td>
 									</tr>
 									: null}
 							</> : null)

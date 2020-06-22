@@ -71,7 +71,7 @@ class CreditOfferRow extends Component {
 								</td>
 	
 								<td>
-									<div className="offer-row__price">{formatMoney(o.price)} ₽</div>
+									<div className="offer-row__price text_center">{formatMoney(o.price)} ₽</div>
 								</td>
 								
 								<td>
@@ -104,7 +104,7 @@ class CreditOfferRow extends Component {
 											<ul className="offer-row__options cols-1">
 												{o.products.map((opt, k) => <li key={k} className="offer-row__product">
 													<div className="offer-row__credit--name">{opt.option}</div>
-													<div className={"offer-row__credit--link"}>{formatMoney(opt.price)} ₽</div>
+													<div className={"offer-row__credit--val"}>{formatMoney(opt.price)} ₽</div>
 												</li>)}
 											</ul>
 										</td>

@@ -173,7 +173,7 @@ class PolicyPopup extends Component {
 				{(this.state.showKasko || this.state.showOsago) ? 
 					<div onClick={this.toggleShowUpload}
 						className={"kasko-car-select__caption" + (this.state.showUpload ? " expanded" : " collapsed")}
-						>Загрузить полис</div> 
+						>Загрузить скан документов</div> 
 					: null
 				}
 

@@ -26,19 +26,19 @@ class FormSelect extends Component {
 	};
 
 	render() {
-		const {cellClass, controlName, span, placeholder, options, dropdownClassName, className, disabled} = this.props;
+		const {cellClass, controlName, span, placeholder, options, dropdownClassName, className, disabled, value} = this.props;
 
-		console.log('controlValue', this.state.controlValue, '#');
+		//console.log('controlValue', controlName, '#', options, '#', this.state.controlValue, '#', value);
 		
 		let slct = <>
 			<Select
 				name={controlName}
 				disabled={disabled || null}
 				dropdownClassName={dropdownClassName || "select_dropdown_v1"}
-				className={(className || "") + " w_100p FormSelect" + (placeholder ? " custom_placeholder" : " no_placeholder") + (this.state.controlValue.length ? "" : " _empty")}
+				className={(className || "") + " w_100p FormSelect" + (placeholder ? " custom_placeholder" : " no_placeholder") + (value.length || this.state.controlValue.length ? "" : " _empty")}
 				placeholder=""
 				onChange={this.onChange}
-				value={this.state.controlValue}
+				value={value}
 			>
 				{(options && options.length) ? options.map((e, i) =>
 					<Option key={i} value={e}>{e}</Option>) : null}

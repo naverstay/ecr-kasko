@@ -75,6 +75,10 @@
 					text-align: left;
 				}
 			}
+
+			.ant-select {
+				z-index: 2;
+			}
 		}
 
 		tr.selected td {

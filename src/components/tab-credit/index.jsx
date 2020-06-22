@@ -463,69 +463,72 @@ class TabCredit extends Component {
 			</div>
 		</>
 		
+		let creditOffersComponent = <KaskoOffers onOfferSelect={this.offersUpdate} offerItemCallback={this}
+												 active={[0, 1, 2, 3, 4, 5]} slider={true} credit={true} offersList={[
+			{
+				name: 'КАСКО',
+				//button: 'Рассчитать',
+				//func: this.toggleKaskoPopup,
+				collapse: true,
+				dropdown: 'KaskotaxPopup',
+				dropdownCallback: (action) => {
+					console.log('dropdownCallback КАСКО', action);
+
+					if ('setTab' in action) {
+						this.updateTab(action.setTab)
+					}
+				},
+				price: this.state.activeKasko ? '41450' : '15400',
+				prefix: this.state.activeKasko ? '' : 'от',
+				suffix: '₽'
+			},
+			{
+				name: 'GAP',
+				price: '5400',
+				prefix: 'от',
+				suffix: '₽'
+			},
+			{
+				name: 'Страхование жизни',
+				price: '5401',
+				prefix: 'от',
+				suffix: '₽'
+			},
+			{
+				name: 'Продленная гарантия',
+				price: '5402',
+				prefix: 'от',
+				suffix: '₽'
+			},
+			{
+				name: 'Ассистанс',
+				price: '15400',
+				collapse: true,
+				options: [
+					'эвакуация',
+					'юридическая помощь',
+					'аварийный комиссар',
+					'подвоз бензина',
+					'вскрытие автомобиля',
+					'запуск автомобиля',
+					'трезвый водитель',
+					'выездной шиномонтаж'
+				],
+				prefix: 'от',
+				suffix: '₽'
+			},
+			{
+				name: 'Шоколад',
+				price: '15400',
+				prefix: 'от',
+				suffix: '₽'
+			}
+		]}/>
+		
 		return (
 			<div className="kasko-car-select">
-				<KaskoOffers onOfferSelect={this.offersUpdate} offerItemCallback={this} active={[0,1,2,3,4,5]} slider={true} credit={true} offersList={[
-						{
-							name: 'КАСКО',
-							//button: 'Рассчитать',
-							//func: this.toggleKaskoPopup,
-							collapse: true,
-							dropdown: 'KaskotaxPopup',
-							dropdownCallback: (action) => {
-								console.log('dropdownCallback КАСКО', action);
-								
-								if ('setTab' in action) {
-									this.updateTab(action.setTab)
-								}
-							},
-							price: this.state.activeKasko ? '41450' : '15400',
-							prefix: this.state.activeKasko ? '' : 'от',
-							suffix: '₽'
-						},
-						{
-							name: 'GAP',
-							price: '5400',
-							prefix: 'от',
-							suffix: '₽'
-						},
-						{
-							name: 'Страхование жизни',
-							price: '5401',
-							prefix: 'от',
-							suffix: '₽'
-						},
-						{
-							name: 'Продленная гарантия',
-							price: '5402',
-							prefix: 'от',
-							suffix: '₽'
-						},
-						{
-							name: 'Ассистанс',
-							price: '15400',
-							collapse: true,
-							options: [
-								'эвакуация',
-								'юридическая помощь',
-								'аварийный комиссар',
-								'подвоз бензина',
-								'вскрытие автомобиля',
-								'запуск автомобиля',
-								'трезвый водитель',
-								'выездной шиномонтаж'
-							],
-							prefix: 'от',
-							suffix: '₽'
-						},
-						{
-							name: 'Шоколад',
-							price: '15400',
-							prefix: 'от',
-							suffix: '₽'
-						}
-					]}/>
-			
+				{step >= 2 ? null : creditOffersComponent}
+
 				<div onClick={this.toggleShowParams} className={"kasko-car-select__caption" + (this.state.openParams ? " expanded" : " collapsed")}>
 					{step >= 2 ? 'Кредитный калькулятор' : 'Параметры кредита'}
 				</div>
@@ -533,6 +536,8 @@ class TabCredit extends Component {
 				{
 					this.state.openParams ?
 						<>
+							{step >= 2 ? creditOffersComponent : null}
+							
 							<div className="kasko-car-select__caption mt_30 fz_12">Первоначальный взнос</div>
 							<Row className={"kasko-car-select__controls car-credit mb_30"} gutter={20}>
 								<FormInput span={5} onChangeCallback={this.formControlCallback}
@@ -598,7 +603,8 @@ class TabCredit extends Component {
 
 						<Row gutter={20} className={"kasko-car-select__controls ant-row-center align_center"}>
 							<Col span={6}>
-								<Button className={"ant-btn-primary btn_middle ant-btn-block"}
+								<Button disabled={this.state.selectedOffers.length ? null : "disabled"}
+										className={"ant-btn-primary btn_middle ant-btn-block"}
 										onClick={() => {this.props.tabCallback({newStep: 3})}}>Оформить кредит</Button>
 							</Col>
 						</Row>

@@ -16,42 +16,42 @@ function App() {
       <BrowserRouter>
             <div className="dev-navigation">
               <ul>
-                  <li>
-                      <Link to="/">home</Link>
-                  </li>
-                  <li>
-                      <Link to="/kasko">kasko</Link>
-                  </li>
-                  <li>
-                      <Link to="/kasko_payment">kasko_payment</Link>
-                  </li>
-                  <li>
-                      <Link to="/kasko_done">kasko_done</Link>
-                  </li>
-                  <li>
-                      <Link to="/osago">osago</Link>
-                  </li>
-                  <li>
-                      <Link to="/osago_payment">osago_payment</Link>
-                  </li>
-                  <li>
-                      <Link to="/osago_done">osago_done</Link>
-                  </li>
-                  <li>
-                      <Link to="/credit">credit</Link>
-                  </li>
-                  <li>
-                      <Link to="/credit_kasko">credit_kasko</Link>
-                  </li>
-                  <li>
-                      <Link to="/service">service</Link>
-                  </li>
-                  <li>
-                      <Link to="/service_payment">service_payment</Link>
-                  </li>
-                  <li>
-                      <Link to="/service_done">service_done</Link>
-                  </li>
+                  {/*<li>*/}
+                  {/*    <Link to="/">home</Link>*/}
+                  {/*</li>*/}
+                  {/*<li>*/}
+                  {/*    <Link to="/kasko">kasko</Link>*/}
+                  {/*</li>*/}
+                  {/*<li>*/}
+                  {/*    <Link to="/kasko_payment">kasko_payment</Link>*/}
+                  {/*</li>*/}
+                  {/*<li>*/}
+                  {/*    <Link to="/kasko_done">kasko_done</Link>*/}
+                  {/*</li>*/}
+                  {/*<li>*/}
+                  {/*    <Link to="/osago">osago</Link>*/}
+                  {/*</li>*/}
+                  {/*<li>*/}
+                  {/*    <Link to="/osago_payment">osago_payment</Link>*/}
+                  {/*</li>*/}
+                  {/*<li>*/}
+                  {/*    <Link to="/osago_done">osago_done</Link>*/}
+                  {/*</li>*/}
+                  {/*<li>*/}
+                  {/*    <Link to="/credit">credit</Link>*/}
+                  {/*</li>*/}
+                  {/*<li>*/}
+                  {/*    <Link to="/credit_kasko">credit_kasko</Link>*/}
+                  {/*</li>*/}
+                  {/*<li>*/}
+                  {/*    <Link to="/service">service</Link>*/}
+                  {/*</li>*/}
+                  {/*<li>*/}
+                  {/*    <Link to="/service_payment">service_payment</Link>*/}
+                  {/*</li>*/}
+                  {/*<li>*/}
+                  {/*    <Link to="/service_done">service_done</Link>*/}
+                  {/*</li>*/}
                   <li>
                       <Link to="/chery">chery</Link>
                   </li>
@@ -69,10 +69,13 @@ function App() {
           
             <Route exact path="/" render={(routeProps) => (
                 <PageLayout>
-                    <Kasko {...routeProps} step={1} showOffers={false}/>
+                    <Kasko {...routeProps} step={1} tabs={true} dev={process.env.NODE_ENV !== 'production'} showOffers={false}/>
                 </PageLayout>
+                //<PageLayout>
+                //    <Kasko {...routeProps} step={1} showOffers={false}/>
+                //</PageLayout>
             )}/>          
-            <Route exact path="/tabs" render={(routeProps) => (
+            <Route path="/tabs" render={(routeProps) => (
                 <PageLayout>
                     <Kasko {...routeProps} step={1} tabs={true} dev={process.env.NODE_ENV !== 'production'} showOffers={false}/>
                 </PageLayout>

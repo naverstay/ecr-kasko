@@ -51,10 +51,16 @@ class PolicyUpload extends Component {
 					<Col span={12}>
 						<ul className="client-questionnaire__faq">
 							{kasko ?
-								<li className="client-questionnaire__faq--item">
-									<div className="client-questionnaire__faq--title">Полис КАСКО</div>
-									<p>Требуется скан полиса с двух сторон</p>
-								</li>
+								<>
+									<li className="client-questionnaire__faq--item">
+										<div className="client-questionnaire__faq--title">Полис КАСКО</div>
+										<p>Требуется скан полиса с двух сторон</p>
+									</li>
+									<li className="client-questionnaire__faq--item">
+										<div className="client-questionnaire__faq--title">Счет на оплату КАСКО</div>
+										<p>Требуется скан полиса с двух сторон</p>
+									</li>
+								</>
 								: null
 							}
 							

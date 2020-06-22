@@ -119,15 +119,15 @@ class KaskoNotices extends Component {
 										<div className="kasko-notice__price--label">Включено</div>
 										<div className="kasko-notice__price--value"/>
 									</li>
-									<li>
-										<Link to="#" className="kasko-notice__link">Рассчитать кредит</Link>
-									</li>
-									<li>
-										<Link to="#" className="kasko-notice__link">Подготовить заявку</Link>
-									</li>
-									<li>
-										<Link to="#" className="kasko-notice__link">Оформить кредит</Link>
-									</li>
+									{/*<li>*/}
+									{/*	<Link to="#" className="kasko-notice__link">Рассчитать кредит</Link>*/}
+									{/*</li>*/}
+									{/*<li>*/}
+									{/*	<Link to="#" className="kasko-notice__link">Подготовить заявку</Link>*/}
+									{/*</li>*/}
+									{/*<li>*/}
+									{/*	<Link to="#" className="kasko-notice__link">Оформить кредит</Link>*/}
+									{/*</li>*/}
 								</ul>
 							:
 							kasko ?

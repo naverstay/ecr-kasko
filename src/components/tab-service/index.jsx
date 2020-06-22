@@ -219,10 +219,11 @@ class TabService extends Component {
 	}
 
 	offersUpdate = (offer) => {
+		console.log('offersUpdate', offer);
 		let activeOffers = this.state.activeOffers
 		
 		if (offer.active) {
-			activeOffers.push(offer.id)
+			if (activeOffers.indexOf(offer.id) === -1) activeOffers.push(offer.id)
 		} else {
 			const index = activeOffers.indexOf(offer.id);
 			if (index > -1) {
@@ -304,6 +305,7 @@ class TabService extends Component {
 						name: 'Обычный',
 						franchise: 10000,
 						price: 41450,
+						dealerFee: 1800,
 						period: '2 года',
 						payment: 'Наличные',
 						recipient: 'ООО ВЭР',
@@ -320,6 +322,7 @@ class TabService extends Component {
 						name: 'Необычный',
 						franchise: 10000,
 						price: 30450,
+						dealerFee: 3000,
 						period: '3 года',
 						payment: 'Наличные',
 						recipient: 'ИП Иванов',
@@ -536,7 +539,7 @@ class TabService extends Component {
 									<Col span={9}/>
 									<Col span={6}>
 										<div onClick={() => {this.state.availablePayment && this.nextStep(2)}}
-										   className={"ant-btn ant-btn-primary btn_middle" + ((this.state.availablePayment) ? "" : " disabled")}>{'Оплатить в кассу'}</div>
+										   className={"ant-btn ant-btn-primary btn_middle w_100p" + ((this.state.availablePayment) ? "" : " disabled")}>{'Оплатить в кассу'}</div>
 									</Col>
 									<Col span={6}>
 										<PaymentSwitch allowPayment={this.state.availablePayment} paymentStep={0}/>

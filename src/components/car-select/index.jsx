@@ -95,6 +95,9 @@ class CarSelect extends Component {
 		}
 		
 		switch (name) {
+			case 'carNumber':
+				this.setState({carFound: void 0})
+				break
 			case 'carMark':
 				this.updateImage(value)
 				this.removeActiveField('carMark')
@@ -191,14 +194,15 @@ class CarSelect extends Component {
 		this.setState({formBusy: true})
 		
 		setTimeout(() => {
-			this.setState({formBusy: false, carFound: true})
+			let found = true
+			this.setState({formBusy: false, carFound: found})
 			
-			if (this.state.carFound) {
+			if (found) {
 				this.setState({
 					allowPayment: true,
 					carATS: 'Noname',
-					carMark: 'Hyundai',
-					carModel: 'Sonata',
+					carMark: 'Mazda',
+					carModel: 'CX-5',
 					carEquipment: '2.0 MPI - 6AT',
 					carNumber: 'A 123 AA 177',
 					carRegion: 'г. Москва',
@@ -208,6 +212,7 @@ class CarSelect extends Component {
 					carYear: '2015',
 					carUsageStart: '18.05.2020'
 				})
+				
 				this.updateImage(this.state.carMark)
 			}
 		}, 200)
@@ -227,6 +232,7 @@ class CarSelect extends Component {
 	onCarNewChange = e => {
 		this.setState({
 			newCar: !!e.target.value,
+			carPrice: 1524000,
 			carYear: '' + (new Date()).getFullYear(),
 			carNumber: ''
 		});
@@ -437,13 +443,13 @@ class CarSelect extends Component {
 
 		return (
 			<div className="kasko-car-select">
-				{!this.state.carFound || !collapseCarInfo ?
+				{!this.state.carFound ?
 					<h1 className="kasko-main__title">Выберите автомобиль</h1> 
 					:
 					<div className="kasko-car-select__description">
 						<div className="kasko-car-select__controls">
 							<span onClick={this.toggleCarOptions}
-								  className={"gl_link color_black kasko-car-select__controls--toggle " + (this.state.showCarOptions ? 'expanded' : 'collapsed')}>Hyundai Sonata</span>
+								  className={"gl_link color_black kasko-car-select__controls--toggle " + (this.state.showCarOptions || !collapseCarInfo ? 'expanded' : 'collapsed')}>Mazda CX-5</span>
 						</div>
 						<div className="kasko-car-select__description--price">1 524 000 ₽</div>
 						<div className="kasko-car-select__description--link gl_link">В архив</div>
@@ -471,7 +477,7 @@ class CarSelect extends Component {
 									<FormInput span={6} onChangeCallback={this.formControlCallback}
 											   placeholder="Госномер автомобиля"
 											   inputmask={carNumberMask}
-											   controlName={'carNumber'} value={''}/>
+											   controlName={'carNumber'} value={this.state.carNumber}/>
 											   
 									<Col span={6}>
 										<Button htmlType={searchDisabled ? null : "submit"} className={"w_100p " + (this.state.carFound !== void 0 ? "btn_grey" :
@@ -510,13 +516,19 @@ class CarSelect extends Component {
 											className={this.activeClass('carEquipment')}
 											placeholder="Комплектация" controlName={'carEquipment'}
 											value={this.state.carEquipment}/>
-		
-								<FormSelect span={6} onChangeCallback={this.formControlCallback}
-											options={yearList}
-											className={this.activeClass('carYear')}
-											disabled={this.state.newCar ? "disabled" : ""}
-											placeholder="Год выпуска" controlName={'carYear'}
-											value={this.state.carYear}/>
+
+								<FormInput span={6} onChangeCallback={this.formControlCallback}
+										   placeholder="Стоимость, ₽"
+										   disabled={this.state.newCar ? "disabled" : ""}
+										   inputmask={carPowerMask}
+										   controlName={'carPrice'} value={this.state.carPrice}/>
+											
+								{/*<FormSelect span={6} onChangeCallback={this.formControlCallback}*/}
+								{/*			options={yearList}*/}
+								{/*			className={this.activeClass('carYear')}*/}
+								{/*			disabled={this.state.newCar ? "disabled" : ""}*/}
+								{/*			placeholder="Год выпуска" controlName={'carYear'}*/}
+								{/*			value={this.state.carYear}/>*/}
 							</Row>
 						}
 						
@@ -526,29 +538,28 @@ class CarSelect extends Component {
 									<FormInput span={6} onChangeCallback={this.formControlCallback}
 											   placeholder="Пробег, км"
 											   inputmask={carPowerMask}
-											   controlName={'carMileage'} value={''}/>
+											   controlName={'carMileage'} value={this.state.carMileage}/>
 
-									<FormInput span={6} onChangeCallback={this.formControlCallback}
-											   placeholder="Стоимость, ₽"
-											   inputmask={carPriceMask}
-											   controlName={'carPrice'} value={''}/>
+									{/*<FormInput span={6} onChangeCallback={this.formControlCallback}*/}
+									{/*		   placeholder="Стоимость, ₽"*/}
+									{/*		   inputmask={carPriceMask}*/}
+									{/*		   controlName={'carPrice'} value={''}/>*/}
 											   
 									<FormInput span={6} onChangeCallback={this.formControlCallback}
 											   placeholder="Регион эксплуатации"
-											   controlName={'carRegion'} value={''}/>
+											   controlName={'carRegion'} value={this.state.carRegion}/>
 
 									<FormInput span={6} onChangeCallback={this.formControlCallback}
 											   placeholder={"Дата начала \n эксплуатации"}
 											   inputmask={dateFormatMask}
-											   controlName={'carUsageStart'} value={''}/>
-											   
+											   controlName={'carUsageStart'} value={this.state.carUsageStart}/>
 								</Row>
 		
 								<Row className="kasko-car-select__controls" gutter={20}>
 									<FormInput span={6} onChangeCallback={this.formControlCallback}
 											   placeholder="Мощность двигателя, л.с."
 											   inputmask={carPowerMask}
-											   controlName={'carPower'} value={''}/>
+											   controlName={'carPower'} value={this.state.carPower}/>
 
 									<FormSelect span={6} onChangeCallback={this.formControlCallback}
 												options={this.state.carATSList}
@@ -559,6 +570,7 @@ class CarSelect extends Component {
 									<Col span={6} className="checkbox_middle check_v3">
 										<Checkbox onChange={this.onAutoStartChange}>Автозапуск</Checkbox>
 									</Col>
+									
 									<Col span={6} className="kasko-car-select__additional _inactive text_right">
 										<div className="gl_link" onClick={this.toggleAdditionalFields}>Скрыть</div>
 									</Col>

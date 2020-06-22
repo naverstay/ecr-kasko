@@ -40,7 +40,7 @@ class CreditProgrammes extends Component {
 						<tr>
 							<th className={"calculation-offers__table--col-1" + (" wide") + ((completed || waiting) ? " small" : "")}
 								>Банк<br /> Программа</th>
-							<th className={"calculation-offers__table--col-4" + ((completed || waiting) ? " small" : "")}>Платеж</th> 
+							<th className={"calculation-offers__table--col-4 text_center" + ((completed || waiting) ? " small" : "")}>Платеж в мес.</th> 
 							<th className={"calculation-offers__table--col-9" + ((completed || waiting) ? " small" : "")}>Ставка</th>
 							<th className={"calculation-offers__table--col-3" + ((completed || waiting) ? " small" : "")}>Доход <br />дилера</th>
 							<th className={"calculation-offers__table--col-7" + ((completed || waiting) ? " small" : "")}>Страховые&nbsp;продукты</th>
