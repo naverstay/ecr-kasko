@@ -79,8 +79,13 @@
 		
 		&.done {
 			color: #fff;
-			background: $color-blue;
-			border: 1px solid $color-blue;
+			background: $color-green;
+			border: 1px solid $color-green;
+
+			.kasko-tab__panel-name & {
+				background: $color-blue;
+				border: 1px solid $color-blue;
+			}
 		}
 		
 		.kasko-notice__price--value & {
