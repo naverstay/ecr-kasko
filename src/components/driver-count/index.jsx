@@ -53,10 +53,10 @@ class DriverCount extends Component {
 	};
 	
 	render() {
-		const {driverOptions, children} = this.props
+		const {driverOptions, children, className} = this.props
 		
 		return (
-			<div className="kasko-car-select__controls check_v2">
+			<div className={"kasko-car-select__controls check_v2 " + className}>
 					<Row gutter={20}>
 						{
 							driverOptions.length ? driverOptions.map((c, i) =>

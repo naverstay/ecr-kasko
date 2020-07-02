@@ -28,6 +28,7 @@ class Kasko extends Component {
 			tabIndex: null,
 			showAuthForm: false,
 			productCount: 0,
+			updatePaymentState: 0,
 			carFound: this.props.dev || false,
 			carImage: this.props.step === 1 ? 'car' : 'Hyundai',
 			markList: [
@@ -71,6 +72,10 @@ class Kasko extends Component {
 		
 		if ('productCount' in action) {
 			this.setState({productCount: action.productCount})
+		}
+		
+		if ('updatePaymentState' in action) {
+			this.setState({updatePaymentState: action.updatePaymentState})
 		}
 	}
 
@@ -194,33 +199,46 @@ class Kasko extends Component {
 												className="kasko-tab__panel-name--text">Кредит</span>
 												{this.state.tabIndex === 0 ?
 													tabStatus
-													: this.state.carFound ?
-														<span className="kasko-tab__panel-name--val">от <b>16 450 ₽</b></span>
+													//: this.state.carFound ?
+													//	<span className="kasko-tab__panel-name--val">от <b>16 450 ₽</b></span>
 														: null
 												}
 											</div>
 										</Tab>
 										<Tab className={'kasko-tabs__tab'}>
 											<div className="kasko-tab__panel-name"><span
-												className="kasko-tab__panel-name--text">КАСКО</span>
+												className="kasko-tab__panel-name--text"><span>Я</span>&nbsp;<span
+												className={"fz_18 " + (step <= 2 ? 'i-heart-o' : 'i-heart') + (this.state.updatePaymentState > 0 ? ' _red' : '')}></span>&nbsp;<span>КАСАГО</span>
+											</span>
 												{this.state.tabIndex === 1 ?
 													tabStatus
-													: this.state.carFound ?
-														<span className="kasko-tab__panel-name--val">от <b>18 450 ₽</b></span>
+													//: this.state.carFound ?
+													//	<span className="kasko-tab__panel-name--val">от <b>18 450 ₽</b></span>
 														: null
 												}
 											</div>
 										</Tab>
-										<Tab className={'kasko-tabs__tab'}>
-											<div className="kasko-tab__panel-name"><span
-												className="kasko-tab__panel-name--text">ОСАГО</span>
-												{this.state.tabIndex === 2 ?
-													tabStatus
-													: this.state.carFound ?
-														<span className="kasko-tab__panel-name--val">от <b>10 450 ₽</b></span>
-														: null
-												}</div>
-										</Tab>
+										{/*<Tab className={'kasko-tabs__tab'}>*/}
+										{/*	<div className="kasko-tab__panel-name"><span*/}
+										{/*		className="kasko-tab__panel-name--text">КАСКО</span>*/}
+										{/*		{this.state.tabIndex === 1 ?*/}
+										{/*			tabStatus*/}
+										{/*			: this.state.carFound ?*/}
+										{/*				<span className="kasko-tab__panel-name--val">от <b>18 450 ₽</b></span>*/}
+										{/*				: null*/}
+										{/*		}*/}
+										{/*	</div>*/}
+										{/*</Tab>*/}
+										{/*<Tab className={'kasko-tabs__tab'}>*/}
+										{/*	<div className="kasko-tab__panel-name"><span*/}
+										{/*		className="kasko-tab__panel-name--text">ОСАГО</span>*/}
+										{/*		{this.state.tabIndex === 2 ?*/}
+										{/*			tabStatus*/}
+										{/*			: this.state.carFound ?*/}
+										{/*				<span className="kasko-tab__panel-name--val">от <b>10 450 ₽</b></span>*/}
+										{/*				: null*/}
+										{/*		}</div>*/}
+										{/*</Tab>*/}
 										<Tab className={'kasko-tabs__tab'}>
 											<div className="kasko-tab__panel-name"><span
 												className="kasko-tab__panel-name--text">Сервис меню</span>
@@ -253,16 +271,23 @@ class Kasko extends Component {
 									<TabPanel className="kasko-tab__panel">
 										{this.state.tabIndex === null || !this.state.carFound ? null :
 											<TabOffer tabCallback={this.changeTabState} imageCallback={this.imageCallback}
+													  combo={true}
 													  step={step} image={this.state.carImage} type={showOffers}/>
 										}
 									</TabPanel>
-									<TabPanel className="kasko-tab__panel">
-										{this.state.tabIndex === null || !this.state.carFound ? null :
-											<TabOffer tabCallback={this.changeTabState} imageCallback={this.imageCallback}
-													  osago={true}
-													  step={step} image={this.state.carImage} type={showOffers}/>
-										}
-									</TabPanel>
+									{/*<TabPanel className="kasko-tab__panel">*/}
+									{/*	{this.state.tabIndex === null || !this.state.carFound ? null :*/}
+									{/*		<TabOffer tabCallback={this.changeTabState} imageCallback={this.imageCallback}*/}
+									{/*				  step={step} image={this.state.carImage} type={showOffers}/>*/}
+									{/*	}*/}
+									{/*</TabPanel>*/}
+									{/*<TabPanel className="kasko-tab__panel">*/}
+									{/*	{this.state.tabIndex === null || !this.state.carFound ? null :*/}
+									{/*		<TabOffer tabCallback={this.changeTabState} imageCallback={this.imageCallback}*/}
+									{/*				  osago={true}*/}
+									{/*				  step={step} image={this.state.carImage} type={showOffers}/>*/}
+									{/*	}*/}
+									{/*</TabPanel>*/}
 									<TabPanel className="kasko-tab__panel">
 										{this.state.tabIndex === null || !this.state.carFound ? null :
 											<TabService step={step} tabCallback={this.changeTabState} />

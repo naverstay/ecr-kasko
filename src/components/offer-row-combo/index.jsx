@@ -1,12 +1,14 @@
 import React, {Component} from "react";
-import {Checkbox} from "antd";
+import {Checkbox, Select} from "antd";
 
 import './style.scss';
 import PropTypes from "prop-types";
 import pluralFromArray from "../../helpers/pluralFromArray";
 import {formatMoney} from "../../helpers/formatMoney";
 
-class OfferRow extends Component {
+const {Option} = Select;
+
+class OfferRowCombo extends Component {
 	constructor(props) {
 		super(props);
 		this.state = {
@@ -40,6 +42,10 @@ class OfferRow extends Component {
 		this.setState({rowsCollapsed: !this.state.rowsCollapsed})
 	}
 
+	creditChange = () => {
+		console.log('creditChange');
+	}
+
 	addOptionFlag (index) {
 		let options = Object.assign({}, this.state.optionsToggle)
 
@@ -53,7 +59,7 @@ class OfferRow extends Component {
 	}
 
 	render() {
-		const {offers, logo, name, info, credit, company, completed, waiting, allowCheck, osago, franchise} = this.props
+		const {offers, logo, name, info, credit, company, completed, waiting, allowCheck, osago, showMore, lastRow} = this.props
 		const moreLink = 'еще ' + (offers.length - 1) + ' ' + pluralFromArray(['тариф', 'тарифа', 'тарифов'], (offers.length - 1))
 		const lessLink = 'скрыть ' + (offers.length - 1) + ' ' + pluralFromArray(['тариф', 'тарифа', 'тарифов'], (offers.length - 1))
 		
@@ -66,34 +72,49 @@ class OfferRow extends Component {
 					
 					return (show ? 
 						<>
-							<tr key={i} className={(showOptions ? "expanded" : "") + ((offerSelected && !(completed || waiting)) ? " selected" : "")}>
-								<td>
-									{i === 0 ? logo ? <div className={"offer-row__logo"}><img src={logo} alt=""/></div> : <div className={"offer-row__logo" + (info ? " info" : "")}>{name}</div> : null}
+							<tr key={i} className={(showOptions ? "expanded" : "") + ((offerSelected && !(completed || waiting)) ? " selected" : "") + (lastRow && !showOptions ? ' last-row': '')}>
+								<td className={(lastRow ? '' : 'no-bdr-bottom')}>
+									{i === 0 ? <div className={"offer-row__logo" + (info ? " info" : "")}>{name || ''}</div> : null}
 								</td>
-								{!osago ? <td>
-									<div className="offer-row__name">{o.name}</div>
+								<td>
+									<div className="offer-row__name">{o.type}</div>
 									{(this.state.rowsCollapsed && i === 0 && offers.length > 1) ? <div onClick={this.onCollapseToggle} className="offer-row__hint gl_link">{moreLink}</div> : null}
 									{(!this.state.rowsCollapsed && (i === offers.length - 1) && offers.length > 1) ? <div onClick={this.onCollapseToggle} className="offer-row__hint gl_link">{lessLink}</div> : null}
-								</td> : null}
+								</td>
 
-								{franchise ?
+								{(completed || waiting) ? null :
 									<td>
-										<div className="offer-row__fee">{o.franchise}</div>
+										<div className="offer-row__fee text_left">{o.name}</div>
 									</td>
-								: null}
-	
+								}
+
 								<td>
 									<div className="offer-row__price">{formatMoney(o.price)} ₽</div>
 								</td>
-								
-								{credit ?
-									<td>
-										<div className="offer-row__fee">{o.rate}</div>
-									</td>
-								: null}
-		
+
 								<td>
 									<div className="offer-row__fee">{formatMoney(o.dealerFee)} ₽</div>
+								</td>
+								
+								<td>
+									<div className="offer-row__fee">
+										<Checkbox disabled={completed || waiting} defaultChecked={o.credit ? "checked" : null} onChange={this.creditChange}/>
+										
+										{/*{o.payment && Array.isArray(o.payment) && o.payment.length > 1 ?*/}
+										{/*	<Select*/}
+										{/*		size="small"*/}
+										{/*		defaultValue={o.payment[0]}*/}
+										{/*		dropdownClassName="select_dropdown_v1"*/}
+										{/*		className={"w_100p small_select"}*/}
+										{/*		placeholder=""*/}
+										{/*	>*/}
+										{/*		{o.payment.map((e, i) =>*/}
+										{/*			<Option key={i} value={e}>{e}</Option>)}*/}
+										{/*	</Select>*/}
+										{/*	:*/}
+										{/*	o.payment*/}
+										{/*}*/}
+									</div>
 								</td>
 								
 								{(completed || waiting) ?
@@ -112,62 +133,30 @@ class OfferRow extends Component {
 											<div className={"offer-row__status " + (completed ? "approved" : "waiting")}/>
 										</td>
 									</>
-								: 
+									: 
 									<>
-										{credit ?
-											<td>
-												<div className="offer-row__fee text_left">
-													{ o.params.map((p, i) => <p key={i}>{p}</p>) }
-												</div>
-											</td>
-										:
-											osago ?
-												<td className="text_left">
-													<div className="offer-row__documents">
-														<div className="offer-row__bill gl_link">Счет на оплату</div>
-													</div>
-												</td>
-											:
-												<td>&nbsp;</td>
-										}
-									
+										<td>&nbsp;</td>
+										<td>&nbsp;</td>
 										<td>
 											<Checkbox disabled={((allowCheck || osago) ? null : "disabled")} className="offer-row__check" onChange={(e) => this.onSelectOfferToggle(company, i, e)}/>
 										</td>
-										{!osago ? <td>
-											<div onClick={() => this.addOptionFlag(i)} className="offer-row__link"/>
-										</td> : null}
 									</>
 								}
+
+								<td>
+									<div onClick={() => this.addOptionFlag(i)} className="offer-row__link"/>
+								</td>
 							</tr>
-							{!osago && (!(completed || waiting) && showOptions) ?
-								<tr key={i + 100000} className={(offerSelected ? "selected" : "")}>
+							{showOptions ?
+								<tr key={i + 100000} className={(offerSelected ? "selected" : "") + (lastRow ? ' last-row' : '')}>
+									<td colSpan={(completed || waiting) ? 2 : 3}>&nbsp;</td>
+									<td colSpan={(completed || waiting) ? 6 : 5}>
+										<p className="text_left" style={{marginBottom: '15px'}}>Условия КАСКО:</p>
+										<ul className="offer-row__options">
+											{o.options.map((opt, k) => <li key={k}>{opt}</li>)}
+										</ul>
+									</td>
 									<td>&nbsp;</td>
-									
-									{credit ?
-										<>
-											<td>&nbsp;</td>
-											<td colSpan={6}>
-												<ul className="offer-row__options">
-													{o.options.map((opt, k) => <li key={k} className="offer-row__credit">
-														<div className="offer-row__credit--name">{opt.option || ''}</div>
-														<div onClick={() => {opt.func && opt.func()}} className={"offer-row__credit--link" + ((opt.link || opt.func) ? ' gl_link' : '')}>{opt.price || ''}</div>
-													</li>)}
-												</ul>
-											</td>
-										</>
-										:
-										<>
-											<td>&nbsp;</td>
-											{franchise ? <td>&nbsp;</td> : null}
-											<td colSpan={4}>
-												<ul className="offer-row__options">
-													{o.options.map((opt, k) => <li key={k}>{opt}</li>)}
-												</ul>
-											</td>
-											<td>&nbsp;</td>
-										</>
-									}
 								</tr>
 								: null}
 						</> : null)
@@ -177,4 +166,4 @@ class OfferRow extends Component {
 	}
 }
 
-export default OfferRow;
+export default OfferRowCombo;

@@ -17,6 +17,7 @@ import KaskoCarSelect from "../kasko-car-select";
 import PopupOverlay from "../popup-overlay";
 import FormInput from "../form-input";
 import PolicyPopup from "../policy-popup";
+import CalculationOffersCombo from "../calculation-offers-combo";
 
 moment().locale('ru', ru);
 
@@ -184,6 +185,8 @@ class TabOffer extends Component {
 		this.toggleCalculationPopup()
 
 		this.toggleCalculationOffers()
+
+		typeof this.props.tabCallback === 'function' && this.props.tabCallback({updatePaymentState: 1})
 	}
 
 	formControlCallback = (name, value) => {
@@ -322,6 +325,10 @@ class TabOffer extends Component {
 		});
 	};
 
+	onKaskoOsagoChange = e => {
+		console.log('onKaskoOsagoChange', e);
+	};
+
 	scrollToBottom = () => {
 		this.messagesEnd.scrollIntoView({behavior: "smooth"});
 	}
@@ -335,19 +342,41 @@ class TabOffer extends Component {
 	}
 	
 	render() {
-		const {step, osago, popup} = this.props;
+		const {step, osago, popup, combo} = this.props;
 		let {image} = this.props;
 		
 		//const periodPlurals = ['месяц', 'месяца', 'месяцев'];
 		const periodOptions = [12, 9, 6, 3];
 		const damageOptions = ['Ущерб', 'Полная гибель', 'Угон', 'Шины/Диски', 'ЛКП', 'Стекла', 'Фары', 'Бамперы и зеркала'];
+		const insuranceList = ['КАСКО', 'GAP', 'ОСАГО'];
 		const franchise = this.state.franchise;
+		
+		let comboInsurance = <Checkbox.Group
+								defaultValue={insuranceList.map((o, i) => i)}
+								onChange={this.onKaskoOsagoChange}>
+								<Row gutter={20}>
+									{
+										<>
+											{
+												insuranceList.map((c, i) =>
+													<Col key={i}>
+														<Checkbox
+															value={i}>{c}</Checkbox>
+													</Col>
+												)
+											}
+										</>
+									}
+								</Row>
+							</Checkbox.Group>
 		
 		let driverOptions = [];
 		
 		if (step > 1 || this.state.showCalculationOffers) {
 			driverOptions = ['Фомин Сергей М.', 'Фомина Алла К.', 'Фомина Марина Ф.']
 		}
+
+		console.log('combo', combo);
 		
 		let franchiseSteps = {
 			//10000 : '10 000',
@@ -403,7 +432,7 @@ class TabOffer extends Component {
 						options: optionsFixtures
 					},
 					{
-						name: 'Обычный 4',
+						name: '',
 						franchise: 10000,
 						price: 11450,
 						dealerFee: 1145,
@@ -417,7 +446,7 @@ class TabOffer extends Component {
 						options: optionsFixtures
 					},
 					{
-						name: 'Обычный 6',
+						name: '',
 						franchise: 10000,
 						price: 31450,
 						dealerFee: 3145,
@@ -453,6 +482,200 @@ class TabOffer extends Component {
 			}
 		]
 		
+		let calculationOfferComboList = [
+			{
+				name: 'Ингосстрах',
+				offers: [
+					{
+						name: '',
+						type: 'КАСКО+ОСАГО',
+						payment: 'Наличные',
+						price: 41450,
+						dealerFee: 4145,
+						options: optionsFixtures
+					},
+					{
+						list: [
+							{
+								name: 'Премиум',
+								type: 'КАСКО',
+								credit: false,
+								price: 51450,
+								dealerFee: 5145,
+								options: optionsFixtures
+							},
+							{
+								name: '',
+								type: 'КАСКО',
+								credit: false,
+								price: 31450,
+								dealerFee: 3145,
+								options: optionsFixtures
+							},
+							{
+								name: 'Премиум',
+								type: 'КАСКО',
+								credit: true,
+								price: 51450,
+								dealerFee: 5145,
+								options: optionsFixtures
+							},
+							{
+								name: 'Обычный 10',
+								type: 'КАСКО',
+								payment: 'Наличные',
+								price: 31450,
+								dealerFee: 3145,
+								options: optionsFixtures
+							},
+							{
+								name: '+Премиум',
+								type: 'КАСКО',
+								credit: true,
+								price: 51450,
+								dealerFee: 5145,
+								options: optionsFixtures
+							},
+							{
+								name: 'Обычный 10',
+								type: 'КАСКО',
+								credit: false,
+								price: 31450,
+								dealerFee: 3145,
+								options: optionsFixtures
+							}
+						]
+					},
+					{
+						name: '+ Премиум',
+						type: 'GAP',
+						credit: false,
+						price: 61450,
+						dealerFee: 6145,
+						options: optionsFixtures
+					},
+					{
+						name: '',
+						type: 'ОСАГО',
+						payment: 'Наличные',
+						price: 11450,
+						dealerFee: 1145,
+						options: optionsFixtures
+					},
+					{
+						name: '',
+						type: 'КАСКО',
+						credit: false,
+						price: 31450,
+						dealerFee: 3145,
+						options: optionsFixtures
+					}
+				]
+			},
+			{
+				name: 'ВСК',
+				offers: [
+					{
+						name: '',
+						type: 'КАСКО+ОСАГО',
+						credit: false,
+						price: 30450,
+						dealerFee: 3045,
+						options: optionsFixtures
+					},
+					{
+						name: 'Премиум',
+						type: 'КАСКО',
+						payment: 'Наличные',
+						price: 30450,
+						dealerFee: 3045,
+						options: optionsFixtures
+					},
+					{
+						name: '',
+						type: 'ОСАГО',
+						payment: 'Наличные',
+						price: 30450,
+						dealerFee: 3045,
+						options: optionsFixtures
+					}
+				]
+			},
+			{
+				name: 'МАКС',
+				offers: [
+					{
+						list: [
+							{
+								name: 'Премиум',
+								type: 'КАСКО',
+								credit: false,
+								price: 51450,
+								dealerFee: 5145,
+								options: optionsFixtures
+							},
+							{
+								name: '',
+								type: 'КАСКО',
+								credit: false,
+								price: 31450,
+								dealerFee: 3145,
+								options: optionsFixtures
+							},
+							{
+								name: 'Премиум',
+								type: 'КАСКО',
+								credit: true,
+								price: 51450,
+								dealerFee: 5145,
+								options: optionsFixtures
+							},
+							{
+								name: 'Обычный 10',
+								type: 'КАСКО',
+								payment: 'Наличные',
+								price: 31450,
+								dealerFee: 3145,
+								options: optionsFixtures
+							},
+							{
+								name: '+Премиум',
+								type: 'КАСКО',
+								credit: true,
+								price: 51450,
+								dealerFee: 5145,
+								options: optionsFixtures
+							},
+							{
+								name: 'Обычный 10',
+								type: 'КАСКО',
+								credit: false,
+								price: 31450,
+								dealerFee: 3145,
+								options: optionsFixtures
+							}
+						]
+					},
+					{
+						name: 'Премиум',
+						type: 'GAP',
+						payment: 'Наличные',
+						price: 30450,
+						dealerFee: 3045,
+						options: optionsFixtures
+					},
+					{
+						name: '',
+						type: 'ОСАГО',
+						payment: 'Наличные',
+						price: 30450,
+						dealerFee: 3045,
+						options: optionsFixtures
+					}
+				]
+			}
+		]
+		
 		if (step > 1) {
 			calculationOfferList = [
 				{
@@ -470,6 +693,24 @@ class TabOffer extends Component {
 					]
 				},
 			]
+
+			calculationOfferComboList = [
+				{
+					name: 'Ингосстрах',
+					offers: [
+						{
+							name: 'Обычный',
+							type: 'КАСКО+ОСАГО',
+							payment: 'Наличные',
+							price: 41450,
+							dealerFee: 4145,
+							dateStart: '20.02.19',
+							dateEnd: '19.02.20',
+							options: optionsFixtures
+						}
+					]
+				}
+			]
 		}
 		
 		if (step === 3) {
@@ -485,28 +726,267 @@ class TabOffer extends Component {
 				label: <span className={"kasko-car-select__franchise--label" + (index === this.state.franchiseVal ? " active" : "")}>{(i ? '' : 'до ') + formatMoney(f)}</span>,
 			}
 		})
+		
+		let paramsBlock = <>
+			{!osago ?
+				<>
+					{/*<div className="kasko-car-select__caption">{'Добавить в КАСКО'}</div>*/}
+
+					<KaskoOffers step={step} active={[0, 1, 2, 3, 4, 5, 6]}
+								 onOfferSelect={this.offersUpdate} credit={true} slider={true}
+								 offersList={[
+									 {
+										 name: 'GAP',
+										 price: 11400,
+										 prefix: '',
+										 suffix: '₽'
+									 },
+									 {
+										 name: 'Несчастный случай',
+										 price: 10410,
+										 prefix: '',
+										 suffix: '₽'
+									 },
+									 {
+										 name: 'Аварийный комиссар',
+										 price: 10420,
+										 prefix: '',
+										 suffix: '₽'
+									 },
+									 {
+										 name: 'Стекла без справок',
+										 price: 10430,
+										 prefix: '',
+										 suffix: '₽'
+									 },
+									 {
+										 name: 'ОСАГО',
+										 price: 10410,
+										 prefix: '',
+										 suffix: '₽'
+									 },
+									 {
+										 name: 'Шоколад',
+										 price: 10420,
+										 prefix: '',
+										 suffix: '₽'
+									 },
+									 {
+										 name: '123',
+										 price: 10430,
+										 prefix: '',
+										 suffix: '₽'
+									 }
+								 ]}/>
+				</>
+				: null}
+
+			{!osago ? <div onClick={this.toggleShowParams}
+						   className={"kasko-car-select__caption" + (this.state.showCalculationOffers ? (this.state.openParams ? " expanded" : " collapsed") : "")}>{'Параметры ' + (combo ? 'страхования' : 'КАСКО')}</div> : null}
+
+			{(!this.state.showCalculationOffers || this.state.openParams || osago) ?
+				<>
+					{!osago ?
+						<>
+							{combo ?
+								<>
+									{this.state.showCalculationOffers ?
+										null
+										: <div className="kasko-car-select__controls check_v2 mb_0">{comboInsurance}</div>}
+								</>
+								:
+								<div className="kasko-car-select__controls radio_v2 wide_group mb_0">
+									<Radio.Group defaultValue={popup ? 1 : 0} className={"w_100p"}
+												 onChange={this.onCarCreditChange}>
+										<Row gutter={20}>
+											<Col>
+												<Radio value={1}>В кредит</Radio>
+											</Col>
+											<Col>
+												<Radio value={0}>За наличные</Radio>
+											</Col>
+										</Row>
+									</Radio.Group>
+								</div>
+							}
+
+							<div className="kasko-car-select__controls radio_v2 wide_group">
+								<Radio.Group defaultValue={this.state.hasFranchise ? 1 : 0}
+											 onChange={this.onFranchiseChange}>
+									<Row gutter={20}>
+										<Col>
+											<Radio value={0}>Без франшизы</Radio>
+										</Col>
+										<Col>
+											<Radio value={1}>Франшиза с 1 случая</Radio>
+										</Col>
+										<Col>
+											<Radio value={2}>Франшиза со 2 случая</Radio>
+										</Col>
+
+										{this.state.hasFranchise ?
+											<Col className={"kasko-car-select__controls--flex-1"}>
+												<Slider className="kasko-car-select__franchise"
+														step={null}
+														tooltipVisible={false}
+														tipFormatter={this.onFranchiseTooltip}
+														onAfterChange={this.onFranchiseValueChange}
+														marks={franchiseSteps}
+														defaultValue={franchiseSteps[2]}/>
+											</Col>
+											: ""
+										}
+									</Row>
+								</Radio.Group>
+							</div>
+
+							<div className="kasko-car-select__controls check_v2 mb_10">
+								<Checkbox.Group defaultValue={damageOptions.map((o, i) => i)}
+												onChange={this.onDamagesChange}>
+									<Row gutter={20}>
+										{
+											<>
+												{
+													damageOptions.slice(0, (this.state.showMoreDamages ? damageOptions.length : 3)).map((c, i) =>
+														<Col key={i}>
+															<Checkbox value={i}>{c}</Checkbox>
+														</Col>
+													)
+												}
+												<Col>
+													<div className="kasko-offer__more">
+														<div onClick={this.onShowMoreDamagesChange}
+															 className="gl_link">{this.state.showMoreDamages ? "Скрыть" : "Показать еще"}</div>
+													</div>
+												</Col>
+											</>
+										}
+									</Row>
+								</Checkbox.Group>
+							</div>
+						</>
+						: null}
+
+					{(!osago || this.state.openParams) ?
+						<>
+							<div className={"kasko-car-select__caption fz_12"}>Срок действия, месяцы</div>
+
+							<div className="kasko-car-select__controls radio_v3">
+								<Radio.Group defaultValue={periodOptions[0]}
+											 style={{width: '100%'}}
+											 onChange={this.onPeriodChange}>
+									<Row gutter={20}>
+										{
+											periodOptions.map((c, i) => <Col key={i}>
+													<Radio value={c}>
+																					<span
+																						className="kasko-car-select__period--value">{c}</span>
+														{/*<span className="kasko-car-select__period--label">{pluralFromArray(periodPlurals, c)}</span>*/}
+													</Radio>
+												</Col>
+											)
+										}
+									</Row>
+								</Radio.Group>
+							</div>
+
+							<DriverCount className={this.state.showCalculationOffers ? "mb_0" : ""} step={step}
+										 driverOptions={driverOptions}>
+									{step > 1 || this.state.showCalculationOffers ?
+										<Col>
+											<div className="kasko-offer__more">
+																			<span onClick={this.toggleCalculationPopup}
+																				  className="gl_link">Анкета КАСКО</span>
+											</div>
+										</Col>
+									: null}
+							</DriverCount>
+
+							{this.state.showCalculationOffers ? null :
+								<>
+									<Row gutter={20} className="kasko-car-select__controls ant-row-center mb_45">
+										{osago ? null :
+											<Col span={6}>
+												<Button className={"w_100p ant-btn"}
+												>Отказ клиента</Button>
+											</Col>
+										}
+										<Col span={12}>
+											<Button htmlType="submit"
+													className={"w_100p" + (((this.state.showPayment || (this.props.step === 2) || (this.props.osago && this.state.activeOffers.length))) ? " btn_green" : " ant-btn-primary")}
+													onClick={this.toggleCalculationPopup}>{this.calculationButtonText()}</Button>
+										</Col>
+										{osago ? null :
+											<Col span={6}>
+												<Button to="/credit_kasko"
+														onClick={this.togglePolicyPopup}
+														className={"w_100p ant-btn"}
+												>Внести полис вручную</Button>
+											</Col>
+										}
+									</Row>
+								</>
+							}
+
+							{/*<div className="kasko-car-select__controls ant-row-center">*/}
+							{/*	<div onClick={this.toggleCalculationOffers} className={"ant-btn ant-btn-primary btn_middle margin" + ((step !== 2 && this.state.paramsChanged) ? "" : " disabled")}>Получить расчет</div>*/}
+							{/*</div>*/}
+
+						</>
+						: null}
+				</>
+				: null
+			}
+		</>
 
 		return (
 			<>
 				<div className="kasko-car-select">
 					{step === 3 ?
 						<>
-							<CalculationOffers osago={osago} completed={true} selectedOffer={this.updateSelectedOffer} offersList={[
-								{
-									logo: './logo/bck.png',
-									offers: [
+							{combo ?
+								<>
+									{paramsBlock}
+									
+									<div className="kasko-car-select__controls check_v2">{comboInsurance}</div>
+									
+									<CalculationOffersCombo completed={true} selectedOffer={this.updateSelectedOffer} offersList={[
 										{
-											name: 'Обычный',
-											document: 'СС 12345678',
-											dateStart: '20.02.19',
-											dateEnd: '19.02.20',
-											franchise: 10000,
-											price: 41450,
-											dealerFee: 4145
+											name: 'Ингосстрах',
+											offers: [
+												{
+													name: 'Обычный',
+													type: 'КАСКО+ОСАГО',
+													document: 'СС 12345678',
+													payment: 'Наличные',
+													price: 41450,
+													dealerFee: 4145,
+													dateStart: '20.02.19',
+													dateEnd: '19.02.20',
+													options: optionsFixtures
+												}
+											]
 										}
-									]
-								}
-							]}/>
+									]}/>
+								</>
+								:
+								<CalculationOffers osago={osago} completed={true} selectedOffer={this.updateSelectedOffer} offersList={[
+									{
+										logo: './logo/bck.png',
+										offers: [
+											{
+												name: 'Обычный',
+												document: 'СС 12345678',
+												dateStart: '20.02.19',
+												dateEnd: '19.02.20',
+												franchise: 10000,
+												price: 41450,
+												dealerFee: 4145
+											}
+										]
+									}
+								]}/>
+							}
 
 							{/*<KaskoOffers step={step} active={[(osago ? 0 : 1)]} completed={[(osago ? 0 : 1)]} offersList={osago ?*/}
 							{/*	[*/}
@@ -632,216 +1112,29 @@ class TabOffer extends Component {
 						</>
 						:
 						<>
-							{(step !== 2) ?
-								<>
-									{!osago ? 
-										<>
-											{/*<div className="kasko-car-select__caption">{'Добавить в КАСКО'}</div>*/}
-											
-											<KaskoOffers step={step} active={[0,1,2,3,4,5,6]} onOfferSelect={this.offersUpdate} credit={true} slider={true} offersList={[
-													{
-														name: 'GAP',
-														price: 11400,
-														prefix: '',
-														suffix: '₽'
-													},
-													{
-														name: 'Несчастный случай',
-														price: 10410,
-														prefix: '',
-														suffix: '₽'
-													},
-													{
-														name: 'Аварийный комиссар',
-														price: 10420,
-														prefix: '',
-														suffix: '₽'
-													},
-													{
-														name: 'Стекла без справок',
-														price: 10430,
-														prefix: '',
-														suffix: '₽'
-													},
-													{
-														name: 'ОСАГО',
-														price: 10410,
-														prefix: '',
-														suffix: '₽'
-													},
-													{
-														name: 'Шоколад',
-														price: 10420,
-														prefix: '',
-														suffix: '₽'
-													},
-													{
-														name: '123',
-														price: 10430,
-														prefix: '',
-														suffix: '₽'
-													}
-												]}/>
-										</> 
-										: null }
-
-									{!osago ? <div onClick={this.toggleShowParams}
-										 className={"kasko-car-select__caption" + (this.state.showCalculationOffers ? (this.state.openParams ? " expanded" : " collapsed") : "")}>Параметры КАСКО</div> : null }
-									
-									{(!this.state.showCalculationOffers || this.state.openParams || osago) ?
-										<>
-											{!osago ?
-												<>
-													<div className="kasko-car-select__controls radio_v2 wide_group mb_0">
-														<Radio.Group defaultValue={popup ? 1 : 0} className={"w_100p"} onChange={this.onCarCreditChange}>
-															<Row gutter={20}>
-																<Col>
-																	<Radio value={1}>В кредит</Radio>
-																</Col>
-																<Col>
-																	<Radio value={0}>За наличные</Radio>
-																</Col>
-															</Row>
-														</Radio.Group>
-													</div>
-													<div className="kasko-car-select__controls radio_v2 wide_group">
-														<Radio.Group defaultValue={this.state.hasFranchise ? 1 : 0}
-																	 onChange={this.onFranchiseChange}>
-															<Row gutter={20}>
-																<Col>
-																	<Radio value={0}>Без франшизы</Radio>
-																</Col>
-																<Col>
-																	<Radio value={1}>Франшиза с 1 случая</Radio>
-																</Col>
-																<Col>
-																	<Radio value={2}>Франшиза со 2 случая</Radio>
-																</Col>
-	
-																{this.state.hasFranchise ?
-																	<Col className={"kasko-car-select__controls--flex-1"}>
-																		<Slider className="kasko-car-select__franchise"
-																				step={null}
-																				tooltipVisible={false}
-																				tipFormatter={this.onFranchiseTooltip}
-																				onAfterChange={this.onFranchiseValueChange}
-																				marks={franchiseSteps}
-																				defaultValue={franchiseSteps[2]}/>
-																	</Col>
-																	: ""
-																}
-															</Row>
-														</Radio.Group>
-													</div>
-	
-													<div className="kasko-car-select__controls check_v2 mb_10">
-														<Checkbox.Group defaultValue={damageOptions.map((o, i) => i)}
-																		onChange={this.onDamagesChange}>
-															<Row gutter={20}>
-																{
-																	<>
-																		{
-																			damageOptions.slice(0, (this.state.showMoreDamages ? damageOptions.length : 3)).map((c, i) =>
-																				<Col key={i}>
-																					<Checkbox value={i}>{c}</Checkbox>
-																				</Col>
-																			)
-																		}
-																		<Col>
-																			<div className="kasko-offer__more">
-																				<div onClick={this.onShowMoreDamagesChange}
-																					 className="gl_link">{this.state.showMoreDamages ? "Скрыть" : "Показать еще"}</div>
-																			</div>
-																		</Col>
-																	</>
-																}
-															</Row>
-														</Checkbox.Group>
-													</div>
-												</>
-											: null}
-
-											{osago ?
-												<div onClick={this.toggleShowParams} className={"kasko-car-select__caption" + (this.state.activeOffers.length ? (this.state.openParams ? " expanded" : " collapsed") : "")}>Параметры ОСАГО</div>
-											: null}
-
-											{(!osago || this.state.openParams) ?
-													<>
-														<div className={"kasko-car-select__caption fz_12"}>Срок
-															действия, месяцы
-														</div>
-
-														<div className="kasko-car-select__controls radio_v3">
-															<Radio.Group defaultValue={periodOptions[0]}
-																		 style={{width: '100%'}}
-																		 onChange={this.onPeriodChange}>
-																<Row gutter={20}>
-																	{
-																		periodOptions.map((c, i) => <Col key={i}>
-																				<Radio value={c}>
-																					<span
-																						className="kasko-car-select__period--value">{c}</span>
-																					{/*<span className="kasko-car-select__period--label">{pluralFromArray(periodPlurals, c)}</span>*/}
-																				</Radio>
-																			</Col>
-																		)
-																	}
-																</Row>
-															</Radio.Group>
-														</div>
-
-														<DriverCount step={step} driverOptions={driverOptions}>
-															{step > 1 || this.state.showCalculationOffers ?
-																<Col>
-																	<div className="kasko-offer__more">
-																		<span onClick={this.toggleCalculationPopup}
-																			  className="gl_link">Анкета КАСКО</span>
-																	</div>
-																</Col>
-															: null}
-														</DriverCount>
-
-														{this.state.showCalculationOffers ? null :
-															<>
-																<Row gutter={20} className="kasko-car-select__controls ant-row-center mb_45">
-																	{osago ? null :
-																		<Col span={6}>
-																			<Button className={"w_100p ant-btn"}
-																			>Отказ клиента</Button>
-																		</Col>
-																	}
-																	<Col span={12}>
-																		<Button htmlType="submit"
-																				className={"w_100p" + (((this.state.showPayment || (this.props.step === 2) || (this.props.osago && this.state.activeOffers.length))) ? " btn_green" : " ant-btn-primary")} 
-																				onClick={this.toggleCalculationPopup}>{this.calculationButtonText()}</Button>
-																	</Col>
-																	{osago ? null :
-																		<Col span={6}>
-																			<Button to="/credit_kasko"
-																					onClick={this.togglePolicyPopup}
-																					className={"w_100p ant-btn"}
-																			>Внести полис вручную</Button>
-																		</Col>
-																	}
-																</Row>
-															</>
-														}
-														
-														{/*<div className="kasko-car-select__controls ant-row-center">*/}
-														{/*	<div onClick={this.toggleCalculationOffers} className={"ant-btn ant-btn-primary btn_middle margin" + ((step !== 2 && this.state.paramsChanged) ? "" : " disabled")}>Получить расчет</div>*/}
-														{/*</div>*/}
-														
-													</>
-											: null }
-										</>
-										: null
-									}
-								</> : null
+							{(step !== 2 || combo) ?
+								paramsBlock
+								: null
 							}
+
+							<>
+								{this.state.showCalculationOffers ?
+									<div className="kasko-car-select__controls check_v2">{comboInsurance}</div>
+									: null}
+							</>
 							
 							{this.state.showCalculationOffers ?
 									<>
-										<CalculationOffers franchise={this.state.hasFranchise} allowCheck={true} osago={osago} waiting={step === 2} selectedOffer={this.updateSelectedOffer} offersList={calculationOfferList}/>
+										{combo ?
+											<CalculationOffersCombo allowCheck={true}
+															   waiting={step === 2}
+															   selectedOffer={this.updateSelectedOffer}
+															   offersList={calculationOfferComboList}/>
+											: <CalculationOffers franchise={this.state.hasFranchise} allowCheck={true}
+															osago={osago} waiting={step === 2}
+															selectedOffer={this.updateSelectedOffer}
+															offersList={calculationOfferList}/>
+										}
 		
 										<Row gutter={20} className={"kasko-car-select__controls ant-row-center align_center"}>
 											{

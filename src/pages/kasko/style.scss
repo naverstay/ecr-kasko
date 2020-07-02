@@ -26,8 +26,32 @@ $aside-size: 226px;
 			justify-content: space-between;
 			align-items: center;
 			
+			&._col {
+				flex-flow: column;
+				align-items: center;
+				text-align: center;
+				justify-content: center;
+				
+				> *:first-child + * {
+					margin-top: 3px;
+				}
+			}
+			
 			&--text {
 				flex: 0 1 auto;
+				
+				span {
+					display: inline-block;
+					vertical-align: middle;
+					
+					&[class*="i-"] {
+						margin-top: -4px;
+						
+						&._red {
+							color: $color-prime;
+						}
+					}
+				}
 			}
 			
 			&--val {

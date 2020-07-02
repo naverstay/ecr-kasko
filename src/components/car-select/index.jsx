@@ -447,12 +447,12 @@ class CarSelect extends Component {
 					<h1 className="kasko-main__title">Выберите автомобиль</h1> 
 					:
 					<div className="kasko-car-select__description">
+						<div className="kasko-car-select__description--link gl_link">В архив</div>
 						<div className="kasko-car-select__controls">
 							<span onClick={this.toggleCarOptions}
 								  className={"gl_link color_black kasko-car-select__controls--toggle " + (this.state.showCarOptions || !collapseCarInfo ? 'expanded' : 'collapsed')}>Mazda CX-5</span>
 						</div>
 						<div className="kasko-car-select__description--price">1 524 000 ₽</div>
-						<div className="kasko-car-select__description--link gl_link">В архив</div>
 					</div>
 				}
 				
@@ -522,13 +522,6 @@ class CarSelect extends Component {
 										   disabled={this.state.newCar ? "disabled" : ""}
 										   inputmask={carPowerMask}
 										   controlName={'carPrice'} value={this.state.carPrice}/>
-											
-								{/*<FormSelect span={6} onChangeCallback={this.formControlCallback}*/}
-								{/*			options={yearList}*/}
-								{/*			className={this.activeClass('carYear')}*/}
-								{/*			disabled={this.state.newCar ? "disabled" : ""}*/}
-								{/*			placeholder="Год выпуска" controlName={'carYear'}*/}
-								{/*			value={this.state.carYear}/>*/}
 							</Row>
 						}
 						
@@ -539,42 +532,54 @@ class CarSelect extends Component {
 											   placeholder="Пробег, км"
 											   inputmask={carPowerMask}
 											   controlName={'carMileage'} value={this.state.carMileage}/>
-
-									{/*<FormInput span={6} onChangeCallback={this.formControlCallback}*/}
-									{/*		   placeholder="Стоимость, ₽"*/}
-									{/*		   inputmask={carPriceMask}*/}
-									{/*		   controlName={'carPrice'} value={''}/>*/}
 											   
-									<FormInput span={6} onChangeCallback={this.formControlCallback}
-											   placeholder="Регион эксплуатации"
-											   controlName={'carRegion'} value={this.state.carRegion}/>
-
-									<FormInput span={6} onChangeCallback={this.formControlCallback}
-											   placeholder={"Дата начала \n эксплуатации"}
-											   inputmask={dateFormatMask}
-											   controlName={'carUsageStart'} value={this.state.carUsageStart}/>
-								</Row>
-		
-								<Row className="kasko-car-select__controls" gutter={20}>
 									<FormInput span={6} onChangeCallback={this.formControlCallback}
 											   placeholder="Мощность двигателя, л.с."
 											   inputmask={carPowerMask}
 											   controlName={'carPower'} value={this.state.carPower}/>
 
 									<FormSelect span={6} onChangeCallback={this.formControlCallback}
-												options={this.state.carATSList}
-												className={(allFields ? "wrapper-error" : "")}
-												placeholder="Противоугонная система" controlName={'carATS'}
-												value={this.state.carATS}/>
-												
-									<Col span={6} className="checkbox_middle check_v3">
-										<Checkbox onChange={this.onAutoStartChange}>Автозапуск</Checkbox>
-									</Col>
-									
+												options={yearList}
+												className={this.activeClass('carYear')}
+												disabled={this.state.newCar ? "disabled" : ""}
+												placeholder="Год выпуска" controlName={'carYear'}
+												value={this.state.carYear}/>
+
 									<Col span={6} className="kasko-car-select__additional _inactive text_right">
 										<div className="gl_link" onClick={this.toggleAdditionalFields}>Скрыть</div>
 									</Col>
+												
+									{/*<FormInput span={6} onChangeCallback={this.formControlCallback}*/}
+									{/*		   placeholder="Стоимость, ₽"*/}
+									{/*		   inputmask={carPriceMask}*/}
+									{/*		   controlName={'carPrice'} value={''}/>*/}
+											   
+									{/*<FormInput span={6} onChangeCallback={this.formControlCallback}*/}
+									{/*		   placeholder="Регион эксплуатации"*/}
+									{/*		   controlName={'carRegion'} value={this.state.carRegion}/>*/}
+
+									{/*<FormInput span={6} onChangeCallback={this.formControlCallback}*/}
+									{/*		   placeholder={"Дата начала \n эксплуатации"}*/}
+									{/*		   inputmask={dateFormatMask}*/}
+									{/*		   controlName={'carUsageStart'} value={this.state.carUsageStart}/>*/}
 								</Row>
+		
+								{/*<Row className="kasko-car-select__controls" gutter={20}>*/}
+								{/*	<FormInput span={6} onChangeCallback={this.formControlCallback}*/}
+								{/*			   placeholder="Мощность двигателя, л.с."*/}
+								{/*			   inputmask={carPowerMask}*/}
+								{/*			   controlName={'carPower'} value={this.state.carPower}/>*/}
+								
+								{/*	<FormSelect span={6} onChangeCallback={this.formControlCallback}*/}
+								{/*				options={this.state.carATSList}*/}
+								{/*				className={(allFields ? "wrapper-error" : "")}*/}
+								{/*				placeholder="Противоугонная система" controlName={'carATS'}*/}
+								{/*				value={this.state.carATS}/>*/}
+								{/*				*/}
+								{/*	<Col span={6} className="checkbox_middle check_v3">*/}
+								{/*		<Checkbox onChange={this.onAutoStartChange}>Автозапуск</Checkbox>*/}
+								{/*	</Col>*/}
+								{/*</Row>*/}
 							</>
 							: null
 						}

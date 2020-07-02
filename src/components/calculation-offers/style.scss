@@ -79,10 +79,47 @@
 			.ant-select {
 				z-index: 2;
 			}
+			
+			&.no-bdr-bottom {
+				border-bottom-color: transparent;
+			}
 		}
 
-		tr.selected td {
-			background: #deeefa;
+		tr {
+			&.selected td {
+				background: #deeefa;
+			}
+			
+			&.last-row {
+				td {
+					border-bottom-width: 2px;
+				}
+			}
+		}
+		
+		&--sort-holder {
+			position: relative;
+			z-index: 3;
+		}
+		
+		&--sort-wrapper {
+			position: absolute;
+			top: 100%;
+			margin-top: 5px;
+			left: -15px;
+			z-index: 1;
+			background: #fff;
+			border: 1px solid #b5b5b5;
+			padding: 7px 10px;
+		}
+		
+		&--sort-list {
+			padding: 0;
+			margin: 0;
+			
+			li {
+				margin: 10px 0;
+			}
 		}
 		
 		&--col-1 {
@@ -151,6 +188,34 @@
 
 		&--col-10 {
 			width: 17%;
+		}
+	}
+}
+
+.sort-btn {
+	position: relative;
+	padding-right: 25px;
+	cursor: pointer;
+
+	&:before {
+		transition: transform .25s;
+		font-family: $icomoon-font-family;
+		content: $i-chevron_r;
+		font-size: 14px;
+		right: 2px;
+		top: 0;
+		position: absolute;
+	}
+	
+	&._asc {
+		&:before {
+			transform: rotate(90deg)
+		}
+	}
+	
+	&._desc {
+		&:before {
+			transform: rotate(-90deg)
 		}
 	}
 }

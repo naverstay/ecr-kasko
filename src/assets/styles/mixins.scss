@@ -1,3 +1,5 @@
+@import '../ecr_icons/variables';
+
 %h1 {
 	font-style: normal;
 	font-weight: 500;
@@ -382,6 +384,97 @@
 		&:hover {
 			.ant-radio-inner {
 				border-color: $checkbox-color;
+			}
+		}
+
+		&.ant-radio-wrapper-disabled {
+			cursor: not-allowed;
+			
+			.ant-radio-inner {
+				border-color: $checkbox-grey;
+			}
+		}
+	}
+}
+
+%radio_v4 {
+	$checkbox-color: $color-blue-light;
+	$checkbox-grey: $color-grey-dark;
+	
+	.ant-radio-input {
+		position: absolute;
+		opacity: 0;
+
+		&:checked {
+			+ .ant-radio-inner {
+				&:before {
+					font-family: $icomoon-font-family;
+					content: $i-check;
+					background: none;
+					left: -3px;
+					top: 1px;
+					color: #000;
+					border-radius: 0;
+					width: 10px;
+					height: 10px;
+					font-size: 10px;
+				}
+			}
+		}
+	}
+
+	.ant-radio {
+		position: absolute;
+		top: 0;
+		bottom: 0;
+		left: 0;
+		right: 0;
+		z-index: -1;
+
+		&:after {
+			display: none;
+		}
+
+		+ span {
+			@extend %text2;
+			padding: 0;
+			//display: block;
+			text-align: center;
+			display: flex;
+			flex-flow: column nowrap;
+			justify-content: center;
+			height: 100%;
+		}
+
+		&:not(.ant-radio-checked) {
+			+ span {
+				color: #000;
+			}
+		}
+	}
+
+	.ant-radio-inner {
+		position: absolute;
+		top: 0;
+		left: 0;
+		border: 0;
+		box-shadow: none;
+		
+		&:after {
+			display: none;
+		}
+	}
+
+	.ant-radio-wrapper {
+		cursor: pointer;
+		display: inline-block;
+		vertical-align: top;
+		position: relative;
+		padding-left: 17px;
+
+		&:hover {
+			.ant-radio-inner {
+				//border-color: $checkbox-color;
 			}
 		}
 

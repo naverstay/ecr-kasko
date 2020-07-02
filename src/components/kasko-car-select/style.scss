@@ -163,6 +163,7 @@
 		&--link {
 			@extend %text2;
 			color: $color-grey;
+			float: right;
 		}
 	}
 	
@@ -226,6 +227,10 @@
 			}
 		}
 		
+		&.radio_v4 {
+			@extend %radio_v4;
+		}
+		
 		&.mb_0 {
 			margin-bottom: 0;
 		}
@@ -248,7 +253,7 @@
 		
 		.ant-radio-wrapper {
 			@extend %text2;
-			margin-top: 8px;
+			//margin-top: 8px;
 		}
 		
 		&--stretch {

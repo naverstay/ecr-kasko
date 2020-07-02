@@ -161,6 +161,7 @@
 	
 	&__logo {
 		@extend %text2;
+		font-weight: 500;
 		
 		img {
 			display: inline-block;
@@ -247,6 +248,11 @@
 		
 		p {
 			margin: 0;
+		}
+		
+		.ant-checkbox-wrapper {
+			position: relative;
+			z-index: 2;
 		}
 	}
 	
