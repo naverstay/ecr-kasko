@@ -18,6 +18,7 @@ import CarSelect from "../../components/car-select";
 import TabService from "../../components/tab-service";
 import TabOffer from "../../components/tab-offer";
 import ServiceNotices from "../../components/service-notices";
+import AsideBlockProduct from "../../components/aside-block-product";
 
 class Kasko extends Component {
 	constructor(props) {
@@ -63,7 +64,7 @@ class Kasko extends Component {
 		console.log('changeTabState', action);
 
 		if ('tabIndex' in action) {
-			this.setState({tabIndex: action.tabIndex})
+			this.setState({tabIndex: action.tabIndex, newStep: 0})
 		}
 		
 		if ('newStep' in action) {
@@ -208,7 +209,7 @@ class Kasko extends Component {
 										<Tab className={'kasko-tabs__tab'}>
 											<div className="kasko-tab__panel-name"><span
 												className="kasko-tab__panel-name--text"><span>Я</span>&nbsp;<span
-												className={"fz_18 " + (step <= 2 ? 'i-heart-o' : 'i-heart') + (this.state.updatePaymentState > 0 ? ' _red' : '')}></span>&nbsp;<span>КАСАГО</span>
+												className={"fz_18 " + (step <= 2 ? 'i-heart-o' : 'i-heart') + (this.state.updatePaymentState > 0 ? ' _red' : '')}/>&nbsp;<span>КАСАГО</span>
 											</span>
 												{this.state.tabIndex === 1 ?
 													tabStatus
@@ -363,6 +364,16 @@ class Kasko extends Component {
 													: null
 									}
 								</AsideBlock>
+							}
+							
+							{this.state.tabIndex === 0 && step === 3 ?
+								<>
+									<AsideBlockProduct callback={this.changeTabState} price={53719} name='КАСКО'
+													   tabIndex={1} />
+									<AsideBlockProduct callback={this.changeTabState} price={9719} name='ОСАГО'
+													   tabIndex={1} />
+								</>
+								: null
 							}
 		
 							<AsideBlock>

@@ -88,12 +88,13 @@ class OfferRowCombo extends Component {
 									</td>
 								}
 
-								<td>
-									<div className="offer-row__price">{formatMoney(o.price)} ₽</div>
+								<td className="text_right">
+									<div className="offer-row__price">{(o.price)}</div>
+									{o.price2 ? <div className="offer-row__price-small">{(o.price2)}</div> : null}
 								</td>
 
 								<td>
-									<div className="offer-row__fee">{formatMoney(o.dealerFee)} ₽</div>
+									<div className="offer-row__fee">{(o.dealerFee)}</div>
 								</td>
 								
 								<td>

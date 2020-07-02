@@ -488,10 +488,11 @@ class TabOffer extends Component {
 				offers: [
 					{
 						name: '',
-						type: 'КАСКО+ОСАГО',
-						payment: 'Наличные',
-						price: 41450,
-						dealerFee: 4145,
+						type: 'КАСКО+GAP+ОСАГО',
+						credit: false,
+						price: '+4 500',
+						price2: '52 500',
+						dealerFee: '4 145',
 						options: optionsFixtures
 					},
 					{
@@ -500,74 +501,58 @@ class TabOffer extends Component {
 								name: 'Премиум',
 								type: 'КАСКО',
 								credit: false,
-								price: 51450,
-								dealerFee: 5145,
+								price: '51 450',
+								dealerFee: '5 145',
 								options: optionsFixtures
 							},
 							{
 								name: '',
 								type: 'КАСКО',
 								credit: false,
-								price: 31450,
-								dealerFee: 3145,
+								price: '31 450',
+								dealerFee: '3 145',
 								options: optionsFixtures
 							},
 							{
 								name: 'Премиум',
 								type: 'КАСКО',
 								credit: true,
-								price: 51450,
-								dealerFee: 5145,
-								options: optionsFixtures
-							},
-							{
-								name: 'Обычный 10',
-								type: 'КАСКО',
-								payment: 'Наличные',
-								price: 31450,
-								dealerFee: 3145,
-								options: optionsFixtures
-							},
-							{
-								name: '+Премиум',
-								type: 'КАСКО',
-								credit: true,
-								price: 51450,
-								dealerFee: 5145,
+								price: '51 450',
+								dealerFee: '5 145',
 								options: optionsFixtures
 							},
 							{
 								name: 'Обычный 10',
 								type: 'КАСКО',
 								credit: false,
-								price: 31450,
-								dealerFee: 3145,
+								price: '31 450',
+								dealerFee: '3 145',
+								options: optionsFixtures
+							},
+							{
+								name: '+Премиум',
+								type: 'КАСКО',
+								credit: true,
+								price: '51 450',
+								dealerFee: '5 145',
+								options: optionsFixtures
+							},
+							{
+								name: 'Обычный 10',
+								type: 'КАСКО',
+								credit: false,
+								price: '31 450',
+								dealerFee: '3 145',
 								options: optionsFixtures
 							}
 						]
 					},
 					{
-						name: '+ Премиум',
-						type: 'GAP',
-						credit: false,
-						price: 61450,
-						dealerFee: 6145,
-						options: optionsFixtures
-					},
-					{
 						name: '',
 						type: 'ОСАГО',
-						payment: 'Наличные',
-						price: 11450,
-						dealerFee: 1145,
-						options: optionsFixtures
-					},
-					{
-						name: '',
-						type: 'КАСКО',
 						credit: false,
-						price: 31450,
-						dealerFee: 3145,
+						price: '11 450',
+						dealerFee: '1 145',
 						options: optionsFixtures
 					}
 				]
@@ -577,26 +562,70 @@ class TabOffer extends Component {
 				offers: [
 					{
 						name: '',
-						type: 'КАСКО+ОСАГО',
+						type: 'КАСКО+GAP+ОСАГО',
 						credit: false,
-						price: 30450,
-						dealerFee: 3045,
+						price: '30 450',
+						dealerFee: '3 045',
 						options: optionsFixtures
 					},
 					{
-						name: 'Премиум',
-						type: 'КАСКО',
-						payment: 'Наличные',
-						price: 30450,
-						dealerFee: 3045,
-						options: optionsFixtures
+						list: [
+							{
+								name: 'Премиум',
+								type: 'КАСКО',
+								credit: false,
+								price: '51 450',
+								dealerFee: '5 145',
+								options: optionsFixtures
+							},
+							{
+								name: '',
+								type: 'КАСКО',
+								credit: false,
+								price: '31 450',
+								dealerFee: '3 145',
+								options: optionsFixtures
+							},
+							{
+								name: 'Премиум',
+								type: 'КАСКО',
+								credit: true,
+								price: '51 450',
+								dealerFee: '5 145',
+								options: optionsFixtures
+							},
+							{
+								name: 'Обычный 10',
+								type: 'КАСКО',
+								credit: false,
+								price: '31 450',
+								dealerFee: '3 145',
+								options: optionsFixtures
+							},
+							{
+								name: '+Премиум',
+								type: 'КАСКО',
+								credit: true,
+								price: '51 450',
+								dealerFee: '5 145',
+								options: optionsFixtures
+							},
+							{
+								name: 'Обычный 10',
+								type: 'КАСКО',
+								credit: false,
+								price: '31 450',
+								dealerFee: '3 145',
+								options: optionsFixtures
+							}
+						]
 					},
 					{
 						name: '',
 						type: 'ОСАГО',
-						payment: 'Наличные',
-						price: 30450,
-						dealerFee: 3045,
+						credit: false,
+						price: '30 450',
+						dealerFee: '3 045',
 						options: optionsFixtures
 					}
 				]
@@ -605,71 +634,72 @@ class TabOffer extends Component {
 				name: 'МАКС',
 				offers: [
 					{
+						name: '',
+						type: 'КАСКО+GAP+ОСАГО',
+						credit: false,
+						price: '+4 500',
+						price2: '52 500',
+						dealerFee: '4 145',
+						options: optionsFixtures
+					},
+					{
 						list: [
 							{
 								name: 'Премиум',
 								type: 'КАСКО',
 								credit: false,
-								price: 51450,
-								dealerFee: 5145,
+								price: '51 450',
+								dealerFee: '5 145',
 								options: optionsFixtures
 							},
 							{
 								name: '',
 								type: 'КАСКО',
 								credit: false,
-								price: 31450,
-								dealerFee: 3145,
+								price: '31 450',
+								dealerFee: '3 145',
 								options: optionsFixtures
 							},
 							{
 								name: 'Премиум',
 								type: 'КАСКО',
 								credit: true,
-								price: 51450,
-								dealerFee: 5145,
-								options: optionsFixtures
-							},
-							{
-								name: 'Обычный 10',
-								type: 'КАСКО',
-								payment: 'Наличные',
-								price: 31450,
-								dealerFee: 3145,
-								options: optionsFixtures
-							},
-							{
-								name: '+Премиум',
-								type: 'КАСКО',
-								credit: true,
-								price: 51450,
-								dealerFee: 5145,
+								price: '51 450',
+								dealerFee: '5 145',
 								options: optionsFixtures
 							},
 							{
 								name: 'Обычный 10',
 								type: 'КАСКО',
 								credit: false,
-								price: 31450,
-								dealerFee: 3145,
+								price: '31 450',
+								dealerFee: '3 145',
+								options: optionsFixtures
+							},
+							{
+								name: '+Премиум',
+								type: 'КАСКО',
+								credit: true,
+								price: '51 450',
+								dealerFee: '5 145',
+								options: optionsFixtures
+							},
+							{
+								name: 'Обычный 10',
+								type: 'КАСКО',
+								credit: false,
+								price: '31 450',
+								dealerFee: '3 145',
 								options: optionsFixtures
 							}
 						]
 					},
 					{
-						name: 'Премиум',
-						type: 'GAP',
-						payment: 'Наличные',
-						price: 30450,
-						dealerFee: 3045,
-						options: optionsFixtures
-					},
-					{
 						name: '',
 						type: 'ОСАГО',
-						payment: 'Наличные',
-						price: 30450,
-						dealerFee: 3045,
+						credit: false,
+						price: '30 450',
+						dealerFee: '3 045',
 						options: optionsFixtures
 					}
 				]

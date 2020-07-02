@@ -259,6 +259,10 @@
 	&__price {
 		@extend %h2;
 		white-space: nowrap;
+		
+		&-small {
+			@extend %text3;
+		}
 	}
 	
 	&__credit {

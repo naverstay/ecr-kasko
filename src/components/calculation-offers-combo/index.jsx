@@ -78,7 +78,7 @@ class CalculationOffersCombo extends Component {
 								</>
 							:
 								<>
-								<th className={"calculation-offers__table--col-10"}></th>
+								<th className={"calculation-offers__table--col-10"}>&nbsp;</th>
 								<th className="calculation-offers__table--col-4">&nbsp;</th>
 									<th className="calculation-offers__table--col-5">Выбрать</th>
 									<th className="calculation-offers__table--col-6">&nbsp;</th>
