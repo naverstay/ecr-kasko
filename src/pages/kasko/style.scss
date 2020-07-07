@@ -26,6 +26,12 @@ $aside-size: 226px;
 			justify-content: space-between;
 			align-items: center;
 			
+			.highlight_tab & {
+				//border-top-color: $color-blue-light;
+				//border-left-color: $color-blue-light;
+				//border-right-color: $color-blue-light;
+			}
+			
 			&._col {
 				flex-flow: column;
 				align-items: center;
@@ -90,6 +96,11 @@ $aside-size: 226px;
 			justify-content: stretch;
 			border-bottom: 1px solid $color-grey-dark;
 			pointer-events: none;
+
+			.highlight_tab & {
+				border-bottom-color: $color-blue-light;
+				opacity: .3;
+			}
 			
 			&.active {
 				pointer-events: all;

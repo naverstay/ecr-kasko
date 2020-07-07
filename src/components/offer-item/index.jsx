@@ -107,7 +107,8 @@ class OfferItem extends Component {
 	}
 
 	dropdownCallback = (action) => {
-		this.onShowOfferChange()
+		console.log('dropdownCallback', action, this.props.offer);
+		//this.onShowOfferChange()
 		this.props.offer.dropdownCallback && typeof this.props.offer.dropdownCallback === 'function' && this.props.offer.dropdownCallback(action)
 	}
 
@@ -152,15 +153,17 @@ class OfferItem extends Component {
 			slider ?
 				<div key={index} className={"kasko-offer__slide slider " + (credit ? " credit" : "")}>
 					<div ref={this.setWrapperRef} className={"kasko-offer__item" + (offer.collapse ? " collapsable": "") + ((this.state.offerAdded) && !completed ? " active" : "") + (completed ? " completed" : "") + ((this.state.offerCollapsed) ? " collapsed" : "")}>
-						<div onClick={(e) => ((offer.func && typeof offer.func === 'function') ? offer.func() : offer.href ? this.goTo(offer, offer.goto) : (this.toggleActiveOffer(e, index)))}
+						<div
+							onClick={(e) => {
+								e.stopPropagation();
+								this.onShowOfferChange(index);
+								return false;
+							}}
+							//onClick={(e) => ((offer.func && typeof offer.func === 'function') ? offer.func() : offer.href ? this.goTo(offer, offer.goto) : (this.toggleActiveOffer(e, index)))}
 							className={"kasko-offer__item--title" + (offer.button || step > 1 ? " no_arrow" : " toggle_icon__")}>
 
 							{step > 1 ? null :
-								<span className="kasko-offer__item--open" onClick={(e) => {
-									e.stopPropagation();
-									this.onShowOfferChange(index);
-									return false;
-								}}/>
+								<span className="kasko-offer__item--open"/>
 							}
 							{offer.button ? 
 								<span className="kasko-offer__item--btn">{offer.button}</span> 
@@ -187,7 +190,8 @@ class OfferItem extends Component {
 						{(offer.collapse && !this.state.offerCollapsed) ?
 							offer.dropdown === 'KaskotaxPopup' ?
 								<div className="kasko-offer__item--info wide">
-									<KaskotaxPopup updatePaymentState={this.dropdownCallback} popupCloseFunc={this.dropdownClose} dropdown={true}/>
+									<KaskotaxPopup toggleFunc={(e, action) => {this.toggleOfferAdded(e, index, offer)}} updatePaymentState={this.dropdownCallback} popupCloseFunc={this.dropdownClose}
+												   added={this.state.offerAdded} dropdown={true}/>
 								</div>
 							: <div className="kasko-offer__item--info">
 								{offer.dealerFee ? 

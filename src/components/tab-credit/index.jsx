@@ -477,6 +477,11 @@ class TabCredit extends Component {
 					if ('setTab' in action) {
 						this.updateTab(action.setTab)
 					}
+					
+					if ('creditAdd' in action) {
+						this.updateTab(action.setTab)
+						
+					}
 				},
 				price: this.state.activeKasko ? '41450' : '15400',
 				prefix: this.state.activeKasko ? '' : 'от',

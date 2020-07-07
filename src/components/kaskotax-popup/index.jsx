@@ -42,6 +42,7 @@ class KaskotaxPopup extends Component {
 	static propTypes = {
 		children: PropTypes.node,
 		popupCloseFunc: PropTypes.func,
+		toggleFunc: PropTypes.func,
 		updatePaymentState: PropTypes.func,
 		innerWidth: PropTypes.number,
 	};
@@ -86,6 +87,10 @@ class KaskotaxPopup extends Component {
 	popupAction = () => {
 		this.props.updatePaymentState && typeof this.props.updatePaymentState === 'function' && this.props.updatePaymentState({setTab: 1})
 	};
+
+	popupCancel = (e, action) => {
+		this.props.toggleFunc && typeof this.props.toggleFunc === 'function' && this.props.toggleFunc(e, action)
+	};
 	
 	onFinish = values => {
 		this.setState({formBusy: true})
@@ -98,7 +103,7 @@ class KaskotaxPopup extends Component {
 	};
 	
 	render() {
-		const {popupCloseFunc, dropdown} = this.props;
+		const {popupCloseFunc, dropdown, added} = this.props;
 		//const clientPhoneMask = "'mask': '[+7] (999)-999-99-99', 'showMaskOnHover': 'false'"
 		
 		let formDisabled = !this.state.insuranceCompName.length || !this.state[(this.state.manualPriceCheck ? 'insurancePrice' : 'insuranceTaxName')].length || this.state.formBusy
@@ -160,10 +165,17 @@ class KaskotaxPopup extends Component {
 				}
 			</>
 		
-		let calcMode = <Row gutter={20} className="kasko-car-select__controls mb_20 ant-row-center">
-							<Col span={20}>
+		let calcMode = <Row gutter={20} className="kasko-car-select__controls mb_20 ant-row-center ant-space-align-center">
+							<Col span={10}>
 								<Button onClick={() => {this.popupAction()}} className={"w_100p fz_14 " + (this.state.formBusy ? "btn_grey" : "btn_green")}
-								>Или рассчитать <span className="i-chevron_r btn_icon"/></Button>
+								>Рассчитать</Button>
+							</Col>
+							<Col span={10} className="text_center">
+								{added ?
+									<span onClick={(e) => {this.popupCancel(e, {creditAdd: false})}} className="gl_link clr_gray">Убрать из кредита</span>
+									: <Button onClick={(e) => {this.popupCancel(e, {creditAdd: true})}} className={"w_100p fz_14 ant-btn-primary"} disabled={this.state.formBusy ? "disabled" : null}
+										>Добавить в кредит</Button>
+								}
 							</Col>
 						</Row>
 		

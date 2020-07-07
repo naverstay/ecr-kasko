@@ -9,6 +9,7 @@ import KaskoOffers from "../kasko-offers";
 import {formatMoney} from "../../helpers/formatMoney";
 import FormInput from "../form-input";
 import FormSelect from "../form-select";
+import searchTree from "../../helpers/searchTree";
 
 const {Option} = Select;
 //const {YearPicker} = DatePicker;
@@ -26,8 +27,10 @@ class CarSelect extends Component {
 			formBusy: false,
 			carAutoStart: false,
 			carCredit: true,
+			carPriceEdit: false,
 			showCarOptions: this.props.showCarOptions || false,
 			newCar: this.props.fill ? true : null,
+			newCarHighlight: false,
 			allowPayment: this.props.fill,
 			carPrice: this.props.fill ? 1534000 : 0,
 			carPower: this.props.fill ? 245 : 0,
@@ -65,6 +68,9 @@ class CarSelect extends Component {
 		};
 
 		this.state['carYear'] = this.props.fill ? '2015' : this.state.newCar ? '' + (new Date()).getFullYear() : ''
+
+		this.setWrapperRef = this.setWrapperRef.bind(this);
+		this.handleClickOutside = this.handleClickOutside.bind(this);
 	}
 
 	static propTypes = {
@@ -82,16 +88,19 @@ class CarSelect extends Component {
 	}
 
 	formControlCallback = (name, value) => {
-		console.log('formControlCallback', name, value);
-
 		if (name in this.state) {
 			let obj = {}
 			obj[name] = value
 
+			if (name === 'carPrice') {
+				obj[name] = parseInt((value + '').replace(/\D/g, ''))
+			}
+			
 			this.setState(obj)
-			this.checkReadyState()
+			!this.state.carPriceEdit && this.checkReadyState()
+			
 		} else {
-			console.log('no name in state', name);
+			console.log('no ', name, ' in state', value);
 		}
 		
 		switch (name) {
@@ -118,6 +127,8 @@ class CarSelect extends Component {
 				this.removeActiveField('carYear')
 				this.addActiveField('carNumber')
 				break
+			
+			
 		}
 	};
 	
@@ -145,7 +156,7 @@ class CarSelect extends Component {
 						break;
 					}
 				}
-
+				
 				this.setState({carFound: allFieldsReady, allowPayment: allFieldsReady, carPrice: (allFieldsReady ? 1534000 : 0)})
 
 				setTimeout(() => {
@@ -243,10 +254,12 @@ class CarSelect extends Component {
 			carCredit: !!e.target.value
 		});
 	};
-	
-	componentDidMount() {
-		this.props.allFields && this.setState({showAdditional: true, newCar: false})
-	}
+
+	togglePriceEdit = e => {
+		this.setState({
+			carPriceEdit: !this.state.carPriceEdit
+		});
+	};
 
 	componentDidUpdate() {
 		document.querySelectorAll('[data-inputmask]').forEach(function (inp) {
@@ -270,7 +283,33 @@ class CarSelect extends Component {
 	updateImage = (img) => {
 		if (this.props.imageCallback && this.state.carFound) this.props.imageCallback(img)
 	};
+
+
+	componentDidMount() {
+		this.props.allFields && this.setState({showAdditional: true, newCar: false})
+		document.addEventListener('mousedown', this.handleClickOutside);
+	}
+
+	componentWillUnmount() {
+		document.removeEventListener('mousedown', this.handleClickOutside);
+	}
+
+	setWrapperRef(node) {
+		this.wrapperRef = node;
+	}
 	
+	handleClickOutside(event) {
+		if (this.state.carPriceEdit) {
+			if ((event.target.tagName + '').toLowerCase() !== 'input' && !searchTree(this.wrapperRef, event.target)) {
+				this.setState({carPriceEdit: false})
+			}
+		}
+		
+		if (this.state.newCar === null) {
+			this.setState({newCarHighlight: true})
+		}
+	}
+
 	render() {
 		const {allFields, step, hideOffers, fill, collapseCarInfo} = this.props;
 		let {image} = this.props;
@@ -450,15 +489,28 @@ class CarSelect extends Component {
 						<div className="kasko-car-select__description--link gl_link">В архив</div>
 						<div className="kasko-car-select__controls">
 							<span onClick={this.toggleCarOptions}
-								  className={"gl_link color_black kasko-car-select__controls--toggle " + (this.state.showCarOptions || !collapseCarInfo ? 'expanded' : 'collapsed')}>Mazda CX-5</span>
+								  className={"gl_link color_black kasko-car-select__controls--toggle " + (this.state.showCarOptions || !collapseCarInfo ? 'expanded' : 'collapsed')}
+							>Mazda CX-5 <span className="kasko-car-select__controls--equipment">2.0 MPI - 6AT</span>
+							</span>
 						</div>
-						<div className="kasko-car-select__description--price">1 524 000 ₽</div>
+						
+						<Row gutter={20}>
+							<Col span={6} ref={this.setWrapperRef} className={this.state.carPriceEdit ? "kasko-car-select__description--price-edit" : ""}>
+								{this.state.carPriceEdit ?
+									<FormInput span={null} onChangeCallback={this.formControlCallback}
+											   placeholder="Стоимость, ₽"
+											   inputmask={carPriceMask}
+											   controlName={'carPrice'} value={this.state.carPrice}/>
+									: <div onClick={() => {this.togglePriceEdit(true)}} className="kasko-car-select__description--price">{formatMoney(this.state.carPrice)} ₽</div>
+								}
+							</Col>
+						</Row>
 					</div>
 				}
 				
 				{this.state.showCarOptions || !this.state.carFound || !collapseCarInfo ? 
 					<>
-						<div className="kasko-car-select__controls radio_v2">
+						<div className={"kasko-car-select__controls radio_v2" + (this.state.newCarHighlight && this.state.newCar === null ? " highlight_radio" : "")}>
 							<Radio.Group defaultValue={step === 1 ? (this.state.reopen ? (this.state.newCar ? 1 : 0) : null) : this.state.newCar ? 1 : null} onChange={this.onCarNewChange}>
 								<Row gutter={20}>
 									<Col>

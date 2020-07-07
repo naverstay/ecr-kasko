@@ -152,12 +152,27 @@
 		.kasko-car-select__controls--toggle {
 			@extend %h1;
 			margin-left: -17px;
-			text-decoration: underline;
+			text-decoration: none;
+			
+			&:after {
+				content: '';
+				position: absolute;
+				bottom: 4px;
+				right: 0;
+				left: 20px;
+				height: 1px;
+				background: #000;
+			}
 		}
 		
 		&--price {
 			@extend %h2;
 			margin-bottom: 15px;
+		}
+		
+		&--price-edit {
+			margin-top: -8px;
+			margin-left: -20px;
 		}
 		
 		&--link {
@@ -192,6 +207,10 @@
 		flex-flow: row;
 		margin-bottom: 15px;
 		
+		&--equipment {
+			font-size: 14px;
+		}
+		
 		&.check_v1 {
 			@extend %check_v1;
 		}
@@ -208,6 +227,10 @@
 			@extend %radio_v2;
 			margin-bottom: 0;
 
+			&.highlight_radio .ant-radio-inner {
+				border-color: $color-blue-light;
+			}
+			
 			.ant-col {
 				margin-bottom: 15px;
 			}

@@ -189,10 +189,10 @@ class Kasko extends Component {
 					<Col span={16} className="kasko-main">
 						{tabs ?
 							<>
-								<CarSelect collapseCarInfo={this.state.tabIndex !== null} showCarOptions={(this.state.tabIndex !== null)}
+								<CarSelect collapseCarInfo={this.state.carFound} showCarOptions={(this.state.tabIndex !== null)}
 										   imageCallback={this.imageCallback} step={step} image={this.state.carImage}/>
 								<Tabs selectedIndex={this.state.tabIndex === null ? -1 : this.state.tabIndex}
-									  onSelect={this.updateTab} className={'kasko-tabs__wrapper'}>
+									  onSelect={this.updateTab} className={'kasko-tabs__wrapper' + (this.state.carFound && this.state.tabIndex === null ? ' highlight_tab' : '')}>
 									<TabList
 										className={'kasko-tabs__list' + (this.state.carFound ? ' active' : '') + (this.state.tabIndex === null ? '' : ' selected')}>
 										<Tab className={'kasko-tabs__tab'}>
@@ -209,7 +209,7 @@ class Kasko extends Component {
 										<Tab className={'kasko-tabs__tab'}>
 											<div className="kasko-tab__panel-name"><span
 												className="kasko-tab__panel-name--text"><span>Я</span>&nbsp;<span
-												className={"fz_18 " + (step <= 2 ? 'i-heart-o' : 'i-heart') + (this.state.updatePaymentState > 0 ? ' _red' : '')}/>&nbsp;<span>КАСАГО</span>
+												className={"fz_18 i-heart" + ' _red'}/>&nbsp;<span>КАСАГО</span>
 											</span>
 												{this.state.tabIndex === 1 ?
 													tabStatus
