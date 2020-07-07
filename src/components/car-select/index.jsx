@@ -490,7 +490,7 @@ class CarSelect extends Component {
 						<div className="kasko-car-select__controls">
 							<span onClick={this.toggleCarOptions}
 								  className={"gl_link color_black kasko-car-select__controls--toggle " + (this.state.showCarOptions || !collapseCarInfo ? 'expanded' : 'collapsed')}
-							>Mazda CX-5 <span className="kasko-car-select__controls--equipment">2.0 MPI - 6AT</span>
+							><span>Mazda CX-5</span> <span className="kasko-car-select__controls--equipment">2.0 MPI - 6AT</span>
 							</span>
 						</div>
 						

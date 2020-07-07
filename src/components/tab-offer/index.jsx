@@ -489,9 +489,9 @@ class TabOffer extends Component {
 					{
 						name: '',
 						type: 'КАСКО+GAP+ОСАГО',
-						credit: false,
-						price: '+4 500',
-						price2: '52 500',
+						credit: null,
+						megashare: '-7%',
+						price: '52 500',
 						dealerFee: '4 145',
 						options: optionsFixtures
 					},
@@ -550,7 +550,7 @@ class TabOffer extends Component {
 					{
 						name: '',
 						type: 'ОСАГО',
-						credit: false,
+						credit: null,
 						price: '11 450',
 						dealerFee: '1 145',
 						options: optionsFixtures
@@ -563,7 +563,7 @@ class TabOffer extends Component {
 					{
 						name: '',
 						type: 'КАСКО+GAP+ОСАГО',
-						credit: false,
+						credit: null,
 						price: '30 450',
 						dealerFee: '3 045',
 						options: optionsFixtures
@@ -623,7 +623,7 @@ class TabOffer extends Component {
 					{
 						name: '',
 						type: 'ОСАГО',
-						credit: false,
+						credit: null,
 						price: '30 450',
 						dealerFee: '3 045',
 						options: optionsFixtures
@@ -636,9 +636,9 @@ class TabOffer extends Component {
 					{
 						name: '',
 						type: 'КАСКО+GAP+ОСАГО',
-						credit: false,
-						price: '+4 500',
-						price2: '52 500',
+						credit: null,
+						share: 'Экономия 4 500',
+						price: '52 500',
 						dealerFee: '4 145',
 						options: optionsFixtures
 					},
@@ -697,7 +697,7 @@ class TabOffer extends Component {
 					{
 						name: '',
 						type: 'ОСАГО',
-						credit: false,
+						credit: null,
 						price: '30 450',
 						dealerFee: '3 045',
 						options: optionsFixtures

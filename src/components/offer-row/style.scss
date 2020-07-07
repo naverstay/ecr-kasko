@@ -259,9 +259,38 @@
 	&__price {
 		@extend %h2;
 		white-space: nowrap;
+		position: relative;
+		
+		&-megashare {
+			position: absolute;
+			right: 100%;
+			margin-right: 10px;
+			top: -7px;
+			text-align: center;
+			width: 36px;
+			height: 32px;
+			color: $color-prime;
+			font-size: 12px;
+			line-height: 30px;
+
+			&:before {
+				font-family: $icomoon-font-family;
+				content: $i-heart-o;
+				position: absolute;
+				left: 0;
+				right: 0;
+				text-align: center;
+				top: 50%;
+				transform: translate(0, -50%);
+				font-size: 36px;
+				line-height: 1;
+			}
+		}
 		
 		&-small {
-			@extend %text3;
+			@extend %text2;
+			color: $color-prime;
+			margin-left: -30px;
 		}
 	}
 	

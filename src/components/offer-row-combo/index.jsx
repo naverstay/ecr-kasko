@@ -89,8 +89,10 @@ class OfferRowCombo extends Component {
 								}
 
 								<td className="text_right">
-									<div className="offer-row__price">{(o.price)}</div>
-									{o.price2 ? <div className="offer-row__price-small">{(o.price2)}</div> : null}
+									<div className="offer-row__price">
+										{o.megashare ? <div className="offer-row__price-megashare">{o.megashare}</div> : null}
+										{(o.price)}</div>
+									{o.share ? <div className="offer-row__price-small">{(o.share)}</div> : null}
 								</td>
 
 								<td>
@@ -99,7 +101,7 @@ class OfferRowCombo extends Component {
 								
 								<td>
 									<div className="offer-row__fee">
-										<Checkbox disabled={completed || waiting} defaultChecked={o.credit ? "checked" : null} onChange={this.creditChange}/>
+										<Checkbox disabled={completed || waiting || o.credit === null} defaultChecked={o.credit ? "checked" : null} onChange={this.creditChange}/>
 										
 										{/*{o.payment && Array.isArray(o.payment) && o.payment.length > 1 ?*/}
 										{/*	<Select*/}

@@ -154,14 +154,8 @@
 			margin-left: -17px;
 			text-decoration: none;
 			
-			&:after {
-				content: '';
-				position: absolute;
-				bottom: 4px;
-				right: 0;
-				left: 20px;
-				height: 1px;
-				background: #000;
+			span:first-child {
+				text-decoration: underline;
 			}
 		}
 		
@@ -209,6 +203,7 @@
 		
 		&--equipment {
 			font-size: 14px;
+			color: $color-grey;
 		}
 		
 		&.check_v1 {

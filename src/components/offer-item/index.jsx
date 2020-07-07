@@ -155,10 +155,20 @@ class OfferItem extends Component {
 					<div ref={this.setWrapperRef} className={"kasko-offer__item" + (offer.collapse ? " collapsable": "") + ((this.state.offerAdded) && !completed ? " active" : "") + (completed ? " completed" : "") + ((this.state.offerCollapsed) ? " collapsed" : "")}>
 						<div
 							onClick={(e) => {
-								e.stopPropagation();
-								this.onShowOfferChange(index);
-								return false;
+								if (offer.dropdown === 'KaskotaxPopup') {
+									e.stopPropagation();
+									this.onShowOfferChange(index);
+									return false;
+								} else {
+									(offer.func && typeof offer.func === 'function') ? offer.func() : offer.href ? this.goTo(offer, offer.goto) : (this.toggleActiveOffer(e, index))
+								}
 							}}
+							
+							//onClick={(e) => {
+							//	e.stopPropagation();
+							//	this.onShowOfferChange(index);
+							//	return false;
+							//}}
 							//onClick={(e) => ((offer.func && typeof offer.func === 'function') ? offer.func() : offer.href ? this.goTo(offer, offer.goto) : (this.toggleActiveOffer(e, index)))}
 							className={"kasko-offer__item--title" + (offer.button || step > 1 ? " no_arrow" : " toggle_icon__")}>
 

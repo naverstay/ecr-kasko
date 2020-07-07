@@ -390,6 +390,11 @@ $spinner_time: 1s;
 	}
 }
 
+.ant-checkbox-disabled .ant-checkbox-inner {
+	background-color: #fff;
+	opacity: .3;
+}
+
 .input-error {
 	color: $color-prime !important;
 	border-color: $color-prime !important;
