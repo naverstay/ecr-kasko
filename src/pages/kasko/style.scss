@@ -94,16 +94,17 @@ $aside-size: 226px;
 		&__list {
 			display: flex;
 			justify-content: stretch;
-			border-bottom: 1px solid $color-grey-dark;
+			border-bottom: 1px solid $color-blue-light;
 			pointer-events: none;
+			opacity: .3;
 
 			.highlight_tab & {
-				border-bottom-color: $color-blue-light;
-				opacity: .3;
+				opacity: 1;
 			}
 			
 			&.active {
 				pointer-events: all;
+				opacity: 1;
 
 				.kasko-tab__panel-name {
 					color: #000;
