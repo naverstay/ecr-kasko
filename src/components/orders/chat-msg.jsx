@@ -19,7 +19,7 @@ class ChatMsg extends Component {
 	}
 
 	openMsgHandle(e) {
-		this.setState({msgOpen: true});
+		this.setState({msgOpen: !this.state.msgOpen});
 	}
 
 	closeMsgHandle(e) {
@@ -56,9 +56,9 @@ class ChatMsg extends Component {
 							{msg.info}
 						</div>
 						<ul className="chat-msg__controls">
-							<li className="chat-msg__control">
-								<div className="chat-msg__btn" onClick={(e) => {this.closeMsgHandle(e)}}>Скрыть</div>
-							</li>
+							{/*<li className="chat-msg__control">*/}
+							{/*	<div className="chat-msg__btn" onClick={(e) => {this.closeMsgHandle(e)}}>Скрыть</div>*/}
+							{/*</li>*/}
 							<li className="chat-msg__control">
 								<div className="chat-msg__btn">К заявке</div>
 							</li>

@@ -729,14 +729,24 @@ class TabOffer extends Component {
 					name: 'Ингосстрах',
 					offers: [
 						{
-							name: 'Обычный',
-							type: 'КАСКО+ОСАГО',
+							name: 'Премиум',
+							type: 'КАСКО',
 							payment: 'Наличные',
+							price: 41450,
+							dealerFee: 4145,
+							share: 'Экономия 4 500',
+							dateStart: '20.02.19',
+							dateEnd: '19.02.20',
+							options: optionsFixtures
+						},
+						{
+							type: 'ОСАГО',
+							payment: 'Наличные',
+							nobill: true,
 							price: 41450,
 							dealerFee: 4145,
 							dateStart: '20.02.19',
 							dateEnd: '19.02.20',
-							options: optionsFixtures
 						}
 					]
 				}
@@ -762,49 +772,56 @@ class TabOffer extends Component {
 				<>
 					{/*<div className="kasko-car-select__caption">{'Добавить в КАСКО'}</div>*/}
 
-					<KaskoOffers step={step} active={[0, 1, 2, 3, 4, 5, 6]}
+					<KaskoOffers step={step} active={[0, 1, 4, 5, 6]}
 								 onOfferSelect={this.offersUpdate} credit={true} slider={true}
 								 offersList={[
 									 {
 										 name: 'GAP',
 										 price: 11400,
 										 prefix: '',
+										 plus: true,
 										 suffix: '₽'
 									 },
 									 {
 										 name: 'Несчастный случай',
 										 price: 10410,
 										 prefix: '',
+										 plus: true,
 										 suffix: '₽'
 									 },
 									 {
 										 name: 'Аварийный комиссар',
 										 price: 10420,
 										 prefix: '',
+										 plus: true,
 										 suffix: '₽'
 									 },
 									 {
 										 name: 'Стекла без справок',
 										 price: 10430,
 										 prefix: '',
+										 plus: true,
 										 suffix: '₽'
 									 },
 									 {
 										 name: 'ОСАГО',
 										 price: 10410,
 										 prefix: '',
+										 plus: true,
 										 suffix: '₽'
 									 },
 									 {
 										 name: 'Шоколад',
 										 price: 10420,
 										 prefix: '',
+										 plus: true,
 										 suffix: '₽'
 									 },
 									 {
 										 name: '123',
 										 price: 10430,
 										 prefix: '',
+										 plus: true,
 										 suffix: '₽'
 									 }
 								 ]}/>
@@ -985,15 +1002,26 @@ class TabOffer extends Component {
 											name: 'Ингосстрах',
 											offers: [
 												{
-													name: 'Обычный',
-													type: 'КАСКО+ОСАГО',
+													name: 'Премиум',
+													type: 'КАСКО',
 													document: 'СС 12345678',
 													payment: 'Наличные',
 													price: 41450,
 													dealerFee: 4145,
+													share: 'Экономия 4 500',
 													dateStart: '20.02.19',
 													dateEnd: '19.02.20',
 													options: optionsFixtures
+												},
+												{
+													name: 'Обычный',
+													type: 'ОСАГО',
+													document: 'СС 87654321',
+													price: 41450,
+													dealerFee: 4145,
+													nobill: true,
+													dateStart: '20.02.19',
+													dateEnd: '19.02.20',
 												}
 											]
 										}

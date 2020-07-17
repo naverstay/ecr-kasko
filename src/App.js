@@ -14,58 +14,61 @@ import Service from "./pages/service";
 function App() {
   return (
       <BrowserRouter>
-            <div className="dev-navigation">
-              <ul>
-                  {/*<li>*/}
-                  {/*    <Link to="/">home</Link>*/}
-                  {/*</li>*/}
-                  {/*<li>*/}
-                  {/*    <Link to="/kasko">kasko</Link>*/}
-                  {/*</li>*/}
-                  {/*<li>*/}
-                  {/*    <Link to="/kasko_payment">kasko_payment</Link>*/}
-                  {/*</li>*/}
-                  {/*<li>*/}
-                  {/*    <Link to="/kasko_done">kasko_done</Link>*/}
-                  {/*</li>*/}
-                  {/*<li>*/}
-                  {/*    <Link to="/osago">osago</Link>*/}
-                  {/*</li>*/}
-                  {/*<li>*/}
-                  {/*    <Link to="/osago_payment">osago_payment</Link>*/}
-                  {/*</li>*/}
-                  {/*<li>*/}
-                  {/*    <Link to="/osago_done">osago_done</Link>*/}
-                  {/*</li>*/}
-                  {/*<li>*/}
-                  {/*    <Link to="/credit">credit</Link>*/}
-                  {/*</li>*/}
-                  {/*<li>*/}
-                  {/*    <Link to="/credit_kasko">credit_kasko</Link>*/}
-                  {/*</li>*/}
-                  {/*<li>*/}
-                  {/*    <Link to="/service">service</Link>*/}
-                  {/*</li>*/}
-                  {/*<li>*/}
-                  {/*    <Link to="/service_payment">service_payment</Link>*/}
-                  {/*</li>*/}
-                  {/*<li>*/}
-                  {/*    <Link to="/service_done">service_done</Link>*/}
-                  {/*</li>*/}
-                  <li>
-                      <Link to="/chery">chery</Link>
-                  </li>
-                  <li>
-                      <Link to="/orders">orders</Link>
-                  </li>
-                  <li>
-                      <Link to="/details">details</Link>
-                  </li>
-                  <li>
-                      <Link to="/tabs">tabs</Link>
-                  </li>
-              </ul>
-            </div>
+          {process.env.NODE_ENV !== 'production' ? 
+              <div className="dev-navigation">
+                  <ul>
+                      {/*<li>*/}
+                      {/*    <Link to="/">home</Link>*/}
+                      {/*</li>*/}
+                      {/*<li>*/}
+                      {/*    <Link to="/kasko">kasko</Link>*/}
+                      {/*</li>*/}
+                      {/*<li>*/}
+                      {/*    <Link to="/kasko_payment">kasko_payment</Link>*/}
+                      {/*</li>*/}
+                      {/*<li>*/}
+                      {/*    <Link to="/kasko_done">kasko_done</Link>*/}
+                      {/*</li>*/}
+                      {/*<li>*/}
+                      {/*    <Link to="/osago">osago</Link>*/}
+                      {/*</li>*/}
+                      {/*<li>*/}
+                      {/*    <Link to="/osago_payment">osago_payment</Link>*/}
+                      {/*</li>*/}
+                      {/*<li>*/}
+                      {/*    <Link to="/osago_done">osago_done</Link>*/}
+                      {/*</li>*/}
+                      {/*<li>*/}
+                      {/*    <Link to="/credit">credit</Link>*/}
+                      {/*</li>*/}
+                      {/*<li>*/}
+                      {/*    <Link to="/credit_kasko">credit_kasko</Link>*/}
+                      {/*</li>*/}
+                      {/*<li>*/}
+                      {/*    <Link to="/service">service</Link>*/}
+                      {/*</li>*/}
+                      {/*<li>*/}
+                      {/*    <Link to="/service_payment">service_payment</Link>*/}
+                      {/*</li>*/}
+                      {/*<li>*/}
+                      {/*    <Link to="/service_done">service_done</Link>*/}
+                      {/*</li>*/}
+                      <li>
+                          <Link to="/chery">chery</Link>
+                      </li>
+                      <li>
+                          <Link to="/orders">orders</Link>
+                      </li>
+                      <li>
+                          <Link to="/details">details</Link>
+                      </li>
+                      <li>
+                          <Link to="/tabs">tabs</Link>
+                      </li>
+                  </ul>
+                </div>
+              : null
+          }
           
             <Route exact path="/" render={(routeProps) => (
                 <PageLayout>

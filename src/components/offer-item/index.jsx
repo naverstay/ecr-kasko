@@ -170,10 +170,14 @@ class OfferItem extends Component {
 							//	return false;
 							//}}
 							//onClick={(e) => ((offer.func && typeof offer.func === 'function') ? offer.func() : offer.href ? this.goTo(offer, offer.goto) : (this.toggleActiveOffer(e, index)))}
-							className={"kasko-offer__item--title" + (offer.button || step > 1 ? " no_arrow" : " toggle_icon__")}>
+							className={"kasko-offer__item--title" + (offer.plus || offer.button || step > 1 ? " no_arrow" : " toggle_icon__") + (offer.plus ? " toggle_plus" : "")}>
 
-							{step > 1 ? null :
+							{offer.plus || step > 1 ? null :
 								<span className="kasko-offer__item--open"/>
+							}
+							{offer.plus ?
+								<span className={"kasko-offer__item--toggle"}/>
+								: null
 							}
 							{offer.button ? 
 								<span className="kasko-offer__item--btn">{offer.button}</span> 
@@ -188,7 +192,7 @@ class OfferItem extends Component {
 							{step > 1 ? null
 								:
 								<span>
-									<span className="kasko-offer__item--price">{price}</span>&nbsp;{offer.suffix}
+									<span className="kasko-offer__item--price">{price}</span> {offer.plus ? null : <>&nbsp;{offer.suffix}</>}
 								</span>
 							}
 						</div>

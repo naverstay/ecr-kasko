@@ -3,9 +3,8 @@ import {Link} from "react-router-dom";
 
 import './style.scss';
 import PropTypes from "prop-types";
-import KaskoNotice from "../kasko-notice";
 
-class KaskoNotices extends Component {
+class KaskoNotice extends Component {
 	constructor(props) {
 		super(props);
 		this.state = {
@@ -28,7 +27,7 @@ class KaskoNotices extends Component {
 	}
 
 	render() {
-		const {noticeList, type, status, step, credit, kasko, osago, search, productList} = this.props;
+		const {noticeList, type, status, step, credit, kasko, osago, search, price, product, doc} = this.props;
 		const statusClasses = {
 			0: 'calculation',
 			1: 'waiting',
@@ -75,13 +74,12 @@ class KaskoNotices extends Component {
 			}
 		}
 		
-		return (
-			type ?
+		return (type ?
 			<div className="kasko-notice">
 				<div className={"kasko-notice" + (this.state.noticeOpened ? " open" : "")}>
 					<div className="kasko-notice__head">
 						<div className={"kasko-notice__caption offer" + (this.state.noticeOpened ? " open" : "")}
-							 onClick={this.toggleOpened}>{(type).toUpperCase()}</div>
+							 onClick={this.toggleOpened}>{(product).toUpperCase()}</div>
 						<div className={"kasko-notice__status " + (statusClasses[status])}>{statusNames[status]}</div>
 					</div>
 					<ul className="kasko-notice__progress">
@@ -95,8 +93,8 @@ class KaskoNotices extends Component {
 										<div className="kasko-notice__price--value">
 											{step >= 2 ?
 												<>
-													<span>41 450 ₽</span>
-													<span className="kasko-notice__status calculation">Наличные</span>
+													<span>{price}</span>
+													{/*<span className="kasko-notice__status calculation">Наличные</span>*/}
 												</>
 												: null}
 										</div>
@@ -132,39 +130,13 @@ class KaskoNotices extends Component {
 									{/*</li>*/}
 								</ul>
 							:
-							kasko ?
-								<ul className={"kasko-notice__price"}>
-									<li>
-										<div className="kasko-notice__price--label">Стоимость</div>
-										<div className="kasko-notice__price--value">
-											{step >= 2 ? <span>41 450 ₽</span> : null}
-										</div>
-									</li>
-									<li>
-										<div className="kasko-notice__price--label">СК</div>
-										<div
-											className="kasko-notice__price--value">{step >= 2 ? 'Ингосстрах' : ''}</div>
-									</li>
-									<li>
-										<div className="kasko-notice__price--label">Срок</div>
-										<div
-											className="kasko-notice__price--value">{step >= 2 ? <>21.09.19<br/>20.09.20</> : ''}</div>
-									</li>
-									<li>
-										<div className="kasko-notice__price--label">Полис</div>
-										<div className="kasko-notice__price--value"/>
-									</li>
-								</ul>
-								:
 								<ul className={"kasko-notice__price"}>
 									<li>
 										<div className="kasko-notice__price--label">Стоимость</div>
 										<div className="kasko-notice__price--value">
 											{step >= 2 ? 
 												<>
-													<span>41 450 ₽</span>
-													{osago ? null : <span
-														className="kasko-notice__status calculation">Наличные</span>}
+													<span>{price}</span>
 												</>
 												: null}
 										</div>
@@ -178,11 +150,11 @@ class KaskoNotices extends Component {
 									<li>
 										<div className="kasko-notice__price--label">Срок</div>
 										<div
-											className="kasko-notice__price--value">{step >= 2 ? <>21.09.19<br/>20.09.20</> : ''}</div>
+											className="kasko-notice__price--value">{step >= 2 ? <>21.09.19<br/>20.09.20</> : null}</div>
 									</li>
 									<li>
 										<div className="kasko-notice__price--label">Полис</div>
-										<div className="kasko-notice__price--value"/>
+										<div className="kasko-notice__price--value">{step === 3 ? doc || '' : null}</div>
 									</li>
 								</ul>
 						: null}
@@ -212,4 +184,4 @@ class KaskoNotices extends Component {
 	}
 }
 
-export default KaskoNotices;
+export default KaskoNotice;

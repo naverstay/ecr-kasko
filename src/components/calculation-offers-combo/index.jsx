@@ -60,12 +60,10 @@ class CalculationOffersCombo extends Component {
 										}
 									</div>
 							</th>
-							<th className={"calculation-offers__table--col-10" + ((completed || waiting) ? " small" : "")}>
+							<th className={"calculation-offers__table--col-8"}>
 								<span onClick={this.openSortType} className={"sort-btn " + (!this.state.showSortType ? '_asc' : '_desc')}>Тип</span>
 							</th>
-							{(completed || waiting) ? null :
-								<th className={"calculation-offers__table--col-8 text_left" + ((completed || waiting) ? " small" : "")}>Тариф</th>
-							}
+							<th className={"calculation-offers__table--col-10 text_left" + ((completed || waiting) ? " small" : "")}>Тариф</th>
 							<th className={"calculation-offers__table--col-5" + ((completed || waiting) ? " small" : "")}>Стоимость</th>
 							<th className={"calculation-offers__table--col-5" + ((completed || waiting) ? " small" : "")}>Доход <br />дилера</th>
 							<th className={"calculation-offers__table--col-5" + ((completed || waiting) ? " small" : "")}>В кредит</th>

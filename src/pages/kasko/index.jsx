@@ -19,6 +19,7 @@ import TabService from "../../components/tab-service";
 import TabOffer from "../../components/tab-offer";
 import ServiceNotices from "../../components/service-notices";
 import AsideBlockProduct from "../../components/aside-block-product";
+import KaskoNotice from "../../components/kasko-notice";
 
 class Kasko extends Component {
 	constructor(props) {
@@ -352,18 +353,38 @@ class Kasko extends Component {
 							{showOffers === false ?
 								null
 								:
-								<AsideBlock>
+								<>
 									{this.state.tabIndex === 0 ?
-										<KaskoNotices step={step} credit={true} status={0} type={showOffers}/>
+										<AsideBlock>
+											<KaskoNotices step={step} credit={true} status={0} type={showOffers}/>
+										</AsideBlock>
 										: this.state.tabIndex === 1 ?
-											<KaskoNotices step={step} status={step === 2 ? 1 : step === 3 ? 3 : 0} type={showOffers}/>
+											<>
+												<AsideBlock>
+													<KaskoNotice step={step}
+																 doc='СС 12345678'
+																 status={step === 2 ? 1 : step === 3 ? 3 : 0}
+																 product='КАСКО' price='41 450 ₽' type={showOffers}/>
+												</AsideBlock>
+												<AsideBlock>
+													<KaskoNotice step={step}
+																 doc='СС 87654321'
+																 status={step === 2 ? 1 : step === 3 ? 3 : 0}
+																 product='ОСАГО' price='11 450 ₽'
+																 type={showOffers}/>
+												</AsideBlock>
+											</>
 											: this.state.tabIndex === 2 ?
-												<KaskoNotices osago={true} step={step} status={step === 2 ? 1 : step === 3 ? 3 : 0} type={showOffers}/> 
+												<AsideBlock><KaskoNotices osago={true} step={step}
+																		  status={step === 2 ? 1 : step === 3 ? 3 : 0}
+																		  type={showOffers}/></AsideBlock> 
 												: this.state.tabIndex === 3 ?
-													<ServiceNotices step={step} status={step === 2 ? 1 : step === 3 ? 3 : 0} type={showOffers}/>
+													<AsideBlock><ServiceNotices step={step}
+																				status={step === 2 ? 1 : step === 3 ? 3 : 0}
+																				type={showOffers}/></AsideBlock>
 													: null
 									}
-								</AsideBlock>
+								</>
 							}
 							
 							{this.state.tabIndex === 0 && step === 3 ?

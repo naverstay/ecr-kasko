@@ -82,11 +82,9 @@ class OfferRowCombo extends Component {
 									{(!this.state.rowsCollapsed && (i === offers.length - 1) && offers.length > 1) ? <div onClick={this.onCollapseToggle} className="offer-row__hint gl_link">{lessLink}</div> : null}
 								</td>
 
-								{(completed || waiting) ? null :
-									<td>
-										<div className="offer-row__fee text_left">{o.name}</div>
-									</td>
-								}
+								<td>
+									<div className="offer-row__fee text_left">{o.name}</div>
+								</td>
 
 								<td className="text_right">
 									<div className="offer-row__price">
@@ -129,7 +127,7 @@ class OfferRowCombo extends Component {
 										<td className="text_left">
 											<div className="offer-row__documents">
 												<div className="gl_link color_black">{o.document}</div>
-												<div className="offer-row__bill gl_link">Счет на оплату</div>
+												{o.nobill ? null : <div className="offer-row__bill gl_link">Счет на оплату</div>}
 											</div>
 										</td>
 										<td>
@@ -147,13 +145,13 @@ class OfferRowCombo extends Component {
 								}
 
 								<td>
-									<div onClick={() => this.addOptionFlag(i)} className="offer-row__link"/>
+									{'options' in o && o.options.length ? <div onClick={() => this.addOptionFlag(i)} className="offer-row__link"/> : <>&nbsp;</>}
 								</td>
 							</tr>
-							{showOptions ?
+							{showOptions && 'options' in o && o.options.length ?
 								<tr key={i + 100000} className={(offerSelected ? "selected" : "") + (lastRow ? ' last-row' : '')}>
 									<td colSpan={(completed || waiting) ? 2 : 3}>&nbsp;</td>
-									<td colSpan={(completed || waiting) ? 6 : 5}>
+									<td colSpan={(completed || waiting) ? 7 : 6}>
 										<p className="text_left" style={{marginBottom: '15px'}}>Условия КАСКО:</p>
 										<ul className="offer-row__options">
 											{o.options.map((opt, k) => <li key={k}>{opt}</li>)}
