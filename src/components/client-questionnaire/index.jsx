@@ -35,7 +35,14 @@ class ClientQuestionnaire extends Component {
 		return (
 			<div className="client-questionnaire">
 				<Row gutter={20}>
-					<Col span={12}>
+					<Col span={3}/>
+					<Col span={18}>
+						<div className="driver-info__caption">Загрузить и распознать документы</div>
+					</Col>
+				</Row>
+				<Row gutter={20}>
+					<Col span={3}/>
+					<Col span={9}>
 						<Dragger className="client-questionnaire__upload" {...uploadProps}>
 							<div className="client-questionnaire__upload--icon" />
 							<div className="client-questionnaire__upload--info">
@@ -48,7 +55,7 @@ class ClientQuestionnaire extends Component {
 							</div>
 						</Dragger>
 					</Col>
-					<Col span={12}>
+					<Col span={9}>
 						<ul className="client-questionnaire__faq">
 							{credit ? 
 								<>
@@ -62,7 +69,7 @@ class ClientQuestionnaire extends Component {
 										<p>Банки требуют все страницы паспорта, в т.ч. незаполненные.</p>
 									</li>
 									<li className="client-questionnaire__faq--item">
-										<div className="client-questionnaire__faq--title">Водительское удостоверение / Второй документ</div>
+										<div className="client-questionnaire__faq--title">ВУ / Второй документ</div>
 										<p>Большинство банков в качестве второго документа принимают только ВУ.
 											Необходим скан с двух сторон</p>
 									</li>
@@ -80,7 +87,7 @@ class ClientQuestionnaire extends Component {
 										<p>Банки требуют все страницы паспорта, в т.ч. незаполненные.</p>
 									</li>
 									<li className="client-questionnaire__faq--item">
-										<div className="client-questionnaire__faq--title">Водительское удостоверение / Второй документ</div>
+										<div className="client-questionnaire__faq--title">ВУ / Второй документ</div>
 										<p>Большинство банков в качестве второго документа принимают только ВУ.
 											Необходим скан с двух сторон</p>
 									</li>

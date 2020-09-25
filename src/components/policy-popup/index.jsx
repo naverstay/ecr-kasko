@@ -24,8 +24,8 @@ class PolicyPopup extends Component {
 			carFound: void 0,
 			fullCalculation: this.props.fullCalculation || false,
 			showUpload: false,
-			showKasko: false,
-			showOsago: false,
+			showKasko: this.props.showTab === 1,
+			showOsago: this.props.showTab === 2,
 			showClientFields: false,
 			toggleClientFields: false,
 			calculationPopupOpened: false,
@@ -63,6 +63,7 @@ class PolicyPopup extends Component {
 	static propTypes = {
 		children: PropTypes.node,
 		innerWidth: PropTypes.number,
+		showTab: PropTypes.number,
 		popupCloseFunc: PropTypes.func,
 		popupConfirmation: PropTypes.func,
 		fullCalculation: PropTypes.bool,
@@ -138,25 +139,32 @@ class PolicyPopup extends Component {
 				
 				<h1 onClick={allFields ? this.onToggleClientFields : null} className={"kasko-main__title" + (allFields ? (this.state.showClientFields ? " expanded" : " collapsed") : "")}>Страховой полис</h1>
 
-				<Row gutter={20} className={"kasko-car-select__controls check_v2 ant-row-center align_center"}>
-					<FormCheckbox onChangeCallback={this.formControlCallback}
-								  text="КАСКО"
-								  className=""
-								  value={1}
-								  controlName={'showKasko'}
-								  checked={this.state.showKasko ? true : null}/>
-								  
-					<FormCheckbox onChangeCallback={this.formControlCallback}
-								  text="ОСАГО"
-								  className=""
-								  value={1}
-								  controlName={'showOsago'}
-								  checked={this.state.showOsago ? true : null}/>
-				</Row>
+				{this.props.showTab ? null :
+					<Row gutter={20} className={"kasko-car-select__controls check_v2 ant-row-center align_center"}>
+						<FormCheckbox onChangeCallback={this.formControlCallback}
+													text="КАСКО"
+													className=""
+													value={1}
+													controlName={'showKasko'}
+													checked={this.state.showKasko ? true : null}/>
+
+						<FormCheckbox onChangeCallback={this.formControlCallback}
+													text="ОСАГО"
+													className=""
+													value={1}
+													controlName={'showOsago'}
+													checked={this.state.showOsago ? true : null}/>
+					</Row>
+				}
 
 				{this.state.showKasko ?
 					<>
-						<div className={"kasko-car-select__caption"}>Полис КАСКО</div>
+						<Row gutter={20}>
+							<Col span={3}/>
+							<Col>
+								<div className={"kasko-car-select__caption"}>Полис КАСКО</div>
+							</Col>
+						</Row>
 						<PolicyForm/>
 					</>
 					: null
@@ -164,32 +172,42 @@ class PolicyPopup extends Component {
 
 				{this.state.showOsago ?
 					<>
-						<div className={"kasko-car-select__caption"}>Полис ОСАГО</div>
+						<Row gutter={20}>
+							<Col span={3}/>
+							<Col>
+								<div className={"kasko-car-select__caption"}>Полис ОСАГО</div>
+							</Col>
+						</Row>
 						<PolicyForm/>
 					</>
 					: null
 				}
 
-				{(this.state.showKasko || this.state.showOsago) ? 
-					<div onClick={this.toggleShowUpload}
-						className={"kasko-car-select__caption" + (this.state.showUpload ? " expanded" : " collapsed")}
-						>Загрузить скан документов</div> 
+				{(this.state.showKasko || this.state.showOsago) ?
+					<Row gutter={20}>
+						<Col span={3}/>
+						<Col>
+							<div onClick={this.toggleShowUpload}
+								className={"kasko-car-select__caption mb_0" + (this.state.showUpload ? " expanded" : " collapsed")}
+								>Загрузить скан документов</div>
+							</Col>
+						</Row>
 					: null
 				}
 
 				{this.state.showUpload && (this.state.showKasko || this.state.showOsago) ?
 					<PolicyUpload kasko={this.state.showKasko} osago={this.state.showOsago}/>
-					: null
+					: null 
 				}
 
-				<div className={"kasko-car-select__caption"}>Личные данные</div>
+				<h1 className={"kasko-main__title"}>Личные данные</h1>
 
-				<PersonalForm/>
+				<PersonalForm wholeName={true}/>
 				
 				<Row className="kasko-car-select__controls" gutter={20}>
 					<Col span={6}/>
 					<Col span={3}>
-						<div className="ant-btn btn_green fz_14">Отменить</div>
+						<div className="ant-btn btn_green fz_14 w_100p"><span>Отменить</span></div>
 					</Col>
 					<Col span={6}>
 						<Button onClick={this.popupConfirmFunc} 

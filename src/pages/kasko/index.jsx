@@ -115,7 +115,7 @@ class Kasko extends Component {
 		if (step === 2) {
 			events.push({
 					progress: 1,
-					name: 'КАСКО',
+					name: this.state.tabIndex === 2 ? 'ОСАГО' : 'КАСКО',
 					status: 'Ожидание оплаты / Ингосстрах',
 					time: '9:50'
 				})
@@ -124,16 +124,19 @@ class Kasko extends Component {
 		if (step === 3) {
 			events.push({
 				progress: 2,
-				name: 'КАСКО',
-				status: 'Выпущено / ВСК',
+				name: this.state.tabIndex === 2 ? 'ОСАГО' : 'КАСКО',
+				status: 'Выпущено / Ингосстрах',
 				time: '9:50'
-			})
-			events.push({
-				progress: 1,
-				name: 'КАСКО',
-				status: 'Ожидание оплаты / ВСК',
-				time: '9:50'
-			})
+			});
+			
+			if (this.state.tabIndex !== 2) {
+				events.push({
+					progress: 1,
+					name: 'КАСКО',
+					status: 'Ожидание оплаты / ВСК',
+					time: '9:50'
+				});
+			}
 		}
 		
 		switch (this.state.tabIndex) {
@@ -231,16 +234,16 @@ class Kasko extends Component {
 										{/*		}*/}
 										{/*	</div>*/}
 										{/*</Tab>*/}
-										{/*<Tab className={'kasko-tabs__tab'}>*/}
-										{/*	<div className="kasko-tab__panel-name"><span*/}
-										{/*		className="kasko-tab__panel-name--text">ОСАГО</span>*/}
-										{/*		{this.state.tabIndex === 2 ?*/}
-										{/*			tabStatus*/}
-										{/*			: this.state.carFound ?*/}
-										{/*				<span className="kasko-tab__panel-name--val">от <b>10 450 ₽</b></span>*/}
-										{/*				: null*/}
-										{/*		}</div>*/}
-										{/*</Tab>*/}
+										<Tab className={'kasko-tabs__tab'}>
+											<div className="kasko-tab__panel-name"><span
+												className="kasko-tab__panel-name--text">ОСАГО</span>
+												{this.state.tabIndex === 2 ?
+													tabStatus
+													//: this.state.carFound ?
+													//	<span className="kasko-tab__panel-name--val">от <b>10 450 ₽</b></span>
+														: null
+												}</div>
+										</Tab>
 										<Tab className={'kasko-tabs__tab'}>
 											<div className="kasko-tab__panel-name"><span
 												className="kasko-tab__panel-name--text">Сервис меню</span>
@@ -283,13 +286,13 @@ class Kasko extends Component {
 									{/*				  step={step} image={this.state.carImage} type={showOffers}/>*/}
 									{/*	}*/}
 									{/*</TabPanel>*/}
-									{/*<TabPanel className="kasko-tab__panel">*/}
-									{/*	{this.state.tabIndex === null || !this.state.carFound ? null :*/}
-									{/*		<TabOffer tabCallback={this.changeTabState} imageCallback={this.imageCallback}*/}
-									{/*				  osago={true}*/}
-									{/*				  step={step} image={this.state.carImage} type={showOffers}/>*/}
-									{/*	}*/}
-									{/*</TabPanel>*/}
+									<TabPanel className="kasko-tab__panel">
+										{this.state.tabIndex === null || !this.state.carFound ? null :
+											<TabOffer tabCallback={this.changeTabState} imageCallback={this.imageCallback}
+													  osago={true} combo={true}
+													  step={step} image={this.state.carImage} type={showOffers}/>
+										}
+									</TabPanel>
 									<TabPanel className="kasko-tab__panel">
 										{this.state.tabIndex === null || !this.state.carFound ? null :
 											<TabService step={step} tabCallback={this.changeTabState} />
@@ -297,7 +300,7 @@ class Kasko extends Component {
 									</TabPanel>
 									<TabPanel className="kasko-tab__panel">
 										{this.state.tabIndex === null || !this.state.carFound ? null :
-											<h2>Any content 5</h2>}
+											<h2>POS кредит</h2>}
 									</TabPanel>
 								</Tabs>
 							</>

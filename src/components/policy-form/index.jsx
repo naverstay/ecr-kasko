@@ -436,17 +436,18 @@ class PolicyForm extends Component {
 		return (
 			<div className="kasko-car-select">
 				<Row className="kasko-car-select__controls" gutter={20}>
+					<Col span={3}/>
 					<FormSelect span={6} onChangeCallback={this.formControlCallback}
 								dropdownClassName="select_dropdown_v1 popup"
 								options={this.state.insuranceCompaniesList}
 								placeholder="Страховая компания" controlName={'insuranceCompName'}
 								value={this.state.insuranceCompName}/>
 
-					<FormSelect span={6} onChangeCallback={this.formControlCallback}
+					{/*<FormSelect span={6} onChangeCallback={this.formControlCallback}
 								dropdownClassName="select_dropdown_v1 popup"
 								options={this.state.insuranceTaxList}
 								placeholder="Тариф" controlName={'insuranceTaxName'}
-								value={this.state.insuranceTaxName}/>
+								value={this.state.insuranceTaxName}/>*/}
 
 					<FormInput span={6} onChangeCallback={this.formControlCallback}
 							   placeholder={"Стоимость"}
@@ -458,6 +459,7 @@ class PolicyForm extends Component {
 				</Row>
 
 				<Row className="kasko-car-select__controls" gutter={20}>
+					<Col span={3}/>
 					<FormInput span={6} onChangeCallback={this.formControlCallback}
 							   inputmask={dateFormatMask}
 							   placeholder={"Дата начала действия \n нового полиса КАСКО"}

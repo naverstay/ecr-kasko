@@ -35,8 +35,9 @@ class PolicyUpload extends Component {
 		return (
 			<div className="client-questionnaire">
 				<Row gutter={20}>
-					<Col span={12}>
-						<Dragger className="client-questionnaire__upload small" {...uploadProps}>
+					<Col span={3}/>
+					<Col span={9}>
+						<Dragger className="client-questionnaire__upload small__" {...uploadProps}>
 							<div className="client-questionnaire__upload--icon" />
 							<div className="client-questionnaire__upload--info">
 								<div className="client-questionnaire__upload--text"
@@ -48,7 +49,7 @@ class PolicyUpload extends Component {
 							</div>
 						</Dragger>
 					</Col>
-					<Col span={12}>
+					<Col span={9}>
 						<ul className="client-questionnaire__faq">
 							{kasko ?
 								<>

@@ -1,5 +1,5 @@
 import React, {Component} from "react";
-import {Checkbox, Col, Switch} from "antd";
+import {Row, Col, Switch, Button} from "antd";
 
 import './style.scss';
 import PropTypes from "prop-types";
@@ -17,6 +17,7 @@ class CalculationPopup extends Component {
 		super(props);
 		this.state = {
 			carFound: void 0,
+			showCarFields: true,
 			fullCalculation: this.props.fullCalculation || false,
 			showClientFields: false,
 			toggleClientFields: false,
@@ -98,50 +99,79 @@ class CalculationPopup extends Component {
 		
 		return (
 			<div className="calculation-popup">
-					<div className="calculation-popup__close" onClick={popupCloseFunc}/>
+				<div className="calculation-popup__close" onClick={popupCloseFunc}/>
 
-					{!osago ? <div className={"kasko-car-select__calculation" + (allFields || this.state.fullCalculation ? ' active' : '')}>
-						<span className="kasko-car-select__calculation--text">Предварительный расчет</span>
-						<Switch checked={allFields || this.state.fullCalculation} className="kasko-car-select__calculation--switch" onChange={this.onCalculationTypeChange}/>
-						<span className="kasko-car-select__calculation--text">Окончательный расчет</span>
-					</div> : null}
+				{!osago ? <div className={"kasko-car-select__calculation" + (allFields || this.state.fullCalculation ? ' active' : '')}>
+					<span className="kasko-car-select__calculation--text">Предварительный расчет</span>
+					<Switch checked={allFields || this.state.fullCalculation} className="kasko-car-select__calculation--switch" onChange={this.onCalculationTypeChange}/>
+					<span className="kasko-car-select__calculation--text">Окончательный расчет</span>
+				</div> : null}
 
-					{
-						(!osago && allFields) ?
-							<>
-								<h1 className="kasko-main__title">Поля к заполнению</h1>
-								{/*<ClientInfo fullCalculation={this.state.fullCalculation}/>*/}
-								<ClientInfoNew fullCalculation={this.state.fullCalculation}/>
-							</>
-							: null
-					}
-					
-					<h1 onClick={allFields ? this.onToggleCarFields : null} className={"kasko-main__title" + (allFields ? (this.state.showCarFields ? " expanded" : " collapsed") : "")}>Автомобиль</h1>
+				{
+					(!osago && allFields) ?
+						<>
+							<h1 className="kasko-main__title">Поля к заполнению</h1>
+							{/*<ClientInfo fullCalculation={this.state.fullCalculation}/>*/}
+							<ClientInfoNew fullCalculation={this.state.fullCalculation}/>
+						</>
+						: null
+				}
+				
+				<div className="kasko-car-select__form">
+					<h1 onClick={allFields ? this.onToggleCarFields : null} className={"kasko-main__title" + (allFields ? (this.state.showCarFields ? " expanded" : " collapsed") : "")}>
+						<span>Автомобиль</span></h1>
 					
 					{/*<KaskoCarSelect hideOffers={true} allFields={true}/>*/}
-					{!osago ?
-						<KaskoCarSelectNew hideOffers={true} allFields={allFields} expanded={(step === void 0) || this.state.showCarFields} fullCalculation={this.state.fullCalculation}/>
-						: 
-						<KaskoCarSelectOsago hideOffers={true} allFields={allFields} expanded={(step === void 0) || this.state.showCarFields} fullCalculation={this.state.fullCalculation}/>
-					}
-					<h1 onClick={allFields ? this.onToggleClientFields : null} className={"kasko-main__title" + (allFields ? (this.state.showClientFields ? " expanded" : " collapsed") : "")}>Анкета клиента</h1>
-					
+					{/*{!osago ?*/}
+						<KaskoCarSelectNew hideOffers={true} allFields={allFields} expanded={(step === void 0) || this.state.showCarFields} fullCalculation={false}/>
+					{/*	: */}
+					{/*	<KaskoCarSelectOsago hideOffers={true} allFields={allFields} expanded={(step === void 0) || this.state.showCarFields} fullCalculation={this.state.fullCalculation}/>*/}
+					{/*}*/}
+
+				</div>
+
+				<div className="kasko-car-select__form">
+					<Row gutter={20}>
+						<Col span={3}/>
+						<Col span={18}>
+							<h1 onClick={allFields ? this.onToggleClientFields : null}
+									className={"kasko-main__title" + (allFields ? (this.state.showClientFields ? " expanded" : " collapsed") : "")}>
+								<span>&nbsp;</span>
+								<span>Анкета и документы</span>
+								<span className={"kasko-main__title--id"}>ID 123456</span>
+							</h1>
+						</Col>
+					</Row>
+				
 					{
 						((step === void 0) || (step !== 2) || this.state.showClientFields) ?
 							<>
-								<div className={"kasko-car-select__controls ant-row-center align_center"}>
-									<Checkbox checked={this.state.useOCR ? "checked" : null}
-											  onChange={this.onUseOCRChange}>Не распознавать документы</Checkbox>
-								</div>
+								{/*<div className={"kasko-car-select__controls ant-row-center align_center"}>*/}
+								{/*	<Checkbox checked={this.state.useOCR ? "checked" : null}*/}
+								{/*				onChange={this.onUseOCRChange}>Не распознавать документы</Checkbox>*/}
+								{/*</div>*/}
 								<ClientQuestionnaire/>
 								<DriverCount step={step} driverOptions={driverOptions}/>
 							</>
 							: null
 					}
 					
-					<DriverInfo osago={osago} calculationSave={updatePaymentState} expanded={(step !== 2) || this.state.showClientFields} fullCalculation={this.state.fullCalculation} />
+					<DriverInfo wholeName={true} osago={osago} calculationSave={updatePaymentState} expanded={(step !== 2) || this.state.showClientFields} fullCalculation={this.state.fullCalculation} />
 
 				</div>
+
+				<Row className="kasko-car-select__controls ant-row-center" gutter={20}>
+					<Col span={3}>
+						<div onClick={() => updatePaymentState} className="ant-btn btn_green fz_14 w_100p">
+							<span>Отмена</span></div>
+					</Col>
+					<Col span={6}>
+						<Button onClick={() => updatePaymentState}
+										className={"ant-btn-primary btn_middle"}>Получить расчет</Button>
+					</Col>
+					<Col span={3}/>
+				</Row>
+			</div>
 		);
 	}
 }

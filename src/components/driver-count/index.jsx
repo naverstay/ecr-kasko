@@ -57,30 +57,35 @@ class DriverCount extends Component {
 		
 		return (
 			<div className={"kasko-car-select__controls check_v2 " + className}>
-					<Row gutter={20}>
-						{
-							driverOptions.length ? driverOptions.map((c, i) =>
-								<Col key={i}>
-									<Checkbox
-										onChange={this.onDriverOptionsChange}
-										checked={this.state.checkedList.indexOf(c) > -1}
-										value={c}>{c}
-										<span className="driver-count__index">КБМ={i + 1}</span>
-									</Checkbox>
-								</Col>
-							) : ""
-						}
-						{
-							<Col key={driverOptions.length}>
-								<Tooltip overlayClassName="tooltip_v1" placement="top" title="Неограниченное количество водителей">
-									<Checkbox
-										indeterminate={this.state.indeterminate}
-										checked={this.state.checkAll}
-										onChange={this.onCheckAllChange}>Мультидрайв</Checkbox>
-								</Tooltip>
-							</Col>
-						}
-						{children}
+					<Row className={"w_100p"} gutter={20}>
+						<Col className={"popup-visible"} span={3}/>
+						<Col span={18}>
+							<Row className={""} gutter={20}>
+								{
+									driverOptions.length ? driverOptions.map((c, i) =>
+										<Col key={i}>
+											<Checkbox
+												onChange={this.onDriverOptionsChange}
+												checked={this.state.checkedList.indexOf(c) > -1}
+												value={c}>{c}
+												<span className="driver-count__index">КБМ={i + 1}</span>
+											</Checkbox>
+										</Col>
+									) : null
+								}
+								{
+									<Col key={driverOptions.length}>
+										<Tooltip overlayClassName="tooltip_v1" placement="top" title="Неограниченное количество водителей">
+											<Checkbox
+												indeterminate={this.state.indeterminate}
+												checked={this.state.checkAll}
+												onChange={this.onCheckAllChange}>Мультидрайв</Checkbox>
+										</Tooltip>
+									</Col>
+								}
+								{children}
+							</Row>
+						</Col>
 					</Row>
 			</div>
 		);

@@ -182,7 +182,7 @@ class KaskotaxPopup extends Component {
 		let saveMode = <Row className="kasko-car-select__controls" gutter={20}>
 							<Col span={6}>
 								<div onClick={() => {typeof this.props.popupCloseFunc === 'function' && this.props.popupCloseFunc()}}
-									 className="ant-btn btn_green fz_14">Отменить</div>
+									 className="ant-btn btn_green fz_14 w_100p"><span>Отменить</span></div>
 							</Col>
 							<Col span={12}>
 								<Button htmlType={formDisabled ? null : "submit"}

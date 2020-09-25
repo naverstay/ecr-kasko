@@ -150,7 +150,7 @@ class ManagerPopup extends Component {
 					
 						<Row className="kasko-car-select__controls mb_30" gutter={20}>
 							<Col span={6}>
-								<div onClick={() => {typeof this.props.popupCloseFunc === 'function' && this.props.popupCloseFunc()}} className="ant-btn btn_green fz_14">Отменить</div>
+								<div onClick={() => {typeof this.props.popupCloseFunc === 'function' && this.props.popupCloseFunc()}} className="ant-btn btn_green fz_14 w_100p"><span>Отменить</span></div>
 							</Col>
 							<Col span={12}>
 								<Button htmlType={formDisabled ? null : "submit"}

@@ -87,6 +87,12 @@ input {
 }
 
 .ant-btn {
+	padding: 0 16px;
+	display: inline-flex;
+	align-items: center;
+	white-space: normal;
+	justify-content: center;
+	
 	.btn_icon {
 		display: inline-block;
 		vertical-align: middle;
@@ -523,5 +529,13 @@ $spinner_time: 1s;
 				color: #fff;
 			}
 		}
+	}
+}
+
+.popup-visible {
+	display: none;
+	
+	.calculation-popup & {
+		display: block;
 	}
 }

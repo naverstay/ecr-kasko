@@ -1,4 +1,4 @@
-@import 'src/assets/styles/global';
+@import '../../assets/styles/global';
 
 .driver-info {
 	padding: 10px 0;
@@ -14,6 +14,10 @@
 		@extend %text1;
 		font-weight: bold;
 		margin-bottom: 15px;
+		
+		.ant-row > .ant-col > & {
+			margin-bottom: 0;
+		}
 	}
 
 	&__add {

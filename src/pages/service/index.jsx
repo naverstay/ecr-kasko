@@ -101,18 +101,16 @@ class Service extends Component {
 					
 					<Col span={16} className="kasko-main">
 						{showOffers === false ?
-							<>
-								<h1 className="kasko-main__title">Автомобиль</h1>
+							<div className={"kasko-car-select__form"}>
+								<h1 className="kasko-main__title"><span>Автомобиль</span></h1>
 								<KaskoCarSelect fill={false} imageCallback={this.imageCallback} step={step} image={this.state.carImage} />
-							</>
+							</div>
 							:
 							<>
 								{service ?
-									<ServiceSelect imageCallback={this.imageCallback} step={step}
-												 image={this.state.carImage} type={showOffers}/>
+									<ServiceSelect imageCallback={this.imageCallback} step={step} image={this.state.carImage} type={showOffers}/>
 									: 
-									<OfferSelect imageCallback={this.imageCallback} step={step}
-											   image={this.state.carImage} type={showOffers}/>
+									<OfferSelect imageCallback={this.imageCallback} step={step} image={this.state.carImage} type={showOffers}/>
 								}
 							</>
 						}

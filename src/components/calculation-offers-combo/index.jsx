@@ -16,6 +16,7 @@ class CalculationOffersCombo extends Component {
 	static propTypes = {
 		children: PropTypes.node,
 		innerWidth: PropTypes.number,
+    hasSortType: PropTypes.bool,
 		popupCloseFunc: PropTypes.func,
 		offersList: PropTypes.array,
 	};
@@ -29,7 +30,7 @@ class CalculationOffersCombo extends Component {
 	}
 
 	render() {
-		const {offersList, selectedOffer, completed, waiting, allowCheck, osago, franchise} = this.props
+		const {offersList, selectedOffer, completed, waiting, allowCheck, osago, hasSortType} = this.props
 		
 		const sortTypeList = ['Сортировать по самому выгодному КАСКО+ОСАГО', 'Сортировать по самому выгодному КАСКО', 'Сортировать по самому выгодному GAP', 'Сортировать по самому выгодному ОСАГО']
 		
@@ -61,23 +62,30 @@ class CalculationOffersCombo extends Component {
 									</div>
 							</th>
 							<th className={"calculation-offers__table--col-8"}>
-								<span onClick={this.openSortType} className={"sort-btn " + (!this.state.showSortType ? '_asc' : '_desc')}>Тип</span>
+								{hasSortType ?
+									<span onClick={this.openSortType} className={"sort-btn " + (!this.state.showSortType ? '_asc' : '_desc')}>Тип</span> :
+									<span>Тип</span>
+								}
 							</th>
-							<th className={"calculation-offers__table--col-10 text_left" + ((completed || waiting) ? " small" : "")}>Тариф</th>
+							<th className={"calculation-offers__table--col-10 text_left" + ((completed || waiting) ? " small" : "")}>{osago ? null : <>Тариф</> }</th>
 							<th className={"calculation-offers__table--col-5" + ((completed || waiting) ? " small" : "")}>Стоимость</th>
 							<th className={"calculation-offers__table--col-5" + ((completed || waiting) ? " small" : "")}>Доход <br />дилера</th>
-							<th className={"calculation-offers__table--col-5" + ((completed || waiting) ? " small" : "")}>В кредит</th>
+							{osago ? null :
+                <th className={"calculation-offers__table--col-5" + ((completed || waiting) ? " small" : "")}>В кредит</th>
+							}
 							{(completed || waiting) ?
 								<>
 									<th className="calculation-offers__table--col-8">Срок <br/>действия</th>
 									<th className="calculation-offers__table--col-7 text_left">Полис</th>
 									<th className="calculation-offers__table--col-6">Статус <br/>выпуска</th>
 									<th className="calculation-offers__table--col-6">&nbsp;</th>
-								</>
-							:
+								</> :
 								<>
-								<th className={"calculation-offers__table--col-10"}>&nbsp;</th>
-								<th className="calculation-offers__table--col-4">&nbsp;</th>
+									<th className={"calculation-offers__table--col-10"}>&nbsp;</th>
+									{osago ?
+										<th className="calculation-offers__table--col-7 text_left">Полис</th> :
+										<th className="calculation-offers__table--col-4">&nbsp;</th>
+									}
 									<th className="calculation-offers__table--col-5">Выбрать</th>
 									<th className="calculation-offers__table--col-6">&nbsp;</th>
 								</>

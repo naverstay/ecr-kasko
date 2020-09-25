@@ -510,7 +510,7 @@ class CarSelect extends Component {
 				
 				{this.state.showCarOptions || !this.state.carFound || !collapseCarInfo ? 
 					<>
-						<div className={"kasko-car-select__controls radio_v2" + (this.state.newCarHighlight && this.state.newCar === null ? " highlight_radio" : "")}>
+						<div className={"kasko-car-select__controls radio_v2 w_100p" + (this.state.newCarHighlight && this.state.newCar === null ? " highlight_radio" : "")}>
 							<Radio.Group defaultValue={step === 1 ? (this.state.reopen ? (this.state.newCar ? 1 : 0) : null) : this.state.newCar ? 1 : null} onChange={this.onCarNewChange}>
 								<Row gutter={20}>
 									<Col>

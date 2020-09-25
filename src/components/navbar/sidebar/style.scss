@@ -196,12 +196,12 @@
 
 	&__button {
 		
-		@include for-size(desktop-up) {
+		//@include for-size(desktop-up) {
 			display: flex;
 			flex-wrap: nowrap;
 			align-items: stretch;
 			position: relative;
-		}
+		//}
 		
 		&.button-wide {
 			flex: 1;
