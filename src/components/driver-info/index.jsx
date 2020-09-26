@@ -1,11 +1,14 @@
 import React, {Component} from "react";
-import {Input, Col, Row, Select, Checkbox} from "antd";
+import {Input, Col, Row, Select, Checkbox, Button} from "antd";
 import './style.scss';
 import PropTypes from "prop-types";
 
 import InsurancePolicy from "../insurance-policy";
 import {Link} from "react-router-dom";
 import Inputmask from "inputmask";
+import FormInput from "../form-input";
+import FormSelect from "../form-select";
+import FormCheckbox from "../form-checkbox";
 
 const {Option} = Select;
 
@@ -13,6 +16,7 @@ class DriverInfo extends Component {
 	constructor(props) {
 		super(props);
 		this.state = {
+			activeFields: [],
 			clientLicenseDepartment: '',
 			clientAddress: '',
 			clientFlat: '',
@@ -22,6 +26,17 @@ class DriverInfo extends Component {
 			clientLicenseDepID: '',
 			clientLicenseID: '',
 			clientLicenseNumber: '',
+			driverPassport: '',
+			driverPassportStart: '',
+			driverAnotherDocument: '',
+			driverAnotherDocumentStart: '',
+			driverAnotherDocumentDepartment: '',
+			driverPassportDepID: '',
+			driverPassportDepartment: '',
+			driverBirthLocation: '',
+			driverAddress: '',
+			driverAddressPostCode: '',
+			nonChangedPassportApproval: false,
 			driverLicensePrev: false,
 			driverProgenyNess: false,
 			driverLastName: '',
@@ -33,6 +48,7 @@ class DriverInfo extends Component {
 			driverExperienceStart: '',
 			driverLicenseFirst: '',
 			driverBirthday: '',
+			driverRegistrationStart: '',
 			driverLicenseDepartment: '',
 			driverLicenseID: '',
 			driverLicenseNumber: '',
@@ -40,8 +56,13 @@ class DriverInfo extends Component {
 			driverPrevLicenseID: '',
 			driverPrevLicenseNumber: '',
 			driverChildrenCount: '',
+			driverOSAGOInsurant: false,
+			driverOSAGOOwner: true,
+			driverCitizenRF: true,
+			sameAsRealAddress: true,
 			driverCount: 1,
 			clientFlatType: '',
+			driverSecondDocType: '',
 			driverFamilyStatus: '',
 			driverFamilyStatusList: [
 				"Женат/Замужем",
@@ -52,6 +73,10 @@ class DriverInfo extends Component {
 			clientFlatTypeList: [
 				"Дом",
 				"Квартира"
+			],
+			driverSecondDocTypeList: [
+				"Водительское удостоверение",
+				"Военный билет"
 			]
 		};
 	}
@@ -81,47 +106,7 @@ class DriverInfo extends Component {
 	driverInfoSave = (value) => {
 		if ('calculationSave' in this.props) this.props.calculationSave(value)
 	};
-
-	onClientFlatTypeChange = value => {
-		this.setState({clientFlatType: value})
-	};
 	
-	onDriverFamilyStatusChange = value => {
-		this.setState({driverFamilyStatus: value})
-	};
-
-	onDriverLicensePrevChange = e => {
-		this.setState({driverLicensePrev: e.target.checked})
-	};
-
-	onDriverProgenyNessChange = e => {
-		this.setState({driverProgenyNess: e.target.checked})
-	};
-
-	onDriverBirthdayChange = e => {
-		this.setState({driverBirthday: e.target.value})
-	};
-
-	onDriverLicenseStartChange = e => {
-		this.setState({driverLicenseStart: e.target.value})
-	};
-
-	onDriverExperienceStartChange = e => {
-		this.setState({driverExperienceStart: e.target.value})
-	};
-
-	onDriverLicenseFirstChange = e => {
-		this.setState({driverLicenseFirst: e.target.value})
-	};
-
-	onDriverLicenseIDChange = e => {
-		this.setState({driverLicenseID: e.target.value})
-	};
-
-	onDriverLicenseNumberChange = e => {
-		this.setState({driverLicenseNumber: e.target.value})
-	};
-
 	onDriverPrevLicenseIDChange = e => {
 		this.setState({driverPrevLicenseID: e.target.value})
 	};
@@ -130,76 +115,42 @@ class DriverInfo extends Component {
 		this.setState({driverPrevLicenseNumber: e.target.value})
 	};
 
-	onDriverChildrenCountChange = e => {
-		this.setState({driverChildrenCount: e.target.value})
-	};
-
-	onDriverPhoneChange = e => {
-		this.setState({driverPhone: e.target.value})
-	};
-
-	onDriverEmailChange = e => {
-		this.setState({driverEmail: e.target.value})
-	};
-	
-	onDriverLicenseDepartmentChange = e => {
-		this.setState({driverLicenseDepartment: e.target.value})
-	};
-
 	onDriverPrevLicenseStartChange = e => {
 		this.setState({driverPrevLicenseStart: e.target.value})
 	};
+
+	addActiveField = (field) => {
+		setTimeout(() => {
+			let fields = this.state.activeFields.slice(0)
+
+			if (fields.indexOf(field) < 0) {
+				fields.push(field)
+
+				this.setState({activeFields: fields})
+			}
+		}, 100)
+	};
 	
-	onDriverLastNameChange = e => {
-		this.setState({driverLastName: e.target.value})
-	};
-
-	onDriverFirstNameChange = e => {
-		this.setState({driverFirstName: e.target.value})
-	};
-
-	onDriverFarthersNameChange = e => {
-		this.setState({driverFarthersName: e.target.value})
+	activeClass = (field) => {
+		return (this.state.activeFields.indexOf(field) > -1 ? " control-focused" : "")
 	};
 	
-	onClientLicenseStartChange = e => {
-		this.setState({clientLicenseStart: e.target.value})
-	};
+	formControlCallback = (name, value) => {
+		console.log('formControlCallback', name, value);
 
-	onDriverLicenseFirstChange = e => {
-		this.setState({driverLicenseFirst: e.target.value})
-	};
+		if (name in this.state) {
+			let obj = {}
+			obj[name] = value
 
-	onClientLicenseIDIDChange = e => {
-		this.setState({clientLicenseID: e.target.value})
-	};
+			this.setState(obj)
+		} else {
+			switch (name) {
+				case 'carForTaxi':
+					this.setState({carForTaxi: value})
+					break
 
-	onClientLicenseNumberChange = e => {
-		this.setState({clientLicenseNumber: e.target.value})
-	};
-
-	onclientLicenseDepartmentChange = e => {
-		this.setState({clientLicenseDepartment: e.target.value})
-	};
-
-	onClientAddressChange = e => {
-		this.setState({clientAddress: e.target.value})
-	};
-
-	onClientFlatChange = e => {
-		this.setState({clientFlat: e.target.value})
-	};
-
-	onClientPostCodeChange = e => {
-		this.setState({clientPostCode: e.target.value})
-	};
-
-	onClientRegistrationStartChange = e => {
-		this.setState({clientRegistrationStart: e.target.value})
-	};
-
-	onClientLicenseDepIDChange = e => {
-		this.setState({clientLicenseDepID: e.target.value})
+			}
+		}
 	};
 	
 	componentDidUpdate() {
@@ -214,7 +165,7 @@ class DriverInfo extends Component {
 	};
 	
 	render() {
-		let {fullCalculation, allFields, expanded, osago} = this.props
+		let {fullCalculation, allFields, expanded, osago, wholeName, showAddBlock} = this.props
 		//const dateFormat = "DD.MM.YY"
 		const dateFormatMask = "'mask': '99.99.9999', 'showMaskOnHover': 'false'"
 		const driverPhoneMask = "'mask': '[+7] (999)-999-99-99', 'showMaskOnHover': 'false'"
@@ -225,361 +176,362 @@ class DriverInfo extends Component {
 		const clientLicenseIDMask = "'mask': '99 99', 'showMaskOnHover': 'false'"
 		const clientLicenseNumberMask = "'mask': '999999', 'showMaskOnHover': 'false'"
 		
-		
 		let drivers = []
 		
 		for (let drv = 0; drv < this.state.driverCount; drv++) {
 			drivers.push(drv)
 		}
 		
+		//if (showAddBlock) {
+		//	drivers.push(drivers.length)
+		//}
+		
 		return (
 			<div className="driver-info">
 				{
-					(expanded && drivers.length) ? drivers.map((d) => {
-						return (<div key={d} className="driver-info__item">
-							<div className="driver-info__caption">Личная информация</div>
-
-							{/*<Row className="kasko-car-select__controls" gutter={20}>*/}
-							{/*	<Col className="check_v3" span={6}>*/}
-							{/*		<Checkbox>Страхователь</Checkbox>*/}
-							{/*	</Col>*/}
-							{/*	<Col className="check_v3" span={6}>*/}
-							{/*		<Checkbox>Собственник</Checkbox>*/}
-							{/*	</Col>*/}
-							{/*</Row>*/}
-
-							<Row className="kasko-car-select__controls" gutter={20}>
-								<Col span={6}>
-									<Input
-										className={"w_100p custom_placeholder " + ((this.state.driverLastName + '').length ? "" : " _empty")}
-										value={this.state.driverLastName}
-										onChange={this.onDriverLastNameChange} defaultValue=""/>
-									<div className="float_placeholder">Фамилия</div>
-								</Col>
-								<Col span={6}>
-									<Input
-										className={"w_100p custom_placeholder " + ((this.state.driverFirstName + '').length ? "" : " _empty")}
-										value={this.state.driverFirstName}
-										onChange={this.onDriverFirstNameChange} defaultValue=""/>
-									<div className="float_placeholder">Имя</div>
-								</Col>
-								<Col span={6}>
-									<Input
-										className={"w_100p custom_placeholder " + ((this.state.driverFarthersName + '').length ? "" : " _empty")}
-										value={this.state.driverFarthersName}
-										onChange={this.onDriverFarthersNameChange} defaultValue=""/>
-									<div className="float_placeholder">Отчество</div>
-								</Col>
-								<Col span={6}>
-									{/*<DatePicker format={dateFormat} value={this.state.driverBirthday ? moment(this.state.driverBirthday) : null}*/}
-									{/*			onChange={this.onDriverBirthdayChange} placeholder=""*/}
-									{/*			className={"w_100p hide_picker_icon" + (this.state.driverBirthday && this.state.driverBirthday._isAMomentObject ? "" : " _empty")}/>*/}
-									<Input data-inputmask={dateFormatMask}
-										   className={"w_100p custom_placeholder " + ((this.state.driverBirthday + '').length ? "" : " _empty")}
-										   value={this.state.driverBirthday}
-										   onChange={this.onDriverBirthdayChange} defaultValue=""/>
-									<div className="float_placeholder">Дата рождения</div>
-								</Col>
-							</Row>
-
-								{osago ?
-									<Row className="kasko-car-select__controls" gutter={20}>
-										<Col className="check_v3">
-											<Checkbox>Страхователь</Checkbox>
-										</Col>
-										<Col className="check_v3">
-											<Checkbox>Собственник</Checkbox>
-										</Col>
-									</Row>
-									: 
-									<Row className="kasko-car-select__controls" gutter={20}>
-										<Col span={6}>
-											<Select
-												dropdownClassName="select_dropdown_v1"
-												className={"w_100p custom_placeholder" + (this.state.driverFamilyStatus.length ? "" : " _empty")}
-												placeholder=""
-												onChange={this.onDriverFamilyStatusChange}
-												value={this.state.driverFamilyStatus}
-											>
-												{this.state.driverFamilyStatusList ? this.state.driverFamilyStatusList.map((e, i) =>
-													<Option key={i}
-															value={e}>{e}</Option>) : ""}
-											</Select>
-											<div className="float_placeholder">Семейное положение</div>
-										</Col>
-										<Col className="checkbox_middle check_v3" span={6}>
-											<Checkbox onChange={this.onDriverProgenyNessChange}>Есть дети</Checkbox>
-										</Col>
-
-										{/*{*/}
-										{/*	this.state.driverProgenyNess ?*/}
-										{/*	<Col span={6}>*/}
-										{/*		<Input*/}
-										{/*			className={"w_100p" + ((this.state.driverChildrenCount + '').length ? "" : " _empty")}*/}
-										{/*			value={this.state.driverChildrenCount}*/}
-										{/*			onChange={this.onDriverChildrenCountChange} defaultValue=""/>*/}
-										{/*		<div className="float_placeholder">Кол-во детей младше 21</div>*/}
-										{/*	</Col>*/}
-										{/*	: ""*/}
-										{/*}*/}
-									</Row>
-								}
-								
+					(expanded && drivers.length) ? drivers.map((d, di) => {
+						return (
+							<>
 								{
-									fullCalculation ? 
-										<>
-
-											<div className="driver-info__caption">Паспорт</div>
-
+									/*di ?
+									<div key={di} className="driver-info__item">
+										<Row className="kasko-car-select__controls ant-row-center" gutter={20}>
+											<Col span={3}/>
+											<Col span={18}>
+												<>
+													{(d - (showAddBlock ? 0 : 1)) > 0 ?
+														<div onClick={this.addDriver} className="driver-info__add gl_link">Добавить контактное лицо</div>
+														:
+														<div onClick={this.removeDriver} className="driver-info__remove gl_link">Удалить контактное лицо</div>
+													}
+												</>
+											</Col>
+										</Row>
+									</div>
+									:*/
+									<div key={di} className="driver-info__item">
+										<Row className="kasko-car-select__controls mb_0" gutter={20}>
+											<Col span={3}/>
+											<Col span={18}>
+												<div className="driver-info__caption">Личная информация</div>
+											</Col>
+										</Row>
+										
+										<Row className="kasko-car-select__controls" gutter={20}>
+											<Col span={3}/>
+		
+											{wholeName ?
+												<FormInput span={12} onChangeCallback={this.formControlCallback}
+																	 placeholder="Фамилия, Имя, Отчество" controlName={'clientWholeName'} value={''}/>
+												:
+												<>
+													<FormInput span={6} onChangeCallback={this.formControlCallback}
+																		 placeholder="Фамилия" controlName={'driverLastName'} value={''}/>
+		
+													<FormInput span={6} onChangeCallback={this.formControlCallback}
+																		 placeholder="Имя" controlName={'driverFirstName'} value={''}/>
+		
+													<FormInput span={6} onChangeCallback={this.formControlCallback}
+																		 placeholder="Отчество" controlName={'driverFarthersName'} value={''}/>
+												</>
+											}
+										</Row>
+										
+										<Row className="kasko-car-select__controls" gutter={20}>
+											<Col span={3}/>
+											<FormInput span={6} onChangeCallback={this.formControlCallback}
+																 placeholder="Дата рождения" controlName={'driverBirthday'} value={''}/>
+										</Row>
+										
+										<Row className="kasko-car-select__controls mb_0" gutter={20}>
+											<Col span={3}/>
+											<FormSelect span={6} onChangeCallback={this.formControlCallback}
+																	options={this.state.driverFamilyStatusList}
+																	className={this.activeClass('driverFamilyStatus')}
+																	placeholder="Семейное положение" controlName={'driverFamilyStatus'}
+																	value={this.state.driverFamilyStatus}/>
+											<FormInput span={6} onChangeCallback={this.formControlCallback}
+																 placeholder="Кол-во детей младше 21"
+																 controlName={'driverChildrenCount'} value={''}/>
+										</Row>
+										
+										<Row className="kasko-car-select__controls mb_45" gutter={20}>
+											<Col span={3}/>
+											<FormCheckbox onChangeCallback={this.formControlCallback}
+																		text="Страхователь"
+																		className="checkbox_middle check_v3"
+																		value={0}
+																		controlName={'driverOSAGOInsurant'} checked={this.state.driverOSAGOInsurant}/>
+											
+											<FormCheckbox onChangeCallback={this.formControlCallback}
+																		text="Собственник"
+																		className="checkbox_middle check_v3"
+																		value={1}
+																		controlName={'driverOSAGOOwner'} checked={this.state.driverOSAGOOwner}/>
+										</Row>
+		
+										<Row className="kasko-car-select__controls mb_0" gutter={20}>
+											<Col span={3}/>
+											<Col span={18}>
+												<div className="driver-info__caption">Контакты</div>
+											</Col>
+										</Row>
+										
+										<Row className="kasko-car-select__controls mb_60" gutter={20}>
+											<Col span={3}/>
+											<FormInput span={6} onChangeCallback={this.formControlCallback}
+																 placeholder="Мобильный телефон"
+																 controlName={'driverPhone'} value={this.state.driverPhone}/>
+									
+											<FormInput span={12} onChangeCallback={this.formControlCallback}
+																 placeholder="Емейл"
+																 controlName={'driverEmail'} value={this.state.driverEmail}/>
+										</Row>
+										
+										{
+											fullCalculation ? 
+												<>
+													<Row className="kasko-car-select__controls mb_0" gutter={20}>
+														<Col span={3}/>
+														<Col span={12}>
+															<div className="driver-info__caption">Паспорт</div>
+														</Col>
+														<FormCheckbox span={6} onChangeCallback={this.formControlCallback}
+																					text="Гражданин РФ"
+																					className="check_v3"
+																					value={1}
+																					controlName={'driverCitizenRF'} checked={this.state.driverCitizenRF}/>
+													</Row>
+													
+													<Row className="kasko-car-select__controls" gutter={20}>
+														<Col span={3}/>
+		
+														<FormInput span={6} onChangeCallback={this.formControlCallback}
+																			 inputmask={clientLicenseIDMask}
+																			 placeholder="Серия, номер"
+																			 controlName={'driverPassport'} value={this.state.driverPassport}/>
+																			 
+														<FormInput span={6} onChangeCallback={this.formControlCallback}
+																			 inputmask={clientLicenseIDMask}
+																			 placeholder="Дата выдачи"
+																			 controlName={'driverPassportStart'} value={this.state.driverPassportStart}/>
+																			 
+														{/*<Col span={6}>*/}
+															{/*<DatePicker format={dateFormat}*/}
+															{/*	value={this.state.clientLicenseStart ? moment(this.state.clientLicenseStart) : null}*/}
+															{/*	onChange={this.onClientLicenseStartChange} placeholder=""*/}
+															{/*	className={"w_100p wrapper-error hide_picker_icon" + (this.state.clientLicenseStart && this.state.clientLicenseStart._isAMomentObject ? "" : " _empty")}/>*/}
+														{/*	<Input data-inputmask={dateFormatMask}*/}
+														{/*		   className={"w_100p custom_placeholder " + (allFields ? "input-error" : "") + ((this.state.clientLicenseStart + '').length ? "" : " _empty")}*/}
+														{/*		   value={this.state.clientLicenseStart}*/}
+														{/*		   onChange={this.onClientLicenseStartChange} defaultValue=""/>*/}
+														{/*	<div className="float_placeholder">Дата выдачи</div>*/}
+														{/*</Col>*/}
+														
+														<FormInput span={6} onChangeCallback={this.formControlCallback}
+																			 inputmask={clientLicenseNumberMask} 
+																			 placeholder="Код подразделения"
+																			 controlName={'driverPassportDepID'} value={this.state.driverPassportDepID}/>
+																			 
+													</Row>
+		
+													<Row className="kasko-car-select__controls" gutter={20}>
+														<Col span={3}/>
+		
+														<FormInput span={18} onChangeCallback={this.formControlCallback}
+																			 placeholder="Кем выдан"
+																			 controlName={'driverPassportDepartment'} value={this.state.driverPassportDepartment}/>
+													</Row>
+		
+													<Row className="kasko-car-select__controls mb_60" gutter={20}>
+														<Col span={3}/>
+		
+														<FormInput span={12} onChangeCallback={this.formControlCallback}
+																			 placeholder="Место рождения" controlName={'driverBirthLocation'}
+																			 value={''}/>
+		
+														<FormCheckbox onChangeCallback={this.formControlCallback}
+																					text="Ранее паспорт не менялся"
+																					className="checkbox_middle check_v3"
+																					value={1}
+																					controlName={'nonChangedPassportApproval'} checked={true}/>
+													</Row>
+													
+													<Row className="kasko-car-select__controls mb_0" gutter={20}>
+														<Col span={3}/>
+														<Col span={12}>
+															<div className="driver-info__caption">Адрес регистрации</div>
+														</Col>
+													</Row>
+													
+													<Row className="kasko-car-select__controls" gutter={20}>
+														<Col span={3}/>
+														<FormInput span={6} onChangeCallback={this.formControlCallback}
+																	 placeholder="Индекс" controlName={'driverAddressPostCode'}
+																	 value={''}/>
+													</Row>
+													
+													<Row className="kasko-car-select__controls" gutter={20}>
+														<Col span={3}/>
+		
+														<FormInput span={18} onChangeCallback={this.formControlCallback}
+																			 placeholder="Адрес" controlName={'driverAddress'}
+																			 value={''}/>
+																			 
+														{/*<Col span={3}>*/}
+														{/*	<Input*/}
+														{/*		className={"w_100p custom_placeholder " + (allFields ? "input-error" : "") + ((this.state.clientFlat + '').length ? "" : " _empty")}*/}
+														{/*		value={this.state.clientFlat}*/}
+														{/*		onChange={this.onClientFlatChange} defaultValue=""/>*/}
+														{/*	<div className="float_placeholder">Квартира</div>*/}
+														{/*</Col>*/}
+														{/*<Col span={3}>*/}
+														{/*	<Input*/}
+														{/*		className={"w_100p custom_placeholder " + (allFields ? "input-error" : "") + ((this.state.clientPostCode + '').length ? "" : " _empty")}*/}
+														{/*		value={this.state.clientPostCode}*/}
+														{/*		onChange={this.onClientPostCodeChange} defaultValue=""/>*/}
+														{/*	<div className="float_placeholder">Индекс</div>*/}
+														{/*</Col>*/}
+													</Row>
+													
+													<Row className="kasko-car-select__controls" gutter={20}>
+														<Col span={3}/>
+		
+														<FormInput span={6} onChangeCallback={this.formControlCallback}
+																			 placeholder="Дата регистрации" controlName={'driverRegistrationStart'}
+																			 value={''}/>
+																			 
+													</Row>
+		
+													<Row className="kasko-car-select__controls mb_0" gutter={20}>
+														<Col span={3}/>
+														<FormSelect span={6} onChangeCallback={this.formControlCallback}
+																				options={this.state.clientFlatTypeList}
+																				className={this.activeClass('clientFlatType')}
+																				placeholder="Статус недвижимости" controlName={'clientFlatType'}
+																				value={this.state.clientFlatType}/>
+													</Row>
+		
+													<Row className="kasko-car-select__controls mb_60" gutter={20}>
+														<Col span={3}/>
+		
+														<FormCheckbox onChangeCallback={this.formControlCallback}
+																					className="checkbox_middle check_v3"
+																					text="Совпадает с адресом проживания"
+																					value={1}
+																					controlName={'sameAsRealAddress'} checked={this.state.sameAsRealAddress}/>
+													</Row>
+												</>
+												: null
+										}
+		
+										<Row className="kasko-car-select__controls mb_0" gutter={20}>
+											<Col span={3}/>
+											<Col span={18}>
+												<div className="driver-info__caption">Второй документ</div>
+											</Col>
+										</Row>
+		
+										<Row className="kasko-car-select__controls" gutter={20}>
+											<Col span={3}/>
+											<FormSelect span={12} onChangeCallback={this.formControlCallback}
+																	options={this.state.driverSecondDocTypeList}
+																	className={this.activeClass('driverSecondDocType')}
+																	placeholder="Тип документа" controlName={'driverSecondDocType'}
+																	value={this.state.driverSecondDocType}/>
+										</Row>
+		
+										<Row className="kasko-car-select__controls" gutter={20}>
+											<Col span={3}/>
+		
+											<FormInput span={6} onChangeCallback={this.formControlCallback}
+																 inputmask={clientLicenseIDMask}
+																 placeholder="Серия, номер"
+																 controlName={'driverAnotherDocument'} value={this.state.driverAnotherDocument}/>
+		
+											<FormInput span={6} onChangeCallback={this.formControlCallback}
+																 inputmask={clientLicenseIDMask}
+																 placeholder="Дата выдачи"
+																 controlName={'driverAnotherDocumentStart'} value={this.state.driverAnotherDocumentStart}/>
+										</Row>
+										
+										<Row className="kasko-car-select__controls" gutter={20}>
+											<Col span={3}/>
+		
+											<FormInput span={12} onChangeCallback={this.formControlCallback}
+																 placeholder="Кем выдан"
+																 controlName={'driverAnotherDocumentDepartment'} value={this.state.driverAnotherDocumentDepartment}/>
+										</Row>
+											
+										{/*<div className="kasko-car-select__controls">*/}
+										{/*	<Checkbox onChange={this.onDriverLicensePrevChange}>Предыдущее ВУ*/}
+										{/*		<span className="checkbox_middle--hint">(Не обязательно)</span></Checkbox>*/}
+										{/*</div>*/}
+											
+										{this.state.driverLicensePrev ?
 											<Row className="kasko-car-select__controls" gutter={20}>
+												{/*<Col span={6}>*/}
+													{/*<DatePicker format={dateFormat} */}
+													{/*			//disabled={!this.state.driverLicensePrev ? "disabled" : ""}*/}
+													{/*			value={this.state.driverLicenseFirst ? moment(this.state.driverLicenseFirst) : null}*/}
+													{/*			onChange={this.onDriverLicenseFirstChange} placeholder=""*/}
+													{/*			className={"w_100p hide_picker_icon" + (this.state.driverLicenseFirst && this.state.driverLicenseFirst._isAMomentObject ? "" : " _empty")}/>*/}
+												{/*	<Input data-inputmask={dateFormatMask}*/}
+												{/*		   className={"w_100p" + ((this.state.driverLicenseFirst + '').length ? "" : " _empty")}*/}
+												{/*		   value={this.state.driverLicenseFirst}*/}
+												{/*		   onChange={this.onDriverLicenseFirstChange} defaultValue=""/>*/}
+												{/*	<div className="float_placeholder">{'Дата выдачи \n первого ВУ'}</div>*/}
+												{/*</Col>*/}
+												{/*<Col className="checkbox_middle check_v3" span={6}>*/}
+												{/*	<Checkbox onChange={this.onDriverLicensePrevChange}>Предыдущее ВУ</Checkbox>*/}
+												{/*	<div className="checkbox_middle--hint">Не обязательно</div>*/}
+												{/*</Col>*/}
+			
 												<Col span={3}>
-													<Input data-inputmask={clientLicenseIDMask}
-														   className={"w_100p custom_placeholder " + (allFields ? "input-error" : "") + ((this.state.clientLicenseID + '').length ? "" : " _empty")}
-														   value={this.state.clientLicenseID}
-														   onChange={this.onClientLicenseIDIDChange} defaultValue=""/>
+													<Input data-inputmask={driverLicenseIDMask}
+															 className={"w_100p custom_placeholder " + ((this.state.driverPrevLicenseID + '').length ? "" : " _empty")}
+															 value={this.state.driverPrevLicenseID}
+															 onChange={this.onDriverPrevLicenseIDChange} defaultValue=""/>
 													<div className="float_placeholder">Серия</div>
 												</Col>
 												<Col span={3}>
-													<Input data-inputmask={clientLicenseNumberMask}
-														   className={"w_100p custom_placeholder " + (allFields ? "input-error" : "") + ((this.state.clientLicenseNumber + '').length ? "" : " _empty")}
-														   value={this.state.clientLicenseNumber}
-														   onChange={this.onClientLicenseNumberChange} defaultValue=""/>
+													<Input data-inputmask={driverLicenseNumberMask}
+															 className={"w_100p custom_placeholder " + ((this.state.driverPrevLicenseNumber + '').length ? "" : " _empty")}
+															 value={this.state.driverPrevLicenseNumber}
+															 onChange={this.onDriverLicenseNumberPrevChange}
+															 defaultValue=""/>
 													<div className="float_placeholder">Номер</div>
 												</Col>
 												<Col span={6}>
-													{/*<DatePicker format={dateFormat}*/}
-													{/*	value={this.state.clientLicenseStart ? moment(this.state.clientLicenseStart) : null}*/}
-													{/*	onChange={this.onClientLicenseStartChange} placeholder=""*/}
-													{/*	className={"w_100p wrapper-error hide_picker_icon" + (this.state.clientLicenseStart && this.state.clientLicenseStart._isAMomentObject ? "" : " _empty")}/>*/}
 													<Input data-inputmask={dateFormatMask}
-														   className={"w_100p custom_placeholder " + (allFields ? "input-error" : "") + ((this.state.clientLicenseStart + '').length ? "" : " _empty")}
-														   value={this.state.clientLicenseStart}
-														   onChange={this.onClientLicenseStartChange} defaultValue=""/>
+														className={"w_100p custom_placeholder " + ((this.state.driverPrevLicenseStart + '').length ? "" : " _empty")}
+														value={this.state.driverPrevLicenseStart}
+														onChange={this.onDriverPrevLicenseStartChange}
+														defaultValue=""/>
 													<div className="float_placeholder">Дата выдачи</div>
 												</Col>
-												<Col span={6}>
-													<Input
-														className={"w_100p custom_placeholder " + (allFields ? "input-error" : "") + ((this.state.clientLicenseDepID + '').length ? "" : " _empty")}
-														value={this.state.clientLicenseDepID}
-														onChange={this.onClientLicenseDepIDChange} defaultValue=""/>
-													<div className="float_placeholder">Код подразделения</div>
-												</Col>
-											</Row>
-
-											<Row className="kasko-car-select__controls" gutter={20}>
-												<Col span={24}>
-													<Input
-														className={"w_100p custom_placeholder " + (allFields ? "input-error" : "") + ((this.state.clientLicenseDepartment + '').length ? "" : " _empty")}
-														value={this.state.clientLicenseDepartment}
-														onChange={this.onclientLicenseDepartmentChange}
-														defaultValue=""/>
-													<div className="float_placeholder">Кем выдан</div>
-												</Col>
-											</Row>
-
-											<div className="driver-info__caption">Адрес регистрации</div>
-
-											<Row className="kasko-car-select__controls" gutter={20}>
-												<Col span={18}>
-													<Input
-														className={"w_100p custom_placeholder " + (allFields ? "input-error" : "") + ((this.state.clientAddress + '').length ? "" : " _empty")}
-														value={this.state.clientAddress}
-														onChange={this.onClientAddressChange} defaultValue=""/>
-													<div className="float_placeholder">Адрес</div>
-												</Col>
-												{/*<Col span={3}>*/}
-												{/*	<Input*/}
-												{/*		className={"w_100p custom_placeholder " + (allFields ? "input-error" : "") + ((this.state.clientFlat + '').length ? "" : " _empty")}*/}
-												{/*		value={this.state.clientFlat}*/}
-												{/*		onChange={this.onClientFlatChange} defaultValue=""/>*/}
-												{/*	<div className="float_placeholder">Квартира</div>*/}
-												{/*</Col>*/}
-												{/*<Col span={3}>*/}
-												{/*	<Input*/}
-												{/*		className={"w_100p custom_placeholder " + (allFields ? "input-error" : "") + ((this.state.clientPostCode + '').length ? "" : " _empty")}*/}
-												{/*		value={this.state.clientPostCode}*/}
-												{/*		onChange={this.onClientPostCodeChange} defaultValue=""/>*/}
-												{/*	<div className="float_placeholder">Индекс</div>*/}
-												{/*</Col>*/}
-											</Row>
-											
-											<Row className="kasko-car-select__controls" gutter={20}>
-												<Col span={6}>
-													<Input data-inputmask={dateFormatMask}
-														   className={"w_100p custom_placeholder " + (allFields ? "input-error" : "") + ((this.state.clientRegistrationStart + '').length ? "" : " _empty")}
-														   value={this.state.clientRegistrationStart}
-														   onChange={this.onClientRegistrationStartChange} defaultValue=""/>
-													<div className="float_placeholder">Дата регистрации</div>
-												</Col>
-												<Col span={12}>
-													<Select
-														dropdownClassName="select_dropdown_v1"
-														className={"w_100p custom_placeholder " + (allFields ? "wrapper-error" : "") + (this.state.clientFlatType.length ? "" : " _empty")}
-														placeholder=""
-														onChange={this.onClientFlatTypeChange}
-														value={this.state.clientFlatType}
-													>
-														{this.state.clientFlatTypeList ? this.state.clientFlatTypeList.map((e, i) =>
-															<Option key={i} value={e}>{e}</Option>) : ""}
-													</Select>
-													<div className="float_placeholder">Тип жилья</div>
-												</Col>
-											</Row>
-										</>
-										: ""
+											</Row> : null
+										}
+								</div>
 								}
-								
-							<div className="driver-info__caption">Водительское удостоверение</div>
-
-							<Row className="kasko-car-select__controls" gutter={20}>
-								<Col span={3}>
-									<Input data-inputmask={driverLicenseIDMask}
-										   className={"w_100p custom_placeholder " + ((this.state.driverLicenseID + '').length ? "" : " _empty")}
-										   value={this.state.driverLicenseID}
-										   onChange={this.onDriverLicenseIDChange} defaultValue=""/>
-									<div className="float_placeholder">Серия</div>
-								</Col>
-								<Col span={3}>
-									<Input data-inputmask={driverLicenseNumberMask}
-										   className={"w_100p custom_placeholder " + ((this.state.driverLicenseNumber + '').length ? "" : " _empty")}
-										   value={this.state.driverLicenseNumber}
-										   onChange={this.onDriverLicenseNumberChange} defaultValue=""/>
-									<div className="float_placeholder">Номер</div>
-								</Col>
-								<Col span={6}>
-									{/*<DatePicker format={dateFormat}*/}
-									{/*	value={this.state.driverLicenseStart ? moment(this.state.driverLicenseStart) : null}*/}
-									{/*	onChange={this.onDriverLicenseStartChange} placeholder=""*/}
-									{/*	className={"w_100p hide_picker_icon" + (this.state.driverLicenseStart && this.state.driverLicenseStart._isAMomentObject ? "" : " _empty")}/>*/}
-									<Input data-inputmask={dateFormatMask}
-										   className={"w_100p custom_placeholder " + ((this.state.driverLicenseStart + '').length ? "" : " _empty")}
-										   value={this.state.driverLicenseStart}
-										   onChange={this.onDriverLicenseStartChange} defaultValue=""/>
-									<div className="float_placeholder">Дата выдачи</div>
-								</Col>
-								<Col span={6}>
-									<Input data-inputmask={dateFormatMask}
-										className={"w_100p custom_placeholder " + ((this.state.driverExperienceStart + '').length ? "" : " _empty")}
-										value={this.state.driverExperienceStart}
-										onChange={this.onDriverExperienceStartChange} defaultValue=""/>
-									<div className="float_placeholder">Дата начала стажа</div>
-								</Col>
-								{/*<Col span={12}>*/}
-								{/*	<Input*/}
-								{/*		className={"w_100p" + ((this.state.driverLicenseDepartment + '').length ? "" : " _empty")}*/}
-								{/*		value={this.state.driverLicenseDepartment}*/}
-								{/*		onChange={this.onDriverLicenseDepartmentChange} defaultValue=""/>*/}
-								{/*	<div className="float_placeholder">Кем выдано</div>*/}
-								{/*</Col>*/}
-							</Row>
-								
-							<div className="kasko-car-select__controls">
-								<Checkbox onChange={this.onDriverLicensePrevChange}>Предыдущее ВУ
-									<span className="checkbox_middle--hint">(Не обязательно)</span></Checkbox>
-							</div>
-								
-							{this.state.driverLicensePrev ?
-								<Row className="kasko-car-select__controls" gutter={20}>
-									{/*<Col span={6}>*/}
-										{/*<DatePicker format={dateFormat} */}
-										{/*			//disabled={!this.state.driverLicensePrev ? "disabled" : ""}*/}
-										{/*			value={this.state.driverLicenseFirst ? moment(this.state.driverLicenseFirst) : null}*/}
-										{/*			onChange={this.onDriverLicenseFirstChange} placeholder=""*/}
-										{/*			className={"w_100p hide_picker_icon" + (this.state.driverLicenseFirst && this.state.driverLicenseFirst._isAMomentObject ? "" : " _empty")}/>*/}
-									{/*	<Input data-inputmask={dateFormatMask}*/}
-									{/*		   className={"w_100p" + ((this.state.driverLicenseFirst + '').length ? "" : " _empty")}*/}
-									{/*		   value={this.state.driverLicenseFirst}*/}
-									{/*		   onChange={this.onDriverLicenseFirstChange} defaultValue=""/>*/}
-									{/*	<div className="float_placeholder">{'Дата выдачи \n первого ВУ'}</div>*/}
-									{/*</Col>*/}
-									{/*<Col className="checkbox_middle check_v3" span={6}>*/}
-									{/*	<Checkbox onChange={this.onDriverLicensePrevChange}>Предыдущее ВУ</Checkbox>*/}
-									{/*	<div className="checkbox_middle--hint">Не обязательно</div>*/}
-									{/*</Col>*/}
-
-									<Col span={3}>
-										<Input data-inputmask={driverLicenseIDMask}
-											   className={"w_100p custom_placeholder " + ((this.state.driverPrevLicenseID + '').length ? "" : " _empty")}
-											   value={this.state.driverPrevLicenseID}
-											   onChange={this.onDriverPrevLicenseIDChange} defaultValue=""/>
-										<div className="float_placeholder">Серия</div>
-									</Col>
-									<Col span={3}>
-										<Input data-inputmask={driverLicenseNumberMask}
-											   className={"w_100p custom_placeholder " + ((this.state.driverPrevLicenseNumber + '').length ? "" : " _empty")}
-											   value={this.state.driverPrevLicenseNumber}
-											   onChange={this.onDriverLicenseNumberPrevChange}
-											   defaultValue=""/>
-										<div className="float_placeholder">Номер</div>
-									</Col>
-									<Col span={6}>
-										<Input data-inputmask={dateFormatMask}
-											className={"w_100p custom_placeholder " + ((this.state.driverPrevLicenseStart + '').length ? "" : " _empty")}
-											value={this.state.driverPrevLicenseStart}
-											onChange={this.onDriverPrevLicenseStartChange}
-											defaultValue=""/>
-										<div className="float_placeholder">Дата выдачи</div>
-									</Col>
-								</Row> : ""
-							}
-
-								<div className="driver-info__caption">Контакты</div>
-
-								<Row className="kasko-car-select__controls" gutter={20}>
-									<Col span={6}>
-										<Input disabled="disabled"
-											   className={"w_100p custom_placeholder _empty"}
-											   defaultValue=""/>
-										<div className="float_placeholder">Фамилия И. Клиента</div>
-									</Col>
-									<Col span={6}>
-										<Input data-inputmask={driverPhoneMask}
-											   className={"w_100p custom_placeholder" + ((this.state.driverPhone + '').length ? "" : " _empty")}
-											   value={this.state.driverPhone}
-											   onChange={this.onDriverPhoneChange} defaultValue=""/>
-										<div className="float_placeholder">Мобильный телефон</div>
-									</Col>
-									<Col span={12}>
-										<Input data-inputmask={driverEmailMask}
-											   className={"w_100p custom_placeholder" + ((this.state.driverEmail + '').length ? "" : " _empty")}
-											   value={this.state.driverEmail}
-											   onChange={this.onDriverEmailChange} defaultValue=""/>
-										<div className="float_placeholder">Емейл</div>
-									</Col>
-								</Row>
-								
-								
-
-							<div className="kasko-car-select__controls ant-row-center">
-								{
-									!d ?
-										<div onClick={this.addDriver} className="driver-info__add gl_link">Добавить водителя</div>
-										:
-										<div onClick={this.removeDriver} className="driver-info__remove gl_link">Удалить водителя</div>
-								}
-							</div>
-						</div>
+							</>
 						)
-					}) : ""
+					}) : null
 				}
 				
-				<div className="driver-info__caption">Проверьте лиц, включенных в полис</div>
-
-				<InsurancePolicy />
-
+				{/*<div className="kasko-car-select__controls ant-row-center">*/}
+				{/*	<div className="driver-info__add gl_link">Добавить водителя</div>*/}
+				{/*</div>*/}
 				
-				<div className="kasko-car-select__controls ant-row-center">
-					<div className="driver-info__add gl_link">Добавить водителя</div>
-				</div>
-
-				<div className="kasko-car-select__controls ant-row-center">
-					<div className="kasko-car-select__controls--group">
-						<div className="kasko-car-select__controls--group-l">
-							<div onClick={() => this.driverInfoSave(false)} className={"gl_link"}>Отмена</div>
-						</div>
-						<div onClick={() => this.driverInfoSave(true)} className={"ant-btn ant-btn-primary btn_middle"}>Получить расчет</div>
-					</div>
-				</div>
+				{/*<div className="kasko-car-select__controls ant-row-center">*/}
+				{/*	<div className="kasko-car-select__controls--group">*/}
+				{/*		<div className="kasko-car-select__controls--group-l">*/}
+				{/*			<div onClick={() => this.driverInfoSave(false)} className={"gl_link"}>Отмена</div>*/}
+				{/*		</div>*/}
+				{/*		<div onClick={() => this.driverInfoSave(true)} className={"ant-btn ant-btn-primary btn_middle"}>Получить расчет</div>*/}
+				{/*	</div>*/}
+				{/*</div>*/}
+				
 			</div>
 		);
 	}

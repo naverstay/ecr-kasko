@@ -101,7 +101,7 @@ class CalcsavePopup extends Component {
 						<Row className="kasko-car-select__controls" gutter={20}>
 							<Col span={4} />
 							<Col>
-								<div className="ant-btn btn_green fz_14">Отменить</div>
+								<div className="ant-btn btn_green fz_14 w_100p"><span>Отменить</span></div>
 							</Col>
 							<Col>
 								<Button htmlType={formDisabled ? null : "submit"}

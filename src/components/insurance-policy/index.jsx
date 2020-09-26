@@ -17,23 +17,23 @@ class InsurancePolicy extends Component {
 					<thead>
 						<tr>
 							<th className="insurance-policy__table--col-1">Фамилия имя отчество</th>
-							<th className="insurance-policy__table--col-2">Включить <br /> в ОСАГО</th>
-							<th className="insurance-policy__table--col-3">Включить <br /> в КАСКО</th>
-							<th className="insurance-policy__table--col-4">&nbsp;</th>
+							<th className="insurance-policy__table--col-2">ОСАГО</th>
+							<th className="insurance-policy__table--col-3">КАСКО</th>
+							{/*<th className="insurance-policy__table--col-4">&nbsp;</th>*/}
 						</tr>
 					</thead>
 					<tbody>
 						<tr>
 							<td>
 								<div className="insurance-policy__name">Фомин Сергей Михайлович</div>
-								<Row gutter={20} className="insurance-policy__options">
-									<Col className="check_v3">
-										<Checkbox>Страхователь</Checkbox>
-									</Col>
-									<Col className="check_v3">
-										<Checkbox>Собственник</Checkbox>
-									</Col>
-								</Row>
+								{/*<Row gutter={20} className="insurance-policy__options">*/}
+								{/*	<Col className="check_v3">*/}
+								{/*		<Checkbox>Страхователь</Checkbox>*/}
+								{/*	</Col>*/}
+								{/*	<Col className="check_v3">*/}
+								{/*		<Checkbox>Собственник</Checkbox>*/}
+								{/*	</Col>*/}
+								{/*</Row>*/}
 							</td>
 							<td className="check_v3">
 								<Checkbox/>
@@ -41,7 +41,27 @@ class InsurancePolicy extends Component {
 							<td className="check_v3">
 								<Checkbox/>
 							</td>
-							<td>&nbsp;</td>
+							{/*<td>&nbsp;</td>*/}
+						</tr>
+						<tr>
+							<td>
+								<div className="insurance-policy__name">Фомина Марина Владимировна</div>
+								{/*<Row gutter={20} className="insurance-policy__options">*/}
+								{/*	<Col className="check_v3">*/}
+								{/*		<Checkbox>Страхователь</Checkbox>*/}
+								{/*	</Col>*/}
+								{/*	<Col className="check_v3">*/}
+								{/*		<Checkbox>Собственник</Checkbox>*/}
+								{/*	</Col>*/}
+								{/*</Row>*/}
+							</td>
+							<td className="check_v3">
+								<Checkbox/>
+							</td>
+							<td className="check_v3">
+								<Checkbox/>
+							</td>
+							{/*<td>&nbsp;</td>*/}
 						</tr>
 					</tbody>
 				</table>

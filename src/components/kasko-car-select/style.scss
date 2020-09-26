@@ -1,4 +1,4 @@
-@import 'src/assets/styles/global';
+@import '../../assets/styles/global';
 
 .kasko-car-select {
 	color: #000;
@@ -7,9 +7,19 @@
 		color: $color-grey;
 	}
 
+	&__form {
+		padding: 10px 0;
+		margin: 30px 0;
+		border: 2px solid #7ebfed;
+	}
+	
 	&__caption {
 		@extend %h3;
 		margin-bottom: 15px;
+		
+		&.mb_0 {
+			margin-bottom: 0;
+		}
 
 		&.fz_12 {
 			font-size: 12px;
@@ -220,7 +230,7 @@
 
 		&.radio_v2 {
 			@extend %radio_v2;
-			margin-bottom: 0;
+			margin-bottom: 0 !important;
 
 			&.highlight_radio .ant-radio-inner {
 				border-color: $color-blue-light;
@@ -268,6 +278,14 @@
 		&.mb_55 {
 			margin-bottom: 55px;
 		}
+
+		&.mb_60 {
+			margin-bottom: 60px;
+		}
+
+		&.mt_60 {
+			margin-top: 60px;
+		}
 		
 		.ant-radio-wrapper {
 			@extend %text2;
@@ -280,6 +298,10 @@
 		
 		&--flex-1 {
 			flex: 1 0 auto;
+		}
+		
+		&--newcar {
+			min-width: 25%;
 		}
 		
 		&--credit {

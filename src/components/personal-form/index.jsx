@@ -16,6 +16,7 @@ class PersonalForm extends Component {
 		super(props);
 		this.state = {
 			activeFields: (this.props.step === 1 ? ['carMark'] : []),
+			clientWholeName: '',
 			clientLastName: '',
 			clientFirstName: '',
 			clientFarthersName: '',
@@ -104,18 +105,30 @@ class PersonalForm extends Component {
 	};
 	
 	render() {
+		const {wholeName} = this.props;
+
 		return (
 			<div className="kasko-car-select">
 				<Row className="kasko-car-select__controls" gutter={20}>
-					<FormInput span={6} onChangeCallback={this.formControlCallback}
-							   placeholder="Фамилия" controlName={'clientLastName'} value={''}/>
+					<Col span={3} />
+					{wholeName ?
+						<FormInput span={18} onChangeCallback={this.formControlCallback}
+											 placeholder="Фамилия, Имя, Отчество" controlName={'clientWholeName'} value={''}/>
+						:
+						<>
+							<FormInput span={6} onChangeCallback={this.formControlCallback}
+												 placeholder="Фамилия" controlName={'clientLastName'} value={''}/>
 
-					<FormInput span={6} onChangeCallback={this.formControlCallback}
-							   placeholder="Имя" controlName={'clientFirstName'} value={''}/>
+							<FormInput span={6} onChangeCallback={this.formControlCallback}
+												 placeholder="Имя" controlName={'clientFirstName'} value={''}/>
 
-					<FormInput span={6} onChangeCallback={this.formControlCallback}
-							   placeholder="Отчество" controlName={'clientFarthersName'} value={''}/>
-
+							<FormInput span={6} onChangeCallback={this.formControlCallback}
+												 placeholder="Отчество" controlName={'clientFarthersName'} value={''}/>
+						</>
+					}
+				</Row>
+				<Row className="kasko-car-select__controls" gutter={20}>
+					<Col span={3}/>
 					<FormInput span={6} onChangeCallback={this.formControlCallback}
 							   placeholder={"Телефон"} controlName={'clientPhone'} value={''}/>
 				</Row>

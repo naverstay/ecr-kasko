@@ -83,7 +83,9 @@ class OfferRowCombo extends Component {
 								</td>
 
 								<td>
-									<div className="offer-row__fee text_left">{o.name}</div>
+									{osago ? null :
+										<div className="offer-row__fee text_left">{o.name}</div>
+									}
 								</td>
 
 								<td className="text_right">
@@ -97,26 +99,28 @@ class OfferRowCombo extends Component {
 									<div className="offer-row__fee">{(o.dealerFee)}</div>
 								</td>
 								
-								<td>
-									<div className="offer-row__fee">
-										<Checkbox disabled={completed || waiting || o.credit === null} defaultChecked={o.credit ? "checked" : null} onChange={this.creditChange}/>
-										
-										{/*{o.payment && Array.isArray(o.payment) && o.payment.length > 1 ?*/}
-										{/*	<Select*/}
-										{/*		size="small"*/}
-										{/*		defaultValue={o.payment[0]}*/}
-										{/*		dropdownClassName="select_dropdown_v1"*/}
-										{/*		className={"w_100p small_select"}*/}
-										{/*		placeholder=""*/}
-										{/*	>*/}
-										{/*		{o.payment.map((e, i) =>*/}
-										{/*			<Option key={i} value={e}>{e}</Option>)}*/}
-										{/*	</Select>*/}
-										{/*	:*/}
-										{/*	o.payment*/}
-										{/*}*/}
-									</div>
-								</td>
+								{osago ? null : 
+									<td>
+										<div className="offer-row__fee">
+											<Checkbox disabled={completed || waiting || o.credit === null} defaultChecked={o.credit ? "checked" : null} onChange={this.creditChange}/>
+											
+											{/*{o.payment && Array.isArray(o.payment) && o.payment.length > 1 ?*/}
+											{/*	<Select*/}
+											{/*		size="small"*/}
+											{/*		defaultValue={o.payment[0]}*/}
+											{/*		dropdownClassName="select_dropdown_v1"*/}
+											{/*		className={"w_100p small_select"}*/}
+											{/*		placeholder=""*/}
+											{/*	>*/}
+											{/*		{o.payment.map((e, i) =>*/}
+											{/*			<Option key={i} value={e}>{e}</Option>)}*/}
+											{/*	</Select>*/}
+											{/*	:*/}
+											{/*	o.payment*/}
+											{/*}*/}
+										</div>
+									</td>
+								}
 								
 								{(completed || waiting) ?
 									<>
@@ -136,8 +140,22 @@ class OfferRowCombo extends Component {
 									</>
 									: 
 									<>
-										<td>&nbsp;</td>
-										<td>&nbsp;</td>
+										{(osago && waiting) ?
+											<td>
+												<div className="offer-row__date">{o.dateStart}</div>
+												<div className="offer-row__date">{o.dateEnd}</div>
+											</td>
+											: <td>&nbsp;</td>
+										}
+										{osago ?
+											<td className="text_left">
+												<div className="offer-row__documents">
+													<div className="gl_link color_black">{o.document}</div>
+													{o.nobill ? null : <div className="offer-row__bill gl_link">Счет на оплату</div>}
+												</div>
+											</td> :
+											<td>&nbsp;</td>
+										}
 										<td>
 											<Checkbox disabled={((allowCheck || osago) ? null : "disabled")} className="offer-row__check" onChange={(e) => this.onSelectOfferToggle(company, i, e)}/>
 										</td>
@@ -151,7 +169,7 @@ class OfferRowCombo extends Component {
 							{showOptions && 'options' in o && o.options.length ?
 								<tr key={i + 100000} className={(offerSelected ? "selected" : "") + (lastRow ? ' last-row' : '')}>
 									<td colSpan={(completed || waiting) ? 2 : 3}>&nbsp;</td>
-									<td colSpan={(completed || waiting) ? 7 : 6}>
+									<td colSpan={((completed || waiting) ? 7 : 6) - (osago ? 1 : 0)}>
 										<p className="text_left" style={{marginBottom: '15px'}}>Условия КАСКО:</p>
 										<ul className="offer-row__options">
 											{o.options.map((opt, k) => <li key={k}>{opt}</li>)}

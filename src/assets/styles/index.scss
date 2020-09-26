@@ -1,7 +1,7 @@
 @import 'normalize';
 @import 'global';
 @import 'grid';
-@import 'fonts';
+//@import 'fonts';
 
 html {
 	font: 14px/1.2 'Roboto', sans-serif;
@@ -87,6 +87,12 @@ input {
 }
 
 .ant-btn {
+	padding: 0 16px;
+	display: inline-flex;
+	align-items: center;
+	white-space: normal;
+	justify-content: center;
+	
 	.btn_icon {
 		display: inline-block;
 		vertical-align: middle;
@@ -340,7 +346,7 @@ $spinner_time: 1s;
 .check_v3 {
 	.ant-checkbox {
 		+ span {
-			@extend %text1;
+			@extend %text2;
 		}
 	}
 
@@ -523,5 +529,13 @@ $spinner_time: 1s;
 				color: #fff;
 			}
 		}
+	}
+}
+
+.popup-visible {
+	display: none;
+	
+	.calculation-popup & {
+		display: block;
 	}
 }

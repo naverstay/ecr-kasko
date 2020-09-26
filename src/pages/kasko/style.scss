@@ -1,4 +1,4 @@
-@import 'src/assets/styles/global';
+@import '../../assets/styles/global';
 
 $aside-size: 226px;
 
@@ -183,7 +183,29 @@ $aside-size: 226px;
 		
 		&__title {
 			@extend %h1;
-			text-align: center;
+			display: flex;
+			flex-flow: row;
+			align-items: flex-end;
+			justify-content: center;
+			position: relative;
+			
+			span {
+				line-height: 1;
+
+				&:only-child {
+					margin: auto;
+				}
+				
+				&.kasko-main__title--id {
+					position: absolute;
+					bottom: 20px;
+					right: 0;
+					color: #a8a8a8;
+					font-size: 12px;
+					line-height: 1.3;
+					font-weight: normal;
+				}
+			}
 
 			&.expanded,
 			&.collapsed {

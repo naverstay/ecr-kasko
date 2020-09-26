@@ -1,4 +1,4 @@
-@import 'src/assets/styles/global';
+@import '../../assets/styles/global';
 
 .popup-overlay {
 	position: fixed;
@@ -12,5 +12,13 @@
 
 	> .ant-row {
 		height: 100%;
+		
+		&:before {
+			content: '#{$env}';
+		}
+		
+		@if ($env == 'development') {
+			max-width: 1454px;
+		}
 	}
 }

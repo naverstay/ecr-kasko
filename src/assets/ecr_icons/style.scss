@@ -1,5 +1,9 @@
 @import "variables";
 
+@if ($env == 'development') {
+  $icomoon-font-path: "assets/fonts";
+}
+
 @font-face {
   font-family: '#{$icomoon-font-family}';
   src:

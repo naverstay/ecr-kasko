@@ -3,7 +3,6 @@ import React, {Component} from "react";
 import './style.scss';
 import PropTypes from "prop-types";
 
-
 class AsideBlock extends Component {
 	static propTypes = {
 		children: PropTypes.node,

@@ -6,7 +6,7 @@ import './style.scss';
 const Details = props => {
 	return (
 		<div>
-			<h1 className="kasko-main__title" style={{marginBottom: '10px'}}>Оформить кредит</h1>
+			<h1 className="kasko-main__title" style={{marginBottom: '10px'}}><span>Оформить кредит</span></h1>
 			<div className="cc_tab ccTab_" id="cc_calc_tab_3_" style={{display: 'block'}}>
 				<table className="oo_offers_table two _chat">
 					<tbody>

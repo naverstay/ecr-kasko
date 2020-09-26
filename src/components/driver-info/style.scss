@@ -1,4 +1,6 @@
-@import 'src/assets/styles/global';
+@import '../../assets/styles/global';
+
+$icon-size: 16px;
 
 .driver-info {
 	padding: 10px 0;
@@ -14,13 +16,17 @@
 		@extend %text1;
 		font-weight: bold;
 		margin-bottom: 15px;
+		
+		.ant-row > .ant-col > & {
+			margin-bottom: 10px;
+		}
 	}
 
 	&__add {
-		@extend %text1;
+		@extend %text2;
 		position: relative;
 		display: inline-block;
-		padding-left: 30px;
+		padding-left: 22px;
 		margin: 15px 0;
 		
 		&:before {
@@ -29,23 +35,23 @@
 			position: absolute;
 			left: 0;
 			top: 50%;
-			margin-top: -10px;
-			border-radius: 10px;
+			border-radius: $icon-size / 2;
 			background: $color-green;
+			margin-top: -$icon-size / 2;
 			color: #fff;
-			font-size: 16px;
-			line-height: 20px;
-			width: 20px;
-			height: 20px;
+			font-size: $icon-size - 6px;
+			line-height: $icon-size;
+			width: $icon-size;
+			height: $icon-size;
 			text-align: center;
 		}
 	}
 	
 	&__remove {
-		@extend %text1;
+		@extend %text2;
 		position: relative;
 		display: inline-block;
-		padding-left: 30px;
+		padding-left: 22px;
 		margin: 15px 0;
 		
 		&:before {
@@ -55,16 +61,15 @@
 			position: absolute;
 			left: 0;
 			top: 50%;
-			margin-top: -10px;
-			border-radius: 10px;
+			margin-top: -$icon-size / 2;
+			border-radius: $icon-size / 2;
 			background: $color-grey;
 			color: #fff;
-			font-size: 16px;
-			line-height: 20px;
-			width: 20px;
-			height: 20px;
+			font-size: $icon-size - 6px;
+			line-height: $icon-size;
+			width: $icon-size;
+			height: $icon-size;
 			text-align: center;
 		}
 	}
 }
-

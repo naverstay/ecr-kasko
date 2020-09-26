@@ -375,8 +375,6 @@ class TabOffer extends Component {
 		if (step > 1 || this.state.showCalculationOffers) {
 			driverOptions = ['Фомин Сергей М.', 'Фомина Алла К.', 'Фомина Марина Ф.']
 		}
-
-		console.log('combo', combo);
 		
 		let franchiseSteps = {
 			//10000 : '10 000',
@@ -706,7 +704,42 @@ class TabOffer extends Component {
 			}
 		]
 		
-		if (step > 1) {
+		if (osago) {
+			calculationOfferComboList = [
+				{
+					name: 'Ингосстрах',
+					offers: [
+						{
+							name: '',
+							type: 'ОСАГО',
+							credit: null,
+							price: '11 450',
+							dealerFee: '1 145',
+							dateStart: '20.02.19',
+							dateEnd: '19.02.20',
+							options: optionsFixtures
+						}
+					]
+				},
+				{
+					name: 'ВСК',
+					offers: [
+						{
+							name: '',
+							type: 'ОСАГО',
+							credit: null,
+							price: '30 450',
+							dealerFee: '3 045',
+							dateStart: '20.02.19',
+							dateEnd: '19.02.20',
+							options: optionsFixtures
+						}
+					]
+				}
+			]
+		}
+		
+		if ((!osago || step > 2) && step > 1) {
 			calculationOfferList = [
 				{
 					logo: './logo/ingosstrakh.png',
@@ -722,37 +755,39 @@ class TabOffer extends Component {
 						}
 					]
 				},
-			]
+			];
 
+			var someOffers = [
+				{
+					name: 'Премиум',
+					type: 'КАСКО',
+					payment: 'Наличные',
+					price: 49850,
+					dealerFee: 4985,
+					share: 'Экономия 4 500',
+					dateStart: '20.02.19',
+					dateEnd: '19.02.20',
+					options: optionsFixtures
+				},
+				{
+					type: 'ОСАГО',
+					payment: 'Наличные',
+					nobill: true,
+					price: 46550,
+					dealerFee: 4655,
+					dateStart: '20.02.19',
+					dateEnd: '19.02.20',
+				}
+			];
+			
 			calculationOfferComboList = [
 				{
 					name: 'Ингосстрах',
-					offers: [
-						{
-							name: 'Премиум',
-							type: 'КАСКО',
-							payment: 'Наличные',
-							price: 41450,
-							dealerFee: 4145,
-							share: 'Экономия 4 500',
-							dateStart: '20.02.19',
-							dateEnd: '19.02.20',
-							options: optionsFixtures
-						},
-						{
-							type: 'ОСАГО',
-							payment: 'Наличные',
-							nobill: true,
-							price: 41450,
-							dealerFee: 4145,
-							dateStart: '20.02.19',
-							dateEnd: '19.02.20',
-						}
-					]
+					offers: someOffers
 				}
 			]
 		}
-		
+				
 		if (step === 3) {
 			if (image !== false) {
 				image = "Hyundai"
@@ -765,7 +800,7 @@ class TabOffer extends Component {
 			franchiseSteps[index] = {
 				label: <span className={"kasko-car-select__franchise--label" + (index === this.state.franchiseVal ? " active" : "")}>{(i ? '' : 'до ') + formatMoney(f)}</span>,
 			}
-		})
+		});
 		
 		let paramsBlock = <>
 			{!osago ?
@@ -829,7 +864,10 @@ class TabOffer extends Component {
 				: null}
 
 			{!osago ? <div onClick={this.toggleShowParams}
-						   className={"kasko-car-select__caption" + (this.state.showCalculationOffers ? (this.state.openParams ? " expanded" : " collapsed") : "")}>{'Параметры ' + (combo ? 'страхования' : 'КАСКО')}</div> : null}
+						   className={"kasko-car-select__caption" + (this.state.showCalculationOffers ? (this.state.openParams ? " expanded" : " collapsed") : "")}>{'Параметры ' + (combo ? 'страхования' : 'КАСКО')}</div> :
+								<div onClick={this.toggleShowParams}
+										 className={"kasko-car-select__caption" + (this.state.showCalculationOffers ? (this.state.openParams ? " expanded" : " collapsed") : "")}>{'Параметры ' + (combo ? 'страхования' : 'ОСАГО')}</div>
+			}
 
 			{(!this.state.showCalculationOffers || this.state.openParams || osago) ?
 				<>
@@ -837,9 +875,9 @@ class TabOffer extends Component {
 						<>
 							{combo ?
 								<>
-									{this.state.showCalculationOffers ?
-										null
-										: <div className="kasko-car-select__controls check_v2 mb_0">{comboInsurance}</div>}
+									{this.state.showCalculationOffers ? null :
+										<div className="kasko-car-select__controls check_v2 mb_0">{comboInsurance}</div>
+									}
 								</>
 								:
 								<div className="kasko-car-select__controls radio_v2 wide_group mb_0">
@@ -881,7 +919,7 @@ class TabOffer extends Component {
 														marks={franchiseSteps}
 														defaultValue={franchiseSteps[2]}/>
 											</Col>
-											: ""
+											: null
 										}
 									</Row>
 								</Radio.Group>
@@ -937,7 +975,7 @@ class TabOffer extends Component {
 								</Radio.Group>
 							</div>
 
-							<DriverCount className={this.state.showCalculationOffers ? "mb_0" : ""} step={step}
+							<DriverCount className={this.state.showCalculationOffers && !osago ? "mb_0" : ""} step={step}
 										 driverOptions={driverOptions}>
 									{step > 1 || this.state.showCalculationOffers ?
 										<Col>
@@ -951,8 +989,15 @@ class TabOffer extends Component {
 
 							{this.state.showCalculationOffers ? null :
 								<>
-									<Row gutter={20} className="kasko-car-select__controls ant-row-center mb_45">
-										{osago ? null :
+									<Row gutter={20} className={"kasko-car-select__controls mb_45" + (osago ? "" : " ant-row-center")}>
+										{osago ?
+											<Col span={6}>
+												<Button to="/credit_kasko"
+																onClick={this.togglePolicyPopup}
+																className={"w_100p ant-btn"}
+												>Внести полис вручную</Button>
+											</Col>
+											:
 											<Col span={6}>
 												<Button className={"w_100p ant-btn"}
 												>Отказ клиента</Button>
@@ -995,13 +1040,27 @@ class TabOffer extends Component {
 								<>
 									{paramsBlock}
 									
-									<div className="kasko-car-select__controls check_v2">{comboInsurance}</div>
+									{osago ? null :
+										<div className="kasko-car-select__controls check_v2">{comboInsurance}</div>
+									}
 									
-									<CalculationOffersCombo completed={true} selectedOffer={this.updateSelectedOffer} offersList={[
+									<CalculationOffersCombo osago={osago} completed={true} selectedOffer={this.updateSelectedOffer} offersList={[
 										{
 											name: 'Ингосстрах',
-											offers: [
-												{
+											offers: osago ? 
+												[{
+														name: 'Обычный',
+														type: 'ОСАГО',
+														document: step > 2 ? 'СС 12345678' : '',
+														payment: 'Наличные',
+														price: 41450,
+														dealerFee: 4145,
+														dateStart: '20.02.19',
+														dateEnd: '19.02.20',
+														options: optionsFixtures
+													}]
+												:
+												[{
 													name: 'Премиум',
 													type: 'КАСКО',
 													document: 'СС 12345678',
@@ -1176,7 +1235,7 @@ class TabOffer extends Component {
 							}
 
 							<>
-								{this.state.showCalculationOffers ?
+								{this.state.showCalculationOffers && !osago ?
 									<div className="kasko-car-select__controls check_v2">{comboInsurance}</div>
 									: null}
 							</>
@@ -1186,8 +1245,10 @@ class TabOffer extends Component {
 										{combo ?
 											<CalculationOffersCombo allowCheck={true}
 															   waiting={step === 2}
+															   osago={osago}
+																 hasSortType={!osago}
 															   selectedOffer={this.updateSelectedOffer}
-															   offersList={calculationOfferComboList}/>
+															   offersList={calculationOfferComboList}/> 
 											: <CalculationOffers franchise={this.state.hasFranchise} allowCheck={true}
 															osago={osago} waiting={step === 2}
 															selectedOffer={this.updateSelectedOffer}
@@ -1247,7 +1308,12 @@ class TabOffer extends Component {
 													</>
 												: (this.state.showPayment || osago) ?
 													<>
-														<Col span={6}/>
+														<Col span={6}>
+															{osago ? 
+																<Button className={"w_100p ant-btn"}>Отказ клиента</Button> :
+																null
+															}
+														</Col>
 														<Col span={6}>
 															<Button onClick={() => {this.state.availablePayment && this.nextStep(2)}}
 															   className={"ant-btn ant-btn-primary w_100p" + ((this.state.availablePayment) ? "" : " disabled")}>{this.state.showCompare ? 'Сравнить' : 'Оплатить в кассу'}</Button>
@@ -1309,7 +1375,7 @@ class TabOffer extends Component {
 				
 				{this.state.policyPopupOpened ?
 					<PopupOverlay span={16}>
-						<PolicyPopup popupConfirmation={this.updatePolicyState} step={this.state.showCalculationOffers ? 2 : step} allFields={this.state.showCalculationOffers || (step === 2)} fullCalculation={this.state.showCalculationOffers || this.state.fullCalculation} popupCloseFunc={this.togglePolicyPopup} />
+						<PolicyPopup showTab={osago ? 2 : 1} popupConfirmation={this.updatePolicyState} step={this.state.showCalculationOffers ? 2 : step} allFields={this.state.showCalculationOffers || (step === 2)} fullCalculation={this.state.showCalculationOffers || this.state.fullCalculation} popupCloseFunc={this.togglePolicyPopup} />
 					</PopupOverlay>
 					: null
 				}
