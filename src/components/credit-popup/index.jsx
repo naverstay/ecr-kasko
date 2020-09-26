@@ -98,7 +98,7 @@ class CreditPopup extends Component {
 	}
 
 	render() {
-		let {popupCloseFunc, step, allFields, updatePaymentState, osago} = this.props
+		let {popupCloseFunc, step, allFields, updatePaymentState} = this.props
 
 		let driverOptions = [];
 

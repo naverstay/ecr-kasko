@@ -10,10 +10,10 @@ import TrustedInfo from "../trusted-info";
 import KaskoCarSelectNew from "../kasko-car-select-new";
 import ClientQuestionnaire from "../client-questionnaire";
 import DriverInfo from "../driver-info";
-import ClientInfo from "../client-info";
+//import ClientInfo from "../client-info";
 import ClientInfoNew from "../client-info-new";
 import DriverCount from "../driver-count";
-import KaskoCarSelectOsago from "../kasko-car-select-osago";
+//import KaskoCarSelectOsago from "../kasko-car-select-osago";
 
 class CalculationPopup extends Component {
 	constructor(props) {
@@ -90,6 +90,11 @@ class CalculationPopup extends Component {
 	onOtherChange = (checkedValues) => {
 		console.log('checked = ', checkedValues);
 	}
+
+	popupCallback = (value) => {
+		console.log('popupCallback', value);
+		if ('updatePaymentState' in this.props) this.props.updatePaymentState(value)
+	};
 
 	render() {
 		let {popupCloseFunc, step, allFields, updatePaymentState, osago} = this.props
@@ -184,11 +189,11 @@ class CalculationPopup extends Component {
 				
 				<Row className="kasko-car-select__controls ant-row-center" gutter={20}>
 					<Col span={3}>
-						<div onClick={() => updatePaymentState} className="ant-btn btn_green fz_14 w_100p">
+						<div onClick={() => this.popupCallback(false)} className="ant-btn btn_green fz_14 w_100p">
 							<span>Отмена</span></div>
 					</Col>
 					<Col span={6}>
-						<Button onClick={() => updatePaymentState} className={"ant-btn-primary btn_middle"}>Получить расчет</Button>
+						<Button onClick={() => this.popupCallback(true)} className={"ant-btn-primary btn_middle"}>Получить расчет</Button>
 					</Col>
 					<Col span={3}/>
 				</Row>
