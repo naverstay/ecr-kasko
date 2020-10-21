@@ -62,6 +62,7 @@ class DriverInfo extends Component {
 			sameAsRealAddress: true,
 			driverCount: 1,
 			clientFlatType: '',
+			driverSecondDocType: '',
 			driverFamilyStatus: '',
 			driverFamilyStatusList: [
 				"Женат/Замужем",
@@ -72,6 +73,10 @@ class DriverInfo extends Component {
 			clientFlatTypeList: [
 				"Дом",
 				"Квартира"
+			],
+			driverSecondDocTypeList: [
+				"Водительское удостоверение",
+				"Военный билет"
 			]
 		};
 	}
@@ -101,19 +106,7 @@ class DriverInfo extends Component {
 	driverInfoSave = (value) => {
 		if ('calculationSave' in this.props) this.props.calculationSave(value)
 	};
-
-	onClientFlatTypeChange = value => {
-		this.setState({clientFlatType: value})
-	};
-
-	onDriverLicensePrevChange = e => {
-		this.setState({driverLicensePrev: e.target.checked})
-	};
 	
-	onDriverLicenseFirstChange = e => {
-		this.setState({driverLicenseFirst: e.target.value})
-	};
-
 	onDriverPrevLicenseIDChange = e => {
 		this.setState({driverPrevLicenseID: e.target.value})
 	};
@@ -124,34 +117,6 @@ class DriverInfo extends Component {
 
 	onDriverPrevLicenseStartChange = e => {
 		this.setState({driverPrevLicenseStart: e.target.value})
-	};
-	
-	onClientLicenseStartChange = e => {
-		this.setState({clientLicenseStart: e.target.value})
-	};
-	
-	onClientLicenseNumberChange = e => {
-		this.setState({clientLicenseNumber: e.target.value})
-	};
-
-	onclientLicenseDepartmentChange = e => {
-		this.setState({clientLicenseDepartment: e.target.value})
-	};
-
-	onClientAddressChange = e => {
-		this.setState({clientAddress: e.target.value})
-	};
-
-	onClientFlatChange = e => {
-		this.setState({clientFlat: e.target.value})
-	};
-
-	onClientPostCodeChange = e => {
-		this.setState({clientPostCode: e.target.value})
-	};
-
-	onClientLicenseDepIDChange = e => {
-		this.setState({clientLicenseDepID: e.target.value})
 	};
 
 	addActiveField = (field) => {
@@ -200,7 +165,7 @@ class DriverInfo extends Component {
 	};
 	
 	render() {
-		let {fullCalculation, allFields, expanded, osago, wholeName} = this.props
+		let {fullCalculation, allFields, expanded, osago, wholeName, showAddBlock} = this.props
 		//const dateFormat = "DD.MM.YY"
 		const dateFormatMask = "'mask': '99.99.9999', 'showMaskOnHover': 'false'"
 		const driverPhoneMask = "'mask': '[+7] (999)-999-99-99', 'showMaskOnHover': 'false'"
@@ -217,19 +182,24 @@ class DriverInfo extends Component {
 			drivers.push(drv)
 		}
 		
+		//if (showAddBlock) {
+		//	drivers.push(drivers.length)
+		//}
+		
 		return (
 			<div className="driver-info">
 				{
 					(expanded && drivers.length) ? drivers.map((d, di) => {
 						return (
 							<>
-								{di ?
+								{
+									/*di ?
 									<div key={di} className="driver-info__item">
 										<Row className="kasko-car-select__controls ant-row-center" gutter={20}>
 											<Col span={3}/>
 											<Col span={18}>
 												<>
-													{!d ?
+													{(d - (showAddBlock ? 0 : 1)) > 0 ?
 														<div onClick={this.addDriver} className="driver-info__add gl_link">Добавить контактное лицо</div>
 														:
 														<div onClick={this.removeDriver} className="driver-info__remove gl_link">Удалить контактное лицо</div>
@@ -238,9 +208,9 @@ class DriverInfo extends Component {
 											</Col>
 										</Row>
 									</div>
-									:
+									:*/
 									<div key={di} className="driver-info__item">
-										<Row className="kasko-car-select__controls" gutter={20}>
+										<Row className="kasko-car-select__controls mb_0" gutter={20}>
 											<Col span={3}/>
 											<Col span={18}>
 												<div className="driver-info__caption">Личная информация</div>
@@ -273,7 +243,7 @@ class DriverInfo extends Component {
 																 placeholder="Дата рождения" controlName={'driverBirthday'} value={''}/>
 										</Row>
 										
-										<Row className="kasko-car-select__controls" gutter={20}>
+										<Row className="kasko-car-select__controls mb_0" gutter={20}>
 											<Col span={3}/>
 											<FormSelect span={6} onChangeCallback={this.formControlCallback}
 																	options={this.state.driverFamilyStatusList}
@@ -285,7 +255,7 @@ class DriverInfo extends Component {
 																 controlName={'driverChildrenCount'} value={''}/>
 										</Row>
 										
-										<Row className="kasko-car-select__controls" gutter={20}>
+										<Row className="kasko-car-select__controls mb_45" gutter={20}>
 											<Col span={3}/>
 											<FormCheckbox onChangeCallback={this.formControlCallback}
 																		text="Страхователь"
@@ -300,14 +270,14 @@ class DriverInfo extends Component {
 																		controlName={'driverOSAGOOwner'} checked={this.state.driverOSAGOOwner}/>
 										</Row>
 		
-										<Row className="kasko-car-select__controls" gutter={20}>
+										<Row className="kasko-car-select__controls mb_0" gutter={20}>
 											<Col span={3}/>
 											<Col span={18}>
 												<div className="driver-info__caption">Контакты</div>
 											</Col>
 										</Row>
 										
-										<Row className="kasko-car-select__controls" gutter={20}>
+										<Row className="kasko-car-select__controls mb_60" gutter={20}>
 											<Col span={3}/>
 											<FormInput span={6} onChangeCallback={this.formControlCallback}
 																 placeholder="Мобильный телефон"
@@ -321,7 +291,7 @@ class DriverInfo extends Component {
 										{
 											fullCalculation ? 
 												<>
-													<Row className="kasko-car-select__controls" gutter={20}>
+													<Row className="kasko-car-select__controls mb_0" gutter={20}>
 														<Col span={3}/>
 														<Col span={12}>
 															<div className="driver-info__caption">Паспорт</div>
@@ -373,7 +343,7 @@ class DriverInfo extends Component {
 																			 controlName={'driverPassportDepartment'} value={this.state.driverPassportDepartment}/>
 													</Row>
 		
-													<Row className="kasko-car-select__controls" gutter={20}>
+													<Row className="kasko-car-select__controls mb_60" gutter={20}>
 														<Col span={3}/>
 		
 														<FormInput span={12} onChangeCallback={this.formControlCallback}
@@ -387,7 +357,7 @@ class DriverInfo extends Component {
 																					controlName={'nonChangedPassportApproval'} checked={true}/>
 													</Row>
 													
-													<Row className="kasko-car-select__controls" gutter={20}>
+													<Row className="kasko-car-select__controls mb_0" gutter={20}>
 														<Col span={3}/>
 														<Col span={12}>
 															<div className="driver-info__caption">Адрес регистрации</div>
@@ -433,7 +403,7 @@ class DriverInfo extends Component {
 																			 
 													</Row>
 		
-													<Row className="kasko-car-select__controls" gutter={20}>
+													<Row className="kasko-car-select__controls mb_0" gutter={20}>
 														<Col span={3}/>
 														<FormSelect span={6} onChangeCallback={this.formControlCallback}
 																				options={this.state.clientFlatTypeList}
@@ -442,10 +412,11 @@ class DriverInfo extends Component {
 																				value={this.state.clientFlatType}/>
 													</Row>
 		
-													<Row className="kasko-car-select__controls" gutter={20}>
+													<Row className="kasko-car-select__controls mb_60" gutter={20}>
 														<Col span={3}/>
 		
 														<FormCheckbox onChangeCallback={this.formControlCallback}
+																					className="checkbox_middle check_v3"
 																					text="Совпадает с адресом проживания"
 																					value={1}
 																					controlName={'sameAsRealAddress'} checked={this.state.sameAsRealAddress}/>
@@ -454,11 +425,20 @@ class DriverInfo extends Component {
 												: null
 										}
 		
-										<Row className="kasko-car-select__controls" gutter={20}>
+										<Row className="kasko-car-select__controls mb_0" gutter={20}>
 											<Col span={3}/>
 											<Col span={18}>
 												<div className="driver-info__caption">Второй документ</div>
 											</Col>
+										</Row>
+		
+										<Row className="kasko-car-select__controls" gutter={20}>
+											<Col span={3}/>
+											<FormSelect span={12} onChangeCallback={this.formControlCallback}
+																	options={this.state.driverSecondDocTypeList}
+																	className={this.activeClass('driverSecondDocType')}
+																	placeholder="Тип документа" controlName={'driverSecondDocType'}
+																	value={this.state.driverSecondDocType}/>
 										</Row>
 		
 										<Row className="kasko-car-select__controls" gutter={20}>

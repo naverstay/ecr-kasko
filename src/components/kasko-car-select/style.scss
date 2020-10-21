@@ -278,6 +278,14 @@
 		&.mb_55 {
 			margin-bottom: 55px;
 		}
+
+		&.mb_60 {
+			margin-bottom: 60px;
+		}
+
+		&.mt_60 {
+			margin-top: 60px;
+		}
 		
 		.ant-radio-wrapper {
 			@extend %text2;

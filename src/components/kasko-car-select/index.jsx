@@ -421,7 +421,7 @@ class KaskoCarSelect extends Component {
 
 		return (
 			<div className="kasko-car-select">
-				{step === void 0 || step > 1 ? null : <h1 className="kasko-main__title">Выберите автомобиль</h1>}
+				{step === void 0 || step > 1 ? null : <h1 className="kasko-main__title"><span>Выберите автомобиль</span></h1>}
 				
 				<div className="kasko-car-select__controls radio_v2">
 					<Radio.Group className={'w_100p'} defaultValue={step === 1 ? null : this.state.newCar ? 1 : null} onChange={this.onCarNewChange}>

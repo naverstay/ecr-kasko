@@ -1375,7 +1375,7 @@ class TabOffer extends Component {
 				
 				{this.state.policyPopupOpened ?
 					<PopupOverlay span={16}>
-						<PolicyPopup showTab={osago ? 2 : 1} popupConfirmation={this.updatePolicyState} step={this.state.showCalculationOffers ? 2 : step} allFields={this.state.showCalculationOffers || (step === 2)} fullCalculation={this.state.showCalculationOffers || this.state.fullCalculation} popupCloseFunc={this.togglePolicyPopup} />
+						<PolicyPopup showTab={osago ? 2 : 1} popupConfirmation={this.updatePolicyState} step={this.state.showCalculationOffers ? 2 : step} osago={osago} allFields={this.state.showCalculationOffers || (step === 2)} fullCalculation={this.state.showCalculationOffers || this.state.fullCalculation} popupCloseFunc={this.togglePolicyPopup} />
 					</PopupOverlay>
 					: null
 				}

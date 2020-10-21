@@ -471,7 +471,7 @@ class OfferSelect extends Component {
 		return (
 			<>
 				<div className="kasko-car-select">
-					<h1 className="kasko-main__title">{'Рассчитать ' + (osago ? 'ОСАГО' : 'КАСКО')}</h1>
+					<h1 className="kasko-main__title"><span>{'Рассчитать ' + (osago ? 'ОСАГО' : 'КАСКО')}</span></h1>
 
 					{popup ? null :
 						<div className="kasko-car-select__controls">
@@ -490,7 +490,7 @@ class OfferSelect extends Component {
 	
 					{step === 3 ?
 						<>
-							<h1 className="kasko-main__title">Полис оплачен</h1>
+							<h1 className="kasko-main__title"><span>Полис оплачен</span></h1>
 
 							<CalculationOffers osago={osago} completed={true} selectedOffer={this.updateSelectedOffer} offersList={[
 								{

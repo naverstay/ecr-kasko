@@ -336,21 +336,19 @@ class KaskoCarSelectNew extends Component {
 				{expanded ?
 					<>
 						<Form {...layout} ref={this.formRef} name="control-ref" onFinish={this.onFinish}>
-							<div className="kasko-car-select__controls radio_v2 w_100p">
+							<Row className="kasko-car-select__controls radio_v2" gutter={20}>
 								<Col span={3}/>
 								<Col className={'kasko-car-select__controls--newcar'}>
-									<Row gutter={20}>
-										<Radio.Group defaultValue={this.state.newCar ? 1 : 0} onChange={this.onCarNewChange}>
-											<Row gutter={20}>
-												<Col>
-													<Radio value={1}>Новый</Radio>
-												</Col>
-												<Col>
-													<Radio value={0}>С пробегом</Radio>
-												</Col>
-											</Row>
-										</Radio.Group>
-									</Row>
+									<Radio.Group defaultValue={this.state.newCar ? 1 : 0} onChange={this.onCarNewChange}>
+										<Row gutter={20}>
+											<Col>
+												<Radio value={1}>Новый</Radio>
+											</Col>
+											<Col>
+												<Radio value={0}>С пробегом</Radio>
+											</Col>
+										</Row>
+									</Radio.Group>
 								</Col>
 								
 								{this.state.newCar ? null :
@@ -376,7 +374,7 @@ class KaskoCarSelectNew extends Component {
 										</Col>
 									</>
 								}
-							</div>
+							</Row>
 						</Form>
 						
 						<Row className="kasko-car-select__controls" gutter={20}>

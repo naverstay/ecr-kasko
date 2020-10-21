@@ -56,7 +56,7 @@ class DriverCount extends Component {
 		const {driverOptions, children, className} = this.props
 		
 		return (
-			<div className={"kasko-car-select__controls check_v2 " + className}>
+			<div className={"kasko-car-select__controls check_v2 " + (className || '')}>
 					<Row className={"w_100p"} gutter={20}>
 						<Col className={"popup-visible"} span={3}/>
 						<Col span={18}>

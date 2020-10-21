@@ -12,6 +12,7 @@ import ClientInfoNew from "../client-info-new";
 import DriverCount from "../driver-count";
 import KaskoCarSelectOsago from "../kasko-car-select-osago";
 import KaskoCarSelect from "../kasko-car-select";
+import OsagoCarSelect from "../osago-car-select";
 import PolicyUpload from "../policy-upload";
 import FormCheckbox from "../form-checkbox";
 import PolicyForm from "../policy-form";
@@ -22,6 +23,7 @@ class PolicyPopup extends Component {
 		super(props);
 		this.state = {
 			carFound: void 0,
+			showCarFields: !this.props.osago,
 			fullCalculation: this.props.fullCalculation || false,
 			showUpload: false,
 			showKasko: this.props.showTab === 1,
@@ -126,18 +128,22 @@ class PolicyPopup extends Component {
 	}
 
 	render() {
-		let {popupCloseFunc, step, allFields} = this.props
+		let {popupCloseFunc, step, allFields, osago} = this.props
 		
 		return (
 			<div className="calculation-popup">
 				<div className="calculation-popup__close" onClick={popupCloseFunc}/>
-				<h1 className="kasko-main__title">Внести полис вручную</h1>
+				<h1 className="kasko-main__title"><span>Внести полис вручную</span></h1>
 
-				<h1 onClick={allFields ? this.onToggleCarFields : null} className={"kasko-main__title" + (allFields ? (this.state.showCarFields ? " expanded" : " collapsed") : "")}>Автомобиль</h1>
+				<h1 onClick={(allFields || osago) ? this.onToggleCarFields : null} className={"kasko-main__title" + ((allFields || osago) ? (this.state.showCarFields ? " expanded" : " collapsed") : "")}><span>Автомобиль</span></h1>
 				
-				<KaskoCarSelect popup={true} hideOffers={true} allFields={allFields} expanded={(step === void 0) || this.state.showCarFields} fullCalculation={this.state.fullCalculation}/>
+				{this.state.showCarFields ?
+					osago ? <OsagoCarSelect popup={true} hideOffers={true} allFields={allFields} expanded={(step === void 0) || this.state.showCarFields} fullCalculation={this.state.fullCalculation}/> 
+					: <KaskoCarSelect popup={true} hideOffers={true} allFields={allFields} expanded={(step === void 0) || this.state.showCarFields} fullCalculation={this.state.fullCalculation}/> 
+					: null}
 				
-				<h1 onClick={allFields ? this.onToggleClientFields : null} className={"kasko-main__title" + (allFields ? (this.state.showClientFields ? " expanded" : " collapsed") : "")}>Страховой полис</h1>
+				<h1 onClick={allFields ? this.onToggleClientFields : null} className={"kasko-main__title" + (allFields ? (this.state.showClientFields ? " expanded" : " collapsed") : "")}>
+					<span>Страховой полис</span></h1>
 
 				{this.props.showTab ? null :
 					<Row gutter={20} className={"kasko-car-select__controls check_v2 ant-row-center align_center"}>
@@ -178,6 +184,7 @@ class PolicyPopup extends Component {
 								<div className={"kasko-car-select__caption"}>Полис ОСАГО</div>
 							</Col>
 						</Row>
+						
 						<PolicyForm/>
 					</>
 					: null
@@ -200,7 +207,7 @@ class PolicyPopup extends Component {
 					: null 
 				}
 
-				<h1 className={"kasko-main__title"}>Личные данные</h1>
+				<h1 className={"kasko-main__title"}><span>Личные данные</span></h1>
 
 				<PersonalForm wholeName={true}/>
 				

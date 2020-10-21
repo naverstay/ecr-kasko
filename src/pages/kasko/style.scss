@@ -186,7 +186,7 @@ $aside-size: 226px;
 			display: flex;
 			flex-flow: row;
 			align-items: flex-end;
-			justify-content: space-between;
+			justify-content: center;
 			position: relative;
 			
 			span {
@@ -197,6 +197,9 @@ $aside-size: 226px;
 				}
 				
 				&.kasko-main__title--id {
+					position: absolute;
+					bottom: 20px;
+					right: 0;
 					color: #a8a8a8;
 					font-size: 12px;
 					line-height: 1.3;
@@ -209,7 +212,7 @@ $aside-size: 226px;
 				cursor: pointer;
 				position: relative;
 
-				&:before {
+				span:before {
 					transition: transform .25s;
 					font-family: $icomoon-font-family;
 					content: $i-chevron_r;
@@ -228,7 +231,7 @@ $aside-size: 226px;
 			}
 			
 			&.expanded {
-				&:before {
+				span:before {
 					transform: rotate(90deg);
 				}
 			}

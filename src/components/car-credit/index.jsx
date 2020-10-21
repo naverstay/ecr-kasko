@@ -316,7 +316,7 @@ class CarCredit extends Component {
 		
 		return (
 			<div className="kasko-car-select">
-				<h1 className="kasko-main__title">Рассчитать кредит</h1>
+				<h1 className="kasko-main__title"><span>Рассчитать кредит</span></h1>
 
 				<div className="kasko-car-select__controls">
 					<span onClick={this.toggleCarOptions} className={"gl_link color_black kasko-car-select__controls--toggle " + (this.state.showCarOptions ? ' expanded' : 'collapsed')}>Автомобиль</span>

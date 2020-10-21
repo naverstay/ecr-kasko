@@ -117,13 +117,15 @@ module.exports = function(webpackEnv) {
         {
           loader: require.resolve('resolve-url-loader'),
           options: {
-            sourceMap: isEnvProduction && shouldUseSourceMap,
+            prependData: '$env: "' + webpackEnv + '";',
+            sourceMap: isEnvProduction && shouldUseSourceMap
           },
         },
         {
           loader: require.resolve(preProcessor),
           options: {
-            sourceMap: true,
+            prependData: '$env: "' + webpackEnv + '";',
+            sourceMap: isEnvProduction && shouldUseSourceMap
           },
         }
       );
@@ -496,16 +498,16 @@ module.exports = function(webpackEnv) {
                 'css-loader',
                 {
                   loader: 'less-loader', options: {
-					lessOptions: {
-						modifyVars: {
-						  //'primary-color': 'red',
-						  //'link-color': '#1da57a',
-						  //'border-radius-base': '2px'
-						  // or
-						  'hack': `true; @import "${require.resolve('../src/assets/styles/antd/override.less')}"`, // Override with less file
-						},
-						javascriptEnabled: true
-					}
+                    lessOptions: {
+                      modifyVars: {
+                        //'primary-color': 'red',
+                        //'link-color': '#1da57a',
+                        //'border-radius-base': '2px'
+                        // or
+                        'hack': `true; @import "${require.resolve('../src/assets/styles/antd/override.less')}"`, // Override with less file
+                      },
+                      javascriptEnabled: true
+                    }
                   }
                 },
               ],

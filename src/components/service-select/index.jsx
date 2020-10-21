@@ -465,7 +465,7 @@ class ServiceSelect extends Component {
 		return (
 			<>
 				<div className="kasko-car-select">
-					<h1 className="kasko-main__title">Сервис меню</h1>
+					<h1 className="kasko-main__title"><span>Сервис меню</span></h1>
 
 					{popup ? null :
 						<div className="kasko-car-select__controls">

@@ -276,6 +276,7 @@ class PolicyForm extends Component {
 		//const dateFormat = "DD.MM.YY"
 		let dateFormatMask = "'mask': '99.99.9999', 'showMaskOnHover': 'false'"
 		let yearList = []
+		const periodOptions = [12, 9, 6, 3];
 
 		for (let y = (new Date()).getFullYear(); y > 1980; y--) {
 			yearList.push(y)
@@ -450,30 +451,57 @@ class PolicyForm extends Component {
 								value={this.state.insuranceTaxName}/>*/}
 
 					<FormInput span={6} onChangeCallback={this.formControlCallback}
-							   placeholder={"Стоимость"}
-							   controlName={'insurancePrice'} value={(this.state.insurancePrice)}/>
+										 placeholder="Номер полиса"
+										 controlName={'insuranceDocNumber'} value={''}/>
 
 					<FormInput span={6} onChangeCallback={this.formControlCallback}
-							   placeholder={"Доход дилера"}
-							   controlName={'insuranceDealerFee'} value={(this.state.insuranceDealerFee)}/>
+										 inputmask={dateFormatMask}
+										 placeholder={"Дата начала действия \n нового полиса КАСКО"}
+										 controlName={'carKaskoDocStart'} value={(this.state.carKaskoDocStart)}/>
+										 
 				</Row>
+				
+				<Row className="kasko-car-select__controls mb_0" gutter={20}>
+					<Col span={3}/>
+					<Col span={18}>
+						<div className={"kasko-car-select__caption fz_12"}>Срок действия, месяцы</div>
+					</Col>
+				</Row>
+				
+				<div className="kasko-car-select__controls radio_v3">
+					<Row className="kasko-car-select__controls mb_0" gutter={20} style={{width: '100%'}}>
+						<Col span={3}/>
+						<Col span={18}>
+							<Radio.Group defaultValue={periodOptions[4]} style={{width: '100%'}}>
+								<Row gutter={20}>
+									{
+										periodOptions.map((c, i) => <Col key={i}>
+												<Radio value={c}><span className="kasko-car-select__period--value">{c}</span></Radio>
+											</Col>
+										)
+									}
+								</Row>
+							</Radio.Group>
+						</Col>
+					</Row>
+				</div>
 
 				<Row className="kasko-car-select__controls" gutter={20}>
 					<Col span={3}/>
-					<FormInput span={6} onChangeCallback={this.formControlCallback}
-							   inputmask={dateFormatMask}
-							   placeholder={"Дата начала действия \n нового полиса КАСКО"}
-							   controlName={'carKaskoDocStart'} value={(this.state.carKaskoDocStart)}/>
 
-					<FormSelect span={6} onChangeCallback={this.formControlCallback}
-								options={this.state.insurancePeriodList}
-								disabled={this.state.newCar ? "disabled" : ""}
-								placeholder="Срок действия" controlName={'insurancePeriod'}
-								value={this.state.insurancePeriod}/>
-								
+					{/*<FormSelect span={6} onChangeCallback={this.formControlCallback}*/}
+					{/*			options={this.state.insurancePeriodList}*/}
+					{/*			disabled={this.state.newCar ? "disabled" : ""}*/}
+					{/*			placeholder="Срок действия" controlName={'insurancePeriod'}*/}
+					{/*			value={this.state.insurancePeriod}/>*/}
+
 					<FormInput span={6} onChangeCallback={this.formControlCallback}
-							   placeholder="Номер полиса"
-							   controlName={'insuranceDocNumber'} value={''}/>
+										 placeholder={"Стоимость"}
+										 controlName={'insurancePrice'} value={(this.state.insurancePrice)}/>
+
+					<FormInput span={6} onChangeCallback={this.formControlCallback}
+										 placeholder={"Доход дилера"}
+										 controlName={'insuranceDealerFee'} value={(this.state.insuranceDealerFee)}/>
 				</Row>
 			</div>
 		);

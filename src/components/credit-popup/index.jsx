@@ -110,11 +110,11 @@ class CreditPopup extends Component {
 			<div className="calculation-popup">
 				<div className="calculation-popup__close" onClick={popupCloseFunc}/>
 				
-				<h1 onClick={allFields ? this.onToggleCarFields : null} className={"kasko-main__title" + (allFields ? (this.state.showCarFields ? " expanded" : " collapsed") : "")}>Автомобиль</h1>
+				<h1 onClick={allFields ? this.onToggleCarFields : null} className={"kasko-main__title" + (allFields ? (this.state.showCarFields ? " expanded" : " collapsed") : "")}><span>Автомобиль</span></h1>
 				
 				<CreditCarSelect hideOffers={true} allFields={allFields} expanded={true} fullCalculation={this.state.fullCalculation}/>
 					
-				<h1 onClick={allFields ? this.onToggleClientFields : null} className={"kasko-main__title" + (allFields ? (this.state.showClientFields ? " expanded" : " collapsed") : "")}>Анкета клиента</h1>
+				<h1 onClick={allFields ? this.onToggleClientFields : null} className={"kasko-main__title" + (allFields ? (this.state.showClientFields ? " expanded" : " collapsed") : "")}><span>Анкета клиента</span></h1>
 				
 				{
 					((step === void 0) || (step !== 2) || this.state.showClientFields) ?
