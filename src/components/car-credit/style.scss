@@ -1,68 +1,68 @@
 @import '../../assets/styles/global';
 
 .car-credit {
-	
-	&.mt_15 {
-		margin-top: 15px;
-	}
-	
-	p {
-		font-size: 12px;
-		margin-bottom: 5px;
-	}
 
-	input {
-		font-size: 18px;
-		line-height: 22px;
-		padding-top: 11px;
-		padding-bottom: 10px;
-		color: #000;
-	}
+  &.mt_15 {
+    margin-top: 15px;
+  }
 
-	&__initial-fee {
-		width: 208px;
-		text-align: center;
-		float: right;
-	}
+  p {
+    font-size: 12px;
+    margin-bottom: 5px;
+  }
 
-	&__price {
-		width: 208px;
-		text-align: center;
-		float: left;
+  input {
+    font-size: 18px;
+    line-height: 22px;
+    padding-top: 11px;
+    padding-bottom: 10px;
+    color: #000;
+  }
 
-		input[disabled] {
-			color: #000;
-		}
-	}
-	
-	&__percent {
-		//float: left;
-		//width: 93px;
-	}
-	
-	&__print {
-		width: 165px;
-		position: relative;
-		padding-left: 38px;
-		padding-top: 18px;
-		text-align: left;
-		font-size: 12px;
+  &__initial-fee {
+    width: 208px;
+    text-align: center;
+    float: right;
+  }
 
-		&:before {
-			color: $color-green;
-			font-family: $icomoon-font-family;
-			content: $i-printer;
-			position: absolute;
-			left: 0;
-			top: 50%;
-			font-size: 26px;
-			line-height: 1;
-			margin-top: -13px;
-		}
-		
-		.gl_link {
-			margin: 6px 0;
-		}
-	}
+  &__price {
+    width: 208px;
+    text-align: center;
+    float: left;
+
+    input[disabled] {
+      color: #000;
+    }
+  }
+
+  &__percent {
+    //float: left;
+    //width: 93px;
+  }
+
+  &__print {
+    width: 165px;
+    position: relative;
+    padding-left: 38px;
+    padding-top: 18px;
+    text-align: left;
+    font-size: 12px;
+
+    &:before {
+      color: $color-green;
+      font-family: $icomoon-font-family;
+      content: $i-printer;
+      position: absolute;
+      left: 0;
+      top: 50%;
+      font-size: 26px;
+      line-height: 1;
+      margin-top: -13px;
+    }
+
+    .gl_link {
+      margin: 6px 0;
+    }
+  }
 }
 

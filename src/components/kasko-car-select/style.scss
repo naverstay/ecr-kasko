@@ -1,557 +1,557 @@
 @import '../../assets/styles/global';
 
 .kasko-car-select {
-	color: #000;
+  color: #000;
 
-	._inactive {
-		color: $color-grey;
-	}
+  ._inactive {
+    color: $color-grey;
+  }
 
-	&__form {
-		padding: 10px 0;
-		margin: 30px 0;
-		border: 2px solid #7ebfed;
-	}
-	
-	&__caption {
-		@extend %h3;
-		margin-bottom: 15px;
-		
-		&.mb_0 {
-			margin-bottom: 0;
-		}
+  &__form {
+    padding: 10px 0;
+    margin: 30px 0;
+    border: 2px solid #7ebfed;
+  }
 
-		&.fz_12 {
-			font-size: 12px;
-		}
-		
-		&.expanded,
-		&.collapsed {
-			padding-left: 20px;
-			cursor: pointer;
-			position: relative;
+  &__caption {
+    @extend %h3;
+    margin-bottom: 15px;
 
-			&:before {
-				transition: transform .25s;
-				font-family: $icomoon-font-family;
-				content: $i-chevron_r;
-				color: $color-grey;
-				font-size: 16px;
-				margin-right: 10px;
-				margin-left: -20px;
-				position: absolute;
-			}
-		}
+    &.mb_0 {
+      margin-bottom: 0;
+    }
 
-		&.collapsed {
-			margin-bottom: 30px;
-		}
+    &.fz_12 {
+      font-size: 12px;
+    }
 
-		&.expanded {
-			&:before {
-				transform: rotate(90deg);
-			}
-		}
-	}
-	
-	&__calculation {
-		display: flex;
-		flex-flow: row nowrap;
-		justify-content: center;
-		align-items: center;
-		position: relative;
-		height: 40px;
-		margin-bottom: 7px;
+    &.expanded,
+    &.collapsed {
+      padding-left: 20px;
+      cursor: pointer;
+      position: relative;
 
-		&.disabled {
-			opacity: .3;
-			pointer-events: none;
-		}
+      &:before {
+        transition: transform .25s;
+        font-family: $icomoon-font-family;
+        content: $i-chevron_r;
+        color: $color-grey;
+        font-size: 16px;
+        margin-right: 10px;
+        margin-left: -20px;
+        position: absolute;
+      }
+    }
 
-		&--switch {
-			&.ant-switch{
-				background: $color-grey-dark;
-				height: 14px;
+    &.collapsed {
+      margin-bottom: 30px;
+    }
 
-				.ant-switch-handle {
-					width: 20px;
-					height: 20px;
-					margin-top: -5px;
-					margin-left: -3px;
-					
-					&:before {
-						background: $color-green;
-						border-radius: 100%;
-					}
-				}
-				
-				&:after {
-					width: 20px;
-					height: 20px;
-					top: -2px;
-					left: -4px;
-					background: $color-green;
-				}
+    &.expanded {
+      &:before {
+        transform: rotate(90deg);
+      }
+    }
+  }
 
-				&.ant-switch-checked:after {
-					left: 100%;
-					margin-left: 4px;
-				}
-			}
-		}
-		
-		&--text {
-			position: absolute;
-			top: 50%;
-			transform: translate(0, -50%);
-			transition: opacity .3s;
-			//color: $color-grey-dark;
-			
-			&:first-child {
-				right: 50%;
-				margin-right: 30px;
-				text-align: right;
+  &__calculation {
+    display: flex;
+    flex-flow: row nowrap;
+    justify-content: center;
+    align-items: center;
+    position: relative;
+    height: 40px;
+    margin-bottom: 7px;
 
-				.kasko-car-select__calculation.active & {
-					opacity: .3;
-				}
-			}
-			
-			&:last-child {
-				left: 50%;
-				margin-left: 30px;
-				text-align: left;
+    &.disabled {
+      opacity: .3;
+      pointer-events: none;
+    }
 
-				.kasko-car-select__calculation:not(.active) & {
-					opacity: .3;
-				}
-			}
-		}
-	}
-	
-	&__image {
-		width: 100%;
-		margin: 20px 0 25px;
-		text-align: center;
-		height: 235px;
-		line-height: 235px;
-		
-		img {
-			display: inline-block;
-			vertical-align: middle;
-			line-height: 1;
-			max-width: 100%;
-			max-height: 235px;
-		}
-		
-		&._inactive {
-			opacity: .3;
-		}
-	}
+    &--switch {
+      &.ant-switch {
+        background: $color-grey-dark;
+        height: 14px;
 
-	&__name {
-		max-width: 110px;
-		font-weight: bold;
-		font-size: 14px;
-		line-height: 18px;
-	}
-	
-	&__description {
-		padding: 16px 17px 20px;
-		
-		.kasko-car-select__controls--toggle {
-			@extend %h1;
-			margin-left: -17px;
-			text-decoration: none;
-			
-			span:first-child {
-				text-decoration: underline;
-			}
-		}
-		
-		&--price {
-			@extend %h2;
-			margin-bottom: 15px;
-		}
-		
-		&--price-edit {
-			margin-top: -8px;
-			margin-left: -20px;
-		}
-		
-		&--link {
-			@extend %text2;
-			color: $color-grey;
-			float: right;
-		}
-	}
-	
-	&__info {
-		margin-top: 8px;
-		font-size: 12px;
-		line-height: 14px;
-	}
+        .ant-switch-handle {
+          width: 20px;
+          height: 20px;
+          margin-top: -5px;
+          margin-left: -3px;
 
-	&__dropdown--text {
-		display: flex;
-		flex-flow: column nowrap;
-		justify-content: center;
-		min-height: 227px;
-		padding-bottom: 25px;
-		
-		p {
-			font-size: 12px;
-			line-height: 18px;
-			color: #000;
-		}
-	}
-	
-	&__controls {
-		display: flex;
-		flex-flow: row;
-		margin-bottom: 15px;
-		
-		&--equipment {
-			font-size: 14px;
-			color: $color-grey;
-		}
-		
-		&.check_v1 {
-			@extend %check_v1;
-		}
+          &:before {
+            background: $color-green;
+            border-radius: 100%;
+          }
+        }
 
-		&.check_v2 {
-			@extend %check_v2;
-			
-			.ant-col {
-				margin-bottom: 15px;
-			}
-		}
+        &:after {
+          width: 20px;
+          height: 20px;
+          top: -2px;
+          left: -4px;
+          background: $color-green;
+        }
 
-		&.radio_v2 {
-			@extend %radio_v2;
-			margin-bottom: 0 !important;
+        &.ant-switch-checked:after {
+          left: 100%;
+          margin-left: 4px;
+        }
+      }
+    }
 
-			&.highlight_radio .ant-radio-inner {
-				border-color: $color-blue-light;
-			}
-			
-			.ant-col {
-				margin-bottom: 15px;
-			}
-		}
+    &--text {
+      position: absolute;
+      top: 50%;
+      transform: translate(0, -50%);
+      transition: opacity .3s;
+      //color: $color-grey-dark;
 
-		&.radio_v2-1 {
-			@extend %radio_v2;
-			margin-bottom: 0;
-		}
-		
-		&.radio_v3 {
-			@extend %radio_v3;
-			margin-bottom: 0;
+      &:first-child {
+        right: 50%;
+        margin-right: 30px;
+        text-align: right;
 
-			.ant-col {
-				margin-bottom: 15px;
-			}
-		}
-		
-		&.radio_v4 {
-			@extend %radio_v4;
-		}
-		
-		&.mb_0 {
-			margin-bottom: 0;
-		}
-		
-		&.mb_10 {
-			margin-bottom: 10px;
-		}
-		
-		&.mb_30 {
-			margin-bottom: 30px;
-		}
+        .kasko-car-select__calculation.active & {
+          opacity: .3;
+        }
+      }
 
-		&.mb_45 {
-			margin-bottom: 45px;
-		}
+      &:last-child {
+        left: 50%;
+        margin-left: 30px;
+        text-align: left;
 
-		&.mb_55 {
-			margin-bottom: 55px;
-		}
+        .kasko-car-select__calculation:not(.active) & {
+          opacity: .3;
+        }
+      }
+    }
+  }
 
-		&.mb_60 {
-			margin-bottom: 60px;
-		}
+  &__image {
+    width: 100%;
+    margin: 20px 0 25px;
+    text-align: center;
+    height: 235px;
+    line-height: 235px;
 
-		&.mt_60 {
-			margin-top: 60px;
-		}
-		
-		.ant-radio-wrapper {
-			@extend %text2;
-			//margin-top: 8px;
-		}
-		
-		&--stretch {
-			justify-content: stretch;
-		}
-		
-		&--flex-1 {
-			flex: 1 0 auto;
-		}
-		
-		&--newcar {
-			min-width: 25%;
-		}
-		
-		&--credit {
-			min-width: 25%;
-			
-			.ant-row {
-				//justify-content: space-between;
-			}
-		}
-		
-		&--price {
-			.ant-radio-wrapper {
-				.short_form & {
-					//margin-top: 34px;
-				}
-				
-				.full_form & {
-					margin-top: 0;
-				}
-			}
-		}
-		
-		&--toggle {
-			@extend %h3;
-			
-			&.expanded,
-			&.collapsed {
-				padding-left: 20px;
-				cursor: pointer;
-				position: relative;
+    img {
+      display: inline-block;
+      vertical-align: middle;
+      line-height: 1;
+      max-width: 100%;
+      max-height: 235px;
+    }
 
-				&:before {
-					transition: transform .25s;
-					font-family: $icomoon-font-family;
-					content: $i-chevron_r;
-					color: $color-grey;
-					font-size: 16px;
-					margin-right: 10px;
-					margin-left: -20px;
-					position: absolute;
-				}
-			}
+    &._inactive {
+      opacity: .3;
+    }
+  }
 
-			&.collapsed {
-			}
+  &__name {
+    max-width: 110px;
+    font-weight: bold;
+    font-size: 14px;
+    line-height: 18px;
+  }
 
-			&.expanded {
-				&:before {
-					transform: rotate(90deg);
-				}
-			}
-		}
-		
-		&--group {
-			position: relative;
+  &__description {
+    padding: 16px 17px 20px;
 
-			.ant-btn {
-				+ .ant-btn {
-					margin-top: 30px;
-				}
-			}
-			
-			&.payment {
-				margin-bottom: 250px;
-			}
-			
-			.ant-btn.btn_wide {
-				margin-left: 20px;
-				margin-right: 20px;
-			}
-			
-			.ant-btn.btn_middle {
-				margin-left: 10px;
-				margin-right: 10px;
-			}
-			
-			&-w {
-				p {
-					@extend %text2;
-					margin: 0;
-					color: $color-grey
-				}
-			}
-			
-			&-l {
-				position: absolute;
-				right: 100%;
-				top: 50%;
-				transform: translate(0, -50%);
+    .kasko-car-select__controls--toggle {
+      @extend %h1;
+      margin-left: -17px;
+      text-decoration: none;
 
-				&._bottom {
-					top: auto;
-					bottom: 0;
-					transform: none;
-				}
-			}
-			
-			&-r {
-				position: absolute;
-				left: 100%;
-				top: 50%;
-				transform: translate(0, -50%);
-				
-				&._bottom {
-					top: auto;
-					bottom: 0;
-					transform: none;
-				}
-			}
-		}
-	}
-	
-	&__franchise {
-		&.ant-slider {
-			min-width: 250px;
-			margin: 10px 25px 20px 20px;
-		}
-		
-		.ant-slider-handle {
-			border-color: #fff;
-			margin-top: -4px;
-		}
-		
-		.ant-slider-dot {
-			width: 6px;
-			height: 6px;
-			margin-left: -3px;
-			border-width: 1px;
-		}
-		
-		.ant-slider-track,
-		.ant-slider-rail {
-			height: 3px;
-		}
-		
-		&--label {
-			@extend %text2;
-			transition: font-size .2s;
-			white-space: nowrap;
-			
-			&.active {
-				font-size: 14px;
-			}
-		}
-	}
-	
-	&__price {
-		padding-left: 115px;
-		padding-top: 16px;
-		
-		&--holder {
-			flex: 1 0 auto;
-		}
-		
-		&--label {
-			@extend %text2;
-			margin-bottom: 6px;
-		}
+      span:first-child {
+        text-decoration: underline;
+      }
+    }
 
-		&--value {
-			@extend %h1;
-		}
-	}
-	
-	&__row {
-		width: 100%;
-		margin-bottom: 14px;
-	}
-	
-	&__additional {
-		@extend %text2;
-		text-align: right;
-	}
-	
-	&__carousel {
-		position: relative;
-		margin-bottom: 15px;
-		margin-top: 15px;
-		
-		.slick-slider {
-			padding: 0 10px;
-		}
-		
-		.slick-arrow {
-			cursor: pointer;
-			position: absolute;
-			top: 26px;
-			font-size: 0;
-			width: 22px;
-			height: 22px;
-			z-index: 2;
+    &--price {
+      @extend %h2;
+      margin-bottom: 15px;
+    }
 
-			&:after,
-			&:before {
-				font-family: $icomoon-font-family;
-				content: $i-chevron_r;
-				position: absolute;
-				left: 2px;
-				text-align: center;
-				top: 50%;
-				margin-top: -7px;
-				font-size: 14px;
-				line-height: 1;
-				color: $color-grey-dark;
-			}
-			
-			&:after {
-				right: 2px;
-				left: auto;
-			}
+    &--price-edit {
+      margin-top: -8px;
+      margin-left: -20px;
+    }
 
-			&.slick-next {
-				right: -7px;
-			}
-			
-			&.slick-prev {
-				left: -7px;
-				transform: translate(0, -50%) rotate(180deg);
-			}
-		}
-		
-		.kasko-offer__slide {
-			padding: 0 10px;
-			//width: 25%;
-			//float: left;
-		}
-	}
-	
-	&__period {
-		&--value {
-			@extend %h1;
-			display: block;
-			margin-bottom: 5px;
-			//margin-top: 7px;
-			color: inherit;
-			font-weight: 500;
-			
-			&.small {
-				font-size: 16px;
-				line-height: 18px;
-				max-width: 100%;
-				margin: 4px 0;
-				white-space: normal;
-			}
-		}
-		
-		&--label {
-			@extend %text3;
-			color: inherit;
-		}
-	}
+    &--link {
+      @extend %text2;
+      color: $color-grey;
+      float: right;
+    }
+  }
+
+  &__info {
+    margin-top: 8px;
+    font-size: 12px;
+    line-height: 14px;
+  }
+
+  &__dropdown--text {
+    display: flex;
+    flex-flow: column nowrap;
+    justify-content: center;
+    min-height: 227px;
+    padding-bottom: 25px;
+
+    p {
+      font-size: 12px;
+      line-height: 18px;
+      color: #000;
+    }
+  }
+
+  &__controls {
+    display: flex;
+    flex-flow: row;
+    margin-bottom: 15px;
+
+    &--equipment {
+      font-size: 14px;
+      color: $color-grey;
+    }
+
+    &.check_v1 {
+      @extend %check_v1;
+    }
+
+    &.check_v2 {
+      @extend %check_v2;
+
+      .ant-col {
+        margin-bottom: 15px;
+      }
+    }
+
+    &.radio_v2 {
+      @extend %radio_v2;
+      margin-bottom: 0 !important;
+
+      &.highlight_radio .ant-radio-inner {
+        border-color: $color-blue-light;
+      }
+
+      .ant-col {
+        margin-bottom: 15px;
+      }
+    }
+
+    &.radio_v2-1 {
+      @extend %radio_v2;
+      margin-bottom: 0;
+    }
+
+    &.radio_v3 {
+      @extend %radio_v3;
+      margin-bottom: 0;
+
+      .ant-col {
+        margin-bottom: 15px;
+      }
+    }
+
+    &.radio_v4 {
+      @extend %radio_v4;
+    }
+
+    &.mb_0 {
+      margin-bottom: 0;
+    }
+
+    &.mb_10 {
+      margin-bottom: 10px;
+    }
+
+    &.mb_30 {
+      margin-bottom: 30px;
+    }
+
+    &.mb_45 {
+      margin-bottom: 45px;
+    }
+
+    &.mb_55 {
+      margin-bottom: 55px;
+    }
+
+    &.mb_60 {
+      margin-bottom: 60px;
+    }
+
+    &.mt_60 {
+      margin-top: 60px;
+    }
+
+    .ant-radio-wrapper {
+      @extend %text2;
+      //margin-top: 8px;
+    }
+
+    &--stretch {
+      justify-content: stretch;
+    }
+
+    &--flex-1 {
+      flex: 1 0 auto;
+    }
+
+    &--newcar {
+      min-width: 25%;
+    }
+
+    &--credit {
+      min-width: 25%;
+
+      .ant-row {
+        //justify-content: space-between;
+      }
+    }
+
+    &--price {
+      .ant-radio-wrapper {
+        .short_form & {
+          //margin-top: 34px;
+        }
+
+        .full_form & {
+          margin-top: 0;
+        }
+      }
+    }
+
+    &--toggle {
+      @extend %h3;
+
+      &.expanded,
+      &.collapsed {
+        padding-left: 20px;
+        cursor: pointer;
+        position: relative;
+
+        &:before {
+          transition: transform .25s;
+          font-family: $icomoon-font-family;
+          content: $i-chevron_r;
+          color: $color-grey;
+          font-size: 16px;
+          margin-right: 10px;
+          margin-left: -20px;
+          position: absolute;
+        }
+      }
+
+      &.collapsed {
+      }
+
+      &.expanded {
+        &:before {
+          transform: rotate(90deg);
+        }
+      }
+    }
+
+    &--group {
+      position: relative;
+
+      .ant-btn {
+        + .ant-btn {
+          margin-top: 30px;
+        }
+      }
+
+      &.payment {
+        margin-bottom: 250px;
+      }
+
+      .ant-btn.btn_wide {
+        margin-left: 20px;
+        margin-right: 20px;
+      }
+
+      .ant-btn.btn_middle {
+        margin-left: 10px;
+        margin-right: 10px;
+      }
+
+      &-w {
+        p {
+          @extend %text2;
+          margin: 0;
+          color: $color-grey
+        }
+      }
+
+      &-l {
+        position: absolute;
+        right: 100%;
+        top: 50%;
+        transform: translate(0, -50%);
+
+        &._bottom {
+          top: auto;
+          bottom: 0;
+          transform: none;
+        }
+      }
+
+      &-r {
+        position: absolute;
+        left: 100%;
+        top: 50%;
+        transform: translate(0, -50%);
+
+        &._bottom {
+          top: auto;
+          bottom: 0;
+          transform: none;
+        }
+      }
+    }
+  }
+
+  &__franchise {
+    &.ant-slider {
+      min-width: 250px;
+      margin: 10px 25px 20px 20px;
+    }
+
+    .ant-slider-handle {
+      border-color: #fff;
+      margin-top: -4px;
+    }
+
+    .ant-slider-dot {
+      width: 6px;
+      height: 6px;
+      margin-left: -3px;
+      border-width: 1px;
+    }
+
+    .ant-slider-track,
+    .ant-slider-rail {
+      height: 3px;
+    }
+
+    &--label {
+      @extend %text2;
+      transition: font-size .2s;
+      white-space: nowrap;
+
+      &.active {
+        font-size: 14px;
+      }
+    }
+  }
+
+  &__price {
+    padding-left: 115px;
+    padding-top: 16px;
+
+    &--holder {
+      flex: 1 0 auto;
+    }
+
+    &--label {
+      @extend %text2;
+      margin-bottom: 6px;
+    }
+
+    &--value {
+      @extend %h1;
+    }
+  }
+
+  &__row {
+    width: 100%;
+    margin-bottom: 14px;
+  }
+
+  &__additional {
+    @extend %text2;
+    text-align: right;
+  }
+
+  &__carousel {
+    position: relative;
+    margin-bottom: 15px;
+    margin-top: 15px;
+
+    .slick-slider {
+      padding: 0 10px;
+    }
+
+    .slick-arrow {
+      cursor: pointer;
+      position: absolute;
+      top: 26px;
+      font-size: 0;
+      width: 22px;
+      height: 22px;
+      z-index: 2;
+
+      &:after,
+      &:before {
+        font-family: $icomoon-font-family;
+        content: $i-chevron_r;
+        position: absolute;
+        left: 2px;
+        text-align: center;
+        top: 50%;
+        margin-top: -7px;
+        font-size: 14px;
+        line-height: 1;
+        color: $color-grey-dark;
+      }
+
+      &:after {
+        right: 2px;
+        left: auto;
+      }
+
+      &.slick-next {
+        right: -7px;
+      }
+
+      &.slick-prev {
+        left: -7px;
+        transform: translate(0, -50%) rotate(180deg);
+      }
+    }
+
+    .kasko-offer__slide {
+      padding: 0 10px;
+      //width: 25%;
+      //float: left;
+    }
+  }
+
+  &__period {
+    &--value {
+      @extend %h1;
+      display: block;
+      margin-bottom: 5px;
+      //margin-top: 7px;
+      color: inherit;
+      font-weight: 500;
+
+      &.small {
+        font-size: 16px;
+        line-height: 18px;
+        max-width: 100%;
+        margin: 4px 0;
+        white-space: normal;
+      }
+    }
+
+    &--label {
+      @extend %text3;
+      color: inherit;
+    }
+  }
 }
 

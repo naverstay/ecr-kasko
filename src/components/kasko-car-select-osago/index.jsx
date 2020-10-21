@@ -16,451 +16,452 @@ const {YearPicker} = DatePicker;
 moment().locale('ru', ru);
 
 class KaskoCarSelectOsago extends Component {
-	constructor(props) {
-		super(props);
-		this.state = {
-			activeFields: (this.props.step === 1 ? ['carMark'] : []),
-			carFound: void 0,
-			allowPayment: true,
-			showAdditional: false,
-			formBusy: false,
-			carForTaxi: false,
-			carAutoStart: false,
-			newCar: true,
-			carCredit: false,
-			carPrice: 0,
-			carPower: 0,
-			carPowerRange: '',
-			carMileage: 0,
-			carRegion: '',
-			carMark: '',
-			carVIN: '',
-			carPTS: '',
-			carPTSStart: '',
-			carDiagnosticCard: '',
-			carDiagnosticCardEnd: '',
-			carModel: '',
-			carMotorSize: '',
-			carBodyType: '',
-			carMotorType: '',
-			carEquipment: '',
-			carKaskoDoc: '',
-			carKaskoDocStart: '',
-			carATS: '',
-			carBankName: '',
-			carTransmissionType: '',
-			carNumber: '',
-			carYear: '',
-			carUsageStart: '',
-			markList: [
-				"Hyundai",
-				"Mazda",
-				//"Mercedes-Benz"
-			],
-			modelList: [
-				"Sonata",
-				"Solaris",
-				"CX-5",
-				"CX-9"
-			],
-			equipmentList: [
-				"2.0 MPI - 6AT",
-				"Comfort",
-				"Sport",
-				"Executive",
-				"GT S Sports Car"
-			],
-			carBankNameList: [
-				"Банк 1",
-				"Банк 2"
-			],
-			carATSList: [
-				"Sheriff",
-				"Mangoose",
-				"Noname"
-			],
-			carPowerList: [
-				"100 л.с.",
-				"200 л.с.",
-				"300 л.с."
-			],
-			carTransmissionTypeList: [
-				"МКПП",
-				"АКПП"
-			],
-			carMotorSizeList: [
-				"1 л.",
-				"2 л.",
-				"3 л."
-			],
-			carBodyTypeList: [
-				"Седан",
-				"Универсал",
-				"Ландо",
-				"Купе"
-			],
-			carMotorTypeList: [
-				"Бензин",
-				"Дизель",
-				"Эко",
-				"Гибрид"
-			]
-		};
-	}
+    constructor(props) {
+        super(props);
+        this.state = {
+            activeFields: (this.props.step === 1 ? ['carMark'] : []),
+            carFound: void 0,
+            allowPayment: true,
+            showAdditional: false,
+            formBusy: false,
+            carForTaxi: false,
+            carAutoStart: false,
+            newCar: true,
+            carCredit: false,
+            carPrice: 0,
+            carPower: 0,
+            carPowerRange: '',
+            carMileage: 0,
+            carRegion: '',
+            carMark: '',
+            carVIN: '',
+            carPTS: '',
+            carPTSStart: '',
+            carDiagnosticCard: '',
+            carDiagnosticCardEnd: '',
+            carModel: '',
+            carMotorSize: '',
+            carBodyType: '',
+            carMotorType: '',
+            carEquipment: '',
+            carKaskoDoc: '',
+            carKaskoDocStart: '',
+            carATS: '',
+            carBankName: '',
+            carTransmissionType: '',
+            carNumber: '',
+            carYear: '',
+            carUsageStart: '',
+            markList: [
+                "Hyundai",
+                "Mazda"
+                //"Mercedes-Benz"
+            ],
+            modelList: [
+                "Sonata",
+                "Solaris",
+                "CX-5",
+                "CX-9"
+            ],
+            equipmentList: [
+                "2.0 MPI - 6AT",
+                "Comfort",
+                "Sport",
+                "Executive",
+                "GT S Sports Car"
+            ],
+            carBankNameList: [
+                "Банк 1",
+                "Банк 2"
+            ],
+            carATSList: [
+                "Sheriff",
+                "Mangoose",
+                "Noname"
+            ],
+            carPowerList: [
+                "100 л.с.",
+                "200 л.с.",
+                "300 л.с."
+            ],
+            carTransmissionTypeList: [
+                "МКПП",
+                "АКПП"
+            ],
+            carMotorSizeList: [
+                "1 л.",
+                "2 л.",
+                "3 л."
+            ],
+            carBodyTypeList: [
+                "Седан",
+                "Универсал",
+                "Ландо",
+                "Купе"
+            ],
+            carMotorTypeList: [
+                "Бензин",
+                "Дизель",
+                "Эко",
+                "Гибрид"
+            ]
+        };
+    }
 
-	static propTypes = {
-		children: PropTypes.node,
-		allFields: PropTypes.bool,
-		innerWidth: PropTypes.number,
-		step: PropTypes.number
-	};
+    static propTypes = {
+        children: PropTypes.node,
+        allFields: PropTypes.bool,
+        innerWidth: PropTypes.number,
+        step: PropTypes.number
+    };
 
-	formRef = React.createRef();
+    formRef = React.createRef();
 
-	formControlCallback = (name, value) => {
-		console.log('formControlCallback', name, value);
+    formControlCallback = (name, value) => {
+        console.log('formControlCallback', name, value);
 
-		if (name in this.state) {
-			let obj = {}
-			obj[name] = value
+        if (name in this.state) {
+            let obj = {}
+            obj[name] = value
 
-			this.setState(obj)
-			this.checkReadyState()
-		} else {
-			console.log('no name in state', name);
-		}
-		
-		switch (name) {
-			case 'offerCash':
-				this.setState({offerCash: value})
-				break
-		}
-	};
-	
-	checkReadyState = () => {
-		setTimeout(() => {
-			if (this.state.newCar) {
-				let allFieldsReady = true
-				let checkFields = [
-					//'carATS',
-					'carMark',
-					'carModel',
-					'carEquipment',
-					//'carRegion',
-					//'carPrice',
-					//'carPower',
-					'carYear',
-					//'carUsageStart'
-				]
+            this.setState(obj)
+            this.checkReadyState()
+        } else {
+            console.log('no name in state', name);
+        }
 
-				for (let i = 0; i < checkFields.length; i++) {
-					const field = checkFields[i];
+        switch (name) {
+            case 'offerCash':
+                this.setState({offerCash: value})
+                break
+        }
+    };
 
-					if (!this.state[field]) {
-						allFieldsReady = false
-						break;
-					}
-				}
+    checkReadyState = () => {
+        setTimeout(() => {
+            if (this.state.newCar) {
+                let allFieldsReady = true
+                let checkFields = [
+                    //'carATS',
+                    'carMark',
+                    'carModel',
+                    'carEquipment',
+                    //'carRegion',
+                    //'carPrice',
+                    //'carPower',
+                    'carYear'
+                    //'carUsageStart'
+                ]
 
-				this.setState({carFound: allFieldsReady, allowPayment: allFieldsReady})
-			}
-		}, 0)
-	};
+                for (let i = 0; i < checkFields.length; i++) {
+                    const field = checkFields[i];
 
-	removeActiveField = (field) => {
-		let fields = this.state.activeFields.slice(0)
-		let index = fields.indexOf(field)
+                    if (!this.state[field]) {
+                        allFieldsReady = false
+                        break;
+                    }
+                }
 
-		if (index > -1) {
-			fields.splice(index, 1);
+                this.setState({carFound: allFieldsReady, allowPayment: allFieldsReady})
+            }
+        }, 0)
+    };
 
-			this.setState({activeFields: fields})
-		}
-	};
+    removeActiveField = (field) => {
+        let fields = this.state.activeFields.slice(0)
+        let index = fields.indexOf(field)
 
-	addActiveField = (field) => {
-		setTimeout(() => {
-			let fields = this.state.activeFields.slice(0)
+        if (index > -1) {
+            fields.splice(index, 1);
 
-			if (fields.indexOf(field) < 0) {
-				fields.push(field)
+            this.setState({activeFields: fields})
+        }
+    };
 
-				this.setState({activeFields: fields})
-			}
-		}, 100)
-	};
+    addActiveField = (field) => {
+        setTimeout(() => {
+            let fields = this.state.activeFields.slice(0)
 
-	activeClass = (field) => {
-		return (this.state.activeFields.indexOf(field) > -1 ? " control-focused" : "")
-	};
-	
-	onFinish = values => {
-		this.setState({formBusy: true})
-		
-		setTimeout(() => {
-			this.setState({formBusy: false, carFound: true})
-			
-			if (this.state.carFound) {
-				this.setState({
-					allowPayment: true,
-					carATS: 'Noname',
-					carMark: 'Hyundai',
-					carModel: 'Sonata',
-					carEquipment: '2.0 MPI - 6AT',
-					carNumber: 'A 123 AA 177',
-					carRegion: 'г. Москва',
-					carPrice: 1534000,
-					carPower: 245,
-					carMileage: 24500,
-					carYear: '2015',
-					carUsageStart: '18.05.2020'
-				})
-			}
-		}, 200)
-	};
+            if (fields.indexOf(field) < 0) {
+                fields.push(field)
 
-	onReset = () => {
-		this.formRef.current.resetFields();
-	};
+                this.setState({activeFields: fields})
+            }
+        }, 100)
+    };
 
-	onFill = () => {
-		this.formRef.current.setFieldsValue({
-			note: 'Hello world!',
-			gender: 'male'
-		});
-	};
+    activeClass = (field) => {
+        return (this.state.activeFields.indexOf(field) > -1 ? " control-focused" : "")
+    };
 
-	onCarNewChange = e => {
-		this.setState({
-			newCar: !!e.target.value,
-			carNumber: ''
-		});
-	};
-	
-	componentDidMount() {
-		this.props.allFields && this.setState({showAdditional: true})
-	}
+    onFinish = values => {
+        this.setState({formBusy: true})
 
-	componentDidUpdate() {
-		document.querySelectorAll('[data-inputmask]').forEach(function (inp) {
-			let mask = {}
-			inp.dataset.inputmask.split(',').forEach((m) => {
-				let key = m.split(':')[0]
-				mask[key] = m.split(':')[1]
-			})
-			Inputmask(mask).mask(inp);
-		})
-		
-		document.querySelectorAll('[data-inputmask-date]').forEach(function (inp) {
-			Inputmask({
-				placeholder : '_',
-				showMaskOnHover : false,
-				regex: String.raw`^(?:(?:(?:0?[13578]|1[02])(\/|-|\.)31)\1|(?:(?:0?[1,3-9]|1[0-2])(\/|-|\.)(?:29|30)\2))(?:(?:1[6-9]|[2-9]\d)?\d{2})$|^(?:0?2(\/|-|\.)29\3(?:(?:(?:1[6-9]|[2-9]\d)?(?:0[48]|[2468][048]|[13579][26])|(?:(?:16|[2468][048]|[3579][26])00))))$|^(?:(?:0?[1-9])|(?:1[0-2]))(\/|-|\.)(?:0?[1-9]|1\d|2[0-8])\4(?:(?:1[6-9]|[2-9]\d)?\d{2})$`
-			}).mask(inp);
-		})
-	};
+        setTimeout(() => {
+            this.setState({formBusy: false, carFound: true})
 
-	render() {
-		const {image, allFields, step, hideOffers, fullCalculation, expanded} = this.props;
-		//const dateFormat = "DD.MM.YY"
-		let dateFormatMask = "'mask': '99.99.9999', 'showMaskOnHover': 'false'"
+            if (this.state.carFound) {
+                this.setState({
+                    allowPayment: true,
+                    carATS: 'Noname',
+                    carMark: 'Hyundai',
+                    carModel: 'Sonata',
+                    carEquipment: '2.0 MPI - 6AT',
+                    carNumber: 'A 123 AA 177',
+                    carRegion: 'г. Москва',
+                    carPrice: 1534000,
+                    carPower: 245,
+                    carMileage: 24500,
+                    carYear: '2015',
+                    carUsageStart: '18.05.2020'
+                })
+            }
+        }, 200)
+    };
 
-		let yearList = []
+    onReset = () => {
+        this.formRef.current.resetFields();
+    };
 
-		for (let y = (new Date()).getFullYear(); y > 1980; y--) {
-			yearList.push(y)
-		}
-		
-		//dateFormatMask = "'regex': '" + String.raw`^(?:(?:31(\/|-|\.)(?:0?[13578]|1[02]))\1|(?:(?:29|30)(\/|-|\.)(?:0?[1,3-9]|1[0-2])\2))(?:(?:1[6-9]|[2-9]\d)?\d{2})$|^(?:29(\/|-|\.)0?2\3(?:(?:(?:1[6-9]|[2-9]\d)?(?:0[48]|[2468][048]|[13579][26])|(?:(?:16|[2468][048]|[3579][26])00))))$|^(?:0?[1-9]|1\d|2[0-8])(\/|-|\.)(?:(?:0?[1-9])|(?:1[0-2]))\4(?:(?:1[6-9]|[2-9]\d)?\d{2})$` + "', 'showMaskOnHover': 'false'"
-		
-		//let rx = String.raw`^(?:(?:31(\/|-|\.)(?:0?[13578]|1[02]))\1|(?:(?:29|30)(\/|-|\.)(?:0?[1,3-9]|1[0-2])\2))(?:(?:1[6-9]|[2-9]\d)?\d{2})$|^(?:29(\/|-|\.)0?2\3(?:(?:(?:1[6-9]|[2-9]\d)?(?:0[48]|[2468][048]|[13579][26])|(?:(?:16|[2468][048]|[3579][26])00))))$|^(?:0?[1-9]|1\d|2[0-8])(\/|-|\.)(?:(?:0?[1-9])|(?:1[0-2]))\4(?:(?:1[6-9]|[2-9]\d)?\d{2})$`
+    onFill = () => {
+        this.formRef.current.setFieldsValue({
+            note: 'Hello world!',
+            gender: 'male'
+        });
+    };
 
-		const carNumberMask = "'mask': 'A 999 AA 999'"
-		const carVINMask = "'alias': 'vin', 'placeholder': '', 'clearIncomplete': 'false'"
+    onCarNewChange = e => {
+        this.setState({
+            newCar: !!e.target.value,
+            carNumber: ''
+        });
+    };
 
-		const carPriceMask = "'alias': 'integer', 'groupSeparator': ' ', 'digitsOptional': true, 'autoGroup': true, 'rightAlign': 'false', 'clearIncomplete': 'true', 'clearMaskOnLostFocus': 'true', 'placeholder': '_'"
-		const carPowerMask = "'alias': 'integer', 'groupSeparator': ' ', 'digitsOptional': true, 'autoGroup': true, 'rightAlign': 'false', 'clearMaskOnLostFocus': 'true', 'placeholder': '_'"
-		let searchDisabled = !this.state.carNumber.length || this.state.carNumber.indexOf('_') > -1 || this.state.formBusy
-		
-		function disabledDate(current) {
-			return current && current._isAMomentObject && current.isAfter(new Date());
-		}
-		
-		const layout = {
-			labelCol: {
-				span: 8
-			},
-			wrapperCol: {
-				span: 16
-			}
-		};
+    componentDidMount() {
+        this.props.allFields && this.setState({showAdditional: true})
+    }
 
-		return (
-			<div className="kasko-car-select">
-				{ expanded ?
-					<>
-						<div className="kasko-car-select__controls radio_v2">
-							<Radio.Group defaultValue={this.state.newCar ? 1 : 0} onChange={this.onCarNewChange}>
-								<Row gutter={20}>
-									<Col>
-										<Radio value={1}>Новый</Radio>
-									</Col>
-									<Col>
-										<Radio value={0}>С пробегом</Radio>
-									</Col>
-								</Row>
-							</Radio.Group>
-						</div>
-		
-						{this.state.newCar ? null :
-							<Form {...layout} ref={this.formRef} name="control-ref" onFinish={this.onFinish}>
-								<Row className="kasko-car-select__controls" gutter={20}>
-									<FormInput span={6} onChangeCallback={this.formControlCallback}
-											   placeholder="Госномер автомобиля"
-											   inputmask={carNumberMask}
-											   controlName={'carNumber'} value={''}/>
-											   
-									<Col span={6}>
-										<Button htmlType={searchDisabled ? null : "submit"} className={"w_100p " + (this.state.carFound !== void 0 ? "btn_grey" :
-											this.state.formBusy ? "btn_grey" : "ant-btn-primary")} 
-												disabled={searchDisabled ? 'disabled' : null}>
-													{this.state.carFound === void 0 ? 
-														this.state.formBusy ? 
-														<span className={"btn_search"}>Поиск</span> :
-														<span className={"btn_text"}>Найти данные ТС</span>
-														: this.state.carFound ?
-															<span className={"btn_text color_green"}>Данные найдены</span> :
-															<span className={"btn_text color_red"}>Данные не найдены</span>
-													}
-										</Button>
-									</Col>
-								</Row>
-							</Form>
-						}
-		
-						<Row className="kasko-car-select__controls" gutter={20}>
-							<FormSelect span={6} onChangeCallback={this.formControlCallback}
-										options={this.state.markList}
-										className={this.activeClass('carMark')}
-										placeholder="Марка" controlName={'carMark'}
-										value={this.state.carMark}/>
-	
-							<FormSelect span={6} onChangeCallback={this.formControlCallback}
-										options={this.state.modelList}
-										className={this.activeClass('carModel')}
-										placeholder="Модель" controlName={'carModel'}
-										value={this.state.carModel}/>
-	
-							<FormSelect span={6} onChangeCallback={this.formControlCallback}
-										options={this.state.equipmentList}
-										className={this.activeClass('carEquipment')}
-										placeholder="Комплектация" controlName={'carEquipment'}
-										value={this.state.carEquipment}/>
-	
-							<FormSelect span={6} onChangeCallback={this.formControlCallback}
-										options={yearList}
-										className={this.activeClass('carYear')}
-										disabled={this.state.newCar ? "disabled" : ""}
-										placeholder="Год выпуска" controlName={'carYear'}
-										value={this.state.carYear}/>
-						</Row>
-										
-						{
-							fullCalculation ?
-								<>
-									<Row className="kasko-car-select__controls" gutter={20}>
-										<FormInput span={6} onChangeCallback={this.formControlCallback}
-												   placeholder="VIN"
-												   className={(allFields ? " input-error" : "")}
-												   inputmask={carVINMask}
-												   controlName={'carVIN'} value={''}/>
-												   
-										<FormInput span={6} onChangeCallback={this.formControlCallback}
-												   placeholder="СТС"
-												   className={(allFields ? " input-error" : "")}
-												   controlName={'carPTS'} value={''}/>
-												   
-										<FormInput span={6} onChangeCallback={this.formControlCallback}
-												   placeholder="Дата выдачи СТС"
-												   className={(allFields ? " input-error" : "")}
-												   inputmask={dateFormatMask}
-												   controlName={'carPTSStart'} value={''}/>
-									</Row>
-									<Row className="kasko-car-select__controls" gutter={20}>
-										<FormInput span={6} onChangeCallback={this.formControlCallback}
-												   placeholder="Диагностическая карта"
-												   className={(allFields ? " input-error" : "")}
-												   controlName={'carDiagnosticCard'} value={''}/>
-												   
-										<FormInput span={6} onChangeCallback={this.formControlCallback}
-												   placeholder="Срок действия"
-												   className={(allFields ? " input-error" : "")}
-												   controlName={'carDiagnosticCardEnd'} value={''}/>
-									</Row>
-								</>
-							: null
-						}
-					</> 
-					: null
-				}
-				
-				<Row className="kasko-car-select__controls mb_55" gutter={20}>
-					{/*<Col span={6}>*/}
-					{/*	<Input className={"w_100p custom_placeholder " + ((this.state.carKaskoDoc + '').length ? "" : " _empty")}*/}
-					{/*		   value={(this.state.carKaskoDoc)}*/}
-					{/*		   onChange={this.onCarKaskoDocChange}*/}
-					{/*		   defaultValue=""/>*/}
-					{/*	<div className="float_placeholder">{'Номер действующего \n полиса КАСКО'}</div>*/}
-					{/*</Col>*/}
+    componentDidUpdate() {
+        document.querySelectorAll('[data-inputmask]').forEach(function (inp) {
+            let mask = {}
+            inp.dataset.inputmask.split(',').forEach((m) => {
+                let key = m.split(':')[0]
+                mask[key] = m.split(':')[1]
+            })
+            Inputmask(mask).mask(inp);
+        })
 
-					<FormInput span={6} onChangeCallback={this.formControlCallback}
-							   inputmask={dateFormatMask}
-							   placeholder={"Дата начала действия \n нового полиса КАСКО"}
-							   //placeholder={"Дата начала действия \n полиса"}
-							   controlName={'carKaskoDocStart'} value={(this.state.carKaskoDocStart)}/>
-				</Row>
-				
-				{/*{*/}
-				{/*	allFields ?*/}
-				{/*	""*/}
-				{/*	: */}
-				{/*	<div className={"kasko-car-select__image" + (step === 1 && !this.state.allowPayment ? " _inactive" : "")}>*/}
-				{/*		<img src={image || 'car-1-s.png'} alt=""/>*/}
-				{/*	</div>*/}
-				{/*}*/}
+        document.querySelectorAll('[data-inputmask-date]').forEach(function (inp) {
+            Inputmask({
+                placeholder: '_',
+                showMaskOnHover: false,
+                regex: String.raw`^(?:(?:(?:0?[13578]|1[02])(\/|-|\.)31)\1|(?:(?:0?[1,3-9]|1[0-2])(\/|-|\.)(?:29|30)\2))(?:(?:1[6-9]|[2-9]\d)?\d{2})$|^(?:0?2(\/|-|\.)29\3(?:(?:(?:1[6-9]|[2-9]\d)?(?:0[48]|[2468][048]|[13579][26])|(?:(?:16|[2468][048]|[3579][26])00))))$|^(?:(?:0?[1-9])|(?:1[0-2]))(\/|-|\.)(?:0?[1-9]|1\d|2[0-8])\4(?:(?:1[6-9]|[2-9]\d)?\d{2})$`
+            }).mask(inp);
+        })
+    };
 
-				{(!this.state.formBusy && this.state.carFound && !hideOffers) ?
-					<KaskoOffers offersList={[
-						{
-							name: 'Кредит',
-							price: 13400,
-							prefix: 'от',
-							suffix: '₽/мес'
-						},
-						{
-							name: 'ОСАГО',
-							price: 10410,
-							prefix: 'от',
-							suffix: '₽'
-						},
-						{
-							name: 'КАСКО',
-							price: 10420,
-							prefix: 'от',
-							suffix: '₽'
-						},
-						{
-							name: 'GAP',
-							price: 10430,
-							prefix: 'от',
-							suffix: '₽'
-						}
-					]} />
-				: null }
-				
-			</div>
-		);
-	}
+    render() {
+        const {image, allFields, step, hideOffers, fullCalculation, expanded} = this.props;
+        //const dateFormat = "DD.MM.YY"
+        let dateFormatMask = "'mask': '99.99.9999', 'showMaskOnHover': 'false'"
+
+        let yearList = []
+
+        for (let y = (new Date()).getFullYear(); y > 1980; y--) {
+            yearList.push(y)
+        }
+
+        //dateFormatMask = "'regex': '" + String.raw`^(?:(?:31(\/|-|\.)(?:0?[13578]|1[02]))\1|(?:(?:29|30)(\/|-|\.)(?:0?[1,3-9]|1[0-2])\2))(?:(?:1[6-9]|[2-9]\d)?\d{2})$|^(?:29(\/|-|\.)0?2\3(?:(?:(?:1[6-9]|[2-9]\d)?(?:0[48]|[2468][048]|[13579][26])|(?:(?:16|[2468][048]|[3579][26])00))))$|^(?:0?[1-9]|1\d|2[0-8])(\/|-|\.)(?:(?:0?[1-9])|(?:1[0-2]))\4(?:(?:1[6-9]|[2-9]\d)?\d{2})$` + "', 'showMaskOnHover': 'false'"
+
+        //let rx = String.raw`^(?:(?:31(\/|-|\.)(?:0?[13578]|1[02]))\1|(?:(?:29|30)(\/|-|\.)(?:0?[1,3-9]|1[0-2])\2))(?:(?:1[6-9]|[2-9]\d)?\d{2})$|^(?:29(\/|-|\.)0?2\3(?:(?:(?:1[6-9]|[2-9]\d)?(?:0[48]|[2468][048]|[13579][26])|(?:(?:16|[2468][048]|[3579][26])00))))$|^(?:0?[1-9]|1\d|2[0-8])(\/|-|\.)(?:(?:0?[1-9])|(?:1[0-2]))\4(?:(?:1[6-9]|[2-9]\d)?\d{2})$`
+
+        const carNumberMask = "'mask': 'A 999 AA 999'"
+        const carVINMask = "'alias': 'vin', 'placeholder': '', 'clearIncomplete': 'false'"
+
+        const carPriceMask = "'alias': 'integer', 'groupSeparator': ' ', 'digitsOptional': true, 'autoGroup': true, 'rightAlign': 'false', 'clearIncomplete': 'true', 'clearMaskOnLostFocus': 'true', 'placeholder': '_'"
+        const carPowerMask = "'alias': 'integer', 'groupSeparator': ' ', 'digitsOptional': true, 'autoGroup': true, 'rightAlign': 'false', 'clearMaskOnLostFocus': 'true', 'placeholder': '_'"
+        let searchDisabled = !this.state.carNumber.length || this.state.carNumber.indexOf('_') > -1 || this.state.formBusy
+
+        function disabledDate(current) {
+            return current && current._isAMomentObject && current.isAfter(new Date());
+        }
+
+        const layout = {
+            labelCol: {
+                span: 8
+            },
+            wrapperCol: {
+                span: 16
+            }
+        };
+
+        return (
+            <div className="kasko-car-select">
+                {expanded ?
+                    <>
+                        <div className="kasko-car-select__controls radio_v2">
+                            <Radio.Group defaultValue={this.state.newCar ? 1 : 0} onChange={this.onCarNewChange}>
+                                <Row gutter={20}>
+                                    <Col>
+                                        <Radio value={1}>Новый</Radio>
+                                    </Col>
+                                    <Col>
+                                        <Radio value={0}>С пробегом</Radio>
+                                    </Col>
+                                </Row>
+                            </Radio.Group>
+                        </div>
+
+                        {this.state.newCar ? null :
+                            <Form {...layout} ref={this.formRef} name="control-ref" onFinish={this.onFinish}>
+                                <Row className="kasko-car-select__controls" gutter={20}>
+                                    <FormInput span={6} onChangeCallback={this.formControlCallback}
+                                               placeholder="Госномер автомобиля"
+                                               inputmask={carNumberMask}
+                                               controlName={'carNumber'} value={''}/>
+
+                                    <Col span={6}>
+                                        <Button htmlType={searchDisabled ? null : "submit"}
+                                                className={"w_100p " + (this.state.carFound !== void 0 ? "btn_grey" :
+                                                    this.state.formBusy ? "btn_grey" : "ant-btn-primary")}
+                                                disabled={searchDisabled ? 'disabled' : null}>
+                                            {this.state.carFound === void 0 ?
+                                                this.state.formBusy ?
+                                                    <span className={"btn_search"}>Поиск</span> :
+                                                    <span className={"btn_text"}>Найти данные ТС</span>
+                                                : this.state.carFound ?
+                                                    <span className={"btn_text color_green"}>Данные найдены</span> :
+                                                    <span className={"btn_text color_red"}>Данные не найдены</span>
+                                            }
+                                        </Button>
+                                    </Col>
+                                </Row>
+                            </Form>
+                        }
+
+                        <Row className="kasko-car-select__controls" gutter={20}>
+                            <FormSelect span={6} onChangeCallback={this.formControlCallback}
+                                        options={this.state.markList}
+                                        className={this.activeClass('carMark')}
+                                        placeholder="Марка" controlName={'carMark'}
+                                        value={this.state.carMark}/>
+
+                            <FormSelect span={6} onChangeCallback={this.formControlCallback}
+                                        options={this.state.modelList}
+                                        className={this.activeClass('carModel')}
+                                        placeholder="Модель" controlName={'carModel'}
+                                        value={this.state.carModel}/>
+
+                            <FormSelect span={6} onChangeCallback={this.formControlCallback}
+                                        options={this.state.equipmentList}
+                                        className={this.activeClass('carEquipment')}
+                                        placeholder="Комплектация" controlName={'carEquipment'}
+                                        value={this.state.carEquipment}/>
+
+                            <FormSelect span={6} onChangeCallback={this.formControlCallback}
+                                        options={yearList}
+                                        className={this.activeClass('carYear')}
+                                        disabled={this.state.newCar ? "disabled" : ""}
+                                        placeholder="Год выпуска" controlName={'carYear'}
+                                        value={this.state.carYear}/>
+                        </Row>
+
+                        {
+                            fullCalculation ?
+                                <>
+                                    <Row className="kasko-car-select__controls" gutter={20}>
+                                        <FormInput span={6} onChangeCallback={this.formControlCallback}
+                                                   placeholder="VIN"
+                                                   className={(allFields ? " input-error" : "")}
+                                                   inputmask={carVINMask}
+                                                   controlName={'carVIN'} value={''}/>
+
+                                        <FormInput span={6} onChangeCallback={this.formControlCallback}
+                                                   placeholder="СТС"
+                                                   className={(allFields ? " input-error" : "")}
+                                                   controlName={'carPTS'} value={''}/>
+
+                                        <FormInput span={6} onChangeCallback={this.formControlCallback}
+                                                   placeholder="Дата выдачи СТС"
+                                                   className={(allFields ? " input-error" : "")}
+                                                   inputmask={dateFormatMask}
+                                                   controlName={'carPTSStart'} value={''}/>
+                                    </Row>
+                                    <Row className="kasko-car-select__controls" gutter={20}>
+                                        <FormInput span={6} onChangeCallback={this.formControlCallback}
+                                                   placeholder="Диагностическая карта"
+                                                   className={(allFields ? " input-error" : "")}
+                                                   controlName={'carDiagnosticCard'} value={''}/>
+
+                                        <FormInput span={6} onChangeCallback={this.formControlCallback}
+                                                   placeholder="Срок действия"
+                                                   className={(allFields ? " input-error" : "")}
+                                                   controlName={'carDiagnosticCardEnd'} value={''}/>
+                                    </Row>
+                                </>
+                                : null
+                        }
+                    </>
+                    : null
+                }
+
+                <Row className="kasko-car-select__controls mb_55" gutter={20}>
+                    {/*<Col span={6}>*/}
+                    {/*	<Input className={"w_100p custom_placeholder " + ((this.state.carKaskoDoc + '').length ? "" : " _empty")}*/}
+                    {/*		   value={(this.state.carKaskoDoc)}*/}
+                    {/*		   onChange={this.onCarKaskoDocChange}*/}
+                    {/*		   defaultValue=""/>*/}
+                    {/*	<div className="float_placeholder">{'Номер действующего \n полиса КАСКО'}</div>*/}
+                    {/*</Col>*/}
+
+                    <FormInput span={6} onChangeCallback={this.formControlCallback}
+                               inputmask={dateFormatMask}
+                               placeholder={"Дата начала действия \n нового полиса КАСКО"}
+                        //placeholder={"Дата начала действия \n полиса"}
+                               controlName={'carKaskoDocStart'} value={(this.state.carKaskoDocStart)}/>
+                </Row>
+
+                {/*{*/}
+                {/*	allFields ?*/}
+                {/*	""*/}
+                {/*	: */}
+                {/*	<div className={"kasko-car-select__image" + (step === 1 && !this.state.allowPayment ? " _inactive" : "")}>*/}
+                {/*		<img src={image || 'car-1-s.png'} alt=""/>*/}
+                {/*	</div>*/}
+                {/*}*/}
+
+                {(!this.state.formBusy && this.state.carFound && !hideOffers) ?
+                    <KaskoOffers offersList={[
+                        {
+                            name: 'Кредит',
+                            price: 13400,
+                            prefix: 'от',
+                            suffix: '₽/мес'
+                        },
+                        {
+                            name: 'ОСАГО',
+                            price: 10410,
+                            prefix: 'от',
+                            suffix: '₽'
+                        },
+                        {
+                            name: 'КАСКО',
+                            price: 10420,
+                            prefix: 'от',
+                            suffix: '₽'
+                        },
+                        {
+                            name: 'GAP',
+                            price: 10430,
+                            prefix: 'от',
+                            suffix: '₽'
+                        }
+                    ]}/>
+                    : null}
+
+            </div>
+        );
+    }
 }
 
 export default KaskoCarSelectOsago;

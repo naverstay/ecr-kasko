@@ -1,57 +1,57 @@
 @import '../../assets/styles/global';
 
 .calculation-popup {
-	position: relative;
-	z-index: 1;
-	height: 100vh;
-	overflow-y: auto;
-	padding: 20px;
-	background: #fff;
-		
-	.kasko-car-select__calculation:not(.no-img) {
-		margin-bottom: 50px;
-	}
+  position: relative;
+  z-index: 1;
+  height: 100vh;
+  overflow-y: auto;
+  padding: 20px;
+  background: #fff;
 
-	.kasko-main__title {
-		margin-bottom: 12px;
-	}
+  .kasko-car-select__calculation:not(.no-img) {
+    margin-bottom: 50px;
+  }
 
-	.kasko-car-select__controls {
-		//&:not([class^="mb_"]),
-		&:not([class*=" mb_"]) {
-			margin-bottom: 15px;
-		}
-	}
+  .kasko-main__title {
+    margin-bottom: 12px;
+  }
 
-	.kasko-car-select {
-		margin-bottom: 40px;
-	}
+  .kasko-car-select__controls {
+    //&:not([class^="mb_"]),
+    &:not([class*=" mb_"]) {
+      margin-bottom: 15px;
+    }
+  }
 
-	.kasko-car-select__form .kasko-car-select {
-		margin-bottom: 5px;
-	}
-	
-	&__close {
-		position: absolute;
-		top: 15px;
-		right: 25px;
-		cursor: pointer;
-		z-index: 1;
-		width: 30px;
-		height: 30px;
+  .kasko-car-select {
+    margin-bottom: 40px;
+  }
 
-		&:before {
-			font-family: $icomoon-font-family;
-			content: $i-close;
-			position: absolute;
-			right: 0;
-			left: 0;
-			top: 50%;
-			text-align: center;
-			margin-top: -8px;
-			font-size: 15px;
-			line-height: 1;
-			color: $color-grey;
-		}
-	}
+  .kasko-car-select__form .kasko-car-select {
+    margin-bottom: 5px;
+  }
+
+  &__close {
+    position: absolute;
+    top: 15px;
+    right: 25px;
+    cursor: pointer;
+    z-index: 1;
+    width: 30px;
+    height: 30px;
+
+    &:before {
+      font-family: $icomoon-font-family;
+      content: $i-close;
+      position: absolute;
+      right: 0;
+      left: 0;
+      top: 50%;
+      text-align: center;
+      margin-top: -8px;
+      font-size: 15px;
+      line-height: 1;
+      color: $color-grey;
+    }
+  }
 }

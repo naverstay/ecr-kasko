@@ -2,27 +2,27 @@
 
 .offer-select {
 
-	&__sms {
-		text-align: left;
+  &__sms {
+    text-align: left;
 
-		.ant-btn {
-			font-size: 14px;
-			margin-top: 15px;
-			position: absolute;
-			top: 100%;
-			left: 10px;
-			right: 10px;
-		}
+    .ant-btn {
+      font-size: 14px;
+      margin-top: 15px;
+      position: absolute;
+      top: 100%;
+      left: 10px;
+      right: 10px;
+    }
 
-		.gl_link {
-			@extend %text2;
-			white-space: nowrap;
-			margin-top: 15px;
-			position: absolute;
-			top: 100%;
-			left: 50%;
-			transform: translate(-50%, 0);
-			color: $color-grey;
-		}
-	}
+    .gl_link {
+      @extend %text2;
+      white-space: nowrap;
+      margin-top: 15px;
+      position: absolute;
+      top: 100%;
+      left: 50%;
+      transform: translate(-50%, 0);
+      color: $color-grey;
+    }
+  }
 }

@@ -1,68 +1,68 @@
 @import '../../assets/styles/global';
 
 .auth-popup {
-	position: absolute;
-	left: 50%;
-	top: 50%;
-	width: 100%;
-	transform: translate(-50%, -50%);
-	padding: 30px 30px 50px;
-	background: #fff;
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  width: 100%;
+  transform: translate(-50%, -50%);
+  padding: 30px 30px 50px;
+  background: #fff;
 
-	p {
-		@extend %text1;
-		line-height: 20px;
-		margin-bottom: 30px;
-	}
-	
-	&__form {
-		margin: 0 auto;
-		width: 216px;
+  p {
+    @extend %text1;
+    line-height: 20px;
+    margin-bottom: 30px;
+  }
 
-		.offer-select__sms {
-			width: 100%;
-			padding: 0;
-			
-			.float_placeholder {
-				left: 11px;
-			}
-		}
-		
-		&--row {
-			position: relative;
-			margin-bottom: 15px;
-		}
-		
-	}
-	
-	&__title {
-		@extend %h1;
-		text-align: center;
-		margin-bottom: 30px;
-	}
-	
-	&__close {
-		cursor: pointer;
-		z-index: 1;
-		position: absolute;
-		top: 15px;
-		right: 15px;
-		width: 15px;
-		height: 15px;
+  &__form {
+    margin: 0 auto;
+    width: 216px;
 
-		&:before {
-			font-family: $icomoon-font-family;
-			content: $i-close;
-			position: absolute;
-			right: 0;
-			left: 0;
-			top: 50%;
-			text-align: center;
-			margin-top: -8px;
-			font-size: 15px;
-			line-height: 1;
-			color: $color-grey;
-		}
-	}
-	
+    .offer-select__sms {
+      width: 100%;
+      padding: 0;
+
+      .float_placeholder {
+        left: 11px;
+      }
+    }
+
+    &--row {
+      position: relative;
+      margin-bottom: 15px;
+    }
+
+  }
+
+  &__title {
+    @extend %h1;
+    text-align: center;
+    margin-bottom: 30px;
+  }
+
+  &__close {
+    cursor: pointer;
+    z-index: 1;
+    position: absolute;
+    top: 15px;
+    right: 15px;
+    width: 15px;
+    height: 15px;
+
+    &:before {
+      font-family: $icomoon-font-family;
+      content: $i-close;
+      position: absolute;
+      right: 0;
+      left: 0;
+      top: 50%;
+      text-align: center;
+      margin-top: -8px;
+      font-size: 15px;
+      line-height: 1;
+      color: $color-grey;
+    }
+  }
+
 }

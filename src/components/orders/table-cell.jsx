@@ -11,7 +11,7 @@ import cn from 'classnames';
 //		onMouseLeave: PropTypes.func,
 //		onClick: PropTypes.func
 //	};
-//	
+//
 //	const {
 //		classList,
 //		children,
@@ -20,7 +20,7 @@ import cn from 'classnames';
 //		onMouseLeave,
 //		onClick
 //	} = props;
-//	
+//
 //	const className = cn([
 //		...classList,
 //		(sortable ? '_sortable' : '')
@@ -36,43 +36,43 @@ import cn from 'classnames';
 //export default TableCell;
 
 class TableCell extends Component {
-	static propTypes = {
-		classList: PropTypes.array,
-		children: PropTypes.node,
-		sortable: PropTypes.bool,
-		toggleInfoHandle: PropTypes.func,
-		onMouseEnter: PropTypes.func,
-		onMouseLeave: PropTypes.func,
-		onClick: PropTypes.func
-	};
-	
-	render() {
-		let {
-			classList,
-			children,
-			sortable,
-			toggleInfoRow,
-			toggleInfoHandle,
-			onMouseEnter,
-			onMouseLeave,
-			onClick
-		} = this.props;
-		
-		if (toggleInfoRow) {
-			onClick = this.props.toggleInfoHandle
-		}
+    static propTypes = {
+        classList: PropTypes.array,
+        children: PropTypes.node,
+        sortable: PropTypes.bool,
+        toggleInfoHandle: PropTypes.func,
+        onMouseEnter: PropTypes.func,
+        onMouseLeave: PropTypes.func,
+        onClick: PropTypes.func
+    };
 
-		const className = cn([
-			...(classList ? classList : []),
-			(sortable ? '_sortable' : '')
-		]);
+    render() {
+        let {
+            classList,
+            children,
+            sortable,
+            toggleInfoRow,
+            toggleInfoHandle,
+            onMouseEnter,
+            onMouseLeave,
+            onClick
+        } = this.props;
 
-		return (
-			<div className={className} onMouseEnter={onMouseEnter} onMouseLeave={onMouseLeave} onClick={onClick}>
-				{children}
-			</div>
-		)
-	}
+        if (toggleInfoRow) {
+            onClick = this.props.toggleInfoHandle
+        }
+
+        const className = cn([
+            ...(classList ? classList : []),
+            (sortable ? '_sortable' : '')
+        ]);
+
+        return (
+            <div className={className} onMouseEnter={onMouseEnter} onMouseLeave={onMouseLeave} onClick={onClick}>
+                {children}
+            </div>
+        )
+    }
 };
 
 export default TableCell;

@@ -6,59 +6,59 @@ import './order-button.scss';
 import ChatMsg from "./chat-msg";
 
 class ChatDay extends Component {
-	constructor(props) {
-		super(props)
-		this.toggleDayHandle = this.toggleDayHandle.bind(this)
-		this.state = {dayOpen: true}
-	}
-	
-	static propTypes = {
-		msg: PropTypes.array,
-		count: PropTypes.string,
-		date: PropTypes.string,
-		classCaption: PropTypes.string,
-		classDay: PropTypes.string
-	}
+    constructor(props) {
+        super(props)
+        this.toggleDayHandle = this.toggleDayHandle.bind(this)
+        this.state = {dayOpen: true}
+    }
 
-	toggleDayHandle() {
-		this.setState({dayOpen: !this.state.dayOpen});
-	}
+    static propTypes = {
+        msg: PropTypes.array,
+        count: PropTypes.string,
+        date: PropTypes.string,
+        classCaption: PropTypes.string,
+        classDay: PropTypes.string
+    }
 
-	render() {
-		const {
-			msg,
-			count,
-			date,
-			classDay,
-			classCaption
-		} = this.props;
+    toggleDayHandle() {
+        this.setState({dayOpen: !this.state.dayOpen});
+    }
 
-		const dayClassName = cn([
-			classDay,
-			{'day_open': (count && this.state.dayOpen)}
-		]);
-		
-		return (
-			<div className={dayClassName}>
-				<div className={classCaption} onClick={this.toggleDayHandle}>
-					{count && <span className="chat-counter">{count}</span>}
-					<span className="chat-name">{date}</span>
-				</div>
+    render() {
+        const {
+            msg,
+            count,
+            date,
+            classDay,
+            classCaption
+        } = this.props;
 
-				{(count && this.state.dayOpen) && msg.map((m, i) => {
-					const classMsg = cn([
-						'chat-msg',
-						'status_' + m.statusColor,
-						m.opacity ? 'msg_opacity' : ''
-					]);
+        const dayClassName = cn([
+            classDay,
+            {'day_open': (count && this.state.dayOpen)}
+        ]);
 
-					return (
-						<ChatMsg key={i} classMsg={classMsg} msg={m} />
-					)
-				})}
-			</div>
-		)
-	}
+        return (
+            <div className={dayClassName}>
+                <div className={classCaption} onClick={this.toggleDayHandle}>
+                    {count && <span className="chat-counter">{count}</span>}
+                    <span className="chat-name">{date}</span>
+                </div>
+
+                {(count && this.state.dayOpen) && msg.map((m, i) => {
+                    const classMsg = cn([
+                        'chat-msg',
+                        'status_' + m.statusColor,
+                        m.opacity ? 'msg_opacity' : ''
+                    ]);
+
+                    return (
+                        <ChatMsg key={i} classMsg={classMsg} msg={m}/>
+                    )
+                })}
+            </div>
+        )
+    }
 }
 
 export default ChatDay;

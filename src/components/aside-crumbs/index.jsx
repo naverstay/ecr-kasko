@@ -5,22 +5,23 @@ import PropTypes from "prop-types";
 
 
 class AsideCrumbs extends Component {
-	static propTypes = {
-		children: PropTypes.node,
-		innerWidth: PropTypes.number,
-	};
+    static propTypes = {
+        children: PropTypes.node,
+        innerWidth: PropTypes.number
+    };
 
-	render() {
-		const {crumbs} = this.props;
-		
-		const crumbHtml = crumbs.map((c, i) => <li key={i}><a className="aside-crumbs__item ant-btn btn_green" href="/">{c}</a></li>);
-		
-		return (
-			<ul className="aside-crumbs">
-				{crumbHtml}
-			</ul>
-		);
-	}
+    render() {
+        const {crumbs} = this.props;
+
+        const crumbHtml = crumbs.map((c, i) => <li key={i}><a className="aside-crumbs__item ant-btn btn_green"
+                                                              href="/">{c}</a></li>);
+
+        return (
+            <ul className="aside-crumbs">
+                {crumbHtml}
+            </ul>
+        );
+    }
 }
 
 export default AsideCrumbs;

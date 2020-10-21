@@ -1,48 +1,48 @@
 @import '../../assets/styles/vars.scss';
 
 .svetofor {
-	&-wrapper {
-		position: relative;
-		
-		&__center {
-			text-align: center;
-		}
-	}
-	
-	&-item {
-		display: inline-block;
-		vertical-align: top;
-		border-radius: 100%;
-		width: 18px;
-		height: 18px;
-		font-size: 12px;
-		line-height: 16px;
-		text-align: center;
-		color: #000;
-		border: 1px solid $color-grey;
-		margin: 3px 7px 3px 0;
-		
-		&--yellow {
-			background: $color-yellow;
-			border-color: $color-yellow;
-		}
-		
-		&--green {
-			color: #fff;
-			background: $color-green;
-			border-color: $color-green;
-		}
-		
-		&--red {
-			color: #fff;
-			background: $color-prime;
-			border-color: $color-prime;
-		}
-		
-		&--blue {
-			color: #fff;
-			background: $color-blue;
-			border-color: $color-blue;
-		}
-	}
+  &-wrapper {
+    position: relative;
+
+    &__center {
+      text-align: center;
+    }
+  }
+
+  &-item {
+    display: inline-block;
+    vertical-align: top;
+    border-radius: 100%;
+    width: 18px;
+    height: 18px;
+    font-size: 12px;
+    line-height: 16px;
+    text-align: center;
+    color: #000;
+    border: 1px solid $color-grey;
+    margin: 3px 7px 3px 0;
+
+    &--yellow {
+      background: $color-yellow;
+      border-color: $color-yellow;
+    }
+
+    &--green {
+      color: #fff;
+      background: $color-green;
+      border-color: $color-green;
+    }
+
+    &--red {
+      color: #fff;
+      background: $color-prime;
+      border-color: $color-prime;
+    }
+
+    &--blue {
+      color: #fff;
+      background: $color-blue;
+      border-color: $color-blue;
+    }
+  }
 }

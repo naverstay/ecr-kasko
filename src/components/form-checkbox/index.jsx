@@ -4,34 +4,35 @@ import PropTypes from "prop-types";
 import {Col, Checkbox} from "antd";
 
 class FormCheckbox extends Component {
-	constructor(props) {
-		super(props);
-		this.state = {
-			controlChecked: this.props.checked,
-		};
-	}
-	
-	static propTypes = {
-		onChangeCallback: PropTypes.func,
-	};
-	
-	onChange = (e) => {
-		const val = e.target.checked
+    constructor(props) {
+        super(props);
+        this.state = {
+            controlChecked: this.props.checked
+        };
+    }
 
-		this.setState({controlChecked: val})
+    static propTypes = {
+        onChangeCallback: PropTypes.func
+    };
 
-		typeof this.props.onChangeCallback === 'function' && this.props.onChangeCallback(this.props.controlName, val)
-	};
+    onChange = (e) => {
+        const val = e.target.checked
 
-	render() {
-		const {value, controlName, span, text, className} = this.props;
-		
-		return (
-			<Col className={className} span={span}>
-				<Checkbox name={controlName} checked={this.state.controlChecked} value={value} onChange={this.onChange}>{text}</Checkbox>
-			</Col>
-		);
-	}
+        this.setState({controlChecked: val})
+
+        typeof this.props.onChangeCallback === 'function' && this.props.onChangeCallback(this.props.controlName, val)
+    };
+
+    render() {
+        const {value, controlName, span, text, className} = this.props;
+
+        return (
+            <Col className={className} span={span}>
+                <Checkbox name={controlName} checked={this.state.controlChecked} value={value}
+                          onChange={this.onChange}>{text}</Checkbox>
+            </Col>
+        );
+    }
 }
 
 export default FormCheckbox;

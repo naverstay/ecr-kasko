@@ -2,63 +2,63 @@
 
 .insurance-policy {
 
-	&__name {
-		@extend %text1;
-		font-weight: bold;
-		//margin-bottom: 12px;
-	}
-	
-	&__table {
-		width: 100%;
-		margin-bottom: 30px;
-		border-collapse: collapse;
-		
-		th {
-			@extend %text2;
-			background: #f7f7f7;
-			color: #808080;
-			padding: 15px 10px;
-			text-align: center;
-			border-bottom: 1px solid $color-grey;
+  &__name {
+    @extend %text1;
+    font-weight: bold;
+    //margin-bottom: 12px;
+  }
 
-			&:first-child {
-				text-align: left;
-				padding-left: 12px;
-			}
-		}
-		
-		td {
-			text-align: center;
-			padding: 20px 10px;
-			vertical-align: top;
-			border-bottom: 1px solid $color-grey;
+  &__table {
+    width: 100%;
+    margin-bottom: 30px;
+    border-collapse: collapse;
 
-			&:first-child {
-				text-align: left;
-				padding-left: 12px;
-			}
-		}
-		
-		&--col-1 {
-			width: 50%;
-		}
-		
-		&--col-2,
-		&--col-3 {
-			width: 13%;
-		}
-		
-		&--col-4 {
-			width: 23%;
-		}
-	}
-	
-	&__options {
-		.ant-col {
-			min-width: 42%;
-			padding-right: 10px;
-		}
-	}
-	
+    th {
+      @extend %text2;
+      background: #f7f7f7;
+      color: #808080;
+      padding: 15px 10px;
+      text-align: center;
+      border-bottom: 1px solid $color-grey;
+
+      &:first-child {
+        text-align: left;
+        padding-left: 12px;
+      }
+    }
+
+    td {
+      text-align: center;
+      padding: 20px 10px;
+      vertical-align: top;
+      border-bottom: 1px solid $color-grey;
+
+      &:first-child {
+        text-align: left;
+        padding-left: 12px;
+      }
+    }
+
+    &--col-1 {
+      width: 50%;
+    }
+
+    &--col-2,
+    &--col-3 {
+      width: 13%;
+    }
+
+    &--col-4 {
+      width: 23%;
+    }
+  }
+
+  &__options {
+    .ant-col {
+      min-width: 42%;
+      padding-right: 10px;
+    }
+  }
+
 }
 

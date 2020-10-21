@@ -1,71 +1,71 @@
 @import '../../assets/styles/vars.scss';
 
 .pagination {
-	&__container {
-		height: 25px;
-		display: flex;
-		font-size: 12px;
-		line-height: 18px;
-		align-items: center;
-		justify-content: center;
-		margin: 0 10px;
-		
-		&._order {
-			margin-top: 30px;
-		}
-		
-		&._hide-prev {
-			.pagination__prev-page {
-				display: none;
-			}
-		}
-		
-		&._hide-next {
-			.pagination__next-page {
-				display: none;
-			}
-		}
-	}
+  &__container {
+    height: 25px;
+    display: flex;
+    font-size: 12px;
+    line-height: 18px;
+    align-items: center;
+    justify-content: center;
+    margin: 0 10px;
 
-	&__pages {
-		margin: 0;
-		padding: 0;
-		list-style-type: none;
-		display: flex;
-		justify-content: space-around;
-		align-items: center;
-	}
+    &._order {
+      margin-top: 30px;
+    }
 
-	&__page {
-		cursor: pointer;
-		display: inline-block;
-		margin: 3px 4px 3px 3px;
-		text-align: center;
-		height: 18px;
-		line-height: 16px;
-		font-size: 12px;
-		font-weight: 500;
-		border: 1px solid #fff;
-		color: $color-grey;
-		
-		&._circle {
-			width: 18px;
-			border-radius: 100%;
-		}
-		
-		&._text {
-			padding: 0 10px;
-		}
-		
-		&:hover {
-			color: $color-prime;
-		}
+    &._hide-prev {
+      .pagination__prev-page {
+        display: none;
+      }
+    }
 
-		&.active {
-			pointer-events: none;
-			cursor: default;
-			border-color: #000;
-			color: #000;
-		}
-	}
+    &._hide-next {
+      .pagination__next-page {
+        display: none;
+      }
+    }
+  }
+
+  &__pages {
+    margin: 0;
+    padding: 0;
+    list-style-type: none;
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+  }
+
+  &__page {
+    cursor: pointer;
+    display: inline-block;
+    margin: 3px 4px 3px 3px;
+    text-align: center;
+    height: 18px;
+    line-height: 16px;
+    font-size: 12px;
+    font-weight: 500;
+    border: 1px solid #fff;
+    color: $color-grey;
+
+    &._circle {
+      width: 18px;
+      border-radius: 100%;
+    }
+
+    &._text {
+      padding: 0 10px;
+    }
+
+    &:hover {
+      color: $color-prime;
+    }
+
+    &.active {
+      pointer-events: none;
+      cursor: default;
+      border-color: #000;
+      color: #000;
+    }
+  }
 }
