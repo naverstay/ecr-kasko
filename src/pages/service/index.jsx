@@ -183,4 +183,3 @@ class Service extends Component {
 }
 
 export default Service
-
