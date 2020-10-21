@@ -392,6 +392,7 @@ class OsagoCarSelect extends Component {
 		//console.log('dateFormatMask', dateFormatMask, rx);
 
 		const carNumberMask = "'mask': 'A 999 AA 999'"
+		const carVINMask = "'alias': 'vin', 'placeholder': '', 'clearIncomplete': 'false'"
 		const carPriceMask = "'alias': 'integer', 'groupSeparator': ' ', 'digitsOptional': true, 'autoGroup': true, 'rightAlign': 'false', 'clearIncomplete': 'true', 'clearMaskOnLostFocus': 'true', 'placeholder': '_'"
 		const carPowerMask = "'alias': 'integer', 'groupSeparator': ' ', 'digitsOptional': true, 'autoGroup': true, 'rightAlign': 'false', 'clearMaskOnLostFocus': 'true', 'placeholder': '_'"
 		let searchDisabled = !this.state.carNumber.length || this.state.carNumber.indexOf('_') > -1 || this.state.formBusy
@@ -511,6 +512,15 @@ class OsagoCarSelect extends Component {
 													disabled={this.state.newCar ? "disabled" : ""}
 													placeholder="Год выпуска" controlName={'carYear'}
 													value={this.state.carYear}/>
+						</Row>
+						<Row className="kasko-car-select__controls" gutter={20}>
+							<Col span={3}/>
+
+							<FormInput span={6} onChangeCallback={this.formControlCallback}
+												 placeholder="VIN"
+												 className={(allFields ? " input-error" : "")}
+												 inputmask={carVINMask}
+												 controlName={'carVIN'} value={''}/>
 						</Row>
 					</>
 				}
