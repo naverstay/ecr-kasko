@@ -416,6 +416,7 @@ class KaskoCarSelectOsago extends Component {
 					<FormInput span={6} onChangeCallback={this.formControlCallback}
 							   inputmask={dateFormatMask}
 							   placeholder={"Дата начала действия \n нового полиса КАСКО"}
+							   //placeholder={"Дата начала действия \n полиса"}
 							   controlName={'carKaskoDocStart'} value={(this.state.carKaskoDocStart)}/>
 				</Row>
 				

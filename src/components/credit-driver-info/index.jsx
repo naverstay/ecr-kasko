@@ -1,5 +1,5 @@
 import React, {Component} from "react";
-import {Input, Col, Row, Select, Checkbox, Radio} from "antd";
+import {Input, Col, Row, Checkbox, Radio} from "antd";
 import './style.scss';
 import PropTypes from "prop-types";
 
@@ -8,7 +8,7 @@ import Inputmask from "inputmask";
 import FormCheckbox from "../form-checkbox";
 import FormSelect from "../form-select";
 
-const {Option} = Select;
+//const {Option} = Select;
 
 class CreditDriverInfo extends Component {
 	constructor(props) {

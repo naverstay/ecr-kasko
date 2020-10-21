@@ -145,20 +145,20 @@ class Orders extends Component {
 	}
 	
 	render () {
-		let events = [
-			{
-				progress: 2,
-				name: 'КАСКО',
-				status: 'Выпущено / ВСК',
-				time: '9:50'
-			},
-			{
-				progress: 1,
-				name: 'КАСКО',
-				status: 'Ожидание оплаты / ВСК',
-				time: '9:50'
-			}
-		]
+		//let events = [
+		//	{
+		//		progress: 2,
+		//		name: 'КАСКО',
+		//		status: 'Выпущено / ВСК',
+		//		time: '9:50'
+		//	},
+		//	{
+		//		progress: 1,
+		//		name: 'КАСКО',
+		//		status: 'Ожидание оплаты / ВСК',
+		//		time: '9:50'
+		//	}
+		//]
 		
 		let svetoforTooltip = <Svetofor data={[
 				{

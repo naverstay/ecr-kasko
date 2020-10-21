@@ -2,7 +2,7 @@ import React from 'react';
 import PageLayout from "./layouts/page-layout";
 import Home from "./pages/home";
 import Kasko from "./pages/kasko";
-import './App.scss';
+//import './App.scss';
 import {BrowserRouter, Link, Route} from "react-router-dom";
 import Credit from "./pages/credit";
 import Osago from "./pages/osago";
