@@ -29,6 +29,7 @@ class TabOffer extends Component {
 			fullCalculation: this.props.osago || (this.props.step === 2),
 			showCalculationOffers: this.props.step > 1,
 			showCarOptions: false,
+			forceNewStep: false,
 			showParams: false,
 			openParams: true,
 			SMSSent: true,
@@ -164,15 +165,21 @@ class TabOffer extends Component {
 	updatePolicyState = () => {
 		console.log('updatePolicyState')
 		this.togglePolicyPopup()
+		this.setState({
+			showCalculationOffers: true,
+			forceNewStep: true,
+			openParams: false,
+			showPayment: 1
+		})
 		this.props.tabCallback({newStep: 3})
 	}
 
 	updatePaymentState = (value) => {
 		console.log('updatePaymentState', value);
+		
 		if (this.state.showCalculationOffers) {
 			this.setState({
-				showCalculationOffers: true,
-				showPayment: value
+				showCalculationOffers: true
 			})
 		}
 
@@ -229,7 +236,10 @@ class TabOffer extends Component {
 	}
 
 	toggleShowParams = () => {
-		this.state.showCalculationOffers && this.setState({openParams: !this.state.openParams})
+		this.state.showCalculationOffers && this.setState({
+			openParams: !this.state.openParams,
+			forceNewStep: false
+		})
 	}
 	
 	nextStep = (step) => {
@@ -386,7 +396,7 @@ class TabOffer extends Component {
 			//100000: '100 000'
 		}
 		
-		const optionsFixtures = [
+		let optionsFixtures = [
 			'Территория страхования: РФ + СНГ',
 			'Сбор справок',
 			'Эвакуатор',
@@ -549,7 +559,7 @@ class TabOffer extends Component {
 						name: '',
 						type: 'ОСАГО',
 						credit: null,
-						price: '11 450',
+						price: '11 455',
 						dealerFee: '1 145',
 						options: optionsFixtures
 					}
@@ -705,6 +715,12 @@ class TabOffer extends Component {
 		]
 		
 		if (osago) {
+			optionsFixtures = [
+				'Максимальная сумма возмещения – 400 тысяч рублей',
+				'Возмещение вреда в натуральной форме (ремонт)',
+				'Компенсационная выплата до 500 тысяч рублей за каждого потерпевшего, в случае причинения вреда жизни и здоровью'
+			];
+			
 			calculationOfferComboList = [
 				{
 					name: 'Ингосстрах',
@@ -720,23 +736,28 @@ class TabOffer extends Component {
 							options: optionsFixtures
 						}
 					]
-				},
-				{
-					name: 'ВСК',
-					offers: [
-						{
-							name: '',
-							type: 'ОСАГО',
-							credit: null,
-							price: '30 450',
-							dealerFee: '3 045',
-							dateStart: '20.02.19',
-							dateEnd: '19.02.20',
-							options: optionsFixtures
-						}
-					]
 				}
-			]
+			];
+			
+			if (step < 2) {
+				calculationOfferComboList.push(
+					{
+						name: 'ВСК',
+						offers: [
+							{
+								name: '',
+								type: 'ОСАГО',
+								credit: null,
+								price: '30 450',
+								dealerFee: '3 045',
+								dateStart: '20.02.19',
+								dateEnd: '19.02.20',
+								options: optionsFixtures
+							}
+						]
+					}
+				)
+			}
 		}
 		
 		if ((!osago || step > 2) && step > 1) {
@@ -950,9 +971,10 @@ class TabOffer extends Component {
 								</Checkbox.Group>
 							</div>
 						</>
-						: null}
+						: null
+					}
 
-					{(!osago || this.state.openParams) ?
+					{(!osago || this.state.openParams) && !this.state.forceNewStep ?
 						<>
 							<div className={"kasko-car-select__caption fz_12"}>Срок действия, месяцы</div>
 
@@ -1025,12 +1047,15 @@ class TabOffer extends Component {
 							{/*</div>*/}
 
 						</>
-						: null}
+						: null
+					}
 				</>
 				: null
 			}
 		</>
 
+		console.log('step combo', step, combo, this.state.forceNewStep);
+		
 		return (
 			<>
 				<div className="kasko-car-select">

@@ -212,26 +212,36 @@ $aside-size: 226px;
 				cursor: pointer;
 				position: relative;
 
-				&:before {
-					transition: transform .25s;
-					font-family: $icomoon-font-family;
-					content: $i-chevron_r;
-					color: $color-grey;
-					font-size: 16px;
-					margin-right: 10px;
-					margin-left: -20px;
-					position: absolute;
+				span:first-child {
+					position: relative;
+
+					&:before {
+						transition: transform .25s;
+						font-family: $icomoon-font-family;
+						content: $i-chevron_r;
+						color: $color-grey;
+						font-size: 16px;
+						line-height: 1;
+						position: absolute;
+						left: -20px;
+						top: 3px;
+					}
 				}
 			}
 			
 			&.collapsed {
 				.calculation-popup & {
-					margin-bottom: 55px;
+					margin-bottom: 0;
+					padding-bottom: 0;
+
+					.kasko-main__title--id {
+						bottom: 0;
+					}
 				}
 			}
 			
 			&.expanded {
-				&:before {
+				span:first-child:before {
 					transform: rotate(90deg);
 				}
 			}

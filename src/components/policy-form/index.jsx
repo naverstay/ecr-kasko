@@ -462,7 +462,8 @@ class PolicyForm extends Component {
 					<Col span={3}/>
 					<FormInput span={6} onChangeCallback={this.formControlCallback}
 							   inputmask={dateFormatMask}
-							   placeholder={"Дата начала действия \n нового полиса КАСКО"}
+								 placeholder={"Дата начала действия \n полиса"}
+								 //placeholder={"Дата начала действия \n нового полиса КАСКО"}
 							   controlName={'carKaskoDocStart'} value={(this.state.carKaskoDocStart)}/>
 
 					<FormSelect span={6} onChangeCallback={this.formControlCallback}

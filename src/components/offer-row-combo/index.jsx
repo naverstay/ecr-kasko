@@ -166,17 +166,29 @@ class OfferRowCombo extends Component {
 									{'options' in o && o.options.length ? <div onClick={() => this.addOptionFlag(i)} className="offer-row__link"/> : <>&nbsp;</>}
 								</td>
 							</tr>
-							{showOptions && 'options' in o && o.options.length ? null
-								//<tr key={i + 100000} className={(offerSelected ? "selected" : "") + (lastRow ? ' last-row' : '')}>
-								//	<td colSpan={(completed || waiting) ? 2 : 3}>&nbsp;</td>
-								//	<td colSpan={((completed || waiting) ? 7 : 6) - (osago ? 1 : 0)}>
-								//		<p className="text_left" style={{marginBottom: '15px'}}>Условия КАСКО:</p>
-								//		<ul className="offer-row__options">
-								//			{o.options.map((opt, k) => <li key={k}>{opt}</li>)}
-								//		</ul>
-								//	</td>
-								//	<td>&nbsp;</td>
-								//</tr>
+							{showOptions && 'options' in o && o.options.length ?
+								osago ?
+									<tr key={i + 100000} className={((offerSelected && !(completed || waiting)) ? "selected" : "") + (lastRow ? ' last-row' : '')}>
+										<td colSpan={1}>&nbsp;</td>
+										<td colSpan={7}>
+											<p className="text_left" style={{marginBottom: '15px'}}>ОСАГО - обязательное страхование автогражданской ответственности</p>
+											<ul className="offer-row__options cols-1">
+												{o.options.map((opt, k) => <li key={k}>{opt}</li>)}
+											</ul>
+										</td>
+										<td>&nbsp;</td>
+									</tr>
+									:
+									<tr key={i + 100000} className={((offerSelected && !(completed || waiting)) ? "selected" : "") + (lastRow ? ' last-row' : '')}>
+										<td colSpan={(completed || waiting) ? 2 : 3}>&nbsp;</td>
+										<td colSpan={((completed || waiting) ? 7 : 6) - (osago ? 1 : 0)}>
+											<p className="text_left" style={{marginBottom: '15px'}}>Условия КАСКО:</p>
+											<ul className="offer-row__options">
+												{o.options.map((opt, k) => <li key={k}>{opt}</li>)}
+											</ul>
+										</td>
+										<td>&nbsp;</td>
+									</tr>
 								: null}
 						</> : null)
 				})}

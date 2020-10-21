@@ -12,7 +12,8 @@
 			display: flex;
 			flex-flow: row nowrap;
 			min-height: 120px;
-			padding: 12px 50px;
+			//padding: 12px 50px;
+			padding: 15px 15%;
 
 			&.small {
 				padding: 0 50px;
@@ -53,8 +54,9 @@
 				font-family: $icomoon-font-family;
 				content: $i-upload;
 				position: absolute;
-				left: -10px;
-				top: 3px;
+				right: 10px;
+				top: 50%;
+				margin-top: -35px;
 				font-size: 70px;
 				line-height: 1;
 				color: $color-grey;

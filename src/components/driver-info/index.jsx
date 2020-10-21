@@ -296,11 +296,11 @@ class DriverInfo extends Component {
 														<Col span={12}>
 															<div className="driver-info__caption">Паспорт</div>
 														</Col>
-														<FormCheckbox span={6} onChangeCallback={this.formControlCallback}
-																					text="Гражданин РФ"
-																					className="check_v3"
-																					value={1}
-																					controlName={'driverCitizenRF'} checked={this.state.driverCitizenRF}/>
+														{/*<FormCheckbox span={6} onChangeCallback={this.formControlCallback}*/}
+														{/*							text="Гражданин РФ"*/}
+														{/*							className="check_v3"*/}
+														{/*							value={1}*/}
+														{/*							controlName={'driverCitizenRF'} checked={this.state.driverCitizenRF}/>*/}
 													</Row>
 													
 													<Row className="kasko-car-select__controls" gutter={20}>

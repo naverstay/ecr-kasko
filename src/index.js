@@ -1,6 +1,6 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
-import "antd/dist/antd.less";
+//import "antd/dist/antd.less"; // todo antd_generated.css imported because of production style disorder (document.getElementsByTagName('style')[1].innerHTML)
 
 import './index.scss';
 import App from './App';

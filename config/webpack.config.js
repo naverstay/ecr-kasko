@@ -424,37 +424,31 @@ module.exports = function(webpackEnv) {
                 inputSourceMap: shouldUseSourceMap,
               },
             },
-            // "postcss" loader applies autoprefixer to our CSS.
-            // "css" loader resolves paths in CSS and adds assets as dependencies.
-            // "style" loader turns CSS into JS modules that inject <style> tags.
-            // In production, we use MiniCSSExtractPlugin to extract that CSS
-            // to a file, but in development "style" loader enables hot editing
-            // of CSS.
-            // By default we support CSS Modules with the extension .module.css
+            // Opt-in support for LESS.
+            // By default we support LESS Modules with the
+            // extensions .module.less
             {
-              test: cssRegex,
-              exclude: cssModuleRegex,
-              use: getStyleLoaders({
-                importLoaders: 1,
-                sourceMap: isEnvProduction && shouldUseSourceMap,
-              }),
-              // Don't consider CSS imports dead code even if the
-              // containing package claims to have no side effects.
-              // Remove this when webpack adds a warning or an error for this.
-              // See https://github.com/webpack/webpack/issues/6571
-              sideEffects: true,
-            },
-            // Adds support for CSS Modules (https://github.com/css-modules/css-modules)
-            // using the extension .module.css
-            {
-              test: cssModuleRegex,
-              use: getStyleLoaders({
-                importLoaders: 1,
-                sourceMap: isEnvProduction && shouldUseSourceMap,
-                modules: {
-                  getLocalIdent: getCSSModuleLocalIdent,
+              test: lessRegex,
+              exclude: lessModuleRegex,
+              use: [
+                'style-loader',
+                'css-loader',
+                {
+                  loader: 'less-loader', 
+                  options: {
+                    lessOptions: {
+                      modifyVars: {
+                        //'primary-color': 'red',
+                        //'link-color': '#1da57a',
+                        //'border-radius-base': '2px'
+                        // or
+                        'hack': `true; @import "${require.resolve('../src/assets/styles/antd/override.less')}"`, // Override with less file
+                      },
+                      javascriptEnabled: true
+                    }
+                  }
                 },
-              }),
+              ],
             },
             // Opt-in support for SASS (using .scss or .sass extensions).
             // By default we support SASS Modules with the
@@ -490,27 +484,37 @@ module.exports = function(webpackEnv) {
                   'sass-loader'
               ),
             },
+            // "postcss" loader applies autoprefixer to our CSS.
+            // "css" loader resolves paths in CSS and adds assets as dependencies.
+            // "style" loader turns CSS into JS modules that inject <style> tags.
+            // In production, we use MiniCSSExtractPlugin to extract that CSS
+            // to a file, but in development "style" loader enables hot editing
+            // of CSS.
+            // By default we support CSS Modules with the extension .module.css
             {
-              test: lessRegex,
-              exclude: lessModuleRegex,
-              use: [
-                'style-loader',
-                'css-loader',
-                {
-                  loader: 'less-loader', options: {
-                    lessOptions: {
-                      modifyVars: {
-                        //'primary-color': 'red',
-                        //'link-color': '#1da57a',
-                        //'border-radius-base': '2px'
-                        // or
-                        'hack': `true; @import "${require.resolve('../src/assets/styles/antd/override.less')}"`, // Override with less file
-                      },
-                      javascriptEnabled: true
-                    }
-                  }
+              test: cssRegex,
+              exclude: cssModuleRegex,
+              use: getStyleLoaders({
+                importLoaders: 1,
+                sourceMap: isEnvProduction && shouldUseSourceMap,
+              }),
+              // Don't consider CSS imports dead code even if the
+              // containing package claims to have no side effects.
+              // Remove this when webpack adds a warning or an error for this.
+              // See https://github.com/webpack/webpack/issues/6571
+              sideEffects: true,
+            },
+            // Adds support for CSS Modules (https://github.com/css-modules/css-modules)
+            // using the extension .module.css
+            {
+              test: cssModuleRegex,
+              use: getStyleLoaders({
+                importLoaders: 1,
+                sourceMap: isEnvProduction && shouldUseSourceMap,
+                modules: {
+                  getLocalIdent: getCSSModuleLocalIdent,
                 },
-              ],
+              }),
             },
             // "file" loader makes sure those assets get served by WebpackDevServer.
             // When you `import` an asset, you get its (virtual) filename.
