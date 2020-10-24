@@ -133,7 +133,7 @@ class PolicyPopup extends Component {
         return (
             <div className="calculation-popup">
                 <div className="calculation-popup__close" onClick={popupCloseFunc}/>
-                <h1 className="kasko-main__title"><span>Внести полис вручную</span></h1>
+                {/*<h1 className="kasko-main__title"><span>Внести полис вручную</span></h1>*/}
 
                 <h1 onClick={(allFields || osago) ? this.onToggleCarFields : null}
                     className={"kasko-main__title" + ((allFields || osago) ? (this.state.showCarFields ? " expanded" : " collapsed") : "")}>

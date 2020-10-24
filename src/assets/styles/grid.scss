@@ -1,163 +1,163 @@
 $col_count: 10;
 
 @supports not ( grid-area: auto ) {
-	@for $i from 1 through $col_count {
-		.col__span-#{$i} {
-			float: left;
-			padding-left: 10px;
-			width: 100% / $i;
+  @for $i from 1 through $col_count {
+    .col__span-#{$i} {
+      float: left;
+      padding-left: 10px;
+      width: 100% / $i;
 
-			._gap-0 & {
-				padding-left: 0;
-			}
-		}
-	}
+      ._gap-0 & {
+        padding-left: 0;
+      }
+    }
+  }
 
-	.grid__container {
-		margin-left: -10px;
+  .grid__container {
+    margin-left: -10px;
 
-		&:before,
-		&:after {
-			content: " ";
-			display: table;
-		}
+    &:before,
+    &:after {
+      content: " ";
+      display: table;
+    }
 
-		&:after {
-			clear: both;
-		}
+    &:after {
+      clear: both;
+    }
 
-		&._gap-0 {
-			margin-left: 0;
-		}
-	}
+    &._gap-0 {
+      margin-left: 0;
+    }
+  }
 }
 
 .ie {
-	@for $i from 1 through $col_count {
-		.col__span-#{$i} {
-			float: left;
-			padding-left: 10px;
-			width: (100% / $col_count) * $i;
-		}
-	}
+  @for $i from 1 through $col_count {
+    .col__span-#{$i} {
+      float: left;
+      padding-left: 10px;
+      width: (100% / $col_count) * $i;
+    }
+  }
 
-	.grid__container {
-		margin-left: -10px;
+  .grid__container {
+    margin-left: -10px;
 
-		&:before,
-		&:after {
-			content: " ";
-			display: table;
-		}
+    &:before,
+    &:after {
+      content: " ";
+      display: table;
+    }
 
-		&:after {
-			clear: both;
-		}
+    &:after {
+      clear: both;
+    }
 
-		&._mob-col__span-1 {
-			@include for-size(desktop-down) {
-				[class^= 'col__span-'] {
-					width: 100%;
-				}
-			}
-		}
+    &._mob-col__span-1 {
+      @include for-size(desktop-down) {
+        [class^= 'col__span-'] {
+          width: 100%;
+        }
+      }
+    }
 
-		&._mob-col__span-2 {
-			@include for-size(desktop-down) {
-				[class^= 'col__span-'] {
-					width: 50%;
-				}
-			}
-		}
+    &._mob-col__span-2 {
+      @include for-size(desktop-down) {
+        [class^= 'col__span-'] {
+          width: 50%;
+        }
+      }
+    }
 
-		&._gap_0 {
-			margin-left: 0;
+    &._gap_0 {
+      margin-left: 0;
 
-			@for $i from 1 through $col_count {
-				.col__span-#{$i} {
-					padding-left: 0;
-				}
-			}
-		}
-	}
+      @for $i from 1 through $col_count {
+        .col__span-#{$i} {
+          padding-left: 0;
+        }
+      }
+    }
+  }
 }
 
 @supports ( grid-area: auto ) {
-	@for $i from 1 through $col_count {
-		.col__span-#{$i} {
-			grid-column: span $i;
-		}
+  @for $i from 1 through $col_count {
+    .col__span-#{$i} {
+      grid-column: span $i;
+    }
 
-		.row_span_#{$i} {
-			grid-row: span $i;
-		}
-	}
+    .row_span_#{$i} {
+      grid-row: span $i;
+    }
+  }
 
-	.grid__container {
-		display: grid;
-		grid-gap: 5px;
-		grid-template-columns: repeat(10, 1fr);
+  .grid__container {
+    display: grid;
+    grid-gap: 5px;
+    grid-template-columns: repeat(10, 1fr);
 
-		@include for-size(tablet-landscape-up) {
-			grid-gap: 10px;
-		}
+    @include for-size(tablet-landscape-up) {
+      grid-gap: 10px;
+    }
 
-		&._gap_0 {
-			grid-gap: 0;
-		}
+    &._gap_0 {
+      grid-gap: 0;
+    }
 
-		&._mob-col__span-1 {
-			@include for-size(tablet-landscape-up) {
-				[class^= 'col__span-'] {
-					grid-column: span 10;
-				}
-			}
-		}
+    &._mob-col__span-1 {
+      @include for-size(tablet-landscape-up) {
+        [class^= 'col__span-'] {
+          grid-column: span 10;
+        }
+      }
+    }
 
-		&._mob-col__span-2 {
-			@include for-size(tablet-landscape-up) {
-				[class^= 'col__span-'] {
-					grid-column: span 5;
-				}
-			}
-		}
-	}
+    &._mob-col__span-2 {
+      @include for-size(tablet-landscape-up) {
+        [class^= 'col__span-'] {
+          grid-column: span 5;
+        }
+      }
+    }
+  }
 }
 
 .mob-only {
-	@include for-size(phone-up) {
-		display: none !important;
-	}
+  @include for-size(phone-up) {
+    display: none !important;
+  }
 }
 
 .mob-hidden {
-	@include for-size(tablet-landscape-up) {
-		display: none !important;
-	}
+  @include for-size(tablet-landscape-up) {
+    display: none !important;
+  }
 }
 
 @for $i from 1 through 10 {
-	.mt-#{$i * 5} {
-		margin-top: ($i * 5) + px;
-	}
+  .mt-#{$i * 5} {
+    margin-top: ($i * 5) + px;
+  }
 }
 
 @for $i from 1 through 10 {
-	.mb-#{$i * 5} {
-		margin-bottom: ($i * 5) + px;
-	}
+  .mb-#{$i * 5} {
+    margin-bottom: ($i * 5) + px;
+  }
 }
 
 .fw-500 {
-	font-weight: 500;
+  font-weight: 500;
 }
 
 .fw-700 {
-	font-weight: 700;
+  font-weight: 700;
 }
 
 @for $i from 1 through 30 {
-	.fz-#{$i} {
-		font-size: ($i) + px;
-	}
+  .fz-#{$i} {
+    font-size: ($i) + px;
+  }
 }
