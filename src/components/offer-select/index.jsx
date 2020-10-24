@@ -309,11 +309,11 @@ class OfferSelect extends Component {
     }
 
     componentDidMount() {
-        this.scrollToBottom();
+        //this.scrollToBottom();
     }
 
     componentDidUpdate() {
-        this.scrollToBottom();
+        //this.scrollToBottom();
     }
 
     render() {

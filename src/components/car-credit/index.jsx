@@ -111,7 +111,7 @@ class CarCredit extends Component {
         //}
 
         setTimeout(() => {
-            this.scrollToBottom();
+            //this.scrollToBottom();
         }, 100)
     };
 

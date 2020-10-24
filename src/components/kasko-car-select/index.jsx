@@ -425,6 +425,7 @@ class KaskoCarSelect extends Component {
 
         return (
             <div className="kasko-car-select">
+
                 {step === void 0 || step > 1 ? null :
                     <h1 className="kasko-main__title"><span>Выберите автомобиль</span></h1>}
 

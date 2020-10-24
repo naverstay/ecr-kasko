@@ -246,6 +246,25 @@
       margin-bottom: 0;
     }
 
+    &.radio_v2-2 {
+      @extend %radio_v2;
+      margin-bottom: 0;
+
+      .ant-col {
+        min-height: 44px;
+        display: flex;
+
+        &.ant-col-mla {
+          align-items: flex-end;
+          justify-content: flex-end;
+        }
+
+        &:not(.ant-col-mla) {
+          align-items: center;
+        }
+      }
+    }
+
     &.radio_v3 {
       @extend %radio_v3;
       margin-bottom: 0;
