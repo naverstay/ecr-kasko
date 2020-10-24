@@ -1,4 +1,4 @@
-@import 'antd_generated';
+@import 'antd_generated'; // todo antd_generated.css imported because of production style disorder (document.getElementsByTagName('style')[1].innerHTML)
 @import 'normalize';
 @import 'global';
 @import 'grid';
