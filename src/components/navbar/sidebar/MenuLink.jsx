@@ -1,12 +1,12 @@
 import React from 'react';
 import cn from 'classnames';
-import { NavLink } from 'react-router-dom';
+import {NavLink} from 'react-router-dom';
 
-export const MenuLink = ({ to, title='', classList='', navClassList='', navActiveClass='active'}) => { 
+export const MenuLink = ({to, title = '', classList = '', navClassList = '', navActiveClass = 'active'}) => {
 
     let children = <>{title}</>
 
-    if (!!to) { 
+    if (!!to) {
         children = <NavLink
             to={to}
             title={title}
@@ -18,6 +18,6 @@ export const MenuLink = ({ to, title='', classList='', navClassList='', navActiv
     return (
         <li className={cn([...classList])}>
             {children}
-		</li>
+        </li>
     );
 }

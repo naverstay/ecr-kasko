@@ -1,221 +1,221 @@
 @import '../../assets/styles/global';
 
 .calculation-offers {
-	margin-bottom: 30px;
-	min-height: 147px;
-	position: relative;
-	
-	&__menu {
-		position: absolute;
-		top: 0;
-		right: 0;
-		left: 0;
-		z-index: 1;
-		padding: 11px 26px;
-		height: 38px;
-		background: #f7f7f7;
+  margin-bottom: 30px;
+  min-height: 147px;
+  position: relative;
 
-		&-list {
-			padding: 0;
-			margin: 0;
-			text-align: right;
-			
-			li {
-				display: inline-block;
-				vertical-align: middle;
-				padding-left: 35px;
-			}
-			
-			.gl_link {
-				font-size: 12px;
-				text-decoration: underline;
-				
-				&:hover {
-					text-decoration: none;
-				}
-			}
-		}
-	}
-	
-	&__table {
-		width: 100%;
-		margin-bottom: 15px;
-		border-collapse: collapse;
-		
-		th {
-			@extend %text2;
-			background: #f7f7f7;
-			color: #808080;
-			padding: 5px 10px;
-			text-align: center;
-			border-bottom: 1px solid $color-grey;
-			vertical-align: middle;
+  &__menu {
+    position: absolute;
+    top: 0;
+    right: 0;
+    left: 0;
+    z-index: 1;
+    padding: 11px 26px;
+    height: 38px;
+    background: #f7f7f7;
 
-			&:first-child {
-				text-align: left;
-				padding-left: 15px;
+    &-list {
+      padding: 0;
+      margin: 0;
+      text-align: right;
 
-				+ th {
-					text-align: left;
-				}
-			}
-		}
+      li {
+        display: inline-block;
+        vertical-align: middle;
+        padding-left: 35px;
+      }
 
-		td {
-			text-align: center;
-			padding: 12px 10px;
-			vertical-align: middle;
-			border-bottom: 1px solid $color-grey;
+      .gl_link {
+        font-size: 12px;
+        text-decoration: underline;
 
-			&:first-child {
-				text-align: left;
-				padding-left: 15px;
-				
-				+ td {
-					text-align: left;
-				}
-			}
+        &:hover {
+          text-decoration: none;
+        }
+      }
+    }
+  }
 
-			.ant-select {
-				z-index: 2;
-			}
-			
-			&.no-bdr-bottom {
-				border-bottom-color: transparent;
-			}
-		}
+  &__table {
+    width: 100%;
+    margin-bottom: 15px;
+    border-collapse: collapse;
 
-		tr {
-			&.selected td {
-				background: #deeefa;
-			}
-			
-			&.last-row {
-				td {
-					//border-bottom-width: 2px;
-				}
-			}
-		}
-		
-		&--sort-holder {
-			position: relative;
-			z-index: 3;
-		}
-		
-		&--sort-wrapper {
-			position: absolute;
-			top: 100%;
-			margin-top: 5px;
-			left: -15px;
-			z-index: 1;
-			background: #fff;
-			border: 1px solid #b5b5b5;
-			padding: 7px 10px;
-		}
-		
-		&--sort-list {
-			padding: 0;
-			margin: 0;
-			
-			li {
-				margin: 10px 0;
-			}
-		}
-		
-		&--col-1 {
-			width: 22%;
-			
-			&.small {
-				width: 21%;
-			}
+    th {
+      @extend %text2;
+      background: #f7f7f7;
+      color: #808080;
+      padding: 5px 10px;
+      text-align: center;
+      border-bottom: 1px solid $color-grey;
+      vertical-align: middle;
 
-			&.wide {
-				width: 50%;
-			}
-		}
+      &:first-child {
+        text-align: left;
+        padding-left: 15px;
 
-		&--col-2 {
-			width: 30%;
+        + th {
+          text-align: left;
+        }
+      }
+    }
 
-			&.small {
-				width: 17%;
-			}
+    td {
+      text-align: center;
+      padding: 12px 10px;
+      vertical-align: middle;
+      border-bottom: 1px solid $color-grey;
 
-			&.wide {
-				width: 26%;
-			}
-		}
-		
-		&--col-3 {
-			width: 12%;
+      &:first-child {
+        text-align: left;
+        padding-left: 15px;
 
-			&.small {
-				width: 14%;
-			}
-		}
+        + td {
+          text-align: left;
+        }
+      }
 
-		&--col-4 {
-			width: 15%;
+      .ant-select {
+        z-index: 2;
+      }
 
-			&.small {
-				width: 11%;
-			}
-		}
+      &.no-bdr-bottom {
+        border-bottom-color: transparent;
+      }
+    }
 
-		&--col-4-1 {
-			width: 25%;
-		}
+    tr {
+      &.selected td {
+        background: #deeefa;
+      }
 
-		&--col-5 {
-			width: 9%;
-		}
+      &.last-row {
+        td {
+          border-bottom-width: 2px;
+        }
+      }
+    }
 
-		&--col-6 {
-			width: 1%;
-		}
+    &--sort-holder {
+      position: relative;
+      z-index: 3;
+    }
 
-		&--col-7 {
-			width: 16%;
-		}
+    &--sort-wrapper {
+      position: absolute;
+      top: 100%;
+      margin-top: 5px;
+      left: -15px;
+      z-index: 1;
+      background: #fff;
+      border: 1px solid #b5b5b5;
+      padding: 7px 10px;
+    }
 
-		&--col-8 {
-			width: 11%;
-		}
+    &--sort-list {
+      padding: 0;
+      margin: 0;
 
-		&--col-9 {
-			width: 13%;
-		}
+      li {
+        margin: 10px 0;
+      }
+    }
 
-		&--col-10 {
-			width: 17%;
-		}
-	}
+    &--col-1 {
+      width: 22%;
+
+      &.small {
+        width: 21%;
+      }
+
+      &.wide {
+        width: 50%;
+      }
+    }
+
+    &--col-2 {
+      width: 30%;
+
+      &.small {
+        width: 17%;
+      }
+
+      &.wide {
+        width: 26%;
+      }
+    }
+
+    &--col-3 {
+      width: 12%;
+
+      &.small {
+        width: 14%;
+      }
+    }
+
+    &--col-4 {
+      width: 15%;
+
+      &.small {
+        width: 11%;
+      }
+    }
+
+    &--col-4-1 {
+      width: 25%;
+    }
+
+    &--col-5 {
+      width: 9%;
+    }
+
+    &--col-6 {
+      width: 1%;
+    }
+
+    &--col-7 {
+      width: 16%;
+    }
+
+    &--col-8 {
+      width: 11%;
+    }
+
+    &--col-9 {
+      width: 13%;
+    }
+
+    &--col-10 {
+      width: 17%;
+    }
+  }
 }
 
 .sort-btn {
-	position: relative;
-	padding-right: 25px;
-	cursor: pointer;
+  position: relative;
+  padding-right: 25px;
+  cursor: pointer;
 
-	&:before {
-		transition: transform .25s;
-		font-family: $icomoon-font-family;
-		content: $i-chevron_r;
-		font-size: 14px;
-		right: 2px;
-		top: 0;
-		position: absolute;
-	}
-	
-	&._asc {
-		&:before {
-			transform: rotate(90deg)
-		}
-	}
-	
-	&._desc {
-		&:before {
-			transform: rotate(-90deg)
-		}
-	}
+  &:before {
+    transition: transform .25s;
+    font-family: $icomoon-font-family;
+    content: $i-chevron_r;
+    font-size: 14px;
+    right: 2px;
+    top: 0;
+    position: absolute;
+  }
+
+  &._asc {
+    &:before {
+      transform: rotate(90deg)
+    }
+  }
+
+  &._desc {
+    &:before {
+      transform: rotate(-90deg)
+    }
+  }
 }

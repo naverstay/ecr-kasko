@@ -3,73 +3,73 @@
 $icon-size: 16px;
 
 .driver-info {
-	padding: 10px 0;
+  padding: 10px 0;
 
-	&__item {
-		+ .driver-info__item {
-			border-top: 1px solid $color-grey;
-			padding-top: 15px;
-		}
-	}
-	
-	&__caption {
-		@extend %text1;
-		font-weight: bold;
-		margin-bottom: 15px;
-		
-		.ant-row > .ant-col > & {
-			margin-bottom: 10px;
-		}
-	}
+  &__item {
+    + .driver-info__item {
+      border-top: 1px solid $color-grey;
+      padding-top: 15px;
+    }
+  }
 
-	&__add {
-		@extend %text2;
-		position: relative;
-		display: inline-block;
-		padding-left: 22px;
-		margin: 15px 0;
-		
-		&:before {
-			font-family: $icomoon-font-family;
-			content: $i-plus;
-			position: absolute;
-			left: 0;
-			top: 50%;
-			border-radius: $icon-size / 2;
-			background: $color-green;
-			margin-top: -$icon-size / 2;
-			color: #fff;
-			font-size: $icon-size - 6px;
-			line-height: $icon-size;
-			width: $icon-size;
-			height: $icon-size;
-			text-align: center;
-		}
-	}
-	
-	&__remove {
-		@extend %text2;
-		position: relative;
-		display: inline-block;
-		padding-left: 22px;
-		margin: 15px 0;
-		
-		&:before {
-			transform: rotate(-45deg);
-			font-family: $icomoon-font-family;
-			content: $i-plus;
-			position: absolute;
-			left: 0;
-			top: 50%;
-			margin-top: -$icon-size / 2;
-			border-radius: $icon-size / 2;
-			background: $color-grey;
-			color: #fff;
-			font-size: $icon-size - 6px;
-			line-height: $icon-size;
-			width: $icon-size;
-			height: $icon-size;
-			text-align: center;
-		}
-	}
+  &__caption {
+    @extend %text1;
+    font-weight: bold;
+    margin-bottom: 15px;
+
+    .ant-row > .ant-col > & {
+      margin-bottom: 10px;
+    }
+  }
+
+  &__add {
+    @extend %text2;
+    position: relative;
+    display: inline-block;
+    padding-left: 22px;
+    margin: 15px 0;
+
+    &:before {
+      font-family: $icomoon-font-family;
+      content: $i-plus;
+      position: absolute;
+      left: 0;
+      top: 50%;
+      border-radius: $icon-size / 2;
+      background: $color-green;
+      margin-top: -$icon-size / 2;
+      color: #fff;
+      font-size: $icon-size - 6px;
+      line-height: $icon-size;
+      width: $icon-size;
+      height: $icon-size;
+      text-align: center;
+    }
+  }
+
+  &__remove {
+    @extend %text2;
+    position: relative;
+    display: inline-block;
+    padding-left: 22px;
+    margin: 15px 0;
+
+    &:before {
+      transform: rotate(-45deg);
+      font-family: $icomoon-font-family;
+      content: $i-plus;
+      position: absolute;
+      left: 0;
+      top: 50%;
+      margin-top: -$icon-size / 2;
+      border-radius: $icon-size / 2;
+      background: $color-grey;
+      color: #fff;
+      font-size: $icon-size - 6px;
+      line-height: $icon-size;
+      width: $icon-size;
+      height: $icon-size;
+      text-align: center;
+    }
+  }
 }

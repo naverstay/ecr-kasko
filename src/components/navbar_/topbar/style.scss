@@ -1,173 +1,173 @@
 @import '../../../assets/styles/vars';
 
 .topbar {
-	width: 100%;
-	position: fixed;
-	top: 0;
-	left: 0;
-	z-index: 100;
+  width: 100%;
+  position: fixed;
+  top: 0;
+  left: 0;
+  z-index: 100;
 
-	&__header {
-		background: #cd2626;
-		height: 50px;
-		display: flex;
-		position: relative;
-		z-index: 102;
-	}
+  &__header {
+    background: #cd2626;
+    height: 50px;
+    display: flex;
+    position: relative;
+    z-index: 102;
+  }
 
-	&__menu-button {
-		display: flex;
-		width: 40px;
-		height: 50px;
-		flex-grow: 0;
-		flex-shrink: 0;
-	}
+  &__menu-button {
+    display: flex;
+    width: 40px;
+    height: 50px;
+    flex-grow: 0;
+    flex-shrink: 0;
+  }
 
-	&__reports-button {
-		//font-size: 1.5rem;
-		font-size: 17px;
-		padding-right: 40px;
-		min-height: 100%;
-		display: flex;
-		flex-grow: 1;
-		color: white;
-		align-items: center;
-		justify-content: center;
-		cursor: pointer;
-		transition: background-color 0.3s, color 0.4s;
+  &__reports-button {
+    //font-size: 1.5rem;
+    font-size: 17px;
+    padding-right: 40px;
+    min-height: 100%;
+    display: flex;
+    flex-grow: 1;
+    color: white;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    transition: background-color 0.3s, color 0.4s;
 
-		.active > & {
-			background-color: white;
-			color: $color-prime;
-		}
+    .active > & {
+      background-color: white;
+      color: $color-prime;
+    }
 
-		&:hover {
-			background-color: white;
-			color: $color-prime;
-		}
+    &:hover {
+      background-color: white;
+      color: $color-prime;
+    }
 
-		span {
-			margin-right: 5px;
-		}
-	}
+    span {
+      margin-right: 5px;
+    }
+  }
 
-	&__filters-button {
-		display: flex;
-		width: 50px;
-		height: 50px;
-		flex-grow: 0;
-		flex-shrink: 0;
-	}
+  &__filters-button {
+    display: flex;
+    width: 50px;
+    height: 50px;
+    flex-grow: 0;
+    flex-shrink: 0;
+  }
 
-	&__button {
-		&-wrapper {
-			display: flex;
-			width: 100%;
-			flex-flow: column;
-		}
+  &__button {
+    &-wrapper {
+      display: flex;
+      width: 100%;
+      flex-flow: column;
+    }
 
-		&-icon {
-			font-family: 'ecr_icons';
-			width: 50px;
-			height: 50px;
-			font-size: 24px;
-			color: white;
-			display: flex;
-			align-items: center;
-			justify-content: center;
-			cursor: pointer;
-			transition: background-color 0.3s, color 0.4s;
+    &-icon {
+      font-family: 'ecr_icons';
+      width: 50px;
+      height: 50px;
+      font-size: 24px;
+      color: white;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      cursor: pointer;
+      transition: background-color 0.3s, color 0.4s;
 
-			.active > &{
-				background-color: white;
-				color: $color-prime;
-			}
+      .active > & {
+        background-color: white;
+        color: $color-prime;
+      }
 
-			&:hover {
-				background-color: white;
-				color: $color-prime;
-			}
+      &:hover {
+        background-color: white;
+        color: $color-prime;
+      }
 
-			&.sandwich:before {
-				content: '\2261';
-			}
+      &.sandwich:before {
+        content: '\2261';
+      }
 
-			&.add:before {
-				content: '\e902';
-			}
+      &.add:before {
+        content: '\e902';
+      }
 
-			&.home {
-				width: 40px;
-				background: black;
+      &.home {
+        width: 40px;
+        background: black;
 
-				&:hover {
-					background: #cd2626;
-				}
+        &:hover {
+          background: #cd2626;
+        }
 
-				.inner-image {
-					width: 20px;
-					height: 20px;
-				}
-			}
-		}
-	}
+        .inner-image {
+          width: 20px;
+          height: 20px;
+        }
+      }
+    }
+  }
 
-	&__body-container {
-		display: none;
-		background: white;
-		z-index: 101;
-		position: fixed;
-		top: 50px;
-		bottom: 0;
-		left: 0;
-		right: 0;
-		overflow-y: auto;
+  &__body-container {
+    display: none;
+    background: white;
+    z-index: 101;
+    position: fixed;
+    top: 50px;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    overflow-y: auto;
 
-		.sidebar__button {
-			display: block;
-			
-			&-icon {
-				display: none;
-			}
-		}
+    .sidebar__button {
+      display: block;
 
-		.sidebar__button-label {
-			min-height: 50px;
-		}
-		
-		&.menu {
-			padding: 1rem 2.75rem;
-		}
-		
-		&.reports {
-			padding: 2.4rem;
+      &-icon {
+        display: none;
+      }
+    }
 
-			.submenu-link {
-				padding-left: 73px;
-				position: relative;
-				
-				&.active:before {
-					content: '\e903';
-					font-family: 'ecr_icons', sans-serif;
-					font-size: 22px;
-					position: absolute;
-					top: 50%;
-					left: 45px;
-					margin-top: -10px;
-				}
-			}
-			
-			.sidebar__button-submenu {
-				display: block;
-			}
-		}
+    .sidebar__button-label {
+      min-height: 50px;
+    }
 
-		&.active {
-			display: block;
-		}
+    &.menu {
+      padding: 1rem 2.75rem;
+    }
 
-		&__inner {
-			display: flex;
-		}
-	}
+    &.reports {
+      padding: 2.4rem;
+
+      .submenu-link {
+        padding-left: 73px;
+        position: relative;
+
+        &.active:before {
+          content: '\e903';
+          font-family: 'ecr_icons', sans-serif;
+          font-size: 22px;
+          position: absolute;
+          top: 50%;
+          left: 45px;
+          margin-top: -10px;
+        }
+      }
+
+      .sidebar__button-submenu {
+        display: block;
+      }
+    }
+
+    &.active {
+      display: block;
+    }
+
+    &__inner {
+      display: flex;
+    }
+  }
 }

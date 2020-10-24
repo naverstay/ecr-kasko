@@ -1,24 +1,24 @@
 @import '../../assets/styles/global';
 
 .popup-overlay {
-	position: fixed;
-	top: 0;
-	bottom: 0;
-	right: 0;
-	left: 0;
-	z-index: 1049;
-	padding-left: $aside-size-small;
-	background: rgba(0, 0, 0, 0.3);
+  position: fixed;
+  top: 0;
+  bottom: 0;
+  right: 0;
+  left: 0;
+  z-index: 1049;
+  padding-left: $aside-size-small;
+  background: rgba(0, 0, 0, 0.3);
 
-	> .ant-row {
-		height: 100%;
-		
-		&:before {
-			content: '#{$env}';
-		}
-		
-		@if ($env == 'development') {
-			max-width: 1454px;
-		}
-	}
+  > .ant-row {
+    height: 100%;
+
+    &:before {
+      content: '#{$env}';
+    }
+
+    @if ($env == 'development') {
+      max-width: 1454px;
+    }
+  }
 }

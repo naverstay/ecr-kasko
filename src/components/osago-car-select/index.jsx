@@ -15,7 +15,7 @@ const {Option} = Select;
 
 moment().locale('ru', ru);
 
-class KaskoCarSelect extends Component {
+class OsagoCarSelect extends Component {
     constructor(props) {
         super(props);
         this.state = {
@@ -216,6 +216,7 @@ class KaskoCarSelect extends Component {
         this.setState({
             newCar: !!e.target.value,
             carYear: '' + (new Date()).getFullYear(),
+            carMileage: 0,
             carNumber: ''
         });
     };
@@ -395,6 +396,7 @@ class KaskoCarSelect extends Component {
         //console.log('dateFormatMask', dateFormatMask, rx);
 
         const carNumberMask = "'mask': 'A 999 AA 999'"
+        const carVINMask = "'alias': 'vin', 'placeholder': '', 'clearIncomplete': 'false'"
         const carPriceMask = "'alias': 'integer', 'groupSeparator': ' ', 'digitsOptional': true, 'autoGroup': true, 'rightAlign': 'false', 'clearIncomplete': 'true', 'clearMaskOnLostFocus': 'true', 'placeholder': '_'"
         const carPowerMask = "'alias': 'integer', 'groupSeparator': ' ', 'digitsOptional': true, 'autoGroup': true, 'rightAlign': 'false', 'clearMaskOnLostFocus': 'true', 'placeholder': '_'"
         let searchDisabled = !this.state.carNumber.length || this.state.carNumber.indexOf('_') > -1 || this.state.formBusy
@@ -499,12 +501,33 @@ class KaskoCarSelect extends Component {
                         </Row>
                         <Row className="kasko-car-select__controls" gutter={20}>
                             <Col span={3}/>
+
+                            <FormInput span={6} onChangeCallback={this.formControlCallback}
+                                       disabled={this.state.newCar ? "disabled" : ""}
+                                       placeholder="Пробег, км"
+                                       inputmask={carPowerMask}
+                                       controlName={'carMileage'} value={this.state.carMileage}/>
+
+                            <FormInput span={6} onChangeCallback={this.formControlCallback}
+                                       placeholder="Мощность двигателя, л.с."
+                                       inputmask={carPowerMask}
+                                       controlName={'carPower'} value={''}/>
+
                             <FormSelect span={6} onChangeCallback={this.formControlCallback}
                                         options={yearList}
                                         className={this.activeClass('carYear')}
                                         disabled={this.state.newCar ? "disabled" : ""}
                                         placeholder="Год выпуска" controlName={'carYear'}
                                         value={this.state.carYear}/>
+                        </Row>
+                        <Row className="kasko-car-select__controls" gutter={20}>
+                            <Col span={3}/>
+
+                            <FormInput span={6} onChangeCallback={this.formControlCallback}
+                                       placeholder="VIN"
+                                       className={(allFields ? " input-error" : "")}
+                                       inputmask={carVINMask}
+                                       controlName={'carVIN'} value={''}/>
                         </Row>
                     </>
                 }
@@ -655,4 +678,4 @@ class KaskoCarSelect extends Component {
     }
 }
 
-export default KaskoCarSelect;
+export default OsagoCarSelect;

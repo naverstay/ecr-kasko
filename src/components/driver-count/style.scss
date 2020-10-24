@@ -1,14 +1,14 @@
 @import '../../assets/styles/global';
 
 .driver-count {
-	
-	
-	&__index {
-		font-size: 10px;
-		padding-left: 15px;
-		
-		.ant-checkbox-checked + span & {
-			color: #fff;
-		}
-	}
+
+
+  &__index {
+    font-size: 10px;
+    padding-left: 15px;
+
+    .ant-checkbox-checked + span & {
+      color: #fff;
+    }
+  }
 }

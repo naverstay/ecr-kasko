@@ -1,92 +1,92 @@
 @import '../../assets/styles/global';
 
 .payment-switch {
-	position: relative;
-	//width: 270px;
-	
-	&__label {
-		
-	}
-	
-	&__dropdown {
-		padding: 20px 15px 5px;
-		position: absolute;
-		top: 100%;
-		left: 0;
-		width: 225px;
-		min-width: 100%;
-		margin-top: 10px;
-		background: #fff;
-		border: 1px solid $color-grey-dark;
-		z-index: 1;
-		
-		p {
-			@extend %text1;
-			margin-bottom: 15px;
-		}
-	}
-	
-	&__options {
-		padding: 0;
-		margin: 0 -15px;
-		list-style-type: none;
-		
-		&--item {
-			margin: 0 0 15px;
-			
-			&.separator {
-				padding-top: 14px;
-				border-top: 1px solid $color-grey-dark;
-			}
-		}
-	}
-	
-	&__btn {
-		@extend %text1;
-		position: relative;
-		height: 30px;
-		line-height: 30px;
-		padding: 0 10px 0 60px;
-		cursor: pointer;
-		
-		&:hover span {
-			text-decoration: underline;
-		}
+  position: relative;
+  //width: 270px;
 
-		&:before {
-			font-family: $icomoon-font-family;
-			position: absolute;
-			left: 15px;
-			width: 30px;
-			height: 30px;
-			top: 0;
-			color: #fff;
-			font-size: 20px;
-			text-align: center;
-			background: $color-green;
-			border-radius: 2px;
-		}
+  &__label {
 
-		&.sms:before {
-			content: $i-sms;
-		}
+  }
 
-		&.email:before {
-			content: $i-mail;
-		}
-		
-		&.browser:before {
-			content: $i-comp;
-			background: $color-grey;
-		}
-		
-	}
-	
-	+ .gl_link {
-		position: absolute;
-		bottom: 100%;
-		right: 0;
-		margin-bottom: 15px;
-	}
-	
+  &__dropdown {
+    padding: 20px 15px 5px;
+    position: absolute;
+    top: 100%;
+    left: 0;
+    width: 225px;
+    min-width: 100%;
+    margin-top: 10px;
+    background: #fff;
+    border: 1px solid $color-grey-dark;
+    z-index: 1;
+
+    p {
+      @extend %text1;
+      margin-bottom: 15px;
+    }
+  }
+
+  &__options {
+    padding: 0;
+    margin: 0 -15px;
+    list-style-type: none;
+
+    &--item {
+      margin: 0 0 15px;
+
+      &.separator {
+        padding-top: 14px;
+        border-top: 1px solid $color-grey-dark;
+      }
+    }
+  }
+
+  &__btn {
+    @extend %text1;
+    position: relative;
+    height: 30px;
+    line-height: 30px;
+    padding: 0 10px 0 60px;
+    cursor: pointer;
+
+    &:hover span {
+      text-decoration: underline;
+    }
+
+    &:before {
+      font-family: $icomoon-font-family;
+      position: absolute;
+      left: 15px;
+      width: 30px;
+      height: 30px;
+      top: 0;
+      color: #fff;
+      font-size: 20px;
+      text-align: center;
+      background: $color-green;
+      border-radius: 2px;
+    }
+
+    &.sms:before {
+      content: $i-sms;
+    }
+
+    &.email:before {
+      content: $i-mail;
+    }
+
+    &.browser:before {
+      content: $i-comp;
+      background: $color-grey;
+    }
+
+  }
+
+  + .gl_link {
+    position: absolute;
+    bottom: 100%;
+    right: 0;
+    margin-bottom: 15px;
+  }
+
 }

@@ -1,31 +1,31 @@
 @import '../../assets/styles/global';
 
 .aside-block__product {
-	@extend %text1;
-	transition: background 0.3s;
-	background: #deeefa;
-	border: 1px solid $color-blue-light;
-	border-radius: 5px;
-	margin: 15px 0;
-	position: relative;
-	display: flex;
-	flex-flow: row;
-	justify-content: space-between;
-	padding: 14px 48px 14px 25px;
-	cursor: pointer;
-	
-	&:before {
-		font-family: $icomoon-font-family;
-		content: $i-chevron_r;
-		position: absolute;
-		right: 24px;
-		top: 50%;
-		margin-top: -7px;
-		font-size: 14px;
-		line-height: 1;
-	}
-	
-	&:hover {
-		background: $color-blue-light;
-	}
+  @extend %text1;
+  transition: background 0.3s;
+  background: #deeefa;
+  border: 1px solid $color-blue-light;
+  border-radius: 5px;
+  margin: 15px 0;
+  position: relative;
+  display: flex;
+  flex-flow: row;
+  justify-content: space-between;
+  padding: 14px 48px 14px 25px;
+  cursor: pointer;
+
+  &:before {
+    font-family: $icomoon-font-family;
+    content: $i-chevron_r;
+    position: absolute;
+    right: 24px;
+    top: 50%;
+    margin-top: -7px;
+    font-size: 14px;
+    line-height: 1;
+  }
+
+  &:hover {
+    background: $color-blue-light;
+  }
 }

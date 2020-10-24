@@ -7,103 +7,104 @@ import PropTypes from "prop-types";
 import OfferSelect from "../offer-select";
 
 class KaskoPopup extends Component {
-	constructor(props) {
-		super(props);
-		this.state = {
-			carFound: void 0,
-			fullCalculation: this.props.fullCalculation || false,
-			showClientFields: false,
-			toggleClientFields: false,
-			calculationPopupOpened: false,
-			formBusy: false,
-			useOCR: false,
-			hasFranchise: true,
-			carCredit: true,
-			carMark: '',
-			carPrice: 0,
-			carModel: '',
-			carEquipment: '',
-			carNumber: '',
-			carYear: '',
-			markList: [
-				"Hyundai",
-				"Mazda",
-				//"Mercedes-Benz"
-			],
-			modelList: [
-				"Sonata",
-				"Solaris",
-				"CX-5",
-				"CX-9"
-			],
-			equipmentList: [
-				"2.0 MPI - 6AT",
-				"Comfort",
-				"Sport",
-				"Executive",
-				"GT S Sports Car"
-			],
-		};
-	}
-	
-	static propTypes = {
-		children: PropTypes.node,
-		innerWidth: PropTypes.number,
-		popupCloseFunc: PropTypes.func,
-		updatePaymentState: PropTypes.func,
-		fullCalculation: PropTypes.bool,
-		offersList: PropTypes.array,
-	};
+    constructor(props) {
+        super(props);
+        this.state = {
+            carFound: void 0,
+            fullCalculation: this.props.fullCalculation || false,
+            showClientFields: false,
+            toggleClientFields: false,
+            calculationPopupOpened: false,
+            formBusy: false,
+            useOCR: false,
+            hasFranchise: true,
+            carCredit: true,
+            carMark: '',
+            carPrice: 0,
+            carModel: '',
+            carEquipment: '',
+            carNumber: '',
+            carYear: '',
+            markList: [
+                "Hyundai",
+                "Mazda"
+                //"Mercedes-Benz"
+            ],
+            modelList: [
+                "Sonata",
+                "Solaris",
+                "CX-5",
+                "CX-9"
+            ],
+            equipmentList: [
+                "2.0 MPI - 6AT",
+                "Comfort",
+                "Sport",
+                "Executive",
+                "GT S Sports Car"
+            ]
+        };
+    }
 
-	onUseOCRChange = e => {
-		this.setState({
-			useOCR: e.target.checked,
-		});
-	};
+    static propTypes = {
+        children: PropTypes.node,
+        innerWidth: PropTypes.number,
+        popupCloseFunc: PropTypes.func,
+        updatePaymentState: PropTypes.func,
+        fullCalculation: PropTypes.bool,
+        offersList: PropTypes.array
+    };
 
-	onToggleClientFields = e => {
-		this.setState({
-			showClientFields: !this.state.showClientFields
-		});
-	};
+    onUseOCRChange = e => {
+        this.setState({
+            useOCR: e.target.checked
+        });
+    };
 
-	onToggleCarFields = e => {
-		this.setState({
-			showCarFields: !this.state.showCarFields
-		});
-	};
+    onToggleClientFields = e => {
+        this.setState({
+            showClientFields: !this.state.showClientFields
+        });
+    };
 
-	addCreditCallback = (checked) => {
-		console.log('addCreditCallback');
-		
-		typeof this.props.popupCloseFunc === 'function' && this.props.popupCloseFunc()
-	}
+    onToggleCarFields = e => {
+        this.setState({
+            showCarFields: !this.state.showCarFields
+        });
+    };
 
-	onCalculationTypeChange = (checked) => {
-		this.setState({fullCalculation: checked})
-	}
+    addCreditCallback = (checked) => {
+        console.log('addCreditCallback');
 
-	onOtherChange = (checkedValues) => {
-		console.log('checked = ', checkedValues);
-	}
+        typeof this.props.popupCloseFunc === 'function' && this.props.popupCloseFunc()
+    }
 
-	render() {
-		let {popupCloseFunc, step, allFields, updatePaymentState, osago} = this.props
+    onCalculationTypeChange = (checked) => {
+        this.setState({fullCalculation: checked})
+    }
 
-		let driverOptions = [];
+    onOtherChange = (checkedValues) => {
+        console.log('checked = ', checkedValues);
+    }
 
-		if (step > 1) {
-			driverOptions = ['Фомин Сергей М.', 'Фомина Алла К.', 'Фомина Марина Ф.']
-		}
-		
-		return (
-			<div className="calculation-popup">
-				<div className="calculation-popup__close" onClick={popupCloseFunc}/>
+    render() {
+        let {popupCloseFunc, step, allFields, updatePaymentState, osago} = this.props
 
-				<OfferSelect imageCallback={this.imageCallback} addCreditCallback={this.addCreditCallback} image={false} popup={true} />
-			</div>
-		);
-	}
+        let driverOptions = [];
+
+        if (step > 1) {
+            driverOptions = ['Фомин Сергей М.', 'Фомина Алла К.', 'Фомина Марина Ф.']
+        }
+
+        return (
+            <div className="calculation-popup">
+                <div className="calculation-popup__close" onClick={popupCloseFunc}/>
+
+                <OfferSelect imageCallback={this.imageCallback} addCreditCallback={this.addCreditCallback} image={false}
+                             popup={true}/>
+            </div>
+        );
+    }
 }
 
 export default KaskoPopup;
