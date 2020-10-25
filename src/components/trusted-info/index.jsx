@@ -192,8 +192,11 @@ class TrustedInfo extends Component {
                 <div className="driver-info__item">
                     <Row className="kasko-car-select__controls mb_0" gutter={20}>
                         <Col span={3}/>
-                        <Col span={18}>
-                            <div className="driver-info__caption">Контактное лицо 1</div>
+                        <Col span={6}>
+                            <div className="driver-info__caption">Водитель #1</div>
+                        </Col>
+                        <Col span={6}>
+                            <div className="driver-info__remove m_0 gl_link"/>
                         </Col>
                     </Row>
 
@@ -221,25 +224,25 @@ class TrustedInfo extends Component {
                         <Col span={3}/>
                         <FormInput span={6} onChangeCallback={this.formControlCallback}
                                    placeholder="Дата рождения" controlName={'driverBirthday'} value={''}/>
-                        <FormInput span={6} onChangeCallback={this.formControlCallback}
-                                   placeholder="Мобильный телефон"
-                                   controlName={'driverPhone'} value={this.state.driverPhone}/>
+                        {/*<FormInput span={6} onChangeCallback={this.formControlCallback}*/}
+                        {/*           placeholder="Мобильный телефон"*/}
+                        {/*           controlName={'driverPhone'} value={this.state.driverPhone}/>*/}
                     </Row>
 
-                    <Row className="kasko-car-select__controls" gutter={20}>
-                        <Col span={3}/>
-                        <FormSelect span={6} onChangeCallback={this.formControlCallback}
-                                    options={this.state.driverFamilyStatusList}
-                                    className={this.activeClass('driverFamilyStatus')}
-                                    placeholder="Отношение к клиенту" controlName={'driverFamilyStatus'}
-                                    value={this.state.driverFamilyStatus}/>
+                    {/*<Row className="kasko-car-select__controls" gutter={20}>*/}
+                    {/*    <Col span={3}/>*/}
+                    {/*    <FormSelect span={6} onChangeCallback={this.formControlCallback}*/}
+                    {/*                options={this.state.driverFamilyStatusList}*/}
+                    {/*                className={this.activeClass('driverFamilyStatus')}*/}
+                    {/*                placeholder="Отношение к клиенту" controlName={'driverFamilyStatus'}*/}
+                    {/*                value={this.state.driverFamilyStatus}/>*/}
 
-                        <FormCheckbox onChangeCallback={this.formControlCallback}
-                                      text="Добавить в полис ОСАГО или КАСКО"
-                                      className="checkbox_middle check_v3"
-                                      value={0}
-                                      controlName={'driverInsuranceAdd'} checked={this.state.driverInsuranceAdd}/>
-                    </Row>
+                    {/*    <FormCheckbox onChangeCallback={this.formControlCallback}*/}
+                    {/*                  text="Добавить в полис ОСАГО или КАСКО"*/}
+                    {/*                  className="checkbox_middle check_v3"*/}
+                    {/*                  value={0}*/}
+                    {/*                  controlName={'driverInsuranceAdd'} checked={this.state.driverInsuranceAdd}/>*/}
+                    {/*</Row>*/}
 
                     <Row className="kasko-car-select__controls" gutter={20}>
                         <Col span={3}/>
@@ -261,13 +264,13 @@ class TrustedInfo extends Component {
                                    value={this.state.driverExperienceStart}/>
                     </Row>
 
-                    <Row className="kasko-car-select__controls mb_0" gutter={20}>
-                        <Col span={3}/>
-                        <FormInput span={18} onChangeCallback={this.formControlCallback}
-                                   placeholder="Кем выдано ВУ"
-                                   controlName={'driverAnotherDocumentDepartment'}
-                                   value={this.state.driverAnotherDocumentDepartment}/>
-                    </Row>
+                    {/*<Row className="kasko-car-select__controls mb_0" gutter={20}>*/}
+                    {/*    <Col span={3}/>*/}
+                    {/*    <FormInput span={18} onChangeCallback={this.formControlCallback}*/}
+                    {/*               placeholder="Кем выдано ВУ"*/}
+                    {/*               controlName={'driverAnotherDocumentDepartment'}*/}
+                    {/*               value={this.state.driverAnotherDocumentDepartment}/>*/}
+                    {/*</Row>*/}
 
                     <Row className="kasko-car-select__controls mb_0" gutter={20}>
                         <Col span={3}/>
@@ -282,13 +285,6 @@ class TrustedInfo extends Component {
                                       className="checkbox_middle check_v3"
                                       value={1}
                                       controlName={'driverOSAGOOwner'} checked={this.state.driverOSAGOOwner}/>
-                    </Row>
-
-                    <Row className="kasko-car-select__controls mb_0" gutter={20}>
-                        <Col span={3}/>
-                        <Col span={18}>
-                            <div className="driver-info__add gl_link">Добавить контактное лицо</div>
-                        </Col>
                     </Row>
 
                 </div>

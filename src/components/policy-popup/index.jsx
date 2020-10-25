@@ -17,6 +17,7 @@ import PolicyUpload from "../policy-upload";
 import FormCheckbox from "../form-checkbox";
 import PolicyForm from "../policy-form";
 import PersonalForm from "../personal-form";
+import ReactComment from "../../helpers/reactComment";
 
 class PolicyPopup extends Component {
     constructor(props) {
@@ -132,6 +133,8 @@ class PolicyPopup extends Component {
 
         return (
             <div className="calculation-popup">
+                <ReactComment text='"ecr-kasko/src/components/policy-popup/index.jsx"'/>
+
                 <div className="calculation-popup__close" onClick={popupCloseFunc}/>
                 {/*<h1 className="kasko-main__title"><span>Внести полис вручную</span></h1>*/}
 

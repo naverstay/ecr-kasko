@@ -14,6 +14,8 @@ import ClientInfo from "../client-info";
 import ClientInfoNew from "../client-info-new";
 import DriverCount from "../driver-count";
 import KaskoCarSelectOsago from "../kasko-car-select-osago";
+import ReactComment from "../../helpers/reactComment";
+import FormInput from "../form-input";
 
 class CalculationPopup extends Component {
     constructor(props) {
@@ -22,6 +24,7 @@ class CalculationPopup extends Component {
             carFound: void 0,
             showCarFields: true,
             fullCalculation: this.props.fullCalculation || false,
+            showTrustedInfo: false,
             showClientFields: false,
             toggleClientFields: false,
             calculationPopupOpened: false,
@@ -29,6 +32,7 @@ class CalculationPopup extends Component {
             useOCR: false,
             hasFranchise: true,
             carCredit: true,
+            carOsagoDocStart: '',
             carMark: '',
             carPrice: 0,
             carModel: '',
@@ -77,6 +81,12 @@ class CalculationPopup extends Component {
         });
     };
 
+    onToggleTrustedInfo = e => {
+        this.setState({
+            showTrustedInfo: !this.state.showTrustedInfo
+        });
+    };
+
     onToggleCarFields = e => {
         this.setState({
             showCarFields: !this.state.showCarFields
@@ -93,6 +103,7 @@ class CalculationPopup extends Component {
 
     render() {
         let {popupCloseFunc, step, allFields, updatePaymentState, osago} = this.props
+        let dateFormatMask = "'mask': '99.99.9999', 'showMaskOnHover': 'false'"
 
         let driverOptions = [];
 
@@ -102,6 +113,8 @@ class CalculationPopup extends Component {
 
         return (
             <div className="calculation-popup">
+                <ReactComment text='"ecr-kasko/src/components/calculation-popup/index.jsx"'/>
+
                 <div className="calculation-popup__close" onClick={popupCloseFunc}/>
 
                 {!osago ? <div
@@ -137,8 +150,8 @@ class CalculationPopup extends Component {
                 </Row>
 
                 <div className="kasko-car-select__form">
-                    <h1 onClick={allFields ? this.onToggleCarFields : null}
-                        className={"kasko-main__title" + (allFields ? (this.state.showCarFields ? " expanded" : " collapsed") : "")}>
+                    <h1 onClick={this.onToggleCarFields}
+                        className={"kasko-main__title" + (this.state.showCarFields ? " expanded" : " collapsed")}>
                         <span>Автомобиль</span></h1>
 
                     {/*<KaskoCarSelect hideOffers={true} allFields={true}/>*/}
@@ -156,8 +169,8 @@ class CalculationPopup extends Component {
                     <Row gutter={20}>
                         <Col span={3}/>
                         <Col span={18}>
-                            <h1 onClick={allFields ? this.onToggleClientFields : null}
-                                className={"kasko-main__title" + (allFields ? (this.state.showClientFields ? " expanded" : " collapsed") : "")}>
+                            <h1 onClick={this.onToggleClientFields}
+                                className={"kasko-main__title" + (this.state.showClientFields ? " expanded" : " collapsed")}>
                                 <span>Анкета и документы</span>
                                 <span className={"kasko-main__title--id"}>ID 123456</span>
                             </h1>
@@ -165,30 +178,50 @@ class CalculationPopup extends Component {
                     </Row>
 
                     {
-                        ((step === void 0) || (step !== 2) || this.state.showClientFields) ?
+                        (
+                            //(step === void 0) || (step !== 2) ||
+                            this.state.showClientFields) ?
                             <>
                                 {/*<div className={"kasko-car-select__controls ant-row-center align_center"}>*/}
                                 {/*	<Checkbox checked={this.state.useOCR ? "checked" : null}*/}
                                 {/*				onChange={this.onUseOCRChange}>Не распознавать документы</Checkbox>*/}
                                 {/*</div>*/}
+
                                 <ClientQuestionnaire/>
+
                                 <DriverCount className={"mt_60"} step={step} driverOptions={driverOptions}/>
+
+                                <DriverInfo showAddBlock={true} wholeName={true} osago={osago}
+                                            calculationSave={updatePaymentState}
+                                            expanded={(step !== 2) || this.state.showClientFields}
+                                            fullCalculation={this.state.fullCalculation}/>
                             </>
                             : null
                     }
 
-                    <DriverInfo showAddBlock={true} wholeName={true} osago={osago} calculationSave={updatePaymentState}
-                                expanded={(step !== 2) || this.state.showClientFields}
-                                fullCalculation={this.state.fullCalculation}/>
-
                 </div>
 
                 <div className="kasko-car-select__form">
-                    <h1 className={"kasko-main__title"}><span>Доверенные лица</span></h1>
 
-                    <TrustedInfo wholeName={true} osago={osago}/>
+                    <h1 onClick={this.onToggleTrustedInfo} className={"kasko-main__title" + (this.state.showTrustedInfo ? " expanded" : " collapsed")}><span>Водители</span></h1>
+
+                    {this.state.showTrustedInfo ? <TrustedInfo wholeName={true} osago={osago}/> : null}
+
+                    <Row className="kasko-car-select__controls mb_0" gutter={20}>
+                        <Col span={3}/>
+                        <Col span={18}>
+                            <div className="driver-info__add gl_link">Добавить водителя</div>
+                        </Col>
+                    </Row>
 
                 </div>
+
+                <Row className="kasko-car-select__controls ant-row-center mb_30" gutter={20}>
+                    <FormInput span={6} onChangeCallback={this.formControlCallback}
+                               inputmask={dateFormatMask}
+                               placeholder={"Дата начала действия \n нового полиса ОСАГО"}
+                               controlName={'carOsagoDocStart'} value={(this.state.carOsagoDocStart)}/>
+                </Row>
 
                 <Row className="kasko-car-select__controls ant-row-center" gutter={20}>
                     <Col span={3}>
@@ -196,8 +229,7 @@ class CalculationPopup extends Component {
                             <span>Отмена</span></div>
                     </Col>
                     <Col span={6}>
-                        <Button onClick={() => updatePaymentState} className={"ant-btn-primary btn_middle"}>Получить
-                            расчет</Button>
+                        <Button onClick={() => updatePaymentState} className={"ant-btn-primary btn_middle"}>Получить расчет</Button>
                     </Col>
                     <Col span={3}/>
                 </Row>

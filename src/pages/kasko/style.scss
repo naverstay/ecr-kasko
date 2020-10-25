@@ -3,250 +3,259 @@
 $aside-size: 226px;
 
 .kasko {
-	
-	&-tab__panel {
-		padding: 30px 0;
-		
-		&:empty {
-			display: none;
-		}
 
-		&-name {
-			font-size: 12px;
-			line-height: 15px;
-			cursor: pointer;
-			width: 100%;
-			height: 45px;
-			background: #f7f7f7;
-			border: 1px solid #f7f7f7;
-			color: $color-grey;
-			padding: 4px 9px;
-			border-radius: 5px 5px 0 0;
-			display: flex;
-			justify-content: space-between;
-			align-items: center;
-			
-			.highlight_tab & {
-				//border-top-color: $color-blue-light;
-				//border-left-color: $color-blue-light;
-				//border-right-color: $color-blue-light;
-			}
-			
-			&._col {
-				flex-flow: column;
-				align-items: center;
-				text-align: center;
-				justify-content: center;
-				
-				> *:first-child + * {
-					margin-top: 3px;
-				}
-			}
-			
-			&--text {
-				flex: 0 1 auto;
-				
-				span {
-					display: inline-block;
-					vertical-align: middle;
-					
-					&[class*="i-"] {
-						margin-top: -4px;
-						
-						&._red {
-							color: $color-prime;
-						}
-					}
-				}
-			}
-			
-			&--val {
-				color: $color-grey-dark;
-				font-size: 12px;
+  &-tab__panel {
+    padding: 30px 0;
 
-				b {
-					font-size: 16px;
-				}
-			}
+    &:empty {
+      display: none;
+    }
 
-			.kasko-notice__status {
-				margin-right: 0;
-				margin-left: 7px;
-				flex-shrink: 0;
-				min-width: 18px;
-				
-				&.small {
-					padding: 1px 4px;
-					
-					&:first-of-type {
-						margin-left: auto;
-					}
-				}
-			}
-		}
-	}
-	
-	&-tabs {
-		&__wrapper {
-			
-		}
-		
-		&__list {
-			display: flex;
-			justify-content: stretch;
-			border-bottom: 1px solid $color-blue-light;
-			pointer-events: none;
-			opacity: .3;
+    &-name {
+      font-size: 12px;
+      line-height: 15px;
+      cursor: pointer;
+      width: 100%;
+      height: 45px;
+      background: #f7f7f7;
+      border: 1px solid #f7f7f7;
+      color: $color-grey;
+      padding: 4px 9px;
+      border-radius: 5px 5px 0 0;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
 
-			.highlight_tab & {
-				opacity: 1;
-			}
-			
-			&.active {
-				pointer-events: all;
-				opacity: 1;
+      .highlight_tab & {
+        //border-top-color: $color-blue-light;
+        //border-left-color: $color-blue-light;
+        //border-right-color: $color-blue-light;
+      }
 
-				.kasko-tab__panel-name {
-					color: #000;
-				}
-			}
-			
-			&.selected {
-				border-bottom-color: $color-blue-light;
-			}
-		}
-		
-		&__tab {
-			margin-left: 20px;
-			flex: 1 1 100%;
-			
-			&:first-child {
-				margin-left: 0;
-			}
-			
-			&.react-tabs__tab--selected {
-				.active & {
-					.kasko-tab__panel-name {
-						background: #fff;
-						border-color: $color-blue-light;
-						border-bottom-color: #fff;
-						position: relative;
-						z-index: 1;
+      &._col {
+        flex-flow: column;
+        align-items: center;
+        text-align: center;
+        justify-content: center;
 
-						&:after {
-							content: '';
-							position: absolute;
-							bottom: -2px;
-							height: 1px;
-							right: 0;
-							left: 0;
-							background: #fff;
-						}
-					}
-				}
-			}
-		}
-	}
-	
-	&-wrapper {
-		display: flex;
-		flex-flow: row nowrap;
-		//margin: 0 -10px;
-		//padding-right: 14px;
-		min-height: 100vh;
-		
-		&__fixed {
-			position: fixed;
-			top: 0;
-			right: $content-padding;
-			left: $aside-size-small + $content-padding;
-			height: 0;
-			min-height: 0;
-			max-width: $layout-maxwidth - $content-padding;
+        > *:first-child + * {
+          margin-top: 3px;
+        }
+      }
 
-			.kasko-main {
-				height: 0 !important;
-				overflow: hidden;
-			}
-		}
-	}
-	
-	&-main {
-		position: relative;
-		flex: 1 0 auto;
-		//padding: 0 10px;
-		//max-width: calc(100vw - #{$aside-size * 2 + 100px});
-		
-		&__wide {
-			margin: 0 -25.666667%;
-		}
-		
-		&__title {
-			@extend %h1;
-			display: flex;
-			flex-flow: row;
-			align-items: flex-end;
-			justify-content: center;
-			position: relative;
-			
-			span {
-				line-height: 1;
+      &--text {
+        flex: 0 1 auto;
 
-				&:only-child {
-					margin: auto;
-				}
-				
-				&.kasko-main__title--id {
-					position: absolute;
-					bottom: 20px;
-					right: 0;
-					color: #a8a8a8;
-					font-size: 12px;
-					line-height: 1.3;
-					font-weight: normal;
-				}
-			}
+        span {
+          display: inline-block;
+          vertical-align: middle;
 
-			&.expanded,
-			&.collapsed {
-				cursor: pointer;
-				position: relative;
+          &[class*="i-"] {
+            margin-top: -4px;
 
-				span:before {
-					transition: transform .25s;
-					font-family: $icomoon-font-family;
-					content: $i-chevron_r;
-					color: $color-grey;
-					font-size: 16px;
-					margin-right: 10px;
-					margin-left: -20px;
-					position: absolute;
-				}
-			}
-			
-			&.collapsed {
-				.calculation-popup & {
-					margin-bottom: 55px;
-				}
-			}
-			
-			&.expanded {
-				span:before {
-					transform: rotate(90deg);
-				}
-			}
-		}
-	}
-	
-	&-aside {
-		position: relative;
-		//flex: 0 1 $aside-size;
-		//padding: 0 10px;
-		//max-width: $aside-size;
-		
-		&__btn {
-			margin-bottom: 8px;
-			width: 100%;
-		}
-	}
+            &._red {
+              color: $color-prime;
+            }
+          }
+        }
+      }
+
+      &--val {
+        color: $color-grey-dark;
+        font-size: 12px;
+
+        b {
+          font-size: 16px;
+        }
+      }
+
+      .kasko-notice__status {
+        margin-right: 0;
+        margin-left: 7px;
+        flex-shrink: 0;
+        min-width: 18px;
+
+        &.small {
+          padding: 1px 4px;
+
+          &:first-of-type {
+            margin-left: auto;
+          }
+        }
+      }
+    }
+  }
+
+  &-tabs {
+    &__wrapper {
+
+    }
+
+    &__list {
+      display: flex;
+      justify-content: stretch;
+      border-bottom: 1px solid $color-blue-light;
+      pointer-events: none;
+      opacity: .3;
+
+      .highlight_tab & {
+        opacity: 1;
+      }
+
+      &.active {
+        pointer-events: all;
+        opacity: 1;
+
+        .kasko-tab__panel-name {
+          color: #000;
+        }
+      }
+
+      &.selected {
+        border-bottom-color: $color-blue-light;
+      }
+    }
+
+    &__tab {
+      margin-left: 20px;
+      flex: 1 1 100%;
+
+      &:first-child {
+        margin-left: 0;
+      }
+
+      &.react-tabs__tab--selected {
+        .active & {
+          .kasko-tab__panel-name {
+            background: #fff;
+            border-color: $color-blue-light;
+            border-bottom-color: #fff;
+            position: relative;
+            z-index: 1;
+
+            &:after {
+              content: '';
+              position: absolute;
+              bottom: -2px;
+              height: 1px;
+              right: 0;
+              left: 0;
+              background: #fff;
+            }
+          }
+        }
+      }
+    }
+  }
+
+  &-wrapper {
+    display: flex;
+    flex-flow: row nowrap;
+    //margin: 0 -10px;
+    //padding-right: 14px;
+    min-height: 100vh;
+
+    &__fixed {
+      position: fixed;
+      top: 0;
+      right: $content-padding;
+      left: $aside-size-small + $content-padding;
+      height: 0;
+      min-height: 0;
+      max-width: $layout-maxwidth - $content-padding;
+
+      .kasko-main {
+        height: 0 !important;
+        overflow: hidden;
+      }
+    }
+  }
+
+  &-main {
+    position: relative;
+    flex: 1 0 auto;
+    //padding: 0 10px;
+    //max-width: calc(100vw - #{$aside-size * 2 + 100px});
+
+    &__wide {
+      margin: 0 -25.666667%;
+    }
+
+    &__title {
+      @extend %h1;
+      display: flex;
+      flex-flow: row;
+      align-items: flex-end;
+      justify-content: center;
+      position: relative;
+
+      span {
+        line-height: 1;
+
+        &:only-child {
+          margin: auto;
+        }
+
+        &.kasko-main__title--id {
+          position: absolute !important;
+          bottom: 20px;
+          right: 0;
+          color: #a8a8a8;
+          font-size: 12px;
+          line-height: 1.3;
+          font-weight: normal;
+
+          &:before {
+            display: none;
+          }
+        }
+      }
+
+      &.expanded,
+      &.collapsed {
+        cursor: pointer;
+        position: relative;
+
+        span {
+          position: relative;
+
+          &:before {
+            transition: transform .25s;
+            font-family: $icomoon-font-family;
+            content: $i-chevron_r;
+            color: $color-grey;
+            font-size: 16px;
+            top: 50%;
+            margin-top: -8px;
+            left: -20px;
+            position: absolute;
+          }
+        }
+      }
+
+      &.collapsed {
+        .calculation-popup & {
+          margin-bottom: 55px;
+        }
+      }
+
+      &.expanded {
+        span:before {
+          transform: rotate(90deg);
+        }
+      }
+    }
+  }
+
+  &-aside {
+    position: relative;
+    //flex: 0 1 $aside-size;
+    //padding: 0 10px;
+    //max-width: $aside-size;
+
+    &__btn {
+      margin-bottom: 8px;
+      width: 100%;
+    }
+  }
 }

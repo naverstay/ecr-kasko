@@ -538,7 +538,7 @@ class CarSelect extends Component {
 
         return (
             <div className="kasko-car-select">
-                <ReactComment text='"src/components/kasko-car-select/index.jsx"'/>
+                <ReactComment text='"ecr-kasko/src/components/kasko-car-select/index.jsx"'/>
 
                 {!this.state.carFound ?
                     <h1 className="kasko-main__title"><span>Выберите автомобиль</span></h1>
@@ -652,7 +652,7 @@ class CarSelect extends Component {
                                                controlName={'carMileage'} value={this.state.carMileage}/>
 
                                     <FormInput span={6} onChangeCallback={this.formControlCallback}
-                                               placeholder="Мощность двигателя, л.с."
+                                               placeholder="Мощность"
                                                inputmask={carPowerMask}
                                                controlName={'carPower'} value={this.state.carPower}/>
 
@@ -784,7 +784,7 @@ class CarSelect extends Component {
                                                            checked={this.state.carCredit ? "checked" : ""}
                                                            value={1}>В кредит</Radio>
                                                 </Col>
-                                                <Col span={12}>
+                                                <Col span={12} className={"ant-col-mla"}>
                                                     <Radio disabled={this.state.allowPayment ? null : "disabled"}
                                                            checked={!this.state.carCredit ? "checked" : ""}
                                                            value={0}>За наличные</Radio>
@@ -812,7 +812,7 @@ class CarSelect extends Component {
 
                                 {/*<Row className="kasko-car-select__controls" gutter={20}>*/}
                                 {/*	<FormInput span={6} onChangeCallback={this.formControlCallback}*/}
-                                {/*			   placeholder="Мощность двигателя, л.с."*/}
+                                {/*			   placeholder="Мощность"*/}
                                 {/*			   inputmask={carPowerMask}*/}
                                 {/*			   controlName={'carPower'} value={this.state.carPower}/>*/}
 
@@ -831,9 +831,7 @@ class CarSelect extends Component {
                                 {
                                     this.state.showAdditional ? null :
                                         <Col className="kasko-car-select__additional _inactive ant-col-mla">
-                                            <div className="gl_link"
-                                                 onClick={this.toggleAdditionalFields}>Дополнительно
-                                            </div>
+                                            <div className="gl_link" onClick={this.toggleAdditionalFields}>Дополнительно</div>
                                         </Col>
                                 }
                             </Row>

@@ -9,6 +9,7 @@ import KaskoOffers from "../kasko-offers";
 import {formatMoney} from "../../helpers/formatMoney";
 import FormSelect from "../form-select";
 import FormInput from "../form-input";
+import ReactComment from "../../helpers/reactComment";
 
 const {Option} = Select;
 const {YearPicker} = DatePicker;
@@ -49,6 +50,7 @@ class KaskoCarSelectNew extends Component {
             carATS: '',
             carBankName: '',
             carTransmissionType: '',
+            carUsageLocation: '',
             carNumber: '',
             carYear: '',
             carUsageStart: '',
@@ -333,6 +335,8 @@ class KaskoCarSelectNew extends Component {
 
         return (
             <div className="kasko-car-select">
+                <ReactComment text='"ecr-kasko/src/components/kasko-car-select-new/index.jsx"'/>
+
                 {expanded ?
                     <>
                         <Form {...layout} ref={this.formRef} name="control-ref" onFinish={this.onFinish}>
@@ -409,6 +413,10 @@ class KaskoCarSelectNew extends Component {
                                         placeholder="Год выпуска" controlName={'carYear'}
                                         value={this.state.carYear}/>
                             <FormInput span={6} onChangeCallback={this.formControlCallback}
+                                       placeholder="Мощность"
+                                       inputmask={carPowerMask}
+                                       controlName={'carPower'} value={''}/>
+                            <FormInput span={6} onChangeCallback={this.formControlCallback}
                                        placeholder="VIN"
                                        className={(allFields ? "input-error" : "")}
                                        inputmask={carVINMask}
@@ -439,6 +447,14 @@ class KaskoCarSelectNew extends Component {
                                        placeholder={"Срок действия"}
                                        inputmask={dateFormatMask}
                                        controlName={'carDiagnosticCardDuration'} value={''}/>
+                        </Row>
+
+                        <Row className="kasko-car-select__controls" gutter={20}>
+                            <Col span={3}/>
+
+                            <FormInput span={12} onChangeCallback={this.formControlCallback}
+                                       placeholder={"Город использования автомобиля"}
+                                       controlName={'carUsageLocation'} value={''}/>
                         </Row>
 
                         {/*<Row className="kasko-car-select__controls" gutter={20}>*/}
@@ -527,36 +543,36 @@ class KaskoCarSelectNew extends Component {
                             : null
                         }
 
-                        <Row className="kasko-car-select__controls kasko-car-select__controls--price radio_v2 mb_45"
-                             gutter={20}>
-                            <Col span={3}/>
-                            <Col className="kasko-car-select__controls--credit">
-                                <Radio.Group
-                                    className={"w_100p " + (this.state.showAdditional ? "full_form" : "short_form")}
-                                    onChange={this.onCarCreditChange}>
-                                    <Row gutter={20}>
-                                        <Col>
-                                            <Radio disabled={this.state.allowPayment ? null : "disabled"}
-                                                   checked={this.state.carCredit ? "checked" : ""} value={1}>В
-                                                кредит</Radio>
-                                        </Col>
-                                        <Col>
-                                            <Radio disabled={this.state.allowPayment ? null : "disabled"}
-                                                   checked={!this.state.carCredit ? "checked" : ""} value={0}>За
-                                                наличные</Radio>
-                                        </Col>
-                                    </Row>
-                                </Radio.Group>
-                            </Col>
+                        {/*<Row className="kasko-car-select__controls kasko-car-select__controls--price radio_v2 mb_45"*/}
+                        {/*     gutter={20}>*/}
+                        {/*    <Col span={3}/>*/}
+                        {/*    <Col className="kasko-car-select__controls--credit">*/}
+                        {/*        <Radio.Group*/}
+                        {/*            className={"w_100p " + (this.state.showAdditional ? "full_form" : "short_form")}*/}
+                        {/*            onChange={this.onCarCreditChange}>*/}
+                        {/*            <Row gutter={20}>*/}
+                        {/*                <Col>*/}
+                        {/*                    <Radio disabled={this.state.allowPayment ? null : "disabled"}*/}
+                        {/*                           checked={this.state.carCredit ? "checked" : ""} value={1}>В*/}
+                        {/*                        кредит</Radio>*/}
+                        {/*                </Col>*/}
+                        {/*                <Col>*/}
+                        {/*                    <Radio disabled={this.state.allowPayment ? null : "disabled"}*/}
+                        {/*                           checked={!this.state.carCredit ? "checked" : ""} value={0}>За*/}
+                        {/*                        наличные</Radio>*/}
+                        {/*                </Col>*/}
+                        {/*            </Row>*/}
+                        {/*        </Radio.Group>*/}
+                        {/*    </Col>*/}
 
-                            {this.state.carCredit ?
-                                <FormSelect span={6} onChangeCallback={this.formControlCallback}
-                                            options={this.state.carBankNameList}
-                                            placeholder="Банк" controlName={'carBankName'}
-                                            value={this.state.carBankName}/>
-                                : null
-                            }
-                        </Row>
+                        {/*    {this.state.carCredit ?*/}
+                        {/*        <FormSelect span={6} onChangeCallback={this.formControlCallback}*/}
+                        {/*                    options={this.state.carBankNameList}*/}
+                        {/*                    placeholder="Банк" controlName={'carBankName'}*/}
+                        {/*                    value={this.state.carBankName}/>*/}
+                        {/*        : null*/}
+                        {/*    }*/}
+                        {/*</Row>*/}
                     </>
                     : null
                 }

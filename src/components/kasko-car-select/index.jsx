@@ -9,6 +9,7 @@ import KaskoOffers from "../kasko-offers";
 import {formatMoney} from "../../helpers/formatMoney";
 import FormSelect from "../form-select";
 import FormInput from "../form-input";
+import ReactComment from "../../helpers/reactComment";
 
 const {Option} = Select;
 //const {YearPicker} = DatePicker;
@@ -425,6 +426,7 @@ class KaskoCarSelect extends Component {
 
         return (
             <div className="kasko-car-select">
+                <ReactComment text='"ecr-kasko/src/components/kasko-car-select/index.jsx"'/>
 
                 {step === void 0 || step > 1 ? null :
                     <h1 className="kasko-main__title"><span>Выберите автомобиль</span></h1>}
@@ -540,7 +542,7 @@ class KaskoCarSelect extends Component {
                         <Row className="kasko-car-select__controls" gutter={20}>
                             <Col span={3}/>
                             <FormInput span={6} onChangeCallback={this.formControlCallback}
-                                       placeholder="Мощность двигателя, л.с."
+                                       placeholder="Мощность"
                                        inputmask={carPowerMask}
                                        controlName={'carPower'} value={''}/>
 
