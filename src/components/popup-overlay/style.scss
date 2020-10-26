@@ -12,8 +12,14 @@
 
   > .ant-row {
     height: 100%;
+    max-width: $layout-maxwidth;
+    margin: 0 !important;
 
     &:before {
+      display: none;
+      position: absolute;
+      top: 0;
+      left: 0;
       content: '#{$env}';
     }
 

@@ -12,6 +12,10 @@
     margin: 30px 0;
     border: 2px solid #7ebfed;
 
+    &.mt_0 {
+      margin-top: 0;
+    }
+
     .calculation-popup & {
 
       .kasko-main__title.collapsed {

@@ -697,14 +697,14 @@ class CarSelect extends Component {
                                                inputmask={dateFormatMask}
                                                controlName={'carUsageStart'} value={this.state.carUsageStart}/>
 
-                                    <FormCheckbox span={3} onChangeCallback={this.formControlCallback}
+                                    <FormCheckbox onChangeCallback={this.formControlCallback}
                                                   text="Такси"
                                                   className="checkbox_middle check_v3"
                                                   value={0}
                                                   controlName={'carTaxi'}
                                                   checked={this.state.carTaxi}/>
 
-                                    <FormCheckbox span={3} onChangeCallback={this.formControlCallback}
+                                    <FormCheckbox onChangeCallback={this.formControlCallback}
                                                   text="Автозапуск"
                                                   className="checkbox_middle check_v3"
                                                   value={0}

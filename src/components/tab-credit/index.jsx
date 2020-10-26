@@ -109,7 +109,7 @@ class TabCredit extends Component {
     }
 
     scrollToBottom = () => {
-        this.messagesEnd.scrollIntoView({behavior: "smooth"});
+        window.scrollTo(0, 0); //this.messagesEnd.scrollIntoView({behavior: "smooth"});
     }
 
     toggleCalculationOffers = e => {
@@ -122,7 +122,7 @@ class TabCredit extends Component {
         //}
 
         setTimeout(() => {
-            //this.scrollToBottom();
+            this.scrollToBottom();
         }, 100)
     };
 

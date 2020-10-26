@@ -255,15 +255,15 @@ class TabService extends Component {
     };
 
     scrollToBottom = () => {
-        this.messagesEnd.scrollIntoView({behavior: "smooth"});
+        window.scrollTo(0, 0); //this.messagesEnd.scrollIntoView({behavior: "smooth"});
     }
 
     componentDidMount() {
-        //this.scrollToBottom();
+        this.scrollToBottom();
     }
 
     componentDidUpdate() {
-        //this.scrollToBottom();
+        this.scrollToBottom();
     }
 
     render() {

@@ -136,8 +136,7 @@ class CalculationPopup extends Component {
 
                 <div className="calculation-popup__close" onClick={popupCloseFunc}/>
 
-                {!osago ? <div
-                    className={"kasko-car-select__calculation" + (allFields || this.state.fullCalculation ? ' active' : '')}>
+                {!osago ? <div className={"kasko-car-select__calculation" + (allFields || this.state.fullCalculation ? ' active' : '')}>
                     <span className="kasko-car-select__calculation--text">Предварительный расчет</span>
                     <Switch checked={allFields || this.state.fullCalculation}
                             className="kasko-car-select__calculation--switch" onChange={this.onCalculationTypeChange}/>
@@ -168,7 +167,7 @@ class CalculationPopup extends Component {
                 {/*    </Col>*/}
                 {/*</Row>*/}
 
-                <div className="kasko-car-select__form">
+                <div className="kasko-car-select__form mt_0">
                     <h1 onClick={this.onToggleCarFields}
                         className={"kasko-main__title" + (this.state.showCarFields ? " expanded" : " collapsed")}>
                         <span>Автомобиль</span></h1>
