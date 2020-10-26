@@ -24,12 +24,12 @@ class FormCheckbox extends Component {
     };
 
     render() {
-        const {value, controlName, span, text, className} = this.props;
+        const {value, controlName, span, text, className, disabled} = this.props;
 
         return (
             <Col className={className} span={span}>
                 <Checkbox name={controlName} checked={this.state.controlChecked} value={value}
-                          onChange={this.onChange}>{text}</Checkbox>
+                          disabled={disabled} onChange={this.onChange}>{text}</Checkbox>
             </Col>
         );
     }

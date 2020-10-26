@@ -84,6 +84,7 @@ class TrustedInfo extends Component {
 
     static propTypes = {
         children: PropTypes.node,
+        removeCallback: PropTypes.func,
         fullCalculation: PropTypes.bool,
         innerWidth: PropTypes.number
     };
@@ -166,7 +167,7 @@ class TrustedInfo extends Component {
     };
 
     render() {
-        let {fullCalculation, allFields, expanded, osago, wholeName, showAddBlock} = this.props
+        let {fullCalculation, allFields, expanded, osago, wholeName, showAddBlock, index} = this.props
         //const dateFormat = "DD.MM.YY"
         const dateFormatMask = "'mask': '99.99.9999', 'showMaskOnHover': 'false'"
         const driverPhoneMask = "'mask': '[+7] (999)-999-99-99', 'showMaskOnHover': 'false'"
@@ -183,6 +184,8 @@ class TrustedInfo extends Component {
             drivers.push(drv)
         }
 
+        console.log('index', index);
+
         //if (showAddBlock) {
         //	drivers.push(drivers.length)
         //}
@@ -193,10 +196,10 @@ class TrustedInfo extends Component {
                     <Row className="kasko-car-select__controls mb_0" gutter={20}>
                         <Col span={3}/>
                         <Col span={6}>
-                            <div className="driver-info__caption">Водитель #1</div>
+                            <div className="driver-info__caption">Водитель #{index}</div>
                         </Col>
                         <Col span={6}>
-                            <div className="driver-info__remove m_0 gl_link"/>
+                            <div onClick={this.props.removeCallback} className="driver-info__remove m_0 gl_link"/>
                         </Col>
                     </Row>
 
@@ -250,16 +253,19 @@ class TrustedInfo extends Component {
                         <FormInput span={6} onChangeCallback={this.formControlCallback}
                                    inputmask={clientLicenseIDMask}
                                    placeholder="Серия, номер ВУ"
+                                   className={(index > 1 ? "input-error" : "")}
                                    controlName={'driverAnotherDocument'} value={this.state.driverAnotherDocument}/>
 
                         <FormInput span={6} onChangeCallback={this.formControlCallback}
                                    inputmask={clientLicenseIDMask}
                                    placeholder="Дата выдачи ВУ"
+                                   className={(index > 1 ? "input-error" : "")}
                                    controlName={'driverAnotherDocumentStart'}
                                    value={this.state.driverAnotherDocumentStart}/>
 
                         <FormInput span={6} onChangeCallback={this.formControlCallback}
                                    placeholder="Дата начала стажа"
+                                   className={(index > 1 ? "input-error" : "")}
                                    controlName={'driverExperienceStart'}
                                    value={this.state.driverExperienceStart}/>
                     </Row>
@@ -277,12 +283,14 @@ class TrustedInfo extends Component {
                         <FormCheckbox onChangeCallback={this.formControlCallback}
                                       text="Страхователь"
                                       className="checkbox_middle check_v3"
+                                      disabled={index > 1}
                                       value={0}
                                       controlName={'driverOSAGOInsurant'} checked={this.state.driverOSAGOInsurant}/>
 
                         <FormCheckbox onChangeCallback={this.formControlCallback}
                                       text="Собственник"
                                       className="checkbox_middle check_v3"
+                                      disabled={index > 1}
                                       value={1}
                                       controlName={'driverOSAGOOwner'} checked={this.state.driverOSAGOOwner}/>
                     </Row>

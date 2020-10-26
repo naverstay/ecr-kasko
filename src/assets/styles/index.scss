@@ -398,6 +398,12 @@ $spinner_time: 1s;
   }
 }
 
+.ant-checkbox-wrapper.ant-checkbox-wrapper-disabled {
+  span {
+    color: rgba(0, 0, 0, .3);
+  }
+}
+
 .ant-checkbox-disabled .ant-checkbox-inner {
   background-color: #fff;
   opacity: .3;

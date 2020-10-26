@@ -32,6 +32,7 @@ class CalculationPopup extends Component {
             useOCR: false,
             hasFranchise: true,
             carCredit: true,
+            trustedInfoCount: 1,
             carOsagoDocStart: '',
             carMark: '',
             carPrice: 0,
@@ -81,6 +82,18 @@ class CalculationPopup extends Component {
         });
     };
 
+    addTrustedInfo = e => {
+        this.setState({
+            trustedInfoCount: this.state.trustedInfoCount + 1
+        });
+    };
+
+    onRemoveTrastedInfo = e => {
+        this.setState({
+            trustedInfoCount: this.state.trustedInfoCount - 1
+        });
+    };
+
     onToggleTrustedInfo = e => {
         this.setState({
             showTrustedInfo: !this.state.showTrustedInfo
@@ -105,10 +118,16 @@ class CalculationPopup extends Component {
         let {popupCloseFunc, step, allFields, updatePaymentState, osago} = this.props
         let dateFormatMask = "'mask': '99.99.9999', 'showMaskOnHover': 'false'"
 
+        let trustedInfoArray = [];
         let driverOptions = [];
 
         if (step > 1 || this.state.showCalculationOffers) {
             driverOptions = ['Фомин Сергей М.', 'Фомина Алла К.', 'Фомина Марина Ф.']
+        }
+
+        for (let i = 0; i < this.state.trustedInfoCount; i++) {
+            console.log('for', i);
+            trustedInfoArray.push(<TrustedInfo removeCallback={this.onRemoveTrastedInfo} index={i + 1} wholeName={true} osago={osago}/>);
         }
 
         return (
@@ -135,19 +154,19 @@ class CalculationPopup extends Component {
                         : null
                 }
 
-                <Row gutter={20}>
-                    <Col span={3}/>
-                    <Col span={18}>
-                        <div className="driver-info__caption">Добавить контактных лиц в полис</div>
-                    </Col>
-                </Row>
+                {/*<Row gutter={20}>*/}
+                {/*    <Col span={3}/>*/}
+                {/*    <Col span={18}>*/}
+                {/*        <div className="driver-info__caption">Добавить контактных лиц в полис</div>*/}
+                {/*    </Col>*/}
+                {/*</Row>*/}
 
-                <Row gutter={20}>
-                    <Col span={3}/>
-                    <Col span={18}>
-                        <InsurancePolicy/>
-                    </Col>
-                </Row>
+                {/*<Row gutter={20}>*/}
+                {/*    <Col span={3}/>*/}
+                {/*    <Col span={18}>*/}
+                {/*        <InsurancePolicy/>*/}
+                {/*    </Col>*/}
+                {/*</Row>*/}
 
                 <div className="kasko-car-select__form">
                     <h1 onClick={this.onToggleCarFields}
@@ -203,18 +222,38 @@ class CalculationPopup extends Component {
 
                 <div className="kasko-car-select__form">
 
-                    <h1 onClick={this.onToggleTrustedInfo} className={"kasko-main__title" + (this.state.showTrustedInfo ? " expanded" : " collapsed")}><span>Водители</span></h1>
+                    <h1 onClick={this.onToggleTrustedInfo}
+                        className={"kasko-main__title" + (this.state.showTrustedInfo ? " expanded" : " collapsed")}>
+                        <span>Водители</span></h1>
 
-                    {this.state.showTrustedInfo ? <TrustedInfo wholeName={true} osago={osago}/> : null}
+                    {this.state.showTrustedInfo ?
+                        <>
+                            {trustedInfoArray}
+                        </>
+                        : null}
 
                     <Row className="kasko-car-select__controls mb_0" gutter={20}>
                         <Col span={3}/>
                         <Col span={18}>
-                            <div className="driver-info__add gl_link">Добавить водителя</div>
+                            <div onClick={this.addTrustedInfo} className="driver-info__add gl_link">Добавить водителя</div>
                         </Col>
                     </Row>
 
                 </div>
+
+                <Row gutter={20}>
+                    <Col span={3}/>
+                    <Col span={18}>
+                        <div className="driver-info__caption">Водители</div>
+                    </Col>
+                </Row>
+
+                <Row gutter={20}>
+                    <Col span={3}/>
+                    <Col span={18}>
+                        <InsurancePolicy disableKasko={true} />
+                    </Col>
+                </Row>
 
                 <Row className="kasko-car-select__controls ant-row-center mb_30" gutter={20}>
                     <FormInput span={6} onChangeCallback={this.formControlCallback}

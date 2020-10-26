@@ -11,6 +11,8 @@ class InsurancePolicy extends Component {
     };
 
     render() {
+        const {disableKasko} = this.props;
+
         return (
             <div className="insurance-policy">
                 <table className="insurance-policy__table">
@@ -18,7 +20,7 @@ class InsurancePolicy extends Component {
                     <tr>
                         <th className="insurance-policy__table--col-1">Фамилия имя отчество</th>
                         <th className="insurance-policy__table--col-2">ОСАГО</th>
-                        <th className="insurance-policy__table--col-3">КАСКО</th>
+                        <th className={"insurance-policy__table--col-3" + (disableKasko ? " __disabled" : "")}>КАСКО</th>
                         {/*<th className="insurance-policy__table--col-4">&nbsp;</th>*/}
                     </tr>
                     </thead>
@@ -26,6 +28,7 @@ class InsurancePolicy extends Component {
                     <tr>
                         <td>
                             <div className="insurance-policy__name">Фомин Сергей Михайлович</div>
+                            <div className="insurance-policy__info __allow">Есть все данные</div>
                             {/*<Row gutter={20} className="insurance-policy__options">*/}
                             {/*	<Col className="check_v3">*/}
                             {/*		<Checkbox>Страхователь</Checkbox>*/}
@@ -39,13 +42,14 @@ class InsurancePolicy extends Component {
                             <Checkbox/>
                         </td>
                         <td className="check_v3">
-                            <Checkbox/>
+                            <Checkbox disabled={disableKasko}/>
                         </td>
                         {/*<td>&nbsp;</td>*/}
                     </tr>
                     <tr>
                         <td>
                             <div className="insurance-policy__name">Фомина Марина Владимировна</div>
+                            <div className="insurance-policy__info __disallow">Заполните Водительское удостоверение</div>
                             {/*<Row gutter={20} className="insurance-policy__options">*/}
                             {/*	<Col className="check_v3">*/}
                             {/*		<Checkbox>Страхователь</Checkbox>*/}
@@ -59,7 +63,7 @@ class InsurancePolicy extends Component {
                             <Checkbox/>
                         </td>
                         <td className="check_v3">
-                            <Checkbox/>
+                            <Checkbox disabled={disableKasko}/>
                         </td>
                         {/*<td>&nbsp;</td>*/}
                     </tr>
