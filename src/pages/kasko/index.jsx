@@ -31,7 +31,7 @@ class Kasko extends Component {
             showAuthForm: false,
             productCount: 0,
             updatePaymentState: 0,
-            carFound: this.props.dev || false,
+            carFound: this.props.dev || this.props.showCar || false,
             carImage: this.props.step === 1 ? 'car' : 'Hyundai',
             markList: [
                 "Hyundai",
