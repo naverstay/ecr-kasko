@@ -12,82 +12,102 @@ import Chat from "./components/orders/chat";
 import Service from "./pages/service";
 
 function App() {
-  return (
-      <BrowserRouter>
-          {process.env.NODE_ENV !== 'production' ? 
-              <div className="dev-navigation">
-                  <ul>
-                      {/*<li>*/}
-                      {/*    <Link to="/">home</Link>*/}
-                      {/*</li>*/}
-                      {/*<li>*/}
-                      {/*    <Link to="/kasko">kasko</Link>*/}
-                      {/*</li>*/}
-                      {/*<li>*/}
-                      {/*    <Link to="/kasko_payment">kasko_payment</Link>*/}
-                      {/*</li>*/}
-                      {/*<li>*/}
-                      {/*    <Link to="/kasko_done">kasko_done</Link>*/}
-                      {/*</li>*/}
-                      {/*<li>*/}
-                      {/*    <Link to="/osago">osago</Link>*/}
-                      {/*</li>*/}
-                      {/*<li>*/}
-                      {/*    <Link to="/osago_payment">osago_payment</Link>*/}
-                      {/*</li>*/}
-                      {/*<li>*/}
-                      {/*    <Link to="/osago_done">osago_done</Link>*/}
-                      {/*</li>*/}
-                      {/*<li>*/}
-                      {/*    <Link to="/credit">credit</Link>*/}
-                      {/*</li>*/}
-                      {/*<li>*/}
-                      {/*    <Link to="/credit_kasko">credit_kasko</Link>*/}
-                      {/*</li>*/}
-                      {/*<li>*/}
-                      {/*    <Link to="/service">service</Link>*/}
-                      {/*</li>*/}
-                      {/*<li>*/}
-                      {/*    <Link to="/service_payment">service_payment</Link>*/}
-                      {/*</li>*/}
-                      {/*<li>*/}
-                      {/*    <Link to="/service_done">service_done</Link>*/}
-                      {/*</li>*/}
-                      <li>
-                          <Link to="/chery">chery</Link>
-                      </li>
-                      <li>
-                          <Link to="/orders">orders</Link>
-                      </li>
-                      <li>
-                          <Link to="/details">details</Link>
-                      </li>
-                      <li>
-                          <Link to="/tabs">tabs</Link>
-                      </li>
-                  </ul>
+    return (
+        <BrowserRouter>
+            {process.env.NODE_ENV !== 'production' ?
+                <div className="dev-navigation">
+                    <ul>
+                        {/*<li>*/}
+                        {/*    <Link to="/">home</Link>*/}
+                        {/*</li>*/}
+                        {/*<li>*/}
+                        {/*    <Link to="/kasko">kasko</Link>*/}
+                        {/*</li>*/}
+                        {/*<li>*/}
+                        {/*    <Link to="/kasko_payment">kasko_payment</Link>*/}
+                        {/*</li>*/}
+                        {/*<li>*/}
+                        {/*    <Link to="/kasko_done">kasko_done</Link>*/}
+                        {/*</li>*/}
+                        {/*<li>*/}
+                        {/*    <Link to="/osago">osago</Link>*/}
+                        {/*</li>*/}
+                        {/*<li>*/}
+                        {/*    <Link to="/osago_payment">osago_payment</Link>*/}
+                        {/*</li>*/}
+                        {/*<li>*/}
+                        {/*    <Link to="/osago_done">osago_done</Link>*/}
+                        {/*</li>*/}
+                        {/*<li>*/}
+                        {/*    <Link to="/credit">credit</Link>*/}
+                        {/*</li>*/}
+                        {/*<li>*/}
+                        {/*    <Link to="/credit_kasko">credit_kasko</Link>*/}
+                        {/*</li>*/}
+                        {/*<li>*/}
+                        {/*    <Link to="/service">service</Link>*/}
+                        {/*</li>*/}
+                        {/*<li>*/}
+                        {/*    <Link to="/service_payment">service_payment</Link>*/}
+                        {/*</li>*/}
+                        {/*<li>*/}
+                        {/*    <Link to="/service_done">service_done</Link>*/}
+                        {/*</li>*/}
+                        <li>
+                            <Link to="/garage">garage</Link>
+                        </li>
+                        <li>
+                            <Link to="/new-car">new car</Link>
+                        </li>
+                        <li>
+                            <Link to="/chery">chery</Link>
+                        </li>
+                        <li>
+                            <Link to="/orders">orders</Link>
+                        </li>
+                        <li>
+                            <Link to="/details">details</Link>
+                        </li>
+                        <li>
+                            <Link to="/tabs">tabs</Link>
+                        </li>
+                    </ul>
                 </div>
-              : null
-          }
-          
+                : null
+            }
+
             <Route exact path="/" render={(routeProps) => (
                 <PageLayout>
-                    <Kasko {...routeProps} step={1} tabs={true} dev={process.env.NODE_ENV !== 'production'} showOffers={false}/>
+                    <Kasko {...routeProps} step={1} tabs={true} dev={process.env.NODE_ENV !== 'production'}
+                           showOffers={false}/>
                 </PageLayout>
                 //<PageLayout>
                 //    <Kasko {...routeProps} step={1} showOffers={false}/>
                 //</PageLayout>
-            )}/>          
+            )}/>
+            <Route path="/new-car" render={(routeProps) => (
+                <PageLayout>
+                    <Kasko addCar={true} {...routeProps} step={1} tabs={true}
+                           dev={process.env.NODE_ENV !== 'production'} showOffers={false}/>
+                </PageLayout>
+            )}/>
+            <Route path="/garage" render={(routeProps) => (
+                <PageLayout>
+                    <Kasko showGarage={true} {...routeProps} tabs={true}
+                           dev={process.env.NODE_ENV !== 'production'}/>
+                </PageLayout>
+            )}/>
             <Route path="/tabs" render={(routeProps) => (
                 <PageLayout>
-                    <Kasko {...routeProps} step={1} tabs={true} dev={process.env.NODE_ENV !== 'production'} showOffers={false}/>
+                    <Kasko {...routeProps} step={1} tabs={true} dev={process.env.NODE_ENV !== 'production'}
+                           showOffers={false}/>
                 </PageLayout>
             )}/>
             <Route path="/kasko" render={(routeProps) => (
                 <PageLayout>
                     <Kasko {...routeProps} showOffers={'каско'}/>
                 </PageLayout>
-            )} />
+            )}/>
             <Route path="/kasko_payment" render={(routeProps) => (
                 <PageLayout>
                     <Kasko {...routeProps} step={2} showOffers={'каско'}/>
@@ -98,21 +118,21 @@ function App() {
                     <Kasko {...routeProps} step={3} showOffers={'каско'}/>
                 </PageLayout>
             )}/>
-          <Route path="/service" render={(routeProps) => (
-              <PageLayout>
-                  <Service {...routeProps} showOffers={'сервис меню'} service={true}/>
-              </PageLayout>
-          )}/>
-          <Route path="/service_payment" render={(routeProps) => (
-              <PageLayout>
-                  <Service {...routeProps} step={2} showOffers={'сервис меню'} service={true}/>
-              </PageLayout>
-          )}/>
-          <Route path="/service_done" render={(routeProps) => (
-              <PageLayout>
-                  <Service {...routeProps} step={3} showOffers={'сервис меню'} service={true}/>
-              </PageLayout>
-          )}/>
+            <Route path="/service" render={(routeProps) => (
+                <PageLayout>
+                    <Service {...routeProps} showOffers={'сервис меню'} service={true}/>
+                </PageLayout>
+            )}/>
+            <Route path="/service_payment" render={(routeProps) => (
+                <PageLayout>
+                    <Service {...routeProps} step={2} showOffers={'сервис меню'} service={true}/>
+                </PageLayout>
+            )}/>
+            <Route path="/service_done" render={(routeProps) => (
+                <PageLayout>
+                    <Service {...routeProps} step={3} showOffers={'сервис меню'} service={true}/>
+                </PageLayout>
+            )}/>
             <Route path="/credit" render={(routeProps) => (
                 <PageLayout>
                     <Credit {...routeProps} showOffers={'кредит'}/>
@@ -241,8 +261,8 @@ function App() {
                 </CheryLayout>
             )}/>
 
-      </BrowserRouter>
-  )
+        </BrowserRouter>
+    )
 }
 
 export default App;

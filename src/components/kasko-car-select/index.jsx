@@ -255,7 +255,7 @@ class KaskoCarSelect extends Component {
     };
 
     render() {
-        const {allFields, step, hideOffers, fill, popup} = this.props;
+        const {allFields, step, hideOffers, fill, popup, carList} = this.props;
         let {image} = this.props;
         //const dateFormat = "DD.MM.YY"
         let dateFormatMask = "'mask': '99.99.9999', 'showMaskOnHover': 'false'"
@@ -264,6 +264,8 @@ class KaskoCarSelect extends Component {
         for (let y = (new Date()).getFullYear(); y > 1980; y--) {
             yearList.push(y)
         }
+
+        console.log('carList', carList);
 
         let carNonCreditList = [{
             name: 'ОСАГО',

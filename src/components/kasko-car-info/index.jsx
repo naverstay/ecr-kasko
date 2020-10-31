@@ -1,4 +1,5 @@
 import React, {Component} from "react";
+import ReactComment from "../../helpers/reactComment";
 
 import './style.scss';
 import PropTypes from "prop-types";
@@ -21,6 +22,7 @@ class KaskoCarInfo extends Component {
 
         return (
             <div className="kasko-car-info">
+                <ReactComment text="ecr-kasko/src/components/kasko-car-info/index.jsx" />
                 <div className="kasko-car-info__notification">{notificationCount ?
                     <span>{notificationCount}</span> : ""}</div>
                 <div className={"kasko-car-info__name" + ((carName) ? "" : " _inactive")}>{carName || 'Марка'}</div>

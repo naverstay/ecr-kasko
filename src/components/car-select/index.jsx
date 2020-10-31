@@ -6,6 +6,7 @@ import PropTypes from "prop-types";
 import moment from 'moment';
 import ru from 'moment/locale/ru';
 import KaskoOffers from "../kasko-offers";
+import CarGarage from "../car-garage";
 import {formatMoney} from "../../helpers/formatMoney";
 import FormInput from "../form-input";
 import FormSelect from "../form-select";
@@ -538,314 +539,351 @@ class CarSelect extends Component {
 
         return (
             <div className="kasko-car-select">
-                <ReactComment text='"ecr-kasko/src/components/kasko-car-select/index.jsx"'/>
+                <ReactComment text='ecr-kasko/src/components/car-select/index.jsx'/>
 
-                {!this.state.carFound ?
-                    <h1 className="kasko-main__title"><span>Выберите автомобиль</span></h1>
-                    :
-                    <div className="kasko-car-select__description">
-                        <div className="kasko-car-select__description--link gl_link">В архив</div>
-                        <div className="kasko-car-select__controls">
-							<span onClick={this.toggleCarOptions}
-                                  className={"gl_link color_black kasko-car-select__controls--toggle " + (this.state.showCarOptions || !collapseCarInfo ? 'expanded' : 'collapsed')}
-                            ><span>Mazda CX-5</span> <span className="kasko-car-select__controls--equipment">2.0 MPI - 6AT</span>
-							</span>
-                        </div>
-
-                        <Row gutter={20}>
-                            <Col span={6} ref={this.setWrapperRef}
-                                 className={this.state.carPriceEdit ? "kasko-car-select__description--price-edit" : ""}>
-                                {this.state.carPriceEdit ?
-                                    <FormInput span={null} onChangeCallback={this.formControlCallback}
-                                               placeholder="Стоимость, ₽"
-                                               inputmask={carPriceMask}
-                                               controlName={'carPrice'} value={this.state.carPrice}/>
-                                    : <div onClick={() => {
-                                        this.togglePriceEdit(true)
-                                    }}
-                                           className="kasko-car-select__description--price">{formatMoney(this.state.carPrice)} ₽</div>
-                                }
-                            </Col>
-                        </Row>
-                    </div>
-                }
-
-                {this.state.showCarOptions || !this.state.carFound || !collapseCarInfo ?
+                {this.props.garage ?
+                    <CarGarage carList={[
+                        {
+                            carMark: 'Hyundai',
+                            carModel: 'Sonata',
+                            carYear: '2013',
+                            newCar: true,
+                            carPrice: 1524000,
+                            options: {
+                                credit: true,
+                                kasko: true,
+                                osago: false
+                            }
+                        },
+                        {
+                            carMark: 'Mazda',
+                            carModel: 'CX5',
+                            carYear: '2013',
+                            newCar: false,
+                            carPrice: 1524000,
+                            options: {
+                                credit: false,
+                                kasko: false,
+                                osago: true
+                            }
+                        }
+                    ]}/> :
                     <>
-                        <div
-                            className={"kasko-car-select__controls radio_v2 w_100p" + (this.state.newCarHighlight && this.state.newCar === null ? " highlight_radio" : "")}>
-                            <Radio.Group
-                                defaultValue={step === 1 ? (this.state.reopen ? (this.state.newCar ? 1 : 0) : null) : this.state.newCar ? 1 : null}
-                                onChange={this.onCarNewChange}>
+                        {!this.state.carFound ?
+                            <h1 className="kasko-main__title"><span>Выберите автомобиль</span></h1>
+                            :
+                            <div className="kasko-car-select__description">
+                                <div className="kasko-car-select__description--link gl_link">В архив</div>
+                                <div className="kasko-car-select__controls"><span onClick={this.toggleCarOptions}
+                                  className={"gl_link color_black kasko-car-select__controls--toggle " + (this.state.showCarOptions || !collapseCarInfo ? 'expanded' : 'collapsed')}
+                            ><span>Mazda CX-5</span> <span className="kasko-car-select__controls--equipment">2.0 MPI - 6AT</span></span>
+                                </div>
+
                                 <Row gutter={20}>
-                                    <Col>
-                                        <Radio value={1}>Новый</Radio>
-                                    </Col>
-                                    <Col>
-                                        <Radio value={0}>С пробегом</Radio>
-                                    </Col>
-                                </Row>
-                            </Radio.Group>
-                        </div>
-
-                        {this.state.newCar === null || this.state.newCar ? null :
-                            <Form {...layout} ref={this.formRef} name="control-ref" onFinish={this.onFinish}>
-                                <Row className="kasko-car-select__controls" gutter={20}>
-                                    <FormInput span={6} onChangeCallback={this.formControlCallback}
-                                               placeholder="Госномер автомобиля"
-                                               inputmask={carNumberMask}
-                                               controlName={'carNumber'} value={this.state.carNumber}/>
-
-                                    <Col span={6}>
-                                        <Button htmlType={searchDisabled ? null : "submit"}
-                                                className={"w_100p " + (this.state.carFound !== void 0 ? "btn_grey" :
-                                                    this.state.formBusy ? "btn_grey" : "ant-btn-primary")}
-                                                disabled={searchDisabled ? 'disabled' : null}>
-                                            {this.state.carFound === void 0 ?
-                                                this.state.formBusy ?
-                                                    <span className={"btn_search"}>Поиск</span> :
-                                                    <span className={"btn_text"}>Найти данные ТС</span>
-                                                : this.state.carFound ?
-                                                    <span className={"btn_text color_green"}>Данные найдены</span> :
-                                                    <span className={"btn_text color_red"}>Данные не найдены</span>
-                                            }
-                                        </Button>
+                                    <Col span={6} ref={this.setWrapperRef}
+                                         className={this.state.carPriceEdit ? "kasko-car-select__description--price-edit" : ""}>
+                                        {this.state.carPriceEdit ?
+                                            <FormInput span={null} onChangeCallback={this.formControlCallback}
+                                                       placeholder="Стоимость, ₽"
+                                                       inputmask={carPriceMask}
+                                                       controlName={'carPrice'} value={this.state.carPrice}/>
+                                            : <div onClick={() => {
+                                                this.togglePriceEdit(true)
+                                            }}
+                                                   className="kasko-car-select__description--price">{formatMoney(this.state.carPrice)} ₽</div>
+                                        }
                                     </Col>
                                 </Row>
-                            </Form>
+                            </div>
                         }
 
-                        {this.state.newCar === null ? null :
-                            <Row className="kasko-car-select__controls" gutter={20}>
-                                <FormSelect span={6} onChangeCallback={this.formControlCallback}
-                                            options={this.state.markList}
-                                            className={this.activeClass('carMark')}
-                                            placeholder="Марка" controlName={'carMark'}
-                                            value={this.state.carMark}/>
-
-                                <FormSelect span={6} onChangeCallback={this.formControlCallback}
-                                            options={this.state.modelList}
-                                            className={this.activeClass('carModel')}
-                                            placeholder="Модель" controlName={'carModel'}
-                                            value={this.state.carModel}/>
-
-                                <FormSelect span={6} onChangeCallback={this.formControlCallback}
-                                            options={this.state.equipmentList}
-                                            className={this.activeClass('carEquipment')}
-                                            placeholder="Комплектация" controlName={'carEquipment'}
-                                            value={this.state.carEquipment}/>
-
-                                <FormInput span={6} onChangeCallback={this.formControlCallback}
-                                           placeholder="Стоимость, ₽"
-                                           disabled={this.state.newCar ? "disabled" : ""}
-                                           inputmask={carPowerMask}
-                                           controlName={'carPrice'} value={this.state.carPrice}/>
-                            </Row>
-                        }
-
-                        {this.state.showAdditional ?
+                        {this.state.showCarOptions || !this.state.carFound || !collapseCarInfo ?
                             <>
-                                <Row className="kasko-car-select__controls" gutter={20}>
-                                    <FormInput span={6} onChangeCallback={this.formControlCallback}
-                                               placeholder="Пробег, км"
-                                               inputmask={carPowerMask}
-                                               controlName={'carMileage'} value={this.state.carMileage}/>
+                                <div
+                                    className={"kasko-car-select__controls radio_v2 w_100p" + (this.state.newCarHighlight && this.state.newCar === null ? " highlight_radio" : "")}>
+                                    <Radio.Group
+                                        defaultValue={step === 1 ? (this.state.reopen ? (this.state.newCar ? 1 : 0) : null) : this.state.newCar ? 1 : null}
+                                        onChange={this.onCarNewChange}>
+                                        <Row gutter={20}>
+                                            <Col>
+                                                <Radio value={1}>Новый</Radio>
+                                            </Col>
+                                            <Col>
+                                                <Radio value={0}>С пробегом</Radio>
+                                            </Col>
+                                        </Row>
+                                    </Radio.Group>
+                                </div>
 
-                                    <FormInput span={6} onChangeCallback={this.formControlCallback}
-                                               placeholder="Мощность"
-                                               inputmask={carPowerMask}
-                                               controlName={'carPower'} value={this.state.carPower}/>
+                                {this.state.newCar === null || this.state.newCar ? null :
+                                    <Form {...layout} ref={this.formRef} name="control-ref" onFinish={this.onFinish}>
+                                        <Row className="kasko-car-select__controls" gutter={20}>
+                                            <FormInput span={6} onChangeCallback={this.formControlCallback}
+                                                       placeholder="Госномер автомобиля"
+                                                       inputmask={carNumberMask}
+                                                       controlName={'carNumber'} value={this.state.carNumber}/>
 
-                                    <FormSelect span={6} onChangeCallback={this.formControlCallback}
-                                                options={engineCapacityList}
-                                                placeholder="Объем двигателя" controlName={'engineCapacity'}
-                                                value={this.state.engineCapacity}/>
+                                            <Col span={6}>
+                                                <Button htmlType={searchDisabled ? null : "submit"}
+                                                        className={"w_100p " + (this.state.carFound !== void 0 ? "btn_grey" :
+                                                            this.state.formBusy ? "btn_grey" : "ant-btn-primary")}
+                                                        disabled={searchDisabled ? 'disabled' : null}>
+                                                    {this.state.carFound === void 0 ?
+                                                        this.state.formBusy ?
+                                                            <span className={"btn_search"}>Поиск</span> :
+                                                            <span className={"btn_text"}>Найти данные ТС</span>
+                                                        : this.state.carFound ?
+                                                            <span
+                                                                className={"btn_text color_green"}>Данные найдены</span> :
+                                                            <span
+                                                                className={"btn_text color_red"}>Данные не найдены</span>
+                                                    }
+                                                </Button>
+                                            </Col>
+                                        </Row>
+                                    </Form>
+                                }
 
-                                    <FormSelect span={6} onChangeCallback={this.formControlCallback}
-                                                options={yearList}
-                                                className={this.activeClass('carYear')}
-                                                disabled={this.state.newCar ? "disabled" : ""}
-                                                placeholder="Год выпуска" controlName={'carYear'}
-                                                value={this.state.carYear}/>
+                                {this.state.newCar === null ? null :
+                                    <Row className="kasko-car-select__controls" gutter={20}>
+                                        <FormSelect span={6} onChangeCallback={this.formControlCallback}
+                                                    options={this.state.markList}
+                                                    className={this.activeClass('carMark')}
+                                                    placeholder="Марка" controlName={'carMark'}
+                                                    value={this.state.carMark}/>
 
-                                    {/*<FormInput span={6} onChangeCallback={this.formControlCallback}*/}
-                                    {/*		   placeholder="Стоимость, ₽"*/}
-                                    {/*		   inputmask={carPriceMask}*/}
-                                    {/*		   controlName={'carPrice'} value={''}/>*/}
+                                        <FormSelect span={6} onChangeCallback={this.formControlCallback}
+                                                    options={this.state.modelList}
+                                                    className={this.activeClass('carModel')}
+                                                    placeholder="Модель" controlName={'carModel'}
+                                                    value={this.state.carModel}/>
 
-                                    {/*<FormInput span={6} onChangeCallback={this.formControlCallback}*/}
-                                    {/*		   placeholder="Регион эксплуатации"*/}
-                                    {/*		   controlName={'carRegion'} value={this.state.carRegion}/>*/}
+                                        <FormSelect span={6} onChangeCallback={this.formControlCallback}
+                                                    options={this.state.equipmentList}
+                                                    className={this.activeClass('carEquipment')}
+                                                    placeholder="Комплектация" controlName={'carEquipment'}
+                                                    value={this.state.carEquipment}/>
+
+                                        <FormInput span={6} onChangeCallback={this.formControlCallback}
+                                                   placeholder="Стоимость, ₽"
+                                                   disabled={this.state.newCar ? "disabled" : ""}
+                                                   inputmask={carPowerMask}
+                                                   controlName={'carPrice'} value={this.state.carPrice}/>
+                                    </Row>
+                                }
+
+                                {this.state.showAdditional ?
+                                    <>
+                                        <Row className="kasko-car-select__controls" gutter={20}>
+                                            <FormInput span={6} onChangeCallback={this.formControlCallback}
+                                                       placeholder="Пробег, км"
+                                                       inputmask={carPowerMask}
+                                                       controlName={'carMileage'} value={this.state.carMileage}/>
+
+                                            <FormInput span={6} onChangeCallback={this.formControlCallback}
+                                                       placeholder="Мощность"
+                                                       inputmask={carPowerMask}
+                                                       controlName={'carPower'} value={this.state.carPower}/>
+
+                                            <FormSelect span={6} onChangeCallback={this.formControlCallback}
+                                                        options={engineCapacityList}
+                                                        placeholder="Объем двигателя" controlName={'engineCapacity'}
+                                                        value={this.state.engineCapacity}/>
+
+                                            <FormSelect span={6} onChangeCallback={this.formControlCallback}
+                                                        options={yearList}
+                                                        className={this.activeClass('carYear')}
+                                                        disabled={this.state.newCar ? "disabled" : ""}
+                                                        placeholder="Год выпуска" controlName={'carYear'}
+                                                        value={this.state.carYear}/>
+
+                                            {/*<FormInput span={6} onChangeCallback={this.formControlCallback}*/}
+                                            {/*		   placeholder="Стоимость, ₽"*/}
+                                            {/*		   inputmask={carPriceMask}*/}
+                                            {/*		   controlName={'carPrice'} value={''}/>*/}
+
+                                            {/*<FormInput span={6} onChangeCallback={this.formControlCallback}*/}
+                                            {/*		   placeholder="Регион эксплуатации"*/}
+                                            {/*		   controlName={'carRegion'} value={this.state.carRegion}/>*/}
 
 
-                                </Row>
+                                        </Row>
 
-                                <Row className="kasko-car-select__controls" gutter={20}>
+                                        <Row className="kasko-car-select__controls" gutter={20}>
 
-                                    <FormInput span={6} onChangeCallback={this.formControlCallback}
-                                               placeholder="VIN"
-                                               className={(allFields ? "input-error" : "")}
-                                               inputmask={carVINMask}
-                                               controlName={'carVIN'} value={''}/>
+                                            <FormInput span={6} onChangeCallback={this.formControlCallback}
+                                                       placeholder="VIN"
+                                                       className={(allFields ? "input-error" : "")}
+                                                       inputmask={carVINMask}
+                                                       controlName={'carVIN'} value={''}/>
 
-                                    <FormInput span={6} onChangeCallback={this.formControlCallback}
-                                               placeholder="Регион эксплуатации"
-                                               controlName={'carRegion'} value={''}/>
+                                            <FormInput span={6} onChangeCallback={this.formControlCallback}
+                                                       placeholder="Регион эксплуатации"
+                                                       controlName={'carRegion'} value={''}/>
 
-                                    <FormInput span={6} onChangeCallback={this.formControlCallback}
-                                               placeholder={"Дата начала \n эксплуатации"}
-                                               inputmask={dateFormatMask}
-                                               controlName={'carUsageStart'} value={this.state.carUsageStart}/>
+                                            <FormInput span={6} onChangeCallback={this.formControlCallback}
+                                                       placeholder={"Дата начала \n эксплуатации"}
+                                                       inputmask={dateFormatMask}
+                                                       controlName={'carUsageStart'} value={this.state.carUsageStart}/>
 
-                                    <FormCheckbox onChangeCallback={this.formControlCallback}
-                                                  text="Такси"
-                                                  className="checkbox_middle check_v3"
-                                                  value={0}
-                                                  controlName={'carTaxi'}
-                                                  checked={this.state.carTaxi}/>
+                                            <FormCheckbox onChangeCallback={this.formControlCallback}
+                                                          text="Такси"
+                                                          className="checkbox_middle check_v3"
+                                                          value={0}
+                                                          controlName={'carTaxi'}
+                                                          checked={this.state.carTaxi}/>
 
-                                    <FormCheckbox onChangeCallback={this.formControlCallback}
-                                                  text="Автозапуск"
-                                                  className="checkbox_middle check_v3"
-                                                  value={0}
-                                                  controlName={'carAutoStart'}
-                                                  checked={this.state.carAutoStart}/>
+                                            <FormCheckbox onChangeCallback={this.formControlCallback}
+                                                          text="Автозапуск"
+                                                          className="checkbox_middle check_v3"
+                                                          value={0}
+                                                          controlName={'carAutoStart'}
+                                                          checked={this.state.carAutoStart}/>
 
-                                </Row>
+                                        </Row>
 
-                                <Row className="kasko-car-select__controls" gutter={20}>
-                                    <FormSelect span={6} onChangeCallback={this.formControlCallback}
-                                                options={this.state.carMotorTypeList}
-                                                placeholder="Тип двигателя" controlName={'carMotorType'}
-                                                value={this.state.carMotorType}/>
+                                        <Row className="kasko-car-select__controls" gutter={20}>
+                                            <FormSelect span={6} onChangeCallback={this.formControlCallback}
+                                                        options={this.state.carMotorTypeList}
+                                                        placeholder="Тип двигателя" controlName={'carMotorType'}
+                                                        value={this.state.carMotorType}/>
 
-                                    <FormSelect span={6} onChangeCallback={this.formControlCallback}
-                                                options={this.state.carBodyTypeList}
-                                                placeholder="Тип кузова" controlName={'carBodyType'}
-                                                value={this.state.carBodyType}/>
+                                            <FormSelect span={6} onChangeCallback={this.formControlCallback}
+                                                        options={this.state.carBodyTypeList}
+                                                        placeholder="Тип кузова" controlName={'carBodyType'}
+                                                        value={this.state.carBodyType}/>
 
-                                    <FormSelect span={6} onChangeCallback={this.formControlCallback}
-                                                options={this.state.carTransmissionTypeList}
-                                                placeholder="Тип КПП" controlName={'carTransmissionType'}
-                                                value={this.state.carTransmissionType}/>
+                                            <FormSelect span={6} onChangeCallback={this.formControlCallback}
+                                                        options={this.state.carTransmissionTypeList}
+                                                        placeholder="Тип КПП" controlName={'carTransmissionType'}
+                                                        value={this.state.carTransmissionType}/>
 
-                                    <FormSelect span={6} onChangeCallback={this.formControlCallback}
-                                                options={this.state.carATSList}
-                                                className={(allFields ? "wrapper-error" : "")}
-                                                placeholder="Противоугонная система" controlName={'carATS'}
-                                                value={this.state.carATS}/>
+                                            <FormSelect span={6} onChangeCallback={this.formControlCallback}
+                                                        options={this.state.carATSList}
+                                                        className={(allFields ? "wrapper-error" : "")}
+                                                        placeholder="Противоугонная система" controlName={'carATS'}
+                                                        value={this.state.carATS}/>
 
-                                </Row>
+                                        </Row>
 
-                                <Row className="kasko-car-select__controls" gutter={20}>
-                                    <FormInput span={6} onChangeCallback={this.formControlCallback}
-                                               placeholder="Серия, номер ПТС"
-                                               className={(allFields ? "input-error" : "")}
-                                               controlName={'carPTS'} value={''}/>
+                                        <Row className="kasko-car-select__controls" gutter={20}>
+                                            <FormInput span={6} onChangeCallback={this.formControlCallback}
+                                                       placeholder="Серия, номер ПТС"
+                                                       className={(allFields ? "input-error" : "")}
+                                                       controlName={'carPTS'} value={''}/>
 
-                                    <FormInput span={6} onChangeCallback={this.formControlCallback}
-                                               placeholder="Дата выдачи ПТС"
-                                               className={(allFields ? "input-error" : "")}
-                                               controlName={'carPTSStart'} value={''}/>
+                                            <FormInput span={6} onChangeCallback={this.formControlCallback}
+                                                       placeholder="Дата выдачи ПТС"
+                                                       className={(allFields ? "input-error" : "")}
+                                                       controlName={'carPTSStart'} value={''}/>
 
-                                    <FormInput span={6} onChangeCallback={this.formControlCallback}
-                                               placeholder="Серия, номер СТС"
-                                               className={(allFields ? "input-error" : "")}
-                                               controlName={'carSTS'} value={''}/>
+                                            <FormInput span={6} onChangeCallback={this.formControlCallback}
+                                                       placeholder="Серия, номер СТС"
+                                                       className={(allFields ? "input-error" : "")}
+                                                       controlName={'carSTS'} value={''}/>
 
-                                    <FormInput span={6} onChangeCallback={this.formControlCallback}
-                                               placeholder="Дата выдачи СТС"
-                                               className={(allFields ? "input-error" : "")}
-                                               controlName={'carSTSStart'} value={''}/>
-                                </Row>
+                                            <FormInput span={6} onChangeCallback={this.formControlCallback}
+                                                       placeholder="Дата выдачи СТС"
+                                                       className={(allFields ? "input-error" : "")}
+                                                       controlName={'carSTSStart'} value={''}/>
+                                        </Row>
 
-                                <Row className="kasko-car-select__controls" gutter={20}>
-                                    <FormInput span={6} onChangeCallback={this.formControlCallback}
-                                               placeholder="Диагностическая карта"
-                                               inputmask={carNumberMask}
-                                               controlName={'carDiagnosticCard'} value={''}/>
+                                        <Row className="kasko-car-select__controls" gutter={20}>
+                                            <FormInput span={6} onChangeCallback={this.formControlCallback}
+                                                       placeholder="Диагностическая карта"
+                                                       inputmask={carNumberMask}
+                                                       controlName={'carDiagnosticCard'} value={''}/>
 
-                                    <FormInput span={6} onChangeCallback={this.formControlCallback}
-                                               placeholder={"Срок действия"}
-                                               inputmask={dateFormatMask}
-                                               controlName={'carDiagnosticCardDuration'} value={''}/>
-                                </Row>
+                                            <FormInput span={6} onChangeCallback={this.formControlCallback}
+                                                       placeholder={"Срок действия"}
+                                                       inputmask={dateFormatMask}
+                                                       controlName={'carDiagnosticCardDuration'} value={''}/>
+                                        </Row>
 
-                                <Row
-                                    className="kasko-car-select__controls kasko-car-select__controls--price radio_v2-2"
-                                    gutter={20}>
-                                    <Col span={6} className="kasko-car-select__controls--credit">
-                                        <Radio.Group
-                                            className={"w_100p " + (this.state.showAdditional ? "full_form" : "short_form")}
-                                            onChange={this.onCarCreditChange}>
-                                            <Row gutter={20}>
-                                                <Col span={12}>
-                                                    <Radio disabled={this.state.allowPayment ? null : "disabled"}
-                                                           checked={this.state.carCredit ? "checked" : ""}
-                                                           value={1}>В кредит</Radio>
+                                        <Row
+                                            className="kasko-car-select__controls kasko-car-select__controls--price radio_v2-2"
+                                            gutter={20}>
+                                            <Col span={6} className="kasko-car-select__controls--credit">
+                                                <Radio.Group
+                                                    className={"w_100p " + (this.state.showAdditional ? "full_form" : "short_form")}
+                                                    onChange={this.onCarCreditChange}>
+                                                    <Row gutter={20}>
+                                                        <Col span={12}>
+                                                            <Radio
+                                                                disabled={this.state.allowPayment ? null : "disabled"}
+                                                                checked={this.state.carCredit ? "checked" : ""}
+                                                                value={1}>В кредит</Radio>
+                                                        </Col>
+                                                        <Col span={12} className={"ant-col-mla"}>
+                                                            <Radio
+                                                                disabled={this.state.allowPayment ? null : "disabled"}
+                                                                checked={!this.state.carCredit ? "checked" : ""}
+                                                                value={0}>За наличные</Radio>
+                                                        </Col>
+                                                    </Row>
+                                                </Radio.Group>
+                                            </Col>
+
+                                            {this.state.carCredit ?
+                                                <FormSelect cellClass="align-start" span={6}
+                                                            onChangeCallback={this.formControlCallback}
+                                                            options={this.state.carBankNameList}
+                                                            placeholder="Банк" controlName={'carBankName'}
+                                                            value={this.state.carBankName}/>
+                                                : <Col span={6}/>
+                                            }
+
+                                            <Col span={6}
+                                                 className="kasko-car-select__additional _inactive text_right ant-col-mla">
+                                                <div className="gl_link" onClick={this.toggleAdditionalFields}>Скрыть
+                                                </div>
+                                            </Col>
+
+                                        </Row>
+
+
+                                        {/*<Row className="kasko-car-select__controls" gutter={20}>*/}
+                                        {/*	<FormInput span={6} onChangeCallback={this.formControlCallback}*/}
+                                        {/*			   placeholder="Мощность"*/}
+                                        {/*			   inputmask={carPowerMask}*/}
+                                        {/*			   controlName={'carPower'} value={this.state.carPower}/>*/}
+
+
+                                        {/*	<Col span={6} className="checkbox_middle check_v3">*/}
+                                        {/*		<Checkbox onChange={this.onAutoStartChange}>Автозапуск</Checkbox>*/}
+                                        {/*	</Col>*/}
+                                        {/*</Row>*/}
+                                    </>
+                                    : null
+                                }
+
+                                {this.state.newCar === null ? null :
+                                    <Row
+                                        className="kasko-car-select__controls kasko-car-select__controls--price radio_v2"
+                                        gutter={20}>
+                                        {
+                                            this.state.showAdditional ? null :
+                                                <Col className="kasko-car-select__additional _inactive ant-col-mla">
+                                                    <div className="gl_link"
+                                                         onClick={this.toggleAdditionalFields}>Дополнительно
+                                                    </div>
                                                 </Col>
-                                                <Col span={12} className={"ant-col-mla"}>
-                                                    <Radio disabled={this.state.allowPayment ? null : "disabled"}
-                                                           checked={!this.state.carCredit ? "checked" : ""}
-                                                           value={0}>За наличные</Radio>
-                                                </Col>
-                                            </Row>
-                                        </Radio.Group>
-                                    </Col>
-
-                                    {this.state.carCredit ?
-                                        <FormSelect cellClass="align-start" span={6}
-                                                    onChangeCallback={this.formControlCallback}
-                                                    options={this.state.carBankNameList}
-                                                    placeholder="Банк" controlName={'carBankName'}
-                                                    value={this.state.carBankName}/>
-                                        : <Col span={6} />
-                                    }
-
-                                    <Col span={6}
-                                         className="kasko-car-select__additional _inactive text_right ant-col-mla">
-                                        <div className="gl_link" onClick={this.toggleAdditionalFields}>Скрыть</div>
-                                    </Col>
-
-                                </Row>
-
-
-                                {/*<Row className="kasko-car-select__controls" gutter={20}>*/}
-                                {/*	<FormInput span={6} onChangeCallback={this.formControlCallback}*/}
-                                {/*			   placeholder="Мощность"*/}
-                                {/*			   inputmask={carPowerMask}*/}
-                                {/*			   controlName={'carPower'} value={this.state.carPower}/>*/}
-
-
-                                {/*	<Col span={6} className="checkbox_middle check_v3">*/}
-                                {/*		<Checkbox onChange={this.onAutoStartChange}>Автозапуск</Checkbox>*/}
-                                {/*	</Col>*/}
-                                {/*</Row>*/}
+                                        }
+                                    </Row>
+                                }
                             </>
                             : null
                         }
 
-                        {this.state.newCar === null ? null :
-                            <Row className="kasko-car-select__controls kasko-car-select__controls--price radio_v2"
-                                 gutter={20}>
-                                {
-                                    this.state.showAdditional ? null :
-                                        <Col className="kasko-car-select__additional _inactive ant-col-mla">
-                                            <div className="gl_link" onClick={this.toggleAdditionalFields}>Дополнительно</div>
-                                        </Col>
-                                }
-                            </Row>
+                        {
+                            allFields ? null :
+                                <div
+                                    className={"kasko-car-select__image" + (step === 1 && !this.state.allowPayment ? " _inactive__" : "")}>
+                                    <img src={'./cars/' + image + '.png'} alt=""/>
+                                </div>
                         }
-                    </>
-                    : null
-                }
 
-                {
-                    allFields ? null :
-                        <div
-                            className={"kasko-car-select__image" + (step === 1 && !this.state.allowPayment ? " _inactive__" : "")}>
-                            <img src={'./cars/' + image + '.png'} alt=""/>
-                        </div>
+                    </>
                 }
 
                 {/*{fill ? null :*/}
