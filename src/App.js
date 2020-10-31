@@ -93,7 +93,7 @@ function App() {
             )}/>
             <Route path="/car" render={(routeProps) => (
                 <PageLayout>
-                    <Kasko showCar={true} {...routeProps} step={2} tabs={true}
+                    <Kasko showCar={true} {...routeProps} step={1} tabs={true}
                            dev={process.env.NODE_ENV !== 'production'} showOffers={true}/>
                 </PageLayout>
             )}/>

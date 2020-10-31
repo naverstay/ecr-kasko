@@ -32,7 +32,7 @@ class Kasko extends Component {
             productCount: 0,
             updatePaymentState: 0,
             carFound: this.props.dev || this.props.showCar || false,
-            carImage: this.props.step === 1 ? 'car' : 'Hyundai',
+            carImage: (this.props.showCar || this.props.step !== 1) ? 'Hyundai' : 'car',
             markList: [
                 "Hyundai",
                 "Mazda",
@@ -46,6 +46,8 @@ class Kasko extends Component {
         showOffers: PropTypes.any,
         progress: PropTypes.any,
         innerWidth: PropTypes.number,
+        showCar: PropTypes.bool,
+        addCar: PropTypes.bool,
         step: PropTypes.number
     };
 
