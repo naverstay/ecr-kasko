@@ -366,7 +366,7 @@ class CarSelect extends Component {
     }
 
     render() {
-        const {allFields, step, hideOffers, fill, collapseCarInfo} = this.props;
+        const {allFields, step, hideOffers, fill, collapseCarInfo, addCar} = this.props;
         let {image} = this.props;
         //const dateFormat = "DD.MM.YY"
         let dateFormatMask = "'mask': '99.99.9999', 'showMaskOnHover': 'false'"
@@ -550,9 +550,9 @@ class CarSelect extends Component {
                             newCar: true,
                             carPrice: 1524000,
                             options: {
-                                credit: true,
-                                kasko: true,
-                                osago: false
+                                credit: 'waiting',
+                                osago: 'approved',
+                                kasko: ''
                             }
                         },
                         {
@@ -562,21 +562,21 @@ class CarSelect extends Component {
                             newCar: false,
                             carPrice: 1524000,
                             options: {
-                                credit: false,
-                                kasko: false,
-                                osago: true
+                                credit: '',
+                                osago: '',
+                                kasko: 'approved'
                             }
                         }
                     ]}/> :
                     <>
                         {!this.state.carFound ?
-                            <h1 className="kasko-main__title"><span>Выберите автомобиль</span></h1>
+                            addCar ? null : <h1 className="kasko-main__title"><span>Выберите автомобиль</span></h1>
                             :
                             <div className="kasko-car-select__description">
                                 <div className="kasko-car-select__description--link gl_link">В архив</div>
                                 <div className="kasko-car-select__controls"><span onClick={this.toggleCarOptions}
-                                  className={"gl_link color_black kasko-car-select__controls--toggle " + (this.state.showCarOptions || !collapseCarInfo ? 'expanded' : 'collapsed')}
-                            ><span>Mazda CX-5</span> <span className="kasko-car-select__controls--equipment">2.0 MPI - 6AT</span></span>
+                                                                                  className={"gl_link color_black kasko-car-select__controls--toggle " + (this.state.showCarOptions || !collapseCarInfo ? 'expanded' : 'collapsed')}
+                                ><span>Mazda CX-5</span> <span className="kasko-car-select__controls--equipment">2.0 MPI - 6AT</span></span>
                                 </div>
 
                                 <Row gutter={20}>
@@ -597,7 +597,7 @@ class CarSelect extends Component {
                             </div>
                         }
 
-                        {this.state.showCarOptions || !this.state.carFound || !collapseCarInfo ?
+                        {!addCar && (this.state.showCarOptions || !this.state.carFound || !collapseCarInfo) ?
                             <>
                                 <div
                                     className={"kasko-car-select__controls radio_v2 w_100p" + (this.state.newCarHighlight && this.state.newCar === null ? " highlight_radio" : "")}>
@@ -877,10 +877,20 @@ class CarSelect extends Component {
 
                         {
                             allFields ? null :
-                                <div
-                                    className={"kasko-car-select__image" + (step === 1 && !this.state.allowPayment ? " _inactive__" : "")}>
-                                    <img src={'./cars/' + image + '.png'} alt=""/>
-                                </div>
+                                addCar ?
+                                    <>
+                                        <div className={"kasko-car-select__slider"}>
+                                            <div
+                                                className={"kasko-car-select__image" + (step === 1 && !this.state.allowPayment ? " _inactive__" : "")}>
+                                                <img src={'./cars/' + image + '.png'} alt=""/>
+                                            </div>
+                                        </div>
+                                    </>
+                                    :
+                                    <div
+                                        className={"kasko-car-select__image" + (step === 1 && !this.state.allowPayment ? " _inactive__" : "")}>
+                                        <img src={'./cars/' + image + '.png'} alt=""/>
+                                    </div>
                         }
 
                     </>

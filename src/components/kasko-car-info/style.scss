@@ -88,6 +88,11 @@
     padding: 0;
     justify-content: space-between;
 
+    .kasko-car-select & {
+      justify-content: center;
+      margin-left: -12px;
+    }
+
     &--item {
       @extend %text3;
       margin-top: 12px;
@@ -118,8 +123,11 @@
         background: $color-green;
         border: 1px solid $color-green;
       }
-    }
 
+      .kasko-car-select & {
+        margin-left: 12px;
+      }
+    }
   }
 
   &__controls {

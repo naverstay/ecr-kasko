@@ -3,6 +3,70 @@
 .kasko-car-select {
   color: #000;
 
+  &._add {
+    display: flex;
+    flex-flow: column nowrap;
+    justify-content: center;
+    align-items: center;
+    background: #f7f7f7;
+    font-weight: 500;
+    font-size: 24px;
+    min-height: 359px;
+    text-align: center;
+    margin-bottom: 15px;
+    color: #b5b5b5;
+    cursor: pointer;
+
+    &:before {
+      display: block;
+      font-family: $icomoon-font-family;
+      content: $i-plus;
+      font-size: 40px;
+      width: 60px;
+      height: 60px;
+      line-height: 60px;
+      margin: -5px auto 35px;
+      background: #b5b5b5;
+      border-radius: 100%;
+      color: #fff;
+    }
+  }
+
+  &._garage {
+    display: block;
+    cursor: pointer;
+    border: 1px solid #b5b5b5;
+    min-height: 359px;
+    margin-top: 8px;
+    margin-bottom: 20px;
+    padding-bottom: 12px;
+
+    .kasko-car-select__description {
+      .kasko-car-select__description--price {
+        font-size: 14px;
+        margin-bottom: 5px;
+      }
+
+      .kasko-car-select__controls {
+        margin-bottom: 12px;
+      }
+
+      .kasko-car-select__controls--toggle {
+        margin-left: 0;
+      }
+    }
+
+    .kasko-car-select__image {
+      margin: 10px 0 5px;
+      height: 170px;
+      line-height: 170px;
+
+      img {
+        max-height: 165px;
+      }
+    }
+  }
+
   ._inactive {
     color: $color-grey;
   }
@@ -157,6 +221,17 @@
 
     &._inactive {
       opacity: .3;
+    }
+  }
+
+  &__slider {
+    position: relative;
+    padding: 15px 115px;
+
+    .kasko-car-select__image {
+      height: 276px;
+      line-height: 276px;
+      background: rgba(247, 247, 247, 0.5);
     }
   }
 

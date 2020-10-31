@@ -82,7 +82,7 @@ class Kasko extends Component {
     }
 
     render() {
-        let {showOffers, step, progress, cabinet, tabs, addCar, showGarage} = this.props;
+        let {showOffers, step, progress, cabinet, tabs, addCar, showGarage, showCar} = this.props;
         let status = 0
 
         const statusClasses = {
@@ -196,120 +196,125 @@ class Kasko extends Component {
                             <>
                                 <CarSelect collapseCarInfo={this.state.carFound}
                                            showCarOptions={(this.state.tabIndex !== null)}
-                                           garage={true}
+                                           garage={showGarage}
+                                           fill={showCar}
+                                           addCar={addCar}
                                            imageCallback={this.imageCallback} step={step} image={this.state.carImage}/>
-                                <Tabs selectedIndex={this.state.tabIndex === null ? -1 : this.state.tabIndex}
-                                      onSelect={this.updateTab}
-                                      className={'kasko-tabs__wrapper' + (this.state.carFound && this.state.tabIndex === null ? ' highlight_tab' : '')}>
-                                    <TabList
-                                        className={'kasko-tabs__list' + (this.state.carFound ? ' active' : '') + (this.state.tabIndex === null ? '' : ' selected')}>
-                                        <Tab className={'kasko-tabs__tab'}>
-                                            <div className="kasko-tab__panel-name"><span
-                                                className="kasko-tab__panel-name--text">Кредит</span>
-                                                {this.state.tabIndex === 0 ?
-                                                    tabStatus
-                                                    //: this.state.carFound ?
-                                                    //	<span className="kasko-tab__panel-name--val">от <b>16 450 ₽</b></span>
-                                                    : null
-                                                }
-                                            </div>
-                                        </Tab>
-                                        <Tab className={'kasko-tabs__tab'}>
-                                            <div className="kasko-tab__panel-name"><span
-                                                className="kasko-tab__panel-name--text"><span>Я</span>&nbsp;<span
-                                                className={"fz_18 i-heart" + ' _red'}/>&nbsp;<span>КАСАГО</span>
-											</span>
-                                                {this.state.tabIndex === 1 ?
-                                                    tabStatus
-                                                    //: this.state.carFound ?
-                                                    //	<span className="kasko-tab__panel-name--val">от <b>18 450 ₽</b></span>
-                                                    : null
-                                                }
-                                            </div>
-                                        </Tab>
-                                        {/*<Tab className={'kasko-tabs__tab'}>*/}
-                                        {/*	<div className="kasko-tab__panel-name"><span*/}
-                                        {/*		className="kasko-tab__panel-name--text">КАСКО</span>*/}
-                                        {/*		{this.state.tabIndex === 1 ?*/}
-                                        {/*			tabStatus*/}
-                                        {/*			: this.state.carFound ?*/}
-                                        {/*				<span className="kasko-tab__panel-name--val">от <b>18 450 ₽</b></span>*/}
-                                        {/*				: null*/}
-                                        {/*		}*/}
-                                        {/*	</div>*/}
-                                        {/*</Tab>*/}
-                                        <Tab className={'kasko-tabs__tab'}>
-                                            <div className="kasko-tab__panel-name"><span
-                                                className="kasko-tab__panel-name--text">ОСАГО</span>
-                                                {this.state.tabIndex === 2 ?
-                                                    tabStatus
-                                                    //: this.state.carFound ?
-                                                    //	<span className="kasko-tab__panel-name--val">от <b>10 450 ₽</b></span>
-                                                    : null
-                                                }</div>
-                                        </Tab>
-                                        <Tab className={'kasko-tabs__tab'}>
-                                            <div className="kasko-tab__panel-name"><span
-                                                className="kasko-tab__panel-name--text">Сервис меню</span>
-                                                {this.state.tabIndex === 3 ?
-                                                    tabStatus
-                                                    : this.state.carFound ?
-                                                        null
-                                                        : null
-                                                }
-                                            </div>
-                                        </Tab>
-                                        <Tab className={'kasko-tabs__tab'}>
-                                            <div className="kasko-tab__panel-name"><span
-                                                className="kasko-tab__panel-name--text">POS кредит</span>
-                                                {this.state.tabIndex === 4 ?
-                                                    tabStatus
-                                                    : this.state.carFound ?
-                                                        null
-                                                        : null
-                                                }
-                                            </div>
-                                        </Tab>
-                                    </TabList>
 
-                                    <TabPanel className="kasko-tab__panel">
-                                        {this.state.tabIndex === null || !this.state.carFound ? null :
-                                            <TabCredit tabCallback={this.changeTabState} step={step}
-                                                       carPrice={762000 * 2}/>
-                                        }
-                                    </TabPanel>
-                                    <TabPanel className="kasko-tab__panel">
-                                        {this.state.tabIndex === null || !this.state.carFound ? null :
-                                            <TabOffer tabCallback={this.changeTabState}
-                                                      imageCallback={this.imageCallback}
-                                                      combo={true}
-                                                      step={step} image={this.state.carImage} type={showOffers}/>
-                                        }
-                                    </TabPanel>
-                                    {/*<TabPanel className="kasko-tab__panel">*/}
-                                    {/*	{this.state.tabIndex === null || !this.state.carFound ? null :*/}
-                                    {/*		<TabOffer tabCallback={this.changeTabState} imageCallback={this.imageCallback}*/}
-                                    {/*				  step={step} image={this.state.carImage} type={showOffers}/>*/}
-                                    {/*	}*/}
-                                    {/*</TabPanel>*/}
-                                    <TabPanel className="kasko-tab__panel">
-                                        {this.state.tabIndex === null || !this.state.carFound ? null :
-                                            <TabOffer tabCallback={this.changeTabState}
-                                                      imageCallback={this.imageCallback}
-                                                      osago={true} combo={true}
-                                                      step={step} image={this.state.carImage} type={showOffers}/>
-                                        }
-                                    </TabPanel>
-                                    <TabPanel className="kasko-tab__panel">
-                                        {this.state.tabIndex === null || !this.state.carFound ? null :
-                                            <TabService step={step} tabCallback={this.changeTabState}/>
-                                        }
-                                    </TabPanel>
-                                    <TabPanel className="kasko-tab__panel">
-                                        {this.state.tabIndex === null || !this.state.carFound ? null :
-                                            <h2>POS кредит</h2>}
-                                    </TabPanel>
-                                </Tabs>
+                                {showGarage ? null :
+                                    <Tabs selectedIndex={this.state.tabIndex === null ? -1 : this.state.tabIndex}
+                                          onSelect={this.updateTab}
+                                          className={'kasko-tabs__wrapper' + (this.state.carFound && this.state.tabIndex === null ? ' highlight_tab' : '')}>
+                                        <TabList
+                                            className={'kasko-tabs__list' + (this.state.carFound ? ' active' : '') + (this.state.tabIndex === null ? '' : ' selected')}>
+                                            <Tab className={'kasko-tabs__tab'}>
+                                                <div className="kasko-tab__panel-name"><span
+                                                    className="kasko-tab__panel-name--text">Кредит</span>
+                                                    {this.state.tabIndex === 0 ?
+                                                        tabStatus
+                                                        //: this.state.carFound ?
+                                                        //	<span className="kasko-tab__panel-name--val">от <b>16 450 ₽</b></span>
+                                                        : null
+                                                    }
+                                                </div>
+                                            </Tab>
+                                            <Tab className={'kasko-tabs__tab'}>
+                                                <div className="kasko-tab__panel-name"><span
+                                                    className="kasko-tab__panel-name--text"><span>Я</span>&nbsp;<span
+                                                    className={"fz_18 i-heart" + ' _red'}/>&nbsp;<span>КАСАГО</span>
+											</span>
+                                                    {this.state.tabIndex === 1 ?
+                                                        tabStatus
+                                                        //: this.state.carFound ?
+                                                        //	<span className="kasko-tab__panel-name--val">от <b>18 450 ₽</b></span>
+                                                        : null
+                                                    }
+                                                </div>
+                                            </Tab>
+                                            {/*<Tab className={'kasko-tabs__tab'}>*/}
+                                            {/*	<div className="kasko-tab__panel-name"><span*/}
+                                            {/*		className="kasko-tab__panel-name--text">КАСКО</span>*/}
+                                            {/*		{this.state.tabIndex === 1 ?*/}
+                                            {/*			tabStatus*/}
+                                            {/*			: this.state.carFound ?*/}
+                                            {/*				<span className="kasko-tab__panel-name--val">от <b>18 450 ₽</b></span>*/}
+                                            {/*				: null*/}
+                                            {/*		}*/}
+                                            {/*	</div>*/}
+                                            {/*</Tab>*/}
+                                            <Tab className={'kasko-tabs__tab'}>
+                                                <div className="kasko-tab__panel-name"><span
+                                                    className="kasko-tab__panel-name--text">ОСАГО</span>
+                                                    {this.state.tabIndex === 2 ?
+                                                        tabStatus
+                                                        //: this.state.carFound ?
+                                                        //	<span className="kasko-tab__panel-name--val">от <b>10 450 ₽</b></span>
+                                                        : null
+                                                    }</div>
+                                            </Tab>
+                                            <Tab className={'kasko-tabs__tab'}>
+                                                <div className="kasko-tab__panel-name"><span
+                                                    className="kasko-tab__panel-name--text">Сервис меню</span>
+                                                    {this.state.tabIndex === 3 ?
+                                                        tabStatus
+                                                        : this.state.carFound ?
+                                                            null
+                                                            : null
+                                                    }
+                                                </div>
+                                            </Tab>
+                                            <Tab className={'kasko-tabs__tab'}>
+                                                <div className="kasko-tab__panel-name"><span
+                                                    className="kasko-tab__panel-name--text">POS кредит</span>
+                                                    {this.state.tabIndex === 4 ?
+                                                        tabStatus
+                                                        : this.state.carFound ?
+                                                            null
+                                                            : null
+                                                    }
+                                                </div>
+                                            </Tab>
+                                        </TabList>
+
+                                        <TabPanel className="kasko-tab__panel">
+                                            {this.state.tabIndex === null || !this.state.carFound ? null :
+                                                <TabCredit tabCallback={this.changeTabState} step={step}
+                                                           carPrice={762000 * 2}/>
+                                            }
+                                        </TabPanel>
+                                        <TabPanel className="kasko-tab__panel">
+                                            {this.state.tabIndex === null || !this.state.carFound ? null :
+                                                <TabOffer tabCallback={this.changeTabState}
+                                                          imageCallback={this.imageCallback}
+                                                          combo={true}
+                                                          step={step} image={this.state.carImage} type={showOffers}/>
+                                            }
+                                        </TabPanel>
+                                        {/*<TabPanel className="kasko-tab__panel">*/}
+                                        {/*	{this.state.tabIndex === null || !this.state.carFound ? null :*/}
+                                        {/*		<TabOffer tabCallback={this.changeTabState} imageCallback={this.imageCallback}*/}
+                                        {/*				  step={step} image={this.state.carImage} type={showOffers}/>*/}
+                                        {/*	}*/}
+                                        {/*</TabPanel>*/}
+                                        <TabPanel className="kasko-tab__panel">
+                                            {this.state.tabIndex === null || !this.state.carFound ? null :
+                                                <TabOffer tabCallback={this.changeTabState}
+                                                          imageCallback={this.imageCallback}
+                                                          osago={true} combo={true}
+                                                          step={step} image={this.state.carImage} type={showOffers}/>
+                                            }
+                                        </TabPanel>
+                                        <TabPanel className="kasko-tab__panel">
+                                            {this.state.tabIndex === null || !this.state.carFound ? null :
+                                                <TabService step={step} tabCallback={this.changeTabState}/>
+                                            }
+                                        </TabPanel>
+                                        <TabPanel className="kasko-tab__panel">
+                                            {this.state.tabIndex === null || !this.state.carFound ? null :
+                                                <h2>POS кредит</h2>}
+                                        </TabPanel>
+                                    </Tabs>
+                                }
                             </>
                             :
                             showOffers === false ?
@@ -354,13 +359,30 @@ class Kasko extends Component {
                                            autos=''/>
                             </AsideBlock>
 
-                            <AsideBlock>
-                                <KaskoCarInfo step={step} notificationCount={step === 2 ? 1 : step === 3 ? 2 : 0}
-                                              carName={step === 1 ? '' : 'Hyundai'}
-                                              carModel={step === 1 ? '' : 'Sonata'} image={this.state.carImage}
-                                              info={step === 1 ? '' : "2020 Новый"}
-                                              price={step === 1 ? '' : "1 534 000 ₽"}/>
-                            </AsideBlock>
+                            {showGarage ?
+                                <>
+                                    <AsideBlock>
+                                        <KaskoCarInfo step={step} garage={true}
+                                                      notificationCount={step === 2 ? 1 : step === 3 ? 2 : 0}
+                                                      carName={'Hyundai'}
+                                                      carModel={'Sonata'}/>
+                                    </AsideBlock>
+                                    <AsideBlock>
+                                        <KaskoCarInfo step={step} garage={true}
+                                                      notificationCount={step === 2 ? 1 : step === 3 ? 2 : 0}
+                                                      carName={'Mazda'}
+                                                      carModel={'CX5'}/>
+                                    </AsideBlock>
+                                </>
+                                :
+                                <AsideBlock>
+                                    <KaskoCarInfo step={step} notificationCount={step === 2 ? 1 : step === 3 ? 2 : 0}
+                                                  carName={step === 1 ? '' : 'Hyundai'}
+                                                  carModel={step === 1 ? '' : 'Sonata'} image={this.state.carImage}
+                                                  info={step === 1 ? '' : "2020 Новый"}
+                                                  price={step === 1 ? '' : "1 534 000 ₽"}/>
+                                </AsideBlock>
+                            }
                         </Col>
 
                         <Col span={16} className="kasko-main"/>

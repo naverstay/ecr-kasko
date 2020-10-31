@@ -1,4 +1,6 @@
 import React, {Component} from "react";
+import {Link} from "react-router-dom";
+
 import Inputmask from "inputmask";
 import {Input, Col, Row, Select, Button, Checkbox, Form, Radio} from "antd";
 import './style.scss';
@@ -278,22 +280,44 @@ class CarGarage extends Component {
         console.log('carList', carList);
 
         return (
-            <div className="kasko-car-select">
+            <>
                 <ReactComment text='ecr-kasko/src/components/car-garage/index.jsx'/>
 
                 <Row gutter={20}>
                     {
                         carList.map((c) => {
                             return <Col span={12}>
+                                <Link to={"/car"} className="kasko-car-select _garage">
+                                    <div className="kasko-car-select__description">
+                                        <div className="kasko-car-select__controls"><span
+                                            className="gl_link color_black kasko-car-select__controls--toggle"><span>{c.carMark} {c.carModel}</span></span>
+                                        </div>
+                                        <div
+                                            className="kasko-car-select__description--price">{c.carYear} г. {c.newCar ? "Новый автомобиль" : "Авто с пробегом"}</div>
+                                        <div
+                                            className="kasko-car-select__description--price">{formatMoney(c.carPrice)} ₽
+                                        </div>
+                                    </div>
+                                    <div className="kasko-car-select__image"><img src={"./cars/" + c.carMark + ".png"}
+                                                                                  alt=""/></div>
 
-                                {c.carMark}
-
+                                    <ul className="kasko-car-info__status">
+                                        <li className={"kasko-car-info__status--item " + c.options.credit}>Кредит</li>
+                                        <li className={"kasko-car-info__status--item " + c.options.osago}>ОСАГО</li>
+                                        <li className={"kasko-car-info__status--item " + c.options.kasko}>КАСКО</li>
+                                    </ul>
+                                </Link>
                             </Col>
                         })
                     }
-                </Row>
 
-            </div>
+                    <Col span={12}>
+                        <Link to={'/'} className="kasko-car-select _add">
+                            <span>Добавить <br/>автомобиль</span>
+                        </Link>
+                    </Col>
+                </Row>
+            </>
         );
     }
 }
