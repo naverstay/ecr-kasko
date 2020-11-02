@@ -162,7 +162,6 @@ class PolicyForm extends Component {
     onCarNumberChange = e => {
         this.setState({carNumber: e.target.value, carFound: void 0})
         this.checkReadyState()
-
     };
 
     removeActiveField = (field) => {

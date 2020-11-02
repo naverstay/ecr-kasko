@@ -114,6 +114,18 @@ class CalculationPopup extends Component {
         console.log('checked = ', checkedValues);
     }
 
+    onPopupCancel = () => {
+        if ('updatePaymentState' in this.props && typeof this.props.updatePaymentState === 'function') {
+            this.props.updatePaymentState()
+        }
+    }
+
+    onPopupSubmit = () => {
+        if ('updatePaymentState' in this.props && typeof this.props.updatePaymentState === 'function') {
+            this.props.updatePaymentState()
+        }
+    }
+
     render() {
         let {popupCloseFunc, step, allFields, updatePaymentState, osago} = this.props
         let dateFormatMask = "'mask': '99.99.9999', 'showMaskOnHover': 'false'"
@@ -263,11 +275,11 @@ class CalculationPopup extends Component {
 
                 <Row className="kasko-car-select__controls ant-row-center" gutter={20}>
                     <Col span={3}>
-                        <div onClick={() => updatePaymentState} className="ant-btn btn_green fz_14 w_100p">
+                        <div onClick={() => this.onPopupCancel()} className="ant-btn btn_green fz_14 w_100p">
                             <span>Отмена</span></div>
                     </Col>
                     <Col span={6}>
-                        <Button onClick={() => updatePaymentState} className={"ant-btn-primary btn_middle"}>Получить расчет</Button>
+                        <Button onClick={() => this.onPopupSubmit()} className={"ant-btn-primary btn_middle"}>Получить расчет</Button>
                     </Col>
                     <Col span={3}/>
                 </Row>

@@ -289,8 +289,11 @@ class CarGarage extends Component {
                             return <Col span={12}>
                                 <Link to={"/car"} className="kasko-car-select _garage">
                                     <div className="kasko-car-select__description">
-                                        <div className="kasko-car-select__controls"><span
-                                            className="gl_link color_black kasko-car-select__controls--toggle"><span>{c.carMark} {c.carModel}</span></span>
+                                        <div className="kasko-car-select__controls">
+                                            <span className="gl_link color_black kasko-car-select__controls--toggle">
+                                                <span>{c.carMark} {c.carModel}</span>
+                                            </span>
+                                            <span className={"kasko-car-select__date"}>Дата заявки<br />20.08.19</span>
                                         </div>
                                         <div
                                             className="kasko-car-select__description--price">{c.carYear} г. {c.newCar ? "Новый автомобиль" : "Авто с пробегом"}</div>

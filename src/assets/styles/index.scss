@@ -35,6 +35,8 @@ input {
   color: $color-grey-dark;
   pointer-events: none;
   white-space: pre-line;
+  max-height: 2.56em;
+  overflow: hidden;
 
   .force_placeholder ~ &,
   .ant-picker.ant-picker-focused ~ &,
@@ -235,7 +237,8 @@ $spinner_time: 1s;
   padding-right: 10px;
 
   &.btn_middle {
-    min-width: 206px;
+    width: 100%;
+    //min-width: 206px;
     //padding-left: 40px;
     //padding-right: 40px;
 

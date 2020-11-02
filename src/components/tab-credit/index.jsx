@@ -247,6 +247,8 @@ class TabCredit extends Component {
     };
 
     updatePaymentState = (value) => {
+        console.log('updatePaymentState', value);
+
         if (this.state.showCalculationOffers) {
             this.setState({
                 showPayment: value
@@ -459,9 +461,7 @@ class TabCredit extends Component {
 
             <div className={"kasko-car-select__controls ant-row-center" + (this.state.openParams ? " mb_0" : "")}>
                 <div onClick={this.toggleCalculationOffers}
-                     className={"ant-btn ant-btn-primary btn_middle margin" + (this.state.paramsChanged ? "" : " disabled")}
-                >Получить расчет
-                </div>
+                     className={"ant-btn ant-btn-primary btn_middle margin" + (this.state.paramsChanged ? "" : " disabled")}>Получить расчет</div>
             </div>
         </>
 

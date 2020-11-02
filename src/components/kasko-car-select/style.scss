@@ -224,6 +224,13 @@
     }
   }
 
+  &__date {
+    margin-left: auto;
+    font-size: 12px;
+    line-height: 14px;
+    color: #a8a8a8;
+  }
+
   &__slider {
     position: relative;
     padding: 15px 115px;

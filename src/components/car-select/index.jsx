@@ -124,6 +124,7 @@ class CarSelect extends Component {
 
     static propTypes = {
         children: PropTypes.node,
+        addCar: PropTypes.bool,
         allFields: PropTypes.bool,
         innerWidth: PropTypes.number,
         imageCallback: PropTypes.func,
@@ -574,9 +575,10 @@ class CarSelect extends Component {
                             :
                             <div className="kasko-car-select__description">
                                 <div className="kasko-car-select__description--link gl_link">В архив</div>
-                                <div className="kasko-car-select__controls"><span onClick={this.toggleCarOptions}
-                                                                                  className={"gl_link color_black kasko-car-select__controls--toggle " + (this.state.showCarOptions || !collapseCarInfo ? 'expanded' : 'collapsed')}
-                                ><span>Mazda CX-5</span> <span className="kasko-car-select__controls--equipment">2.0 MPI - 6AT</span></span>
+                                <div className="kasko-car-select__controls">
+                                    <span onClick={this.toggleCarOptions} className={"gl_link color_black kasko-car-select__controls--toggle " + (this.state.showCarOptions || !collapseCarInfo ? 'expanded' : 'collapsed')}>
+                                        <span>Mazda CX-5</span> <span className="kasko-car-select__controls--equipment">2.0 MPI - 6AT</span>
+                                    </span>
                                 </div>
 
                                 <Row gutter={20}>
@@ -838,9 +840,7 @@ class CarSelect extends Component {
                                                 <div className="gl_link" onClick={this.toggleAdditionalFields}>Скрыть
                                                 </div>
                                             </Col>
-
                                         </Row>
-
 
                                         {/*<Row className="kasko-car-select__controls" gutter={20}>*/}
                                         {/*	<FormInput span={6} onChangeCallback={this.formControlCallback}*/}
@@ -864,9 +864,7 @@ class CarSelect extends Component {
                                         {
                                             this.state.showAdditional ? null :
                                                 <Col className="kasko-car-select__additional _inactive ant-col-mla">
-                                                    <div className="gl_link"
-                                                         onClick={this.toggleAdditionalFields}>Дополнительно
-                                                    </div>
+                                                    <div className="gl_link" onClick={this.toggleAdditionalFields}>Дополнительно</div>
                                                 </Col>
                                         }
                                     </Row>
@@ -892,7 +890,6 @@ class CarSelect extends Component {
                                         <img src={'./cars/' + image + '.png'} alt=""/>
                                     </div>
                         }
-
                     </>
                 }
 

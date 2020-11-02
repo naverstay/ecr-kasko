@@ -177,6 +177,8 @@ class CarCredit extends Component {
     };
 
     updatePaymentState = (value) => {
+        console.log('updatePaymentState', value);
+
         if (this.state.showCalculationOffers) {
             this.setState({
                 showPayment: value

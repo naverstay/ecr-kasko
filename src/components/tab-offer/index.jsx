@@ -338,7 +338,7 @@ class TabOffer extends Component {
     }
 
     componentDidUpdate() {
-        this.scrollToBottom();
+        //this.scrollToBottom();
     }
 
     render() {
