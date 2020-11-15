@@ -4,6 +4,7 @@ import './style.scss';
 import PropTypes from "prop-types";
 import OfferRow from "../offer-row";
 import {Select} from "antd";
+import ReactComment from "../../helpers/reactComment";
 
 const {Option} = Select;
 
@@ -95,6 +96,8 @@ class CreditOffers extends Component {
 
         return (
             <div className="calculation-offers">
+                <ReactComment text='"ecr-kasko/src/components/credit-offers/index.jsx"'/>
+
                 <table className="calculation-offers__table">
                     <thead>
                     <tr>

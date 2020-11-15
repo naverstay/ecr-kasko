@@ -3,6 +3,7 @@ import React, {Component} from "react";
 import './style.scss';
 import PropTypes from "prop-types";
 import OfferRow from "../offer-row";
+import ReactComment from "../../helpers/reactComment";
 
 class CalculationOffers extends Component {
     constructor(props) {
@@ -22,6 +23,8 @@ class CalculationOffers extends Component {
 
         return (
             <div className="calculation-offers">
+                <ReactComment text='"ecr-kasko/src/components/calculation-offers/index.jsx"'/>
+
                 <table className="calculation-offers__table">
                     <thead>
                     <tr>

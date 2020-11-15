@@ -263,7 +263,7 @@ class TabService extends Component {
     }
 
     componentDidUpdate() {
-        this.scrollToBottom();
+        //this.scrollToBottom();
     }
 
     render() {

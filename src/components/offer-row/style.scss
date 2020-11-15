@@ -49,6 +49,10 @@
     &.green {
       background: $color-green;
     }
+
+    &.declined {
+      background: $color-prime;
+    }
   }
 
   &__check {
@@ -77,6 +81,10 @@
     margin-bottom: -30px;
     position: relative;
     z-index: 2;
+
+    &._hint-0 {
+      margin-top: 2px;
+    }
   }
 
   &__options {

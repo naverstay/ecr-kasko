@@ -5,6 +5,16 @@
   min-height: 147px;
   position: relative;
 
+  &__dropdown {
+    position: relative;
+    min-height: 200px;
+
+    .payment-switch__dropdown {
+      width: 320px;
+      top: 44px;
+    }
+  }
+
   &__menu {
     position: absolute;
     top: 0;
@@ -19,11 +29,14 @@
       padding: 0;
       margin: 0;
       text-align: right;
+      white-space: nowrap;
+      line-height: 44px;
 
       li {
         display: inline-block;
         vertical-align: middle;
-        padding-left: 35px;
+        padding-left: 20px;
+        line-height: 1;
       }
 
       .gl_link {
@@ -188,6 +201,21 @@
 
     &--col-10 {
       width: 17%;
+    }
+
+    &--anketa {
+      font-weight: 500;
+      font-size: 27px;
+      line-height: 32px;
+
+      td {
+        text-align: center !important;
+        background: #f7f7f7;
+
+        p {
+          margin: 150px 0;
+        }
+      }
     }
   }
 }

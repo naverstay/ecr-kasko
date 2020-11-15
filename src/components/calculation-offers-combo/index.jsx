@@ -4,6 +4,7 @@ import './style.scss';
 import PropTypes from "prop-types";
 import OfferRowCombo from "../offer-row-combo";
 import {Checkbox, Col, Radio, Row} from "antd";
+import ReactComment from "../../helpers/reactComment";
 
 class CalculationOffersCombo extends Component {
     constructor(props) {
@@ -36,6 +37,8 @@ class CalculationOffersCombo extends Component {
 
         return (
             <div className="calculation-offers">
+                <ReactComment text='"ecr-kasko/src/components/calculation-offers-combo/index.jsx"'/>
+
                 <table className="calculation-offers__table">
                     <thead>
                     <tr>

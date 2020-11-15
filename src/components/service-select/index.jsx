@@ -300,7 +300,7 @@ class ServiceSelect extends Component {
     }
 
     componentDidUpdate() {
-        this.scrollToBottom();
+        //this.scrollToBottom();
     }
 
     render() {

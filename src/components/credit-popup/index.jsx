@@ -150,8 +150,7 @@ class CreditPopup extends Component {
                     </Col>
                     <Col span={6}>
                         <div onClick={() => this.formSave()}
-                             className={"ant-btn ant-btn-primary btn_middle w_100p"}>Отправить заявку в банк
-                        </div>
+                             className={"ant-btn ant-btn-primary btn_middle w_100p"}>Выбрать банки</div>
                     </Col>
                 </Row>
             </div>

@@ -33,7 +33,7 @@ class CalcsavePopup extends Component {
             this.setState({formBusy: false, SMSSent: true})
 
             typeof this.props.popupCloseFunc === 'function' && this.props.popupCloseFunc()
-        }, 200)
+        }, 500)
     };
 
     onReset = () => {
@@ -100,10 +100,10 @@ class CalcsavePopup extends Component {
                         </Row>
                         <Row className="kasko-car-select__controls" gutter={20}>
                             <Col span={4}/>
-                            <Col>
+                            <Col span={4}>
                                 <div className="ant-btn btn_green fz_14 w_100p"><span>Отменить</span></div>
                             </Col>
-                            <Col>
+                            <Col span={8}>
                                 <Button htmlType={formDisabled ? null : "submit"}
                                         className={"w_100p " + (this.state.formBusy ? "btn_grey" : "ant-btn-primary")}
                                         disabled={formDisabled ? 'disabled' : null}>Сохранить расчет</Button>

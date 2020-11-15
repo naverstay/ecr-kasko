@@ -2,6 +2,7 @@ import React, {Component} from "react";
 
 import PropTypes from "prop-types";
 import ServiceRow from "../service-row";
+import ReactComment from "../../helpers/reactComment";
 
 class ServiceOffers extends Component {
     constructor(props) {
@@ -21,6 +22,8 @@ class ServiceOffers extends Component {
 
         return (
             <div className="calculation-offers">
+                <ReactComment text='"ecr-kasko/src/components/service-offers/index.jsx"'/>
+
                 <table className="calculation-offers__table">
                     <thead>
                     <tr>

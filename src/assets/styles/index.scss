@@ -223,6 +223,10 @@ $spinner_time: 1s;
   &:hover {
     text-decoration: none;
   }
+
+  &.disabled {
+    color: #a8a8a8;
+  }
 }
 
 .ant-picker-panel-container,
@@ -236,13 +240,25 @@ $spinner_time: 1s;
   padding-left: 10px;
   padding-right: 10px;
 
+  &.comments-form__btn {
+    text-decoration: none;
+    color: #fff;
+
+    &:focus,
+    &:hover {
+      color: #fff;
+      background: #40993d;
+      border-color: #40993d;
+    }
+  }
+
   &.btn_middle {
     width: 100%;
     //min-width: 206px;
     //padding-left: 40px;
     //padding-right: 40px;
 
-    &.margin {
+    &.margin_tb {
       margin-bottom: 32px;
       margin-top: 15px;
     }
@@ -401,6 +417,36 @@ $spinner_time: 1s;
   }
 }
 
+.check_v5 {
+  .ant-checkbox-wrapper {
+    display: inline-flex;
+    flex-flow: column nowrap;
+    align-items: center;
+    padding-right: 15px;
+  }
+
+  .ant-checkbox {
+    order: 1;
+
+    + span {
+      @extend %text2;
+      color: #a8a8a8;
+      margin-bottom: 4px;
+      white-space: nowrap;
+    }
+  }
+
+  .ant-checkbox-checked {
+    .ant-checkbox-inner {
+      background: #fff;
+
+      &:after {
+        border-color: $color-green;
+      }
+    }
+  }
+}
+
 .ant-checkbox-wrapper.ant-checkbox-wrapper-disabled {
   span {
     color: rgba(0, 0, 0, .3);
@@ -549,4 +595,8 @@ $spinner_time: 1s;
   .calculation-popup & {
     display: block;
   }
+}
+
+.ant-flex-1 {
+  flex: 1 0 auto;
 }

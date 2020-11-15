@@ -4,6 +4,8 @@ import './style.scss';
 import PropTypes from "prop-types";
 import OfferRow from "../offer-row";
 import CreditOfferRow from "../credit-offer-row";
+import ReactComment from "../../helpers/reactComment";
+import {Col, Row} from "antd";
 
 class CreditProgrammes extends Component {
     constructor(props) {
@@ -19,20 +21,21 @@ class CreditProgrammes extends Component {
     };
 
     render() {
-        const {offersList, selectedOffer, completed, waiting, allowCheck, headMenu} = this.props
+        const {offersList, selectedOffer, completed, waiting, allowCheck, headMenu, radioMode, showAnketa} = this.props
 
         return (
             <div className="calculation-offers">
-                {headMenu ?
-                    <div className="calculation-offers__menu">
-                        <ul className="calculation-offers__menu-list">
-                            <li><span className="gl_link">Подать заново</span></li>
-                            <li><span className="gl_link">Отказ клиента</span></li>
-                            <li><span className="gl_link color_gray">Выбрать все</span></li>
-                        </ul>
-                    </div>
-                    : null
-                }
+                <ReactComment text='"ecr-kasko/src/components/credit-programmes/index.jsx"'/>
+                {/*{headMenu ?*/}
+                {/*    <div className="calculation-offers__menu">*/}
+                {/*        <ul className="calculation-offers__menu-list">*/}
+                {/*            <li><span className="gl_link">Подать заново</span></li>*/}
+                {/*            <li><span className="gl_link">Отказ клиента</span></li>*/}
+                {/*            <li><span className="gl_link color_gray">Выбрать все</span></li>*/}
+                {/*        </ul>*/}
+                {/*    </div>*/}
+                {/*    : null*/}
+                {/*}*/}
                 <table className="calculation-offers__table">
                     <thead>
                     <tr>
@@ -54,12 +57,27 @@ class CreditProgrammes extends Component {
 
                     {offersList && offersList.length ?
                         <tbody>
-                        {offersList.map((o, i) => {
-                            return (<CreditOfferRow allowCheck={allowCheck} name={o.name}
-                                                    completed={completed} waiting={waiting}
-                                                    selectedOffer={selectedOffer}
-                                                    key={i} company={i} offers={o.offers}/>)
-                        })
+                        {
+                            offersList.map((o, i) => {
+                                return (<CreditOfferRow allowCheck={allowCheck} name={o.name}
+                                                        completed={completed} waiting={waiting}
+                                                        selectLimit={1}
+                                                        selectedOffer={selectedOffer}
+                                                        key={i} company={i} offers={o.offers}/>)
+                            })
+                        }
+                        {showAnketa ?
+                            <tr className={"calculation-offers__table--anketa"}>
+                                <td colSpan={8}>
+                                    <p>Анкета</p>
+                                    <Row gutter={20} className={"kasko-car-select__controls ant-row-center"}>
+                                        <Col span={6}>
+                                            <div className={"ant-btn ant-btn-primary margin_tb btn_middle"}>Закрыть заявку</div>
+                                        </Col>
+                                    </Row>
+                                </td>
+                            </tr>
+                            : null
                         }
                         </tbody>
                         : null

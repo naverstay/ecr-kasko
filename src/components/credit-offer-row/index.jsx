@@ -1,5 +1,5 @@
 import React, {Component} from "react";
-import {Checkbox} from "antd";
+import {Checkbox, Radio} from "antd";
 
 import './style.scss';
 import PropTypes from "prop-types";
@@ -19,21 +19,32 @@ class CreditOfferRow extends Component {
     static propTypes = {
         children: PropTypes.node,
         innerWidth: PropTypes.number,
+        selectLimit: PropTypes.number,
         selectedOffer: PropTypes.func,
         offers: PropTypes.array
     };
 
     onSelectOfferToggle = (company, index, e) => {
-        let options = Object.assign({}, this.state.offerSelected)
+        let options = Object.assign({}, this.state.offerSelected);
 
-        options[index] = e.target.checked
+        console.log('options limit', this.props.selectLimit, options);
 
-        this.setState({offerSelected: options})
+        if (this.props.selectLimit) {
+            if (options.length >= this.props.selectLimit) {
+                console.log('options limit', this.props.selectLimit, options);
+
+                return;
+            }
+        }
+
+        options[index] = e.target.checked;
+
+        this.setState({offerSelected: options});
 
         setTimeout(() => {
             console.log('onSelectOfferToggle', company, this.state.offerSelected);
-            this.props.selectedOffer && typeof this.props.selectedOffer === 'function' && this.props.selectedOffer(company, this.state.offerSelected)
-        })
+            this.props.selectedOffer && typeof this.props.selectedOffer === 'function' && this.props.selectedOffer(company, this.state.offerSelected);
+        });
     }
 
     onCollapseToggle = () => {
@@ -53,22 +64,32 @@ class CreditOfferRow extends Component {
     }
 
     render() {
-        const {offers, credit, company, completed, waiting, allowCheck, name} = this.props
+        const {offers, credit, company, completed, waiting, allowCheck, name, selectLimit} = this.props;
+        const pluralArr = ['программа', 'программы', 'программ'];
+
+        const moreLink = 'еще ' + (offers.length - 1) + ' ' + pluralFromArray(pluralArr, (offers.length - 1));
+        const lessLink = 'скрыть ' + (offers.length - 1) + ' ' + pluralFromArray(pluralArr, (offers.length - 1));
 
         return (
             <>
                 {offers.map((o, i) => {
-                    const show = (i === 0 || !this.state.rowsCollapsed)
-                    const showOptions = (i in this.state.optionsToggle) && this.state.optionsToggle[i]
-                    const offerSelected = (i in this.state.offerSelected) && this.state.offerSelected[i]
+                    const show = (i === 0 || !this.state.rowsCollapsed);
+                    const showOptions = (i in this.state.optionsToggle) && this.state.optionsToggle[i];
+                    const offerSelected = (i in this.state.offerSelected) && this.state.offerSelected[i];
 
                     return (show ?
                         <>
                             <tr key={i}
                                 className={(showOptions ? "expanded" : "") + ((offerSelected && !(completed || waiting)) ? " selected" : "")}>
                                 <td>
-                                    <div className={"offer-row__logo"}>{name}</div>
+                                    {i === 0 ? <div className={"offer-row__logo"}>{name}</div> : null}
                                     <div className={"offer-row__dealer"}>{o.programme}</div>
+                                    {(this.state.rowsCollapsed && i === 0 && offers.length > 1) ?
+                                        <div onClick={this.onCollapseToggle}
+                                             className="offer-row__hint _hint-0 gl_link">{moreLink}</div> : null}
+                                    {(!this.state.rowsCollapsed && (i === offers.length - 1) && offers.length > 1) ?
+                                        <div onClick={this.onCollapseToggle}
+                                             className="offer-row__hint _hint-0 gl_link">{lessLink}</div> : null}
                                 </td>
 
                                 <td>

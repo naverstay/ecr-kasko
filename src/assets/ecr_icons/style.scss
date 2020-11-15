@@ -1,14 +1,11 @@
 @import "variables";
 
-@if ($env == 'development') {
-  $icomoon-font-path: "assets/fonts";
-}
-
 @font-face {
   font-family: '#{$icomoon-font-family}';
-  src: url('#{$icomoon-font-path}/#{$icomoon-font-family}.ttf?h15ud4') format('truetype'),
-  url('#{$icomoon-font-path}/#{$icomoon-font-family}.woff?h15ud4') format('woff'),
-  url('#{$icomoon-font-path}/#{$icomoon-font-family}.svg?h15ud4##{$icomoon-font-family}') format('svg');
+  src:
+    url('#{$icomoon-font-path}/#{$icomoon-font-family}.ttf?xo3pdl') format('truetype'),
+    url('#{$icomoon-font-path}/#{$icomoon-font-family}.woff?xo3pdl') format('woff'),
+    url('#{$icomoon-font-path}/#{$icomoon-font-family}.svg?xo3pdl##{$icomoon-font-family}') format('svg');
   font-weight: normal;
   font-style: normal;
   font-display: block;
@@ -29,228 +26,196 @@
   -moz-osx-font-smoothing: grayscale;
 }
 
+.i-ecr {
+  &:before {
+    content: $i-ecr;
+  }
+}
 .i-heart-o {
   &:before {
     content: $i-heart-o;
   }
 }
-
 .i-heart {
   &:before {
     content: $i-heart;
   }
 }
-
 .i-plane {
   &:before {
     content: $i-plane;
   }
 }
-
 .i-minus {
   &:before {
     content: $i-minus;
   }
 }
-
 .i-attach {
   &:before {
     content: $i-attach;
   }
 }
-
 .i-alert {
   &:before {
     content: $i-alert;
   }
 }
-
 .i-bell {
   &:before {
     content: $i-bell;
   }
 }
-
 .i-sms {
   &:before {
     content: $i-sms;
   }
 }
-
 .i-mail {
   &:before {
     content: $i-mail;
   }
 }
-
 .i-comp {
   &:before {
     content: $i-comp;
   }
 }
-
 .i-upload {
   &:before {
     content: $i-upload;
   }
 }
-
 .i-plus {
   &:before {
     content: $i-plus;
   }
 }
-
 .i-chat {
   &:before {
     content: $i-chat;
   }
 }
-
 .i-search {
   &:before {
     content: $i-search;
   }
 }
-
 .i-check {
   &:before {
     content: $i-check;
   }
 }
-
 .i-add {
   &:before {
     content: $i-add;
   }
 }
-
 .i-play {
   &:before {
     content: $i-play;
   }
 }
-
 .i-copy {
   &:before {
     content: $i-copy;
   }
 }
-
 .i-restore {
   &:before {
     content: $i-restore;
   }
 }
-
 .i-bank {
   &:before {
     content: $i-bank;
   }
 }
-
 .i-download {
   &:before {
     content: $i-download;
   }
 }
-
 .i-news {
   &:before {
     content: $i-news;
   }
 }
-
 .i-chart {
   &:before {
     content: $i-chart;
   }
 }
-
 .i-calendar {
   &:before {
     content: $i-calendar;
   }
 }
-
 .i-cart {
   &:before {
     content: $i-cart;
   }
 }
-
 .i-settings {
   &:before {
     content: $i-settings;
   }
 }
-
 .i-user {
   &:before {
     content: $i-user;
   }
 }
-
 .i-exit {
   &:before {
     content: $i-exit;
   }
 }
-
 .i-info {
   &:before {
     content: $i-info;
   }
 }
-
 .i-search_2 {
   &:before {
     content: $i-search_2;
   }
 }
-
 .i-chevron_r {
   &:before {
     content: $i-chevron_r;
   }
 }
-
 .i-add_fill {
   &:before {
     content: $i-add_fill;
   }
 }
-
 .i-close_circle {
   &:before {
     content: $i-close_circle;
   }
 }
-
 .i-close {
   &:before {
     content: $i-close;
   }
 }
-
 .i-printer {
   &:before {
     content: $i-printer;
   }
 }
-
 .i-filter {
   &:before {
     content: $i-filter;
   }
 }
-
 .i-sandwich {
   &:before {
     content: $i-sandwich;
   }
 }
-
 .i-spinner {
   &:before {
     content: $i-spinner;

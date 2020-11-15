@@ -518,4 +518,14 @@
     text-align: right;
     color: $color-grey;
   }
+
+  &__comments {
+    padding-bottom: 15px;
+    margin-bottom: 10px;
+    border-bottom: 1px solid #b5b5b5;
+
+    .comments-form__text {
+      font-size: 12px;
+    }
+  }
 }

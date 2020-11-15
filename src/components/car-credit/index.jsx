@@ -484,11 +484,13 @@ class CarCredit extends Component {
                     </Radio.Group>
                 </div>
 
-                <div className={"kasko-car-select__controls ant-row-center" + (this.state.openParams ? " mb_0" : "")}>
-                    {this.state.openParams ? <div onClick={this.toggleCalculationOffers}
-                                                  className={"ant-btn ant-btn-primary btn_middle margin" + (this.state.paramsChanged ? "" : " disabled")}>Получить
-                        расчет</div> : ""}
-                </div>
+                <Row gutter={20} className={"kasko-car-select__controls ant-row-center" + (this.state.openParams ? " mb_0" : "")}>
+                    {this.state.openParams ?
+                        <Col span={6}><div onClick={this.toggleCalculationOffers}
+                           className={"ant-btn ant-btn-primary margin_tb btn_middle" + (this.state.paramsChanged ? "" : " disabled")}>Получить расчет</div>
+                        </Col>
+                        : null}
+                </Row>
 
                 {this.state.showCreditOffers ?
                     <div className="kasko-main__wide">
@@ -592,8 +594,7 @@ class CarCredit extends Component {
                                      style={{marginBottom: '50px'}}>
                                     <Col span={6}>
                                         <div onClick={this.toggleSaveCalculationPopup}
-                                             className={"ant-btn btn_green ant-btn-block"}>Сохранить расчет
-                                        </div>
+                                             className={"ant-btn btn_green ant-btn-block w_100p"}>Сохранить расчет</div>
                                     </Col>
 
                                     <Col span={12}>

@@ -80,6 +80,10 @@
       background: $color-grey;
     }
 
+    &.ecr:before {
+      content: $i-ecr;
+      background: $color-prime;
+    }
   }
 
   + .gl_link {
