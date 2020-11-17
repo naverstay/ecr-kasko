@@ -30,6 +30,17 @@ class CalculationOffersCombo extends Component {
         console.log('onSortTypeChange', type);
     }
 
+    onSelectOfferToggle = (index, selected, disableCashier) => {
+        //let options = Object.assign({}, this.state.offerSelected)
+
+        //this.setState({offerSelected: options, disableCashierPayment: disableCashierPayment})
+
+        setTimeout(() => {
+            console.log('onSelectOfferToggle row', index, selected, disableCashier);
+            this.props.selectedOffer && typeof this.props.selectedOffer === 'function' && this.props.selectedOffer(index, selected, disableCashier)
+        }, 0)
+    }
+
     render() {
         const {offersList, selectedOffer, completed, waiting, allowCheck, osago, hasSortType} = this.props
 
@@ -109,7 +120,7 @@ class CalculationOffersCombo extends Component {
                                     ret.push(<OfferRowCombo allowCheck={allowCheck}
                                                             osago={osago}
                                                             completed={completed} waiting={waiting}
-                                                            selectedOffer={selectedOffer}
+                                                            selectedOffer={(select, disableCashier) => this.onSelectOfferToggle(k, select, disableCashier)}
                                                             lastRow={i === offer.offers.length - 1}
                                                             key={i} company={i} logo={false}
                                                             name={i ? '' : offer.name}
@@ -118,7 +129,7 @@ class CalculationOffersCombo extends Component {
                                     ret.push(<OfferRowCombo allowCheck={allowCheck}
                                                             osago={osago}
                                                             completed={completed} waiting={waiting}
-                                                            selectedOffer={selectedOffer}
+                                                            selectedOffer={(select, disableCashier) => this.onSelectOfferToggle(k, select, disableCashier)}
                                                             lastRow={i === offer.offers.length - 1}
                                                             key={i} company={i} logo={false} name={i ? '' : offer.name}
                                                             offers={[o]}/>)

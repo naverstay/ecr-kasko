@@ -50,7 +50,7 @@ class PaymentSwitch extends Component {
                                 </li>
                                 <li className="payment-switch__options--item separator">
                                     <div className="payment-switch__btn browser">
-                                        <span>Открыть в браузере</span>
+                                        <span>Копировать ссылку</span>
                                     </div>
                                 </li>
                             </ul>

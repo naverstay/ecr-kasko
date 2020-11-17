@@ -25,6 +25,7 @@ import KaskotaxForm from "../kaskotax-form";
 import FormSwitch from "../form-switch";
 import CreditProgrammes from "../credit-programmes";
 import CalculationOffers from "../calculation-offers";
+import ReactComment from "../../helpers/reactComment";
 
 const {Option} = Select;
 //const {YearPicker} = DatePicker;
@@ -39,6 +40,7 @@ class TabCredit extends Component {
             showCarOptions: false,
             activeKasko: this.props.kasko,
             openParams: true,
+            singleSelection: true,
             paramsChanged: true,
             showMoreParams: false,
             showCreditOffers: false,
@@ -46,10 +48,13 @@ class TabCredit extends Component {
             calculationPopupOpened: false,
             calculationPopupKasko: false,
             KaskoTaxPopup: false,
+            anketaCompleted: false,
             offerComments: '',
             checkAllOffersSate: false,
             showDealProvider: false,
             showMoreOffers: false,
+            allowCredit: false,
+            availableCashier: false,
             carPrice: this.props.carPrice,
             creditValue: formatMoney(this.props.carPrice / 2) + " ₽",
             creditPercent: "50 %",
@@ -76,6 +81,11 @@ class TabCredit extends Component {
 
     updateTab = (index) => {
         this.props.tabCallback && typeof this.props.tabCallback === 'function' && this.props.tabCallback({tabIndex: index})
+    };
+
+    updateStep = (index) => {
+        this.setState({selectedOffers: []});
+        this.props.tabCallback && typeof this.props.tabCallback === 'function' && this.props.tabCallback({newStep: index})
     };
 
     toggleCarOptions = () => {
@@ -206,11 +216,13 @@ class TabCredit extends Component {
         }
     }
 
-    updateSelectedOffer = (company, offers) => {
-        let offerList = this.state.selectedOffers;
+    updateSelectedOffer = (company, offers, disableCashierPayment) => {
+        let offerList = this.state.singleSelection ? [] : this.state.selectedOffers;
         let compare = true;
 
         let companyOffers = offerList.find((c) => c.company === company);
+
+        console.log('updateSelectedOffer credit tab', company, offers, offerList, companyOffers);
 
         if (companyOffers) {
             for (let o in offers) {
@@ -230,7 +242,6 @@ class TabCredit extends Component {
                                 if (offerList[i].company === company) {
                                     offerList.splice(i, 1)
                                 }
-
                             }
                         }
                     }
@@ -249,7 +260,9 @@ class TabCredit extends Component {
                 }
             }
 
-            offerList.push({company: company, offers: arr})
+            if (arr.length) {
+                offerList.push({company: company, offers: arr})
+            }
         }
 
         if (offerList.length === 1) {
@@ -258,10 +271,13 @@ class TabCredit extends Component {
             }
         }
 
+        console.log('offerList tab credit', offerList, disableCashierPayment);
+
         this.setState({
             selectedOffers: offerList,
             showPayment: true,
             showCompare: offerList.length > 1 && compare,
+            availableCashier: !disableCashierPayment,
             availablePayment: offerList.length > 0
         })
     }
@@ -283,12 +299,13 @@ class TabCredit extends Component {
     }
 
     creditPopupCallback = (e) => {
-        console.log('creditPopupCallback goto step 2', e);
+        console.log('creditPopupCallback goto step 1', e);
         this.toggleCalculationPopup();
 
         if (e) {
             //this.props.tabCallback && typeof this.props.tabCallback === 'function' && this.props.tabCallback({newStep: 2});
-            this.props.tabCallback && typeof this.props.tabCallback === 'function' && this.props.tabCallback({newStep: 2});
+
+            this.setState({anketaCompleted: true});
         }
     };
 
@@ -420,7 +437,7 @@ class TabCredit extends Component {
                 rate: '13,5%',
                 dealerFee: 65000,
                 params: ['2 документа', 'КАСКО дилера'],
-                options: optionsFixtures
+                options: optionsFixtures.slice()
             })
         }
 
@@ -466,33 +483,6 @@ class TabCredit extends Component {
                         price: 23719,
                         rate: '15,90%',
                         dealerFee: 3045,
-                        status: 'blue',
-                        products: creditProducts,
-                        options: optionsFixtures
-                    },
-                    {
-                        programme: 'Стандарт (СЖ дилера)',
-                        price: 23719,
-                        rate: '15,90%',
-                        dealerFee: 4145,
-                        status: 'green',
-                        products: creditProducts,
-                        options: optionsFixtures
-                    },
-                    {
-                        programme: 'Стандарт (СЖ дилера)',
-                        price: 23719,
-                        rate: '15,90%',
-                        dealerFee: 4145,
-                        status: 'green',
-                        products: creditProducts,
-                        options: optionsFixtures
-                    },
-                    {
-                        programme: 'Стандарт (СЖ дилера)',
-                        price: 23719,
-                        rate: '15,90%',
-                        dealerFee: 4145,
                         status: 'green',
                         products: creditProducts,
                         options: optionsFixtures
@@ -500,21 +490,35 @@ class TabCredit extends Component {
                 ]
             },
             {
-                name: 'ЮниКредит Банк',
+                name: 'Сетелем',
                 offers: [
                     {
                         programme: 'Стандарт (СЖ дилера)',
                         price: 23719,
                         rate: '15,90%',
-                        dealerFee: 4145,
-                        status: 'declined',
+                        dealerFee: 3045,
+                        status: 'blue',
                         products: creditProducts,
                         options: optionsFixtures
                     }
                 ]
             },
             {
-                name: 'ВТБ',
+                name: 'Русфинанс банк',
+                offers: [
+                    {
+                        programme: 'АвтоСтандарт (СЖ дилера)',
+                        price: 23719,
+                        rate: '15,90%',
+                        dealerFee: 3045,
+                        status: 'waiting',
+                        products: creditProducts,
+                        options: optionsFixtures
+                    }
+                ]
+            },
+            {
+                name: 'Тинькофф',
                 offers: [
                     {
                         programme: 'АвтоСтандарт (СЖ дилера)',
@@ -535,21 +539,7 @@ class TabCredit extends Component {
                         price: 23719,
                         rate: '15,90%',
                         dealerFee: 4145,
-                        status: 'green',
-                        products: creditProducts,
-                        options: optionsFixtures
-                    }
-                ]
-            },
-            {
-                name: 'ВТБ',
-                offers: [
-                    {
-                        programme: 'АвтоСтандарт (СЖ дилера)',
-                        price: 23719,
-                        rate: '15,90%',
-                        dealerFee: 3045,
-                        status: 'blue',
+                        status: 'waiting',
                         products: creditProducts,
                         options: optionsFixtures
                     }
@@ -570,14 +560,14 @@ class TabCredit extends Component {
                 ]
             },
             {
-                name: 'ВТБ',
+                name: 'ЮниКредит Банк',
                 offers: [
                     {
-                        programme: 'АвтоСтандарт (СЖ дилера)',
+                        programme: 'Стандарт (СЖ дилера)',
                         price: 23719,
                         rate: '15,90%',
-                        dealerFee: 3045,
-                        status: 'waiting',
+                        dealerFee: 4145,
+                        status: 'declined',
                         products: creditProducts,
                         options: optionsFixtures
                     }
@@ -697,7 +687,7 @@ class TabCredit extends Component {
             offersList.push({
                 name: banks[i],
                 //info: (i < 2),
-                offers: credOffers
+                offers: credOffers.slice()
             })
         }
 
@@ -726,9 +716,7 @@ class TabCredit extends Component {
                  className={"kasko-car-select__controls ant-row-center" + (this.state.openParams ? " mb_0" : "")}>
                 <Col span={6}>
                     <div onClick={this.toggleCalculationOffers}
-                         className={"ant-btn ant-btn-primary margin_tb btn_middle" + (this.state.paramsChanged ? "" : " disabled")}>Получить
-                        расчет
-                    </div>
+                         className={"ant-btn ant-btn-primary margin_tb btn_middle" + (this.state.paramsChanged ? "" : " disabled")}>Получить расчет</div>
                 </Col>
             </Row>
         </>
@@ -800,8 +788,53 @@ class TabCredit extends Component {
             }
         ]}/>
 
+        // remove ref from copies
+
+        let tempOffersList = JSON.stringify(offersList)
+
+        offersList = JSON.parse(tempOffersList)
+
+        if (!this.state.anketaCompleted) {
+            for (let i = 0; i < offersList.length; i++) {
+                let comp = offersList[i];
+                let find = this.state.selectedOffers.filter((c) => c.company === i);
+
+                for (let j = 0; j < comp.offers.length; j++) {
+                    let off = comp.offers[j];
+                    let slct = find.length ? find[0].offers.filter((o) => {
+                            return +o === j
+                        }) : [];
+
+                    off.selected = !!slct.length
+
+                    if (slct.length) {
+                        console.log('slct', slct, slct.length, off);
+                    }
+                }
+
+                console.log('comp offersList', comp, find);
+            }
+        } else {
+            for (let i = 0; i < creditOffersList.length; i++) {
+                let comp = creditOffersList[i];
+                let find = this.state.selectedOffers.filter((c) => c.company === i);
+
+                for (let j = 0; j < comp.offers.length; j++) {
+                    let off = comp.offers[j];
+                    off.selected = find.length ? !!find[0].offers.filter((o) => {
+                        console.log('o.index === j', o, j);
+                        return +o === j
+                    }).length : false
+                }
+
+                console.log('comp creditOffersList', comp, find);
+            }
+        }
+
         return (
             <div className="kasko-car-select">
+                <ReactComment text={"ecr-kasko/src/components/tab-credit/index.jsx tab_step " + step}/>
+
                 {step >= 2 ? null : creditOffersComponent}
 
                 <div onClick={this.toggleShowParams}
@@ -936,12 +969,10 @@ class TabCredit extends Component {
                                     </Col>
                                     <Col span={6}>
                                         <div className={"calculation-offers__dropdown"}>
-                                            <Button disabled={this.state.selectedOffers.length ? null : "disabled"}
-                                                    className={"ant-btn-primary btn_middle ant-btn-block"}
+                                            <Button className={"ant-btn-primary btn_middle ant-btn-block" + ((this.state.selectedOffers.length && this.state.availableCashier) ? "" : " disabled")}
                                                     onClick={() => {
-                                                        this.toggleDealProvider()
-                                                    }}
-                                            >Оформить кредит</Button>
+                                                        (this.state.selectedOffers.length && this.state.availableCashier) && this.toggleDealProvider()
+                                                    }}>Оформить кредит</Button>
 
                                             {this.state.showDealProvider ?
                                                 <div className="payment-switch__dropdown">
@@ -977,97 +1008,7 @@ class TabCredit extends Component {
                     : this.state.showCreditOffers ?
                         <div className="kasko-main__wide">
                             <Row gutter={20}>
-                                <Col span={4}>
-                                    {/*<div className="kasko-car-select__caption text_center">Добавлено в кредит</div>*/}
-                                    {/*<CreditAdditionals additionalList={[*/}
-                                    {/*	{*/}
-                                    {/*		title: 'КАСКО дилера',*/}
-                                    {/*		additionals: [*/}
-                                    {/*			{*/}
-                                    {/*				option: 'Зетта-Страхование'*/}
-                                    {/*			},*/}
-                                    {/*			{*/}
-                                    {/*				option: '123 456 ₽'*/}
-                                    {/*			},*/}
-                                    {/*			{*/}
-                                    {/*				option: 'В кредит / 1 год'*/}
-                                    {/*			},*/}
-                                    {/*		]*/}
-                                    {/*	},*/}
-                                    {/*	{*/}
-                                    {/*		title: 'GAP дилера',*/}
-                                    {/*		additionals: [*/}
-                                    {/*			{*/}
-                                    {/*				option: 'Зетта-Страхование'*/}
-                                    {/*			},*/}
-                                    {/*			{*/}
-                                    {/*				option: '123 456 ₽'*/}
-                                    {/*			},*/}
-                                    {/*			{*/}
-                                    {/*				option: 'На весь срок'*/}
-                                    {/*			},*/}
-                                    {/*		]*/}
-                                    {/*	},*/}
-                                    {/*	{*/}
-                                    {/*		title: 'СЖ дилера',*/}
-                                    {/*		additionals: [*/}
-                                    {/*			{*/}
-                                    {/*				option: 'Зетта-Страхование'*/}
-                                    {/*			},*/}
-                                    {/*			{*/}
-                                    {/*				option: '123 456 ₽'*/}
-                                    {/*			},*/}
-                                    {/*			{*/}
-                                    {/*				option: 'На весь срок'*/}
-                                    {/*			},*/}
-                                    {/*		]*/}
-                                    {/*	},*/}
-                                    {/*	{*/}
-                                    {/*		title: 'Услуги дилера',*/}
-                                    {/*		additionals: [*/}
-                                    {/*			{*/}
-                                    {/*				option: 'Карта РАТ',*/}
-                                    {/*				short: true*/}
-                                    {/*			},*/}
-                                    {/*			{*/}
-                                    {/*				option: '5 000 ₽',*/}
-                                    {/*				short: true*/}
-                                    {/*			},*/}
-                                    {/*			{*/}
-                                    {/*				option: 'Вручную',*/}
-                                    {/*				short: true*/}
-                                    {/*			},*/}
-                                    {/*			{*/}
-                                    {/*				option: '15 000 ₽',*/}
-                                    {/*				short: true*/}
-                                    {/*			},*/}
-                                    {/*			{*/}
-                                    {/*				option: 'В кредит'*/}
-                                    {/*			}*/}
-                                    {/*		]*/}
-                                    {/*	},*/}
-                                    {/*	{*/}
-                                    {/*		title: 'Шоколад',*/}
-                                    {/*		additionals: [*/}
-                                    {/*			{*/}
-                                    {/*				option: '123 456 ₽'*/}
-                                    {/*			},*/}
-                                    {/*		]*/}
-                                    {/*	}*/}
-                                    {/*]} />*/}
-                                    {/*<div className="kasko-car-select__caption text_center">Параметры кредита</div>*/}
-                                    {/*<CreditAdditionals additionalList={[*/}
-                                    {/*	{*/}
-                                    {/*		title: '2 документа'*/}
-                                    {/*	},*/}
-                                    {/*	{*/}
-                                    {/*		title: 'Все типы кредитов'*/}
-                                    {/*	},*/}
-                                    {/*	{*/}
-                                    {/*		title: '24 месяца'*/}
-                                    {/*	}*/}
-                                    {/*]}/>*/}
-                                </Col>
+                                <Col span={4}/>
                                 <Col span={16}>
                                     <CreditOffers completed={true} selectedOffer={this.updateSelectedOffer}
                                                   offersList={offersList}/>
@@ -1077,17 +1018,25 @@ class TabCredit extends Component {
                                          style={{marginBottom: '50px'}}>
                                         <Col span={6}>
                                             <div onClick={this.toggleSaveCalculationPopup}
-                                                 className={"ant-btn btn_green ant-btn-block w_100p"}>Сохранить расчет
-                                            </div>
+                                                 className={"ant-btn btn_green ant-btn-block w_100p"}>Сохранить расчет</div>
                                         </Col>
 
-                                        <Col span={12}>
-                                            <Button htmlType="submit"
-                                                    style={{padding: '0 50px'}}
-                                                    className={"ant-btn-primary btn_middle ant-btn-block"}
-                                                    onClick={this.toggleCalculationPopup}>Заполнить анкету и отправить в
-                                                банк</Button>
-                                        </Col>
+                                        {this.state.anketaCompleted ?
+                                            <Col span={12}>
+                                                <Button htmlType="submit"
+                                                        style={{padding: '0 50px'}}
+                                                        //disabled={this.state.availableCashier ? null : "disabled"}
+                                                        className={"ant-btn-primary btn_middle ant-btn-block" + ((this.state.selectedOffers.length) ? "" : " disabled")}
+                                                        onClick={() => {this.updateStep(2)}}>Отправить заявку</Button>
+                                            </Col>
+                                        :
+                                            <Col span={12}>
+                                                <Button htmlType="submit"
+                                                        style={{padding: '0 50px'}}
+                                                        className={"ant-btn-primary btn_middle ant-btn-block"}
+                                                        onClick={this.toggleCalculationPopup}>Заполнить анкету</Button>
+                                            </Col>
+                                        }
 
                                         <Col span={6}>
                                             <div className="car-credit__print">
@@ -1096,11 +1045,6 @@ class TabCredit extends Component {
                                                 <a className="gl_link disabled" href="#">PDF в DOC</a>
                                             </div>
                                         </Col>
-                                        {/*<div className="kasko-car-select__controls--group text_center">*/}
-                                        {/*	<div className="kasko-car-select__controls--group-r">*/}
-                                        {/*		*/}
-                                        {/*	</div>*/}
-                                        {/*</div>*/}
                                     </Row>
                                 </Col>
                             </Row>

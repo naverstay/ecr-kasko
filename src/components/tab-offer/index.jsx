@@ -31,6 +31,7 @@ class TabOffer extends Component {
             showCarOptions: false,
             showParams: false,
             openParams: true,
+            singleSelection: true,
             SMSSent: true,
             calculationPopupOpened: false,
             policyPopupOpened: false,
@@ -75,6 +76,7 @@ class TabOffer extends Component {
             showPayment: this.props.osago ? this.props.step > 1 : false,
             showCompare: false,
             availableAddCredit: false,
+            availableCashier: false,
             availablePayment: false,
             showMoreDamages: false,
             paramsChanged: true,
@@ -94,11 +96,13 @@ class TabOffer extends Component {
         this.setState({carImage: img})
     }
 
-    updateSelectedOffer = (company, offers) => {
-        let offerList = this.state.selectedOffers;
+    updateSelectedOffer = (company, offers, disableCashierPayment) => {
+        let offerList = this.state.singleSelection ? [] : this.state.selectedOffers;
         let compare = true;
 
         let companyOffers = offerList.find((c) => c.company === company)
+
+        console.log('updateSelectedOffer tab', company, offers, disableCashierPayment, companyOffers);
 
         if (companyOffers) {
             for (let o in offers) {
@@ -118,15 +122,13 @@ class TabOffer extends Component {
                                 if (offerList[i].company === company) {
                                     offerList.splice(i, 1)
                                 }
-
                             }
                         }
                     }
                 }
             }
-
         } else {
-            let arr = []
+            let arr = [];
 
             for (let o in offers) {
                 if (offers.hasOwnProperty(o)) {
@@ -138,7 +140,9 @@ class TabOffer extends Component {
                 }
             }
 
-            offerList.push({company: company, offers: arr})
+            if (arr.length) {
+                offerList.push({company: company, offers: arr})
+            }
         }
 
         if (this.state.showPayment || this.props.osago) {
@@ -152,6 +156,7 @@ class TabOffer extends Component {
                 selectedOffers: offerList,
                 showPayment: true,
                 showCompare: offerList.length > 1 && compare,
+                availableCashier: !disableCashierPayment,
                 availablePayment: offerList.length > 0
             })
         } else {
@@ -432,8 +437,8 @@ class TabOffer extends Component {
                     {
                         name: '',
                         franchise: 10000,
-                        price: 11450,
-                        dealerFee: 1145,
+                        price: 11455,
+                        dealerFee: 1146,
                         options: optionsFixtures
                     },
                     {
@@ -713,10 +718,12 @@ class TabOffer extends Component {
                             name: '',
                             type: 'ОСАГО',
                             credit: null,
-                            price: '11 450',
+
+                            price: '11 452',
                             dealerFee: '1 145',
                             dateStart: '20.02.19',
                             dateEnd: '19.02.20',
+                            disableCashierPayment: true,
                             options: optionsFixtures
                         }
                     ]
@@ -786,6 +793,21 @@ class TabOffer extends Component {
                     offers: someOffers
                 }
             ]
+        }
+
+        for (let i = 0; i < calculationOfferComboList.length; i++) {
+            let comp = calculationOfferComboList[i];
+            let find = this.state.selectedOffers.filter((c) => c.company === i);
+
+            for (let j = 0; j < comp.offers.length; j++) {
+                let off = comp.offers[j];
+                off.selected = find.length ? !!find[0].offers.filter((o) => {
+                    console.log('o.index === j', o, j);
+                    return +o === j
+                }).length : false
+            }
+
+            console.log('comp', comp, find);
         }
 
         if (step === 3) {
@@ -1333,9 +1355,9 @@ class TabOffer extends Component {
                                                     </Col>
                                                     <Col span={6}>
                                                         <Button onClick={() => {
-                                                            this.state.availablePayment && this.nextStep(2)
+                                                            this.state.availableCashier && this.nextStep(2)
                                                         }}
-                                                                className={"ant-btn ant-btn-primary w_100p" + ((this.state.availablePayment) ? "" : " disabled")}>{this.state.showCompare ? 'Сравнить' : 'Оплатить в кассу'}</Button>
+                                                                className={"ant-btn ant-btn-primary w_100p" + ((this.state.availableCashier) ? "" : " disabled")}>{this.state.showCompare ? 'Сравнить' : 'Оплатить в кассу'}</Button>
                                                     </Col>
                                                     <Col span={6}>
                                                         <PaymentSwitch

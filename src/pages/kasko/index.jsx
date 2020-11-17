@@ -64,7 +64,7 @@ class Kasko extends Component {
     }
 
     changeTabState = (action) => {
-        console.log('changeTabState', action);
+        console.log('changeTabState', action, this.state.newStep);
 
         if ('tabIndex' in action) {
             this.setState({tabIndex: action.tabIndex, newStep: 0})

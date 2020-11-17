@@ -387,7 +387,7 @@ class OfferSelect extends Component {
                     {
                         name: 'Обычный 4',
                         franchise: 10000,
-                        price: 11450,
+                        price: 11451,
                         dealerFee: 1145,
                         options: optionsFixtures
                     },

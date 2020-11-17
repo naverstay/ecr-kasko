@@ -1,10 +1,11 @@
 import React, {Component} from "react";
-import {Checkbox, Select} from "antd";
+import {Checkbox, Select, Tooltip} from "antd";
 
 import './style.scss';
 import PropTypes from "prop-types";
 import pluralFromArray from "../../helpers/pluralFromArray";
 import {formatMoney} from "../../helpers/formatMoney";
+import ReactComment from "../../helpers/reactComment";
 
 const {Option} = Select;
 
@@ -25,17 +26,17 @@ class OfferRowCombo extends Component {
         offers: PropTypes.array
     };
 
-    onSelectOfferToggle = (company, index, e) => {
+    onSelectOfferToggle = (company, index, e, disableCashierPayment) => {
         let options = Object.assign({}, this.state.offerSelected)
 
         options[index] = e.target.checked
 
-        this.setState({offerSelected: options})
+        this.setState({offerSelected: options, disableCashierPayment: disableCashierPayment})
 
         setTimeout(() => {
-            console.log('onSelectOfferToggle', company, this.state.offerSelected);
-            this.props.selectedOffer && typeof this.props.selectedOffer === 'function' && this.props.selectedOffer(company, this.state.offerSelected)
-        })
+            console.log('onSelectOfferToggle offer', company, this.state.offerSelected, disableCashierPayment);
+            this.props.selectedOffer && typeof this.props.selectedOffer === 'function' && this.props.selectedOffer(this.state.offerSelected, disableCashierPayment)
+        }, 0)
     }
 
     onCollapseToggle = () => {
@@ -68,15 +69,24 @@ class OfferRowCombo extends Component {
                 {offers.map((o, i) => {
                     const show = (i === 0 || !this.state.rowsCollapsed)
                     const showOptions = (i in this.state.optionsToggle) && this.state.optionsToggle[i]
-                    const offerSelected = (i in this.state.offerSelected) && this.state.offerSelected[i]
+                    const offerSelected = o.selected && (i in this.state.offerSelected) && this.state.offerSelected[i]
 
                     return (show ?
                         <>
                             <tr key={i}
                                 className={(showOptions ? "expanded" : "") + ((offerSelected && !(completed || waiting)) ? " selected" : "") + (lastRow && !showOptions ? ' last-row' : '')}>
-                                <td className={(lastRow ? '' : 'no-bdr-bottom')}>
+                                <td className={'wnw ' + (lastRow ? '' : 'no-bdr-bottom')}>
                                     {i === 0 ? <div
-                                        className={"offer-row__logo" + (info ? " info" : "")}>{name || ''}</div> : null}
+                                        className={"offer-row__logo" + (info ? " info" : "")}>
+                                        <span>{name || ''}</span>
+                                        {o.disableCashierPayment ?
+                                            <Tooltip overlayClassName="tooltip_v1" placement="top"
+                                                     title="Оплата е-ОСАГО в кассу дилера для этой СК недоступна.
+Возможна только онлайн оплата на сайте СК.">
+                                                <span className={"offer-row__info"}/>
+                                            </Tooltip>
+                                        : null}
+                                    </div> : null}
                                 </td>
                                 <td>
                                     <div className="offer-row__name">{o.type}</div>
@@ -169,9 +179,12 @@ class OfferRowCombo extends Component {
                                             <td>&nbsp;</td>
                                         }
                                         <td>
+                                            <ReactComment text={'ecr-kasko/src/components/offer-row-combo/index.jsx' + name + ' o.selected ' + o.selected}/>
+
                                             <Checkbox disabled={((allowCheck || osago) ? null : "disabled")}
+                                                      checked={o.selected ? "checked" : null}
                                                       className="offer-row__check"
-                                                      onChange={(e) => this.onSelectOfferToggle(company, i, e)}/>
+                                                      onChange={(e) => this.onSelectOfferToggle(company, i, e, o.disableCashierPayment)}/>
                                         </td>
                                     </>
                                 }

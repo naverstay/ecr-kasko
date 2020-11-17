@@ -5,6 +5,7 @@ import './style.scss';
 import PropTypes from "prop-types";
 import pluralFromArray from "../../helpers/pluralFromArray";
 import {formatMoney} from "../../helpers/formatMoney";
+import ReactComment from "../../helpers/reactComment";
 
 class CreditOfferRow extends Component {
     constructor(props) {
@@ -24,26 +25,26 @@ class CreditOfferRow extends Component {
         offers: PropTypes.array
     };
 
-    onSelectOfferToggle = (company, index, e) => {
+    onSelectOfferToggle = (company, index, e, disableCashierPayment) => {
         let options = Object.assign({}, this.state.offerSelected);
 
         console.log('options limit', this.props.selectLimit, options);
 
-        if (this.props.selectLimit) {
-            if (options.length >= this.props.selectLimit) {
-                console.log('options limit', this.props.selectLimit, options);
-
-                return;
-            }
-        }
+        //if (this.props.selectLimit) {
+        //    if (options.length >= this.props.selectLimit) {
+        //        console.log('options limit', this.props.selectLimit, options);
+        //
+        //        return;
+        //    }
+        //}
 
         options[index] = e.target.checked;
 
         this.setState({offerSelected: options});
 
         setTimeout(() => {
-            console.log('onSelectOfferToggle', company, this.state.offerSelected);
-            this.props.selectedOffer && typeof this.props.selectedOffer === 'function' && this.props.selectedOffer(company, this.state.offerSelected);
+            console.log('onSelectOfferToggle credit offer row', company, this.state.offerSelected, disableCashierPayment);
+            this.props.selectedOffer && typeof this.props.selectedOffer === 'function' && this.props.selectedOffer(this.state.offerSelected, disableCashierPayment);
         });
     }
 
@@ -75,12 +76,11 @@ class CreditOfferRow extends Component {
                 {offers.map((o, i) => {
                     const show = (i === 0 || !this.state.rowsCollapsed);
                     const showOptions = (i in this.state.optionsToggle) && this.state.optionsToggle[i];
-                    const offerSelected = (i in this.state.offerSelected) && this.state.offerSelected[i];
+                    const offerSelected = o.selected && (i in this.state.offerSelected) && this.state.offerSelected[i];
 
                     return (show ?
                         <>
-                            <tr key={i}
-                                className={(showOptions ? "expanded" : "") + ((offerSelected && !(completed || waiting)) ? " selected" : "")}>
+                            <tr key={i} className={(showOptions ? "expanded" : "") + ((offerSelected && !(completed || waiting)) ? " selected" : "")}>
                                 <td>
                                     {i === 0 ? <div className={"offer-row__logo"}>{name}</div> : null}
                                     <div className={"offer-row__dealer"}>{o.programme}</div>
@@ -137,9 +137,12 @@ class CreditOfferRow extends Component {
                                             <div className={"offer-row__status " + (o.status)}/>
                                         </td>
                                         <td>
+                                            <ReactComment text={'ecr-kasko/src/components/credit-offer-row/index.jsx ' + name + ' o.selected ' + o.selected}/>
+
                                             <Checkbox disabled={((allowCheck) ? null : "disabled")}
+                                                      checked={o.selected ? "checked" : null}
                                                       className="offer-row__check"
-                                                      onChange={(e) => this.onSelectOfferToggle(company, i, e)}/>
+                                                      onChange={(e) => this.onSelectOfferToggle(company, i, e, o.status !== 'green')}/>
                                         </td>
                                         <td>
                                             <div onClick={() => this.addOptionFlag(i)} className="offer-row__link"/>

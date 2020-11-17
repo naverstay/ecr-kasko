@@ -5,6 +5,7 @@ import './style.scss';
 import PropTypes from "prop-types";
 import pluralFromArray from "../../helpers/pluralFromArray";
 import {formatMoney} from "../../helpers/formatMoney";
+import ReactComment from "../../helpers/reactComment";
 
 class OfferRow extends Component {
     constructor(props) {
@@ -23,7 +24,7 @@ class OfferRow extends Component {
         offers: PropTypes.array
     };
 
-    onSelectOfferToggle = (company, index, e) => {
+    onSelectOfferToggle = (company, index, e, disableCashierPayment) => {
         let options = Object.assign({}, this.state.offerSelected)
 
         options[index] = e.target.checked
@@ -31,8 +32,11 @@ class OfferRow extends Component {
         this.setState({offerSelected: options})
 
         setTimeout(() => {
-            console.log('onSelectOfferToggle', company, this.state.offerSelected);
-            this.props.selectedOffer && typeof this.props.selectedOffer === 'function' && this.props.selectedOffer(company, this.state.offerSelected)
+            //console.log('onSelectOfferToggle', company, this.state.offerSelected);
+            //this.props.selectedOffer && typeof this.props.selectedOffer === 'function' && this.props.selectedOffer(company, this.state.offerSelected)
+
+            console.log('onSelectOfferToggle offer', company, this.state.offerSelected, disableCashierPayment);
+            this.props.selectedOffer && typeof this.props.selectedOffer === 'function' && this.props.selectedOffer(this.state.offerSelected, disableCashierPayment);
         })
     }
 
@@ -62,7 +66,7 @@ class OfferRow extends Component {
                 {offers.map((o, i) => {
                     const show = (i === 0 || !this.state.rowsCollapsed)
                     const showOptions = (i in this.state.optionsToggle) && this.state.optionsToggle[i]
-                    const offerSelected = (i in this.state.offerSelected) && this.state.offerSelected[i]
+                    const offerSelected = o.selected && (i in this.state.offerSelected) && this.state.offerSelected[i]
 
                     return (show ?
                         <>
@@ -140,9 +144,12 @@ class OfferRow extends Component {
                                         }
 
                                         <td>
+                                            <ReactComment text={'ecr-kasko/src/components/offer-row/index.jsx ' + name + ' o.selected ' + o.selected}/>
+
                                             <Checkbox disabled={((allowCheck || osago) ? null : "disabled")}
+                                                      checked={o.selected ? "checked" : null}
                                                       className="offer-row__check"
-                                                      onChange={(e) => this.onSelectOfferToggle(company, i, e)}/>
+                                                      onChange={(e) => this.onSelectOfferToggle(company, i, e, false)}/>
                                         </td>
                                         {!osago ? <td>
                                             <div onClick={() => this.addOptionFlag(i)} className="offer-row__link"/>

@@ -456,9 +456,7 @@ class ServiceSelect extends Component {
                         </Col>
                         <Col span={6}>
                             <div onClick={() => this.toggleCalculationPopup()}
-                                 className={"ant-btn ant-btn-primary btn_middle w_100p" + (this.state.activeOffers.length ? "" : " disabled")}
-                            >Заполнить анкету
-                            </div>
+                                 className={"ant-btn ant-btn-primary btn_middle w_100p" + (this.state.activeOffers.length ? "" : " disabled")}>Заполнить анкету</div>
                         </Col>
                     </Row>
                 </>

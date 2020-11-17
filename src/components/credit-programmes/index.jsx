@@ -20,6 +20,17 @@ class CreditProgrammes extends Component {
         offersList: PropTypes.array
     };
 
+    onSelectOfferToggle = (index, selected, disableCashier) => {
+        //let options = Object.assign({}, this.state.offerSelected)
+
+        //this.setState({offerSelected: options, disableCashierPayment: disableCashierPayment})
+
+        setTimeout(() => {
+            console.log('onSelectOfferToggle credit programme row', index, selected, disableCashier);
+            this.props.selectedOffer && typeof this.props.selectedOffer === 'function' && this.props.selectedOffer(index, selected, disableCashier)
+        }, 0)
+    }
+
     render() {
         const {offersList, selectedOffer, completed, waiting, allowCheck, headMenu, radioMode, showAnketa} = this.props
 
@@ -58,12 +69,12 @@ class CreditProgrammes extends Component {
                     {offersList && offersList.length ?
                         <tbody>
                         {
-                            offersList.map((o, i) => {
+                            offersList.map((o, k) => {
                                 return (<CreditOfferRow allowCheck={allowCheck} name={o.name}
                                                         completed={completed} waiting={waiting}
                                                         selectLimit={1}
-                                                        selectedOffer={selectedOffer}
-                                                        key={i} company={i} offers={o.offers}/>)
+                                                        selectedOffer={(select, disableCashier) => this.onSelectOfferToggle(k, select, disableCashier)}
+                                                        key={k} company={k} offers={o.offers}/>)
                             })
                         }
                         {showAnketa ?

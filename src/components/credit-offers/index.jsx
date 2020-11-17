@@ -5,18 +5,14 @@ import PropTypes from "prop-types";
 import OfferRow from "../offer-row";
 import {Select} from "antd";
 import ReactComment from "../../helpers/reactComment";
+import OfferRowCombo from "../offer-row-combo";
 
 const {Option} = Select;
 
 class CreditOffers extends Component {
     constructor(props) {
         super(props);
-        this.state = {
-            selectedOffers: [],
-            showPayment: true,
-            showCompare: false,
-            availablePayment: false
-        };
+        this.state = {};
     }
 
     static propTypes = {
@@ -26,65 +22,15 @@ class CreditOffers extends Component {
         offersList: PropTypes.array
     };
 
-    updateSelectedOffer = (company, offers) => {
-        let offerList = this.state.selectedOffers;
-        let compare = true;
+    onSelectOfferToggle = (index, selected, disableCashier) => {
+        //let options = Object.assign({}, this.state.offerSelected)
 
-        let companyOffers = offerList.find((c) => c.company === company)
+        //this.setState({offerSelected: options, disableCashierPayment: disableCashierPayment})
 
-        if (companyOffers) {
-            for (let o in offers) {
-                if (offers.hasOwnProperty(o)) {
-                    let offer = offers[o]
-
-                    if (offer) {
-                        companyOffers.offers.push(o)
-                    } else {
-                        const index = companyOffers.offers.indexOf(o + '');
-                        if (index > -1) {
-                            companyOffers.offers.splice(index, 1);
-                        }
-
-                        if (!companyOffers.offers.length) {
-                            for (let i = 0; i < offerList.length; i++) {
-                                if (offerList[i].company === company) {
-                                    offerList.splice(i, 1)
-                                }
-
-                            }
-                        }
-                    }
-                }
-            }
-
-        } else {
-            let arr = []
-
-            for (let o in offers) {
-                if (offers.hasOwnProperty(o)) {
-                    let offer = offers[o]
-
-                    if (offer) {
-                        arr.push(o)
-                    }
-                }
-            }
-
-            offerList.push({company: company, offers: arr})
-        }
-
-        if (offerList.length === 1) {
-            if (offerList[0].offers.length === 1) {
-                compare = false
-            }
-        }
-
-        this.setState({
-            selectedOffers: offerList,
-            showPayment: true,
-            showCompare: offerList.length > 1 && compare,
-            availablePayment: offerList.length > 0
-        })
+        setTimeout(() => {
+            console.log('onSelectOfferToggle credit row', index, selected, disableCashier);
+            this.props.selectedOffer && typeof this.props.selectedOffer === 'function' && this.props.selectedOffer(index, selected, disableCashier)
+        }, 0)
     }
 
     render() {
@@ -126,9 +72,10 @@ class CreditOffers extends Component {
                     {offersList && offersList.length ?
                         <tbody>
                         {
-                            offersList.map((o, i) => {
-                                return (<OfferRow allowCheck={true} credit={true} selectedOffer={selectedOffer} key={i}
-                                                  company={i} logo={o.logo} info={o.info} name={o.name}
+                            offersList.map((o, k) => {
+                                return (<OfferRow allowCheck={true} credit={true} key={k}
+                                                  selectedOffer={(select, disableCashier) => this.onSelectOfferToggle(k, select, disableCashier)}
+                                                  company={k} logo={o.logo} info={o.info} name={o.name}
                                                   offers={o.offers}/>)
                             })
                         }

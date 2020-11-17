@@ -601,8 +601,7 @@ class CarCredit extends Component {
                                         <Button htmlType="submit"
                                                 style={{padding: '0 50px'}}
                                                 className={"ant-btn-primary btn_middle ant-btn-block"}
-                                                onClick={this.toggleCalculationPopup}>Заполнить анкету и отправить в
-                                            банк</Button>
+                                                onClick={this.toggleCalculationPopup}>Заполнить анкету и отправить в банк</Button>
                                     </Col>
 
                                     <Col span={6}>

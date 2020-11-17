@@ -38,6 +38,8 @@ class KaskoCarSelectNew extends Component {
             carRegion: '',
             carMark: '',
             carVIN: '',
+            carSTS: '',
+            carSTSStart: '',
             carPTS: '',
             carPTSStart: '',
             carModel: '',
@@ -423,18 +425,33 @@ class KaskoCarSelectNew extends Component {
                                        controlName={'carVIN'} value={''}/>
                         </Row>
 
-                        <Row className="kasko-car-select__controls" gutter={20}>
-                            <Col span={3}/>
-                            <FormInput span={6} onChangeCallback={this.formControlCallback}
-                                       placeholder="Серия, номер СТС"
-                                       className={(allFields ? "input-error" : "")}
-                                       controlName={'carPTS'} value={''}/>
+                        {this.state.newCar ?
+                            <Row className="kasko-car-select__controls" gutter={20}>
+                                <Col span={3}/>
+                                <FormInput span={6} onChangeCallback={this.formControlCallback}
+                                           placeholder="Серия, номер ПТС"
+                                           className={(allFields ? "input-error" : "")}
+                                           controlName={'carPTS'} value={''}/>
 
-                            <FormInput span={6} onChangeCallback={this.formControlCallback}
-                                       placeholder="Дата выдачи СТС"
-                                       className={(allFields ? "input-error" : "")}
-                                       controlName={'carPTSStart'} value={''}/>
-                        </Row>
+                                <FormInput span={6} onChangeCallback={this.formControlCallback}
+                                           placeholder="Дата выдачи ПТС"
+                                           className={(allFields ? "input-error" : "")}
+                                           controlName={'carPTSStart'} value={''}/>
+                            </Row>
+                            :
+                            <Row className="kasko-car-select__controls" gutter={20}>
+                                <Col span={3}/>
+                                <FormInput span={6} onChangeCallback={this.formControlCallback}
+                                           placeholder="Серия, номер СТС"
+                                           className={(allFields ? "input-error" : "")}
+                                           controlName={'carSTS'} value={''}/>
+
+                                <FormInput span={6} onChangeCallback={this.formControlCallback}
+                                           placeholder="Дата выдачи СТС"
+                                           className={(allFields ? "input-error" : "")}
+                                           controlName={'carSTSStart'} value={''}/>
+                            </Row>
+                        }
 
                         <Row className="kasko-car-select__controls" gutter={20}>
                             <Col span={3}/>

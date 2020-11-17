@@ -494,6 +494,8 @@ $spinner_time: 1s;
 
 .tooltip_v1 {
   &.ant-tooltip {
+    max-width: 300px;
+
     .ant-tooltip-content {
       box-shadow: none;
     }
@@ -501,6 +503,7 @@ $spinner_time: 1s;
     .ant-tooltip-inner {
       padding-top: 10px;
       font-size: 10px;
+      line-height: 15px;
       border: 1px solid $color-grey;
       border-radius: 0;
       box-shadow: none;
