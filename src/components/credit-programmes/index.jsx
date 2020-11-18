@@ -32,7 +32,7 @@ class CreditProgrammes extends Component {
     }
 
     render() {
-        const {offersList, selectedOffer, completed, waiting, allowCheck, headMenu, radioMode, showAnketa} = this.props
+        const {offersList, selectedOffer, completed, waiting, allowCheck, headMenu, radioMode, showAnketa, offersLimit} = this.props
 
         return (
             <div className="calculation-offers">
@@ -73,6 +73,7 @@ class CreditProgrammes extends Component {
                                 return (<CreditOfferRow allowCheck={allowCheck} name={o.name}
                                                         completed={completed} waiting={waiting}
                                                         selectLimit={1}
+                                                        offersLimit={offersLimit}
                                                         selectedOffer={(select, disableCashier) => this.onSelectOfferToggle(k, select, disableCashier)}
                                                         key={k} company={k} offers={o.offers}/>)
                             })

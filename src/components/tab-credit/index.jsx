@@ -40,7 +40,7 @@ class TabCredit extends Component {
             showCarOptions: false,
             activeKasko: this.props.kasko,
             openParams: true,
-            singleSelection: true,
+            singleSelection: false,
             paramsChanged: true,
             showMoreParams: false,
             showCreditOffers: false,
@@ -84,7 +84,10 @@ class TabCredit extends Component {
     };
 
     updateStep = (index) => {
-        this.setState({selectedOffers: []});
+        this.setState({
+            selectedOffers: [],
+            singleSelection: true
+        });
         this.props.tabCallback && typeof this.props.tabCallback === 'function' && this.props.tabCallback({newStep: index})
     };
 
@@ -124,10 +127,15 @@ class TabCredit extends Component {
     }
 
     scrollToBottom = () => {
-        window.scrollTo(0, 0); //this.messagesEnd.scrollIntoView({behavior: "smooth"});
+        this.messagesEnd.scrollIntoView({behavior: "smooth"});
+    }
+
+    scrollToTop = () => {
+        window.scrollTo(0, 0);
     }
 
     toggleCalculationOffers = e => {
+        console.log('toggleCalculationOffers');
         //if (this.state.activeOffers.length && this.state.paramsChanged) {
         this.setState({
             showCreditOffers: true,
@@ -329,7 +337,7 @@ class TabCredit extends Component {
 
     componentDidMount() {
         this.props.allFields && this.setState({showAdditional: true, newCar: false});
-        this.scrollToBottom();
+        this.scrollToTop();
     }
 
     componentDidUpdate() {
@@ -584,26 +592,88 @@ class TabCredit extends Component {
                         status: '',
                         products: creditProducts,
                         options: optionsFixtures
-                    }
-                ]
-            },
-            {
-                name: 'ВТБ',
-                offers: [
+                    },
                     {
-                        programme: 'АвтоСтандарт (СЖ дилера)',
+                        programme: 'Стандарт (СЖ дилера)',
                         price: 23719,
                         rate: '15,90%',
-                        dealerFee: 3045,
+                        dealerFee: 4145,
                         status: '',
                         products: creditProducts,
                         options: optionsFixtures
-                    }
-                ]
-            },
-            {
-                name: 'ЮниКредит Банк',
-                offers: [
+                    },
+                    {
+                        programme: 'Стандарт (СЖ дилера)',
+                        price: 23719,
+                        rate: '15,90%',
+                        dealerFee: 4145,
+                        status: '',
+                        products: creditProducts,
+                        options: optionsFixtures
+                    },
+                    {
+                        programme: 'Стандарт (СЖ дилера)',
+                        price: 23719,
+                        rate: '15,90%',
+                        dealerFee: 4145,
+                        status: '',
+                        products: creditProducts,
+                        options: optionsFixtures
+                    },
+                    {
+                        programme: 'Стандарт (СЖ дилера)',
+                        price: 23719,
+                        rate: '15,90%',
+                        dealerFee: 4145,
+                        status: '',
+                        products: creditProducts,
+                        options: optionsFixtures
+                    },
+                    {
+                        programme: 'Стандарт (СЖ дилера)',
+                        price: 23719,
+                        rate: '15,90%',
+                        dealerFee: 4145,
+                        status: '',
+                        products: creditProducts,
+                        options: optionsFixtures
+                    },
+                    {
+                        programme: 'Стандарт (СЖ дилера)',
+                        price: 23719,
+                        rate: '15,90%',
+                        dealerFee: 4145,
+                        status: '',
+                        products: creditProducts,
+                        options: optionsFixtures
+                    },
+                    {
+                        programme: 'Стандарт (СЖ дилера)',
+                        price: 23719,
+                        rate: '15,90%',
+                        dealerFee: 4145,
+                        status: '',
+                        products: creditProducts,
+                        options: optionsFixtures
+                    },
+                    {
+                        programme: 'Стандарт (СЖ дилера)',
+                        price: 23719,
+                        rate: '15,90%',
+                        dealerFee: 4145,
+                        status: '',
+                        products: creditProducts,
+                        options: optionsFixtures
+                    },
+                    {
+                        programme: 'Стандарт (СЖ дилера)',
+                        price: 23719,
+                        rate: '15,90%',
+                        dealerFee: 4145,
+                        status: '',
+                        products: creditProducts,
+                        options: optionsFixtures
+                    },
                     {
                         programme: 'Стандарт (СЖ дилера)',
                         price: 23719,
@@ -623,6 +693,223 @@ class TabCredit extends Component {
                         price: 23719,
                         rate: '15,90%',
                         dealerFee: 3045,
+                        status: '',
+                        products: creditProducts,
+                        options: optionsFixtures
+                    },
+                    {
+                        programme: 'Стандарт (СЖ дилера)',
+                        price: 23719,
+                        rate: '15,90%',
+                        dealerFee: 4145,
+                        status: '',
+                        products: creditProducts,
+                        options: optionsFixtures
+                    },
+                    {
+                        programme: 'Стандарт (СЖ дилера)',
+                        price: 23719,
+                        rate: '15,90%',
+                        dealerFee: 4145,
+                        status: '',
+                        products: creditProducts,
+                        options: optionsFixtures
+                    },
+                    {
+                        programme: 'Стандарт (СЖ дилера)',
+                        price: 23719,
+                        rate: '15,90%',
+                        dealerFee: 4145,
+                        status: '',
+                        products: creditProducts,
+                        options: optionsFixtures
+                    },
+                    {
+                        programme: 'Стандарт (СЖ дилера)',
+                        price: 23719,
+                        rate: '15,90%',
+                        dealerFee: 4145,
+                        status: '',
+                        products: creditProducts,
+                        options: optionsFixtures
+                    },
+                    {
+                        programme: 'Стандарт (СЖ дилера)',
+                        price: 23719,
+                        rate: '15,90%',
+                        dealerFee: 4145,
+                        status: '',
+                        products: creditProducts,
+                        options: optionsFixtures
+                    }
+                ]
+            },
+            {
+                name: 'ЮниКредит Банк',
+                offers: [
+                    {
+                        programme: 'Стандарт (СЖ дилера)',
+                        price: 23719,
+                        rate: '15,90%',
+                        dealerFee: 4145,
+                        status: '',
+                        products: creditProducts,
+                        options: optionsFixtures
+                    },
+                    {
+                        programme: 'Стандарт (СЖ дилера)',
+                        price: 23719,
+                        rate: '15,90%',
+                        dealerFee: 4145,
+                        status: '',
+                        products: creditProducts,
+                        options: optionsFixtures
+                    },
+                    {
+                        programme: 'Стандарт (СЖ дилера)',
+                        price: 23719,
+                        rate: '15,90%',
+                        dealerFee: 4145,
+                        status: '',
+                        products: creditProducts,
+                        options: optionsFixtures
+                    },
+                    {
+                        programme: 'Стандарт (СЖ дилера)',
+                        price: 23719,
+                        rate: '15,90%',
+                        dealerFee: 4145,
+                        status: '',
+                        products: creditProducts,
+                        options: optionsFixtures
+                    },
+                    {
+                        programme: 'Стандарт (СЖ дилера)',
+                        price: 23719,
+                        rate: '15,90%',
+                        dealerFee: 4145,
+                        status: '',
+                        products: creditProducts,
+                        options: optionsFixtures
+                    },
+                    {
+                        programme: 'Стандарт (СЖ дилера)',
+                        price: 23719,
+                        rate: '15,90%',
+                        dealerFee: 4145,
+                        status: '',
+                        products: creditProducts,
+                        options: optionsFixtures
+                    },
+                    {
+                        programme: 'Стандарт (СЖ дилера)',
+                        price: 23719,
+                        rate: '15,90%',
+                        dealerFee: 4145,
+                        status: '',
+                        products: creditProducts,
+                        options: optionsFixtures
+                    },
+                    {
+                        programme: 'Стандарт (СЖ дилера)',
+                        price: 23719,
+                        rate: '15,90%',
+                        dealerFee: 4145,
+                        status: '',
+                        products: creditProducts,
+                        options: optionsFixtures
+                    },
+                    {
+                        programme: 'Стандарт (СЖ дилера)',
+                        price: 23719,
+                        rate: '15,90%',
+                        dealerFee: 4145,
+                        status: '',
+                        products: creditProducts,
+                        options: optionsFixtures
+                    },
+                    {
+                        programme: 'Стандарт (СЖ дилера)',
+                        price: 23719,
+                        rate: '15,90%',
+                        dealerFee: 4145,
+                        status: '',
+                        products: creditProducts,
+                        options: optionsFixtures
+                    },
+                    {
+                        programme: 'Стандарт (СЖ дилера)',
+                        price: 23719,
+                        rate: '15,90%',
+                        dealerFee: 4145,
+                        status: '',
+                        products: creditProducts,
+                        options: optionsFixtures
+                    }
+                ]
+            },
+            {
+                name: 'ВТБ',
+                offers: [
+                    {
+                        programme: 'АвтоСтандарт (СЖ дилера)',
+                        price: 23719,
+                        rate: '15,90%',
+                        dealerFee: 3045,
+                        status: '',
+                        products: creditProducts,
+                        options: optionsFixtures
+                    },
+                    {
+                        programme: 'Стандарт (СЖ дилера)',
+                        price: 23719,
+                        rate: '15,90%',
+                        dealerFee: 4145,
+                        status: '',
+                        products: creditProducts,
+                        options: optionsFixtures
+                    },
+                    {
+                        programme: 'Стандарт (СЖ дилера)',
+                        price: 23719,
+                        rate: '15,90%',
+                        dealerFee: 4145,
+                        status: '',
+                        products: creditProducts,
+                        options: optionsFixtures
+                    },
+                    {
+                        programme: 'Стандарт (СЖ дилера)',
+                        price: 23719,
+                        rate: '15,90%',
+                        dealerFee: 4145,
+                        status: '',
+                        products: creditProducts,
+                        options: optionsFixtures
+                    },
+                    {
+                        programme: 'Стандарт (СЖ дилера)',
+                        price: 23719,
+                        rate: '15,90%',
+                        dealerFee: 4145,
+                        status: '',
+                        products: creditProducts,
+                        options: optionsFixtures
+                    },
+                    {
+                        programme: 'Стандарт (СЖ дилера)',
+                        price: 23719,
+                        rate: '15,90%',
+                        dealerFee: 4145,
+                        status: '',
+                        products: creditProducts,
+                        options: optionsFixtures
+                    },
+                    {
+                        programme: 'Стандарт (СЖ дилера)',
+                        price: 23719,
+                        rate: '15,90%',
+                        dealerFee: 4145,
                         status: '',
                         products: creditProducts,
                         options: optionsFixtures
@@ -669,6 +956,42 @@ class TabCredit extends Component {
                         price: 23719,
                         rate: '15,90%',
                         dealerFee: 3045,
+                        status: '',
+                        products: creditProducts,
+                        options: optionsFixtures
+                    },
+                    {
+                        programme: 'Стандарт (СЖ дилера)',
+                        price: 23719,
+                        rate: '15,90%',
+                        dealerFee: 4145,
+                        status: '',
+                        products: creditProducts,
+                        options: optionsFixtures
+                    },
+                    {
+                        programme: 'Стандарт (СЖ дилера)',
+                        price: 23719,
+                        rate: '15,90%',
+                        dealerFee: 4145,
+                        status: '',
+                        products: creditProducts,
+                        options: optionsFixtures
+                    },
+                    {
+                        programme: 'Стандарт (СЖ дилера)',
+                        price: 23719,
+                        rate: '15,90%',
+                        dealerFee: 4145,
+                        status: '',
+                        products: creditProducts,
+                        options: optionsFixtures
+                    },
+                    {
+                        programme: 'Стандарт (СЖ дилера)',
+                        price: 23719,
+                        rate: '15,90%',
+                        dealerFee: 4145,
                         status: '',
                         products: creditProducts,
                         options: optionsFixtures
@@ -794,41 +1117,39 @@ class TabCredit extends Component {
 
         offersList = JSON.parse(tempOffersList)
 
-        if (!this.state.anketaCompleted) {
-            for (let i = 0; i < offersList.length; i++) {
-                let comp = offersList[i];
-                let find = this.state.selectedOffers.filter((c) => c.company === i);
+        for (let i = 0; i < offersList.length; i++) {
+            let comp = offersList[i];
+            let find = this.state.selectedOffers.filter((c) => c.company === i);
 
-                for (let j = 0; j < comp.offers.length; j++) {
-                    let off = comp.offers[j];
-                    let slct = find.length ? find[0].offers.filter((o) => {
-                            return +o === j
-                        }) : [];
-
-                    off.selected = !!slct.length
-
-                    if (slct.length) {
-                        console.log('slct', slct, slct.length, off);
-                    }
-                }
-
-                console.log('comp offersList', comp, find);
-            }
-        } else {
-            for (let i = 0; i < creditOffersList.length; i++) {
-                let comp = creditOffersList[i];
-                let find = this.state.selectedOffers.filter((c) => c.company === i);
-
-                for (let j = 0; j < comp.offers.length; j++) {
-                    let off = comp.offers[j];
-                    off.selected = find.length ? !!find[0].offers.filter((o) => {
-                        console.log('o.index === j', o, j);
+            for (let j = 0; j < comp.offers.length; j++) {
+                let off = comp.offers[j];
+                let slct = find.length ? find[0].offers.filter((o) => {
                         return +o === j
-                    }).length : false
-                }
+                    }) : [];
 
-                console.log('comp creditOffersList', comp, find);
+                off.selected = !!slct.length
+
+                if (slct.length) {
+                    console.log('slct', slct, slct.length, off);
+                }
             }
+
+            console.log('comp offersList', comp, find);
+        }
+
+        for (let i = 0; i < creditOffersList.length; i++) {
+            let comp = creditOffersList[i];
+            let find = this.state.selectedOffers.filter((c) => c.company === i);
+
+            for (let j = 0; j < comp.offers.length; j++) {
+                let off = comp.offers[j];
+                off.selected = find.length ? !!find[0].offers.filter((o) => {
+                    console.log('o.index === j', o, j);
+                    return +o === j
+                }).length : false
+            }
+
+            console.log('comp creditOffersList', comp, find);
         }
 
         return (
@@ -912,6 +1233,7 @@ class TabCredit extends Component {
                                           radioMode={true}
                                           showAnketa={step === 3}
                                           selectedOffer={this.updateSelectedOffer}
+                                          offersLimit={8}
                                           offersList={this.state.showMoreOffers ? creditOffersList : creditOffersList.slice(0, 8)}
                                           allowCheck={true}/>
 
@@ -942,9 +1264,7 @@ class TabCredit extends Component {
                                             <Col span={6}>
                                                 <Button disabled={this.state.offerComments.length ? null : "disabled"}
                                                         className={"ant-btn-primary btn_middle ant-btn-block"}
-                                                        onClick={() => {
-                                                            this.sendOrder()
-                                                        }}>Отправить заявку</Button>
+                                                        onClick={() => {this.sendOrder()}}>Отправить заявку</Button>
                                             </Col>
                                         </Row>
                                     </div>

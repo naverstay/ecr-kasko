@@ -65,7 +65,7 @@ class CreditOfferRow extends Component {
     }
 
     render() {
-        const {offers, credit, company, completed, waiting, allowCheck, name, selectLimit} = this.props;
+        const {offers, credit, company, completed, waiting, allowCheck, name, selectLimit, offersLimit} = this.props;
         const pluralArr = ['программа', 'программы', 'программ'];
 
         const moreLink = 'еще ' + (offers.length - 1) + ' ' + pluralFromArray(pluralArr, (offers.length - 1));
@@ -80,7 +80,7 @@ class CreditOfferRow extends Component {
 
                     return (show ?
                         <>
-                            <tr key={i} className={(showOptions ? "expanded" : "") + ((offerSelected && !(completed || waiting)) ? " selected" : "")}>
+                            <tr key={i} className={(showOptions ? "expanded" : "") + ((offerSelected && !(completed || waiting)) ? " selected" : "") + ((company === offersLimit) ? " __bordered" : "")}>
                                 <td>
                                     {i === 0 ? <div className={"offer-row__logo"}>{name}</div> : null}
                                     <div className={"offer-row__dealer"}>{o.programme}</div>
