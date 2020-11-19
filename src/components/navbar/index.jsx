@@ -71,7 +71,7 @@ class Navbar extends Component {
                             </div>
                         </div>
                         <div className="sidebar__button button-submenu">
-                            <a href="/" className="sidebar__button-icon add"></a>
+                            <a href="/garage_empty" className="sidebar__button-icon add"></a>
                             <div className="sidebar__button-label">Рассчитать</div>
                         </div>
                         <div className="sidebar__button active button-submenu">

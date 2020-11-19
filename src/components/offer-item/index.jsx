@@ -79,7 +79,7 @@ class OfferItem extends Component {
         this.setState({
             newPrice: !active ? 10000 : 0,
             activeOffer: !active,
-            //offerCollapsed: !this.state.offerCollapsed, 
+            //offerCollapsed: !this.state.offerCollapsed,
             offerAdded: !this.state.offerAdded
         })
 
@@ -192,9 +192,8 @@ class OfferItem extends Component {
 
                             {step > 1 ? null
                                 :
-                                <span>
-									<span
-                                        className="kasko-offer__item--price">{price}</span> {offer.plus ? null : <>&nbsp;{offer.suffix}</>}
+                                <span className={"wnw"}>
+									<span className="kasko-offer__item--price">{price}</span> {offer.plus ? null : <>&nbsp;{offer.suffix}</>}
 								</span>
                             }
                         </div>

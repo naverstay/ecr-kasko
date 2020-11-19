@@ -103,6 +103,12 @@ function App() {
                            dev={process.env.NODE_ENV !== 'production'}/>
                 </PageLayout>
             )}/>
+            <Route path="/garage_empty" render={(routeProps) => (
+                <PageLayout>
+                    <Kasko showGarage={true} emptyGarage={true} {...routeProps} tabs={true}
+                           dev={process.env.NODE_ENV !== 'production'}/>
+                </PageLayout>
+            )}/>
             <Route path="/tabs" render={(routeProps) => (
                 <PageLayout>
                     <Kasko {...routeProps} step={1} tabs={true} dev={process.env.NODE_ENV !== 'production'}

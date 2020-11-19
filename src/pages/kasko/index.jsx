@@ -84,7 +84,7 @@ class Kasko extends Component {
     }
 
     render() {
-        let {showOffers, step, progress, cabinet, tabs, addCar, showGarage, showCar} = this.props;
+        let {showOffers, step, progress, cabinet, tabs, addCar, showGarage, emptyGarage, showCar} = this.props;
         let status = 0
 
         const statusClasses = {
@@ -166,6 +166,16 @@ class Kasko extends Component {
             </>
         }
 
+        let carInfo = [];
+
+        for (let i = 0; i < (this.props.dev ? 10 : 1); i++) {
+            carInfo.push(<AsideBlock><KaskoCarInfo step={step} notificationCount={step === 2 ? 1 : step === 3 ? 2 : 0}
+                                       carName={step === 1 ? '' : 'Hyundai'}
+                                       carModel={step === 1 ? '' : 'Sonata'} image={this.state.carImage}
+                                       info={step === 1 ? '' : "2020 Новый"}
+                                       price={step === 1 ? '' : "1 534 000 ₽"}/></AsideBlock>)
+        }
+
         console.log('this.state.tabIndex', this.state.tabIndex);
 
         return (
@@ -199,6 +209,7 @@ class Kasko extends Component {
                                 <CarSelect collapseCarInfo={this.state.carFound}
                                            showCarOptions={(this.state.tabIndex !== null)}
                                            garage={showGarage}
+                                           emptyGarage={emptyGarage}
                                            fill={showCar}
                                            addCar={addCar}
                                            imageCallback={this.imageCallback} step={step} image={this.state.carImage}/>
@@ -377,13 +388,17 @@ class Kasko extends Component {
                                     </AsideBlock>
                                 </>
                                 :
-                                <AsideBlock>
-                                    <KaskoCarInfo step={step} notificationCount={step === 2 ? 1 : step === 3 ? 2 : 0}
-                                                  carName={step === 1 ? '' : 'Hyundai'}
-                                                  carModel={step === 1 ? '' : 'Sonata'} image={this.state.carImage}
-                                                  info={step === 1 ? '' : "2020 Новый"}
-                                                  price={step === 1 ? '' : "1 534 000 ₽"}/>
-                                </AsideBlock>
+                                <>
+
+                                    {carInfo}
+
+                                    <AsideBlock>
+                                        <KaskoCarInfo step={step} garage={true}
+                                                      notificationCount={step === 2 ? 1 : step === 3 ? 2 : 0}
+                                                      carName={'Hyundai'}
+                                                      carModel={'Sonata'}/>
+                                    </AsideBlock>
+                                </>
                             }
                         </Col>
 

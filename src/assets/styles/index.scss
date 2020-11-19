@@ -5,8 +5,31 @@
 @import 'grid';
 //@import 'fonts';
 
+$scrollbar_size: 6px;
+
 html {
   font: 14px/1.2 'Roboto', sans-serif;
+
+
+  &::-webkit-scrollbar {
+    width: $scrollbar_size;
+  }
+
+  &::-webkit-scrollbar-thumb {
+    background: $color-prime;
+    border-radius: $scrollbar_size / 2;
+  }
+
+  * {
+    &::-webkit-scrollbar {
+      width: $scrollbar_size;
+    }
+
+    &::-webkit-scrollbar-thumb {
+      background: $color-prime;
+      border-radius: $scrollbar_size / 2;
+    }
+  }
 }
 
 button,

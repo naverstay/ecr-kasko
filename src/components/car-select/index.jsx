@@ -543,7 +543,7 @@ class CarSelect extends Component {
                 <ReactComment text='ecr-kasko/src/components/car-select/index.jsx'/>
 
                 {this.props.garage ?
-                    <CarGarage carList={[
+                    <CarGarage carList={this.props.emptyGarage ? [] : [
                         {
                             carMark: 'Hyundai',
                             carModel: 'Sonata',
