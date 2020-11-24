@@ -40,6 +40,8 @@ class TabCredit extends Component {
             showCarOptions: false,
             activeKasko: this.props.kasko,
             openParams: true,
+            openConsideration: this.props.step < 3,
+            openConducting: true,
             singleSelection: false,
             paramsChanged: true,
             showMoreParams: false,
@@ -84,6 +86,13 @@ class TabCredit extends Component {
     };
 
     updateStep = (index) => {
+        if (index > 2) {
+            this.setState({
+                openConsideration: false,
+                showDealProvider: false
+            });
+        }
+
         this.setState({
             selectedOffers: [],
             singleSelection: true
@@ -99,6 +108,19 @@ class TabCredit extends Component {
     toggleShowParams = () => {
         this.setState({
             openParams: !this.state.openParams
+        });
+    };
+
+    toggleBankConsideration = () => {
+        this.setState({
+            openConsideration: !this.state.openConsideration
+        });
+    };
+
+
+    toggleConducting = () => {
+        this.setState({
+            openConducting: !this.state.openConducting
         });
     };
 
@@ -139,6 +161,7 @@ class TabCredit extends Component {
         //if (this.state.activeOffers.length && this.state.paramsChanged) {
         this.setState({
             showCreditOffers: true,
+            openConsideration: true,
             openParams: false
             //paramsChanged: false
         });
@@ -189,7 +212,9 @@ class TabCredit extends Component {
     }
 
     toggleDealProvider = () => {
-        this.setState({showDealProvider: !this.state.showDealProvider})
+        this.setState({
+            showDealProvider: !this.state.showDealProvider
+        });
     }
 
     sendOrder = () => {
@@ -221,6 +246,17 @@ class TabCredit extends Component {
             default:
                 console.log('formControlCallback', name, value);
 
+        }
+    }
+
+    anketaUpdateFunc = (result) => {
+        if (!result) {
+            this.updateStep(2)
+            this.props.tabCallback({newStep: 2})
+
+            this.setState({
+                openConsideration: true
+            });
         }
     }
 
@@ -1000,10 +1036,6 @@ class TabCredit extends Component {
             }
         ]
 
-        if (step === 3) {
-            creditOffersList = creditOffersList.slice(0, 1);
-        }
-
         let offersList = []
 
         for (let i = 0; i < banks.length; i++) {
@@ -1039,7 +1071,9 @@ class TabCredit extends Component {
                  className={"kasko-car-select__controls ant-row-center" + (this.state.openParams ? " mb_0" : "")}>
                 <Col span={6}>
                     <div onClick={this.toggleCalculationOffers}
-                         className={"ant-btn ant-btn-primary margin_tb btn_middle" + (this.state.paramsChanged ? "" : " disabled")}>Получить расчет</div>
+                         className={"ant-btn ant-btn-primary margin_tb btn_middle" + (this.state.paramsChanged ? "" : " disabled")}>Получить
+                        расчет
+                    </div>
                 </Col>
             </Row>
         </>
@@ -1124,8 +1158,8 @@ class TabCredit extends Component {
             for (let j = 0; j < comp.offers.length; j++) {
                 let off = comp.offers[j];
                 let slct = find.length ? find[0].offers.filter((o) => {
-                        return +o === j
-                    }) : [];
+                    return +o === j
+                }) : [];
 
                 off.selected = !!slct.length
 
@@ -1133,8 +1167,6 @@ class TabCredit extends Component {
                     console.log('slct', slct, slct.length, off);
                 }
             }
-
-            console.log('comp offersList', comp, find);
         }
 
         for (let i = 0; i < creditOffersList.length; i++) {
@@ -1144,12 +1176,9 @@ class TabCredit extends Component {
             for (let j = 0; j < comp.offers.length; j++) {
                 let off = comp.offers[j];
                 off.selected = find.length ? !!find[0].offers.filter((o) => {
-                    console.log('o.index === j', o, j);
                     return +o === j
                 }).length : false
             }
-
-            console.log('comp creditOffersList', comp, find);
         }
 
         return (
@@ -1229,102 +1258,113 @@ class TabCredit extends Component {
 
                 {step >= 2 ?
                     <>
-                        <CreditProgrammes headMenu={this.state.selectedOffers.length}
-                                          radioMode={true}
-                                          showAnketa={step === 3}
-                                          selectedOffer={this.updateSelectedOffer}
-                                          offersLimit={8}
-                                          offersList={this.state.showMoreOffers ? creditOffersList : creditOffersList.slice(0, 8)}
-                                          allowCheck={true}/>
+                        <div onClick={this.toggleBankConsideration} className={"kasko-car-select__caption"
+                        + (this.state.openConsideration ? " expanded" : " collapsed")}>Рассмотрение в банках
+                        </div>
 
-                        {step < 3 ?
-                            <>
-                                {this.state.showMoreOffers ?
-                                    <div className="kasko-offer__comments">
-                                        <Row gutter={20}>
-                                            <Col className="ant-flex-1">
-                                                <div className="comments-form">
+                        {this.state.openConsideration ? <>
+                                <CreditProgrammes headMenu={this.state.selectedOffers.length}
+                                                  radioMode={true}
+                                                  showAnketa={false}
+                                                  selectedOffer={this.updateSelectedOffer}
+                                                  offersLimit={8}
+                                                  offersList={this.state.showMoreOffers ? creditOffersList : creditOffersList.slice(0, 8)}
+                                                  allowCheck={true}/>
+
+                                {/*{step < 3 ?*/}
+                                <>
+                                    {this.state.showMoreOffers ?
+                                        <div className="kasko-offer__comments">
+                                            <Row gutter={20}>
+                                                <Col className="ant-flex-1">
+                                                    <div className="comments-form">
                                             <textarea className='comments-form__text'
                                                       placeholder="Комментарий для банков"/>
-                                                    <button
-                                                        className='comments-form__btn ant-btn ant-btn-primary ant-btn-block'>
-                                                        <span className={"i-plane"}/>
-                                                    </button>
-                                                </div>
-                                            </Col>
-                                            <FormCheckbox onChangeCallback={this.formControlCallback}
-                                                          text="Выбрать все"
-                                                          className="checkbox_middle check_v5"
-                                                          value={0}
-                                                          controlName={'checkAllOffersSate'}
-                                                          checked={this.state.checkAllOffersSate}/>
-                                        </Row>
-                                        <Row gutter={20}
-                                             className={"kasko-car-select__controls ant-row-center align_center mt-30"}>
-                                            <Col span={6}>
-                                                <Button disabled={this.state.offerComments.length ? null : "disabled"}
+                                                        <button
+                                                            className='comments-form__btn ant-btn ant-btn-primary ant-btn-block'>
+                                                            <span className={"i-plane"}/>
+                                                        </button>
+                                                    </div>
+                                                </Col>
+                                                <FormCheckbox onChangeCallback={this.formControlCallback}
+                                                              text="Выбрать все"
+                                                              className="checkbox_middle check_v5"
+                                                              value={0}
+                                                              controlName={'checkAllOffersSate'}
+                                                              checked={this.state.checkAllOffersSate}/>
+                                            </Row>
+                                            <Row gutter={20}
+                                                 className={"kasko-car-select__controls ant-row-center align_center mt-30"}>
+                                                <Col span={6}>
+                                                    <Button
+                                                        disabled={this.state.offerComments.length ? null : "disabled"}
                                                         className={"ant-btn-primary btn_middle ant-btn-block"}
-                                                        onClick={() => {this.sendOrder()}}>Отправить заявку</Button>
-                                            </Col>
-                                        </Row>
+                                                        onClick={() => {
+                                                            this.sendOrder()
+                                                        }}>Отправить заявку</Button>
+                                                </Col>
+                                            </Row>
+                                        </div>
+                                        : null}
+
+                                    <div className="kasko-offer__more">
+                                        <div className="gl_link" onClick={() => {
+                                            this.toggleMoreOffers()
+                                        }}>{this.state.showMoreOffers ? "Скрыть предложения" : "Показать все предложения"}</div>
                                     </div>
-                                    : null}
 
-                                <div className="kasko-offer__more">
-                                    <div className="gl_link" onClick={() => {
-                                        this.toggleMoreOffers()
-                                    }}>{this.state.showMoreOffers ? "Скрыть предложения" : "Показать все предложения"}</div>
-                                </div>
-
-                                <Row gutter={20} className={"kasko-car-select__controls ant-row-center"}>
-                                    <Col span={6}>
-                                        <ul className="calculation-offers__menu-list">
-                                            <li><span
-                                                className={"gl_link" + (this.state.selectedOffers.length ? "" : " color_gray")}>Подать заново</span>
-                                            </li>
-                                            <li><span
-                                                className={"gl_link" + (this.state.selectedOffers.length ? "" : " color_gray")}>Отказ клиента</span>
-                                            </li>
-                                        </ul>
-                                    </Col>
-                                    <Col span={6}>
-                                        <div className={"calculation-offers__dropdown"}>
-                                            <Button className={"ant-btn-primary btn_middle ant-btn-block" + ((this.state.selectedOffers.length && this.state.availableCashier) ? "" : " disabled")}
+                                    <Row gutter={20} className={"kasko-car-select__controls"}>
+                                        <Col span={6}>
+                                            <Button
+                                                className={"ant-btn btn_green ant-btn-block w_100p" + (this.state.selectedOffers.length ? "" : " disabled")}>Подать
+                                                заново</Button>
+                                        </Col>
+                                        <Col span={3}>
+                                            <Button
+                                                className={"ant-btn btn_green ant-btn-block w_100p" + (this.state.selectedOffers.length ? "" : " disabled")}>Отказ</Button>
+                                        </Col>
+                                        <Col span={6}>
+                                            <div className={"calculation-offers__dropdown"}>
+                                                <Button
+                                                    className={"ant-btn-primary btn_middle ant-btn-block" + ((this.state.selectedOffers.length && this.state.availableCashier) ? "" : " disabled")}
                                                     onClick={() => {
                                                         (this.state.selectedOffers.length && this.state.availableCashier) && this.toggleDealProvider()
                                                     }}>Оформить кредит</Button>
 
-                                            {this.state.showDealProvider ?
-                                                <div className="payment-switch__dropdown">
-                                                    <p>Кем проводится сделка?</p>
-                                                    <ul className="payment-switch__options">
-                                                        <li className="payment-switch__options--item">
-                                                            <div onClick={() => {
-                                                                this.props.tabCallback({newStep: 3})
-                                                            }} className="payment-switch__btn browser">
-                                                                <span>Внести итоговые условия по кредиту</span>
-                                                            </div>
-                                                        </li>
-                                                        <li className="payment-switch__options--item">
-                                                            <div onClick={() => {
-                                                                this.props.tabCallback({newStep: 3})
-                                                            }} className="payment-switch__btn ecr">
-                                                                <span>Провести сделку через еКредит</span>
-                                                            </div>
-                                                        </li>
-                                                    </ul>
-                                                </div>
-                                                : null
-                                            }
-                                        </div>
-                                    </Col>
-                                    <Col span={6}/>
-                                </Row>
+                                                {this.state.showDealProvider ?
+                                                    <div className="payment-switch__dropdown">
+                                                        <p>Кем проводится сделка?</p>
+                                                        <ul className="payment-switch__options">
+                                                            <li className="payment-switch__options--item">
+                                                                <div onClick={() => {
+                                                                    this.updateStep(3)
+                                                                    this.props.tabCallback({newStep: 3})
+                                                                }} className="payment-switch__btn browser">
+                                                                    <span>Внести итоговые условия по кредиту</span>
+                                                                </div>
+                                                            </li>
+                                                            <li className="payment-switch__options--item">
+                                                                <div onClick={() => {
+                                                                    this.updateStep(3)
+                                                                    this.props.tabCallback({newStep: 3})
+                                                                }} className="payment-switch__btn ecr">
+                                                                    <span>Провести сделку через еКредит</span>
+                                                                </div>
+                                                            </li>
+                                                        </ul>
+                                                    </div>
+                                                    : null
+                                                }
+                                            </div>
+                                        </Col>
+                                    </Row>
+                                </>
+                                {/*: null }*/}
                             </>
                             : null
                         }
-
                     </>
+
                     : this.state.showCreditOffers ?
                         <div className="kasko-main__wide">
                             <Row gutter={20}>
@@ -1338,18 +1378,21 @@ class TabCredit extends Component {
                                          style={{marginBottom: '50px'}}>
                                         <Col span={6}>
                                             <div onClick={this.toggleSaveCalculationPopup}
-                                                 className={"ant-btn btn_green ant-btn-block w_100p"}>Сохранить расчет</div>
+                                                 className={"ant-btn btn_green ant-btn-block w_100p"}>Сохранить расчет
+                                            </div>
                                         </Col>
 
                                         {this.state.anketaCompleted ?
                                             <Col span={12}>
                                                 <Button htmlType="submit"
                                                         style={{padding: '0 50px'}}
-                                                        //disabled={this.state.availableCashier ? null : "disabled"}
+                                                    //disabled={this.state.availableCashier ? null : "disabled"}
                                                         className={"ant-btn-primary btn_middle ant-btn-block" + ((this.state.selectedOffers.length) ? "" : " disabled")}
-                                                        onClick={() => {this.updateStep(2)}}>Отправить заявку</Button>
+                                                        onClick={() => {
+                                                            this.updateStep(2)
+                                                        }}>Отправить заявку</Button>
                                             </Col>
-                                        :
+                                            :
                                             <Col span={12}>
                                                 <Button htmlType="submit"
                                                         style={{padding: '0 50px'}}
@@ -1370,6 +1413,29 @@ class TabCredit extends Component {
                             </Row>
                         </div>
                         : null
+                }
+
+                {step >= 3 ?
+                    <>
+                        <div onClick={this.toggleConducting} className={"kasko-car-select__caption"
+                        + (this.state.openConducting ? " expanded" : " collapsed")}>Проведение сделки
+                        </div>
+
+                        {this.state.openConducting ?
+                            <>
+                                <CreditProgrammes headMenu={this.state.selectedOffers.length}
+                                                  radioMode={true}
+                                                  showAnketa={true}
+                                                  anketaCallback={this.anketaUpdateFunc}
+                                                  selectedOffer={this.updateSelectedOffer}
+                                                  offersLimit={8}
+                                                  offersList={creditOffersList.slice(0, 1)}
+                                                  allowCheck={true}/>
+                            </>
+                            : null
+                        }
+                    </>
+                    : null
                 }
 
                 <div ref={(el) => {

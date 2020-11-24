@@ -7,7 +7,7 @@
 		max-width: $layout-maxwidth;
 		flex-direction: column;
 		overflow-x: hidden;
-		
+
 		@include for-size(desktop-up) {
 			margin-left: $aside-size-small;
 		}
@@ -26,7 +26,7 @@
 
 			&._kasko {
 				margin-top: 0;
-				padding: 7px $content-padding;
+				padding: 0 $content-padding;
 				font-family: Roboto, sans-serif;
 			}
 		}

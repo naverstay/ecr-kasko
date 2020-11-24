@@ -155,6 +155,12 @@ $aside-size: 226px;
     //padding-right: 14px;
     min-height: 100vh;
 
+    &:not(.kasko-wrapper__fixed) {
+      .kasko-main {
+        padding-top: 7px;
+      }
+    }
+
     &__fixed {
       position: fixed;
       top: 0;

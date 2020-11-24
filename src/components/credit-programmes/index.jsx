@@ -5,7 +5,7 @@ import PropTypes from "prop-types";
 import OfferRow from "../offer-row";
 import CreditOfferRow from "../credit-offer-row";
 import ReactComment from "../../helpers/reactComment";
-import {Col, Row} from "antd";
+import {Button, Col, Row} from "antd";
 
 class CreditProgrammes extends Component {
     constructor(props) {
@@ -16,9 +16,14 @@ class CreditProgrammes extends Component {
     static propTypes = {
         children: PropTypes.node,
         innerWidth: PropTypes.number,
+        anketaCallback: PropTypes.func,
         popupCloseFunc: PropTypes.func,
         offersList: PropTypes.array
     };
+
+    programmesCallback = (ret) => {
+        this.props.anketaCallback && (typeof this.props.anketaCallback === 'function') && this.props.anketaCallback(ret);
+    }
 
     onSelectOfferToggle = (index, selected, disableCashier) => {
         //let options = Object.assign({}, this.state.offerSelected)
@@ -83,9 +88,15 @@ class CreditProgrammes extends Component {
                                 <td colSpan={8}>
                                     <p>Анкета</p>
                                     <Row gutter={20} className={"kasko-car-select__controls ant-row-center"}>
-                                        <Col span={6}>
-                                            <div className={"ant-btn ant-btn-primary margin_tb btn_middle"}>Закрыть заявку</div>
+                                        <Col span={3}>
+                                            <Button onClick={()=> {
+                                                this.programmesCallback(false)
+                                            }} className={"btn_green ant-btn-block margin_tb btn_middle w_100p"}>Отмена</Button>
                                         </Col>
+                                        <Col span={6}>
+                                            <Button className={"ant-btn-primary margin_tb btn_middle w_100p"}>Закрыть заявку</Button>
+                                        </Col>
+                                        <Col span={3}/>
                                     </Row>
                                 </td>
                             </tr>

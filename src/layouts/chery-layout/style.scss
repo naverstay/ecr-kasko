@@ -7,11 +7,11 @@
 		max-width: $layout-maxwidth;
 		flex-direction: column;
 		overflow-x: hidden;
-		
+
 		@include for-size(desktop-up) {
 			margin-left: $aside-size-small;
 		}
-		
+
 		&.chery {
 			margin-left: 0;
 			padding-top: 10px;
@@ -36,9 +36,9 @@
 
 			&._kasko {
 				margin-top: 0;
-				padding: 7px $content-padding;
+				padding: 0 $content-padding;
 				font-family: Roboto, sans-serif;
-				
+
 				.chery & {
 					margin-top: 10px;
 				}
