@@ -105,7 +105,7 @@ function App() {
             )}/>
             <Route path="/garage_empty" render={(routeProps) => (
                 <PageLayout>
-                    <Kasko showGarage={true} emptyGarage={true} {...routeProps} tabs={true}
+                    <Kasko showGarage={true} emptyGarage={true} {...routeProps} tabs={true} noInfo={true}
                            dev={process.env.NODE_ENV !== 'production'}/>
                 </PageLayout>
             )}/>

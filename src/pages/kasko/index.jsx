@@ -48,6 +48,7 @@ class Kasko extends Component {
         innerWidth: PropTypes.number,
         showCar: PropTypes.bool,
         addCar: PropTypes.bool,
+        noInfo: PropTypes.bool,
         step: PropTypes.number
     };
 
@@ -84,7 +85,7 @@ class Kasko extends Component {
     }
 
     render() {
-        let {showOffers, step, progress, cabinet, tabs, addCar, showGarage, emptyGarage, showCar} = this.props;
+        let {showOffers, noInfo, step, progress, cabinet, tabs, addCar, showGarage, emptyGarage, showCar} = this.props;
         let status = 0
 
         const statusClasses = {
@@ -234,8 +235,7 @@ class Kasko extends Component {
                                             <Tab className={'kasko-tabs__tab'}>
                                                 <div className="kasko-tab__panel-name"><span
                                                     className="kasko-tab__panel-name--text"><span>Я</span>&nbsp;<span
-                                                    className={"fz_18 i-heart" + ' _red'}/>&nbsp;<span>КАСАГО</span>
-											</span>
+                                                    className={"fz_18 i-heart" + ' _red'}/>&nbsp;<span>КАСАГО</span></span>
                                                     {this.state.tabIndex === 1 ?
                                                         tabStatus
                                                         //: this.state.carFound ?
@@ -366,32 +366,42 @@ class Kasko extends Component {
                         <Col span={4} className="kasko-aside">
                             <AsideCrumbs crumbs={['Главная']}/>
                             <AsideBlock>
-                                <KaskoUser firstName={step === 1 ? '' : 'Кирилл'} lastName={step === 1 ? '' : 'Лучкин'}
-                                           avatar={step === 1 ? '' : 'users/luchkin.png'}
+                                <KaskoUser firstName={(step === 1 || noInfo) ? '' : 'Кирилл'} lastName={(step === 1 || noInfo) ? '' : 'Лучкин'}
+                                           avatar={(step === 1 || noInfo) ? '' : 'users/luchkin.png'}
                                            phone={step > 1 ? "+ 7 (916) 111 11 11" : ""} docs="" trustees=""
                                            autos=''/>
                             </AsideBlock>
 
                             {showGarage ?
                                 <>
-                                    <AsideBlock>
-                                        <KaskoCarInfo step={step} garage={true}
-                                                      notificationCount={step === 2 ? 1 : step === 3 ? 2 : 0}
-                                                      carName={'Hyundai'}
-                                                      carModel={'Sonata'}/>
-                                    </AsideBlock>
-                                    <AsideBlock>
-                                        <KaskoCarInfo step={step} garage={true}
-                                                      notificationCount={step === 2 ? 1 : step === 3 ? 2 : 0}
-                                                      carName={'Mazda'}
-                                                      carModel={'CX5'}/>
-                                    </AsideBlock>
+                                    {noInfo ?
+                                        <>
+                                            <AsideBlock>
+                                                <KaskoCarInfo step={step} garage={true}
+                                                              notificationCount={0}
+                                                              carName={''}
+                                                              carModel={''}/>
+                                            </AsideBlock>
+                                        </> :
+                                        <>
+                                            <AsideBlock>
+                                                <KaskoCarInfo step={step} garage={true}
+                                                              notificationCount={step === 2 ? 1 : step === 3 ? 2 : 0}
+                                                              carName={'Hyundai'}
+                                                              carModel={'Sonata'}/>
+                                            </AsideBlock>
+                                            <AsideBlock>
+                                                <KaskoCarInfo step={step} garage={true}
+                                                              notificationCount={step === 2 ? 1 : step === 3 ? 2 : 0}
+                                                              carName={'Mazda'}
+                                                              carModel={'CX5'}/>
+                                            </AsideBlock>
+                                        </>
+                                    }
                                 </>
                                 :
                                 <>
-
                                     {carInfo}
-
                                     <AsideBlock>
                                         <KaskoCarInfo step={step} garage={true}
                                                       notificationCount={step === 2 ? 1 : step === 3 ? 2 : 0}
