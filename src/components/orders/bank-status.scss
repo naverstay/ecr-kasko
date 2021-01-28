@@ -4,6 +4,16 @@
   position: relative;
   padding: 10px 15px;
 
+  .time_spacer {
+    &:last-child {
+      &:after {
+        content: ' 88:88 ';
+        font-size: 10px;
+        visibility: hidden;
+      }
+    }
+  }
+
   &__day {
     margin-bottom: 20px;
 
@@ -41,10 +51,16 @@
       font-weight: 300;
     }
 
+    &--caption {
+      padding-bottom: 5px;
+      border-bottom: 1px solid #000;
+    }
+
     &--text {
-      padding: 7px 11px;
-      font-size: 14px;
-      line-height: 16px;
+      max-width: 70%;
+      padding: 5px 15px;
+      font-size: 12px;
+      line-height: 14px;
       border-radius: 4px;
       margin-bottom: 12px;
       color: #000;
@@ -52,7 +68,7 @@
 
     &--time {
       position: absolute;
-      top: 8px;
+      bottom: 5px;
       width: 26px;
       text-align: center;
       font-size: 10px;
@@ -70,13 +86,13 @@
       //}
 
       .bank-status__msg--time {
-        right: 9px;
+        right: 15px;
         color: $color-grey;
       }
 
       .bank-status__msg--text {
         float: right;
-        padding-right: 55px;
+        padding-right: 27px;
         margin-right: 6px;
         background: #deeefa;
         position: relative;
@@ -98,7 +114,7 @@
         }
 
         .bank-status__msg--time {
-          bottom: 10px;
+          //bottom: 10px;
         }
       }
     }
@@ -114,12 +130,17 @@
       //}
 
       .bank-status__msg--time {
-        right: 9px;
+        right: 20px;
+        bottom: 5px;
         color: #fff;
+
+        &.__info {
+          bottom: 15px;
+        }
       }
 
       .bank-status__msg--text {
-        padding-right: 55px;
+        padding-right: 27px;
         margin-left: 6px;
         float: left;
         position: relative;

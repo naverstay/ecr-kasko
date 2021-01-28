@@ -67,27 +67,27 @@
 		&--green {
 			background: $color-green;
 		}
-		
+
 		&--yellow {
 			color: #000;
 			background: $color-yellow;
 		}
-		
+
 		&--red {
 			background: $color-prime;
 		}
-		
+
 		&--blue {
 			background: $color-blue;
 		}
-		
+
 		&-caption {
 			color: #000;
 			font-size: 14px;
 			margin-bottom: 10px;
 		}
 	}
-	
+
 	&__tooltip {
 		position: absolute;
 		z-index: 1;
@@ -98,7 +98,7 @@
 		background: #fff;
 		border: 1px solid #a8a8a8;
 		padding: 27px 30px 23px;
-		
+
 		&:after {
 			content: '';
 			position: absolute;
@@ -106,7 +106,7 @@
 			left: 0;
 			height: 20px;
 		}
-		
+
 		&:before {
 			content: '';
 			position: absolute;
@@ -117,7 +117,7 @@
 			border-left: 10px solid transparent;
 			border-right: 10px solid transparent;
 		}
-		
+
 		&--bottom {
 			top: 100%;
 			margin-top: 18px;
@@ -131,7 +131,7 @@
 				border-bottom: 10px solid #a8a8a8;
 			}
 		}
-		
+
 		&--top {
 			bottom: 100%;
 			margin-bottom: 18px;
@@ -145,7 +145,7 @@
 				border-top: 10px solid #a8a8a8;
 			}
 		}
-		
+
 		&-list {
 			list-style-type: none;
 			display: flex;
@@ -155,7 +155,7 @@
 			.orders-table__state {
 				margin-bottom: 10px;
 			}
-			
+
 			> li {
 				padding-left: 20px;
 				flex: 1 0;
@@ -168,7 +168,7 @@
 			font-size: 10px;
 			margin-bottom: 2px;
 		}
-		
+
 		&-holder {
 			float: left;
 			position: relative;
@@ -176,11 +176,11 @@
 			.svetofor-item {
 				margin-right: 0;
 			}
-			
+
 			.svetofor-wrapper & {
 				margin-right: 7px;
 			}
-			
+
 			&:hover {
 				z-index: 1;
 
@@ -190,7 +190,7 @@
 			}
 		}
 	}
-	
+
 	&__common {
 		&--close {
 			width: 20px;
@@ -208,39 +208,39 @@
 				font-size: 20px;
 				line-height: 1;
 			}
-			
+
 			&:hover {
 				color: $color-prime;
 			}
 		}
-		
+
 		&--controls {
 			flex: 1 1 auto;
 			padding: 5px 0 5px 32px;
-			
+
 			li {
 				padding-left: 60px;
 				float: left;
 			}
-			
+
 			.gl_link {
 				font-size: 12px;
 				text-decoration: underline;
-				
+
 				&:hover {
 					text-decoration: none;
 					color: #000;
 				}
 			}
 		}
-		
+
 		&--count {
 			@extend %text3;
 			padding-left: 20px;
 			color: $color-grey;
 		}
 	}
-	
+
 	&__scroller {
 		//overflow-y: auto;
 		min-height: calc(100vh - 150px);
@@ -252,7 +252,7 @@
 		.orders-table__row {
 			flex-wrap: nowrap;
 		}
-		
+
 		.orders-table__cell {
 			padding: 11px 10px;
 			color: $color-grey;
@@ -265,7 +265,7 @@
 			line-height: 14px;
 			padding: 14px 10px;
 			color: #808080;
-			
+
 			p {
 				white-space: nowrap;
 				max-width: 100%;
@@ -388,6 +388,10 @@
 				max-width: 180px;
 				flex: 1 1 180px;
 			}
+
+			&.item_size-9 {
+				flex: 1 1 auto;
+			}
 		}
 
 		&--caption {
@@ -473,7 +477,7 @@
 				line-height: 19px;
 				@include placeholder;
 			}
-			
+
 			&-attach {
 				position: absolute;
 				top: 6px;
@@ -481,7 +485,7 @@
 				width: 30px;
 				height: 30px;
 				text-align: center;
-				
+
 				&:after {
 					position: absolute;
 					top: 0;
@@ -495,7 +499,7 @@
 					color: $color-grey;
 				}
 			}
-			
+
 			&-send {
 				position: absolute;
 				top: 6px;
@@ -503,7 +507,7 @@
 				width: 30px;
 				height: 30px;
 				text-align: center;
-				
+
 				&:after {
 					position: absolute;
 					top: 0;
@@ -525,11 +529,11 @@
 				border-left: 5px solid transparent;
 				margin-bottom: -1px;
 				position: relative;
-				
+
 				&:hover {
 					background: #f7f7f7;
 				}
-				
+
 				&.unit_active {
 					z-index: 1;
 					background: #f7f7f7;
@@ -559,7 +563,7 @@
 		.orders-table__header-btn {
 			position: relative;
 			font-size: 12px;
-			
+
 			&.wide {
 				margin-right: -100%;
 			}
@@ -625,6 +629,10 @@
 			$cell-size: 38px;
 			max-width: $cell-size;
 			flex: 1 1 $cell-size;
+
+      ~ .orders-table__cell:not(:last-child):not(.cell_size-10) {
+        max-width: none;
+      }
 		}
 
 		&.cell_size-2 {
@@ -633,7 +641,7 @@
 			max-width: $cell-size;
 			flex: 1 1 $cell-size;
 		}
-		
+
 		&.cell_size-3 {
 			$cell-size: 145px;
 			max-width: $cell-size;
@@ -693,7 +701,7 @@
 			max-width: $cell-size;
 			flex: 1 1 $cell-size;
 		}
-		
+
 		&.cell_size-wide {
 			$cell-size: 100%;
 			max-width: $cell-size;

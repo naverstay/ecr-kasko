@@ -34,7 +34,7 @@ class Orders extends Component {
 	toggleManagerPopup = () => {
 		this.setState({showManagerPopup: !this.state.showManagerPopup})
 	}
-	
+
 	checkRowCallback = (row) => {
 		let checkedRows = this.state.checkedRows
 
@@ -52,7 +52,7 @@ class Orders extends Component {
 			//paramsChanged: true
 		});
 	}
-	
+
 	orderInfoRow = () => {
 		return (
 			<OrderInfo order={{
@@ -143,7 +143,7 @@ class Orders extends Component {
 	openOrder = (index) => {
 		console.log('openOrder', index);
 	}
-	
+
 	render () {
 		//let events = [
 		//	{
@@ -159,7 +159,7 @@ class Orders extends Component {
 		//		time: '9:50'
 		//	}
 		//]
-		
+
 		let svetoforTooltip = <Svetofor data={[
 				{
 					value: 5,
@@ -196,7 +196,7 @@ class Orders extends Component {
 					tooltipTitle: 'Отказ'
 				}
 			]}/>
-		
+
 		return (
 			<>
 				<Row gutter={20} className="kasko-wrapper">
@@ -213,7 +213,7 @@ class Orders extends Component {
 									<div className="tab-panel__name">Lost</div>
 								</Tab>
 							</TabList>
-	
+
 							<TabPanel>
 								<div className="orders-table__scroller">
 									<div className="orders-table">
@@ -268,10 +268,10 @@ class Orders extends Component {
 														<TableCell classList={['orders-table__cell', 'cell_size-6']}>
 															<TableHeaderButton classList={['wide']} label={<>Кредит</>}/>
 														</TableCell>
-														<TableCell classList={['orders-table__cell', 'cell_size-8']}>
+														<TableCell classList={['orders-table__cell', 'cell_size-8', 'text_center']}>
 															<TableHeaderButton label={<>ОСАГО</>}/>
 														</TableCell>
-														<TableCell classList={['orders-table__cell', 'cell_size-9']}>
+														<TableCell classList={['orders-table__cell', 'cell_size-9', 'text_center']}>
 															<TableHeaderButton label={<>КАСКО</>}/>
 														</TableCell>
 														<TableCell classList={['orders-table__cell', 'cell_size-10']}>
@@ -336,7 +336,7 @@ class Orders extends Component {
 												</TableCell>
 												{this.orderInfoRow()}
 											</TableOrderRow>
-	
+
 											{/* row 2*/}
 											<TableOrderRow index={2} rowCheckCallback={this.checkRowCallback}>
 												<TableCell toggleInfoRow={true}
@@ -392,7 +392,7 @@ class Orders extends Component {
 												</TableCell>
 												{this.orderInfoRow()}
 											</TableOrderRow>
-	
+
 											{/* row 3*/}
 											<TableOrderRow index={3} rowCheckCallback={this.checkRowCallback}>
 												<TableCell toggleInfoRow={true}
@@ -450,7 +450,7 @@ class Orders extends Component {
 												</TableCell>
 												{this.orderInfoRow()}
 											</TableOrderRow>
-	
+
 											{/* row 4*/}
 											<TableOrderRow index={4} rowCheckCallback={this.checkRowCallback}>
 												<TableCell toggleInfoRow={true}
@@ -541,7 +541,7 @@ class Orders extends Component {
 												</TableCell>
 												{this.orderInfoRow()}
 											</TableOrderRow>
-	
+
 											{/* row 5*/}
 											<TableOrderRow index={5} rowCheckCallback={this.checkRowCallback}>
 												<TableCell toggleInfoRow={true}
@@ -597,7 +597,7 @@ class Orders extends Component {
 												</TableCell>
 												{this.orderInfoRow()}
 											</TableOrderRow>
-	
+
 											{/* row 6*/}
 											<TableOrderRow index={6} rowCheckCallback={this.checkRowCallback}>
 												<TableCell toggleInfoRow={true}
@@ -655,7 +655,7 @@ class Orders extends Component {
 												</TableCell>
 												{this.orderInfoRow()}
 											</TableOrderRow>
-	
+
 											{/* row 7*/}
 											<TableOrderRow index={7} rowCheckCallback={this.checkRowCallback}>
 												<TableCell toggleInfoRow={true}
@@ -711,7 +711,7 @@ class Orders extends Component {
 												</TableCell>
 												{this.orderInfoRow()}
 											</TableOrderRow>
-	
+
 											{/* row 8*/}
 											<TableOrderRow index={8} rowCheckCallback={this.checkRowCallback}>
 												<TableCell toggleInfoRow={true}
@@ -767,7 +767,7 @@ class Orders extends Component {
 												</TableCell>
 												{this.orderInfoRow()}
 											</TableOrderRow>
-	
+
 											{/* row 9*/}
 											<TableOrderRow index={9} rowCheckCallback={this.checkRowCallback}>
 												<TableCell toggleInfoRow={true}
@@ -825,7 +825,7 @@ class Orders extends Component {
 												</TableCell>
 												{this.orderInfoRow()}
 											</TableOrderRow>
-	
+
 											{/* row 10*/}
 											<TableOrderRow index={10} rowCheckCallback={this.checkRowCallback}>
 												<TableCell toggleInfoRow={true}
@@ -905,18 +905,18 @@ class Orders extends Component {
 					</PopupOverlay>
 					: null
 				}
-				
+
 				{/*<Row gutter={20} className="kasko-wrapper kasko-wrapper__fixed">*/}
 				{/*	<Col span={24} className="kasko-main"/>*/}
-	
+
 					{/*<Col span={5} className="kasko-aside">*/}
 						{/*<AsideBlock>*/}
 						{/*	<KaskoNotices search={true} noticeList={[{title: 'Сегодня, Пон 20.02.19', list: events}]}/>*/}
 						{/*</AsideBlock>*/}
 					{/*</Col>*/}
 				{/*</Row>*/}
-				
-				
+
+
 			</>
 		);
 	}

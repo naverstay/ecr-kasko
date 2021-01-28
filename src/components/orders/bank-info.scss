@@ -1,0 +1,22 @@
+@import '../../assets/styles/vars.scss';
+
+.bank-info {
+  margin-right: -44px;
+  max-width: 275px;
+
+  &__caption {
+    padding: 5px 0;
+    letter-spacing: -.025em;
+  }
+
+  &__block {
+    font-size: 12px;
+    line-height: 18px;
+    padding: 10px 7px 8px 0;
+    border-top: 1px solid #000;
+
+    .fw_b {
+      letter-spacing: -.025em;
+    }
+  }
+}

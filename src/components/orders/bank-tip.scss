@@ -1,0 +1,32 @@
+@import '../../assets/styles/global';
+
+.bank-tip {
+  padding-top: 10px;
+
+  &__caption {
+    position: relative;
+    padding-left: 17px;
+    margin-bottom: 3px;
+    cursor: pointer;
+
+    &:before {
+      transition: transform .25s;
+      font-family: $icomoon-font-family;
+      content: $i-chevron_r;
+      position: absolute;
+      left: 0;
+      top: 2px;
+      color: #000;
+      font-size: 12px;
+      line-height: 1;
+    }
+
+    &.opened {
+      &:before {
+        transform: rotate(90deg);
+      }
+    }
+  }
+
+
+}

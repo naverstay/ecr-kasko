@@ -70,11 +70,14 @@ class OrderInfo extends Component {
                             <div className="orders-table__info--caption">Включено в кредит</div>
                             <div className="orders-table__info--value">{order.extra}</div>
                         </li>
-                        <li className="orders-table__info--item item_size-8">
+                        <li className="orders-table__info--item item_size-9">
                             <div className="comments-form">
-								<textarea className='comments-form__text'
-                                          placeholder="Комментарий"/>
-                                <button className='comments-form__btn'>OK</button>
+                                <textarea className='comments-form__text'
+                                          placeholder="Комментарий для внутреннего пользования"/>
+                                <button
+                                    className='comments-form__btn __v2 ant-btn ant-btn-primary ant-btn-block'>
+                                    <span className={"i-plane"}/>
+                                </button>
                             </div>
                         </li>
                     </ul>
@@ -120,8 +123,22 @@ class OrderInfo extends Component {
                                             },
                                             {
                                                 author: 'bank',
-                                                text: 'Заявка одобрена банком',
-                                                time: '13:18'
+                                                text: 'Запрос банка',
+                                                time: '13:18',
+                                                orderInfo: {
+                                                    bankStatus: 'Банк направил запрос',
+                                                    bankReason: 'Анкета плохо читаема, подгрузите в хорошем качестве',
+                                                    bankTips: [
+                                                        {
+                                                            tipName: 'Как ответить на запрос банка',
+                                                            tipList: [
+                                                                '1. Проверьте требуемые банком документы;',
+                                                                '2. При необходимости, отсканируйте заново;',
+                                                                '3. Прикрепите документы в разделе "Рассмотрение заявки", нажав на скрепку, и ответьте на запрос.'
+                                                            ]
+                                                        }
+                                                    ]
+                                                }
                                             },
                                             {
                                                 author: 'client',

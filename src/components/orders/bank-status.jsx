@@ -1,6 +1,7 @@
 import React, {Component} from 'react';
 import PropTypes from 'prop-types';
 import cn from 'classnames';
+import BankInfo from './bank-info';
 
 import './bank-status.scss';
 
@@ -32,8 +33,11 @@ class BankStatus extends Component {
                 msg.map((m, i) => {
                     return (
                         <div key={i} className={'bank-status__msg msg_' + m.author}>
-                            <div className='bank-status__msg--text'>{m.text}
-                                <div className='bank-status__msg--time'>{m.time}</div>
+                            <div className='bank-status__msg--text'>
+                                <div className={'bank-status__msg--time' + (m.orderInfo ? ' __info' : '')}>{m.time}</div>
+                                {m.orderInfo ?
+                                    <BankInfo msg={m}/> :
+                                    <span className={'time_spacer'}>{m.text}</span>}
                             </div>
                         </div>
                     )
