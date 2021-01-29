@@ -2,8 +2,19 @@
 
 .calculation-offers {
   margin-bottom: 30px;
-  min-height: 147px;
+  //min-height: 147px;
   position: relative;
+
+  &__agreement {
+    margin-top: -15px;
+    margin-bottom: 30px;
+  }
+
+  &__warning {
+    color: $color-grey;
+    font-size: 12px;
+    line-height: 14px;
+  }
 
   &__dropdown {
     position: relative;

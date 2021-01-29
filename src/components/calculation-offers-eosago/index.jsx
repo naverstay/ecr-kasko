@@ -55,7 +55,16 @@ class CalculationOffersEosago extends Component {
                 return (
                     <>
                         <th className="calculation-offers__table--col-7 text_left">Полис</th>
-                        <th className="calculation-offers__table--col-8">Срок <br/>действия</th>
+                        {/*<th className="calculation-offers__table--col-8">Срок <br/>действия</th>*/}
+                        <th className={"calculation-offers__table--col-5" + ((completed || waiting) ? " small" : "")}>Цена<br/>Доход
+                        </th>
+                        <th className="calculation-offers__table--col-6">Статус <br/>выпуска</th>
+                    </>);
+            case 3:
+                return (
+                    <>
+                        <th className="calculation-offers__table--col-7 text_left">Полис</th>
+                        {/*<th className="calculation-offers__table--col-8">Срок <br/>действия</th>*/}
                         <th className={"calculation-offers__table--col-5" + ((completed || waiting) ? " small" : "")}>Цена<br/>Доход
                         </th>
                         <th className="calculation-offers__table--col-6">Статус <br/>выпуска</th>
@@ -168,7 +177,7 @@ class CalculationOffersEosago extends Component {
                     }
 
                 </table>
-                {waiting ?
+                {waiting && 0 ?
                     <div className="kasko-offer__more">
                         <div className="gl_link">Показать все предложения</div>
                     </div>

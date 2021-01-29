@@ -66,7 +66,7 @@ class OfferRowEosago extends Component {
                 return (
                     <>
                         <td className=""/>
-                        <td className={" text_right" + ((completed || waiting) ? " small" : "")}>
+                        <td className={"text_right" + ((completed || waiting) ? " small" : "")}>
                             <div className="offer-row__price">
                                 {o.megashare ?
                                     <div className="offer-row__price-megashare">{o.megashare}</div> : null}
@@ -85,12 +85,31 @@ class OfferRowEosago extends Component {
                                     <div className="offer-row__bill gl_link">Заявление</div>}
                             </div>
                         </td>
-                        <td>
-                            <div className="offer-row__date">{o.dateStart}</div>
-                            <div className="offer-row__date">{o.dateEnd}</div>
-                        </td>
+                        {/*<td>*/}
+                        {/*    <div className="offer-row__date">{o.dateStart}</div>*/}
+                        {/*    <div className="offer-row__date">{o.dateEnd}</div>*/}
+                        {/*</td>*/}
 
-                        <td className={"" + ((completed || waiting) ? " small" : "")}>
+                        <td className={"text_right" + ((completed || waiting) ? " small" : "")}>
+                            <div className="offer-row__price">
+                                {o.megashare ?
+                                    <div className="offer-row__price-megashare">{o.megashare}</div> : null}
+                                {(o.price)}</div>
+                            {o.share ? <div className="offer-row__price-small">{(o.share)}</div> : null}
+                            <div>{(o.dealerFee)}</div>
+                        </td>
+                    </>);
+            case 3:
+                return (
+                    <>
+                        <td className="text_left">
+                            <div className="offer-row__documents">
+                                <div className="gl_link color_black">{o.document || 'some doc'}</div>
+                                {o.nobill ? null :
+                                    <div className="offer-row__bill gl_link">Заявление</div>}
+                            </div>
+                        </td>
+                        <td className={"text_right" + ((completed || waiting) ? " small" : "")}>
                             <div className="offer-row__price">
                                 {o.megashare ?
                                     <div className="offer-row__price-megashare">{o.megashare}</div> : null}
@@ -213,7 +232,7 @@ class OfferRowEosago extends Component {
                                 <tr key={i + 100000}
                                     className={(offerSelected ? "selected" : "") + (lastRow ? ' last-row' : '')}>
                                     <td>&nbsp;</td>
-                                    <td colSpan={((completed || waiting) ? 6 : 5) - (osago ? 1 : 0)}>
+                                    <td colSpan={((completed || waiting) ? 4 : 4)}>
                                         <p className="text_left" style={{marginBottom: '15px'}}>Условия КАСКО:</p>
                                         <ul className="offer-row__options">
                                             {o.options.map((opt, k) => <li key={k}>{opt}</li>)}

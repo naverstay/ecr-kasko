@@ -3,13 +3,19 @@ import {Col, Row, Checkbox, Tooltip} from "antd";
 
 import './style.scss';
 import PropTypes from "prop-types";
+import FormInput from "../form-input";
+import FormCheckbox from "../form-checkbox";
 
 class DriverCount extends Component {
     constructor(props) {
         super(props);
         this.state = {
             checkedList: this.props.driverOptions,
+            carUsagePurpose: 'Личные',
             indeterminate: true,
+            showExtraData: false,
+            trailerUsage: false,
+            rentUsage: false,
             checkAll: false
         };
     }
@@ -17,6 +23,10 @@ class DriverCount extends Component {
     static propTypes = {
         children: PropTypes.node,
         innerWidth: PropTypes.number
+    };
+
+    toggleExtraData = e => {
+        this.setState({showExtraData: !this.state.showExtraData})
     };
 
     onDriverOptionsChange = e => {
@@ -53,11 +63,11 @@ class DriverCount extends Component {
     };
 
     render() {
-        const {driverOptions, children, className} = this.props
+        const {driverOptions, children, className, extraData} = this.props
 
         return (
-            <div className={"kasko-car-select__controls check_v2 " + (className || '')}>
-                <Row className={"w_100p"} gutter={20}>
+            <div className={"w_100p"}>
+                <Row gutter={20} className={"kasko-car-select__controls check_v2 " + (className || '')}>
                     <Col className={"popup-visible"} span={3}/>
                     <Col span={18}>
                         <Row className={""} gutter={20}>
@@ -87,7 +97,51 @@ class DriverCount extends Component {
                             {children}
                         </Row>
                     </Col>
+                    {extraData ?
+                        this.state.showExtraData ? null :
+                            <Col span={3} className="kasko-car-select__additional _inactive">
+                                <div className="gl_link"
+                                     onClick={this.toggleExtraData}
+                                >Дополнительно
+                                </div>
+                            </Col>
+                        : null
+                    }
                 </Row>
+                {this.state.showExtraData ?
+                    <>
+                        <Row className="kasko-car-select__controls" gutter={20}>
+                            <FormInput span={6} onChangeCallback={this.formControlCallback}
+                                       placeholder="Цель использования"
+                                       disabled={true}
+                                       controlName={'carMileage'} value={this.state.carUsagePurpose}/>
+                            <FormCheckbox onChangeCallback={this.formControlCallback}
+                                          text="Используется прицеп"
+                                          className="checkbox_middle check_v3"
+                                          value={1} span={6}
+                                          disabled={true}
+                                          controlName={'trailerUsage'}
+                                          checked={this.state.trailerUsage}/>
+                            <FormCheckbox onChangeCallback={this.formControlCallback}
+                                          text="Сдается в аренду"
+                                          className="checkbox_middle check_v3"
+                                          value={1} span={6}
+                                          disabled={true}
+                                          controlName={'rentUsage'}
+                                          checked={this.state.rentUsage}/>
+
+                        </Row>
+                        <Row className="kasko-car-select__controls" gutter={20}>
+                            <Col span={3}
+                                 className="kasko-car-select__additional _inactive text_right ant-col-push-18">
+                                <div className="gl_link" onClick={this.toggleExtraData}
+                                >Скрыть
+                                </div>
+                            </Col>
+                        </Row>
+                    </>
+                    : null
+                }
             </div>
         );
     }

@@ -20,6 +20,7 @@ import FormInput from "../form-input";
 import PolicyPopup from "../policy-popup";
 import CalculationOffersCombo from "../calculation-offers-combo";
 import CalculationOffersEosago from "../calculation-offers-eosago";
+import FormCheckbox from "../form-checkbox";
 
 moment().locale('ru', ru);
 
@@ -41,6 +42,7 @@ class TabOffer extends Component {
             hasFranchise: this.props.step > 1,
             franchiseVal: 0,
             carCredit: true,
+            clientEOSAGOAgreement: false,
             carMark: '',
             carPrice: 0,
             carModel: '',
@@ -957,9 +959,9 @@ class TabOffer extends Component {
                 : null}
 
             {!osago ? <div onClick={this.toggleShowParams}
-                           className={"kasko-car-select__caption" + (this.state.showCalculationOffers ? (this.state.openParams ? " expanded" : " collapsed") : "")}>{'Параметры ' + (combo ? 'страхования' : 'КАСКО')}</div> :
+                           className={"kasko-car-select__caption" + (this.state.showCalculationOffers ? (this.state.openParams ? " expanded" : " collapsed") : "")}>{'Параметры ' + (eosago ? 'E-ОСАГО' : (combo ? 'страхования' : 'КАСКО'))}</div> :
                 <div onClick={this.toggleShowParams}
-                     className={"kasko-car-select__caption" + (this.state.showCalculationOffers ? (this.state.openParams ? " expanded" : " collapsed") : "")}>{'Параметры ' + (combo ? 'страхования' : 'ОСАГО')}</div>
+                     className={"kasko-car-select__caption" + (this.state.showCalculationOffers ? (this.state.openParams ? " expanded" : " collapsed") : "")}>{'Параметры ' + (eosago ? 'E-ОСАГО' : (combo ? 'страхования' : 'ОСАГО'))}</div>
             }
 
             {(!this.state.showCalculationOffers || this.state.openParams || osago) ?
@@ -1047,27 +1049,31 @@ class TabOffer extends Component {
 
                     {(!osago || this.state.openParams) ?
                         <>
-                            <div className={"kasko-car-select__caption fz_12"}>Срок действия, месяцы</div>
+                            {eosago ? null :
+                                <div className={"kasko-car-select__caption fz_12"}>Срок действия, месяцы</div>
+                            }
 
                             <Row gutter={20} className="kasko-car-select__controls radio_v3">
-                                <Col span={12}>
-                                    <Radio.Group defaultValue={periodOptions[0]}
-                                                 style={{width: '100%'}}
-                                                 onChange={this.onPeriodChange}>
-                                        <Row gutter={20}>
-                                            {
-                                                periodOptions.map((c, i) => <Col key={i}>
-                                                        <Radio value={c}>
+                                {eosago ? null :
+                                    <Col span={12}>
+                                        <Radio.Group defaultValue={periodOptions[0]}
+                                                     style={{width: '100%'}}
+                                                     onChange={this.onPeriodChange}>
+                                            <Row gutter={20}>
+                                                {
+                                                    periodOptions.map((c, i) => <Col key={i}>
+                                                            <Radio value={c}>
                                                     <span
                                                         className="kasko-car-select__period--value">{c}</span>
-                                                            {/*<span className="kasko-car-select__period--label">{pluralFromArray(periodPlurals, c)}</span>*/}
-                                                        </Radio>
-                                                    </Col>
-                                                )
-                                            }
-                                        </Row>
-                                    </Radio.Group>
-                                </Col>
+                                                                {/*<span className="kasko-car-select__period--label">{pluralFromArray(periodPlurals, c)}</span>*/}
+                                                            </Radio>
+                                                        </Col>
+                                                    )
+                                                }
+                                            </Row>
+                                        </Radio.Group>
+                                    </Col>
+                                }
                                 <Col span={6}>
                                     <Row gutter={20}>
                                         <FormInput span={24}
@@ -1085,6 +1091,7 @@ class TabOffer extends Component {
 
                             <DriverCount className={this.state.showCalculationOffers && !osago ? "mb_0" : ""}
                                          step={step}
+                                         extraData={true}
                                          driverOptions={driverOptions}>
                                 {step > 1 || this.state.showCalculationOffers ?
                                     <Col>
@@ -1167,50 +1174,108 @@ class TabOffer extends Component {
                                         <div className="kasko-car-select__controls check_v2">{comboInsurance}</div>
                                     }
 
-                                    <CalculationOffersCombo osago={osago} completed={true}
-                                                            selectedOffer={this.updateSelectedOffer} offersList={[
-                                        {
-                                            name: 'Ингосстрах',
-                                            fillColor: '#ff9c2d',
-                                            capLetter: 'И',
-                                            offers: osago ?
-                                                [{
-                                                    name: 'Обычный',
-                                                    type: 'ОСАГО',
-                                                    document: 'СС 12345678',
-                                                    payment: 'Наличные',
-                                                    price: 41450,
-                                                    dealerFee: 4145,
-                                                    dateStart: '20.02.19',
-                                                    dateEnd: '19.02.20',
-                                                    options: optionsFixtures
-                                                }]
-                                                :
-                                                [{
-                                                    name: 'Премиум',
-                                                    type: 'КАСКО',
-                                                    document: 'СС 12345678',
-                                                    payment: 'Наличные',
-                                                    price: 41450,
-                                                    dealerFee: 4145,
-                                                    share: 'Экономия 4 500',
-                                                    dateStart: '20.02.19',
-                                                    dateEnd: '19.02.20',
-                                                    options: optionsFixtures
-                                                },
-                                                    {
-                                                        name: 'Обычный',
-                                                        type: 'ОСАГО',
-                                                        document: 'СС 87654321',
-                                                        price: 41450,
-                                                        dealerFee: 4145,
-                                                        nobill: true,
-                                                        dateStart: '20.02.19',
-                                                        dateEnd: '19.02.20'
-                                                    }
-                                                ]
-                                        }
-                                    ]}/>
+                                    <Row gutter={20}>
+                                        <Col span={3}/>
+                                        <Col span={18}>
+                                            <CalculationOffersEosago allowCheck={true}
+                                                                     step={step}
+                                                                     completed={true}
+                                                                     osago={osago}
+                                                                     hasSortType={!osago}
+                                                                     eosago={true}
+                                                                     selectedOffer={this.updateSelectedOffer}
+                                                                     offersList={[
+                                                                         {
+                                                                             name: 'Ингосстрах',
+                                                                             fillColor: '#ff9c2d',
+                                                                             capLetter: 'И',
+                                                                             offers: osago ?
+                                                                                 [{
+                                                                                     name: 'Обычный',
+                                                                                     type: 'ОСАГО',
+                                                                                     document: 'СС 12345678',
+                                                                                     payment: 'Наличные',
+                                                                                     price: 41450,
+                                                                                     dealerFee: 4145,
+                                                                                     dateStart: '20.02.19',
+                                                                                     dateEnd: '19.02.20',
+                                                                                     options: optionsFixtures
+                                                                                 }]
+                                                                                 :
+                                                                                 [{
+                                                                                     name: 'Премиум',
+                                                                                     type: 'КАСКО',
+                                                                                     document: 'СС 12345678',
+                                                                                     payment: 'Наличные',
+                                                                                     price: 41450,
+                                                                                     dealerFee: 4145,
+                                                                                     share: 'Экономия 4 500',
+                                                                                     dateStart: '20.02.19',
+                                                                                     dateEnd: '19.02.20',
+                                                                                     options: optionsFixtures
+                                                                                 },
+                                                                                     {
+                                                                                         name: 'Обычный',
+                                                                                         type: 'ОСАГО',
+                                                                                         document: 'СС 87654321',
+                                                                                         price: 41450,
+                                                                                         dealerFee: 4145,
+                                                                                         nobill: true,
+                                                                                         dateStart: '20.02.19',
+                                                                                         dateEnd: '19.02.20'
+                                                                                     }
+                                                                                 ]
+                                                                         }
+                                                                     ]}/>
+
+                                        </Col>
+                                    </Row>
+
+                                    {/*<CalculationOffersCombo osago={osago} completed={true}*/}
+                                    {/*                        selectedOffer={this.updateSelectedOffer} offersList={[*/}
+                                    {/*    {*/}
+                                    {/*        name: 'Ингосстрах',*/}
+                                    {/*        fillColor: '#ff9c2d',*/}
+                                    {/*        capLetter: 'И',*/}
+                                    {/*        offers: osago ?*/}
+                                    {/*            [{*/}
+                                    {/*                name: 'Обычный',*/}
+                                    {/*                type: 'ОСАГО',*/}
+                                    {/*                document: 'СС 12345678',*/}
+                                    {/*                payment: 'Наличные',*/}
+                                    {/*                price: 41450,*/}
+                                    {/*                dealerFee: 4145,*/}
+                                    {/*                dateStart: '20.02.19',*/}
+                                    {/*                dateEnd: '19.02.20',*/}
+                                    {/*                options: optionsFixtures*/}
+                                    {/*            }]*/}
+                                    {/*            :*/}
+                                    {/*            [{*/}
+                                    {/*                name: 'Премиум',*/}
+                                    {/*                type: 'КАСКО',*/}
+                                    {/*                document: 'СС 12345678',*/}
+                                    {/*                payment: 'Наличные',*/}
+                                    {/*                price: 41450,*/}
+                                    {/*                dealerFee: 4145,*/}
+                                    {/*                share: 'Экономия 4 500',*/}
+                                    {/*                dateStart: '20.02.19',*/}
+                                    {/*                dateEnd: '19.02.20',*/}
+                                    {/*                options: optionsFixtures*/}
+                                    {/*            },*/}
+                                    {/*                {*/}
+                                    {/*                    name: 'Обычный',*/}
+                                    {/*                    type: 'ОСАГО',*/}
+                                    {/*                    document: 'СС 87654321',*/}
+                                    {/*                    price: 41450,*/}
+                                    {/*                    dealerFee: 4145,*/}
+                                    {/*                    nobill: true,*/}
+                                    {/*                    dateStart: '20.02.19',*/}
+                                    {/*                    dateEnd: '19.02.20'*/}
+                                    {/*                }*/}
+                                    {/*            ]*/}
+                                    {/*    }*/}
+                                    {/*]}*/}
+                                    {/*/>*/}
                                 </>
                                 :
                                 <CalculationOffers osago={osago} completed={true}
@@ -1231,128 +1296,6 @@ class TabOffer extends Component {
                                     }
                                 ]}/>
                             }
-
-                            {/*<KaskoOffers step={step} active={[(osago ? 0 : 1)]} completed={[(osago ? 0 : 1)]} offersList={osago ?*/}
-                            {/*	[*/}
-                            {/*		{*/}
-                            {/*			name: 'ОСАГО',*/}
-                            {/*			price: 10333,*/}
-                            {/*			button: (!osago ? 'Рассчитать' : 'Выпущено'),*/}
-                            {/*			link: '/osago',*/}
-                            {/*			prefix: 'от',*/}
-                            {/*			suffix: '₽'*/}
-                            {/*		},*/}
-                            {/*		{*/}
-                            {/*			name: 'КАСКО',*/}
-                            {/*			price: 10420,*/}
-                            {/*			button: (osago ? 'Рассчитать' : 'Выпущено'),*/}
-                            {/*			link: '/kasko',*/}
-                            {/*			prefix: 'от',*/}
-                            {/*			suffix: '₽'*/}
-                            {/*		},*/}
-                            {/*		{*/}
-                            {/*			name: 'GAP',*/}
-                            {/*			price: 10430,*/}
-                            {/*			button: 'Рассчитать',*/}
-                            {/*			link: '/gap',*/}
-                            {/*			prefix: 'от',*/}
-                            {/*			suffix: '₽'*/}
-                            {/*		},*/}
-                            {/*		{*/}
-                            {/*			name: 'Ассистанс',*/}
-                            {/*			price: '15400',*/}
-                            {/*			collapse: true,*/}
-                            {/*			options: [*/}
-                            {/*				'эвакуация',*/}
-                            {/*				'юридическая помощь',*/}
-                            {/*				'аварийный комиссар',*/}
-                            {/*				'подвоз бензина',*/}
-                            {/*				'вскрытие автомобиля',*/}
-                            {/*				'запуск автомобиля',*/}
-                            {/*				'трезвый водитель',*/}
-                            {/*				'выездной шиномонтаж'*/}
-                            {/*			],*/}
-                            {/*			prefix: 'от',*/}
-                            {/*			suffix: '₽'*/}
-                            {/*		},*/}
-                            {/*		{*/}
-                            {/*			name: 'Шоколад',*/}
-                            {/*			price: 10555,*/}
-                            {/*			collapse: true,*/}
-                            {/*			options: [*/}
-                            {/*				'эвакуация',*/}
-                            {/*				'юридическая помощь',*/}
-                            {/*				'аварийный комиссар',*/}
-                            {/*				'подвоз бензина',*/}
-                            {/*				'вскрытие автомобиля',*/}
-                            {/*				'запуск автомобиля',*/}
-                            {/*				'трезвый водитель',*/}
-                            {/*				'выездной шиномонтаж'*/}
-                            {/*			],*/}
-                            {/*			prefix: 'от',*/}
-                            {/*			suffix: '₽'*/}
-                            {/*		}]*/}
-                            {/*	: */}
-                            {/*	[{*/}
-                            {/*		name: 'ОСАГО',*/}
-                            {/*		price: 10444,*/}
-                            {/*		button: (!osago ? 'Рассчитать' : 'Выпущено'),*/}
-                            {/*		link: '/osago',*/}
-                            {/*		prefix: 'от',*/}
-                            {/*		suffix: '₽'*/}
-                            {/*	},*/}
-                            {/*	{*/}
-                            {/*		name: 'КАСКО',*/}
-                            {/*		price: 10420,*/}
-                            {/*		button: (osago ? 'Рассчитать' : 'Выпущено'),*/}
-                            {/*		link: '/kasko',*/}
-                            {/*		prefix: 'от',*/}
-                            {/*		suffix: '₽'*/}
-                            {/*	},*/}
-                            {/*	{*/}
-                            {/*		name: 'GAP',*/}
-                            {/*		price: 10430,*/}
-                            {/*		button: 'Рассчитать',*/}
-                            {/*		link: '/gap',*/}
-                            {/*		prefix: 'от',*/}
-                            {/*		suffix: '₽'*/}
-                            {/*	},*/}
-                            {/*	{*/}
-                            {/*		name: 'Ассистанс',*/}
-                            {/*		price: '15400',*/}
-                            {/*		collapse: true,*/}
-                            {/*		options: [*/}
-                            {/*			'эвакуация',*/}
-                            {/*			'юридическая помощь',*/}
-                            {/*			'аварийный комиссар',*/}
-                            {/*			'подвоз бензина',*/}
-                            {/*			'вскрытие автомобиля',*/}
-                            {/*			'запуск автомобиля',*/}
-                            {/*			'трезвый водитель',*/}
-                            {/*			'выездной шиномонтаж'*/}
-                            {/*		],*/}
-                            {/*		prefix: 'от',*/}
-                            {/*		suffix: '₽'*/}
-                            {/*	},*/}
-                            {/*		{*/}
-                            {/*			name: 'Шоколад',*/}
-                            {/*			price: 10555,*/}
-                            {/*			collapse: true,*/}
-                            {/*			options: [*/}
-                            {/*				'эвакуация',*/}
-                            {/*				'юридическая помощь',*/}
-                            {/*				'аварийный комиссар',*/}
-                            {/*				'подвоз бензина',*/}
-                            {/*				'вскрытие автомобиля',*/}
-                            {/*				'запуск автомобиля',*/}
-                            {/*				'трезвый водитель',*/}
-                            {/*				'выездной шиномонтаж'*/}
-                            {/*			],*/}
-                            {/*			prefix: 'от',*/}
-                            {/*			suffix: '₽'*/}
-                            {/*		}]*/}
-                            {/*}/>*/}
-
                         </>
                         :
                         <>
@@ -1363,7 +1306,8 @@ class TabOffer extends Component {
 
                             <>
                                 {this.state.showCalculationOffers && !osago ?
-                                    <div className="kasko-car-select__controls check_v2 comboInsurance">{comboInsurance}</div>
+                                    <div
+                                        className="kasko-car-select__controls check_v2 comboInsurance">{comboInsurance}</div>
                                     : null}
                             </>
 
@@ -1397,13 +1341,32 @@ class TabOffer extends Component {
                                                                offersList={calculationOfferList}/>
                                         }
 
+                                        <Row gutter={20} className={"calculation-offers__agreement"}>
+                                            {step === 1 ?
+                                                <Col span={24}>
+                                                    <p className={"text_center calculation-offers__warning"}
+                                                    >Стоимость вашего полиса предварительная. Она может измениться в
+                                                        момент выпуска.</p>
+                                                </Col>
+                                                :
+                                                <>
+                                                    <FormCheckbox span={16} onChangeCallback={this.formControlCallback}
+                                                                  text="Клиент согласен с условиями страхования"
+                                                                  className="check_v3 ant-col-push-8"
+                                                                  value={1}
+                                                                  controlName={'clientEOSAGOAgreement'}
+                                                                  checked={this.state.clientEOSAGOAgreement}/>
+                                                </>
+                                            }
+                                        </Row>
+
                                         <Row gutter={20}
                                              className={"kasko-car-select__controls ant-row-center align_center"}>
                                             {
                                                 (step === 2) ?
                                                     <>
                                                         <>
-                                                            <Col span={6} className="text_left">
+                                                            <Col span={8} className="text_left">
                                                                 <Row gutter={20}
                                                                      className={"kasko-car-select__extra"}>
                                                                     <Col className="">
@@ -1435,12 +1398,11 @@ class TabOffer extends Component {
                                                                 {/*    >Вернуться к расчету 1</Button>*/}
                                                                 {/*</Tooltip>*/}
                                                             </Col>
-                                                            <Col span={3}/>
                                                         </>
                                                         {
                                                             this.state.SMSSent ?
                                                                 <>
-                                                                    <Col span={6} className="text_center">
+                                                                    <Col span={8} className="text_center">
                                                                         <div className="offer-select__sms">
                                                                             <FormInput span={null}
                                                                                        maxLength={4}
@@ -1455,7 +1417,7 @@ class TabOffer extends Component {
                                                                             </div>
                                                                         </div>
                                                                     </Col>
-                                                                    <Col span={9}
+                                                                    <Col span={8}
                                                                          className="kasko-car-select__controls--group-w text_left">
                                                                         <p>
                                                                             Попросите клиента продиктовать код, <br/>
@@ -1466,17 +1428,17 @@ class TabOffer extends Component {
                                                                 </>
                                                                 :
                                                                 <>
-                                                                    <Col span={6}
+                                                                    <Col span={8}
                                                                          className="text_center">
                                                                         <Button htmlType="submit"
                                                                                 className={"ant-btn-primary btn_middle"}
-                                                                                onClick={this.toggleSMSSent}>Оплатить в
-                                                                            кассу</Button>
+                                                                                onClick={this.toggleSMSSent}
+                                                                        >Оплатить в кассу</Button>
                                                                     </Col>
-                                                                    <Col span={9}
+                                                                    <Col span={8}
                                                                          className="text_right">
-                                                                        <div className={"gl_link"}>Отправить ссылку
-                                                                            повторно
+                                                                        <div className={"gl_link"}
+                                                                        >Отправить ссылку повторно
                                                                         </div>
                                                                     </Col>
                                                                 </>
@@ -1496,7 +1458,8 @@ class TabOffer extends Component {
                                                                                          title="Отказ клиента">
                                                                                     <Button
                                                                                         className={"ant-btn ant-btn-sm btn-cancel"}>
-                                                                                        <span className={"i-close"}/></Button>
+                                                                                        <span
+                                                                                            className={"i-close"}/></Button>
                                                                                 </Tooltip>
                                                                             </Col>
                                                                             <Col className="">
@@ -1505,7 +1468,8 @@ class TabOffer extends Component {
                                                                                          title="Пересчитать">
                                                                                     <Button
                                                                                         className={"ant-btn ant-btn-sm btn-action"}>
-                                                                                        <span className={"i-recalc"}/></Button>
+                                                                                        <span
+                                                                                            className={"i-recalc"}/></Button>
                                                                                 </Tooltip>
                                                                             </Col>
                                                                             <Col className="">
@@ -1514,7 +1478,8 @@ class TabOffer extends Component {
                                                                                          title="Сохранить расчет">
                                                                                     <Button
                                                                                         className={"ant-btn ant-btn-sm btn-action"}>
-                                                                                        <span className={"i-save"}/></Button>
+                                                                                        <span
+                                                                                            className={"i-save"}/></Button>
                                                                                 </Tooltip>
                                                                             </Col>
                                                                         </Row>

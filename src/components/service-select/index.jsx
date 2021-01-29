@@ -512,7 +512,7 @@ class ServiceSelect extends Component {
                                         {
                                             this.state.SMSSent ?
                                                 <>
-                                                    <Col span={6}
+                                                    <Col span={8}
                                                          className="text_center">
                                                         <div className="offer-select__sms">
                                                             <Input maxLength={4}
@@ -525,7 +525,7 @@ class ServiceSelect extends Component {
                                                             </div>
                                                         </div>
                                                     </Col>
-                                                    <Col span={9}
+                                                    <Col span={8}
                                                          className="kasko-car-select__controls--group-w text_left">
                                                         <p>
                                                             Попросите клиента продиктовать код, <br/>
