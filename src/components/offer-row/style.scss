@@ -167,6 +167,19 @@
     }
   }
 
+  &__letter {
+    border-radius: 100%;
+    text-align: center;
+    width: 25px;
+    height: 25px;
+    font-size: 14px;
+    font-weight: 700;
+    line-height: 25px;
+    color: #fff;
+    display: inline-block;
+    margin-right: 10px;
+  }
+
   &__logo {
     @extend %text2;
     font-weight: 500;

@@ -6,7 +6,7 @@ import OfferRowCombo from "../offer-row-combo";
 import {Checkbox, Col, Radio, Row} from "antd";
 import ReactComment from "../../helpers/reactComment";
 
-class CalculationOffersCombo extends Component {
+class CalculationOffersEosago extends Component {
     constructor(props) {
         super(props);
         this.state = {
@@ -159,4 +159,4 @@ class CalculationOffersCombo extends Component {
     }
 }
 
-export default CalculationOffersCombo;
+export default CalculationOffersEosago;

@@ -9,6 +9,7 @@ import {Link} from "react-router-dom";
 import {Switch, Checkbox} from "antd";
 import CalculationPopup from "../calculation-popup";
 import {formatMoney} from "../../helpers/formatMoney";
+import * as Litepicker from 'litepicker';
 //import pluralFromArray from "../../helpers/pluralFromArray";
 import CalculationOffers from "../calculation-offers";
 import PaymentSwitch from "../payment-switch";
@@ -18,6 +19,7 @@ import PopupOverlay from "../popup-overlay";
 import FormInput from "../form-input";
 import PolicyPopup from "../policy-popup";
 import CalculationOffersCombo from "../calculation-offers-combo";
+import CalculationOffersEosago from "../calculation-offers-eosago";
 
 moment().locale('ru', ru);
 
@@ -46,6 +48,7 @@ class TabOffer extends Component {
             carEquipment: '',
             carNumber: '',
             carYear: '',
+            carOsagoStart: '',
             franchise: [
                 10000,
                 15000,
@@ -91,6 +94,8 @@ class TabOffer extends Component {
         addCreditCallback: PropTypes.func,
         innerWidth: PropTypes.number
     };
+
+    pickerRef = React.createRef();
 
     imageCallback = (img) => {
         this.setState({carImage: img})
@@ -338,23 +343,70 @@ class TabOffer extends Component {
         window.scrollTo(0, 0); //this.messagesEnd.scrollIntoView({behavior: "smooth"});
     }
 
-    componentDidMount() {
+    initDatePicker() {
+        let that = this;
+        let dataFormat = 'DD.MM.YYYY';
         this.scrollToBottom();
+
+        let inp = document.getElementById('osago_date_start');
+
+        if (inp && !inp.classList.contains('has_lite_picker')) {
+            inp.classList.add('has_lite_picker');
+
+            let lp = new Litepicker({
+                element: inp,
+                parentEl: inp.parentNode,
+                format: dataFormat,
+                lang: 'ru-RU',
+                minDate: '01.05.2019',
+                maxDate: '16.10.2021',
+                singleMode: true,
+                //autoApply: false,
+                dropdowns: {
+                    minYear: 2019,
+                    maxYear: null,
+                    months: false,
+                    years: false
+                },
+                onSelect: function (date) {
+                    let dt = moment(date).format(dataFormat);
+                    console.log(date, dt);
+
+                    that.setState({carOsagoStart: dt});
+
+                    inp.classList.add('_has-value');
+                }
+            });
+
+            console.log('init', lp);
+        } else {
+            console.log('skip', inp);
+        }
+    }
+
+    componentDidMount() {
+        this.initDatePicker();
     }
 
     componentDidUpdate() {
         //this.scrollToBottom();
+
+        this.initDatePicker();
     }
 
     render() {
-        const {step, osago, popup, combo} = this.props;
+        let {step, osago, popup, combo, eosago} = this.props;
         let {image} = this.props;
 
         //const periodPlurals = ['месяц', 'месяца', 'месяцев'];
+        const dateFormatMask = "'mask': '99.99.9999', 'showMaskOnHover': 'false'";
         const periodOptions = [12, 9, 6, 3];
         const damageOptions = ['Ущерб', 'Полная гибель', 'Угон', 'Шины/Диски', 'ЛКП', 'Стекла', 'Фары', 'Бамперы и зеркала'];
         const insuranceList = ['КАСКО', 'GAP', 'ОСАГО'];
         const franchise = this.state.franchise;
+
+        let calendarBtn = <span className={'input-icon'}><label htmlFor="osago_date_start"
+                                                                className={'input-icon__btn i-calendar'}/></span>;
 
         let comboInsurance = <Checkbox.Group
             defaultValue={insuranceList.map((o, i) => i)}
@@ -488,6 +540,8 @@ class TabOffer extends Component {
         let calculationOfferComboList = [
             {
                 name: 'Ингосстрах',
+                fillColor: '#ff9c2d',
+                capLetter: 'И',
                 offers: [
                     {
                         name: '',
@@ -562,6 +616,8 @@ class TabOffer extends Component {
             },
             {
                 name: 'ВСК',
+                fillColor: '#0067af',
+                capLetter: 'В',
                 offers: [
                     {
                         name: '',
@@ -635,6 +691,8 @@ class TabOffer extends Component {
             },
             {
                 name: 'МАКС',
+                fillColor: '#cc525a',
+                capLetter: 'М',
                 offers: [
                     {
                         name: '',
@@ -713,6 +771,8 @@ class TabOffer extends Component {
             calculationOfferComboList = [
                 {
                     name: 'Ингосстрах',
+                    fillColor: '#ff9c2d',
+                    capLetter: 'И',
                     offers: [
                         {
                             name: '',
@@ -730,6 +790,8 @@ class TabOffer extends Component {
                 },
                 {
                     name: 'ВСК',
+                    fillColor: '#0067af',
+                    capLetter: 'В',
                     offers: [
                         {
                             name: '',
@@ -790,6 +852,8 @@ class TabOffer extends Component {
             calculationOfferComboList = [
                 {
                     name: 'Ингосстрах',
+                    fillColor: '#ff9c2d',
+                    capLetter: 'И',
                     offers: someOffers
                 }
             ]
@@ -979,24 +1043,39 @@ class TabOffer extends Component {
                         <>
                             <div className={"kasko-car-select__caption fz_12"}>Срок действия, месяцы</div>
 
-                            <div className="kasko-car-select__controls radio_v3">
-                                <Radio.Group defaultValue={periodOptions[0]}
-                                             style={{width: '100%'}}
-                                             onChange={this.onPeriodChange}>
+                            <Row gutter={20} className="kasko-car-select__controls radio_v3">
+                                <Col span={12}>
+                                    <Radio.Group defaultValue={periodOptions[0]}
+                                                 style={{width: '100%'}}
+                                                 onChange={this.onPeriodChange}>
+                                        <Row gutter={20}>
+                                            {
+                                                periodOptions.map((c, i) => <Col key={i}>
+                                                        <Radio value={c}>
+                                                    <span
+                                                        className="kasko-car-select__period--value">{c}</span>
+                                                            {/*<span className="kasko-car-select__period--label">{pluralFromArray(periodPlurals, c)}</span>*/}
+                                                        </Radio>
+                                                    </Col>
+                                                )
+                                            }
+                                        </Row>
+                                    </Radio.Group>
+                                </Col>
+                                <Col span={6}>
                                     <Row gutter={20}>
-                                        {
-                                            periodOptions.map((c, i) => <Col key={i}>
-                                                    <Radio value={c}>
-																					<span
-                                                                                        className="kasko-car-select__period--value">{c}</span>
-                                                        {/*<span className="kasko-car-select__period--label">{pluralFromArray(periodPlurals, c)}</span>*/}
-                                                    </Radio>
-                                                </Col>
-                                            )
-                                        }
+                                        <FormInput span={24}
+                                                   preInput={calendarBtn}
+                                                   onChangeCallback={this.formControlCallback}
+                                                   inputmask={dateFormatMask}
+                                                   ref={this.pickerRef}
+                                                   id="osago_date_start"
+                                                   placeholder={"Дата начала действия \n ОСАГО"}
+                                                   controlName={'carOsagoStart'}
+                                                   value={(this.state.carOsagoStart)}/>
                                     </Row>
-                                </Radio.Group>
-                            </div>
+                                </Col>
+                            </Row>
 
                             <DriverCount className={this.state.showCalculationOffers && !osago ? "mb_0" : ""}
                                          step={step}
@@ -1004,8 +1083,8 @@ class TabOffer extends Component {
                                 {step > 1 || this.state.showCalculationOffers ?
                                     <Col>
                                         <div className="kasko-offer__more">
-																			<span onClick={this.toggleCalculationPopup}
-                                                                                  className="gl_link">Анкета КАСКО</span>
+                                            <span onClick={this.toggleCalculationPopup}
+                                                  className="gl_link">Анкета КАСКО</span>
                                         </div>
                                     </Col>
                                     : null}
@@ -1016,19 +1095,32 @@ class TabOffer extends Component {
                                     <Row gutter={20}
                                          className={"kasko-car-select__controls mb_45" + (osago ? "" : " ant-row-center")}>
                                         {osago ?
-                                            <Col span={6}>
-                                                <Button to="/credit_kasko"
-                                                        onClick={this.togglePolicyPopup}
-                                                        className={"w_100p ant-btn"}
-                                                >Внести полис вручную</Button>
-                                            </Col>
+                                            <>
+                                                <Col span={3}>
+                                                    <Row gutter={20} className={"kasko-car-select__extra"}>
+                                                        <Col className="">
+                                                            <Tooltip overlayClassName="tooltip_v1" placement="top"
+                                                                     title="Отказ клиента">
+                                                                <Button className={"ant-btn ant-btn-sm btn-cancel"}>
+                                                                    <span className={"i-close"}/></Button>
+                                                            </Tooltip>
+                                                        </Col>
+                                                    </Row>
+                                                </Col>
+                                                <Col span={6}>
+                                                    <Button to="/credit_kasko"
+                                                            onClick={this.togglePolicyPopup}
+                                                            className={"w_100p ant-btn"}
+                                                    >Внести полис вручную</Button>
+                                                </Col>
+                                            </>
                                             :
                                             <Col span={6}>
                                                 <Button className={"w_100p ant-btn"}
                                                 >Отказ клиента</Button>
                                             </Col>
                                         }
-                                        <Col span={12}>
+                                        <Col span={9}>
                                             <Button htmlType="submit"
                                                     className={"w_100p" + (((this.state.showPayment || (this.props.step === 2) || (this.props.osago && this.state.activeOffers.length))) ? " btn_green" : " ant-btn-primary")}
                                                     onClick={this.toggleCalculationPopup}>{this.calculationButtonText()}</Button>
@@ -1073,6 +1165,8 @@ class TabOffer extends Component {
                                                             selectedOffer={this.updateSelectedOffer} offersList={[
                                         {
                                             name: 'Ингосстрах',
+                                            fillColor: '#ff9c2d',
+                                            capLetter: 'И',
                                             offers: osago ?
                                                 [{
                                                     name: 'Обычный',
@@ -1268,141 +1362,217 @@ class TabOffer extends Component {
                             </>
 
                             {this.state.showCalculationOffers ?
-                                <>
-                                    {combo ?
-                                        <CalculationOffersCombo allowCheck={true}
-                                                                waiting={step === 2}
-                                                                osago={osago}
-                                                                hasSortType={!osago}
-                                                                selectedOffer={this.updateSelectedOffer}
-                                                                offersList={calculationOfferComboList}/>
-                                        : <CalculationOffers franchise={this.state.hasFranchise} allowCheck={true}
-                                                             osago={osago} waiting={step === 2}
-                                                             selectedOffer={this.updateSelectedOffer}
-                                                             offersList={calculationOfferList}/>
-                                    }
+                                <Row gutter={20}>
+                                    <Col span={3}/>
+                                    <Col span={18}>
+                                        {combo ?
+                                            <>
+                                                {/*<CalculationOffersCombo allowCheck={true}*/}
+                                                {/*                        waiting={step === 2}*/}
+                                                {/*                        osago={osago}*/}
+                                                {/*                        hasSortType={!osago}*/}
+                                                {/*                        eosago={true}*/}
+                                                {/*                        selectedOffer={this.updateSelectedOffer}*/}
+                                                {/*                        offersList={calculationOfferComboList}/>*/}
 
-                                    <Row gutter={20}
-                                         className={"kasko-car-select__controls ant-row-center align_center"}>
-                                        {
-                                            (step === 2) ?
-                                                <>
+                                                <CalculationOffersEosago allowCheck={true}
+                                                                         waiting={step === 2}
+                                                                         osago={osago}
+                                                                         hasSortType={!osago}
+                                                                         eosago={true}
+                                                                         selectedOffer={this.updateSelectedOffer}
+                                                                         offersList={calculationOfferComboList}/>
+                                            </>
+                                            :
+                                            <CalculationOffers franchise={this.state.hasFranchise} allowCheck={true}
+                                                               osago={osago} waiting={step === 2}
+                                                               selectedOffer={this.updateSelectedOffer}
+                                                               offersList={calculationOfferList}/>
+                                        }
+
+                                        <Row gutter={20}
+                                             className={"kasko-car-select__controls ant-row-center align_center"}>
+                                            {
+                                                (step === 2) ?
                                                     <>
-                                                        <Col span={6} className="text_left">
-                                                            <Tooltip overlayClassName="tooltip_v1"
-                                                                     placement="bottomLeft"
-                                                                     title="Отменить операцию и вернуться к расчету">
-                                                                <Button onClick={() => {
-                                                                    this.nextStep(void 0)
-                                                                }} className={"ant-btn btn_green fz_14 w_100p"}>Вернуться
-                                                                    к расчету</Button>
-                                                            </Tooltip>
-                                                        </Col>
-                                                        <Col span={3}/>
-                                                    </>
-                                                    {
-                                                        this.state.SMSSent ?
-                                                            <>
-                                                                <Col span={6} className="text_center">
-                                                                    <div className="offer-select__sms">
-                                                                        <FormInput span={null}
-                                                                                   maxLength={4}
-                                                                                   onChangeCallback={this.formControlCallback}
-                                                                                   placeholder="Код подтверждения"
-                                                                                   controlName={'SMSCode'}
-                                                                                   value={''}/>
-                                                                        <div className="gl_link"
-                                                                             onClick={this.toggleSMSSent}>Отправить код
+                                                        <>
+                                                            <Col span={6} className="text_left">
+                                                                <Row gutter={20}
+                                                                     className={"kasko-car-select__extra"}>
+                                                                    <Col className="">
+                                                                        <Tooltip overlayClassName="tooltip_v1"
+                                                                                 placement="top"
+                                                                                 title="Отказ клиента">
+                                                                            <Button
+                                                                                className={"ant-btn ant-btn-sm btn-cancel"}>
+                                                                                <span className={"i-close"}/></Button>
+                                                                        </Tooltip>
+                                                                    </Col>
+                                                                    <Col className="">
+                                                                        <Tooltip overlayClassName="tooltip_v1"
+                                                                                 placement="top"
+                                                                                 title="Сохранить расчет">
+                                                                            <Button
+                                                                                className={"ant-btn ant-btn-sm btn-action"}>
+                                                                                <span className={"i-save"}/></Button>
+                                                                        </Tooltip>
+                                                                    </Col>
+                                                                </Row>
+
+                                                                {/*<Tooltip overlayClassName="tooltip_v1"*/}
+                                                                {/*         placement="bottomLeft"*/}
+                                                                {/*         title="Отменить операцию и вернуться к расчету">*/}
+                                                                {/*    <Button onClick={() => {*/}
+                                                                {/*        this.nextStep(void 0)*/}
+                                                                {/*    }} className={"ant-btn btn_green fz_14 w_100p"}*/}
+                                                                {/*    >Вернуться к расчету 1</Button>*/}
+                                                                {/*</Tooltip>*/}
+                                                            </Col>
+                                                            <Col span={3}/>
+                                                        </>
+                                                        {
+                                                            this.state.SMSSent ?
+                                                                <>
+                                                                    <Col span={6} className="text_center">
+                                                                        <div className="offer-select__sms">
+                                                                            <FormInput span={null}
+                                                                                       maxLength={4}
+                                                                                       onChangeCallback={this.formControlCallback}
+                                                                                       placeholder="Код подтверждения"
+                                                                                       controlName={'SMSCode'}
+                                                                                       value={''}/>
+                                                                            <div className="gl_link"
+                                                                                 onClick={this.toggleSMSSent}>Отправить
+                                                                                код
+                                                                                повторно
+                                                                            </div>
+                                                                        </div>
+                                                                    </Col>
+                                                                    <Col span={9}
+                                                                         className="kasko-car-select__controls--group-w text_left">
+                                                                        <p>
+                                                                            Попросите клиента продиктовать код, <br/>
+                                                                            который был отправлен ему <br/>
+                                                                            на мобильный телефон
+                                                                        </p>
+                                                                    </Col>
+                                                                </>
+                                                                :
+                                                                <>
+                                                                    <Col span={6}
+                                                                         className="text_center">
+                                                                        <Button htmlType="submit"
+                                                                                className={"ant-btn-primary btn_middle"}
+                                                                                onClick={this.toggleSMSSent}>Оплатить в
+                                                                            кассу</Button>
+                                                                    </Col>
+                                                                    <Col span={9}
+                                                                         className="text_right">
+                                                                        <div className={"gl_link"}>Отправить ссылку
                                                                             повторно
                                                                         </div>
-                                                                    </div>
-                                                                </Col>
-                                                                <Col span={9}
-                                                                     className="kasko-car-select__controls--group-w text_left">
-                                                                    <p>
-                                                                        Попросите клиента продиктовать код, <br/>
-                                                                        который был отправлен ему <br/>
-                                                                        на мобильный телефон
-                                                                    </p>
-                                                                </Col>
-                                                            </>
-                                                            :
-                                                            <>
-                                                                <Col span={6}
-                                                                     className="text_center">
-                                                                    <Button htmlType="submit"
-                                                                            className={"ant-btn-primary btn_middle"}
-                                                                            onClick={this.toggleSMSSent}>Оплатить в
-                                                                        кассу</Button>
-                                                                </Col>
-                                                                <Col span={9}
-                                                                     className="text_right">
-                                                                    <div className={"gl_link"}>Отправить ссылку
-                                                                        повторно
-                                                                    </div>
-                                                                </Col>
-                                                            </>
-                                                    }
-                                                </>
-                                                : (this.state.showPayment || osago) ?
-                                                <>
-                                                    <Col span={6}>
-                                                        {osago ?
-                                                            <Button className={"w_100p ant-btn"}>Отказ
-                                                                клиента</Button> :
-                                                            null
+                                                                    </Col>
+                                                                </>
                                                         }
-                                                    </Col>
-                                                    <Col span={6}>
-                                                        <Button onClick={() => {
-                                                            this.state.availableCashier && this.nextStep(2)
-                                                        }}
-                                                                className={"ant-btn ant-btn-primary w_100p" + ((this.state.availableCashier) ? "" : " disabled")}>{this.state.showCompare ? 'Сравнить' : 'Оплатить в кассу'}</Button>
-                                                    </Col>
-                                                    <Col span={6}>
-                                                        <PaymentSwitch
-                                                            allowPayment={this.state.availablePayment}
-                                                            paymentStep={0}/>
-                                                    </Col>
-                                                </>
-                                                :
-                                                popup ?
+                                                    </>
+                                                    : (this.state.showPayment || osago) ?
                                                     <>
-                                                        <Col span={12}>
-                                                            <Button htmlType="submit"
-                                                                    className={"ant-btn-primary btn_wide"}
-                                                                    onClick={this.addToCredit}>Добавить в
-                                                                кредит</Button>
+                                                        <Col span={8}>
+                                                            {osago ?
+                                                                <>
+                                                                    {eosago ?
+                                                                        <Row gutter={20}
+                                                                             className={"kasko-car-select__extra"}>
+                                                                            <Col className="">
+                                                                                <Tooltip overlayClassName="tooltip_v1"
+                                                                                         placement="top"
+                                                                                         title="Отказ клиента">
+                                                                                    <Button
+                                                                                        className={"ant-btn ant-btn-sm btn-cancel"}>
+                                                                                        <span className={"i-close"}/></Button>
+                                                                                </Tooltip>
+                                                                            </Col>
+                                                                            <Col className="">
+                                                                                <Tooltip overlayClassName="tooltip_v1"
+                                                                                         placement="top"
+                                                                                         title="Пересчитать">
+                                                                                    <Button
+                                                                                        className={"ant-btn ant-btn-sm btn-action"}>
+                                                                                        <span className={"i-recalc"}/></Button>
+                                                                                </Tooltip>
+                                                                            </Col>
+                                                                            <Col className="">
+                                                                                <Tooltip overlayClassName="tooltip_v1"
+                                                                                         placement="top"
+                                                                                         title="Сохранить расчет">
+                                                                                    <Button
+                                                                                        className={"ant-btn ant-btn-sm btn-action"}>
+                                                                                        <span className={"i-save"}/></Button>
+                                                                                </Tooltip>
+                                                                            </Col>
+                                                                        </Row>
+                                                                        :
+                                                                        <Button className={"w_100p ant-btn"}
+                                                                        >Отказ клиента</Button>
+                                                                    }
+                                                                </>
+                                                                : null
+                                                            }
                                                         </Col>
-                                                        <Col span={24}/>
-                                                        <Col span={12}>
-                                                            <Button htmlType="submit"
-                                                                    className={"btn_wide"}
-                                                                    onClick={this.toggleCalculationPopup}>{this.calculationButtonText()}</Button>
+                                                        <Col span={8}>
+                                                            <Button
+                                                                className={"ant-btn ant-btn-primary w_100p" + ((this.state.availableCashier) ? "" : " disabled")}
+                                                                onClick={() => {
+                                                                    this.state.availableCashier && this.nextStep(2)
+                                                                }}
+                                                            >{this.state.showCompare ? 'Сравнить' : 'Оплатить в кассу'}</Button>
+                                                        </Col>
+                                                        <Col span={8}>
+                                                            <PaymentSwitch
+                                                                allowPayment={this.state.availablePayment}
+                                                                paymentStep={0}/>
                                                         </Col>
                                                     </>
                                                     :
-                                                    <>
-                                                        <Col span={6}>
-                                                            <Button className={"w_100p ant-btn"}>Отказ клиента</Button>
-                                                        </Col>
-                                                        <Col span={12}>
-                                                            <Button htmlType="submit"
-                                                                    className={"ant-btn-primary w_100p"}
-                                                                    onClick={this.toggleCalculationPopup}>{this.calculationButtonText()}</Button>
-                                                        </Col>
-                                                        <Col span={6}>
-                                                            <Button
-                                                                disabled={this.state.availableAddCredit ? null : "disabled"}
-                                                                onClick={() => {
-                                                                    this.changeTab(0)
-                                                                }} className={"w_100p btn_green"}
-                                                            >Добавить в кредит</Button>
-                                                        </Col>
-                                                    </>
-                                        }
-                                    </Row>
-                                </>
+                                                    popup ?
+                                                        <>
+                                                            <Col span={12}>
+                                                                <Button htmlType="submit"
+                                                                        className={"ant-btn-primary btn_wide"}
+                                                                        onClick={this.addToCredit}
+                                                                >Добавить в кредит</Button>
+                                                            </Col>
+                                                            <Col span={24}/>
+                                                            <Col span={12}>
+                                                                <Button htmlType="submit"
+                                                                        className={"btn_wide"}
+                                                                        onClick={this.toggleCalculationPopup}>{this.calculationButtonText()}</Button>
+                                                            </Col>
+                                                        </>
+                                                        :
+                                                        <>
+                                                            <Col span={8}>
+                                                                <Button className={"w_100p ant-btn"}
+                                                                >Отказ клиента</Button>
+                                                            </Col>
+                                                            <Col span={16}>
+                                                                <Button htmlType="submit"
+                                                                        className={"ant-btn-primary w_100p"}
+                                                                        onClick={this.toggleCalculationPopup}>{this.calculationButtonText()}</Button>
+                                                            </Col>
+                                                            <Col span={8}>
+                                                                <Button
+                                                                    onClick={() => {
+                                                                        this.changeTab(0)
+                                                                    }} className={"w_100p btn_green"}
+                                                                    disabled={this.state.availableAddCredit ? null : "disabled"}
+                                                                >Добавить в кредит</Button>
+                                                            </Col>
+                                                        </>
+                                            }
+                                        </Row>
+                                    </Col>
+                                </Row>
                                 : null
                             }
                         </>

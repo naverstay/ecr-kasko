@@ -24,7 +24,7 @@ class Credit extends Component {
 			]
 		};
 	}
-	
+
 	static propTypes = {
 		children: PropTypes.node,
 		showOffers: PropTypes.any,
@@ -43,9 +43,9 @@ class Credit extends Component {
 
 	render() {
 		const {showOffers, step, progress, kasko, details} = this.props;
-		
+
 		let events = []
-		
+
 		if (step === 2) {
 			events.push({
 					progress: 1,
@@ -54,7 +54,7 @@ class Credit extends Component {
 					time: '9:50'
 				})
 		}
-		
+
 		if (step === 3) {
 			events.push({
 				progress: 2,
@@ -69,7 +69,7 @@ class Credit extends Component {
 				time: '9:50'
 			})
 		}
-		
+
 		return (
 			<>
 				<Row gutter={20} className="kasko-wrapper">
@@ -84,7 +84,7 @@ class Credit extends Component {
 					</Col>
 					<Col span={4} className="kasko-aside"/>
 				</Row>
-	
+
 				<Row gutter={20} className="kasko-wrapper kasko-wrapper__fixed">
 					<Col span={4} className="kasko-aside">
 						<AsideCrumbs crumbs={['Главная']}/>
@@ -93,7 +93,7 @@ class Credit extends Component {
 									   avatar={step === 1 ? '' : 'users/luchkin.png'} phone={step > 1 ? "+ 7 (916) 111 11 11" : ""} docs="" trustees=""
 									   autos=''/>
 						</AsideBlock>
-	
+
 						<AsideBlock>
 							<KaskoCarInfo step={step} notificationCount={step === 2 ? 1 : step === 3 ? 2 : 0}
 										  carName={step === 1 ? '' : 'Hyundai'} carModel={step === 1 ? '' : 'Sonata'} image={this.state.carImage}
@@ -101,9 +101,9 @@ class Credit extends Component {
 										  price={step === 1 ? '' : "1 534 000 ₽"}/>
 						</AsideBlock>
 					</Col>
-	
+
 					<Col span={16} className="kasko-main"/>
-	
+
 					<Col span={4} className="kasko-aside">
 						{showOffers === false ?
 							null
@@ -112,14 +112,14 @@ class Credit extends Component {
 								<KaskoNotices step={step} credit={true} status={0} type={showOffers}/>
 							</AsideBlock>
 						}
-						
+
 						{this.state.kaskoWidget.show ?
 							<AsideBlock>
 								<KaskoNotices step={this.state.kaskoWidget.step} kasko={true} status={0} type={'Каско'}/>
 							</AsideBlock>
 							: null
 						}
-	
+
 						<AsideBlock>
 							<KaskoNotices noticeList={[{title: 'Сегодня, Пон 20.02.19', list: events}]}/>
 						</AsideBlock>

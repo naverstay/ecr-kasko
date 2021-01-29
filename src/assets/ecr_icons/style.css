@@ -1,9 +1,9 @@
 @font-face {
   font-family: 'ecr_icons';
   src:
-    url('fonts/ecr_icons.ttf?xo3pdl') format('truetype'),
-    url('fonts/ecr_icons.woff?xo3pdl') format('woff'),
-    url('fonts/ecr_icons.svg?xo3pdl#ecr_icons') format('svg');
+    url('fonts/ecr_icons.ttf?r0282u') format('truetype'),
+    url('fonts/ecr_icons.woff?r0282u') format('woff'),
+    url('fonts/ecr_icons.svg?r0282u#ecr_icons') format('svg');
   font-weight: normal;
   font-style: normal;
   font-display: block;
@@ -24,6 +24,12 @@
   -moz-osx-font-smoothing: grayscale;
 }
 
+.i-save:before {
+  content: "\e925";
+}
+.i-recalc:before {
+  content: "\e926";
+}
 .i-ecr:before {
   content: "\e924";
 }

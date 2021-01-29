@@ -263,6 +263,11 @@ $spinner_time: 1s;
   padding-left: 10px;
   padding-right: 10px;
 
+  &.ant-btn-sm {
+    padding-left: 6px;
+    padding-right: 6px;
+  }
+
   &.comments-form__btn {
     text-decoration: none;
     color: #fff;
@@ -292,6 +297,34 @@ $spinner_time: 1s;
     //padding-left: 92px;
     //padding-right: 92px;
     //margin-bottom: 32px;
+  }
+
+  &.btn-action {
+    border: 1px solid $color-green;
+    color: $color-green;
+
+    &:hover {
+      color: #fff;
+      background: $color-green;
+    }
+
+    .kasko-car-select__extra & {
+      margin-top: 7px;
+    }
+  }
+
+  &.btn-cancel {
+    border: 1px solid $color-prime;
+    color: $color-prime;
+
+    &:hover {
+      color: #fff;
+      background: $color-prime;
+    }
+
+    .kasko-car-select__extra & {
+      margin-top: 7px;
+    }
   }
 }
 
@@ -625,4 +658,37 @@ $spinner_time: 1s;
 
 .ant-flex-1 {
   flex: 1 0 auto;
+}
+
+.position-rel {
+  position: relative;
+}
+
+.input-icon {
+  position: absolute;
+  transform: translateY(-50%);
+  top: 50%;
+  bottom: 0;
+  right: 20px;
+  z-index: 1;
+
+  &__btn {
+    transition: color 0.3s cubic-bezier(0.645, 0.045, 0.355, 1);
+    cursor: pointer;
+    color: #b5b5b5;
+    font-size: 18px;
+    line-height: 1;
+
+    &:hover {
+      color: #000;
+    }
+  }
+
+  ~ .ant-input {
+    padding-right: 40px;
+  }
+
+  ~ .float_placeholder {
+    right: 40px;
+  }
 }

@@ -872,8 +872,8 @@ class OfferSelect extends Component {
                                                                      placement="bottomLeft"
                                                                      title="Отменить операцию и вернуться к расчету">
                                                                 <Link to="/"
-                                                                      className={"ant-btn btn_green fz_14 w_100p"}>Вернуться
-                                                                    к расчету</Link>
+                                                                      className={"ant-btn btn_green fz_14 w_100p"}
+                                                                >Вернуться к расчету</Link>
                                                             </Tooltip>
                                                         </Col>
                                                         <Col span={3}/>
@@ -890,8 +890,8 @@ class OfferSelect extends Component {
                                                                                    controlName={'SMSCode'}
                                                                                    value={''}/>
                                                                         <div className="gl_link"
-                                                                             onClick={this.toggleSMSSent}>Отправить код
-                                                                            повторно
+                                                                             onClick={this.toggleSMSSent}
+                                                                        >Отправить код повторно
                                                                         </div>
                                                                     </div>
                                                                 </Col>
@@ -910,13 +910,13 @@ class OfferSelect extends Component {
                                                                      className="text_center">
                                                                     <Button htmlType="submit"
                                                                             className={"ant-btn-primary btn_middle"}
-                                                                            onClick={this.toggleSMSSent}>Оплатить в
-                                                                        кассу</Button>
+                                                                            onClick={this.toggleSMSSent}
+                                                                    >Оплатить в кассу</Button>
                                                                 </Col>
                                                                 <Col span={9}
                                                                      className="text_right">
-                                                                    <div className={"gl_link"}>Отправить ссылку
-                                                                        повторно
+                                                                    <div className={"gl_link"}
+                                                                    >Отправить ссылку повторно
                                                                     </div>
                                                                 </Col>
                                                             </>

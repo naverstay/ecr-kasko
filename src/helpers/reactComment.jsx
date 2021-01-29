@@ -8,7 +8,7 @@ class ReactComment extends Component {
 
     render() {
         const {text} = this.props;
-        return (process.env.NODE_ENV !== 'production') ? <div style={{display: "none"}} className="react-comment" dangerouslySetInnerHTML={{__html: `<!-- ${text} -->`}}/> : null
+        return (process.env.NODE_ENV !== 'production') ? <div style={{display: "none"}} className="REACT_________________________________COMMENT" dangerouslySetInnerHTML={{__html: `<!-- ${text} -->`}}/> : null
     }
 }
 

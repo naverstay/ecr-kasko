@@ -60,7 +60,7 @@ class OfferRowCombo extends Component {
     }
 
     render() {
-        const {offers, logo, name, info, credit, company, completed, waiting, allowCheck, osago, showMore, lastRow} = this.props
+        const {offers, logo, fillColor, capLetter, name, info, credit, company, completed, waiting, allowCheck, osago, showMore, lastRow} = this.props
         const moreLink = 'еще ' + (offers.length - 1) + ' ' + pluralFromArray(['тариф', 'тарифа', 'тарифов'], (offers.length - 1))
         const lessLink = 'скрыть ' + (offers.length - 1) + ' ' + pluralFromArray(['тариф', 'тарифа', 'тарифов'], (offers.length - 1))
 
@@ -78,6 +78,8 @@ class OfferRowCombo extends Component {
                                 <td className={'wnw ' + (lastRow ? '' : 'no-bdr-bottom')}>
                                     {i === 0 ? <div
                                         className={"offer-row__logo" + (info ? " info" : "")}>
+                                        {fillColor ? <span className={"offer-row__letter"} style={{background: fillColor}}>{capLetter}</span> : null }
+
                                         <span>{name || ''}</span>
                                         {o.disableCashierPayment ?
                                             <Tooltip overlayClassName="tooltip_v1" placement="top"

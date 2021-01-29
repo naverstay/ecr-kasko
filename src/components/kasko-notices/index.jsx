@@ -149,15 +149,15 @@ class KaskoNotices extends Component {
                                             <div
                                                 className="kasko-notice__price--value">{step >= 2 ? 'Ингосстрах' : ''}</div>
                                         </li>
-                                        <li>
-                                            <div className="kasko-notice__price--label">Срок</div>
-                                            <div
-                                                className="kasko-notice__price--value">{step >= 2 ? <>21.09.19<br/>20.09.20</> : ''}</div>
-                                        </li>
-                                        <li>
-                                            <div className="kasko-notice__price--label">Полис</div>
-                                            <div className="kasko-notice__price--value"/>
-                                        </li>
+                                        {/*<li>*/}
+                                        {/*    <div className="kasko-notice__price--label">Срок</div>*/}
+                                        {/*    <div*/}
+                                        {/*        className="kasko-notice__price--value">{step >= 2 ? <>21.09.19<br/>20.09.20</> : ''}</div>*/}
+                                        {/*</li>*/}
+                                        {/*<li>*/}
+                                        {/*    <div className="kasko-notice__price--label">Полис</div>*/}
+                                        {/*    <div className="kasko-notice__price--value"/>*/}
+                                        {/*</li>*/}
                                     </ul>
                                     :
                                     <ul className={"kasko-notice__price"}>
@@ -179,15 +179,15 @@ class KaskoNotices extends Component {
                                                 className="kasko-notice__price--value">{step >= 2 ? 'Ингосстрах' : ''}
                                             </div>
                                         </li>
-                                        <li>
-                                            <div className="kasko-notice__price--label">Срок</div>
-                                            <div
-                                                className="kasko-notice__price--value">{step >= 2 ? <>21.09.19<br/>20.09.20</> : ''}</div>
-                                        </li>
-                                        <li>
-                                            <div className="kasko-notice__price--label">Полис</div>
-                                            <div className="kasko-notice__price--value"/>
-                                        </li>
+                                        {/*<li>*/}
+                                        {/*    <div className="kasko-notice__price--label">Срок</div>*/}
+                                        {/*    <div*/}
+                                        {/*        className="kasko-notice__price--value">{step >= 2 ? <>21.09.19<br/>20.09.20</> : ''}</div>*/}
+                                        {/*</li>*/}
+                                        {/*<li>*/}
+                                        {/*    <div className="kasko-notice__price--label">Полис</div>*/}
+                                        {/*    <div className="kasko-notice__price--value"/>*/}
+                                        {/*</li>*/}
                                     </ul>
                             : null}
                     </div>
@@ -197,8 +197,7 @@ class KaskoNotices extends Component {
                     <div className="kasko-notice__head">
                         <div
                             className={"kasko-notice__caption color_red" + (this.state.noticeOpened ? " open" : "")}
-                            onClick={this.toggleOpened}>Уведомления
-                        </div>
+                            onClick={this.toggleOpened}>Уведомления</div>
                         {
                             search ?
                                 <div className="kasko-notice__search"/>

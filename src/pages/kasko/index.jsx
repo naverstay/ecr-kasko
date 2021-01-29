@@ -150,7 +150,7 @@ class Kasko extends Component {
                 showOffers = 'каско'
                 break
             case 2:
-                showOffers = 'осаго'
+                showOffers = 'е-осаго'
                 break
             case 3:
                 showOffers = 'сервис меню'
@@ -171,10 +171,10 @@ class Kasko extends Component {
 
         for (let i = 0; i < (this.props.dev ? 10 : 1); i++) {
             carInfo.push(<AsideBlock><KaskoCarInfo step={step} notificationCount={step === 2 ? 1 : step === 3 ? 2 : 0}
-                                       carName={step === 1 ? '' : 'Hyundai'}
-                                       carModel={step === 1 ? '' : 'Sonata'} image={this.state.carImage}
-                                       info={step === 1 ? '' : "2020 Новый"}
-                                       price={step === 1 ? '' : "1 534 000 ₽"}/></AsideBlock>)
+                                                   carName={step === 1 ? '' : 'Hyundai'}
+                                                   carModel={step === 1 ? '' : 'Sonata'} image={this.state.carImage}
+                                                   info={step === 1 ? '' : "2020 Новый"}
+                                                   price={step === 1 ? '' : "1 534 000 ₽"}/></AsideBlock>)
         }
 
         console.log('this.state.tabIndex', this.state.tabIndex);
@@ -235,7 +235,8 @@ class Kasko extends Component {
                                             <Tab className={'kasko-tabs__tab'}>
                                                 <div className="kasko-tab__panel-name"><span
                                                     className="kasko-tab__panel-name--text"><span>Я</span>&nbsp;<span
-                                                    className={"fz_18 i-heart" + ' _red'}/>&nbsp;<span>КАСАГО</span></span>
+                                                    className={"fz_18 i-heart" + ' _red'}/>&nbsp;
+                                                    <span>КАСАГО</span></span>
                                                     {this.state.tabIndex === 1 ?
                                                         tabStatus
                                                         //: this.state.carFound ?
@@ -257,7 +258,7 @@ class Kasko extends Component {
                                             {/*</Tab>*/}
                                             <Tab className={'kasko-tabs__tab'}>
                                                 <div className="kasko-tab__panel-name"><span
-                                                    className="kasko-tab__panel-name--text">ОСАГО</span>
+                                                    className="kasko-tab__panel-name--text">Е-ОСАГО</span>
                                                     {this.state.tabIndex === 2 ?
                                                         tabStatus
                                                         //: this.state.carFound ?
@@ -313,7 +314,8 @@ class Kasko extends Component {
                                             {this.state.tabIndex === null || !this.state.carFound ? null :
                                                 <TabOffer tabCallback={this.changeTabState}
                                                           imageCallback={this.imageCallback}
-                                                          osago={true} combo={true}
+                                                          osago={true}
+                                                          eosago={true} combo={true}
                                                           step={step} image={this.state.carImage} type={showOffers}/>
                                             }
                                         </TabPanel>
@@ -366,7 +368,8 @@ class Kasko extends Component {
                         <Col span={4} className="kasko-aside">
                             <AsideCrumbs crumbs={['Главная']}/>
                             <AsideBlock>
-                                <KaskoUser firstName={(step === 1 || noInfo) ? '' : 'Кирилл'} lastName={(step === 1 || noInfo) ? '' : 'Лучкин'}
+                                <KaskoUser firstName={(step === 1 || noInfo) ? '' : 'Кирилл'}
+                                           lastName={(step === 1 || noInfo) ? '' : 'Лучкин'}
                                            avatar={(step === 1 || noInfo) ? '' : 'users/luchkin.png'}
                                            phone={step > 1 ? "+ 7 (916) 111 11 11" : ""} docs="" trustees=""
                                            autos=''/>

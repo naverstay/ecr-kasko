@@ -456,7 +456,9 @@ class ServiceSelect extends Component {
                         </Col>
                         <Col span={6}>
                             <div onClick={() => this.toggleCalculationPopup()}
-                                 className={"ant-btn ant-btn-primary btn_middle w_100p" + (this.state.activeOffers.length ? "" : " disabled")}>Заполнить анкету</div>
+                                 className={"ant-btn ant-btn-primary btn_middle w_100p" + (this.state.activeOffers.length ? "" : " disabled")}>Заполнить
+                                анкету
+                            </div>
                         </Col>
                     </Row>
                 </>
@@ -501,8 +503,8 @@ class ServiceSelect extends Component {
                                             <Col span={6} className="text_left">
                                                 <Tooltip overlayClassName="tooltip_v1" placement="bottomLeft"
                                                          title="Отменить операцию и вернуться к расчету">
-                                                    <Link to="/" className={"ant-btn btn_green fz_14 w_100p"}>Вернуться
-                                                        к расчету</Link>
+                                                    <Link to="/" className={"ant-btn btn_green fz_14 w_100p"}
+                                                    >Вернуться к расчету</Link>
                                                 </Tooltip>
                                             </Col>
                                             <Col span={3}/>

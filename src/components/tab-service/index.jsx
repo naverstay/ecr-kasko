@@ -488,13 +488,34 @@ class TabService extends Component {
                                     <>
                                         <>
                                             <Col span={6} className="text_left">
-                                                <Tooltip overlayClassName="tooltip_v1" placement="bottomLeft"
-                                                         title="Отменить операцию и вернуться к расчету">
-                                                    <Button onClick={() => {
-                                                        this.nextStep(void 0)
-                                                    }} className={"ant-btn btn_green fz_14 w_100p"}>Вернуться к
-                                                        расчету</Button>
-                                                </Tooltip>
+                                                <Row gutter={20}
+                                                     className={"kasko-car-select__extra"}>
+                                                    <Col className="">
+                                                        <Tooltip overlayClassName="tooltip_v1"
+                                                                 placement="top"
+                                                                 title="Отказ клиента">
+                                                            <Button
+                                                                className={"ant-btn ant-btn-sm btn-cancel"}>
+                                                                <span className={"i-close"}/></Button>
+                                                        </Tooltip>
+                                                    </Col>
+                                                    <Col className="">
+                                                        <Tooltip overlayClassName="tooltip_v1"
+                                                                 placement="top"
+                                                                 title="Сохранить расчет">
+                                                            <Button
+                                                                className={"ant-btn ant-btn-sm btn-action"}>
+                                                                <span className={"i-save"}/></Button>
+                                                        </Tooltip>
+                                                    </Col>
+                                                </Row>
+                                                {/*<Tooltip overlayClassName="tooltip_v1" placement="bottomLeft"*/}
+                                                {/*         title="Отменить операцию и вернуться к расчету">*/}
+                                                {/*    <Button onClick={() => {*/}
+                                                {/*        this.nextStep(void 0)*/}
+                                                {/*    }} className={"ant-btn btn_green fz_14 w_100p"}*/}
+                                                {/*    >Вернуться к расчету</Button>*/}
+                                                {/*</Tooltip>*/}
                                             </Col>
                                             <Col span={3}/>
                                         </>
