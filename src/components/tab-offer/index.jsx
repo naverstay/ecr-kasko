@@ -385,6 +385,9 @@ class TabOffer extends Component {
     }
 
     componentDidMount() {
+        // todo dev
+        //this.props.tabCallback({newStep: 2});
+
         this.initDatePicker();
     }
 
@@ -397,6 +400,8 @@ class TabOffer extends Component {
     render() {
         let {step, osago, popup, combo, eosago} = this.props;
         let {image} = this.props;
+
+        console.log('tab-offer step', step);
 
         //const periodPlurals = ['месяц', 'месяца', 'месяцев'];
         const dateFormatMask = "'mask': '99.99.9999', 'showMaskOnHover': 'false'";
@@ -1357,7 +1362,7 @@ class TabOffer extends Component {
 
                             <>
                                 {this.state.showCalculationOffers && !osago ?
-                                    <div className="kasko-car-select__controls check_v2">{comboInsurance}</div>
+                                    <div className="kasko-car-select__controls check_v2 comboInsurance">{comboInsurance}</div>
                                     : null}
                             </>
 
@@ -1376,12 +1381,13 @@ class TabOffer extends Component {
                                                 {/*                        offersList={calculationOfferComboList}/>*/}
 
                                                 <CalculationOffersEosago allowCheck={true}
+                                                                         step={step}
                                                                          waiting={step === 2}
                                                                          osago={osago}
                                                                          hasSortType={!osago}
                                                                          eosago={true}
                                                                          selectedOffer={this.updateSelectedOffer}
-                                                                         offersList={calculationOfferComboList}/>
+                                                                         offersList={calculationOfferComboList.slice(0, step >= 2 ? 1 : calculationOfferComboList.length)}/>
                                             </>
                                             :
                                             <CalculationOffers franchise={this.state.hasFranchise} allowCheck={true}
@@ -1411,10 +1417,10 @@ class TabOffer extends Component {
                                                                     <Col className="">
                                                                         <Tooltip overlayClassName="tooltip_v1"
                                                                                  placement="top"
-                                                                                 title="Сохранить расчет">
+                                                                                 title="Пересчитать">
                                                                             <Button
                                                                                 className={"ant-btn ant-btn-sm btn-action"}>
-                                                                                <span className={"i-save"}/></Button>
+                                                                                <span className={"i-recalc"}/></Button>
                                                                         </Tooltip>
                                                                     </Col>
                                                                 </Row>
@@ -1521,6 +1527,7 @@ class TabOffer extends Component {
                                                         </Col>
                                                         <Col span={8}>
                                                             <Button
+                                                                data-btn="step_btn_2"
                                                                 className={"ant-btn ant-btn-primary w_100p" + ((this.state.availableCashier) ? "" : " disabled")}
                                                                 onClick={() => {
                                                                     this.state.availableCashier && this.nextStep(2)
