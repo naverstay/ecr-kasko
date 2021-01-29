@@ -60,7 +60,7 @@ class OfferRowEosago extends Component {
     }
 
     renderSwitch(step, completed, waiting, o) {
-        console.log('renderSwitch row', step);
+        console.log('renderSwitch row', step, o);
         switch (step) {
             case 1:
                 return (
@@ -72,22 +72,31 @@ class OfferRowEosago extends Component {
                                     <div className="offer-row__price-megashare">{o.megashare}</div> : null}
                                 {(o.price)}</div>
                             {o.share ? <div className="offer-row__price-small">{(o.share)}</div> : null}
-                            <br/>{(o.dealerFee)}
+                            <div>{(o.dealerFee)}</div>
                         </td>
                     </>);
             case 2:
                 return (
                     <>
-                        <td className=" text_left">Полис</td>
-                        <td className="">Срок <br/>действия</td>
-                        <td className={"" + ((completed || waiting) ? " small" : "")}>Цена<br/>Доход
-                        </td>
                         <td className="text_left">
                             <div className="offer-row__documents">
-                                <div className="gl_link color_black">{o.document}</div>
+                                <div className="gl_link color_black">{o.document || 'some doc'}</div>
                                 {o.nobill ? null :
-                                    <div className="offer-row__bill gl_link">Счет на оплату</div>}
+                                    <div className="offer-row__bill gl_link">Заявление</div>}
                             </div>
+                        </td>
+                        <td>
+                            <div className="offer-row__date">{o.dateStart}</div>
+                            <div className="offer-row__date">{o.dateEnd}</div>
+                        </td>
+
+                        <td className={"" + ((completed || waiting) ? " small" : "")}>
+                            <div className="offer-row__price">
+                                {o.megashare ?
+                                    <div className="offer-row__price-megashare">{o.megashare}</div> : null}
+                                {(o.price)}</div>
+                            {o.share ? <div className="offer-row__price-small">{(o.share)}</div> : null}
+                            <div>{(o.dealerFee)}</div>
                         </td>
                     </>);
             default:
@@ -117,7 +126,8 @@ class OfferRowEosago extends Component {
                                 <td className={'wnw ' + (lastRow ? '' : 'no-bdr-bottom')}>
                                     {i === 0 ? <div
                                         className={"offer-row__logo" + (info ? " info" : "")}>
-                                        {fillColor ? <span className={"offer-row__letter"} style={{background: fillColor}}>{capLetter}</span> : null }
+                                        {fillColor ? <span className={"offer-row__letter"}
+                                                           style={{background: fillColor}}>{capLetter}</span> : null}
 
                                         <span>{name || ''}</span>
                                         {o.disableCashierPayment ?
@@ -126,7 +136,7 @@ class OfferRowEosago extends Component {
 Возможна только онлайн оплата на сайте СК.">
                                                 <span className={"offer-row__info"}/>
                                             </Tooltip>
-                                        : null}
+                                            : null}
                                     </div> : null}
                                 </td>
                                 <td>
@@ -139,7 +149,7 @@ class OfferRowEosago extends Component {
                                              className="offer-row__hint gl_link">{lessLink}</div> : null}
                                 </td>
 
-                                {this.renderSwitch(step || 1, completed, waiting, o)}
+                                {this.renderSwitch(step || 0, completed, waiting, o)}
 
                                 {osago ? null :
                                     <td>
@@ -169,17 +179,6 @@ class OfferRowEosago extends Component {
                                 {(completed || waiting) ?
                                     <>
                                         <td>
-                                            <div className="offer-row__date">{o.dateStart}</div>
-                                            <div className="offer-row__date">{o.dateEnd}</div>
-                                        </td>
-                                        <td className="text_left">
-                                            <div className="offer-row__documents">
-                                                <div className="gl_link color_black">{o.document}</div>
-                                                {o.nobill ? null :
-                                                    <div className="offer-row__bill gl_link">Счет на оплату</div>}
-                                            </div>
-                                        </td>
-                                        <td>
                                             <div
                                                 className={"offer-row__status " + (completed ? "approved" : "waiting")}/>
                                         </td>
@@ -194,7 +193,8 @@ class OfferRowEosago extends Component {
                                             : null
                                         }
                                         <td>
-                                            <ReactComment text={'ecr-kasko/src/components/offer-row-combo/index.jsx' + name + ' o.selected ' + o.selected}/>
+                                            <ReactComment
+                                                text={'ecr-kasko/src/components/offer-row-combo/index.jsx' + name + ' o.selected ' + o.selected}/>
 
                                             <Checkbox disabled={((allowCheck || osago) ? null : "disabled")}
                                                       checked={o.selected ? "checked" : null}
@@ -212,8 +212,8 @@ class OfferRowEosago extends Component {
                             {showOptions && 'options' in o && o.options.length ?
                                 <tr key={i + 100000}
                                     className={(offerSelected ? "selected" : "") + (lastRow ? ' last-row' : '')}>
-                                    <td colSpan={(completed || waiting) ? 2 : 3}>&nbsp;</td>
-                                    <td colSpan={((completed || waiting) ? 7 : 6) - (osago ? 1 : 0)}>
+                                    <td>&nbsp;</td>
+                                    <td colSpan={((completed || waiting) ? 6 : 5) - (osago ? 1 : 0)}>
                                         <p className="text_left" style={{marginBottom: '15px'}}>Условия КАСКО:</p>
                                         <ul className="offer-row__options">
                                             {o.options.map((opt, k) => <li key={k}>{opt}</li>)}

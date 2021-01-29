@@ -783,7 +783,7 @@ class TabOffer extends Component {
                             name: '',
                             type: 'ОСАГО',
                             credit: null,
-
+                            document: 'СС 12345678',
                             price: '11 452',
                             dealerFee: '1 145',
                             dateStart: '20.02.19',
@@ -801,6 +801,7 @@ class TabOffer extends Component {
                         {
                             name: '',
                             type: 'ОСАГО',
+                            document: 'СС 81234567',
                             credit: null,
                             price: '30 450',
                             dealerFee: '3 045',
@@ -1176,7 +1177,7 @@ class TabOffer extends Component {
                                                 [{
                                                     name: 'Обычный',
                                                     type: 'ОСАГО',
-                                                    document: step > 2 ? 'СС 12345678' : '',
+                                                    document: 'СС 12345678',
                                                     payment: 'Наличные',
                                                     price: 41450,
                                                     dealerFee: 4145,

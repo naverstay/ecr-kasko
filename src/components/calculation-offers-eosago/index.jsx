@@ -136,25 +136,27 @@ class CalculationOffersEosago extends Component {
                             offer.offers.map((o, i) => {
                                 if ('list' in o) {
                                     ret.push(<OfferRowEosago allowCheck={allowCheck}
-                                                            osago={osago}
-                                                            completed={completed} waiting={waiting}
-                                                            selectedOffer={(select, disableCashier) => this.onSelectOfferToggle(k, select, disableCashier)}
-                                                            lastRow={i === offer.offers.length - 1}
-                                                            key={i} company={i} logo={false}
-                                                            name={i ? '' : offer.name}
-                                                            fillColor={i ? '' : offer.fillColor}
-                                                            capLetter={i ? '' : offer.capLetter}
-                                                            offers={o.list}/>)
+                                                             step={step}
+                                                             osago={osago}
+                                                             completed={completed} waiting={waiting}
+                                                             selectedOffer={(select, disableCashier) => this.onSelectOfferToggle(k, select, disableCashier)}
+                                                             lastRow={i === offer.offers.length - 1}
+                                                             key={i} company={i} logo={false}
+                                                             name={i ? '' : offer.name}
+                                                             fillColor={i ? '' : offer.fillColor}
+                                                             capLetter={i ? '' : offer.capLetter}
+                                                             offers={o.list}/>)
                                 } else {
                                     ret.push(<OfferRowEosago allowCheck={allowCheck}
-                                                            osago={osago}
-                                                            fillColor={i ? '' : offer.fillColor}
-                                                            capLetter={i ? '' : offer.capLetter}
-                                                            completed={completed} waiting={waiting}
-                                                            selectedOffer={(select, disableCashier) => this.onSelectOfferToggle(k, select, disableCashier)}
-                                                            lastRow={i === offer.offers.length - 1}
-                                                            key={i} company={i} logo={false} name={i ? '' : offer.name}
-                                                            offers={[o]}/>)
+                                                             osago={osago}
+                                                             step={step}
+                                                             fillColor={i ? '' : offer.fillColor}
+                                                             capLetter={i ? '' : offer.capLetter}
+                                                             completed={completed} waiting={waiting}
+                                                             selectedOffer={(select, disableCashier) => this.onSelectOfferToggle(k, select, disableCashier)}
+                                                             lastRow={i === offer.offers.length - 1}
+                                                             key={i} company={i} logo={false} name={i ? '' : offer.name}
+                                                             offers={[o]}/>)
                                 }
                             })
 
