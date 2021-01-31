@@ -257,9 +257,16 @@ class TabOffer extends Component {
 
         if (value === false) {
             this.setState({refusedByClient: true});
-
-            typeof this.props.tabCallback === 'function' && this.props.tabCallback({updatePaymentState: 4})
+            typeof this.props.tabCallback === 'function' && this.props.tabCallback({updatePaymentState: 5})
+        } else if (value === true) {
+            this.setState({refusedByClient: false});
+            typeof this.props.tabCallback === 'function' && this.props.tabCallback({updatePaymentState: 1})
         }
+    }
+
+    removeClientRefusal = (value) => {
+        console.log('removeClientRefusal', value);
+        //this.setState({fullCalculation: true})
     }
 
     toggleCalculationPopup = () => {
@@ -1199,406 +1206,437 @@ class TabOffer extends Component {
         return (
             <>
                 <div className="kasko-car-select">
-                    {step === 3 ?
-                        <>
-                            {combo ?
-                                <>
-                                    {paramsBlock}
+                    {
+                        step === 5 ?
+                            <Row className={'ant-row-center'} gutter={20}>
+                                <Col span={18}>
+                                    <CalculationOffersEosago allowCheck={true}
+                                                             step={step}
+                                                             declined={this.state.declinedByProvider}
+                                                             refused={true}
+                                                             waiting={step === 2}
+                                                             osago={osago}
+                                                             hasSortType={!osago}
+                                                             eosago={true}
+                                                             selectedOffer={this.updateSelectedOffer}
+                                                             offersList={[]}/>
 
-                                    {osago ? null :
-                                        <div className="kasko-car-select__controls check_v2">{comboInsurance}</div>
-                                    }
-
-                                    <Row gutter={20}>
-                                        <Col span={3}/>
-                                        <Col span={18}>
-                                            <CalculationOffersEosago allowCheck={true}
-                                                                     step={step}
-                                                                     completed={true}
-                                                                     osago={osago}
-                                                                     hasSortType={!osago}
-                                                                     eosago={true}
-                                                                     selectedOffer={this.updateSelectedOffer}
-                                                                     offersList={[
-                                                                         {
-                                                                             name: 'Ингосстрах',
-                                                                             fillColor: '#ff9c2d',
-                                                                             capLetter: 'И',
-                                                                             offers: osago ?
-                                                                                 [{
-                                                                                     name: 'Обычный',
-                                                                                     type: 'ОСАГО',
-                                                                                     document: 'СС 12345678',
-                                                                                     payment: 'Наличные',
-                                                                                     price: 41450,
-                                                                                     dealerFee: 4145,
-                                                                                     dateStart: '20.02.19',
-                                                                                     dateEnd: '19.02.20',
-                                                                                     options: optionsFixtures
-                                                                                 }]
-                                                                                 :
-                                                                                 [{
-                                                                                     name: 'Премиум',
-                                                                                     type: 'КАСКО',
-                                                                                     document: 'СС 12345678',
-                                                                                     payment: 'Наличные',
-                                                                                     price: 41450,
-                                                                                     dealerFee: 4145,
-                                                                                     share: 'Экономия 4 500',
-                                                                                     dateStart: '20.02.19',
-                                                                                     dateEnd: '19.02.20',
-                                                                                     options: optionsFixtures
-                                                                                 },
-                                                                                     {
-                                                                                         name: 'Обычный',
-                                                                                         type: 'ОСАГО',
-                                                                                         document: 'СС 87654321',
-                                                                                         price: 41450,
-                                                                                         dealerFee: 4145,
-                                                                                         nobill: true,
-                                                                                         dateStart: '20.02.19',
-                                                                                         dateEnd: '19.02.20'
-                                                                                     }
-                                                                                 ]
-                                                                         }
-                                                                     ]}/>
-
+                                    <Row className={"ant-row-center"} gutter={20}>
+                                        <Col span={15}>
+                                            <Button htmlType="submit"
+                                                    className={"ant-btn-primary btn_middle"}
+                                                    onClick={() => {
+                                                        this.removeClientRefusal(true)
+                                                    }}
+                                            >Рассчитать стоимость</Button>
                                         </Col>
                                     </Row>
-
-                                    {/*<CalculationOffersCombo osago={osago} completed={true}*/}
-                                    {/*                        selectedOffer={this.updateSelectedOffer} offersList={[*/}
-                                    {/*    {*/}
-                                    {/*        name: 'Ингосстрах',*/}
-                                    {/*        fillColor: '#ff9c2d',*/}
-                                    {/*        capLetter: 'И',*/}
-                                    {/*        offers: osago ?*/}
-                                    {/*            [{*/}
-                                    {/*                name: 'Обычный',*/}
-                                    {/*                type: 'ОСАГО',*/}
-                                    {/*                document: 'СС 12345678',*/}
-                                    {/*                payment: 'Наличные',*/}
-                                    {/*                price: 41450,*/}
-                                    {/*                dealerFee: 4145,*/}
-                                    {/*                dateStart: '20.02.19',*/}
-                                    {/*                dateEnd: '19.02.20',*/}
-                                    {/*                options: optionsFixtures*/}
-                                    {/*            }]*/}
-                                    {/*            :*/}
-                                    {/*            [{*/}
-                                    {/*                name: 'Премиум',*/}
-                                    {/*                type: 'КАСКО',*/}
-                                    {/*                document: 'СС 12345678',*/}
-                                    {/*                payment: 'Наличные',*/}
-                                    {/*                price: 41450,*/}
-                                    {/*                dealerFee: 4145,*/}
-                                    {/*                share: 'Экономия 4 500',*/}
-                                    {/*                dateStart: '20.02.19',*/}
-                                    {/*                dateEnd: '19.02.20',*/}
-                                    {/*                options: optionsFixtures*/}
-                                    {/*            },*/}
-                                    {/*                {*/}
-                                    {/*                    name: 'Обычный',*/}
-                                    {/*                    type: 'ОСАГО',*/}
-                                    {/*                    document: 'СС 87654321',*/}
-                                    {/*                    price: 41450,*/}
-                                    {/*                    dealerFee: 4145,*/}
-                                    {/*                    nobill: true,*/}
-                                    {/*                    dateStart: '20.02.19',*/}
-                                    {/*                    dateEnd: '19.02.20'*/}
-                                    {/*                }*/}
-                                    {/*            ]*/}
-                                    {/*    }*/}
-                                    {/*]}*/}
-                                    {/*/>*/}
-                                </>
-                                :
-                                <CalculationOffers osago={osago} completed={true}
-                                                   selectedOffer={this.updateSelectedOffer} offersList={[
-                                    {
-                                        logo: './logo/bck.png',
-                                        offers: [
-                                            {
-                                                name: 'Обычный',
-                                                document: 'СС 12345678',
-                                                dateStart: '20.02.19',
-                                                dateEnd: '19.02.20',
-                                                franchise: 10000,
-                                                price: 41450,
-                                                dealerFee: 4145
-                                            }
-                                        ]
-                                    }
-                                ]}/>
-                            }
-                        </>
-                        :
-                        <>
-                            {(step !== 2 || combo) ?
-                                paramsBlock
-                                : null
-                            }
-
+                                </Col>
+                            </Row>
+                            : step === 3 ?
                             <>
-                                {this.state.showCalculationOffers && !osago ?
-                                    <div
-                                        className="kasko-car-select__controls check_v2 comboInsurance">{comboInsurance}</div>
-                                    : null}
-                            </>
+                                {combo ?
+                                    <>
+                                        {paramsBlock}
 
-                            {this.state.showCalculationOffers ?
-                                <Row gutter={20}>
-                                    <Col span={3}/>
-                                    <Col span={18}>
-                                        {combo ?
-                                            <>
-                                                {/*<CalculationOffersCombo allowCheck={true}*/}
-                                                {/*                        waiting={step === 2}*/}
-                                                {/*                        osago={osago}*/}
-                                                {/*                        hasSortType={!osago}*/}
-                                                {/*                        eosago={true}*/}
-                                                {/*                        selectedOffer={this.updateSelectedOffer}*/}
-                                                {/*                        offersList={calculationOfferComboList}/>*/}
+                                        {osago ? null :
+                                            <div className="kasko-car-select__controls check_v2">{comboInsurance}</div>
+                                        }
 
+                                        <Row gutter={20}>
+                                            <Col span={3}/>
+                                            <Col span={18}>
                                                 <CalculationOffersEosago allowCheck={true}
                                                                          step={step}
-                                                                         declined={this.state.declinedByProvider}
-                                                                         waiting={step === 2}
+                                                                         completed={true}
                                                                          osago={osago}
                                                                          hasSortType={!osago}
                                                                          eosago={true}
                                                                          selectedOffer={this.updateSelectedOffer}
-                                                                         offersList={calculationOfferComboList.slice(0, step >= 2 ? 1 : calculationOfferComboList.length)}/>
-                                            </>
-                                            :
-                                            <CalculationOffers franchise={this.state.hasFranchise} allowCheck={true}
-                                                               osago={osago} waiting={step === 2}
-                                                               declined={this.state.declinedByProvider}
-                                                               selectedOffer={this.updateSelectedOffer}
-                                                               offersList={calculationOfferList}/>
-                                        }
+                                                                         offersList={[
+                                                                             {
+                                                                                 name: 'Ингосстрах',
+                                                                                 fillColor: '#ff9c2d',
+                                                                                 capLetter: 'И',
+                                                                                 offers: osago ?
+                                                                                     [{
+                                                                                         name: 'Обычный',
+                                                                                         type: 'ОСАГО',
+                                                                                         document: 'СС 12345678',
+                                                                                         payment: 'Наличные',
+                                                                                         price: 41450,
+                                                                                         dealerFee: 4145,
+                                                                                         dateStart: '20.02.19',
+                                                                                         dateEnd: '19.02.20',
+                                                                                         options: optionsFixtures
+                                                                                     }]
+                                                                                     :
+                                                                                     [{
+                                                                                         name: 'Премиум',
+                                                                                         type: 'КАСКО',
+                                                                                         document: 'СС 12345678',
+                                                                                         payment: 'Наличные',
+                                                                                         price: 41450,
+                                                                                         dealerFee: 4145,
+                                                                                         share: 'Экономия 4 500',
+                                                                                         dateStart: '20.02.19',
+                                                                                         dateEnd: '19.02.20',
+                                                                                         options: optionsFixtures
+                                                                                     },
+                                                                                         {
+                                                                                             name: 'Обычный',
+                                                                                             type: 'ОСАГО',
+                                                                                             document: 'СС 87654321',
+                                                                                             price: 41450,
+                                                                                             dealerFee: 4145,
+                                                                                             nobill: true,
+                                                                                             dateStart: '20.02.19',
+                                                                                             dateEnd: '19.02.20'
+                                                                                         }
+                                                                                     ]
+                                                                             }
+                                                                         ]}/>
 
-                                        <Row gutter={20} className={"calculation-offers__agreement"}>
-                                            {step === 1 ?
-                                                <Col span={24}>
-                                                    <p className={"text_center calculation-offers__warning"}
-                                                    >Стоимость вашего полиса предварительная. Она может измениться в
-                                                        момент выпуска.</p>
-                                                </Col>
-                                                :
-                                                <>
-                                                    {this.state.declinedByProvider ? null :
-                                                        <FormCheckbox span={16}
-                                                                      onChangeCallback={this.formControlCallback}
-                                                                      text="Клиент согласен с условиями страхования"
-                                                                      className="check_v3 ant-col-push-8"
-                                                                      value={1}
-                                                                      controlName={'clientEOSAGOAgreement'}
-                                                                      checked={this.state.clientEOSAGOAgreement}/>}
-                                                </>
-                                            }
+                                            </Col>
                                         </Row>
 
-                                        <Row gutter={20}
-                                             className={"kasko-car-select__controls ant-row-center align_center"}>
-                                            {
-                                                (step === 2) ?
-                                                    <>
-                                                        <>
-                                                            <Col span={8} className="text_left">
-                                                                <Row gutter={20}
-                                                                     className={"kasko-car-select__extra"}>
-                                                                    <Col className="">
-                                                                        <Tooltip overlayClassName="tooltip_v1"
-                                                                                 placement="top"
-                                                                                 title="Отказ клиента">
-                                                                            <Button
-                                                                                onClick={this.toggleClientRefusalPopup}
-                                                                                className={"ant-btn ant-btn-sm btn-cancel"}>
-                                                                                <span className={"i-close"}/></Button>
-                                                                        </Tooltip>
-                                                                    </Col>
-                                                                    <Col className="">
-                                                                        <Tooltip overlayClassName="tooltip_v1"
-                                                                                 placement="top"
-                                                                                 title="Пересчитать">
-                                                                            <Button
-                                                                                onClick={this.toggleDeclinedByProvider}
-                                                                                className={"ant-btn ant-btn-sm btn-action"}>
-                                                                                <span className={"i-recalc"}/></Button>
-                                                                        </Tooltip>
-                                                                    </Col>
-                                                                </Row>
+                                        {/*<CalculationOffersCombo osago={osago} completed={true}*/}
+                                        {/*                        selectedOffer={this.updateSelectedOffer} offersList={[*/}
+                                        {/*    {*/}
+                                        {/*        name: 'Ингосстрах',*/}
+                                        {/*        fillColor: '#ff9c2d',*/}
+                                        {/*        capLetter: 'И',*/}
+                                        {/*        offers: osago ?*/}
+                                        {/*            [{*/}
+                                        {/*                name: 'Обычный',*/}
+                                        {/*                type: 'ОСАГО',*/}
+                                        {/*                document: 'СС 12345678',*/}
+                                        {/*                payment: 'Наличные',*/}
+                                        {/*                price: 41450,*/}
+                                        {/*                dealerFee: 4145,*/}
+                                        {/*                dateStart: '20.02.19',*/}
+                                        {/*                dateEnd: '19.02.20',*/}
+                                        {/*                options: optionsFixtures*/}
+                                        {/*            }]*/}
+                                        {/*            :*/}
+                                        {/*            [{*/}
+                                        {/*                name: 'Премиум',*/}
+                                        {/*                type: 'КАСКО',*/}
+                                        {/*                document: 'СС 12345678',*/}
+                                        {/*                payment: 'Наличные',*/}
+                                        {/*                price: 41450,*/}
+                                        {/*                dealerFee: 4145,*/}
+                                        {/*                share: 'Экономия 4 500',*/}
+                                        {/*                dateStart: '20.02.19',*/}
+                                        {/*                dateEnd: '19.02.20',*/}
+                                        {/*                options: optionsFixtures*/}
+                                        {/*            },*/}
+                                        {/*                {*/}
+                                        {/*                    name: 'Обычный',*/}
+                                        {/*                    type: 'ОСАГО',*/}
+                                        {/*                    document: 'СС 87654321',*/}
+                                        {/*                    price: 41450,*/}
+                                        {/*                    dealerFee: 4145,*/}
+                                        {/*                    nobill: true,*/}
+                                        {/*                    dateStart: '20.02.19',*/}
+                                        {/*                    dateEnd: '19.02.20'*/}
+                                        {/*                }*/}
+                                        {/*            ]*/}
+                                        {/*    }*/}
+                                        {/*]}*/}
+                                        {/*/>*/}
+                                    </>
+                                    :
+                                    <CalculationOffers osago={osago} completed={true}
+                                                       selectedOffer={this.updateSelectedOffer} offersList={[
+                                        {
+                                            logo: './logo/bck.png',
+                                            offers: [
+                                                {
+                                                    name: 'Обычный',
+                                                    document: 'СС 12345678',
+                                                    dateStart: '20.02.19',
+                                                    dateEnd: '19.02.20',
+                                                    franchise: 10000,
+                                                    price: 41450,
+                                                    dealerFee: 4145
+                                                }
+                                            ]
+                                        }
+                                    ]}/>
+                                }
+                            </>
+                            :
+                            <>
+                                {(step !== 2 || combo) ?
+                                    paramsBlock
+                                    : null
+                                }
 
-                                                                {/*<Tooltip overlayClassName="tooltip_v1"*/}
-                                                                {/*         placement="bottomLeft"*/}
-                                                                {/*         title="Отменить операцию и вернуться к расчету">*/}
-                                                                {/*    <Button onClick={() => {*/}
-                                                                {/*        this.nextStep(void 0)*/}
-                                                                {/*    }} className={"ant-btn btn_green fz_14 w_100p"}*/}
-                                                                {/*    >Вернуться к расчету 1</Button>*/}
-                                                                {/*</Tooltip>*/}
-                                                            </Col>
-                                                        </>
-                                                        {
-                                                            this.state.SMSSent ?
-                                                                <>
-                                                                    <Col span={8}
-                                                                         className="text_center">
-                                                                        <Button htmlType="submit"
-                                                                                className={"ant-btn-primary btn_middle" + ((this.state.clientEOSAGOAgreement && !this.state.declinedByProvider) ? "" : " disabled")}
-                                                                                onClick={this.toggleClientConfirmationPopup}
-                                                                        >Подтвердить оплату</Button>
-                                                                    </Col>
-                                                                    <Col span={8}/>
+                                <>
+                                    {this.state.showCalculationOffers && !osago ?
+                                        <div
+                                            className="kasko-car-select__controls check_v2 comboInsurance">{comboInsurance}</div>
+                                        : null}
+                                </>
 
-                                                                    {/*<Col span={8} className="text_center">*/}
-                                                                    {/*    <div className="offer-select__sms">*/}
-                                                                    {/*        <FormInput span={null}*/}
-                                                                    {/*                   maxLength={4}*/}
-                                                                    {/*                   onChangeCallback={this.formControlCallback}*/}
-                                                                    {/*                   placeholder="Код подтверждения"*/}
-                                                                    {/*                   controlName={'SMSCode'}*/}
-                                                                    {/*                   value={''}/>*/}
-                                                                    {/*        <div className="gl_link"*/}
-                                                                    {/*             onClick={this.toggleSMSSent}*/}
-                                                                    {/*        >Отправить код повторно*/}
-                                                                    {/*        </div>*/}
-                                                                    {/*    </div>*/}
-                                                                    {/*</Col>*/}
-                                                                    {/*<Col span={8}*/}
-                                                                    {/*     className="kasko-car-select__controls--group-w text_left">*/}
-                                                                    {/*    <p>*/}
-                                                                    {/*        Попросите клиента продиктовать код, <br/>*/}
-                                                                    {/*        который был отправлен ему <br/>*/}
-                                                                    {/*        на мобильный телефон*/}
-                                                                    {/*    </p>*/}
-                                                                    {/*</Col>*/}
-                                                                </>
-                                                                :
-                                                                <>
-                                                                    <Col span={8}
-                                                                         className="text_center">
-                                                                        <Button htmlType="submit"
-                                                                                className={"ant-btn-primary btn_middle"}
-                                                                                onClick={this.toggleSMSSent}
-                                                                        >Оплатить в кассу</Button>
-                                                                    </Col>
-                                                                    <Col span={8}
-                                                                         className="text_right">
-                                                                        <div className={"gl_link"}
-                                                                        >Отправить ссылку повторно
-                                                                        </div>
-                                                                    </Col>
-                                                                </>
-                                                        }
-                                                    </>
-                                                    : (this.state.showPayment || osago) ?
-                                                    <>
-                                                        <Col span={8}>
-                                                            {osago ?
-                                                                <>
-                                                                    {eosago ?
-                                                                        <Row gutter={20}
-                                                                             className={"kasko-car-select__extra"}>
-                                                                            <Col className="">
-                                                                                <Tooltip overlayClassName="tooltip_v1"
-                                                                                         placement="top"
-                                                                                         title="Отказ клиента">
-                                                                                    <Button
-                                                                                        onClick={this.toggleClientRefusalPopup}
-                                                                                        className={"ant-btn ant-btn-sm btn-cancel"}>
-                                                                                        <span
-                                                                                            className={"i-close"}/></Button>
-                                                                                </Tooltip>
-                                                                            </Col>
-                                                                            <Col className="">
-                                                                                <Tooltip overlayClassName="tooltip_v1"
-                                                                                         placement="top"
-                                                                                         title="Пересчитать">
-                                                                                    <Button
-                                                                                        className={"ant-btn ant-btn-sm btn-action"}>
-                                                                                        <span
-                                                                                            className={"i-recalc"}/></Button>
-                                                                                </Tooltip>
-                                                                            </Col>
-                                                                            {/*<Col className="">*/}
-                                                                            {/*    <Tooltip overlayClassName="tooltip_v1"*/}
-                                                                            {/*             placement="top"*/}
-                                                                            {/*             title="Сохранить расчет">*/}
-                                                                            {/*        <Button*/}
-                                                                            {/*            className={"ant-btn ant-btn-sm btn-action"}>*/}
-                                                                            {/*            <span*/}
-                                                                            {/*                className={"i-save"}/></Button>*/}
-                                                                            {/*    </Tooltip>*/}
-                                                                            {/*</Col>*/}
-                                                                        </Row>
-                                                                        :
-                                                                        <Button className={"w_100p ant-btn"}
-                                                                        >Отказ клиента</Button>
-                                                                    }
-                                                                </>
-                                                                : null
-                                                            }
-                                                        </Col>
-                                                        <Col span={8}>
-                                                            <Button
-                                                                data-btn="step_btn_2"
-                                                                className={"ant-btn ant-btn-primary w_100p" + ((this.state.availableCashier) ? "" : " disabled")}
-                                                                onClick={() => {
-                                                                    this.state.availableCashier && this.nextStep(2)
-                                                                }}
-                                                            >{this.state.showCompare ? 'Сравнить' : 'Оплатить в кассу'}</Button>
-                                                        </Col>
-                                                        <Col span={8}>
-                                                            <PaymentSwitch
-                                                                allowPayment={this.state.availablePayment}
-                                                                paymentStep={0}/>
-                                                        </Col>
-                                                    </>
+                                {this.state.showCalculationOffers ?
+                                    <Row gutter={20}>
+                                        <Col span={3}/>
+                                        <Col span={18}>
+                                            {combo ?
+                                                <>
+                                                    {/*<CalculationOffersCombo allowCheck={true}*/}
+                                                    {/*                        waiting={step === 2}*/}
+                                                    {/*                        osago={osago}*/}
+                                                    {/*                        hasSortType={!osago}*/}
+                                                    {/*                        eosago={true}*/}
+                                                    {/*                        selectedOffer={this.updateSelectedOffer}*/}
+                                                    {/*                        offersList={calculationOfferComboList}/>*/}
+
+                                                    <CalculationOffersEosago allowCheck={true}
+                                                                             step={step}
+                                                                             declined={this.state.declinedByProvider}
+                                                                             waiting={step === 2}
+                                                                             osago={osago}
+                                                                             hasSortType={!osago}
+                                                                             eosago={true}
+                                                                             selectedOffer={this.updateSelectedOffer}
+                                                                             offersList={calculationOfferComboList.slice(0, step >= 2 ? 1 : calculationOfferComboList.length)}/>
+                                                </>
+                                                :
+                                                <CalculationOffers franchise={this.state.hasFranchise} allowCheck={true}
+                                                                   osago={osago} waiting={step === 2}
+                                                                   declined={this.state.declinedByProvider}
+                                                                   selectedOffer={this.updateSelectedOffer}
+                                                                   offersList={calculationOfferList}/>
+                                            }
+
+                                            <Row gutter={20} className={"calculation-offers__agreement"}>
+                                                {step === 1 ?
+                                                    <Col span={24}>
+                                                        <p className={"text_center calculation-offers__warning"}
+                                                        >Стоимость вашего полиса предварительная. Она может измениться в
+                                                            момент выпуска.</p>
+                                                    </Col>
                                                     :
-                                                    popup ?
+                                                    <>
+                                                        {this.state.declinedByProvider ? null :
+                                                            <FormCheckbox span={16}
+                                                                          onChangeCallback={this.formControlCallback}
+                                                                          text="Клиент согласен с условиями страхования"
+                                                                          className="check_v3 ant-col-push-8"
+                                                                          value={1}
+                                                                          controlName={'clientEOSAGOAgreement'}
+                                                                          checked={this.state.clientEOSAGOAgreement}/>}
+                                                    </>
+                                                }
+                                            </Row>
+
+                                            <Row gutter={20}
+                                                 className={"kasko-car-select__controls ant-row-center align_center"}>
+                                                {
+                                                    (step === 2) ?
                                                         <>
-                                                            <Col span={12}>
-                                                                <Button htmlType="submit"
-                                                                        className={"ant-btn-primary btn_wide"}
-                                                                        onClick={this.addToCredit}
-                                                                >Добавить в кредит</Button>
-                                                            </Col>
-                                                            <Col span={24}/>
-                                                            <Col span={12}>
-                                                                <Button htmlType="submit"
-                                                                        className={"btn_wide"}
-                                                                        onClick={this.toggleCalculationPopup}>{this.calculationButtonText()}</Button>
-                                                            </Col>
+                                                            <>
+                                                                <Col span={8} className="text_left">
+                                                                    <Row gutter={20}
+                                                                         className={"kasko-car-select__extra"}>
+                                                                        <Col className="">
+                                                                            <Tooltip overlayClassName="tooltip_v1"
+                                                                                     placement="top"
+                                                                                     title="Отказ клиента">
+                                                                                <Button
+                                                                                    onClick={this.toggleClientRefusalPopup}
+                                                                                    className={"ant-btn ant-btn-sm btn-cancel"}>
+                                                                                    <span
+                                                                                        className={"i-close"}/></Button>
+                                                                            </Tooltip>
+                                                                        </Col>
+                                                                        <Col className="">
+                                                                            <Tooltip overlayClassName="tooltip_v1"
+                                                                                     placement="top"
+                                                                                     title="Пересчитать">
+                                                                                <Button
+                                                                                    onClick={this.toggleDeclinedByProvider}
+                                                                                    className={"ant-btn ant-btn-sm btn-action"}>
+                                                                                    <span
+                                                                                        className={"i-recalc"}/></Button>
+                                                                            </Tooltip>
+                                                                        </Col>
+                                                                    </Row>
+
+                                                                    {/*<Tooltip overlayClassName="tooltip_v1"*/}
+                                                                    {/*         placement="bottomLeft"*/}
+                                                                    {/*         title="Отменить операцию и вернуться к расчету">*/}
+                                                                    {/*    <Button onClick={() => {*/}
+                                                                    {/*        this.nextStep(void 0)*/}
+                                                                    {/*    }} className={"ant-btn btn_green fz_14 w_100p"}*/}
+                                                                    {/*    >Вернуться к расчету 1</Button>*/}
+                                                                    {/*</Tooltip>*/}
+                                                                </Col>
+                                                            </>
+                                                            {
+                                                                this.state.SMSSent ?
+                                                                    <>
+                                                                        <Col span={8}
+                                                                             className="text_center">
+                                                                            <Button htmlType="submit"
+                                                                                    className={"ant-btn-primary btn_middle" + ((this.state.clientEOSAGOAgreement && !this.state.declinedByProvider) ? "" : " disabled")}
+                                                                                    onClick={this.toggleClientConfirmationPopup}
+                                                                            >Подтвердить оплату</Button>
+                                                                        </Col>
+                                                                        <Col span={8}/>
+
+                                                                        {/*<Col span={8} className="text_center">*/}
+                                                                        {/*    <div className="offer-select__sms">*/}
+                                                                        {/*        <FormInput span={null}*/}
+                                                                        {/*                   maxLength={4}*/}
+                                                                        {/*                   onChangeCallback={this.formControlCallback}*/}
+                                                                        {/*                   placeholder="Код подтверждения"*/}
+                                                                        {/*                   controlName={'SMSCode'}*/}
+                                                                        {/*                   value={''}/>*/}
+                                                                        {/*        <div className="gl_link"*/}
+                                                                        {/*             onClick={this.toggleSMSSent}*/}
+                                                                        {/*        >Отправить код повторно*/}
+                                                                        {/*        </div>*/}
+                                                                        {/*    </div>*/}
+                                                                        {/*</Col>*/}
+                                                                        {/*<Col span={8}*/}
+                                                                        {/*     className="kasko-car-select__controls--group-w text_left">*/}
+                                                                        {/*    <p>*/}
+                                                                        {/*        Попросите клиента продиктовать код, <br/>*/}
+                                                                        {/*        который был отправлен ему <br/>*/}
+                                                                        {/*        на мобильный телефон*/}
+                                                                        {/*    </p>*/}
+                                                                        {/*</Col>*/}
+                                                                    </>
+                                                                    :
+                                                                    <>
+                                                                        <Col span={8}
+                                                                             className="text_center">
+                                                                            <Button htmlType="submit"
+                                                                                    className={"ant-btn-primary btn_middle"}
+                                                                                    onClick={this.toggleSMSSent}
+                                                                            >Оплатить в кассу</Button>
+                                                                        </Col>
+                                                                        <Col span={8}
+                                                                             className="text_right">
+                                                                            <div className={"gl_link"}
+                                                                            >Отправить ссылку повторно
+                                                                            </div>
+                                                                        </Col>
+                                                                    </>
+                                                            }
                                                         </>
-                                                        :
+                                                        : (this.state.showPayment || osago) ?
                                                         <>
                                                             <Col span={8}>
-                                                                <Button className={"w_100p ant-btn"}
-                                                                >Отказ клиента</Button>
-                                                            </Col>
-                                                            <Col span={16}>
-                                                                <Button htmlType="submit"
-                                                                        className={"ant-btn-primary w_100p"}
-                                                                        onClick={this.toggleCalculationPopup}>{this.calculationButtonText()}</Button>
+                                                                {osago ?
+                                                                    <>
+                                                                        {eosago ?
+                                                                            <Row gutter={20}
+                                                                                 className={"kasko-car-select__extra"}>
+                                                                                <Col className="">
+                                                                                    <Tooltip
+                                                                                        overlayClassName="tooltip_v1"
+                                                                                        placement="top"
+                                                                                        title="Отказ клиента">
+                                                                                        <Button
+                                                                                            onClick={this.toggleClientRefusalPopup}
+                                                                                            className={"ant-btn ant-btn-sm btn-cancel"}>
+                                                                                        <span
+                                                                                            className={"i-close"}/></Button>
+                                                                                    </Tooltip>
+                                                                                </Col>
+                                                                                <Col className="">
+                                                                                    <Tooltip
+                                                                                        overlayClassName="tooltip_v1"
+                                                                                        placement="top"
+                                                                                        title="Пересчитать">
+                                                                                        <Button
+                                                                                            className={"ant-btn ant-btn-sm btn-action"}>
+                                                                                        <span
+                                                                                            className={"i-recalc"}/></Button>
+                                                                                    </Tooltip>
+                                                                                </Col>
+                                                                                {/*<Col className="">*/}
+                                                                                {/*    <Tooltip overlayClassName="tooltip_v1"*/}
+                                                                                {/*             placement="top"*/}
+                                                                                {/*             title="Сохранить расчет">*/}
+                                                                                {/*        <Button*/}
+                                                                                {/*            className={"ant-btn ant-btn-sm btn-action"}>*/}
+                                                                                {/*            <span*/}
+                                                                                {/*                className={"i-save"}/></Button>*/}
+                                                                                {/*    </Tooltip>*/}
+                                                                                {/*</Col>*/}
+                                                                            </Row>
+                                                                            :
+                                                                            <Button className={"w_100p ant-btn"}
+                                                                            >Отказ клиента</Button>
+                                                                        }
+                                                                    </>
+                                                                    : null
+                                                                }
                                                             </Col>
                                                             <Col span={8}>
                                                                 <Button
+                                                                    data-btn="step_btn_2"
+                                                                    className={"ant-btn ant-btn-primary w_100p" + ((this.state.availableCashier) ? "" : " disabled")}
                                                                     onClick={() => {
-                                                                        this.changeTab(0)
-                                                                    }} className={"w_100p btn_green"}
-                                                                    disabled={this.state.availableAddCredit ? null : "disabled"}
-                                                                >Добавить в кредит</Button>
+                                                                        this.state.availableCashier && this.nextStep(2)
+                                                                    }}
+                                                                >{this.state.showCompare ? 'Сравнить' : 'Оплатить в кассу'}</Button>
+                                                            </Col>
+                                                            <Col span={8}>
+                                                                <PaymentSwitch
+                                                                    allowPayment={this.state.availablePayment}
+                                                                    paymentStep={0}/>
                                                             </Col>
                                                         </>
-                                            }
-                                        </Row>
-                                    </Col>
-                                </Row>
-                                : null
-                            }
-                        </>
+                                                        :
+                                                        popup ?
+                                                            <>
+                                                                <Col span={12}>
+                                                                    <Button htmlType="submit"
+                                                                            className={"ant-btn-primary btn_wide"}
+                                                                            onClick={this.addToCredit}
+                                                                    >Добавить в кредит</Button>
+                                                                </Col>
+                                                                <Col span={24}/>
+                                                                <Col span={12}>
+                                                                    <Button htmlType="submit"
+                                                                            className={"btn_wide"}
+                                                                            onClick={this.toggleCalculationPopup}>{this.calculationButtonText()}</Button>
+                                                                </Col>
+                                                            </>
+                                                            :
+                                                            <>
+                                                                <Col span={8}>
+                                                                    <Button className={"w_100p ant-btn"}
+                                                                    >Отказ клиента</Button>
+                                                                </Col>
+                                                                <Col span={16}>
+                                                                    <Button htmlType="submit"
+                                                                            className={"ant-btn-primary w_100p"}
+                                                                            onClick={this.toggleCalculationPopup}>{this.calculationButtonText()}</Button>
+                                                                </Col>
+                                                                <Col span={8}>
+                                                                    <Button
+                                                                        onClick={() => {
+                                                                            this.changeTab(0)
+                                                                        }} className={"w_100p btn_green"}
+                                                                        disabled={this.state.availableAddCredit ? null : "disabled"}
+                                                                    >Добавить в кредит</Button>
+                                                                </Col>
+                                                            </>
+                                                }
+                                            </Row>
+                                        </Col>
+                                    </Row>
+                                    : null
+                                }
+                            </>
                     }
                 </div>
 
@@ -1617,7 +1655,8 @@ class TabOffer extends Component {
 
                 {this.state.refusalPopupOpened ?
                     <PopupOverlay popupClass={'popup-middle'} span={16}>
-                        <ConfirmationPopup confirm={true} attention={true} yesBtn='Продолжить оформление' noBtn='Отказаться'
+                        <ConfirmationPopup confirm={true} attention={true} yesBtn='Продолжить оформление'
+                                           noBtn='Отказаться'
                                            title='Клиент действительно хочет отказаться от полиса ОСАГО?'
                                            popupCloseFunc={this.toggleClientRefusalPopup}/>
                     </PopupOverlay>

@@ -33,19 +33,22 @@ class KaskoNotices extends Component {
             0: 'calculation',
             1: 'waiting',
             2: 'approved',
-            3: 'done'
+            3: 'done',
+            4: 'declined'
         }
         const statusNames = {
             0: 'Расчет',
             1: 'Ожидание',
             2: 'Выпущено',
-            3: 'Выпущено'
+            3: 'Выпущено',
+            4: 'Отказ'
         }
         const progressNames = {
             0: 'Консультация',
             1: 'Расчет',
             2: 'Оформление',
-            3: 'Выпуск'
+            3: 'Выпуск',
+            4: 'Отказ'
         }
 
         const noticeHtml = noticeList && noticeList.length ? noticeList.map((n, i) => <li key={i}
@@ -66,13 +69,14 @@ class KaskoNotices extends Component {
 
         </li>) : null;
 
-        let progressHtml = []
+        let progressHtml = [];
 
         if (status !== void 0) {
             for (let p in progressNames) {
-                if (progressNames.hasOwnProperty(p)) {
+                if (p < 4 && progressNames.hasOwnProperty(p)) {
+                    let active = status !== 4 ? status : 0;
                     progressHtml.push(<li key={p}
-                                          className={"kasko-notice__progress--unit" + (+p <= status ? ' active' : '')}>{(+p === status ?
+                                          className={"kasko-notice__progress--unit" + ((+p <= active) ? ' active' : '')}>{(+p === active ?
                         <span>{progressNames[p]}</span> : '')}</li>)
                 }
             }
@@ -97,7 +101,7 @@ class KaskoNotices extends Component {
                                     <li>
                                         <div className="kasko-notice__price--label">Платеж в мес.</div>
                                         <div className="kasko-notice__price--value">
-                                            {step >= 2 ?
+                                            {(step >= 2 && status !== 4) ?
                                                 <>
                                                     <span>41 450 ₽</span>
                                                     <span className="kasko-notice__status calculation">Наличные</span>
@@ -141,7 +145,7 @@ class KaskoNotices extends Component {
                                         <li>
                                             <div className="kasko-notice__price--label">Стоимость</div>
                                             <div className="kasko-notice__price--value">
-                                                {step >= 2 ? <span>41 450 ₽</span> : null}
+                                                {(step >= 2 && status !== 4) ? <span>41 450 ₽</span> : null}
                                             </div>
                                         </li>
                                         <li>
@@ -164,7 +168,7 @@ class KaskoNotices extends Component {
                                         <li>
                                             <div className="kasko-notice__price--label">Стоимость</div>
                                             <div className="kasko-notice__price--value">
-                                                {step >= 2 ?
+                                                {(step >= 2 && status !== 4) ?
                                                     <>
                                                         <span>41 450 ₽</span>
                                                         {osago ? null : <span
@@ -176,7 +180,7 @@ class KaskoNotices extends Component {
                                         <li>
                                             <div className="kasko-notice__price--label">СК</div>
                                             <div
-                                                className="kasko-notice__price--value">{step >= 2 ? 'Ингосстрах' : ''}
+                                                className="kasko-notice__price--value">{(step >= 2 && status !== 4) ? 'Ингосстрах' : ''}
                                             </div>
                                         </li>
                                         {/*<li>*/}

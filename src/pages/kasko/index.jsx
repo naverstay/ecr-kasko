@@ -84,8 +84,8 @@ class Kasko extends Component {
                 updatePaymentState: action.updatePaymentState
             }
 
-            if (action.updatePaymentState === 4) {
-                obj.newStep = 4
+            if (action.updatePaymentState === 5) {
+                obj.newStep = 5
             }
 
             this.setState(obj)
@@ -361,7 +361,7 @@ class Kasko extends Component {
 
                             {showOffers === false ? null :
                                 <AsideBlock>
-                                    <KaskoNotices step={step} status={step === 2 ? 1 : step === 3 ? 3 : 0}
+                                    <KaskoNotices step={step} status={step === 2 ? 1 : step === 3 ? 3 : step === 5 ? 4 : 0}
                                                   type={showOffers}/>
                                 </AsideBlock>
                             }
@@ -443,24 +443,24 @@ class Kasko extends Component {
                                                 <AsideBlock>
                                                     <KaskoNotice step={step}
                                                                  doc='СС 12345678'
-                                                                 status={step === 2 ? 1 : step === 3 ? 3 : 0}
+                                                                 status={step === 2 ? 1 : step === 3 ? 3 : step === 5 ? 4 : 0}
                                                                  product='КАСКО' price='41 450 ₽' type={showOffers}/>
                                                 </AsideBlock>
                                                 <AsideBlock>
                                                     <KaskoNotice step={step}
                                                                  doc='СС 87654321'
-                                                                 status={step === 2 ? 1 : step === 3 ? 3 : 0}
+                                                                 status={step === 2 ? 1 : step === 3 ? 3 : step === 5 ? 4 : 0}
                                                                  product='ОСАГО' price='11 450 ₽'
                                                                  type={showOffers}/>
                                                 </AsideBlock>
                                             </>
                                             : this.state.tabIndex === 2 ?
                                                 <AsideBlock><KaskoNotices osago={true} step={step}
-                                                                          status={step === 2 ? 1 : step === 3 ? 3 : 0}
+                                                                          status={step === 2 ? 1 : step === 3 ? 3 : step === 5 ? 4 : 0}
                                                                           type={showOffers}/></AsideBlock>
                                                 : this.state.tabIndex === 3 ?
                                                     <AsideBlock><ServiceNotices step={step}
-                                                                                status={step === 2 ? 1 : step === 3 ? 3 : 0}
+                                                                                status={step === 2 ? 1 : step === 3 ? 3 : step === 5 ? 4 : 0}
                                                                                 type={showOffers}/></AsideBlock>
                                                     : null
                                     }

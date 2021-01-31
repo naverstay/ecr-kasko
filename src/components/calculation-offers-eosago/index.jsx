@@ -78,7 +78,7 @@ class CalculationOffersEosago extends Component {
     }
 
     render() {
-        const {offersList, selectedOffer, completed, waiting, allowCheck, osago, hasSortType, step, declined} = this.props;
+        const {offersList, selectedOffer, completed, waiting, allowCheck, osago, hasSortType, step, declined, refused} = this.props;
 
         const sortTypeList = ['Сортировать по самому выгодному КАСКО+ОСАГО', 'Сортировать по самому выгодному КАСКО', 'Сортировать по самому выгодному GAP', 'Сортировать по самому выгодному ОСАГО']
 
@@ -87,55 +87,89 @@ class CalculationOffersEosago extends Component {
                 <ReactComment text='"ecr-kasko/src/components/calculation-offers-combo/index.jsx"'/>
 
                 <table className="calculation-offers__table">
-                    <thead>
-                    <tr>
-                        <th className={"calculation-offers__table--col-8" + ((completed || waiting) ? " small" : "")}>
-                            <div className="calculation-offers__table--sort-holder">
-                                <span>Страховая компания</span>
-                                {this.state.showSortType ?
-                                    <div className="calculation-offers__table--sort-wrapper">
-                                        <div className="kasko-car-select__controls radio_v4 mb_0">
-                                            <Radio.Group defaultValue={sortTypeList[0]}
-                                                         onChange={this.onSortTypeChange}>
-                                                <ul className="calculation-offers__table--sort-list">
-                                                    {sortTypeList.map((c, i) => <li key={i}>
-                                                        <Radio value={c}>
-                                                            <span className="">{c}</span>
-                                                        </Radio>
-                                                    </li>)}
-                                                </ul>
-                                            </Radio.Group>
-                                        </div>
-                                    </div>
-                                    : null
+                    {refused ?
+                        <thead>
+                        <tr>
+                            <th className={"calculation-offers__table--col-8" + ((completed || waiting) ? " small" : "")}>
+                                <div className="calculation-offers__table--sort-holder">
+                                    <span>Страховая компания</span>
+                                </div>
+                            </th>
+                            <th className={"calculation-offers__table--col-8"}>
+                                {hasSortType ?
+                                    <span onClick={this.openSortType}
+                                          className={"sort-btn " + (!this.state.showSortType ? '_asc' : '_desc')}>Тип</span> :
+                                    <span>Тип</span>
                                 }
-                            </div>
-                        </th>
-                        <th className={"calculation-offers__table--col-8"}>
-                            {hasSortType ?
-                                <span onClick={this.openSortType}
-                                      className={"sort-btn " + (!this.state.showSortType ? '_asc' : '_desc')}>Тип</span> :
-                                <span>Тип</span>
+                            </th>
+                            <th className="calculation-offers__table--col-7 text_left">Полис</th>
+                            <th className={"calculation-offers__table--col-5"}
+                            >Цена<br/>Доход
+                            </th>
+                            <th className="calculation-offers__table--col-6">Статус <br/>выпуска</th>
+                        </tr>
+                        </thead>
+                        : <thead>
+                        <tr>
+                            <th className={"calculation-offers__table--col-8" + ((completed || waiting) ? " small" : "")}>
+                                <div className="calculation-offers__table--sort-holder">
+                                    <span>Страховая компания</span>
+                                    {this.state.showSortType ?
+                                        <div className="calculation-offers__table--sort-wrapper">
+                                            <div className="kasko-car-select__controls radio_v4 mb_0">
+                                                <Radio.Group defaultValue={sortTypeList[0]}
+                                                             onChange={this.onSortTypeChange}>
+                                                    <ul className="calculation-offers__table--sort-list">
+                                                        {sortTypeList.map((c, i) => <li key={i}>
+                                                            <Radio value={c}>
+                                                                <span className="">{c}</span>
+                                                            </Radio>
+                                                        </li>)}
+                                                    </ul>
+                                                </Radio.Group>
+                                            </div>
+                                        </div>
+                                        : null
+                                    }
+                                </div>
+                            </th>
+
+                            <th className={"calculation-offers__table--col-8"}>
+                                {hasSortType ?
+                                    <span onClick={this.openSortType}
+                                          className={"sort-btn " + (!this.state.showSortType ? '_asc' : '_desc')}>Тип</span> :
+                                    <span>Тип</span>
+                                }
+                            </th>
+
+                            {this.renderSwitch(step, completed, waiting)}
+
+                            {osago ? null :
+                                <th className={"calculation-offers__table--col-5" + ((completed || waiting) ? " small" : "")}
+                                >В кредит</th>
                             }
-                        </th>
 
-                        {this.renderSwitch(step, completed, waiting)}
+                            {(completed || waiting) ?
+                                <>
+                                    <th className="calculation-offers__table--col-6">&nbsp;</th>
+                                </> :
+                                <>
+                                    <th className="calculation-offers__table--col-5">Выбрать</th>
+                                    <th className="calculation-offers__table--col-6">&nbsp;</th>
+                                </>
+                            }
+                        </tr>
+                        </thead>}
 
-                        {osago ? null :
-                            <th className={"calculation-offers__table--col-5" + ((completed || waiting) ? " small" : "")}>В
-                                кредит</th>
-                        }
-                        {(completed || waiting) ?
-                            <>
-                                <th className="calculation-offers__table--col-6">&nbsp;</th>
-                            </> :
-                            <>
-                                <th className="calculation-offers__table--col-5">Выбрать</th>
-                                <th className="calculation-offers__table--col-6">&nbsp;</th>
-                            </>
-                        }
-                    </tr>
-                    </thead>
+                    {refused ?
+                        <tbody>
+                        <tr>
+                            <td style={{height: '60px'}} colSpan={5}>
+                                <p className={'text_center fz_16'}>Клиент отказался от страхования ОСАГО</p>
+                            </td>
+                        </tr>
+                        </tbody>
+                        : null}
 
                     {offersList && offersList.length ?
                         <tbody>
@@ -148,6 +182,7 @@ class CalculationOffersEosago extends Component {
                                                              step={step}
                                                              osago={osago}
                                                              declined={declined}
+                                                             refused={refused}
                                                              completed={completed} waiting={waiting}
                                                              selectedOffer={(select, disableCashier) => this.onSelectOfferToggle(k, select, disableCashier)}
                                                              lastRow={i === offer.offers.length - 1}
@@ -160,6 +195,7 @@ class CalculationOffersEosago extends Component {
                                     ret.push(<OfferRowEosago allowCheck={allowCheck}
                                                              osago={osago}
                                                              declined={declined}
+                                                             refused={refused}
                                                              step={step}
                                                              fillColor={i ? '' : offer.fillColor}
                                                              capLetter={i ? '' : offer.capLetter}

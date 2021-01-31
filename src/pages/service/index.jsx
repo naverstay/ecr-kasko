@@ -27,7 +27,7 @@ class Service extends Component {
 			]
 		};
 	}
-	
+
 	static propTypes = {
 		children: PropTypes.node,
 		showOffers: PropTypes.any,
@@ -46,7 +46,7 @@ class Service extends Component {
 
 	render() {
 		const {showOffers, step, service, cabinet} = this.props;
-		
+
 		let events = []
 
 		if (!service) {
@@ -58,7 +58,7 @@ class Service extends Component {
 						time: '9:50'
 					})
 			}
-			
+
 			if (step === 3) {
 				events.push({
 					progress: 2,
@@ -74,7 +74,7 @@ class Service extends Component {
 				})
 			}
 		}
-		
+
 		return (
 			<>
 				<Row gutter={20} className="kasko-wrapper">
@@ -98,7 +98,7 @@ class Service extends Component {
 					:
 						<Col span={4} className="kasko-aside"/>
 					}
-					
+
 					<Col span={16} className="kasko-main">
 						{showOffers === false ?
 							<div className={"kasko-car-select__form"}>
@@ -109,20 +109,20 @@ class Service extends Component {
 							<>
 								{service ?
 									<ServiceSelect imageCallback={this.imageCallback} step={step} image={this.state.carImage} type={showOffers}/>
-									: 
+									:
 									<OfferSelect imageCallback={this.imageCallback} step={step} image={this.state.carImage} type={showOffers}/>
 								}
 							</>
 						}
 					</Col>
-					
+
 					{cabinet ?
 						<Col span={4} className="kasko-aside">
 								<Button onClick={this.toggleAuth} className={"ant-btn ant-btn-primary kasko-aside__btn"}>Личный кабинет</Button>
 
 							{showOffers === false ? null :
 								<AsideBlock>
-									<ServiceNotices step={step} status={step === 2 ? 1 : step === 3 ? 3 : 0} type={showOffers}/>
+									<ServiceNotices step={step} status={step === 2 ? 1 : step === 3 ? 3 : step === 5 ? 4 : 0} type={showOffers}/>
 								</AsideBlock>
 							}
 
@@ -132,10 +132,10 @@ class Service extends Component {
 						</Col>
 						: <Col span={4} className="kasko-aside"/>
 					}
-					
+
 				</Row>
 
-				{!cabinet ? 
+				{!cabinet ?
 					<Row gutter={20} className="kasko-wrapper kasko-wrapper__fixed">
 						<Col span={4} className="kasko-aside">
 							<AsideCrumbs crumbs={['Главная']}/>
@@ -144,7 +144,7 @@ class Service extends Component {
 										   avatar={step === 1 ? '' : 'users/luchkin.png'} phone={step > 1 ? "+ 7 (916) 111 11 11" : ""} docs="" trustees=""
 										   autos=''/>
 							</AsideBlock>
-		
+
 							<AsideBlock>
 								<KaskoCarInfo step={0} notificationCount={0}
 											  carName={step === 1 ? '' : 'Hyundai'} carModel={step === 1 ? '' : 'Sonata'} image={this.state.carImage}
@@ -152,29 +152,29 @@ class Service extends Component {
 											  price={step === 1 ? '' : "1 534 000 ₽"}/>
 							</AsideBlock>
 						</Col>
-		
+
 						<Col span={16} className="kasko-main"/>
-		
+
 						<Col span={4} className="kasko-aside">
 							{showOffers === false ?
 								null
 								:
 								<AsideBlock>
-									<ServiceNotices step={step} status={step === 2 ? 1 : step === 3 ? 3 : 0} type={showOffers}/>
+									<ServiceNotices step={step} status={step === 2 ? 1 : step === 3 ? 3 : step === 5 ? 4 : 0} type={showOffers}/>
 								</AsideBlock>
 							}
-		
+
 							<AsideBlock>
 								<ServiceNotices noticeList={[{title: 'Сегодня, Пон 20.02.19', list: events}]}/>
 							</AsideBlock>
 						</Col>
-					</Row> 
+					</Row>
 					: null }
-				
+
 				{this.state.showAuthForm ?
 					<PopupOverlay span={8}>
 						<AuthPopup popupCloseFunc={this.toggleAuth}/>
-					</PopupOverlay>	
+					</PopupOverlay>
 					: null
 				}
 			</>

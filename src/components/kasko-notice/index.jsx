@@ -32,19 +32,22 @@ class KaskoNotice extends Component {
             0: 'calculation',
             1: 'waiting',
             2: 'approved',
-            3: 'done'
+            3: 'done',
+            4: 'declined'
         }
         const statusNames = {
             0: 'Расчет',
             1: 'Ожидание',
             2: 'Выпущено',
-            3: 'Выпущено'
+            3: 'Выпущено',
+            4: 'Отказ'
         }
         const progressNames = {
             0: 'Консультация',
             1: 'Расчет',
             2: 'Оформление',
-            3: 'Выпуск'
+            3: 'Выпуск',
+            4: 'Отказ'
         }
 
         const noticeHtml = noticeList && noticeList.length ? noticeList.map((n, i) => <li key={i}
