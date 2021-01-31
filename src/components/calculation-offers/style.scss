@@ -6,14 +6,16 @@
   position: relative;
 
   &__agreement {
-    margin-top: -15px;
-    margin-bottom: 30px;
+    margin-top: -8px;
+    margin-bottom: 22px;
   }
 
   &__warning {
     color: $color-grey;
     font-size: 12px;
     line-height: 14px;
+    margin-top: -8px;
+    margin-bottom: 5px;
   }
 
   &__dropdown {

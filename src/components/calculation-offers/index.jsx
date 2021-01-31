@@ -19,7 +19,7 @@ class CalculationOffers extends Component {
     };
 
     render() {
-        const {offersList, selectedOffer, completed, waiting, allowCheck, osago, franchise} = this.props
+        const {offersList, selectedOffer, completed, waiting, allowCheck, osago, franchise, declined} = this.props
 
         return (
             <div className="calculation-offers">
@@ -57,7 +57,8 @@ class CalculationOffers extends Component {
                     {offersList && offersList.length ?
                         <tbody>
                         {offersList.map((o, i) => {
-                            return (<OfferRow franchise={!osago && franchise} allowCheck={allowCheck} osago={osago}
+                            return (<OfferRow franchise={!osago && franchise} allowCheck={allowCheck}
+                                              declined={declined} osago={osago}
                                               completed={completed} waiting={waiting} selectedOffer={selectedOffer}
                                               key={i} company={i} logo={o.logo} offers={o.offers}/>)
                         })

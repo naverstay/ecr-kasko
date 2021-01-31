@@ -255,7 +255,7 @@ class TabService extends Component {
     };
 
     scrollToBottom = () => {
-        window.scrollTo(0, 0); //this.messagesEnd.scrollIntoView({behavior: "smooth"});
+        // window.scrollTo(0, 0); //this.messagesEnd.scrollIntoView({behavior: "smooth"});
     }
 
     componentDidMount() {
@@ -499,15 +499,15 @@ class TabService extends Component {
                                                                 <span className={"i-close"}/></Button>
                                                         </Tooltip>
                                                     </Col>
-                                                    <Col className="">
-                                                        <Tooltip overlayClassName="tooltip_v1"
-                                                                 placement="top"
-                                                                 title="Сохранить расчет">
-                                                            <Button
-                                                                className={"ant-btn ant-btn-sm btn-action"}>
-                                                                <span className={"i-save"}/></Button>
-                                                        </Tooltip>
-                                                    </Col>
+                                                    {/*<Col className="">*/}
+                                                    {/*    <Tooltip overlayClassName="tooltip_v1"*/}
+                                                    {/*             placement="top"*/}
+                                                    {/*             title="Сохранить расчет">*/}
+                                                    {/*        <Button*/}
+                                                    {/*            className={"ant-btn ant-btn-sm btn-action"}>*/}
+                                                    {/*            <span className={"i-save"}/></Button>*/}
+                                                    {/*    </Tooltip>*/}
+                                                    {/*</Col>*/}
                                                 </Row>
                                                 {/*<Tooltip overlayClassName="tooltip_v1" placement="bottomLeft"*/}
                                                 {/*         title="Отменить операцию и вернуться к расчету">*/}

@@ -8,6 +8,7 @@ import KaskoOffers from "../kasko-offers";
 import {Link} from "react-router-dom";
 import {Switch, Checkbox} from "antd";
 import CalculationPopup from "../calculation-popup";
+import ConfirmationPopup from "../confirmation-popup";
 import {formatMoney} from "../../helpers/formatMoney";
 import * as Litepicker from 'litepicker';
 //import pluralFromArray from "../../helpers/pluralFromArray";
@@ -36,6 +37,9 @@ class TabOffer extends Component {
             openParams: true,
             singleSelection: true,
             SMSSent: true,
+            declinedByProvider: false,
+            refusalPopupOpened: false,
+            confirmationPopupOpened: false,
             calculationPopupOpened: false,
             policyPopupOpened: false,
             formBusy: false,
@@ -206,13 +210,14 @@ class TabOffer extends Component {
 
         switch (name) {
             case 'SMSCode':
-                this.setState({SMSCode: value})
-
+                this.setState({SMSCode: value});
                 if (('' + value).length === 4) {
                     this.nextStep(3)
                 }
-
-                break
+                break;
+            case 'clientEOSAGOAgreement':
+                this.setState({clientEOSAGOAgreement: value});
+                break;
         }
     };
 
@@ -226,6 +231,35 @@ class TabOffer extends Component {
         this.setState({calculationPopupOpened: !this.state.calculationPopupOpened})
         document.body.classList.toggle('no-overflow', !this.state.calculationPopupOpened)
         typeof this.props.addCreditCallback === 'function' && this.props.addCreditCallback()
+    }
+
+    toggleClientConfirmationPopup = (rslt) => {
+        console.log('toggleClientConfirmationPopup', rslt);
+        //this.setState({fullCalculation: true})
+        this.setState({confirmationPopupOpened: !this.state.confirmationPopupOpened})
+        document.body.classList.toggle('no-overflow', !this.state.confirmationPopupOpened)
+
+        if (rslt === true) {
+            this.props.tabCallback({newStep: 3})
+        }
+    }
+
+    toggleDeclinedByProvider = () => {
+        console.log('toggleDeclinedByProvider');
+        this.setState({declinedByProvider: !this.state.declinedByProvider})
+    }
+
+    toggleClientRefusalPopup = (value) => {
+        console.log('toggleClientRefusalPopup', value);
+        //this.setState({fullCalculation: true})
+        this.setState({refusalPopupOpened: !this.state.refusalPopupOpened})
+        document.body.classList.toggle('no-overflow', !this.state.refusalPopupOpened)
+
+        if (value === false) {
+            this.setState({refusedByClient: true});
+
+            typeof this.props.tabCallback === 'function' && this.props.tabCallback({updatePaymentState: 4})
+        }
     }
 
     toggleCalculationPopup = () => {
@@ -342,7 +376,7 @@ class TabOffer extends Component {
     };
 
     scrollToBottom = () => {
-        window.scrollTo(0, 0); //this.messagesEnd.scrollIntoView({behavior: "smooth"});
+        // window.scrollTo(0, 0); //this.messagesEnd.scrollIntoView({behavior: "smooth"});
     }
 
     initDatePicker() {
@@ -1114,8 +1148,9 @@ class TabOffer extends Component {
                                                         <Col className="">
                                                             <Tooltip overlayClassName="tooltip_v1" placement="top"
                                                                      title="Отказ клиента">
-                                                                <Button className={"ant-btn ant-btn-sm btn-cancel"}>
-                                                                    <span className={"i-close"}/></Button>
+                                                                <Button className={"ant-btn ant-btn-sm btn-cancel"}
+                                                                        onClick={this.toggleClientRefusalPopup}
+                                                                ><span className={"i-close"}/></Button>
                                                             </Tooltip>
                                                         </Col>
                                                     </Row>
@@ -1327,6 +1362,7 @@ class TabOffer extends Component {
 
                                                 <CalculationOffersEosago allowCheck={true}
                                                                          step={step}
+                                                                         declined={this.state.declinedByProvider}
                                                                          waiting={step === 2}
                                                                          osago={osago}
                                                                          hasSortType={!osago}
@@ -1337,6 +1373,7 @@ class TabOffer extends Component {
                                             :
                                             <CalculationOffers franchise={this.state.hasFranchise} allowCheck={true}
                                                                osago={osago} waiting={step === 2}
+                                                               declined={this.state.declinedByProvider}
                                                                selectedOffer={this.updateSelectedOffer}
                                                                offersList={calculationOfferList}/>
                                         }
@@ -1350,12 +1387,14 @@ class TabOffer extends Component {
                                                 </Col>
                                                 :
                                                 <>
-                                                    <FormCheckbox span={16} onChangeCallback={this.formControlCallback}
-                                                                  text="Клиент согласен с условиями страхования"
-                                                                  className="check_v3 ant-col-push-8"
-                                                                  value={1}
-                                                                  controlName={'clientEOSAGOAgreement'}
-                                                                  checked={this.state.clientEOSAGOAgreement}/>
+                                                    {this.state.declinedByProvider ? null :
+                                                        <FormCheckbox span={16}
+                                                                      onChangeCallback={this.formControlCallback}
+                                                                      text="Клиент согласен с условиями страхования"
+                                                                      className="check_v3 ant-col-push-8"
+                                                                      value={1}
+                                                                      controlName={'clientEOSAGOAgreement'}
+                                                                      checked={this.state.clientEOSAGOAgreement}/>}
                                                 </>
                                             }
                                         </Row>
@@ -1374,6 +1413,7 @@ class TabOffer extends Component {
                                                                                  placement="top"
                                                                                  title="Отказ клиента">
                                                                             <Button
+                                                                                onClick={this.toggleClientRefusalPopup}
                                                                                 className={"ant-btn ant-btn-sm btn-cancel"}>
                                                                                 <span className={"i-close"}/></Button>
                                                                         </Tooltip>
@@ -1383,6 +1423,7 @@ class TabOffer extends Component {
                                                                                  placement="top"
                                                                                  title="Пересчитать">
                                                                             <Button
+                                                                                onClick={this.toggleDeclinedByProvider}
                                                                                 className={"ant-btn ant-btn-sm btn-action"}>
                                                                                 <span className={"i-recalc"}/></Button>
                                                                         </Tooltip>
@@ -1402,29 +1443,37 @@ class TabOffer extends Component {
                                                         {
                                                             this.state.SMSSent ?
                                                                 <>
-                                                                    <Col span={8} className="text_center">
-                                                                        <div className="offer-select__sms">
-                                                                            <FormInput span={null}
-                                                                                       maxLength={4}
-                                                                                       onChangeCallback={this.formControlCallback}
-                                                                                       placeholder="Код подтверждения"
-                                                                                       controlName={'SMSCode'}
-                                                                                       value={''}/>
-                                                                            <div className="gl_link"
-                                                                                 onClick={this.toggleSMSSent}>Отправить
-                                                                                код
-                                                                                повторно
-                                                                            </div>
-                                                                        </div>
-                                                                    </Col>
                                                                     <Col span={8}
-                                                                         className="kasko-car-select__controls--group-w text_left">
-                                                                        <p>
-                                                                            Попросите клиента продиктовать код, <br/>
-                                                                            который был отправлен ему <br/>
-                                                                            на мобильный телефон
-                                                                        </p>
+                                                                         className="text_center">
+                                                                        <Button htmlType="submit"
+                                                                                className={"ant-btn-primary btn_middle" + ((this.state.clientEOSAGOAgreement && !this.state.declinedByProvider) ? "" : " disabled")}
+                                                                                onClick={this.toggleClientConfirmationPopup}
+                                                                        >Подтвердить оплату</Button>
                                                                     </Col>
+                                                                    <Col span={8}/>
+
+                                                                    {/*<Col span={8} className="text_center">*/}
+                                                                    {/*    <div className="offer-select__sms">*/}
+                                                                    {/*        <FormInput span={null}*/}
+                                                                    {/*                   maxLength={4}*/}
+                                                                    {/*                   onChangeCallback={this.formControlCallback}*/}
+                                                                    {/*                   placeholder="Код подтверждения"*/}
+                                                                    {/*                   controlName={'SMSCode'}*/}
+                                                                    {/*                   value={''}/>*/}
+                                                                    {/*        <div className="gl_link"*/}
+                                                                    {/*             onClick={this.toggleSMSSent}*/}
+                                                                    {/*        >Отправить код повторно*/}
+                                                                    {/*        </div>*/}
+                                                                    {/*    </div>*/}
+                                                                    {/*</Col>*/}
+                                                                    {/*<Col span={8}*/}
+                                                                    {/*     className="kasko-car-select__controls--group-w text_left">*/}
+                                                                    {/*    <p>*/}
+                                                                    {/*        Попросите клиента продиктовать код, <br/>*/}
+                                                                    {/*        который был отправлен ему <br/>*/}
+                                                                    {/*        на мобильный телефон*/}
+                                                                    {/*    </p>*/}
+                                                                    {/*</Col>*/}
                                                                 </>
                                                                 :
                                                                 <>
@@ -1457,6 +1506,7 @@ class TabOffer extends Component {
                                                                                          placement="top"
                                                                                          title="Отказ клиента">
                                                                                     <Button
+                                                                                        onClick={this.toggleClientRefusalPopup}
                                                                                         className={"ant-btn ant-btn-sm btn-cancel"}>
                                                                                         <span
                                                                                             className={"i-close"}/></Button>
@@ -1472,16 +1522,16 @@ class TabOffer extends Component {
                                                                                             className={"i-recalc"}/></Button>
                                                                                 </Tooltip>
                                                                             </Col>
-                                                                            <Col className="">
-                                                                                <Tooltip overlayClassName="tooltip_v1"
-                                                                                         placement="top"
-                                                                                         title="Сохранить расчет">
-                                                                                    <Button
-                                                                                        className={"ant-btn ant-btn-sm btn-action"}>
-                                                                                        <span
-                                                                                            className={"i-save"}/></Button>
-                                                                                </Tooltip>
-                                                                            </Col>
+                                                                            {/*<Col className="">*/}
+                                                                            {/*    <Tooltip overlayClassName="tooltip_v1"*/}
+                                                                            {/*             placement="top"*/}
+                                                                            {/*             title="Сохранить расчет">*/}
+                                                                            {/*        <Button*/}
+                                                                            {/*            className={"ant-btn ant-btn-sm btn-action"}>*/}
+                                                                            {/*            <span*/}
+                                                                            {/*                className={"i-save"}/></Button>*/}
+                                                                            {/*    </Tooltip>*/}
+                                                                            {/*</Col>*/}
                                                                         </Row>
                                                                         :
                                                                         <Button className={"w_100p ant-btn"}
@@ -1555,6 +1605,24 @@ class TabOffer extends Component {
                 <div ref={(el) => {
                     this.messagesEnd = el
                 }}/>
+
+                {this.state.confirmationPopupOpened ?
+                    <PopupOverlay popupClass={'popup-middle'} span={16}>
+                        <ConfirmationPopup confirm={true} yesBtn='Подтверждаю' noBtn='Отмена'
+                                           title='Я, сотрудник дилерского центра, <br /> подтверждаю, что страховой полис оплачен'
+                                           popupCloseFunc={this.toggleClientConfirmationPopup}/>
+                    </PopupOverlay>
+                    : null
+                }
+
+                {this.state.refusalPopupOpened ?
+                    <PopupOverlay popupClass={'popup-middle'} span={16}>
+                        <ConfirmationPopup confirm={true} attention={true} yesBtn='Продолжить оформление' noBtn='Отказаться'
+                                           title='Клиент действительно хочет отказаться от полиса ОСАГО?'
+                                           popupCloseFunc={this.toggleClientRefusalPopup}/>
+                    </PopupOverlay>
+                    : null
+                }
 
                 {this.state.calculationPopupOpened ?
                     <PopupOverlay span={16}>

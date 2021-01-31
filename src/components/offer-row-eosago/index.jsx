@@ -127,7 +127,7 @@ class OfferRowEosago extends Component {
     }
 
     render() {
-        const {offers, logo, fillColor, capLetter, name, info, credit, company, completed, waiting, allowCheck, osago, showMore, lastRow, step} = this.props
+        const {offers, logo, fillColor, capLetter, name, info, credit, company, completed, waiting, allowCheck, osago, showMore, lastRow, step, declined} = this.props
         const moreLink = 'еще ' + (offers.length - 1) + ' ' + pluralFromArray(['тариф', 'тарифа', 'тарифов'], (offers.length - 1))
         const lessLink = 'скрыть ' + (offers.length - 1) + ' ' + pluralFromArray(['тариф', 'тарифа', 'тарифов'], (offers.length - 1))
 
@@ -168,65 +168,82 @@ class OfferRowEosago extends Component {
                                              className="offer-row__hint gl_link">{lessLink}</div> : null}
                                 </td>
 
-                                {this.renderSwitch(step || 0, completed, waiting, o)}
-
-                                {osago ? null :
-                                    <td>
-                                        <div className="offer-row__fee">
-                                            <Checkbox disabled={completed || waiting || o.credit === null}
-                                                      defaultChecked={o.credit ? "checked" : null}
-                                                      onChange={this.creditChange}/>
-
-                                            {/*{o.payment && Array.isArray(o.payment) && o.payment.length > 1 ?*/}
-                                            {/*	<Select*/}
-                                            {/*		size="small"*/}
-                                            {/*		defaultValue={o.payment[0]}*/}
-                                            {/*		dropdownClassName="select_dropdown_v1"*/}
-                                            {/*		className={"w_100p small_select"}*/}
-                                            {/*		placeholder=""*/}
-                                            {/*	>*/}
-                                            {/*		{o.payment.map((e, i) =>*/}
-                                            {/*			<Option key={i} value={e}>{e}</Option>)}*/}
-                                            {/*	</Select>*/}
-                                            {/*	:*/}
-                                            {/*	o.payment*/}
-                                            {/*}*/}
-                                        </div>
-                                    </td>
-                                }
-
-                                {(completed || waiting) ?
+                                {declined ?
                                     <>
-                                        <td>
-                                            <div
-                                                className={"offer-row__status " + (completed ? "approved" : "waiting")}/>
+                                        <td className="" colSpan={2}>
+                                            <div className="offer-row__name text_right">
+                                                <span>У страховой компании нетпредложений</span>
+                                                <Tooltip overlayClassName="tooltip_v1" placement="top"
+                                                         title="Измените праметры запроса">
+                                                    <span className={"offer-row__info"}/>
+                                                </Tooltip>
+                                            </div>
                                         </td>
+                                        <td colSpan={2}>&nbsp;</td>
                                     </>
                                     :
                                     <>
-                                        {(osago && waiting) ?
+                                        {this.renderSwitch(step || 0, completed, waiting, o)}
+
+                                        {osago ? null :
                                             <td>
-                                                <div className="offer-row__date">{o.dateStart}</div>
-                                                <div className="offer-row__date">{o.dateEnd}</div>
+                                                <div className="offer-row__fee">
+                                                    <Checkbox disabled={completed || waiting || o.credit === null}
+                                                              defaultChecked={o.credit ? "checked" : null}
+                                                              onChange={this.creditChange}/>
+
+                                                    {/*{o.payment && Array.isArray(o.payment) && o.payment.length > 1 ?*/}
+                                                    {/*	<Select*/}
+                                                    {/*		size="small"*/}
+                                                    {/*		defaultValue={o.payment[0]}*/}
+                                                    {/*		dropdownClassName="select_dropdown_v1"*/}
+                                                    {/*		className={"w_100p small_select"}*/}
+                                                    {/*		placeholder=""*/}
+                                                    {/*	>*/}
+                                                    {/*		{o.payment.map((e, i) =>*/}
+                                                    {/*			<Option key={i} value={e}>{e}</Option>)}*/}
+                                                    {/*	</Select>*/}
+                                                    {/*	:*/}
+                                                    {/*	o.payment*/}
+                                                    {/*}*/}
+                                                </div>
                                             </td>
-                                            : null
                                         }
+
+                                        {(completed || waiting) ?
+                                            <>
+                                                <td>
+                                                    <div
+                                                        className={"offer-row__status " + (completed ? "approved" : "waiting")}/>
+                                                </td>
+                                            </>
+                                            :
+                                            <>
+                                                {(osago && waiting) ?
+                                                    <td>
+                                                        <div className="offer-row__date">{o.dateStart}</div>
+                                                        <div className="offer-row__date">{o.dateEnd}</div>
+                                                    </td>
+                                                    : null
+                                                }
+                                                <td>
+                                                    <ReactComment
+                                                        text={'ecr-kasko/src/components/offer-row-combo/index.jsx' + name + ' o.selected ' + o.selected}/>
+
+                                                    <Checkbox disabled={((allowCheck || osago) ? null : "disabled")}
+                                                              checked={o.selected ? "checked" : null}
+                                                              className="offer-row__check"
+                                                              onChange={(e) => this.onSelectOfferToggle(company, i, e, o.disableCashierPayment)}/>
+                                                </td>
+                                            </>
+                                        }
+
                                         <td>
-                                            <ReactComment
-                                                text={'ecr-kasko/src/components/offer-row-combo/index.jsx' + name + ' o.selected ' + o.selected}/>
-
-                                            <Checkbox disabled={((allowCheck || osago) ? null : "disabled")}
-                                                      checked={o.selected ? "checked" : null}
-                                                      className="offer-row__check"
-                                                      onChange={(e) => this.onSelectOfferToggle(company, i, e, o.disableCashierPayment)}/>
+                                            {'options' in o && o.options.length ?
+                                                <div onClick={() => this.addOptionFlag(i)}
+                                                     className="offer-row__link"/> : <>&nbsp;</>}
                                         </td>
-                                    </>
-                                }
-
-                                <td>
-                                    {'options' in o && o.options.length ? <div onClick={() => this.addOptionFlag(i)}
-                                                                               className="offer-row__link"/> : <>&nbsp;</>}
-                                </td>
+                                    </>}
                             </tr>
                             {showOptions && 'options' in o && o.options.length ?
                                 <tr key={i + 100000}

@@ -80,7 +80,16 @@ class Kasko extends Component {
         }
 
         if ('updatePaymentState' in action) {
-            this.setState({updatePaymentState: action.updatePaymentState})
+            let obj = {
+                updatePaymentState: action.updatePaymentState
+            }
+
+            if (action.updatePaymentState === 4) {
+                obj.newStep = 4
+            }
+
+            this.setState(obj)
+            console.log('updatePaymentState', this.state.updatePaymentState);
         }
     }
 
@@ -92,19 +101,22 @@ class Kasko extends Component {
             0: 'calculation',
             1: 'waiting',
             2: 'approved',
-            3: 'done'
+            3: 'done',
+            4: 'declined'
         }
         const statusNames = {
             0: 'Расчет',
             1: 'Ожидание',
             2: 'Выпущено',
-            3: 'Выпущено'
+            3: 'Выпущено',
+            4: 'Отказ'
         }
         const progressNames = {
             0: 'Консультация',
             1: 'Расчет',
             2: 'Оформление',
-            3: 'Выпуск'
+            3: 'Выпуск',
+            4: 'Отказ'
         }
 
         let events = []

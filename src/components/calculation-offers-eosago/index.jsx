@@ -78,7 +78,7 @@ class CalculationOffersEosago extends Component {
     }
 
     render() {
-        const {offersList, selectedOffer, completed, waiting, allowCheck, osago, hasSortType, step} = this.props;
+        const {offersList, selectedOffer, completed, waiting, allowCheck, osago, hasSortType, step, declined} = this.props;
 
         const sortTypeList = ['Сортировать по самому выгодному КАСКО+ОСАГО', 'Сортировать по самому выгодному КАСКО', 'Сортировать по самому выгодному GAP', 'Сортировать по самому выгодному ОСАГО']
 
@@ -147,6 +147,7 @@ class CalculationOffersEosago extends Component {
                                     ret.push(<OfferRowEosago allowCheck={allowCheck}
                                                              step={step}
                                                              osago={osago}
+                                                             declined={declined}
                                                              completed={completed} waiting={waiting}
                                                              selectedOffer={(select, disableCashier) => this.onSelectOfferToggle(k, select, disableCashier)}
                                                              lastRow={i === offer.offers.length - 1}
@@ -158,6 +159,7 @@ class CalculationOffersEosago extends Component {
                                 } else {
                                     ret.push(<OfferRowEosago allowCheck={allowCheck}
                                                              osago={osago}
+                                                             declined={declined}
                                                              step={step}
                                                              fillColor={i ? '' : offer.fillColor}
                                                              capLetter={i ? '' : offer.capLetter}

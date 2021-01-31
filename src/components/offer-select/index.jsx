@@ -305,7 +305,7 @@ class OfferSelect extends Component {
     };
 
     scrollToBottom = () => {
-        window.scrollTo(0, 0); //this.messagesEnd.scrollIntoView({behavior: "smooth"});
+        // window.scrollTo(0, 0); //this.messagesEnd.scrollIntoView({behavior: "smooth"});
     }
 
     componentDidMount() {

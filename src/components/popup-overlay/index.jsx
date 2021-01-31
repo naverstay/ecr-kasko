@@ -11,11 +11,11 @@ class PopupOverlay extends Component {
     };
 
     render() {
-        const {children, span} = this.props;
+        const {children, span, popupClass} = this.props;
         return (
             <div className="popup-overlay">
                 <Row gutter={20} className="ant-row-center">
-                    <Col span={span || 8}>
+                    <Col span={span || 8} className={popupClass || ''}>
                         {children}
                     </Col>
                 </Row>

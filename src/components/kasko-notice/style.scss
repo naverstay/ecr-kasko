@@ -77,6 +77,12 @@
       border: 1px solid $color-green;
     }
 
+    &.declined {
+      color: #fff;
+      background: $color-prime;
+      border: 1px solid $color-prime;
+    }
+
     &.done {
       color: #fff;
       background: $color-green;

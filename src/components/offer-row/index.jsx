@@ -57,7 +57,7 @@ class OfferRow extends Component {
     }
 
     render() {
-        const {offers, logo, name, info, credit, company, completed, waiting, allowCheck, osago, franchise} = this.props
+        const {offers, logo, name, info, credit, company, completed, waiting, allowCheck, osago, franchise, declined} = this.props
         const moreLink = 'еще ' + (offers.length - 1) + ' ' + pluralFromArray(['тариф', 'тарифа', 'тарифов'], (offers.length - 1))
         const lessLink = 'скрыть ' + (offers.length - 1) + ' ' + pluralFromArray(['тариф', 'тарифа', 'тарифов'], (offers.length - 1))
 
@@ -77,6 +77,7 @@ class OfferRow extends Component {
                                         <div className={"offer-row__logo"}><img src={logo} alt=""/></div> :
                                         <div className={"offer-row__logo" + (info ? " info" : "")}>{name}</div> : null}
                                 </td>
+
                                 {!osago ? <td>
                                     <div className="offer-row__name">{o.name}</div>
                                     {(this.state.rowsCollapsed && i === 0 && offers.length > 1) ?
@@ -87,77 +88,86 @@ class OfferRow extends Component {
                                              className="offer-row__hint gl_link">{lessLink}</div> : null}
                                 </td> : null}
 
-                                {franchise ?
+                                {declined ?
                                     <td>
-                                        <div className="offer-row__fee">{o.franchise}</div>
+                                        <div className="offer-row__name">У страховой компании нет предложений</div>
                                     </td>
-                                    : null}
+                                    : <>
+                                        {franchise ?
+                                            <td>
+                                                <div className="offer-row__fee">{o.franchise}</div>
+                                            </td>
+                                            : null}
 
-                                <td>
-                                    <div className="offer-row__price">{formatMoney(o.price)} ₽</div>
-                                </td>
-
-                                {credit ?
-                                    <td>
-                                        <div className="offer-row__fee">{o.rate}</div>
-                                    </td>
-                                    : null}
-
-                                <td>
-                                    <div className="offer-row__fee">{formatMoney(o.dealerFee)} ₽</div>
-                                </td>
-
-                                {(completed || waiting) ?
-                                    <>
                                         <td>
-                                            <div className="offer-row__date">{o.dateStart}</div>
-                                            <div className="offer-row__date">{o.dateEnd}</div>
+                                            <div className="offer-row__price">{formatMoney(o.price)} ₽</div>
                                         </td>
-                                        <td className="text_left">
-                                            <div className="offer-row__documents">
-                                                <div className="gl_link color_black">{o.document}</div>
-                                                <div className="offer-row__bill gl_link">Счет на оплату</div>
-                                            </div>
-                                        </td>
-                                        <td>
-                                            <div
-                                                className={"offer-row__status " + (completed ? "approved" : "waiting")}/>
-                                        </td>
-                                    </>
-                                    :
-                                    <>
+
                                         {credit ?
                                             <td>
-                                                <div className="offer-row__fee text_left">
-                                                    {o.params.map((p, i) => <p key={i}>{p}</p>)}
-                                                </div>
+                                                <div className="offer-row__fee">{o.rate}</div>
                                             </td>
-                                            :
-                                            osago ?
+                                            : null}
+
+                                        <td>
+                                            <div className="offer-row__fee">{formatMoney(o.dealerFee)} ₽</div>
+                                        </td>
+
+                                        {(completed || waiting) ?
+                                            <>
+                                                <td>
+                                                    <div className="offer-row__date">{o.dateStart}</div>
+                                                    <div className="offer-row__date">{o.dateEnd}</div>
+                                                </td>
                                                 <td className="text_left">
                                                     <div className="offer-row__documents">
+                                                        <div className="gl_link color_black">{o.document}</div>
                                                         <div className="offer-row__bill gl_link">Счет на оплату</div>
                                                     </div>
                                                 </td>
-                                                :
-                                                <td>&nbsp;</td>
+                                                <td>
+                                                    <div
+                                                        className={"offer-row__status " + (completed ? "approved" : "waiting")}/>
+                                                </td>
+                                            </>
+                                            :
+                                            <>
+                                                {credit ?
+                                                    <td>
+                                                        <div className="offer-row__fee text_left">
+                                                            {o.params.map((p, i) => <p key={i}>{p}</p>)}
+                                                        </div>
+                                                    </td>
+                                                    :
+                                                    osago ?
+                                                        <td className="text_left">
+                                                            <div className="offer-row__documents">
+                                                                <div className="offer-row__bill gl_link">Счет на оплату
+                                                                </div>
+                                                            </div>
+                                                        </td>
+                                                        :
+                                                        <td>&nbsp;</td>
+                                                }
+
+                                                <td>
+                                                    <ReactComment
+                                                        text={'ecr-kasko/src/components/offer-row/index.jsx ' + name + ' o.selected ' + o.selected}/>
+
+                                                    <Checkbox disabled={((allowCheck || osago) ? null : "disabled")}
+                                                              checked={o.selected ? "checked" : null}
+                                                              className="offer-row__check"
+                                                              onChange={(e) => this.onSelectOfferToggle(company, i, e, false)}/>
+                                                </td>
+                                                {!osago ? <td>
+                                                    <div onClick={() => this.addOptionFlag(i)}
+                                                         className="offer-row__link"/>
+                                                </td> : null}
+                                            </>
                                         }
-
-                                        <td>
-                                            <ReactComment text={'ecr-kasko/src/components/offer-row/index.jsx ' + name + ' o.selected ' + o.selected}/>
-
-                                            <Checkbox disabled={((allowCheck || osago) ? null : "disabled")}
-                                                      checked={o.selected ? "checked" : null}
-                                                      className="offer-row__check"
-                                                      onChange={(e) => this.onSelectOfferToggle(company, i, e, false)}/>
-                                        </td>
-                                        {!osago ? <td>
-                                            <div onClick={() => this.addOptionFlag(i)} className="offer-row__link"/>
-                                        </td> : null}
-                                    </>
-                                }
+                                    </>}
                             </tr>
-                            {!osago && (!(completed || waiting) && showOptions) ?
+                            {!declined && !osago && (!(completed || waiting) && showOptions) ?
                                 <tr key={i + 100000} className={(offerSelected ? "selected" : "")}>
                                     <td>&nbsp;</td>
 
