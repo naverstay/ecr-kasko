@@ -10,7 +10,7 @@ import {Switch, Checkbox} from "antd";
 import CalculationPopup from "../calculation-popup";
 import ConfirmationPopup from "../confirmation-popup";
 import {formatMoney} from "../../helpers/formatMoney";
-import * as Litepicker from 'litepicker';
+import Litepicker from 'litepicker';
 //import pluralFromArray from "../../helpers/pluralFromArray";
 import CalculationOffers from "../calculation-offers";
 import PaymentSwitch from "../payment-switch";
@@ -267,6 +267,9 @@ class TabOffer extends Component {
     removeClientRefusal = (value) => {
         console.log('removeClientRefusal', value);
         //this.setState({fullCalculation: true})
+
+        this.setState({refusedByClient: false});
+        typeof this.props.tabCallback === 'function' && this.props.tabCallback({updatePaymentState: 0})
     }
 
     toggleCalculationPopup = () => {
@@ -401,24 +404,35 @@ class TabOffer extends Component {
                 parentEl: inp.parentNode,
                 format: dataFormat,
                 lang: 'ru-RU',
-                minDate: '01.05.2019',
-                maxDate: '16.10.2021',
+                //minDate: moment('01.05.2019'),
+                //maxDate: moment('16.10.2021'),
+                //inlineMode: true,
                 singleMode: true,
                 //autoApply: false,
-                dropdowns: {
-                    minYear: 2019,
-                    maxYear: null,
-                    months: false,
-                    years: false
-                },
-                onSelect: function (date) {
-                    let dt = moment(date).format(dataFormat);
-                    console.log(date, dt);
-
-                    that.setState({carOsagoStart: dt});
-
-                    inp.classList.add('_has-value');
+                //dropdowns: {
+                //    minYear: 2019,
+                //    maxYear: null,
+                //    months: false,
+                //    years: false
+                //},
+                buttonText: {
+                    previousMonth: '<span class="i-chevron_r"></span>',
+                    nextMonth: '<span class="i-chevron_r"></span>'
                 }
+            });
+
+            lp.on('selected', (date) => {
+                let dt = moment(date).format(dataFormat);
+                console.log('onSelect', dt);
+
+                inp.value = dt;
+                that.setState({carOsagoStart: dt});
+                inp.classList.add('_has-value');
+
+                setTimeout(() => {
+                    lp.hide();
+                }, 1);
+
             });
 
             console.log('init', lp);
@@ -1116,7 +1130,7 @@ class TabOffer extends Component {
                                     </Col>
                                 }
                                 <Col span={6}>
-                                    <Row gutter={20}>
+                                    <Row gutter={20} className={'litepicker_v1'}>
                                         <FormInput span={24}
                                                    preInput={calendarBtn}
                                                    onChangeCallback={this.formControlCallback}

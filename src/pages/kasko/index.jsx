@@ -88,6 +88,10 @@ class Kasko extends Component {
                 obj.newStep = 5
             }
 
+            if (action.updatePaymentState === 0) {
+                obj.newStep = 1
+            }
+
             this.setState(obj)
             console.log('updatePaymentState', this.state.updatePaymentState);
         }

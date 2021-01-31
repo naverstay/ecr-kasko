@@ -692,3 +692,73 @@ $spinner_time: 1s;
     right: 40px;
   }
 }
+
+.litepicker_v1 {
+  .litepicker {
+
+    .container__main {
+
+      .container__months {
+        border: 1px solid #a8a8a8;
+        box-shadow: none;
+        border-radius: 0;
+        width: 232px;
+      }
+
+      .month-item-weekdays-row {
+        padding: 1px 1px 0 0;
+
+        > div {
+          height: 30px;
+          width: 30px;
+          font-size: 10px;
+          line-height: 18px;
+          margin-top: -1px;
+          margin-right: -1px;
+          border: 1px solid #f7f7f7;
+        }
+      }
+
+      .container__days {
+        padding: 1px 1px 0 0;
+
+        > div,
+        > a {
+          height: 30px;
+          width: 30px;
+          line-height: 18px;
+          margin-top: -1px;
+          margin-right: -1px;
+          border: 1px solid #f7f7f7;
+        }
+      }
+
+      .day-item {
+        cursor: pointer;
+      }
+
+      .month-item-header {
+        padding-bottom: 15px;
+        font-size: 12px;
+
+        .month-item-name:first-letter {
+          text-transform: uppercase;
+        }
+      }
+
+      .month-item {
+        padding: 0 15px 15px;
+      }
+
+      .button-previous-month,
+      .button-next-month {
+        cursor: pointer;
+      }
+
+      .button-previous-month {
+        transform: rotate(180deg);
+      }
+    }
+
+  }
+}
