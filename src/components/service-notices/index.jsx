@@ -72,10 +72,11 @@ class ServiceNotices extends Component {
 
         if (status !== void 0) {
             for (let p in progressNames) {
-                if (progressNames.hasOwnProperty(p)) {
+                if (p < 4 && progressNames.hasOwnProperty(p)) {
+                    let active = status !== 4 ? status : 0;
                     progressHtml.push(<li key={p}
-                                          className={"kasko-notice__progress--unit" + (+p <= status ? ' active' : '')}>{(+p === status ?
-                        <span>{progressNames[p]}</span> : '')}</li>)
+                                          className={"kasko-notice__progress--unit" + (+p <= active ? ' active' : '')}
+                    >{(+p === active ? <span>{progressNames[p]}</span> : '')}</li>)
                 }
             }
         }
@@ -87,8 +88,8 @@ class ServiceNotices extends Component {
                         <div className="kasko-notice__head">
                             <div className={"kasko-notice__caption offer" + (this.state.noticeOpened ? " open" : "")}
                                  onClick={this.toggleOpened}>{(type).toUpperCase()}</div>
-                            <div
-                                className={"kasko-notice__status " + (statusClasses[status])}>{statusNames[status]}</div>
+                            {step > 1 ? <div
+                                className={"kasko-notice__status " + (statusClasses[status])}>{statusNames[status]}</div> : null}
                         </div>
                         <ul className="kasko-notice__progress">
                             {progressHtml}

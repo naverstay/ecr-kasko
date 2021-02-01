@@ -241,7 +241,7 @@ class TrustedInfo extends Component {
                     {/*                value={this.state.driverFamilyStatus}/>*/}
 
                     {/*    <FormCheckbox onChangeCallback={this.formControlCallback}*/}
-                    {/*                  text="Добавить в полис ОСАГО или КАСКО"*/}
+                    {/*                  text="Добавить в полис Е-ОСАГО или КАСКО"*/}
                     {/*                  className="checkbox_middle check_v3"*/}
                     {/*                  value={0}*/}
                     {/*                  controlName={'driverInsuranceAdd'} checked={this.state.driverInsuranceAdd}/>*/}

@@ -31,6 +31,7 @@ class Kasko extends Component {
             showAuthForm: false,
             productCount: 0,
             updatePaymentState: 0,
+            showStatus: false,
             carFound: this.props.dev || this.props.showCar || false,
             carImage: (this.props.showCar || this.props.step !== 1) ? 'Hyundai' : 'car',
             markList: [
@@ -89,7 +90,11 @@ class Kasko extends Component {
             }
 
             if (action.updatePaymentState === 0) {
-                obj.newStep = 1
+                obj.newStep = 1;
+            }
+
+            if (action.updatePaymentState === 1) {
+                obj.showStatus = true;
             }
 
             this.setState(obj)
@@ -134,7 +139,7 @@ class Kasko extends Component {
         if (step === 2) {
             events.push({
                 progress: 1,
-                name: this.state.tabIndex === 2 ? 'ОСАГО' : 'КАСКО',
+                name: this.state.tabIndex === 2 ? 'Е-ОСАГО' : 'КАСКО',
                 status: 'Ожидание оплаты / Ингосстрах',
                 time: '9:50'
             })
@@ -143,7 +148,7 @@ class Kasko extends Component {
         if (step === 3) {
             events.push({
                 progress: 2,
-                name: this.state.tabIndex === 2 ? 'ОСАГО' : 'КАСКО',
+                name: this.state.tabIndex === 2 ? 'Е-ОСАГО' : 'КАСКО',
                 status: 'Выпущено / Ингосстрах',
                 time: '9:50'
             });
@@ -454,12 +459,13 @@ class Kasko extends Component {
                                                     <KaskoNotice step={step}
                                                                  doc='СС 87654321'
                                                                  status={step === 2 ? 1 : step === 3 ? 3 : step === 5 ? 4 : 0}
-                                                                 product='ОСАГО' price='11 450 ₽'
+                                                                 product='Е-ОСАГО' price='11 450 ₽'
                                                                  type={showOffers}/>
                                                 </AsideBlock>
                                             </>
                                             : this.state.tabIndex === 2 ?
                                                 <AsideBlock><KaskoNotices osago={true} step={step}
+                                                                          showStatus={this.state.showStatus}
                                                                           status={step === 2 ? 1 : step === 3 ? 3 : step === 5 ? 4 : 0}
                                                                           type={showOffers}/></AsideBlock>
                                                 : this.state.tabIndex === 3 ?
@@ -475,7 +481,7 @@ class Kasko extends Component {
                                 <>
                                     <AsideBlockProduct callback={this.changeTabState} price={53719} name='КАСКО'
                                                        tabIndex={1}/>
-                                    <AsideBlockProduct callback={this.changeTabState} price={9719} name='ОСАГО'
+                                    <AsideBlockProduct callback={this.changeTabState} price={9719} name='Е-ОСАГО'
                                                        tabIndex={1}/>
                                 </>
                                 : null

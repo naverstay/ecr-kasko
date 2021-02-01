@@ -228,7 +228,7 @@ class OfferSelect extends Component {
     }
 
     calculationButtonText = () => {
-        return (this.state.showPayment || (this.props.step === 2) || (this.props.osago && this.state.activeOffers.length)) ? 'Анкета ' + (this.props.osago ? 'ОСАГО' : 'КАСКО') + ' заполните 0 полей' : this.state.fullCalculation ? (this.props.osago ? 'Для расчета заполните 20 полей' : 'Для окончательного расчета заполните 20 полей') : 'Для расчета заполните  10 полей'
+        return (this.state.showPayment || (this.props.step === 2) || (this.props.osago && this.state.activeOffers.length)) ? 'Анкета ' + (this.props.osago ? 'Е-ОСАГО' : 'КАСКО') + ' заполните 0 полей' : this.state.fullCalculation ? (this.props.osago ? 'Для расчета заполните 20 полей' : 'Для окончательного расчета заполните 20 полей') : 'Для расчета заполните  10 полей'
     }
 
     offersUpdate = (offer) => {
@@ -472,7 +472,7 @@ class OfferSelect extends Component {
         return (
             <>
                 <div className="kasko-car-select">
-                    <h1 className="kasko-main__title"><span>{'Рассчитать ' + (osago ? 'ОСАГО' : 'КАСКО')}</span></h1>
+                    <h1 className="kasko-main__title"><span>{'Рассчитать ' + (osago ? 'Е-ОСАГО' : 'КАСКО')}</span></h1>
 
                     {popup ? null :
                         <div className="kasko-car-select__controls">
@@ -516,7 +516,7 @@ class OfferSelect extends Component {
                                          offersList={osago ?
                                              [
                                                  {
-                                                     name: 'ОСАГО',
+                                                     name: 'Е-ОСАГО',
                                                      price: 10333,
                                                      button: (!osago ? 'Рассчитать' : 'Выпущено'),
                                                      link: '/osago',
@@ -575,7 +575,7 @@ class OfferSelect extends Component {
                                                  }]
                                              :
                                              [{
-                                                 name: 'ОСАГО',
+                                                 name: 'Е-ОСАГО',
                                                  price: 10444,
                                                  button: (!osago ? 'Рассчитать' : 'Выпущено'),
                                                  link: '/osago',
@@ -670,7 +670,7 @@ class OfferSelect extends Component {
                                                     suffix: '₽'
                                                 },
                                                 {
-                                                    name: 'ОСАГО',
+                                                    name: 'Е-ОСАГО',
                                                     price: 10410,
                                                     prefix: '',
                                                     suffix: '₽'
@@ -775,7 +775,7 @@ class OfferSelect extends Component {
                                             {osago ?
                                                 <div onClick={this.toggleShowParams}
                                                      className={"kasko-car-select__caption" + (this.state.activeOffers.length ? (this.state.openParams ? " expanded" : " collapsed") : "")}>Параметры
-                                                    ОСАГО</div>
+                                                    Е-ОСАГО</div>
                                                 : null}
 
                                             {(!osago || this.state.openParams) ?

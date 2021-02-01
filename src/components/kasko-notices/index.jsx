@@ -28,7 +28,7 @@ class KaskoNotices extends Component {
     }
 
     render() {
-        const {noticeList, type, status, step, credit, kasko, osago, search, productList} = this.props;
+        const {noticeList, type, status, step, credit, kasko, osago, search, productList, showStatus} = this.props;
         const statusClasses = {
             0: 'calculation',
             1: 'waiting',
@@ -75,12 +75,17 @@ class KaskoNotices extends Component {
             for (let p in progressNames) {
                 if (p < 4 && progressNames.hasOwnProperty(p)) {
                     let active = status !== 4 ? status : 0;
+                    if (active < 0) {
+                        active = 0;
+                    }
                     progressHtml.push(<li key={p}
-                                          className={"kasko-notice__progress--unit" + ((+p <= active) ? ' active' : '')}>{(+p === active ?
-                        <span>{progressNames[p]}</span> : '')}</li>)
+                                          className={"kasko-notice__progress--unit" + ((+p <= active) ? ' active' : '')}
+                    >{((+p === active) ? <span>{progressNames[p]}</span> : '')}</li>)
                 }
             }
         }
+
+        console.log('showStatus', showStatus);
 
         return (
             type ?
@@ -89,8 +94,8 @@ class KaskoNotices extends Component {
                         <div className="kasko-notice__head">
                             <div className={"kasko-notice__caption offer" + (this.state.noticeOpened ? " open" : "")}
                                  onClick={this.toggleOpened}>{(type).toUpperCase()}</div>
-                            <div
-                                className={"kasko-notice__status " + (statusClasses[status])}>{statusNames[status]}</div>
+                            {showStatus ? <div
+                                className={"kasko-notice__status " + (statusClasses[status])}>{statusNames[status]}</div> : null}
                         </div>
                         <ul className="kasko-notice__progress">
                             {progressHtml}
@@ -201,7 +206,8 @@ class KaskoNotices extends Component {
                     <div className="kasko-notice__head">
                         <div
                             className={"kasko-notice__caption color_red" + (this.state.noticeOpened ? " open" : "")}
-                            onClick={this.toggleOpened}>Уведомления</div>
+                            onClick={this.toggleOpened}>Уведомления
+                        </div>
                         {
                             search ?
                                 <div className="kasko-notice__search"/>

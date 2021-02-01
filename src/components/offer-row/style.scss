@@ -251,21 +251,22 @@
       right: 5px;
       text-align: center;
       top: 50%;
-      transform: translate(0, -50%);
       color: #000;
       font-size: 16px;
       line-height: 1;
+      transform: translate(0, -50%) rotate(90deg);
     }
 
     .expanded & {
       &:before {
-        transform: translate(0, -50%) rotate(90deg);
+        transform: translate(0, -50%) rotate(-90deg);
       }
     }
   }
 
   &__fee {
     @extend %text2;
+    color: $color-grey;
 
     p {
       margin: 0;

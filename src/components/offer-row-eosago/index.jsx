@@ -72,7 +72,7 @@ class OfferRowEosago extends Component {
                                     <div className="offer-row__price-megashare">{o.megashare}</div> : null}
                                 {(o.price)}</div>
                             {o.share ? <div className="offer-row__price-small">{(o.share)}</div> : null}
-                            <div>{(o.dealerFee)}</div>
+                            <div className="offer-row__fee">{(o.dealerFee)}</div>
                         </td>
                     </>);
             case 2:
@@ -144,7 +144,7 @@ class OfferRowEosago extends Component {
                                 <tr key={i}>
                                     <td className="" colSpan={2}>
                                         <div className="offer-row__name text_center">
-                                            Клиент отказался от страхования ОСАГО
+                                            Клиент отказался от страхования Е-ОСАГО
                                         </div>
                                     </td>
                                 </tr>
@@ -160,7 +160,7 @@ class OfferRowEosago extends Component {
                                             <span>{name || ''}</span>
                                             {o.disableCashierPayment ?
                                                 <Tooltip overlayClassName="tooltip_v1" placement="top"
-                                                         title="Оплата е-ОСАГО в кассу дилера для этой СК недоступна.
+                                                         title="Оплата е-Е-ОСАГО в кассу дилера для этой СК недоступна.
 Возможна только онлайн оплата на сайте СК.">
                                                     <span className={"offer-row__info"}/>
                                                 </Tooltip>
@@ -183,7 +183,7 @@ class OfferRowEosago extends Component {
                                                 <div className="offer-row__name text_right">
                                                     <span>У страховой компании нетпредложений</span>
                                                     <Tooltip overlayClassName="tooltip_v1" placement="top"
-                                                             title="Измените праметры запроса">
+                                                             title="Клиент в зоне риска. Страхование запрещено">
                                                         <span className={"offer-row__info"}/>
                                                     </Tooltip>
                                                 </div>

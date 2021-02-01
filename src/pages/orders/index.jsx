@@ -63,7 +63,7 @@ class Orders extends Component {
 				price: '2 059 000.00',
 				period: '36 мес.',
 				firstpayment: '425 000.00',
-				extra: 'GAP, КАСКО, СЖ, ОСАГО',
+				extra: 'GAP, КАСКО, СЖ, Е-ОСАГО',
 				banks: [
 					{
 						bankName: 'Hyundai Finance. Совкомбанк.',
@@ -269,7 +269,7 @@ class Orders extends Component {
 															<TableHeaderButton classList={['wide']} label={<>Кредит</>}/>
 														</TableCell>
 														<TableCell classList={['orders-table__cell', 'cell_size-8', 'text_center']}>
-															<TableHeaderButton label={<>ОСАГО</>}/>
+															<TableHeaderButton label={<>Е-ОСАГО</>}/>
 														</TableCell>
 														<TableCell classList={['orders-table__cell', 'cell_size-9', 'text_center']}>
 															<TableHeaderButton label={<>КАСКО</>}/>

@@ -58,7 +58,7 @@ class CalculationOffers extends Component {
                         <tbody>
                         {offersList.map((o, i) => {
                             return (<OfferRow franchise={!osago && franchise} allowCheck={allowCheck}
-                                              declined={declined} osago={osago}
+                                              declined={declined || o.declined} osago={osago}
                                               completed={completed} waiting={waiting} selectedOffer={selectedOffer}
                                               key={i} company={i} logo={o.logo} offers={o.offers}/>)
                         })

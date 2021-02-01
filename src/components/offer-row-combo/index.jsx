@@ -83,7 +83,7 @@ class OfferRowCombo extends Component {
                                         <span>{name || ''}</span>
                                         {o.disableCashierPayment ?
                                             <Tooltip overlayClassName="tooltip_v1" placement="top"
-                                                     title="Оплата е-ОСАГО в кассу дилера для этой СК недоступна.
+                                                     title="Оплата е-Е-ОСАГО в кассу дилера для этой СК недоступна.
 Возможна только онлайн оплата на сайте СК.">
                                                 <span className={"offer-row__info"}/>
                                             </Tooltip>

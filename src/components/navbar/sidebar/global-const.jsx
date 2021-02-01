@@ -50,7 +50,7 @@ export const topNavButtons = [
         submenu: [
             {to: '', title: '', classList: ['submenu-item', 'submenu-item__empty']},
             {to: '/calculate-credit', title: 'Кредит', classList: ['submenu-item']},
-            {to: '/calculate-osago', title: 'ОСАГО', classList: ['submenu-item']},
+            {to: '/calculate-osago', title: 'Е-ОСАГО', classList: ['submenu-item']},
             {to: '/calculate-kasko', title: 'КАСКО', classList: ['submenu-item']}
         ],
         label: <div className={'sidebar__button-label'}>Рассчитать</div>,

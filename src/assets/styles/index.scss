@@ -314,12 +314,12 @@ $spinner_time: 1s;
   }
 
   &.btn-cancel {
-    border: 1px solid $color-prime;
-    color: $color-prime;
+    border: 1px solid #d9d9d9;
+    color: #d9d9d9;
 
     &:hover {
-      color: #fff;
-      background: $color-prime;
+      color: $color-prime;
+      border-color: $color-prime;
     }
 
     .kasko-car-select__extra & {
