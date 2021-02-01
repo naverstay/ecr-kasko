@@ -70,15 +70,15 @@ class Kasko extends Component {
         console.log('changeTabState', action, this.state.newStep);
 
         if ('tabIndex' in action) {
-            this.setState({tabIndex: action.tabIndex, newStep: 0})
+            this.setState({tabIndex: action.tabIndex, newStep: 0, newStatus: null})
         }
 
         if ('newStep' in action) {
-            this.setState({newStep: action.newStep})
+            this.setState({newStep: action.newStep, newStatus: null})
         }
 
         if ('productCount' in action) {
-            this.setState({productCount: action.productCount})
+            this.setState({productCount: action.productCount, newStatus: null})
         }
 
         if ('updatePaymentState' in action) {
@@ -487,7 +487,7 @@ class Kasko extends Component {
                                             </>
                                             : this.state.tabIndex === 2 ?
                                                 <AsideBlock><KaskoNotices osago={true} step={step}
-                                                                          showStatus={this.state.showStatus}
+                                                                          showStatus={this.state.showStatus || status === 4}
                                                                           status={paymentStatus}
                                                                           consult={consultStatus}
                                                                           type={showOffers}/></AsideBlock>
