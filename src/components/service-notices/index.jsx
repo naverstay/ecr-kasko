@@ -33,14 +33,16 @@ class ServiceNotices extends Component {
             1: 'waiting',
             2: 'approved',
             3: 'done',
-            4: 'declined'
+            4: 'declined',
+            6: 'waiting'
         }
         const statusNames = {
             0: 'Расчет',
             1: 'Ожидание',
             2: 'Выпущено',
             3: 'Выпущено',
-            4: 'Отказ'
+            4: 'Отказ',
+            6: 'Консультация'
         }
         const progressNames = {
             0: 'Консультация',

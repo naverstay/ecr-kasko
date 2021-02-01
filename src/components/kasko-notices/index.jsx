@@ -28,20 +28,22 @@ class KaskoNotices extends Component {
     }
 
     render() {
-        const {noticeList, type, status, step, credit, kasko, osago, search, productList, showStatus} = this.props;
+        const {noticeList, type, status, step, credit, kasko, osago, search, productList, showStatus, consult} = this.props;
         const statusClasses = {
             0: 'calculation',
             1: 'waiting',
             2: 'approved',
             3: 'done',
-            4: 'declined'
+            4: 'declined',
+            6: 'waiting'
         }
         const statusNames = {
             0: 'Расчет',
             1: 'Ожидание',
             2: 'Выпущено',
             3: 'Выпущено',
-            4: 'Отказ'
+            4: 'Отказ',
+            6: 'Консультация'
         }
         const progressNames = {
             0: 'Консультация',
@@ -85,7 +87,7 @@ class KaskoNotices extends Component {
             }
         }
 
-        console.log('showStatus', showStatus);
+        console.log('consult', consult);
 
         return (
             type ?
@@ -95,7 +97,7 @@ class KaskoNotices extends Component {
                             <div className={"kasko-notice__caption offer" + (this.state.noticeOpened ? " open" : "")}
                                  onClick={this.toggleOpened}>{(type).toUpperCase()}</div>
                             {showStatus ? <div
-                                className={"kasko-notice__status " + (statusClasses[status])}>{statusNames[status]}</div> : null}
+                                className={"kasko-notice__status " + (statusClasses[consult ? 6 : status])}>{statusNames[consult ? 6 : status]}</div> : null}
                         </div>
                         <ul className="kasko-notice__progress">
                             {progressHtml}

@@ -171,6 +171,8 @@ class TabOffer extends Component {
                 availableCashier: !disableCashierPayment,
                 availablePayment: offerList.length > 0
             })
+
+            typeof this.props.tabCallback === 'function' && this.props.tabCallback({updatePaymentStatus: offerList.length ? 6 : null});
         } else {
             this.setState({
                 availableAddCredit: offerList.length > 0
@@ -871,7 +873,7 @@ class TabOffer extends Component {
                 },
                 {
                     name: 'Абсолют страхование',
-                    fillColor: '#38B4E7',
+                    fillColor: '#38b4e7',
                     capLetter: 'А',
                     offers: [
                         {
@@ -1243,31 +1245,29 @@ class TabOffer extends Component {
                 <div className="kasko-car-select">
                     {
                         step === 5 ?
-                            <Row className={'ant-row-center'} gutter={20}>
-                                <Col span={18}>
-                                    <CalculationOffersEosago allowCheck={true}
-                                                             step={step}
-                                                             declined={this.state.declinedByProvider}
-                                                             refused={true}
-                                                             waiting={step === 2}
-                                                             osago={osago}
-                                                             hasSortType={!osago}
-                                                             eosago={true}
-                                                             selectedOffer={this.updateSelectedOffer}
-                                                             offersList={[]}/>
+                            <>
+                                <CalculationOffersEosago allowCheck={true}
+                                                         step={step}
+                                                         declined={this.state.declinedByProvider}
+                                                         refused={true}
+                                                         waiting={step === 2}
+                                                         osago={osago}
+                                                         hasSortType={!osago}
+                                                         eosago={true}
+                                                         selectedOffer={this.updateSelectedOffer}
+                                                         offersList={[]}/>
 
-                                    <Row className={"ant-row-center"} gutter={20}>
-                                        <Col span={15}>
-                                            <Button htmlType="submit"
-                                                    className={"ant-btn-primary btn_middle"}
-                                                    onClick={() => {
-                                                        this.removeClientRefusal(true)
-                                                    }}
-                                            >Рассчитать стоимость</Button>
-                                        </Col>
-                                    </Row>
-                                </Col>
-                            </Row>
+                                <Row className={"ant-row-center"} gutter={20}>
+                                    <Col span={15}>
+                                        <Button htmlType="submit"
+                                                className={"ant-btn-primary btn_middle"}
+                                                onClick={() => {
+                                                    this.removeClientRefusal(true)
+                                                }}
+                                        >Рассчитать стоимость</Button>
+                                    </Col>
+                                </Row>
+                            </>
                             : step === 3 ?
                             <>
                                 {combo ?
@@ -1278,62 +1278,58 @@ class TabOffer extends Component {
                                             <div className="kasko-car-select__controls check_v2">{comboInsurance}</div>
                                         }
 
-                                        <Row gutter={20}>
-                                            <Col span={3}/>
-                                            <Col span={18}>
-                                                <CalculationOffersEosago allowCheck={true}
-                                                                         step={step}
-                                                                         completed={true}
-                                                                         osago={osago}
-                                                                         hasSortType={!osago}
-                                                                         eosago={true}
-                                                                         selectedOffer={this.updateSelectedOffer}
-                                                                         offersList={[
-                                                                             {
-                                                                                 name: 'Ингосстрах',
-                                                                                 fillColor: '#023895',
-                                                                                 capLetter: 'И',
-                                                                                 offers: osago ?
-                                                                                     [{
-                                                                                         name: 'Обычный',
-                                                                                         type: 'Е-ОСАГО',
-                                                                                         document: 'СС 12345678',
-                                                                                         payment: 'Наличные',
-                                                                                         price: 41450,
-                                                                                         dealerFee: 4145,
-                                                                                         dateStart: '20.02.19',
-                                                                                         dateEnd: '19.02.20',
-                                                                                         options: optionsFixtures
-                                                                                     }]
-                                                                                     :
-                                                                                     [{
-                                                                                         name: 'Премиум',
-                                                                                         type: 'КАСКО',
-                                                                                         document: 'СС 12345678',
-                                                                                         payment: 'Наличные',
-                                                                                         price: 41450,
-                                                                                         dealerFee: 4145,
-                                                                                         share: 'Экономия 4 500',
-                                                                                         dateStart: '20.02.19',
-                                                                                         dateEnd: '19.02.20',
-                                                                                         options: optionsFixtures
-                                                                                     },
-                                                                                         {
-                                                                                             name: 'Обычный',
-                                                                                             type: 'Е-ОСАГО',
-                                                                                             document: 'СС 87654321',
-                                                                                             price: 41450,
-                                                                                             dealerFee: 4145,
-                                                                                             nobill: true,
-                                                                                             dateStart: '20.02.19',
-                                                                                             dateEnd: '19.02.20'
-                                                                                         }
-                                                                                     ]
-                                                                             }
-                                                                         ]}/>
 
-                                            </Col>
-                                        </Row>
+                                        <CalculationOffersEosago allowCheck={true}
+                                                                 step={step}
+                                                                 completed={true}
+                                                                 osago={osago}
+                                                                 hasSortType={!osago}
+                                                                 eosago={true}
+                                                                 selectedOffer={this.updateSelectedOffer}
+                                                                 offersList={[
+                                                                     {
+                                                                         name: 'Ингосстрах',
+                                                                         fillColor: '#023895',
+                                                                         capLetter: 'И',
+                                                                         offers: osago ?
+                                                                             [{
+                                                                                 name: 'Обычный',
+                                                                                 type: 'Е-ОСАГО',
+                                                                                 document: 'СС 12345678',
+                                                                                 payment: 'Наличные',
+                                                                                 price: 41450,
+                                                                                 dealerFee: 4145,
+                                                                                 dateStart: '20.02.19',
+                                                                                 dateEnd: '19.02.20',
+                                                                                 options: optionsFixtures
+                                                                             }]
+                                                                             :
+                                                                             [{
+                                                                                 name: 'Премиум',
+                                                                                 type: 'КАСКО',
+                                                                                 document: 'СС 12345678',
+                                                                                 payment: 'Наличные',
+                                                                                 price: 41450,
+                                                                                 dealerFee: 4145,
+                                                                                 share: 'Экономия 4 500',
+                                                                                 dateStart: '20.02.19',
+                                                                                 dateEnd: '19.02.20',
+                                                                                 options: optionsFixtures
+                                                                             },
+                                                                                 {
+                                                                                     name: 'Обычный',
+                                                                                     type: 'Е-ОСАГО',
+                                                                                     document: 'СС 87654321',
+                                                                                     price: 41450,
+                                                                                     dealerFee: 4145,
+                                                                                     nobill: true,
+                                                                                     dateStart: '20.02.19',
+                                                                                     dateEnd: '19.02.20'
+                                                                                 }
+                                                                             ]
+                                                                     }
+                                                                 ]}/>
+
 
                                         {/*<CalculationOffersCombo osago={osago} completed={true}*/}
                                         {/*                        selectedOffer={this.updateSelectedOffer} offersList={[*/}
@@ -1616,9 +1612,9 @@ class TabOffer extends Component {
                                                         <Col span={6}>
                                                             <Button
                                                                 data-btn="step_btn_2"
-                                                                className={"ant-btn ant-btn-primary w_100p" + ((this.state.availableCashier) ? "" : " disabled")}
+                                                                className={"ant-btn ant-btn-primary w_100p" + ((!this.state.availablePayment || this.state.availableCashier) ? " disabled" : "")}
                                                                 onClick={() => {
-                                                                    this.state.availableCashier && this.nextStep(2)
+                                                                    !this.state.availableCashier && this.nextStep(2)
                                                                 }}
                                                             >{this.state.showCompare ? 'Сравнить' : 'Оплатить в кассу'}</Button>
                                                         </Col>

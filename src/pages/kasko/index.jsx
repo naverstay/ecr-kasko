@@ -27,6 +27,7 @@ class Kasko extends Component {
 
         this.state = {
             newStep: null,
+            newStatus: null,
             tabIndex: null,
             showAuthForm: false,
             productCount: 0,
@@ -55,7 +56,7 @@ class Kasko extends Component {
 
     updateTab = (tabIndex) => {
         console.log('tabIndex', tabIndex);
-        this.setState({tabIndex: tabIndex, newStep: null})
+        this.setState({tabIndex: tabIndex, newStep: null, newStatus: null})
     }
     toggleAuth = (img) => {
         this.setState({showAuthForm: !this.state.showAuthForm})
@@ -82,7 +83,8 @@ class Kasko extends Component {
 
         if ('updatePaymentState' in action) {
             let obj = {
-                updatePaymentState: action.updatePaymentState
+                updatePaymentState: action.updatePaymentState,
+                newStatus: null
             }
 
             if (action.updatePaymentState === 5) {
@@ -97,8 +99,17 @@ class Kasko extends Component {
                 obj.showStatus = true;
             }
 
-            this.setState(obj)
+            this.setState(obj);
             console.log('updatePaymentState', this.state.updatePaymentState);
+        }
+
+        if ('updatePaymentStatus' in action) {
+            let obj = {
+                newStatus: action.updatePaymentStatus
+            }
+
+            this.setState(obj);
+            console.log('updatePaymentStatus', this.state.newStatus);
         }
     }
 
@@ -111,14 +122,16 @@ class Kasko extends Component {
             1: 'waiting',
             2: 'approved',
             3: 'done',
-            4: 'declined'
+            4: 'declined',
+            6: 'waiting'
         }
         const statusNames = {
             0: 'Расчет',
             1: 'Ожидание',
             2: 'Выпущено',
             3: 'Выпущено',
-            4: 'Отказ'
+            4: 'Отказ',
+            6: 'Консультация'
         }
         const progressNames = {
             0: 'Консультация',
@@ -132,7 +145,6 @@ class Kasko extends Component {
 
         if (this.state.newStep !== null) {
             step = this.state.newStep
-
             status = Math.max(0, step - 1)
         }
 
@@ -178,6 +190,14 @@ class Kasko extends Component {
                 break
         }
 
+        let consultStatus = false;
+        let paymentStatus = step === 2 ? 1 : step === 3 ? 3 : step === 5 ? 4 : 0;
+
+        if (this.state.newStatus !== null) {
+            consultStatus = this.state.newStatus;
+            status = 6;
+        }
+
         let tabStatus = <div className={"kasko-notice__status " + (statusClasses[status])}
         >{statusNames[status] + (this.state.tabIndex === 3 && this.state.productCount ? ' (' + this.state.productCount + ')' : '')}</div>
 
@@ -198,7 +218,7 @@ class Kasko extends Component {
                                                    price={step === 1 ? '' : "1 534 000 ₽"}/></AsideBlock>)
         }
 
-        console.log('this.state.tabIndex', this.state.tabIndex);
+        console.log('paymentStatus', paymentStatus);
 
         return (
             <>
@@ -370,7 +390,7 @@ class Kasko extends Component {
 
                             {showOffers === false ? null :
                                 <AsideBlock>
-                                    <KaskoNotices step={step} status={step === 2 ? 1 : step === 3 ? 3 : step === 5 ? 4 : 0}
+                                    <KaskoNotices step={step} status={paymentStatus}
                                                   type={showOffers}/>
                                 </AsideBlock>
                             }
@@ -452,13 +472,15 @@ class Kasko extends Component {
                                                 <AsideBlock>
                                                     <KaskoNotice step={step}
                                                                  doc='СС 12345678'
-                                                                 status={step === 2 ? 1 : step === 3 ? 3 : step === 5 ? 4 : 0}
+                                                                 status={paymentStatus}
+                                                                 consult={consultStatus}
                                                                  product='КАСКО' price='41 450 ₽' type={showOffers}/>
                                                 </AsideBlock>
                                                 <AsideBlock>
                                                     <KaskoNotice step={step}
                                                                  doc='СС 87654321'
-                                                                 status={step === 2 ? 1 : step === 3 ? 3 : step === 5 ? 4 : 0}
+                                                                 status={paymentStatus}
+                                                                 consult={consultStatus}
                                                                  product='Е-ОСАГО' price='11 450 ₽'
                                                                  type={showOffers}/>
                                                 </AsideBlock>
@@ -466,11 +488,13 @@ class Kasko extends Component {
                                             : this.state.tabIndex === 2 ?
                                                 <AsideBlock><KaskoNotices osago={true} step={step}
                                                                           showStatus={this.state.showStatus}
-                                                                          status={step === 2 ? 1 : step === 3 ? 3 : step === 5 ? 4 : 0}
+                                                                          status={paymentStatus}
+                                                                          consult={consultStatus}
                                                                           type={showOffers}/></AsideBlock>
                                                 : this.state.tabIndex === 3 ?
                                                     <AsideBlock><ServiceNotices step={step}
-                                                                                status={step === 2 ? 1 : step === 3 ? 3 : step === 5 ? 4 : 0}
+                                                                                status={paymentStatus}
+                                                                                consult={consultStatus}
                                                                                 type={showOffers}/></AsideBlock>
                                                     : null
                                     }
