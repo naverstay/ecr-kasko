@@ -255,12 +255,12 @@ class OfferRowEosago extends Component {
                                         </>}
                                 </tr>
                             }
-                            {showOptions && 'options' in o && o.options.length ?
+                            {!declined && showOptions && 'options' in o && o.options.length ?
                                 <tr key={i + 100000}
                                     className={(offerSelected ? "selected" : "") + (lastRow ? ' last-row' : '')}>
                                     <td>&nbsp;</td>
                                     <td colSpan={((completed || waiting) ? 4 : 4)}>
-                                        <p className="text_left" style={{marginBottom: '15px'}}>Условия КАСКО:</p>
+                                        <p className="text_left" style={{marginBottom: '15px'}}>Условия Е-ОСАГО:</p>
                                         <ul className="offer-row__options">
                                             {o.options.map((opt, k) => <li key={k}>{opt}</li>)}
                                         </ul>

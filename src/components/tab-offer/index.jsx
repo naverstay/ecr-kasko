@@ -848,7 +848,7 @@ class TabOffer extends Component {
                             dealerFee: '1 145',
                             dateStart: '20.02.19',
                             dateEnd: '19.02.20',
-                            disableCashierPayment: true,
+                            disableCashierPayment: step < 2,
                             options: optionsFixtures
                         }
                     ]
@@ -1612,9 +1612,9 @@ class TabOffer extends Component {
                                                         <Col span={6}>
                                                             <Button
                                                                 data-btn="step_btn_2"
-                                                                className={"ant-btn ant-btn-primary w_100p" + ((!this.state.availablePayment || this.state.availableCashier) ? " disabled" : "")}
+                                                                className={"ant-btn ant-btn-primary w_100p" + ((this.state.availablePayment && this.state.availableCashier) ? "" : " disabled")}
                                                                 onClick={() => {
-                                                                    !this.state.availableCashier && this.nextStep(2)
+                                                                    this.state.availableCashier && this.nextStep(2)
                                                                 }}
                                                             >{this.state.showCompare ? 'Сравнить' : 'Оплатить в кассу'}</Button>
                                                         </Col>
