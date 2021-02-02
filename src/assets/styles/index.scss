@@ -647,6 +647,14 @@ $spinner_time: 1s;
   }
 
   &.tooltip__state {
+    &--white {
+      .ant-tooltip-inner {
+        background: #fff;
+        border: 1px solid #b5b5b5;
+        color: $color-grey;
+      }
+    }
+
     &--red {
       .ant-tooltip-inner {
         background: $color-prime;
