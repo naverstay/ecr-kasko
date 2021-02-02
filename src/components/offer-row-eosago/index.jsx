@@ -131,6 +131,35 @@ class OfferRowEosago extends Component {
         const moreLink = 'еще ' + (offers.length - 1) + ' ' + pluralFromArray(['тариф', 'тарифа', 'тарифов'], (offers.length - 1))
         const lessLink = 'скрыть ' + (offers.length - 1) + ' ' + pluralFromArray(['тариф', 'тарифа', 'тарифов'], (offers.length - 1))
 
+        function buildOptions(opt) {
+
+            let ret = [<div key={1} className={'offer-row__option-title'}>{opt.title}</div>];
+            let items = [];
+
+            if (opt.hasOwnProperty('list')) {
+                for (let j = 0; j < opt.list.length; j++) {
+                    let item = opt.list[j];
+                    items.push(<li key={j}>{item}</li>);
+                    console.log('item', item);
+                }
+            }
+
+            if (opt.hasOwnProperty('params')) {
+                for (let j = 0; j < opt.params.length; j++) {
+                    let item = opt.params[j];
+                    items.push(<li key={j} className={'offer-row__option-params __no-dot'}>
+                        <span>{item.name}</span>
+                        <span>{item.value}</span>
+                    </li>);
+                    console.log('item', item);
+                }
+            }
+
+            ret.push(<ul>{items}</ul>);
+
+            return <li className={'__no-dot'}>{ret}</li>;
+        }
+
         return (
             <>
                 {offers.map((o, i) => {
@@ -260,9 +289,19 @@ class OfferRowEosago extends Component {
                                     className={(offerSelected ? "selected" : "") + (lastRow ? ' last-row' : '')}>
                                     <td>&nbsp;</td>
                                     <td colSpan={((completed || waiting) ? 4 : 4)}>
-                                        <p className="text_left" style={{marginBottom: '15px'}}>Условия Е-ОСАГО:</p>
-                                        <ul className="offer-row__options">
-                                            {o.options.map((opt, k) => <li key={k}>{opt}</li>)}
+                                        {/*<p className="text_left" style={{marginBottom: '15px'}}>Условия Е-ОСАГО:</p>*/}
+
+                                        <ul className={"offer-row__options" + (o.options.length && (typeof o.options[0] !== 'string') ? ' __no-cols' : '')}>
+                                            {o.options.map((opt, k) => {
+                                                let ret = [];
+                                                if (typeof opt === 'string') {
+                                                    ret.push(<li key={k}>{opt}</li>);
+                                                } else {
+                                                    ret.push(buildOptions(opt));
+                                                }
+
+                                                return (ret)
+                                            })}
                                         </ul>
                                     </td>
                                     <td>&nbsp;</td>

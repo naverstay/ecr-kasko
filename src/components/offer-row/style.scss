@@ -39,7 +39,7 @@
     }
 
     &.waiting {
-      background: $color-yellow;
+      background: $color-green;
     }
 
     &.blue {
@@ -87,6 +87,25 @@
     }
   }
 
+  &__option {
+    &-title {
+      font-weight: bold;
+      font-size: 12px;
+      margin-bottom: 15px;
+    }
+
+    &-params {
+      display: flex;
+      flex-flow: row nowrap;
+      justify-content: space-between;
+
+      span {
+        font-size: 10px;
+        line-height: 18px;
+      }
+    }
+  }
+
   &__options {
     list-style-type: none;
     padding: 0;
@@ -95,12 +114,22 @@
     column-count: 2;
     column-gap: 2em;
 
+    &.__no-cols {
+      column-count: unset;
+      display: flex;
+      justify-content: space-between;
+
+      > li {
+        flex: 1;
+      }
+    }
+
     li {
       @extend %text2;
       position: relative;
       padding-left: 10px;
       padding-right: 20px;
-      margin-bottom: 6px;
+      margin-bottom: 4px;
 
       &:before {
         content: '';
@@ -111,6 +140,15 @@
         height: 5px;
         border-radius: 2px;
         background: $color-blue-light;
+      }
+
+      &.__no-dot {
+        padding-left: 0;
+        padding-right: 0;
+
+        &:before {
+          display: none;
+        }
       }
 
       &.offer-row__credit {

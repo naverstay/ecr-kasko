@@ -30,7 +30,7 @@ class KaskoNotice extends Component {
         const {noticeList, type, status, step, credit, kasko, osago, search, price, product, doc, consult} = this.props;
         const statusClasses = {
             0: 'calculation',
-            1: 'waiting',
+            1: 'approved',
             2: 'approved',
             3: 'done',
             4: 'declined',
@@ -38,7 +38,7 @@ class KaskoNotice extends Component {
         }
         const statusNames = {
             0: 'Расчет',
-            1: 'Ожидание',
+            1: 'Оплата',
             2: 'Выпущено',
             3: 'Выпущено',
             4: 'Отказ',

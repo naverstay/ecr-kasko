@@ -70,7 +70,7 @@ class Kasko extends Component {
         console.log('changeTabState', action, this.state.newStep);
 
         if ('tabIndex' in action) {
-            this.setState({tabIndex: action.tabIndex, newStep: 0, newStatus: null})
+            this.setState({tabIndex: action.tabIndex, showStatus: false, newStep: 0, newStatus: null})
         }
 
         if ('newStep' in action) {
@@ -119,7 +119,7 @@ class Kasko extends Component {
 
         const statusClasses = {
             0: 'calculation',
-            1: 'waiting',
+            1: 'approved',
             2: 'approved',
             3: 'done',
             4: 'declined',
@@ -127,7 +127,7 @@ class Kasko extends Component {
         }
         const statusNames = {
             0: 'Расчет',
-            1: 'Ожидание',
+            1: 'Оплата',
             2: 'Выпущено',
             3: 'Выпущено',
             4: 'Отказ',
@@ -198,8 +198,8 @@ class Kasko extends Component {
             status = 6;
         }
 
-        let tabStatus = <div className={"kasko-notice__status " + (statusClasses[status])}
-        >{statusNames[status] + (this.state.tabIndex === 3 && this.state.productCount ? ' (' + this.state.productCount + ')' : '')}</div>
+        let tabStatus = this.state.showStatus ? <div className={"kasko-notice__status " + (statusClasses[status])}
+        >{statusNames[status] + (this.state.tabIndex === 3 && this.state.productCount ? ' (' + this.state.productCount + ')' : '')}</div> : null
 
         if (this.state.tabIndex === 0 && step > 1) {
             tabStatus = <>

@@ -47,6 +47,30 @@ input {
   width: 100%;
 }
 
+.datepicker_placeholder {
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  left: 0;
+  right: 0;
+
+  .float_placeholder {
+    left: 11px;
+  }
+
+  .ant-picker-focused & {
+
+    .float_placeholder {
+      font-size: 12px;
+      top: 11px;
+      color: #a8a8a8;
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis;
+    }
+  }
+}
+
 .float_placeholder {
   @extend %text1;
   transition: all 0.7s;
@@ -418,6 +442,11 @@ $spinner_time: 1s;
 
 .ant-input-disabled {
   border-color: transparent !important;
+  color: #000 !important;
+}
+
+.ant-input {
+  color: #000;
 }
 
 .check_v3 {
@@ -671,6 +700,7 @@ $spinner_time: 1s;
   bottom: 0;
   right: 20px;
   z-index: 1;
+  pointer-events: all;
 
   &__btn {
     transition: color 0.3s cubic-bezier(0.645, 0.045, 0.355, 1);
@@ -693,7 +723,20 @@ $spinner_time: 1s;
   }
 }
 
-.litepicker_v1 {
+.datepicker_v1 {
+  padding: 0;
+  border: 0;
+  box-shadow: none;
+
+  input {
+    @extend .ant-input;
+    @extend .custom_placeholder.ant-input;
+    transform: none;
+
+  }
+}
+
+.datepicker_v1 {
   .litepicker {
 
     .container__main {

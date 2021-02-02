@@ -90,7 +90,7 @@ class OfferRow extends Component {
 
                                 {declined ?
                                     <td>
-                                        <div className="offer-row__name">У страховой компании нет предложений</div>
+                                        <div className="offer-row__name">Нет предложения</div>
                                     </td>
                                     : <>
                                         {franchise ?

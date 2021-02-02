@@ -1,5 +1,5 @@
-import React, {Component} from "react";
-import {Col, Row, Button, Radio, Slider, Input, Tooltip} from "antd";
+import React, {Component, useCallback} from "react";
+import {Col, Row, Button, Radio, Slider, Input, Tooltip, DatePicker} from "antd";
 import './style.scss';
 import PropTypes from "prop-types";
 import moment from 'moment';
@@ -10,7 +10,7 @@ import {Switch, Checkbox} from "antd";
 import CalculationPopup from "../calculation-popup";
 import ConfirmationPopup from "../confirmation-popup";
 import {formatMoney} from "../../helpers/formatMoney";
-import Litepicker from 'litepicker';
+
 //import pluralFromArray from "../../helpers/pluralFromArray";
 import CalculationOffers from "../calculation-offers";
 import PaymentSwitch from "../payment-switch";
@@ -208,6 +208,75 @@ class TabOffer extends Component {
         typeof this.props.tabCallback === 'function' && this.props.tabCallback({updatePaymentState: 1})
     }
 
+    datepickerPanelRender = (panelNode) => {
+        console.log('datepickerPanelRender', panelNode, this.pickerRef);
+
+        return <input value={123}/>
+
+    }
+
+    datepickerDisabledDate = (d) => {
+        console.log('datepickerPanelRender', d, this.pickerRef);
+
+        const minDate = moment().subtract(2, 'day');
+        const maxDate = moment().add(35, 'day');
+
+        return !d || d.isAfter(minDate) || d.isSameOrBefore(maxDate);
+
+
+        //const getRange = (start, end) => [
+        //    ...Array((end - start) + 1).keys()
+        //].map((
+        //    (i) => i + start
+        //));
+        //
+        //const disabledDate = useCallback((d) => {
+        //    if (d == null) {
+        //        return null;
+        //    }
+        //
+        //    return (
+        //        (minDate != null && d.isBefore(minDate) && !d.isSame(minDate, 'day')) ||
+        //        (maxDate != null && d.isAfter(maxDate) && !d.isSame(maxDate, 'day'))
+        //    );
+        //}, [minDate, maxDate]);
+        //
+        //const disabledTime = useCallback((d) => {
+        //    if (d == null) {
+        //        return null;
+        //    }
+        //
+        //    if (d.isSame(minDate, 'day')) {
+        //        return {
+        //            disabledHours: () => (minDate.hour() > 0 ? getRange(0, minDate.hour() - 1) : []),
+        //            disabledMinutes: (hour) => (hour === minDate.hour() && minDate.minutes() > 0 ?
+        //                    getRange(0, minDate.minutes() - 1) :
+        //                    []
+        //            )
+        //        };
+        //    }
+        //
+        //    if (d.isSame(maxDate, 'day')) {
+        //        return {
+        //            disabledHours: () => getRange(maxDate.hour() + 1, 24),
+        //            disabledMinutes: (hour) => (hour === maxDate.hour() ?
+        //                    getRange(maxDate.minutes() + 1, 60) :
+        //                    []
+        //            )
+        //        };
+        //    }
+        //
+        //    return null;
+        //}, [minDate, maxDate]);
+        //
+        //return disabledDate;
+    }
+
+    carOsagoStartChange = (currentDate, today) => {
+        let inp = document.getElementById('osago_date_start');
+        inp.querySelector('.input-icon').classList.add('force_placeholder');
+    }
+
     formControlCallback = (name, value) => {
         console.log('formControlCallback', name, value);
 
@@ -397,51 +466,8 @@ class TabOffer extends Component {
         let dataFormat = 'DD.MM.YYYY';
         this.scrollToBottom();
 
-        let inp = document.getElementById('osago_date_start');
+        //let inp = document.getElementById('osago_date_start');
 
-        if (inp && !inp.classList.contains('has_lite_picker')) {
-            inp.classList.add('has_lite_picker');
-
-            let lp = new Litepicker({
-                element: inp,
-                parentEl: inp.parentNode,
-                format: dataFormat,
-                lang: 'ru-RU',
-                //minDate: moment('01.05.2019'),
-                //maxDate: moment('16.10.2021'),
-                //inlineMode: true,
-                singleMode: true,
-                //autoApply: false,
-                //dropdowns: {
-                //    minYear: 2019,
-                //    maxYear: null,
-                //    months: false,
-                //    years: false
-                //},
-                buttonText: {
-                    previousMonth: '<span class="i-chevron_r"></span>',
-                    nextMonth: '<span class="i-chevron_r"></span>'
-                }
-            });
-
-            lp.on('selected', (date) => {
-                let dt = moment(date).format(dataFormat);
-                console.log('onSelect', dt);
-
-                inp.value = dt;
-                that.setState({carOsagoStart: dt});
-                inp.classList.add('_has-value');
-
-                setTimeout(() => {
-                    lp.hide();
-                }, 1);
-
-            });
-
-            console.log('init', lp);
-        } else {
-            console.log('skip', inp);
-        }
     }
 
     componentDidMount() {
@@ -470,8 +496,7 @@ class TabOffer extends Component {
         const insuranceList = ['КАСКО', 'GAP', 'Е-ОСАГО'];
         const franchise = this.state.franchise;
 
-        let calendarBtn = <span className={'input-icon'}><label htmlFor="osago_date_start"
-                                                                className={'input-icon__btn i-calendar'}/></span>;
+        let calendarBtn = <span className={'datepicker_placeholder'}><span className={'input-icon'}><span className={'input-icon__btn i-calendar'}/></span><span className="float_placeholder">Начало действия</span></span>;
 
         let comboInsurance = <Checkbox.Group
             defaultValue={insuranceList.map((o, i) => i)}
@@ -494,6 +519,47 @@ class TabOffer extends Component {
 
         let driverOptions = [];
 
+        let datePickerLocal = {
+            "lang": {
+                "locale": "en_US",
+                "placeholder": "Select date",
+                "rangePlaceholder": ["Start date", "End date"],
+                "today": "Today",
+                "now": "Now",
+                "backToToday": "Back to today",
+                "ok": "Ok",
+                "clear": "Clear",
+                "month": "Month",
+                "year": "Year",
+                "timeSelect": "Select time",
+                "dateSelect": "Select date",
+                "monthSelect": "Choose a month",
+                "yearSelect": "Choose a year",
+                "decadeSelect": "Choose a decade",
+                "yearFormat": "YYYY",
+                "dateFormat": "M/D/YYYY",
+                "dayFormat": "D",
+                "dateTimeFormat": "M/D/YYYY HH:mm:ss",
+                "monthFormat": "MMMM",
+                "monthBeforeYear": true,
+                "previousMonth": "Previous month (PageUp)",
+                "nextMonth": "Next month (PageDown)",
+                "previousYear": "Last year (Control + left)",
+                "nextYear": "Next year (Control + right)",
+                "previousDecade": "Last decade",
+                "nextDecade": "Next decade",
+                "previousCentury": "Last century",
+                "nextCentury": "Next century"
+            },
+            "timePickerLocale": {
+                "placeholder": "Select time"
+            },
+            "dateFormat": "YYYY-MM-DD",
+            "dateTimeFormat": "YYYY-MM-DD HH:mm:ss",
+            "weekFormat": "YYYY-wo",
+            "monthFormat": "YYYY-MM"
+        };
+
         if (step > 1 || this.state.showCalculationOffers) {
             driverOptions = ['Фомин Сергей М.', 'Фомина Алла К.', 'Фомина Марина Ф.']
         }
@@ -508,7 +574,62 @@ class TabOffer extends Component {
             //100000: '100 000'
         }
 
-        const optionsFixtures = [
+        const optionsFixtures = eosago ? [
+            {
+                title: 'Параметры страхования:',
+                list: [
+                    'Территория страхования: РФ + СНГ',
+                    'Сбор справок',
+                    'Эвакуатор',
+                    'Круглосуточная консультация',
+                    'Сбор справок',
+                    'Несчастный случай: 300 000 ₽',
+                    'ДТП',
+                    'Пожар'
+                ]
+            },
+            {
+                title: 'Параметры расчета:',
+                params: [
+                    {
+                        name: 'Базовый тариф (ТБ)',
+                        value: '4 100'
+                    },
+                    {
+                        name: 'Территориальный коэффициент (КТ)',
+                        value: '1.8'
+                    },
+                    {
+                        name: 'Коэффициент бонус-малус (КБМ)',
+                        value: '1.0'
+                    },
+                    {
+                        name: 'Коэффициент возраст-стаж (КВС)',
+                        value: '1.0'
+                    },
+                    {
+                        name: 'Ограничивающий коэффициент (КО)',
+                        value: '1.4'
+                    },
+                    {
+                        name: 'Коэффициент мощности двигателя (КМ)',
+                        value: '1.0'
+                    },
+                    {
+                        name: 'Коэффициент сезонности (КС)',
+                        value: '-'
+                    },
+                    {
+                        name: 'Коэффициент нарушений (КН)',
+                        value: '0.95'
+                    },
+                    {
+                        name: 'Коэффициент срока страхования (КП)',
+                        value: '1.0'
+                    }
+                ]
+            }
+        ] : [
             'Территория страхования: РФ + СНГ',
             'Сбор справок',
             'Эвакуатор',
@@ -1126,45 +1247,55 @@ class TabOffer extends Component {
                             }
 
                             <Row gutter={20} className="kasko-car-select__controls radio_v3">
-                                {eosago ? null :
-                                    <Col span={12}>
-                                        <Radio.Group defaultValue={periodOptions[0]}
-                                                     style={{width: '100%'}}
-                                                     onChange={this.onPeriodChange}>
-                                            <Row gutter={20}>
-                                                {
-                                                    periodOptions.map((c, i) => <Col key={i}>
-                                                            <Radio value={c}>
+                                <Col span={12}>
+                                    <Radio.Group defaultValue={periodOptions[0]}
+                                                 style={{width: '100%'}}
+                                                 onChange={this.onPeriodChange}>
+                                        <Row gutter={20}>
+                                            {
+                                                periodOptions.map((c, i) => <Col key={i}>
+                                                        <Radio value={c}>
                                                     <span
                                                         className="kasko-car-select__period--value">{c}</span>
-                                                                {/*<span className="kasko-car-select__period--label">{pluralFromArray(periodPlurals, c)}</span>*/}
-                                                            </Radio>
-                                                        </Col>
-                                                    )
-                                                }
-                                            </Row>
-                                        </Radio.Group>
-                                    </Col>
-                                }
-                                <Col span={12}>
-                                    <Row gutter={20} className={'litepicker_v1'}>
-                                        <FormInput span={12}
-                                                   preInput={calendarBtn}
-                                                   onChangeCallback={this.formControlCallback}
-                                                   inputmask={dateFormatMask}
-                                                   ref={this.pickerRef}
-                                                   id="osago_date_start"
-                                                   placeholder={"Начало действия"}
-                                                   controlName={'carOsagoStart'}
-                                                   value={(this.state.carOsagoStart)}/>
-                                        <FormInput span={12}
-                                                   disabled={true}
-                                                   id="osago_date_end"
-                                                   placeholder={"Окончание действия"}
-                                                   controlName={'carOsagoEnd'}
-                                                   value={(this.state.carOsagoEnd)}/>
-                                    </Row>
+                                                            {/*<span className="kasko-car-select__period--label">{pluralFromArray(periodPlurals, c)}</span>*/}
+                                                        </Radio>
+                                                    </Col>
+                                                )
+                                            }
+                                        </Row>
+                                    </Radio.Group>
                                 </Col>
+                            </Row>
+
+                            <Row gutter={20} className={'kasko-car-select__controls'}>
+                                <Col span={6} id={'osago_date_start'}>
+                                    <DatePicker dropdownClassName={'litepicker_v1'}
+                                                ref={this.pickerRef}
+                                                locale={datePickerLocal}
+                                                suffixIcon={calendarBtn}
+                                        //disabledDate={this.datepickerDisabledDate}
+                                        //panelRender={this.datepickerPanelRender}
+                                                allowClear={false}
+                                                bordered={false}
+                                                showToday={false}
+                                                placeholder={''}
+                                                className={'w_100p custom_placeholder _empty datepicker_v1'}
+                                                size={'small'} onChange={this.carOsagoStartChange}/>
+                                </Col>
+                                {/*<FormInput span={6}*/}
+                                {/*           preInput={calendarBtn}*/}
+                                {/*           onChangeCallback={this.formControlCallback}*/}
+                                {/*           inputmask={dateFormatMask}*/}
+                                {/*           id="osago_date_start"*/}
+                                {/*           placeholder={"Начало действия"}*/}
+                                {/*           controlName={'carOsagoStart'}*/}
+                                {/*           value={(this.state.carOsagoStart)}/>*/}
+                                <FormInput span={6}
+                                           disabled={true}
+                                           id="osago_date_end"
+                                           placeholder={"Окончание действия"}
+                                           controlName={'carOsagoEnd'}
+                                           value={(this.state.carOsagoEnd)}/>
                             </Row>
 
                             <DriverCount className={this.state.showCalculationOffers && !osago ? "mb_0" : ""}
@@ -1676,7 +1807,7 @@ class TabOffer extends Component {
                 {this.state.confirmationPopupOpened ?
                     <PopupOverlay popupClass={'popup-middle'} span={16}>
                         <ConfirmationPopup confirm={true} yesBtn='Подтверждаю' noBtn='Отмена'
-                                           title='Я, сотрудник дилерского центра, <br /> подтверждаю, что страховой полис оплачен'
+                                           title='Я, Константинопольская Светлана Геннадьевна, <br /> подтверждаю факт оплаты страхового полиса'
                                            popupCloseFunc={this.toggleClientConfirmationPopup}/>
                     </PopupOverlay>
                     : null
