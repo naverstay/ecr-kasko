@@ -1,8 +1,10 @@
 import React, {Component, useCallback} from "react";
-import {Col, Row, Button, Radio, Slider, Input, Tooltip, DatePicker} from "antd";
+import {Col, Row, Button, Radio, Slider, Input, Tooltip, DatePicker, ConfigProvider} from "antd";
 import './style.scss';
 import PropTypes from "prop-types";
 import moment from 'moment';
+import ru_RU from "antd/lib/locale-provider/ru_RU";
+import 'moment/locale/ru';
 import ru from 'moment/locale/ru';
 import KaskoOffers from "../kasko-offers";
 import {Link} from "react-router-dom";
@@ -496,7 +498,8 @@ class TabOffer extends Component {
         const insuranceList = ['КАСКО', 'GAP', 'Е-ОСАГО'];
         const franchise = this.state.franchise;
 
-        let calendarBtn = <span className={'datepicker_placeholder'}><span className={'input-icon'}><span className={'input-icon__btn i-calendar'}/></span><span className="float_placeholder">Начало действия</span></span>;
+        let calendarBtn = <span className={'datepicker_placeholder'}><span className={'input-icon'}><span
+            className={'input-icon__btn i-calendar'}/></span><span className="float_placeholder">Начало действия</span></span>;
 
         let comboInsurance = <Checkbox.Group
             defaultValue={insuranceList.map((o, i) => i)}
@@ -521,38 +524,50 @@ class TabOffer extends Component {
 
         let datePickerLocal = {
             "lang": {
-                "locale": "en_US",
-                "placeholder": "Select date",
-                "rangePlaceholder": ["Start date", "End date"],
-                "today": "Today",
-                "now": "Now",
-                "backToToday": "Back to today",
-                "ok": "Ok",
-                "clear": "Clear",
-                "month": "Month",
-                "year": "Year",
-                "timeSelect": "Select time",
-                "dateSelect": "Select date",
-                "monthSelect": "Choose a month",
-                "yearSelect": "Choose a year",
-                "decadeSelect": "Choose a decade",
+                "locale": "ru_RU",
+                "placeholder": "Выберите дату",
+                "rangePlaceholder": ["Начальная дата", "Конечная дата"],
+                "today": "Сегодня",
+                "now": "Сейчас",
+                "backToToday": "На сегодня",
+                "ok": "Применить",
+                "clear": "Очистить",
+                "month": "Месяц",
+                "year": "Год",
+                "timeSelect": "Выберите время",
+                "dateSelect": "Выберите дату",
+                "monthSelect": "Выберите месяц",
+                "yearSelect": "Выберите год",
+                "decadeSelect": "Выберите декаду",
                 "yearFormat": "YYYY",
-                "dateFormat": "M/D/YYYY",
+                "dateFormat": "DD/MM/YYYY",
                 "dayFormat": "D",
-                "dateTimeFormat": "M/D/YYYY HH:mm:ss",
+                "dateTimeFormat": "DD/MM/YYYY HH:mm:ss",
                 "monthFormat": "MMMM",
                 "monthBeforeYear": true,
-                "previousMonth": "Previous month (PageUp)",
-                "nextMonth": "Next month (PageDown)",
-                "previousYear": "Last year (Control + left)",
-                "nextYear": "Next year (Control + right)",
-                "previousDecade": "Last decade",
-                "nextDecade": "Next decade",
-                "previousCentury": "Last century",
-                "nextCentury": "Next century"
+                "previousMonth": "Предыдущий месяц (PageUp)",
+                "nextMonth": "Следующий месяц (PageDown)",
+                "previousYear": "Предыдущий год (Control + left)",
+                "nextYear": "Следующий год (Control + right)",
+                "previousDecade": "Предыдущая декада",
+                "nextDecade": "Следующая декада",
+                "previousCentury": "Предыдущий век",
+                "nextCentury": "Следующий век"
+            },
+            format: {
+                eras: ['v. Chr.', 'n. Chr.'],
+                months: ["Январь", "Февраль", "Март", "Апрель", "Май", "Июнь", "Июль", "Август", "Сентябрь", "Октябрь", "Ноябрь", "Декабрь"],
+                shortMonths: ["Янв", "Фев", "Март", "Апр", "Май", "Июнь", "Июль", "Авг", "Сен", "Окт", "Ноя", "Дек"],
+                weekdays: ["Воскресенье", "Понедельник", "Вторник", "Среда", "Четверг", "Пятница", "Суббота"],
+                shortWeekdays: ["Вос", "Пон", "Втр", "Срд", "Чет", "Пят", "Суб"],
+                veryShortWeekdays: ["Вс", "Пн", "Вт", "Ср", "Чт", "Пт", "Сб"],
+                ampms: ['AM', 'PM'],
+                datePatterns: ['EEEE, d MMMM yyyy', 'd MMMM yyyy', 'd MMM yyyy', 'd.M.yy'],
+                timePatterns: ['k:mm:ss \'GMT\'Z', 'k:mm:ss', 'k:mm:ss', 'k:mm'],
+                dateTimePattern: '{date} {time}',
             },
             "timePickerLocale": {
-                "placeholder": "Select time"
+                "placeholder": "Выберите время"
             },
             "dateFormat": "YYYY-MM-DD",
             "dateTimeFormat": "YYYY-MM-DD HH:mm:ss",
@@ -1269,18 +1284,20 @@ class TabOffer extends Component {
 
                             <Row gutter={20} className={'kasko-car-select__controls'}>
                                 <Col span={6} id={'osago_date_start'}>
-                                    <DatePicker dropdownClassName={'litepicker_v1'}
-                                                ref={this.pickerRef}
-                                                locale={datePickerLocal}
-                                                suffixIcon={calendarBtn}
-                                        //disabledDate={this.datepickerDisabledDate}
-                                        //panelRender={this.datepickerPanelRender}
-                                                allowClear={false}
-                                                bordered={false}
-                                                showToday={false}
-                                                placeholder={''}
-                                                className={'w_100p custom_placeholder _empty datepicker_v1'}
-                                                size={'small'} onChange={this.carOsagoStartChange}/>
+                                    {/*<ConfigProvider locale={frFR}>*/}
+                                        <DatePicker dropdownClassName={'litepicker_v1'}
+                                                    ref={this.pickerRef}
+                                                    //locale={ru_RU}
+                                                    suffixIcon={calendarBtn}
+                                            //disabledDate={this.datepickerDisabledDate}
+                                            //panelRender={this.datepickerPanelRender}
+                                                    allowClear={false}
+                                                    bordered={false}
+                                                    showToday={false}
+                                                    placeholder={''}
+                                                    className={'w_100p custom_placeholder _empty datepicker_v1'}
+                                                    size={'small'} onChange={this.carOsagoStartChange}/>
+                                    {/*</ConfigProvider>*/}
                                 </Col>
                                 {/*<FormInput span={6}*/}
                                 {/*           preInput={calendarBtn}*/}
