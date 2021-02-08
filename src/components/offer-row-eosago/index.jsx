@@ -65,8 +65,8 @@ class OfferRowEosago extends Component {
             case 1:
                 return (
                     <>
-                        <td className=""/>
-                        <td className={"text_right" + ((completed || waiting) ? " small" : "")}>
+                        <td className="calculation-offers__table--col-2"/>
+                        <td className={"calculation-offers__table--col-5 text_right" + ((completed || waiting) ? " small" : "")}>
                             <div className="offer-row__price">
                                 {o.megashare ?
                                     <div className="offer-row__price-megashare">{o.megashare}</div> : null}
@@ -78,7 +78,7 @@ class OfferRowEosago extends Component {
             case 2:
                 return (
                     <>
-                        <td className="text_left">
+                        <td className="calculation-offers__table--col-2 text_left">
                             <div className="offer-row__documents">
                                 <div className="gl_link color_black">{o.document || 'some doc'}</div>
                                 {o.nobill ? null :
@@ -90,7 +90,7 @@ class OfferRowEosago extends Component {
                         {/*    <div className="offer-row__date">{o.dateEnd}</div>*/}
                         {/*</td>*/}
 
-                        <td className={"text_right" + ((completed || waiting) ? " small" : "")}>
+                        <td className={"calculation-offers__table--col-5 text_right" + ((completed || waiting) ? " small" : "")}>
                             <div className="offer-row__price">
                                 {o.megashare ?
                                     <div className="offer-row__price-megashare">{o.megashare}</div> : null}
@@ -102,14 +102,14 @@ class OfferRowEosago extends Component {
             case 3:
                 return (
                     <>
-                        <td className="text_left">
+                        <td className="calculation-offers__table--col-2 text_left">
                             <div className="offer-row__documents">
                                 <div className="gl_link color_black">{o.document || 'some doc'}</div>
                                 {o.nobill ? null :
                                     <div className="offer-row__bill gl_link">Заявление</div>}
                             </div>
                         </td>
-                        <td className={"text_right" + ((completed || waiting) ? " small" : "")}>
+                        <td className={"calculation-offers__table--col-5 text_right" + ((completed || waiting) ? " small" : "")}>
                             <div className="offer-row__price">
                                 {o.megashare ?
                                     <div className="offer-row__price-megashare">{o.megashare}</div> : null}
@@ -148,7 +148,7 @@ class OfferRowEosago extends Component {
                 for (let j = 0; j < opt.params.length; j++) {
                     let item = opt.params[j];
                     items.push(<li key={j} className={'offer-row__option-params __no-dot'}>
-                        <span>{item.name}</span>
+                        <span dangerouslySetInnerHTML={{__html: `${item.name}`}}/>
                         <span>{item.value}</span>
                     </li>);
                     console.log('item', item);
@@ -180,13 +180,13 @@ class OfferRowEosago extends Component {
                                 :
                                 <tr key={i}
                                     className={(showOptions ? "expanded" : "") + ((offerSelected && !(completed || waiting)) ? " selected" : "") + (lastRow && !showOptions ? ' last-row' : '')}>
-                                    <td className={'wnw ' + (lastRow ? '' : 'no-bdr-bottom')}>
+                                    <td className={'wnw calculation-offers__table--col-8 ' + (lastRow ? '' : 'no-bdr-bottom')}>
                                         {i === 0 ? <div
                                             className={"offer-row__logo" + (info ? " info" : "")}>
                                             {fillColor ? <span className={"offer-row__letter"}
                                                                style={{background: fillColor}}>{capLetter}</span> : null}
 
-                                            <span>{name || ''}</span>
+                                            <span dangerouslySetInnerHTML={{__html: `${name}`}}/>
                                             {o.disableCashierPayment ?
                                                 <Tooltip overlayClassName="tooltip_v1" placement="top"
                                                          title="Оплата е-Е-ОСАГО в кассу дилера для этой СК недоступна.
@@ -196,7 +196,7 @@ class OfferRowEosago extends Component {
                                                 : null}
                                         </div> : null}
                                     </td>
-                                    <td>
+                                    <td className={'calculation-offers__table--col-8'}>
                                         <div className="offer-row__name">{o.type}</div>
                                         {(this.state.rowsCollapsed && i === 0 && offers.length > 1) ?
                                             <div onClick={this.onCollapseToggle}
@@ -208,9 +208,9 @@ class OfferRowEosago extends Component {
 
                                     {declined ?
                                         <>
-                                            <td className="" colSpan={2}>
+                                            <td className="calculation-offers__table--col-5" colSpan={2}>
                                                 <div className="offer-row__name text_right">
-                                                    <span>У страховой компании нетпредложений</span>
+                                                    <span>Нет предложений</span>
                                                     <Tooltip overlayClassName="tooltip_v1" placement="top"
                                                              title="Клиент в зоне риска. Страхование запрещено">
                                                         <span className={"offer-row__info"}/>
@@ -224,7 +224,7 @@ class OfferRowEosago extends Component {
                                             {this.renderSwitch(step || 0, completed, waiting, o)}
 
                                             {osago ? null :
-                                                <td>
+                                                <td className={'calculation-offers__table--col-6'}>
                                                     <div className="offer-row__fee">
                                                         <Checkbox disabled={completed || waiting || o.credit === null}
                                                                   defaultChecked={o.credit ? "checked" : null}
@@ -250,7 +250,7 @@ class OfferRowEosago extends Component {
 
                                             {(completed || waiting) ?
                                                 <>
-                                                    <td>
+                                                    <td className={'calculation-offers__table--col-6'}>
                                                         <div
                                                             className={"offer-row__status " + (completed ? "approved" : "waiting")}/>
                                                     </td>
@@ -264,7 +264,7 @@ class OfferRowEosago extends Component {
                                                         </td>
                                                         : null
                                                     }
-                                                    <td>
+                                                    <td className={'calculation-offers__table--col-6'}>
                                                         <ReactComment
                                                             text={'ecr-kasko/src/components/offer-row-combo/index.jsx' + name + ' o.selected ' + o.selected}/>
 
@@ -276,7 +276,7 @@ class OfferRowEosago extends Component {
                                                 </>
                                             }
 
-                                            <td>
+                                            <td className={'calculation-offers__table--col-6'}>
                                                 {'options' in o && o.options.length ?
                                                     <div onClick={() => this.addOptionFlag(i)}
                                                          className="offer-row__link"/> : <>&nbsp;</>}
@@ -286,7 +286,7 @@ class OfferRowEosago extends Component {
                             }
                             {!declined && showOptions && 'options' in o && o.options.length ?
                                 <tr key={i + 100000}
-                                    className={(offerSelected ? "selected" : "") + (lastRow ? ' last-row' : '')}>
+                                    className={'info_row ' + (offerSelected ? "selected" : "") + (lastRow ? ' last-row' : '')}>
                                     <td>&nbsp;</td>
                                     <td colSpan={((completed || waiting) ? 4 : 4)}>
                                         {/*<p className="text_left" style={{marginBottom: '15px'}}>Условия Е-ОСАГО:</p>*/}

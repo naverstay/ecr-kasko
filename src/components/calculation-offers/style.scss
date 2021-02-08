@@ -238,6 +238,85 @@
       }
     }
   }
+
+  &.__blocks {
+
+    .calculation-offers__table {
+      display: block;
+    }
+
+    thead,
+    tbody {
+      display: block;
+
+      td, th {
+        border: 0 !important;
+        flex: 1 0 auto;
+
+        &:first-child {
+          flex: 0 0 200px;
+        }
+
+        &:last-child {
+          max-width: 35px;
+        }
+      }
+    }
+
+    thead {
+      height: 1px;
+
+      th {
+        height: 1px !important;
+        padding: 0;
+        font-size: 0;
+        display: block;
+        overflow: hidden;
+      }
+    }
+
+    tr {
+      display: flex;
+      height: 75px;
+      align-items: stretch;
+      justify-content: space-between;
+      flex: 1 0 auto;
+
+      &.expanded {
+        border-radius: 5px 5px 0 0;
+        border-bottom: 0 !important;
+      }
+
+      &.info_row {
+        border-top: 0 !important;
+        border-radius: 0 0 5px 5px;
+        height: auto;
+      }
+
+      ~ tr:not(.info_row) {
+        margin-top: 15px;
+      }
+    }
+
+    tbody {
+      tr {
+        border: 1px solid $color-blue-light;
+        border-radius: 5px;
+        overflow: hidden;
+      }
+
+      td {
+        display: flex;
+        flex-flow: column;
+        justify-content: center;
+      }
+
+      .offer-row__status {
+        margin-left: auto;
+        margin-right: auto;
+      }
+    }
+  }
 }
 
 .sort-btn {

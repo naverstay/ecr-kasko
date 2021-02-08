@@ -319,6 +319,16 @@
       .ant-col {
         margin-bottom: 15px;
       }
+
+      &.__large {
+        .ant-checkbox-wrapper {
+          padding: 13px 15px;
+        }
+
+        .ant-checkbox-inner {
+          border-radius: 20px;
+        }
+      }
     }
 
     &.radio_v2 {

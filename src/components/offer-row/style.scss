@@ -215,7 +215,13 @@
     line-height: 25px;
     color: #fff;
     display: inline-block;
+    vertical-align: middle;
     margin-right: 10px;
+
+    ~ span {
+      display: inline-block;
+      vertical-align: middle;
+    }
   }
 
   &__logo {
@@ -292,7 +298,7 @@
       color: #000;
       font-size: 16px;
       line-height: 1;
-      transform: translate(0, -50%) rotate(90deg);
+      transform: translate(0, -50%) rotate(0deg);
     }
 
     .expanded & {

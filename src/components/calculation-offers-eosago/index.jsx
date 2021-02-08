@@ -86,7 +86,7 @@ class CalculationOffersEosago extends Component {
             <Row gutter={20}>
                 <Col span={3}/>
                 <Col span={18}>
-                    <div className="calculation-offers">
+                    <div className="calculation-offers __blocks">
                         <ReactComment text='"ecr-kasko/src/components/calculation-offers-combo/index.jsx"'/>
 
                         <table className="calculation-offers__table">

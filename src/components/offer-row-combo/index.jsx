@@ -80,7 +80,7 @@ class OfferRowCombo extends Component {
                                         className={"offer-row__logo" + (info ? " info" : "")}>
                                         {fillColor ? <span className={"offer-row__letter"} style={{background: fillColor}}>{capLetter}</span> : null }
 
-                                        <span>{name || ''}</span>
+                                        <span dangerouslySetInnerHTML={{__html: `${name}`}}/>
                                         {o.disableCashierPayment ?
                                             <Tooltip overlayClassName="tooltip_v1" placement="top"
                                                      title="Оплата е-Е-ОСАГО в кассу дилера для этой СК недоступна.

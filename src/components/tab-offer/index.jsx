@@ -564,7 +564,7 @@ class TabOffer extends Component {
                 ampms: ['AM', 'PM'],
                 datePatterns: ['EEEE, d MMMM yyyy', 'd MMMM yyyy', 'd MMM yyyy', 'd.M.yy'],
                 timePatterns: ['k:mm:ss \'GMT\'Z', 'k:mm:ss', 'k:mm:ss', 'k:mm'],
-                dateTimePattern: '{date} {time}',
+                dateTimePattern: '{date} {time}'
             },
             "timePickerLocale": {
                 "placeholder": "Выберите время"
@@ -1017,6 +1017,60 @@ class TabOffer extends Component {
                             type: 'Е-ОСАГО',
                             document: 'СС 81234567',
                             credit: null,
+                            price: '30 450',
+                            dealerFee: '3 045',
+                            dateStart: '20.02.19',
+                            dateEnd: '19.02.20',
+                            options: optionsFixtures
+                        }
+                    ]
+                },
+                {
+                    name: 'Совкомбанк <br> Страхование',
+                    fillColor: '#CC525A',
+                    capLetter: 'С',
+                    offers: [
+                        {
+                            name: '',
+                            type: 'Е-ОСАГО',
+                            document: 'СС 81234567',
+                            credit: null,
+                            price: '30 450',
+                            dealerFee: '3 045',
+                            dateStart: '20.02.19',
+                            dateEnd: '19.02.20',
+                            options: optionsFixtures
+                        }
+                    ]
+                },
+                {
+                    name: 'Зетта',
+                    fillColor: '#009CA6',
+                    capLetter: 'З',
+                    offers: [
+                        {
+                            name: '',
+                            type: 'Е-ОСАГО',
+                            document: 'СС 81234567',
+                            credit: null,
+                            price: '30 450',
+                            dealerFee: '3 045',
+                            dateStart: '20.02.19',
+                            dateEnd: '19.02.20',
+                            options: optionsFixtures
+                        }
+                    ]
+                },
+                {
+                    name: 'Ренессанс <br> страхование',
+                    fillColor: '#FF9C2D',
+                    capLetter: 'Р',
+                    offers: [
+                        {
+                            name: '',
+                            type: 'Е-ОСАГО',
+                            document: 'СС 81234567',
+                            credit: null,
                             declined: true
                         }
                     ]
@@ -1262,7 +1316,7 @@ class TabOffer extends Component {
                             }
 
                             <Row gutter={20} className="kasko-car-select__controls radio_v3">
-                                <Col span={12}>
+                                <Col>
                                     <Radio.Group defaultValue={periodOptions[0]}
                                                  style={{width: '100%'}}
                                                  onChange={this.onPeriodChange}>
@@ -1280,23 +1334,23 @@ class TabOffer extends Component {
                                         </Row>
                                     </Radio.Group>
                                 </Col>
-                            </Row>
+                                {/*</Row>*/}
 
-                            <Row gutter={20} className={'kasko-car-select__controls'}>
+                                {/*<Row gutter={20} className={'kasko-car-select__controls'}>*/}
                                 <Col span={6} id={'osago_date_start'}>
                                     {/*<ConfigProvider locale={frFR}>*/}
-                                        <DatePicker dropdownClassName={'litepicker_v1'}
-                                                    ref={this.pickerRef}
-                                                    //locale={ru_RU}
-                                                    suffixIcon={calendarBtn}
-                                            //disabledDate={this.datepickerDisabledDate}
-                                            //panelRender={this.datepickerPanelRender}
-                                                    allowClear={false}
-                                                    bordered={false}
-                                                    showToday={false}
-                                                    placeholder={''}
-                                                    className={'w_100p custom_placeholder _empty datepicker_v1'}
-                                                    size={'small'} onChange={this.carOsagoStartChange}/>
+                                    <DatePicker dropdownClassName={'litepicker_v1'}
+                                                ref={this.pickerRef}
+                                        //locale={ru_RU}
+                                                suffixIcon={calendarBtn}
+                                        //disabledDate={this.datepickerDisabledDate}
+                                        //panelRender={this.datepickerPanelRender}
+                                                allowClear={false}
+                                                bordered={false}
+                                                showToday={false}
+                                                placeholder={''}
+                                                className={'w_100p custom_placeholder _empty datepicker_v1'}
+                                                size={'small'} onChange={this.carOsagoStartChange}/>
                                     {/*</ConfigProvider>*/}
                                 </Col>
                                 {/*<FormInput span={6}*/}
@@ -1307,16 +1361,17 @@ class TabOffer extends Component {
                                 {/*           placeholder={"Начало действия"}*/}
                                 {/*           controlName={'carOsagoStart'}*/}
                                 {/*           value={(this.state.carOsagoStart)}/>*/}
-                                <FormInput span={6}
-                                           disabled={true}
-                                           id="osago_date_end"
-                                           placeholder={"Окончание действия"}
-                                           controlName={'carOsagoEnd'}
-                                           value={(this.state.carOsagoEnd)}/>
+                                {/*<FormInput span={6}*/}
+                                {/*           disabled={true}*/}
+                                {/*           id="osago_date_end"*/}
+                                {/*           placeholder={"Окончание действия"}*/}
+                                {/*           controlName={'carOsagoEnd'}*/}
+                                {/*           value={(this.state.carOsagoEnd)}/>*/}
                             </Row>
 
                             <DriverCount className={this.state.showCalculationOffers && !osago ? "mb_0" : ""}
                                          step={step}
+                                         size={6}
                                          extraData={true}
                                          driverOptions={driverOptions}>
                                 {step > 1 || this.state.showCalculationOffers ?
@@ -1335,7 +1390,7 @@ class TabOffer extends Component {
                                          className={"kasko-car-select__controls mb_45" + (osago ? "" : " ant-row-center")}>
                                         {osago ?
                                             <>
-                                                <Col span={3}>
+                                                <Col span={6}>
                                                     <Row gutter={20} className={"kasko-car-select__extra"}>
                                                         <Col className="">
                                                             <Tooltip overlayClassName="tooltip_v1" placement="top"
@@ -1345,14 +1400,22 @@ class TabOffer extends Component {
                                                                 ><span className={"i-close"}/></Button>
                                                             </Tooltip>
                                                         </Col>
+                                                        <Col className="">
+                                                            <Tooltip overlayClassName="tooltip_v1" placement="top"
+                                                                     title="Внести полис вручную">
+                                                                <Button className={"ant-btn ant-btn-sm btn-action"}
+                                                                        onClick={this.togglePolicyPopup}
+                                                                ><span className={"i-plus"}/></Button>
+                                                            </Tooltip>
+                                                        </Col>
                                                     </Row>
                                                 </Col>
-                                                <Col span={6}>
-                                                    <Button to="/credit_kasko"
-                                                            onClick={this.togglePolicyPopup}
-                                                            className={"w_100p ant-btn"}
-                                                    >Внести полис вручную</Button>
-                                                </Col>
+                                                {/*<Col span={6}>*/}
+                                                {/*<Button to="/credit_kasko"*/}
+                                                {/*        onClick={this.togglePolicyPopup}*/}
+                                                {/*        className={"w_100p ant-btn"}*/}
+                                                {/*>Внести полис вручную</Button>*/}
+                                                {/*</Col>*/}
                                             </>
                                             :
                                             <Col span={6}>
@@ -1360,7 +1423,7 @@ class TabOffer extends Component {
                                                 >Отказ клиента</Button>
                                             </Col>
                                         }
-                                        <Col span={9}>
+                                        <Col span={12}>
                                             <Button htmlType="submit"
                                                     className={"w_100p" + (((this.state.showPayment || (this.props.step === 2) || (this.props.osago && this.state.activeOffers.length))) ? " btn_green" : " ant-btn-primary")}
                                                     onClick={this.toggleCalculationPopup}>{this.calculationButtonText()}</Button>

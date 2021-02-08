@@ -63,19 +63,20 @@ class DriverCount extends Component {
     };
 
     render() {
-        const {driverOptions, children, className, extraData} = this.props
+        const {driverOptions, children, className, extraData, size} = this.props
 
         return (
             <div className={"w_100p"}>
-                <Row gutter={20} className={"kasko-car-select__controls check_v2 " + (className || '')}>
+                <Row gutter={20} className={"kasko-car-select__controls check_v2 __large " + (className || '')}>
                     <Col className={"popup-visible"} span={3}/>
                     <Col span={18}>
                         <Row className={""} gutter={20}>
                             {
                                 driverOptions.length ? driverOptions.map((c, i) =>
-                                    <Col key={i}>
+                                    <Col span={size || null} key={i}>
                                         <Checkbox
                                             onChange={this.onDriverOptionsChange}
+                                            className={'w_100p text_center'}
                                             checked={this.state.checkedList.indexOf(c) > -1}
                                             value={c}>{c}
                                             <span className="driver-count__index">КБМ={i + 1}</span>
@@ -84,10 +85,11 @@ class DriverCount extends Component {
                                 ) : null
                             }
                             {
-                                <Col key={driverOptions.length}>
+                                <Col span={size || null} key={driverOptions.length}>
                                     <Tooltip overlayClassName="tooltip_v1" placement="top"
                                              title="Неограниченное количество водителей">
                                         <Checkbox
+                                            className={'w_100p text_center'}
                                             indeterminate={this.state.indeterminate}
                                             checked={this.state.checkAll}
                                             onChange={this.onCheckAllChange}>Мультидрайв</Checkbox>
