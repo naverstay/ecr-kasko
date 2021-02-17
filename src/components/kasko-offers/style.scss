@@ -466,7 +466,7 @@
       border-color: $color-blue-light;
 
       .kasko-offer__item--title {
-        background: #deeefa;
+        background: $color-blue-light-light;
         border-color: $color-blue-light;
 
         .kasko-offer__item--open:before {
@@ -478,7 +478,7 @@
         border-color: $color-blue-light;
 
         &.wide:before {
-          background: #deeefa;
+          background: $color-blue-light-light;
           border-left-color: $color-blue-light;
           border-right-color: $color-blue-light;
         }

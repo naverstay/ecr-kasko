@@ -215,7 +215,7 @@ class TabService extends Component {
     }
 
     calculationButtonText = () => {
-        return (this.state.showPayment || (this.props.step === 2) || (this.props.osago && this.state.activeOffers.length)) ? 'Анкета ' + (this.props.osago ? 'Е-ОСАГО' : 'КАСКО') + ' заполните 0 полей' : this.state.fullCalculation ? (this.props.osago ? 'Для расчета заполните 20 полей' : 'Для окончательного расчета заполните 20 полей') : 'Для расчета заполните  10 полей'
+        return (this.state.showPayment || (this.props.step === 2) || (this.props.osago && this.state.activeOffers.length)) ? 'Анкета ' + (this.props.osago ? 'е-ОСАГО' : 'КАСКО') + ' заполните 0 полей' : this.state.fullCalculation ? (this.props.osago ? 'Для расчета заполните 20 полей' : 'Для окончательного расчета заполните 20 полей') : 'Для расчета заполните  10 полей'
     }
 
     offersUpdate = (offer) => {

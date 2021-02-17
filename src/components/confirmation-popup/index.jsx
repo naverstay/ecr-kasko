@@ -43,11 +43,11 @@ class ConfirmationPopup extends Component {
                         <>
                             <Col span={attention ? 8 : 4}>
                                 <div onClick={() => this.onPopupCancel()}
-                                     className={"ant-btn w_100p" + (attention ? ' ant-btn-danger' : ' btn_green')}>
+                                     className={"ant-btn ant-btn-lg w_100p" + (attention ? ' btn-action' : ' btn_green')}>
                                     <span>{noBtn || 'Нет'}</span></div>
                             </Col>
                             <Col span={8}>
-                                <Button onClick={() => this.onPopupSubmit()}
+                                <Button size={'large'} onClick={() => this.onPopupSubmit()}
                                         className={"btn_middle ant-btn-primary"}
                                 >{yesBtn || 'Да'}</Button>
                             </Col>
@@ -55,7 +55,7 @@ class ConfirmationPopup extends Component {
                         </>
                         :
                         <Col span={8}>
-                            <Button onClick={() => this.onPopupSubmit()} className={"ant-btn-primary btn_middle"}
+                            <Button size={'large'} onClick={() => this.onPopupSubmit()} className={"ant-btn-primary btn_middle"}
                             >{yesBtn || 'Да'}</Button>
                         </Col>
                     }

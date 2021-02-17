@@ -1201,6 +1201,7 @@ body {
 	box-sizing: border-box;
 	-webkit-tap-highlight-color: transparent;
 	line-height: 1.2;
+  overflow-y: scroll;
 	font: 14px/1 RobotoLight, sans-serif;
 	color: #000;
 }
@@ -6161,9 +6162,9 @@ textarea::-moz-placeholder {
 	color: $color-grey;
 }
 
-.clr_gray {
-	color: gray;
-}
+//.clr_gray {
+//	color: gray;
+//}
 
 .clr_gray_2 {
 	color: #9d9d9d;
@@ -6175,6 +6176,10 @@ textarea::-moz-placeholder {
 
 .fw_400 {
 	font-family: Roboto, sans-serif;
+}
+
+.fw_500 {
+  font-weight: 500;
 }
 
 .fw_b {
@@ -6208,6 +6213,10 @@ textarea::-moz-placeholder {
 
 .fz_18 {
 	font-size: 18px;
+}
+
+.fz_20 {
+	font-size: 20px;
 }
 
 .fz_22 {
@@ -9363,7 +9372,7 @@ thead .f_input.input_v3,
 }
 
 .small {
-	font-size: 12px;
+	//font-size: 12px;
 }
 
 .stat_data {

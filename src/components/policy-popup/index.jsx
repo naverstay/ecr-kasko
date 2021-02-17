@@ -165,7 +165,7 @@ class PolicyPopup extends Component {
                                       checked={this.state.showKasko ? true : null}/>
 
                         <FormCheckbox onChangeCallback={this.formControlCallback}
-                                      text="Е-ОСАГО"
+                                      text="е-ОСАГО"
                                       className=""
                                       value={1}
                                       controlName={'showOsago'}
@@ -191,7 +191,7 @@ class PolicyPopup extends Component {
                         <Row gutter={20}>
                             <Col span={3}/>
                             <Col>
-                                <div className={"kasko-car-select__caption"}>Полис Е-ОСАГО</div>
+                                <div className={"kasko-car-select__caption"}>Полис е-ОСАГО</div>
                             </Col>
                         </Row>
 

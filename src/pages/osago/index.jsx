@@ -44,7 +44,7 @@ class Osago extends Component {
         if (step === 2) {
             events.push({
                 progress: 1,
-                name: 'Е-ОСАГО',
+                name: 'е-ОСАГО',
                 status: 'Ожидание оплаты / Ингосстрах',
                 time: '9:50'
             })
@@ -53,13 +53,13 @@ class Osago extends Component {
         if (step === 3) {
             events.push({
                 progress: 2,
-                name: 'Е-ОСАГО',
+                name: 'е-ОСАГО',
                 status: 'Выпущено / ВСК',
                 time: '9:50'
             })
             events.push({
                 progress: 1,
-                name: 'Е-ОСАГО',
+                name: 'е-ОСАГО',
                 status: 'Ожидание оплаты / ВСК',
                 time: '9:50'
             })

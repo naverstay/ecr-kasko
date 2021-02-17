@@ -3,7 +3,7 @@
 .aside-block__product {
   @extend %text1;
   transition: background 0.3s;
-  background: #deeefa;
+  background: $color-blue-light-light;
   border: 1px solid $color-blue-light;
   border-radius: 5px;
   margin: 15px 0;

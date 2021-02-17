@@ -83,7 +83,7 @@ class OfferRowCombo extends Component {
                                         <span dangerouslySetInnerHTML={{__html: `${name}`}}/>
                                         {o.disableCashierPayment ?
                                             <Tooltip overlayClassName="tooltip_v1" placement="top"
-                                                     title="Оплата е-Е-ОСАГО в кассу дилера для этой СК недоступна.
+                                                     title="Оплата е-е-ОСАГО в кассу дилера для этой СК недоступна.
 Возможна только онлайн оплата на сайте СК.">
                                                 <span className={"offer-row__info"}/>
                                             </Tooltip>
@@ -181,7 +181,7 @@ class OfferRowCombo extends Component {
                                             <td>&nbsp;</td>
                                         }
                                         <td>
-                                            <ReactComment text={'ecr-kasko/src/components/offer-row-combo/index.jsx' + name + ' o.selected ' + o.selected}/>
+                                            <ReactComment text={'ecr-kasko/src/components/offer-row-combo/index.jsx ' + name + ' selected ' + o.selected}/>
 
                                             <Checkbox disabled={((allowCheck || osago) ? null : "disabled")}
                                                       checked={o.selected ? "checked" : null}

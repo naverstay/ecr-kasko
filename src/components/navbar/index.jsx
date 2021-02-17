@@ -18,7 +18,7 @@ class Navbar extends Component {
             <div className="sidebar">
                 <div className="sidebar__header">
                     <div className="sidebar__button-wrapper">
-                        <div className="sidebar__button label-nohover">
+                        <div style={{marginBottom: '33px'}} className="sidebar__button label-nohover">
                             <div className="sidebar__button-icon home">
                                 <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 16.175 16.561">
                                     <path id="Path_20" data-name="Path 20" fill="#fff"

@@ -1,3 +1,9 @@
 .ant-col-mla {
   margin-left: auto;
 }
+
+.ant-row-last-right {
+  .ant-col:last-child:not(:first-child) {
+    margin-left: auto;
+  }
+}

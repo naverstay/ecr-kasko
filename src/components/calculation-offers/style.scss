@@ -1,21 +1,19 @@
 @import '../../assets/styles/global';
 
 .calculation-offers {
-  margin-bottom: 30px;
+  margin-bottom: 40px;
   //min-height: 147px;
   position: relative;
 
   &__agreement {
-    margin-top: -8px;
     margin-bottom: 22px;
   }
 
   &__warning {
+    @extend %text1;
     color: $color-grey;
-    font-size: 12px;
-    line-height: 14px;
-    margin-top: -8px;
-    margin-bottom: 5px;
+    margin-top: -12px;
+    margin-bottom: 15px;
   }
 
   &__dropdown {
@@ -96,7 +94,7 @@
 
       &:first-child {
         text-align: left;
-        padding-left: 10px;
+        padding-left: 27px;
 
         + td {
           text-align: left;
@@ -114,7 +112,7 @@
 
     tr {
       &.selected td {
-        background: #deeefa;
+        background: $color-blue-light-light;
       }
 
       &.__bordered {
@@ -168,7 +166,7 @@
     }
 
     &--col-2 {
-      width: 30%;
+      width: 14%;
 
       &.small {
         width: 17%;
@@ -200,11 +198,24 @@
     }
 
     &--col-5 {
-      width: 9%;
+      width: 17%;
+
+      &.wide {
+        width: 30%;
+      }
     }
 
     &--col-6 {
       width: 1%;
+
+      &.wide {
+        width: 8%;
+      }
+
+      &.small {
+        width: 0 !important;
+        padding: 0 !important;
+      }
     }
 
     &--col-7 {
@@ -212,7 +223,7 @@
     }
 
     &--col-8 {
-      width: 11%;
+      width: 14%;
     }
 
     &--col-9 {
@@ -251,14 +262,22 @@
 
       td, th {
         border: 0 !important;
-        flex: 1 0 auto;
 
-        &:first-child {
-          flex: 0 0 200px;
+        &:not([colspan]) {
+          flex: 1 0 auto;
         }
 
-        &:last-child {
+        &[colspan] {
+          flex: 1;
+        }
+
+        &:first-child:not(:last-child) {
+          flex: 0 0 230px;
+        }
+
+        &:last-child:not(:first-child) {
           max-width: 35px;
+          min-width: 35px;
         }
       }
     }
@@ -277,14 +296,18 @@
 
     tr {
       display: flex;
-      height: 75px;
+      min-height: 85px;
       align-items: stretch;
       justify-content: space-between;
       flex: 1 0 auto;
 
       &.expanded {
         border-radius: 5px 5px 0 0;
-        border-bottom: 0 !important;
+        border-bottom-color: transparent;
+
+        &.selected {
+          border-bottom-color: #deeefa;
+        }
       }
 
       &.info_row {
@@ -294,7 +317,7 @@
       }
 
       ~ tr:not(.info_row) {
-        margin-top: 15px;
+        margin-top: 21px;
       }
     }
 
@@ -312,7 +335,7 @@
       }
 
       .offer-row__status {
-        margin-left: auto;
+        margin-left: 5px;
         margin-right: auto;
       }
     }

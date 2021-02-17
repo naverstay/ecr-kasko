@@ -372,7 +372,7 @@ class CarCredit extends Component {
                         name: 'КАСКО',
                         //button: 'Рассчитать',
                         func: this.toggleKaskoPopup,
-                        price: this.state.activeKasko ? '41450' : '15400',
+                        price: this.state.activeKasko ? '52 500 ₽' : '52 500 ₽',
                         prefix: this.state.activeKasko ? '' : 'от',
                         suffix: '₽'
                     },

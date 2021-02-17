@@ -490,7 +490,7 @@ class CreditCarSelect extends Component {
                             suffix: '₽/мес'
                         },
                         {
-                            name: 'Е-ОСАГО',
+                            name: 'е-ОСАГО',
                             price: 10410,
                             prefix: 'от',
                             suffix: '₽'

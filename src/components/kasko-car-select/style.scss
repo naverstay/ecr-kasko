@@ -113,13 +113,13 @@
         color: $color-grey;
         font-size: 16px;
         margin-right: 10px;
-        margin-left: -20px;
+        margin-left: -25px;
         position: absolute;
       }
     }
 
     &.collapsed {
-      margin-bottom: 30px;
+      margin-bottom: 40px;
     }
 
     &.expanded {
@@ -263,7 +263,9 @@
     }
 
     &--price {
-      @extend %h2;
+      //@extend %h2;
+      font-size: 15px;
+      line-height: 18px;
       margin-bottom: 15px;
     }
 
@@ -305,7 +307,7 @@
     margin-bottom: 15px;
 
     &--equipment {
-      font-size: 14px;
+      font-size: 15px;
       color: $color-grey;
     }
 
@@ -316,13 +318,13 @@
     &.check_v2 {
       @extend %check_v2;
 
-      .ant-col {
+      .ant-col:not([class *= mb_]) {
         margin-bottom: 15px;
       }
 
       &.__large {
         .ant-checkbox-wrapper {
-          padding: 13px 15px;
+
         }
 
         .ant-checkbox-inner {
@@ -384,8 +386,16 @@
       margin-bottom: 10px;
     }
 
+    &.mb_25 {
+      margin-bottom: 25px;
+    }
+
     &.mb_30 {
       margin-bottom: 30px;
+    }
+
+    &.mb_40 {
+      margin-bottom: 40px;
     }
 
     &.mb_45 {
@@ -411,6 +421,10 @@
 
     &--stretch {
       justify-content: stretch;
+    }
+
+    &--row_center {
+      align-items: center;
     }
 
     &--flex-1 {
@@ -457,7 +471,7 @@
           color: $color-grey;
           font-size: 16px;
           margin-right: 10px;
-          margin-left: -20px;
+          margin-left: -23px;
           position: absolute;
         }
       }
@@ -654,8 +668,6 @@
     &--value {
       @extend %h1;
       display: block;
-      margin-bottom: 5px;
-      //margin-top: 7px;
       color: inherit;
       font-weight: 500;
 
@@ -675,3 +687,8 @@
   }
 }
 
+.ant-col {
+  &.mb_0 {
+    margin-bottom: 0;
+  }
+}

@@ -75,7 +75,7 @@ input {
   @extend %text1;
   transition: all 0.7s;
   position: absolute;
-  left: 21px;
+  left: 22px;
   right: 20px;
   top: 50%;
   transform: translate(0, -50%);
@@ -113,7 +113,7 @@ input {
 }
 
 .custom_placeholder .ant-select-selection-item {
-  padding-top: 7px !important;
+  //padding-top: 2px !important;
 }
 
 .ant-picker-input input {
@@ -121,8 +121,8 @@ input {
 }
 
 .custom_placeholder.ant-input {
-  padding-top: 21px !important;
-  padding-bottom: 7px !important;
+  padding-top: 24px !important;
+  padding-bottom: 18px !important;
 }
 
 .no_placeholder.ant-input {
@@ -139,6 +139,8 @@ input {
 
 .ant-btn {
   padding: 0 16px;
+  font-size: 15px;
+  border-radius: 5px;
   display: inline-flex;
   align-items: center;
   white-space: normal;
@@ -155,10 +157,16 @@ input {
     font-size: 14px;
   }
 
+  &.ant-btn-primary {
+    &:not(.disabled) {
+      color: #000;
+    }
+  }
+
   &.btn_green {
     &[disabled],
     &.disabled {
-      color: rgba(34, 139, 34, 0.3);
+      color: rgba(126, 191, 237,  0.3);
       background: rgba(255, 255, 255, 0.87);
       border-color: rgba(181, 181, 181, 0.3);
     }
@@ -267,12 +275,15 @@ $spinner_time: 1s;
   display: inline-block;
   text-decoration: underline;
 
+
   &:hover {
     text-decoration: none;
   }
 
   &.disabled {
     color: #a8a8a8;
+    opacity: .3;
+    pointer-events: none;
   }
 }
 
@@ -283,12 +294,18 @@ $spinner_time: 1s;
 }
 
 .ant-btn {
-  font-size: 14px;
+  //font-size: 15px;
   padding-left: 10px;
   padding-right: 10px;
 
+  &.ant-btn-lg {
+    padding-left: 5px;
+    padding-right: 5px;
+  }
+
   &.ant-btn-sm {
-    min-width: 30px;
+    height: 40px;
+    min-width: 40px;
     padding-left: 5px;
     padding-right: 5px;
   }
@@ -324,17 +341,24 @@ $spinner_time: 1s;
     //margin-bottom: 32px;
   }
 
+  .kasko-car-select__extra & {
+    margin-top: 10px;
+    font-size: 24px;
+  }
+
   &.btn-action {
-    border: 1px solid $color-green;
-    color: $color-green;
+    border: 1px solid $color-blue-light-light;
+    background: $color-blue-light-light;
+    color: #000;
 
     &:hover {
-      color: #fff;
-      background: $color-green;
+      background: $color-blue-light;
     }
 
     .kasko-car-select__extra & {
-      margin-top: 7px;
+      &:not(:hover) {
+        color: $color-blue-light;
+      }
     }
   }
 
@@ -345,10 +369,6 @@ $spinner_time: 1s;
     &:hover {
       color: $color-prime;
       border-color: $color-prime;
-    }
-
-    .kasko-car-select__extra & {
-      margin-top: 7px;
     }
   }
 }
@@ -368,7 +388,7 @@ $spinner_time: 1s;
 }
 
 .checkbox_middle {
-  line-height: 44px;
+  line-height: 60px;
   position: relative;
 
   .ant-checkbox-wrapper {
@@ -448,12 +468,13 @@ $spinner_time: 1s;
 
 .ant-input {
   color: #000;
+  border-radius: 5px;
 }
 
 .check_v3 {
   .ant-checkbox {
     + span {
-      @extend %text2;
+      @extend %text1;
     }
   }
 
@@ -704,10 +725,11 @@ $spinner_time: 1s;
 
 .input-icon {
   position: absolute;
-  transform: translateY(-50%);
+  transform: translateY(-9px);
   top: 50%;
   bottom: 0;
-  right: 20px;
+  right: 12px;
+  height: 18px;
   z-index: 1;
   pointer-events: all;
 
@@ -741,7 +763,7 @@ $spinner_time: 1s;
     @extend .ant-input;
     @extend .custom_placeholder.ant-input;
     transform: none;
-    height: 70px;
+    height: 60px;
   }
 }
 

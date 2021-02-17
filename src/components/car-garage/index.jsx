@@ -289,7 +289,7 @@ class CarGarage extends Component {
                             return <Col span={12}>
                                 <Link to={"/car"} className="kasko-car-select _garage">
                                     <div className="kasko-car-select__description">
-                                        <div className="kasko-car-select__controls">
+                                        <div className="kasko-car-select__controls mb_10">
                                             <span className="gl_link color_black kasko-car-select__controls--toggle">
                                                 <span>{c.carMark} {c.carModel}</span>
                                             </span>
@@ -306,7 +306,7 @@ class CarGarage extends Component {
 
                                     <ul className="kasko-car-info__status">
                                         <li className={"kasko-car-info__status--item " + c.options.credit}>Кредит</li>
-                                        <li className={"kasko-car-info__status--item " + c.options.osago}>Е-ОСАГО</li>
+                                        <li className={"kasko-car-info__status--item " + c.options.osago}>е-ОСАГО</li>
                                         <li className={"kasko-car-info__status--item " + c.options.kasko}>КАСКО</li>
                                     </ul>
                                 </Link>

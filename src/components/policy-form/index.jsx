@@ -286,7 +286,7 @@ class PolicyForm extends Component {
         }
 
         let carNonCreditList = [{
-            name: 'Е-ОСАГО',
+            name: 'е-ОСАГО',
             price: 10456,
             button: 'Рассчитать',
             link: '/osago',
@@ -355,7 +355,7 @@ class PolicyForm extends Component {
                 suffix: '₽/мес'
             },
             {
-                name: 'Е-ОСАГО',
+                name: 'е-ОСАГО',
                 price: 10410,
                 button: 'Рассчитать',
                 href: '/osago',

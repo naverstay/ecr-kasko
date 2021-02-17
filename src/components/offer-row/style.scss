@@ -3,6 +3,7 @@
 .offer-row {
 
   &__documents {
+    font-size: 12px;
     position: relative;
     z-index: 2;
   }
@@ -13,10 +14,10 @@
 
   &__bill {
     font-size: 12px;
-    position: absolute;
-    top: 100%;
+    //position: absolute;
+    //top: 100%;
+    //left: 0;
     margin-top: 5px;
-    left: 0;
     color: $color-grey;
   }
 
@@ -56,16 +57,18 @@
   }
 
   &__check {
+    opacity: 0;
+
     .ant-checkbox-input {
-      width: 62vw;
-      left: -59vw;
-      top: -15px;
-      height: 53px;
+      width: 46vw;
+      left: -41vw;
+      top: -35px;
+      height: 86px;
     }
   }
 
   &__name {
-    @extend %text2;
+    @extend %text1;
     text-align: left;
     white-space: nowrap;
     overflow: hidden;
@@ -88,6 +91,11 @@
   }
 
   &__option {
+
+    &-dash {
+      text-decoration: underline;
+    }
+
     &-title {
       font-weight: bold;
       font-size: 12px;
@@ -100,8 +108,10 @@
       justify-content: space-between;
 
       span {
-        font-size: 10px;
-        line-height: 18px;
+
+        &:last-child {
+          padding-right: 17px;
+        }
       }
     }
   }
@@ -109,7 +119,7 @@
   &__options {
     list-style-type: none;
     padding: 0;
-    margin: 5px -20px 5px 0;
+    margin: -7px 5px 0 0;
     text-align: left;
     column-count: 2;
     column-gap: 2em;
@@ -120,7 +130,11 @@
       justify-content: space-between;
 
       > li {
-        flex: 1;
+        flex: 0 1 auto;
+
+        &:first-child {
+          width: 60%;
+        }
       }
     }
 
@@ -128,7 +142,7 @@
       @extend %text2;
       position: relative;
       padding-left: 10px;
-      padding-right: 20px;
+      padding-right: 5px;
       margin-bottom: 4px;
 
       &:before {
@@ -205,18 +219,24 @@
     }
   }
 
+  &__caption {
+    font-weight: 500;
+    font-size: 20px;
+    line-height: 23px;
+  }
+
   &__letter {
     border-radius: 100%;
     text-align: center;
-    width: 25px;
-    height: 25px;
-    font-size: 14px;
+    width: 30px;
+    height: 30px;
+    font-size: 15px;
     font-weight: 700;
-    line-height: 25px;
+    line-height: 30px;
     color: #fff;
     display: inline-block;
     vertical-align: middle;
-    margin-right: 10px;
+    margin-right: 15px;
 
     ~ span {
       display: inline-block;
@@ -264,7 +284,6 @@
     display: inline-block;
     vertical-align: middle;
     margin-left: 7px;
-    margin-top: -2px;
     width: 15px;
     height: 15px;
 
@@ -284,7 +303,7 @@
     cursor: pointer;
     width: 20px;
     height: 35px;
-    margin: 0 -10px;
+    margin: 0 -22px;
 
     &:before {
       transition: transform .3s;
@@ -296,20 +315,20 @@
       text-align: center;
       top: 50%;
       color: #000;
-      font-size: 16px;
+      font-size: 20px;
       line-height: 1;
       transform: translate(0, -50%) rotate(0deg);
     }
 
     .expanded & {
       &:before {
-        transform: translate(0, -50%) rotate(-90deg);
+        transform: translate(0, -50%) rotate(90deg);
       }
     }
   }
 
   &__fee {
-    @extend %text2;
+    @extend %text1;
     color: $color-grey;
 
     p {
@@ -323,9 +342,10 @@
   }
 
   &__price {
-    @extend %h2;
+    @extend %h1;
     white-space: nowrap;
     position: relative;
+    margin-bottom: 5px;
 
     &-megashare {
       position: absolute;

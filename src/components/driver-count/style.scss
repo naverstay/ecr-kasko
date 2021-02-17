@@ -2,10 +2,9 @@
 
 .driver-count {
 
-
   &__index {
-    font-size: 10px;
-    padding-left: 15px;
+    font-size: 12px;
+    padding-left: 8px;
 
     .ant-checkbox-checked + span & {
       color: #fff;

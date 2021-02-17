@@ -94,7 +94,7 @@
         float: right;
         padding-right: 27px;
         margin-right: 6px;
-        background: #deeefa;
+        background: $color-blue-light-light;
         position: relative;
 
         &:before {
@@ -104,7 +104,7 @@
           bottom: 0;
           border-left: 6px solid transparent;
           border-right: 6px solid transparent;
-          border-bottom: 6px solid #deeefa;
+          border-bottom: 6px solid $color-blue-light-light;
         }
       }
 

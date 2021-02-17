@@ -379,7 +379,7 @@ class CarSelect extends Component {
         }
 
         let carNonCreditList = [{
-            name: 'Е-ОСАГО',
+            name: 'е-ОСАГО',
             price: 10456,
             button: 'Рассчитать',
             link: '/osago',
@@ -448,7 +448,7 @@ class CarSelect extends Component {
                 suffix: '₽/мес'
             },
             {
-                name: 'Е-ОСАГО',
+                name: 'е-ОСАГО',
                 price: 10410,
                 button: 'Рассчитать',
                 href: '/osago',
@@ -575,7 +575,7 @@ class CarSelect extends Component {
                             :
                             <div className="kasko-car-select__description">
                                 <div className="kasko-car-select__description--link gl_link">В архив</div>
-                                <div className="kasko-car-select__controls">
+                                <div className="kasko-car-select__controls mb_10">
                                     <span onClick={this.toggleCarOptions} className={"gl_link color_black kasko-car-select__controls--toggle " + (this.state.showCarOptions || !collapseCarInfo ? 'expanded' : 'collapsed')}>
                                         <span>Mazda CX-5</span> <span className="kasko-car-select__controls--equipment">2.0 MPI - 6AT</span>
                                     </span>
@@ -805,18 +805,18 @@ class CarSelect extends Component {
                                         <Row
                                             className="kasko-car-select__controls kasko-car-select__controls--price radio_v2-2"
                                             gutter={20}>
-                                            <Col span={6} className="kasko-car-select__controls--credit">
+                                            <Col span={6} style={{height: '60px'}} className="kasko-car-select__controls--credit">
                                                 <Radio.Group
                                                     className={"w_100p " + (this.state.showAdditional ? "full_form" : "short_form")}
                                                     onChange={this.onCarCreditChange}>
                                                     <Row gutter={20}>
-                                                        <Col span={12}>
+                                                        <Col>
                                                             <Radio
                                                                 disabled={this.state.allowPayment ? null : "disabled"}
                                                                 checked={this.state.carCredit ? "checked" : ""}
                                                                 value={1}>В кредит</Radio>
                                                         </Col>
-                                                        <Col span={12} className={"ant-col-mla"}>
+                                                        <Col className={"ant-col-mla"}>
                                                             <Radio
                                                                 disabled={this.state.allowPayment ? null : "disabled"}
                                                                 checked={!this.state.carCredit ? "checked" : ""}
@@ -906,7 +906,7 @@ class CarSelect extends Component {
                 {/*					suffix: '₽/мес'*/}
                 {/*				},*/}
                 {/*				{*/}
-                {/*					name: 'Е-ОСАГО',*/}
+                {/*					name: 'е-ОСАГО',*/}
                 {/*					price: 0,*/}
                 {/*					button: 'Рассчитать',*/}
                 {/*					prefix: 'от',*/}

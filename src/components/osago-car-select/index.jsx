@@ -267,7 +267,7 @@ class OsagoCarSelect extends Component {
         }
 
         let carNonCreditList = [{
-            name: 'Е-ОСАГО',
+            name: 'е-ОСАГО',
             price: 10456,
             button: 'Рассчитать',
             link: '/osago',
@@ -336,7 +336,7 @@ class OsagoCarSelect extends Component {
                 suffix: '₽/мес'
             },
             {
-                name: 'Е-ОСАГО',
+                name: 'е-ОСАГО',
                 price: 10410,
                 button: 'Рассчитать',
                 href: '/osago',
@@ -654,7 +654,7 @@ class OsagoCarSelect extends Component {
                 {/*					suffix: '₽/мес'*/}
                 {/*				},*/}
                 {/*				{*/}
-                {/*					name: 'Е-ОСАГО',*/}
+                {/*					name: 'е-ОСАГО',*/}
                 {/*					price: 0,*/}
                 {/*					button: 'Рассчитать',*/}
                 {/*					prefix: 'от',*/}

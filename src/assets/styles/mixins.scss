@@ -19,8 +19,8 @@
 %h3 {
   font-style: normal;
   font-weight: 500;
-  font-size: 16px;
-  line-height: 19px;
+  font-size: 20px;
+  line-height: 23px;
   color: #000;
 }
 
@@ -35,7 +35,7 @@
 %text1 {
   font-style: normal;
   font-weight: normal;
-  font-size: 14px;
+  font-size: 15px;
   line-height: 18px;
   color: #000;
 }
@@ -185,7 +185,7 @@
   }
 
   .ant-radio-inner {
-    border-radius: 15px;
+    border-radius: 20px;
     position: absolute;
     top: 0;
     bottom: 0;
@@ -205,7 +205,7 @@
     display: inline-block;
     vertical-align: top;
     position: relative;
-    padding: 8px 15px;
+    padding: 11px 15px;
     margin-right: 0;
 
     &:hover {
@@ -290,7 +290,7 @@
     padding: 8px 5px;
     margin-right: 0;
     height: 60px;
-    width: 70px;
+    width: 60px;
 
     &:hover {
       .ant-checkbox-inner {
@@ -310,7 +310,7 @@
 
 %radio_v3 {
   $checkbox-color: $color-blue-light;
-  $checkbox-grey: $color-grey-dark;
+  $checkbox-grey: $color-grey;
 
   .ant-radio-input {
     position: absolute;
@@ -349,7 +349,7 @@
 
     &:not(.ant-radio-checked) {
       + span {
-        color: #000;
+        color: $color-grey;
       }
     }
   }
@@ -377,8 +377,8 @@
     position: relative;
     padding: 8px 5px;
     margin-right: 0;
-    height: 70px;
-    width: 70px;
+    height: 60px;
+    width: 60px;
     margin-top: 0;
 
     &:hover {
@@ -517,7 +517,8 @@
     }
 
     + span {
-      @extend %text2;
+      @extend %text1;
+
       padding: 0;
     }
 
@@ -549,7 +550,7 @@
     display: inline-block;
     vertical-align: top;
     position: relative;
-    padding: 8px 15px;
+    padding: 10px 15px 11px;
     margin-right: 0;
 
     &:hover {

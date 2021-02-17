@@ -140,7 +140,6 @@ class OfferRowEosago extends Component {
                 for (let j = 0; j < opt.list.length; j++) {
                     let item = opt.list[j];
                     items.push(<li key={j}>{item}</li>);
-                    console.log('item', item);
                 }
             }
 
@@ -148,10 +147,9 @@ class OfferRowEosago extends Component {
                 for (let j = 0; j < opt.params.length; j++) {
                     let item = opt.params[j];
                     items.push(<li key={j} className={'offer-row__option-params __no-dot'}>
-                        <span dangerouslySetInnerHTML={{__html: `${item.name}`}}/>
+                        <span className={"offer-row__option-dash"} dangerouslySetInnerHTML={{__html: `${item.name}`}}/>
                         <span>{item.value}</span>
                     </li>);
-                    console.log('item', item);
                 }
             }
 
@@ -173,7 +171,7 @@ class OfferRowEosago extends Component {
                                 <tr key={i}>
                                     <td className="" colSpan={2}>
                                         <div className="offer-row__name text_center">
-                                            Клиент отказался от страхования Е-ОСАГО
+                                            Клиент отказался от страхования е-ОСАГО
                                         </div>
                                     </td>
                                 </tr>
@@ -186,10 +184,10 @@ class OfferRowEosago extends Component {
                                             {fillColor ? <span className={"offer-row__letter"}
                                                                style={{background: fillColor}}>{capLetter}</span> : null}
 
-                                            <span dangerouslySetInnerHTML={{__html: `${name}`}}/>
+                                            <span className={"offer-row__caption"} dangerouslySetInnerHTML={{__html: `${name}`}}/>
                                             {o.disableCashierPayment ?
                                                 <Tooltip overlayClassName="tooltip_v1" placement="top"
-                                                         title="Оплата е-Е-ОСАГО в кассу дилера для этой СК недоступна.
+                                                         title="Оплата е-е-ОСАГО в кассу дилера для этой СК недоступна.
 Возможна только онлайн оплата на сайте СК.">
                                                     <span className={"offer-row__info"}/>
                                                 </Tooltip>
@@ -208,7 +206,7 @@ class OfferRowEosago extends Component {
 
                                     {declined ?
                                         <>
-                                            <td className="calculation-offers__table--col-5" colSpan={2}>
+                                            <td className="calculation-offers__table--col-5 wide" colSpan={2}>
                                                 <div className="offer-row__name text_right">
                                                     <span>Нет предложений</span>
                                                     <Tooltip overlayClassName="tooltip_v1" placement="top"
@@ -250,7 +248,7 @@ class OfferRowEosago extends Component {
 
                                             {(completed || waiting) ?
                                                 <>
-                                                    <td className={'calculation-offers__table--col-6'}>
+                                                    <td className={'calculation-offers__table--col-6 wide'}>
                                                         <div
                                                             className={"offer-row__status " + (completed ? "approved" : "waiting")}/>
                                                     </td>
@@ -264,9 +262,9 @@ class OfferRowEosago extends Component {
                                                         </td>
                                                         : null
                                                     }
-                                                    <td className={'calculation-offers__table--col-6'}>
+                                                    <td className={'calculation-offers__table--col-6 small'}>
                                                         <ReactComment
-                                                            text={'ecr-kasko/src/components/offer-row-combo/index.jsx' + name + ' o.selected ' + o.selected}/>
+                                                            text={'ecr-kasko/src/components/offer-row-combo/index.jsx ' + name + ' selected ' + o.selected}/>
 
                                                         <Checkbox disabled={((allowCheck || osago) ? null : "disabled")}
                                                                   checked={o.selected ? "checked" : null}
@@ -289,7 +287,7 @@ class OfferRowEosago extends Component {
                                     className={'info_row ' + (offerSelected ? "selected" : "") + (lastRow ? ' last-row' : '')}>
                                     <td>&nbsp;</td>
                                     <td colSpan={((completed || waiting) ? 4 : 4)}>
-                                        {/*<p className="text_left" style={{marginBottom: '15px'}}>Условия Е-ОСАГО:</p>*/}
+                                        {/*<p className="text_left" style={{marginBottom: '15px'}}>Условия е-ОСАГО:</p>*/}
 
                                         <ul className={"offer-row__options" + (o.options.length && (typeof o.options[0] !== 'string') ? ' __no-cols' : '')}>
                                             {o.options.map((opt, k) => {

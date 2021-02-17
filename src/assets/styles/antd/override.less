@@ -4,15 +4,19 @@
 // An override for the html selector for theme prefixes
 @html-selector: html;
 
+//@theme: #228b22;
+@theme: #7EBFED;
+
 // -------- Colors -----------
-@primary-color: #228b22;
+@primary-color: @theme;
 @info-color: @primary-color;
-@success-color: #228b22;
-@processing-color: #228b22;
+@success-color: @theme;
+@processing-color: @theme;
 @error-color: @red-5;
 @highlight-color: @red-5;
 @warning-color: @gold-6;
-@normal-color: #d9d9d9;
+//@normal-color: #d9d9d9;
+@normal-color: #B5B5B5;
 @white: #fff;
 @black: #000;
 
@@ -64,7 +68,8 @@
 @heading-4-size: ceil(@font-size-base * 1.42);
 // https://github.com/ant-design/ant-design/issues/20210
 @line-height-base: 1;
-@border-radius-base: 2px;
+//@border-radius-base: 2px;
+@border-radius-base: 5px;
 @border-radius-sm: @border-radius-base;
 
 // vertical paddings
@@ -86,9 +91,9 @@
 @margin-xss: 4px; // more small
 
 // height rules
-@height-base: 44px;
-@height-lg: 54px;
-@height-sm: 30px;
+@height-base: 60px;
+@height-lg: 46px;
+@height-sm: 40px;
 
 // The background colors for active and hover states for things like
 // list items or table cells.
@@ -148,16 +153,11 @@
 @shadow-color: rgba(0, 0, 0, 0.15);
 @shadow-color-inverse: @component-background;
 @box-shadow-base: @shadow-2;
-@shadow-1-up: 0 -6px 16px -8px rgba(0, 0, 0, 0.08), 0 -9px 28px 0 rgba(0, 0, 0, 0.05),
-    0 -12px 48px 16px rgba(0, 0, 0, 0.03);
-@shadow-1-down: 0 6px 16px -8px rgba(0, 0, 0, 0.08), 0 9px 28px 0 rgba(0, 0, 0, 0.05),
-0 12px 48px 16px rgba(0, 0, 0, 0.03);
-@shadow-1-left: -6px 0 16px -8px rgba(0, 0, 0, 0.08), -9px 0 28px 0 rgba(0, 0, 0, 0.05),
--12px 0 48px 16px rgba(0, 0, 0, 0.03);
-@shadow-1-right: 6px 0 16px -8px rgba(0, 0, 0, 0.08), 9px 0 28px 0 rgba(0, 0, 0, 0.05),
-12px 0 48px 16px rgba(0, 0, 0, 0.03);
-@shadow-2: 0 3px 6px -4px rgba(0, 0, 0, 0.12), 0 6px 16px 0 rgba(0, 0, 0, 0.08),
-0 9px 28px 8px rgba(0, 0, 0, 0.05);
+@shadow-1-up: 0 -6px 16px -8px rgba(0, 0, 0, 0.08), 0 -9px 28px 0 rgba(0, 0, 0, 0.05), 0 -12px 48px 16px rgba(0, 0, 0, 0.03);
+@shadow-1-down: 0 6px 16px -8px rgba(0, 0, 0, 0.08), 0 9px 28px 0 rgba(0, 0, 0, 0.05), 0 12px 48px 16px rgba(0, 0, 0, 0.03);
+@shadow-1-left: -6px 0 16px -8px rgba(0, 0, 0, 0.08), -9px 0 28px 0 rgba(0, 0, 0, 0.05), -12px 0 48px 16px rgba(0, 0, 0, 0.03);
+@shadow-1-right: 6px 0 16px -8px rgba(0, 0, 0, 0.08), 9px 0 28px 0 rgba(0, 0, 0, 0.05), 12px 0 48px 16px rgba(0, 0, 0, 0.03);
+@shadow-2: 0 3px 6px -4px rgba(0, 0, 0, 0.12), 0 6px 16px 0 rgba(0, 0, 0, 0.08), 0 9px 28px 8px rgba(0, 0, 0, 0.05);
 
 // Buttons
 @btn-font-weight: 400;
@@ -181,7 +181,7 @@
 @btn-danger-border: @error-color;
 
 @btn-disable-color: rgba(255, 255, 255, 0.87);
-@btn-disable-bg: rgba(34, 139, 34, .3);
+@btn-disable-bg: rgba(126, 191, 237, 0.3);
 @btn-disable-border: rgba(34, 139, 34, .03);
 
 @btn-default-ghost-color: @component-background;
@@ -364,13 +364,9 @@
 @input-padding-horizontal-base: @input-padding-horizontal;
 @input-padding-horizontal-sm: @control-padding-horizontal-sm - 1px;
 @input-padding-horizontal-lg: @input-padding-horizontal;
-@input-padding-vertical-base: max(round((@input-height-base - @font-size-base * @line-height-base) / 2 * 10) / 10 -
-    @border-width-base,
-3px);
-@input-padding-vertical-sm: max(round((@input-height-sm - @font-size-base * @line-height-base) / 2 * 10) / 10 - @border-width-base,
-0);
-@input-padding-vertical-lg: ceil((@input-height-lg - @font-size-lg * @line-height-base) / 2 * 10) /
-  10 - @border-width-base;
+@input-padding-vertical-base: max(round((@input-height-base - @font-size-base * @line-height-base) / 2 * 10) / 10 - @border-width-base, 3px);
+@input-padding-vertical-sm: max(round((@input-height-sm - @font-size-base * @line-height-base) / 2 * 10) / 10 - @border-width-base, 0);
+@input-padding-vertical-lg: ceil((@input-height-lg - @font-size-lg * @line-height-base) / 2 * 10) / 10 - @border-width-base;
 @input-placeholder-color: hsv(0, 0, 75%);
 @input-color: @text-color;
 @input-icon-color: @input-color;

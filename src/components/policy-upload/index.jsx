@@ -68,7 +68,7 @@ class PolicyUpload extends Component {
 
                             {osago ?
                                 <li className="client-questionnaire__faq--item">
-                                    <div className="client-questionnaire__faq--title">Полис Е-ОСАГО</div>
+                                    <div className="client-questionnaire__faq--title">Полис е-ОСАГО</div>
                                     <p>Требуется скан полиса с двух сторон</p>
                                 </li>
                                 : null

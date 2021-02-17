@@ -69,23 +69,23 @@ class DriverCount extends Component {
             <div className={"w_100p"}>
                 <Row gutter={20} className={"kasko-car-select__controls check_v2 __large " + (className || '')}>
                     <Col className={"popup-visible"} span={3}/>
-                    <Col span={18}>
-                        <Row className={""} gutter={20}>
+                    <Col className={"mb_0"} span={24}>
+                        <Row className={"ant-row-last-right"} gutter={20}>
                             {
                                 driverOptions.length ? driverOptions.map((c, i) =>
-                                    <Col span={size || null} key={i}>
+                                    <Col span={size || ''} key={i}>
                                         <Checkbox
                                             onChange={this.onDriverOptionsChange}
                                             className={'w_100p text_center'}
                                             checked={this.state.checkedList.indexOf(c) > -1}
                                             value={c}>{c}
-                                            <span className="driver-count__index">КБМ={i + 1}</span>
+                                            <span className="driver-count__index">0,95</span>
                                         </Checkbox>
                                     </Col>
                                 ) : null
                             }
                             {
-                                <Col span={size || null} key={driverOptions.length}>
+                                <Col span={size || ''} key={driverOptions.length}>
                                     <Tooltip overlayClassName="tooltip_v1" placement="top"
                                              title="Неограниченное количество водителей">
                                         <Checkbox
@@ -96,12 +96,15 @@ class DriverCount extends Component {
                                     </Tooltip>
                                 </Col>
                             }
-                            {children}
                         </Row>
                     </Col>
+                </Row>
+                <Row gutter={20} className={"kasko-car-select__controls check_v2 __large mb_25 " + (className || '')}>
+                    {children}
+
                     {extraData ?
                         this.state.showExtraData ? null :
-                            <Col span={3} className="kasko-car-select__additional _inactive">
+                            <Col className="kasko-car-select__additional _inactive ant-col-mla">
                                 <div className="gl_link"
                                      onClick={this.toggleExtraData}
                                 >Дополнительно
@@ -113,32 +116,32 @@ class DriverCount extends Component {
                 {this.state.showExtraData ?
                     <>
                         <Row className="kasko-car-select__controls" gutter={20}>
-                            <FormInput span={6} onChangeCallback={this.formControlCallback}
+                            <FormInput span={8} onChangeCallback={this.formControlCallback}
                                        placeholder="Цель использования"
                                        disabled={true}
                                        controlName={'carMileage'} value={this.state.carUsagePurpose}/>
                             <FormCheckbox onChangeCallback={this.formControlCallback}
+                                          span={8}
                                           text="Используется прицеп"
                                           className="checkbox_middle check_v3"
-                                          value={1} span={6}
+                                          value={1}
                                           disabled={true}
                                           controlName={'trailerUsage'}
                                           checked={this.state.trailerUsage}/>
                             <FormCheckbox onChangeCallback={this.formControlCallback}
+                                          span={8}
                                           text="Сдается в аренду"
                                           className="checkbox_middle check_v3"
-                                          value={1} span={6}
+                                          value={1}
                                           disabled={true}
                                           controlName={'rentUsage'}
                                           checked={this.state.rentUsage}/>
 
                         </Row>
-                        <Row className="kasko-car-select__controls" gutter={20}>
-                            <Col span={3}
-                                 className="kasko-car-select__additional _inactive text_right ant-col-push-18">
+                        <Row className="kasko-car-select__controls mb_40" gutter={20}>
+                            <Col className="kasko-car-select__additional _inactive text_right ant-col-mla">
                                 <div className="gl_link" onClick={this.toggleExtraData}
-                                >Скрыть
-                                </div>
+                                >Скрыть</div>
                             </Col>
                         </Row>
                     </>

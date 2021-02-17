@@ -27,15 +27,16 @@ class PaymentSwitch extends Component {
         const {paymentStep, allowPayment} = this.props
 
         return (
-            <div className="payment-switch">
+            <div className="payment-switch text_right">
                 <Tooltip overlayClassName="tooltip_v1" placement="top" title="Оплатить на сайте страховой компании">
-                    <Button onClick={this.togglePaymentOptions}
-                            className={"payment-switch__label ant-btn w_100p btn_green" + (allowPayment ? "" : " disabled")}
-                    >Оплатить онлайн</Button>
+                    {/*<Button onClick={this.togglePaymentOptions}*/}
+                    {/*        className={"payment-switch__label ant-btn w_100p btn_green" + (allowPayment ? "" : " disabled")}*/}
+                    {/*>Оплатить онлайн</Button>*/}
+                    <span onClick={this.togglePaymentOptions} className={"gl_link" + (allowPayment ? "" : " disabled")}>Оплатить онлайн</span>
                 </Tooltip>
                 {
                     (allowPayment && this.state.showPaymentOptions) ?
-                        <div className="payment-switch__dropdown">
+                        <div className="payment-switch__dropdown text_left">
                             <p>Отправить ссылку на оплату:</p>
                             <ul className="payment-switch__options">
                                 <li className="payment-switch__options--item">

@@ -19,7 +19,7 @@ class InsurancePolicy extends Component {
                     <thead>
                     <tr>
                         <th className="insurance-policy__table--col-1">Фамилия имя отчество</th>
-                        <th className="insurance-policy__table--col-2">Е-ОСАГО</th>
+                        <th className="insurance-policy__table--col-2">е-ОСАГО</th>
                         <th className={"insurance-policy__table--col-3" + (disableKasko ? " __disabled" : "")}>КАСКО</th>
                         {/*<th className="insurance-policy__table--col-4">&nbsp;</th>*/}
                     </tr>

@@ -268,7 +268,7 @@ class KaskoCarSelect extends Component {
         console.log('carList', carList);
 
         let carNonCreditList = [{
-            name: 'Е-ОСАГО',
+            name: 'е-ОСАГО',
             price: 10456,
             button: 'Рассчитать',
             link: '/osago',
@@ -337,7 +337,7 @@ class KaskoCarSelect extends Component {
                 suffix: '₽/мес'
             },
             {
-                name: 'Е-ОСАГО',
+                name: 'е-ОСАГО',
                 price: 10410,
                 button: 'Рассчитать',
                 href: '/osago',
@@ -633,7 +633,7 @@ class KaskoCarSelect extends Component {
                 {/*					suffix: '₽/мес'*/}
                 {/*				},*/}
                 {/*				{*/}
-                {/*					name: 'Е-ОСАГО',*/}
+                {/*					name: 'е-ОСАГО',*/}
                 {/*					price: 0,*/}
                 {/*					button: 'Рассчитать',*/}
                 {/*					prefix: 'от',*/}

@@ -269,7 +269,7 @@ class CalculationPopup extends Component {
                 <Row className="kasko-car-select__controls ant-row-center mb_30" gutter={20}>
                     <FormInput span={6} onChangeCallback={this.formControlCallback}
                                inputmask={dateFormatMask}
-                               placeholder={"Дата начала действия \n нового полиса Е-ОСАГО"}
+                               placeholder={"Дата начала действия \n нового полиса е-ОСАГО"}
                                controlName={'carOsagoDocStart'} value={(this.state.carOsagoDocStart)}/>
                 </Row>
 
