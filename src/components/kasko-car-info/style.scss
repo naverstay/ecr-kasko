@@ -3,6 +3,8 @@
 .kasko-car-info {
   color: #000;
   position: relative;
+  margin-left: -5px;
+  margin-right: -5px;
 
   ._inactive {
     color: $color-grey;
@@ -52,7 +54,6 @@
 
   &__image {
     width: 100%;
-    margin: 20px 0;
     line-height: 115px;
 
     img {
@@ -69,24 +70,25 @@
 
   &__name {
     max-width: 110px;
-    font-weight: bold;
-    font-size: 14px;
+    font-weight: 500;
+    font-size: 15px;
     line-height: 18px;
     white-space: pre-line
   }
 
   &__info {
-    margin-top: 8px;
+    margin-top: 10px;
     font-size: 12px;
     line-height: 14px;
   }
 
   &__status {
     display: flex;
-    flex-flow: row;
-    margin-left: -5px;
+    flex-flow: row wrap;
+    margin-left: -17px;
+    margin-bottom: -13px;
     padding: 0;
-    justify-content: space-between;
+    justify-content: flex-start;
 
     .kasko-car-select & {
       justify-content: center;
@@ -94,13 +96,13 @@
     }
 
     &--item {
-      @extend %text3;
-      margin-top: 12px;
-      padding-left: 16px;
-      margin-left: 5px;
+      @extend %text2;
+      padding-left: 30px;
+      margin: 7px 0 15px 17px;
       display: inline-block;
       vertical-align: top;
       position: relative;
+      white-space: nowrap;
 
       &:before {
         content: '';
@@ -108,8 +110,8 @@
         border-radius: 100%;
         top: -2px;
         left: -1px;
-        width: 14px;
-        height: 14px;
+        width: 20px;
+        height: 20px;
         border: 1px solid $color-grey-dark;
       }
 

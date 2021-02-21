@@ -203,6 +203,10 @@
       &.wide {
         width: 30%;
       }
+
+      &.large {
+        width: 35%;
+      }
     }
 
     &--col-6 {
@@ -323,9 +327,13 @@
 
     tbody {
       tr {
-        border: 1px solid $color-blue-light;
+        border: 1px solid $color-grey-dark;
         border-radius: 5px;
         overflow: hidden;
+
+        &.selected {
+          border: 1px solid $color-blue-light;
+        }
       }
 
       td {

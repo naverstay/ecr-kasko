@@ -184,13 +184,14 @@ class OfferRowEosago extends Component {
                                             {fillColor ? <span className={"offer-row__letter"}
                                                                style={{background: fillColor}}>{capLetter}</span> : null}
 
-                                            <span className={"offer-row__caption"} dangerouslySetInnerHTML={{__html: `${name}`}}/>
+                                            <span className={"offer-row__caption"}
+                                                  dangerouslySetInnerHTML={{__html: `${name}`}}/>
                                             {o.disableCashierPayment ?
-                                                <Tooltip overlayClassName="tooltip_v1" placement="top"
-                                                         title="Оплата е-е-ОСАГО в кассу дилера для этой СК недоступна.
-Возможна только онлайн оплата на сайте СК.">
-                                                    <span className={"offer-row__info"}/>
-                                                </Tooltip>
+                                                <>
+                                                    {/*<Tooltip overlayClassName="tooltip_v1" placement="top" title="Оплата е-е-ОСАГО в кассу дилера для этой СК недоступна. Возможна только онлайн оплата на сайте СК.">*/}
+                                                    {/*    <span className={"offer-row__info"}/>*/}
+                                                    {/*</Tooltip>*/}
+                                                </>
                                                 : null}
                                         </div> : null}
                                     </td>
@@ -206,16 +207,21 @@ class OfferRowEosago extends Component {
 
                                     {declined ?
                                         <>
-                                            <td className="calculation-offers__table--col-5 wide" colSpan={2}>
+                                            <td className="calculation-offers__table--col-5 large">
                                                 <div className="offer-row__name text_right">
-                                                    <span>Нет предложений</span>
+                                                    <span className={"fz_14 fw_500"}>Нет предложений</span>
                                                     <Tooltip overlayClassName="tooltip_v1" placement="top"
                                                              title="Клиент в зоне риска. Страхование запрещено">
                                                         <span className={"offer-row__info"}/>
                                                     </Tooltip>
                                                 </div>
                                             </td>
-                                            <td colSpan={2}>&nbsp;</td>
+                                            <td className={'calculation-offers__table--col-6 small'}>&nbsp;</td>
+                                            <td className={'calculation-offers__table--col-6'}>
+                                                {'options' in o && o.options.length ?
+                                                    <div onClick={() => this.addOptionFlag(i)}
+                                                         className="offer-row__link"/> : <>&nbsp;</>}
+                                            </td>
                                         </>
                                         :
                                         <>
@@ -282,7 +288,7 @@ class OfferRowEosago extends Component {
                                         </>}
                                 </tr>
                             }
-                            {!declined && showOptions && 'options' in o && o.options.length ?
+                            {showOptions && 'options' in o && o.options.length ?
                                 <tr key={i + 100000}
                                     className={'info_row ' + (offerSelected ? "selected" : "") + (lastRow ? ' last-row' : '')}>
                                     <td>&nbsp;</td>

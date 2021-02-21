@@ -804,12 +804,14 @@ class OfferSelect extends Component {
 
                                                     <DriverCount step={step} driverOptions={driverOptions}>
                                                         {step > 1 || this.state.showCalculationOffers ?
-                                                            <Col>
-                                                                <div className="kasko-offer__more">
-																		<span onClick={this.toggleCalculationPopup}
-                                                                              className="gl_link">Анкета КАСКО</span>
-                                                                </div>
-                                                            </Col>
+                                                            <>
+                                                            {/*<Col>*/}
+                                                            {/*    <div className="kasko-offer__more">*/}
+															{/*			<span onClick={this.toggleCalculationPopup}*/}
+                                                            {/*                  className="gl_link">Анкета КАСКО</span>*/}
+                                                            {/*    </div>*/}
+                                                            {/*</Col>*/}
+                                                            </>
                                                             : null}
                                                     </DriverCount>
 

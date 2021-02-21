@@ -20,10 +20,11 @@
     line-height: 14px;
     position: relative;
     padding: 8px 11px;
-    margin-right: 20px;
+    margin-right: 5px;
     cursor: pointer;
     display: inline-block;
     vertical-align: top;
+    letter-spacing: .05em;
 
     &:before {
       transition: transform .25s;
@@ -53,10 +54,10 @@
   }
 
   &__status {
-    @extend %text2;
+    @extend %text3;
     border-radius: 9px;
-    padding: 1px 7px;
-    min-width: 75px;
+    padding: 1px 9px;
+    //min-width: 75px;
     margin-right: -6px;
     text-align: center;
 
@@ -245,7 +246,7 @@
     display: flex;
     flex-flow: row nowrap;
     padding: 0;
-    margin: 30px -3px -9px -8px;
+    margin: 38px -3px -9px -8px;
     list-style: none;
 
     &--unit {
@@ -253,11 +254,11 @@
       height: 5px;
       position: relative;
       flex: 1 0 25%;
-      background: $color-grey-light;
+      background: #fff;
       color: #808080;
 
       span {
-        @extend %text3;
+        @extend %text2;
         position: absolute;
         bottom: 100%;
         margin-bottom: 2px;
@@ -288,12 +289,24 @@
         background: $color-grey;
       }
     }
+
+    &--wrapper {
+      position: relative;
+    }
+
+    &--price {
+      @extend %text1;
+      position: absolute;
+      font-weight: 500;
+      right: -6px;
+      top: -18px;
+    }
   }
 
   &__price {
     list-style: none;
     padding: 0;
-    margin: 35px -5px 0;
+    margin: 28px -5px 0;
 
     li {
       display: flex;
@@ -312,7 +325,7 @@
     }
 
     &--label {
-      @extend %text3;
+      @extend %text1;
       width: 50%;
       padding-right: 10px;
       color: $color-grey;

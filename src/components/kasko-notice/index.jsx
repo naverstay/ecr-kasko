@@ -90,13 +90,16 @@ class KaskoNotice extends Component {
                     <div className={"kasko-notice" + (this.state.noticeOpened ? " open" : "")}>
                         <div className="kasko-notice__head">
                             <div className={"kasko-notice__caption offer" + (this.state.noticeOpened ? " open" : "")}
-                                 onClick={this.toggleOpened}>{(product).toUpperCase()}</div>
+                                 onClick={this.toggleOpened}>{(product)}</div>
                             {step > 1 ? <div
                                 className={"kasko-notice__status " + (statusClasses[consult ? 1 : status])}>{statusNames[consult ? 6 : status]}</div> : null}
                         </div>
-                        <ul className="kasko-notice__progress">
-                            {progressHtml}
-                        </ul>
+                        <div className="kasko-notice__progress--wrapper">
+                            <div className="kasko-notice__progress--price">11 450 ₽</div>
+                            <ul className="kasko-notice__progress">
+                                {progressHtml}
+                            </ul>
+                        </div>
                         {this.state.noticeOpened ?
                             credit ?
                                 <ul className={"kasko-notice__price"}>

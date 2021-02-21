@@ -78,16 +78,17 @@ class OfferRowCombo extends Component {
                                 <td className={'wnw ' + (lastRow ? '' : 'no-bdr-bottom')}>
                                     {i === 0 ? <div
                                         className={"offer-row__logo" + (info ? " info" : "")}>
-                                        {fillColor ? <span className={"offer-row__letter"} style={{background: fillColor}}>{capLetter}</span> : null }
+                                        {fillColor ? <span className={"offer-row__letter"}
+                                                           style={{background: fillColor}}>{capLetter}</span> : null}
 
                                         <span dangerouslySetInnerHTML={{__html: `${name}`}}/>
                                         {o.disableCashierPayment ?
-                                            <Tooltip overlayClassName="tooltip_v1" placement="top"
-                                                     title="Оплата е-е-ОСАГО в кассу дилера для этой СК недоступна.
-Возможна только онлайн оплата на сайте СК.">
-                                                <span className={"offer-row__info"}/>
-                                            </Tooltip>
-                                        : null}
+                                            <>
+                                                {/*<Tooltip overlayClassName="tooltip_v1" placement="top" title="Оплата е-е-ОСАГО в кассу дилера для этой СК недоступна. Возможна только онлайн оплата на сайте СК.">*/}
+                                                {/*    <span className={"offer-row__info"}/>*/}
+                                                {/*</Tooltip>*/}
+                                            </>
+                                            : null}
                                     </div> : null}
                                 </td>
                                 <td>
@@ -181,7 +182,8 @@ class OfferRowCombo extends Component {
                                             <td>&nbsp;</td>
                                         }
                                         <td>
-                                            <ReactComment text={'ecr-kasko/src/components/offer-row-combo/index.jsx ' + name + ' selected ' + o.selected}/>
+                                            <ReactComment
+                                                text={'ecr-kasko/src/components/offer-row-combo/index.jsx ' + name + ' selected ' + o.selected}/>
 
                                             <Checkbox disabled={((allowCheck || osago) ? null : "disabled")}
                                                       checked={o.selected ? "checked" : null}

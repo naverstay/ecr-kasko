@@ -41,21 +41,22 @@ class ConfirmationPopup extends Component {
                 <Row className="kasko-car-select__controls ant-row-center" gutter={20}>
                     {confirm ?
                         <>
-                            <Col span={attention ? 8 : 4}>
+                            <Col className={"text_center"} style={{lineHeight: '60px'}} span={4}>
                                 <div onClick={() => this.onPopupCancel()}
-                                     className={"ant-btn ant-btn-lg w_100p" + (attention ? ' btn-action' : ' btn_green')}>
+                                     className={"gl_link" + (attention ? ' btn-action' : ' btn_green')}>
                                     <span>{noBtn || 'Нет'}</span></div>
                             </Col>
                             <Col span={8}>
-                                <Button size={'large'} onClick={() => this.onPopupSubmit()}
+                                <Button onClick={() => this.onPopupSubmit()}
                                         className={"btn_middle ant-btn-primary"}
                                 >{yesBtn || 'Да'}</Button>
                             </Col>
-                            {attention ? null : <Col span={4}/>}
+                            <Col span={4}/>
                         </>
                         :
                         <Col span={8}>
-                            <Button size={'large'} onClick={() => this.onPopupSubmit()} className={"ant-btn-primary btn_middle"}
+                            <Button onClick={() => this.onPopupSubmit()}
+                                    className={"ant-btn-primary btn_middle"}
                             >{yesBtn || 'Да'}</Button>
                         </Col>
                     }

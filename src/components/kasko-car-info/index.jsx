@@ -30,7 +30,7 @@ class KaskoCarInfo extends Component {
 
                 {garage ? null :
                     <>
-                        <div className={"kasko-car-info__info _inactive"}>{info || 'Год выпуска'}</div>
+                        <div className={"kasko-car-info__info _inactive"}>{info || 'Год выпуска,  Состояние'}</div>
                         <div className={"kasko-car-info__info _inactive"}>{price || 'Стоимость'}</div>
                         <div className={"kasko-car-info__image" + (step === 1 ? " _inactive__" : "")}>
                             <img src={'./cars/' + image + '-s.png'} alt=""/>

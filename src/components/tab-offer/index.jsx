@@ -518,7 +518,7 @@ class TabOffer extends Component {
             </Row>
         </Checkbox.Group>
 
-        let driverOptions = ['Фомин Сергей М.', 'Фомина Марина И.'];
+        let driverOptions = [];
 
         let datePickerLocal = {
             "lang": {
@@ -573,11 +573,9 @@ class TabOffer extends Component {
             "monthFormat": "YYYY-MM"
         };
 
-        //if (step > 1 || this.state.showCalculationOffers) {
-        //    driverOptions = ['Фомин Сергей М.', 'Фомина Алла К.', 'Фомина Марина Ф.']
-        //} else if (eosago) {
-        //    driverOptions = ['Фомин Сергей М.', 'Фомина Марина И.']
-        //}
+        if (step > 1 || this.state.showCalculationOffers) {
+            driverOptions = ['Фомин Сергей М.', 'Фомина Алла К.', 'Фомина Марина Ф.']
+        }
 
         let franchiseSteps = {
             //10000 : '10 000',
@@ -1071,7 +1069,8 @@ class TabOffer extends Component {
                             type: 'е-ОСАГО',
                             document: 'СС 81234567',
                             credit: null,
-                            declined: true
+                            declined: true,
+                            options: optionsFixtures
                         }
                     ]
                 }
@@ -1311,7 +1310,7 @@ class TabOffer extends Component {
 
                     {(!osago || this.state.openParams) ?
                         <>
-                            <div className={"kasko-car-select__caption fz_15 clr_gray mb_0"}>Срок действия, месяцы</div>
+                            <div className={"kasko-car-select__label clr_gray mb_0"}>Срок действия, месяцы</div>
 
                             <Row gutter={20} style={{marginBottom: '-10px'}}
                                  className="kasko-car-select__controls radio_v3 kasko-car-select__controls--row_center">
@@ -1374,12 +1373,12 @@ class TabOffer extends Component {
                                 driverOptions={driverOptions}>
                                 {/*{step > 1 || this.state.showCalculationOffers ?*/}
 
-                                <Col>
-                                    <div className="kasko-offer__more">
-                                            <span onClick={this.toggleCalculationPopup}
-                                                  className="gl_link">Анкета КАСКО</span>
-                                    </div>
-                                </Col>
+                                {/*<Col>*/}
+                                {/*    <div className="kasko-offer__more">*/}
+                                {/*            <span onClick={this.toggleCalculationPopup}*/}
+                                {/*                  className="gl_link">Анкета КАСКО</span>*/}
+                                {/*    </div>*/}
+                                {/*</Col>*/}
 
                                 {/*: null}*/}
                             </DriverCount>

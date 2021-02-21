@@ -88,6 +88,11 @@
     }
   }
 
+  &__label {
+    font-size: 15px;
+    line-height: 18px;
+  }
+
   &__caption {
     @extend %h3;
     margin-bottom: 15px;

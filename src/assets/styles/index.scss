@@ -104,6 +104,13 @@ input {
   }
 }
 
+.ant-select.ant-select-open {
+  .ant-select-selector {
+    border-bottom-left-radius: 0;
+    border-bottom-right-radius: 0;
+  }
+}
+
 .ant-input.control-focused:not(.ant-input-disabled),
 .ant-select.control-focused:not(.ant-select-disabled) .ant-select-selector {
   border-color: #acdcfa !important;
@@ -295,8 +302,8 @@ $spinner_time: 1s;
 
 .ant-btn {
   //font-size: 15px;
-  padding-left: 10px;
-  padding-right: 10px;
+  padding-left: 5px;
+  padding-right: 5px;
 
   &.ant-btn-lg {
     padding-left: 5px;
@@ -440,6 +447,8 @@ $spinner_time: 1s;
 }
 
 .select_dropdown_v1 {
+  border-top-right-radius: 0;
+  border-top-left-radius: 0;
 
   &.popup {
     //z-index: 1051;

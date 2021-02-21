@@ -23,8 +23,7 @@ class KaskoUser extends Component {
                     className={"kasko-user__info _phone" + ((phone) ? "" : " _inactive")}>{phone || '+ _ (___) ___ -__-__'}</div>
                 <div
                     className={"kasko-user__info _small" + ((docs) ? "" : " _inactive")}>{docs || 'Анкета и документы'}</div>
-                <div
-                    className={"kasko-user__info _small" + ((trustees) ? "" : " _inactive")}>{trustees || 'Доверенные лица'}</div>
+                {/*<div className={"kasko-user__info _small" + ((trustees) ? "" : " _inactive")}>{trustees || 'Доверенные лица'}</div>*/}
                 <div
                     className={"kasko-user__info _small" + ((autos) ? "" : " _inactive")}>{autos || 'Автомобили клиента'}</div>
             </div>
