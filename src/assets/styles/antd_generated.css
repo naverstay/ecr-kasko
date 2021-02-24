@@ -22325,6 +22325,7 @@ span.ant-radio + * {
 .ant-select-single .ant-select-selector .ant-select-selection-item,
 .ant-select-single .ant-select-selector .ant-select-selection-placeholder {
     padding: 0;
+    font-size: 15px;
     line-height: 58px;
     transition: all 0.3s;
 }

@@ -158,7 +158,7 @@ class PolicyPopup extends Component {
                 {this.props.showTab ? null :
                     <Row gutter={20} className={"kasko-car-select__controls check_v2 ant-row-center align_center"}>
                         <FormCheckbox onChangeCallback={this.formControlCallback}
-                                      text="КАСКО"
+                                      text="е-КАСКО"
                                       className=""
                                       value={1}
                                       controlName={'showKasko'}
@@ -178,7 +178,7 @@ class PolicyPopup extends Component {
                         <Row gutter={20}>
                             <Col span={3}/>
                             <Col>
-                                <div className={"kasko-car-select__caption"}>Полис КАСКО</div>
+                                <div className={"kasko-car-select__caption"}>Полис е-КАСКО</div>
                             </Col>
                         </Row>
                         <PolicyForm/>

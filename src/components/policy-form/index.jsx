@@ -56,9 +56,9 @@ class PolicyForm extends Component {
                 'Тетта-Страхование'
             ],
             insuranceTaxList: [
-                'КАСКО базовый',
-                'КАСКО супер',
-                'КАСКО мега'
+                'е-КАСКО базовый',
+                'е-КАСКО супер',
+                'е-КАСКО мега'
             ],
             markList: [
                 "Hyundai",
@@ -294,7 +294,7 @@ class PolicyForm extends Component {
             suffix: '₽'
         },
             {
-                name: 'КАСКО',
+                name: 'е-КАСКО',
                 price: 10420,
                 button: 'Рассчитать',
                 link: '/kasko',
@@ -364,7 +364,7 @@ class PolicyForm extends Component {
                 suffix: '₽'
             },
             {
-                name: 'КАСКО',
+                name: 'е-КАСКО',
                 price: 10420,
                 button: 'Рассчитать',
                 href: '/kasko',
@@ -459,7 +459,7 @@ class PolicyForm extends Component {
 
                     <FormInput span={6} onChangeCallback={this.formControlCallback}
                                inputmask={dateFormatMask}
-                               placeholder={"Дата начала действия \n нового полиса КАСКО"}
+                               placeholder={"Дата начала действия \n нового полиса е-КАСКО"}
                                controlName={'carKaskoDocStart'} value={(this.state.carKaskoDocStart)}/>
 
                 </Row>

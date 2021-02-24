@@ -411,12 +411,12 @@ class KaskoCarSelectOsago extends Component {
                     {/*		   value={(this.state.carKaskoDoc)}*/}
                     {/*		   onChange={this.onCarKaskoDocChange}*/}
                     {/*		   defaultValue=""/>*/}
-                    {/*	<div className="float_placeholder">{'Номер действующего \n полиса КАСКО'}</div>*/}
+                    {/*	<div className="float_placeholder">{'Номер действующего \n полиса е-КАСКО'}</div>*/}
                     {/*</Col>*/}
 
                     <FormInput span={6} onChangeCallback={this.formControlCallback}
                                inputmask={dateFormatMask}
-                               placeholder={"Дата начала действия \n нового полиса КАСКО"}
+                               placeholder={"Дата начала действия \n нового полиса е-КАСКО"}
                         //placeholder={"Дата начала действия \n полиса"}
                                controlName={'carKaskoDocStart'} value={(this.state.carKaskoDocStart)}/>
                 </Row>
@@ -445,7 +445,7 @@ class KaskoCarSelectOsago extends Component {
                             suffix: '₽'
                         },
                         {
-                            name: 'КАСКО',
+                            name: 'е-КАСКО',
                             price: 10420,
                             prefix: 'от',
                             suffix: '₽'

@@ -31,9 +31,9 @@ class KaskotaxForm extends Component {
                 'Внести вручную'
             ],
             insuranceTaxList: [
-                'КАСКО базовый',
-                'КАСКО супер',
-                'КАСКО мега'
+                'е-КАСКО базовый',
+                'е-КАСКО супер',
+                'е-КАСКО мега'
             ]
         };
     }
@@ -100,7 +100,7 @@ class KaskotaxForm extends Component {
                     <Col span={24}>
                         <FormSwitch controlName="kaskoDealerBank" value={this.state.kaskoDealerBank}
                                     onChangeCallback={this.formControlCallback}
-                                    leftText="КАСКО дилера" rightText="КАСКО банка"/>
+                                    leftText="е-КАСКО дилера" rightText="е-КАСКО банка"/>
                     </Col>
                 </Row>
 

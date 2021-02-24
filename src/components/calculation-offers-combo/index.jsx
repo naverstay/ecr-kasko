@@ -44,7 +44,7 @@ class CalculationOffersCombo extends Component {
     render() {
         const {offersList, selectedOffer, completed, waiting, allowCheck, osago, hasSortType} = this.props
 
-        const sortTypeList = ['Сортировать по самому выгодному КАСКО+е-ОСАГО', 'Сортировать по самому выгодному КАСКО', 'Сортировать по самому выгодному GAP', 'Сортировать по самому выгодному е-ОСАГО']
+        const sortTypeList = ['Сортировать по самому выгодному е-КАСКО+е-ОСАГО', 'Сортировать по самому выгодному е-КАСКО', 'Сортировать по самому выгодному GAP', 'Сортировать по самому выгодному е-ОСАГО']
 
         return (
             <div className="calculation-offers">

@@ -51,7 +51,7 @@ export const topNavButtons = [
             {to: '', title: '', classList: ['submenu-item', 'submenu-item__empty']},
             {to: '/calculate-credit', title: 'Кредит', classList: ['submenu-item']},
             {to: '/calculate-osago', title: 'е-ОСАГО', classList: ['submenu-item']},
-            {to: '/calculate-kasko', title: 'КАСКО', classList: ['submenu-item']}
+            {to: '/calculate-kasko', title: 'е-КАСКО', classList: ['submenu-item']}
         ],
         label: <div className={'sidebar__button-label'}>Рассчитать</div>,
         path: 'https://auto.e-credit.one/#calculation',

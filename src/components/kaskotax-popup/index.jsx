@@ -32,9 +32,9 @@ class KaskotaxPopup extends Component {
                 'Внести вручную'
             ],
             insuranceTaxList: [
-                'КАСКО базовый',
-                'КАСКО супер',
-                'КАСКО мега'
+                'е-КАСКО базовый',
+                'е-КАСКО супер',
+                'е-КАСКО мега'
             ]
         };
     }
@@ -114,13 +114,13 @@ class KaskotaxPopup extends Component {
                     <Col span={24}>
                         <FormSwitch controlName="kaskoDealerBank" value={this.state.kaskoDealerBank}
                                     onChangeCallback={this.formControlCallback}
-                                    leftText="КАСКО дилера" rightText="КАСКО банка"/>
+                                    leftText="е-КАСКО дилера" rightText="е-КАСКО банка"/>
                     </Col>
                 </Row>
 
                 {this.state.kaskoDealerBank ?
                     <div className="kasko-car-select__dropdown--text">
-                        <p className="text_center">Вы включили кредитные программы, <br/> в которых КАСКО является
+                        <p className="text_center">Вы включили кредитные программы, <br/> в которых е-КАСКО является
                             обязательным условием. <br/>
                             Вы можете выбрать страховой продукт банка <br/> в расхлопе кредитной программы.</p>
                     </div>
@@ -215,7 +215,7 @@ class KaskotaxPopup extends Component {
                 :
                 <div className="kaskotax-popup">
                     <div className="kaskotax-popup__close" onClick={popupCloseFunc}/>
-                    <div className="kaskotax-popup__title">Страхование КАСКО</div>
+                    <div className="kaskotax-popup__title">Страхование е-КАСКО</div>
 
                     <Form ref={this.formRef} name="control-ref" onFinish={this.onFinish}>
                         <div className="kaskotax-popup__form">

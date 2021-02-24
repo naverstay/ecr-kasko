@@ -63,7 +63,7 @@ class Orders extends Component {
                 price: '2 059 000.00',
                 period: '36 мес.',
                 firstpayment: '425 000.00',
-                extra: 'GAP, КАСКО, СЖ, е-ОСАГО',
+                extra: 'GAP, е-КАСКО, СЖ, е-ОСАГО',
                 banks: [
                     {
                         bankName: 'Hyundai Finance. Совкомбанк.',
@@ -148,13 +148,13 @@ class Orders extends Component {
         //let events = [
         //	{
         //		progress: 2,
-        //		name: 'КАСКО',
+        //		name: 'е-КАСКО',
         //		status: 'Выпущено / ВСК',
         //		time: '9:50'
         //	},
         //	{
         //		progress: 1,
-        //		name: 'КАСКО',
+        //		name: 'е-КАСКО',
         //		status: 'Ожидание оплаты / ВСК',
         //		time: '9:50'
         //	}
@@ -277,7 +277,7 @@ class Orders extends Component {
                                                         </TableCell>
                                                         <TableCell
                                                             classList={['orders-table__cell', 'cell_size-9', 'text_center']}>
-                                                            <TableHeaderButton label={<>КАСКО</>}/>
+                                                            <TableHeaderButton label={<>е-КАСКО</>}/>
                                                         </TableCell>
                                                         <TableCell classList={['orders-table__cell', 'cell_size-10']}>
                                                         </TableCell>

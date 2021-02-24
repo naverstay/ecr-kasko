@@ -456,7 +456,7 @@ class TabCredit extends Component {
                 price: '12 345 ₽'
             },
             {
-                option: 'КАСКО',
+                option: 'е-КАСКО',
                 func: this.toggleKaskoTaxPopup,
                 price: '30 000 ₽'
             },
@@ -480,14 +480,14 @@ class TabCredit extends Component {
                 price: 130450,
                 rate: '13,5%',
                 dealerFee: 65000,
-                params: ['2 документа', 'КАСКО дилера'],
+                params: ['2 документа', 'е-КАСКО дилера'],
                 options: optionsFixtures.slice()
             })
         }
 
         let creditProducts = [
             {
-                option: 'КАСКО',
+                option: 'е-КАСКО',
                 price: 50000
             },
             {
@@ -1081,13 +1081,13 @@ class TabCredit extends Component {
         let creditOffersComponent = <KaskoOffers onOfferSelect={this.offersUpdate} offerItemCallback={this}
                                                  active={[0, 1, 2, 3, 4, 5]} slider={true} credit={true} offersList={[
             {
-                name: 'КАСКО',
+                name: 'е-КАСКО',
                 //button: 'Рассчитать',
                 //func: this.toggleKaskoPopup,
                 collapse: true,
                 dropdown: 'KaskotaxPopup',
                 dropdownCallback: (action) => {
-                    console.log('dropdownCallback КАСКО', action);
+                    console.log('dropdownCallback е-КАСКО', action);
 
                     if ('setTab' in action) {
                         this.updateTab(action.setTab)

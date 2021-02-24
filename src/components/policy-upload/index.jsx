@@ -55,11 +55,11 @@ class PolicyUpload extends Component {
                             {kasko ?
                                 <>
                                     <li className="client-questionnaire__faq--item">
-                                        <div className="client-questionnaire__faq--title">Полис КАСКО</div>
+                                        <div className="client-questionnaire__faq--title">Полис е-КАСКО</div>
                                         <p>Требуется скан полиса с двух сторон</p>
                                     </li>
                                     <li className="client-questionnaire__faq--item">
-                                        <div className="client-questionnaire__faq--title">Счет на оплату КАСКО</div>
+                                        <div className="client-questionnaire__faq--title">Счет на оплату е-КАСКО</div>
                                         <p>Требуется скан полиса с двух сторон</p>
                                     </li>
                                 </>

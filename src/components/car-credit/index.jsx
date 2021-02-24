@@ -277,7 +277,7 @@ class CarCredit extends Component {
                 price: '12 345 ₽'
             },
             {
-                option: 'КАСКО',
+                option: 'е-КАСКО',
                 func: this.toggleKaskoTaxPopup,
                 price: '30 000 ₽'
             },
@@ -301,7 +301,7 @@ class CarCredit extends Component {
                 price: 130450,
                 rate: '13,5%',
                 dealerFee: 65000,
-                params: ['2 документа', 'КАСКО дилера'],
+                params: ['2 документа', 'е-КАСКО дилера'],
                 options: optionsFixtures
             })
         }
@@ -369,7 +369,7 @@ class CarCredit extends Component {
                 <KaskoOffers onOfferSelect={this.offersUpdate} active={[(this.state.activeKasko ? 0 : null)]}
                              slider={true} credit={true} offersList={[
                     {
-                        name: 'КАСКО',
+                        name: 'е-КАСКО',
                         //button: 'Рассчитать',
                         func: this.toggleKaskoPopup,
                         price: this.state.activeKasko ? '52 500 ₽' : '52 500 ₽',
@@ -499,7 +499,7 @@ class CarCredit extends Component {
                                 {/*<div className="kasko-car-select__caption text_center">Добавлено в кредит</div>*/}
                                 {/*<CreditAdditionals additionalList={[*/}
                                 {/*	{*/}
-                                {/*		title: 'КАСКО дилера',*/}
+                                {/*		title: 'е-КАСКО дилера',*/}
                                 {/*		additionals: [*/}
                                 {/*			{*/}
                                 {/*				option: 'Зетта-Страхование'*/}

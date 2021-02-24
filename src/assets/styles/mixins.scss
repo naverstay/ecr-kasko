@@ -370,6 +370,12 @@
     }
   }
 
+  .ant-radio-disabled {
+    .ant-radio-inner {
+      background: #fff;
+    }
+  }
+
   .ant-radio-wrapper {
     cursor: pointer;
     display: inline-block;
@@ -524,7 +530,7 @@
 
     &:not(.ant-checkbox-checked) {
       + span {
-        color: #000;
+        color: rgba(0,0,0,.3);
       }
     }
   }

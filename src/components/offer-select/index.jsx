@@ -228,7 +228,7 @@ class OfferSelect extends Component {
     }
 
     calculationButtonText = () => {
-        return (this.state.showPayment || (this.props.step === 2) || (this.props.osago && this.state.activeOffers.length)) ? 'Анкета ' + (this.props.osago ? 'е-ОСАГО' : 'КАСКО') + ' заполните 0 полей' : this.state.fullCalculation ? (this.props.osago ? 'Для расчета заполните 20 полей' : 'Для окончательного расчета заполните 20 полей') : 'Для расчета заполните  10 полей'
+        return (this.state.showPayment || (this.props.step === 2) || (this.props.osago && this.state.activeOffers.length)) ? 'Анкета ' + (this.props.osago ? 'е-ОСАГО' : 'е-КАСКО') + ' заполните 0 полей' : this.state.fullCalculation ? (this.props.osago ? 'Для расчета заполните 20 полей' : 'Для окончательного расчета заполните 20 полей') : 'Для расчета заполните  10 полей'
     }
 
     offersUpdate = (offer) => {
@@ -472,7 +472,7 @@ class OfferSelect extends Component {
         return (
             <>
                 <div className="kasko-car-select">
-                    <h1 className="kasko-main__title"><span>{'Рассчитать ' + (osago ? 'е-ОСАГО' : 'КАСКО')}</span></h1>
+                    <h1 className="kasko-main__title"><span>{'Рассчитать ' + (osago ? 'е-ОСАГО' : 'е-КАСКО')}</span></h1>
 
                     {popup ? null :
                         <div className="kasko-car-select__controls mb_10">
@@ -524,7 +524,7 @@ class OfferSelect extends Component {
                                                      suffix: '₽'
                                                  },
                                                  {
-                                                     name: 'КАСКО',
+                                                     name: 'е-КАСКО',
                                                      price: 10420,
                                                      button: (osago ? 'Рассчитать' : 'Выпущено'),
                                                      link: '/kasko',
@@ -583,7 +583,7 @@ class OfferSelect extends Component {
                                                  suffix: '₽'
                                              },
                                                  {
-                                                     name: 'КАСКО',
+                                                     name: 'е-КАСКО',
                                                      price: 10420,
                                                      button: (osago ? 'Рассчитать' : 'Выпущено'),
                                                      link: '/kasko',
@@ -641,7 +641,7 @@ class OfferSelect extends Component {
                                 <>
                                     {!osago ?
                                         <>
-                                            <div className="kasko-car-select__caption">{'Добавить в КАСКО'}</div>
+                                            <div className="kasko-car-select__caption">{'Добавить в е-КАСКО'}</div>
 
                                             <KaskoOffers step={step} onOfferSelect={this.offersUpdate} credit={true}
                                                          slider={true} offersList={[
@@ -693,7 +693,7 @@ class OfferSelect extends Component {
 
                                     {!osago ? <div onClick={this.toggleShowParams}
                                                    className={"kasko-car-select__caption" + (this.state.showCalculationOffers ? (this.state.openParams ? " expanded" : " collapsed") : "")}>Параметры
-                                        КАСКО</div> : null}
+                                        е-КАСКО</div> : null}
 
                                     {(!this.state.showCalculationOffers || this.state.openParams || osago) ?
                                         <>
@@ -808,7 +808,7 @@ class OfferSelect extends Component {
                                                             {/*<Col>*/}
                                                             {/*    <div className="kasko-offer__more">*/}
 															{/*			<span onClick={this.toggleCalculationPopup}*/}
-                                                            {/*                  className="gl_link">Анкета КАСКО</span>*/}
+                                                            {/*                  className="gl_link">Анкета е-КАСКО</span>*/}
                                                             {/*    </div>*/}
                                                             {/*</Col>*/}
                                                             </>

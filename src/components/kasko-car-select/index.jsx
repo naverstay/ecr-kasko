@@ -276,7 +276,7 @@ class KaskoCarSelect extends Component {
             suffix: '₽'
         },
             {
-                name: 'КАСКО',
+                name: 'е-КАСКО',
                 price: 10420,
                 button: 'Рассчитать',
                 link: '/kasko',
@@ -346,7 +346,7 @@ class KaskoCarSelect extends Component {
                 suffix: '₽'
             },
             {
-                name: 'КАСКО',
+                name: 'е-КАСКО',
                 price: 10420,
                 button: 'Рассчитать',
                 href: '/kasko',
@@ -640,7 +640,7 @@ class KaskoCarSelect extends Component {
                 {/*					suffix: '₽'*/}
                 {/*				},*/}
                 {/*				{*/}
-                {/*					name: 'КАСКО',*/}
+                {/*					name: 'е-КАСКО',*/}
                 {/*					price: 0,*/}
                 {/*					button: 'Рассчитать',*/}
                 {/*					prefix: 'от',*/}

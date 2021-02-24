@@ -599,12 +599,12 @@ class KaskoCarSelectNew extends Component {
                         <Col span={3}/>
 
                         <FormInput span={6} onChangeCallback={this.formControlCallback}
-                                   placeholder={"Номер действующего \n полиса КАСКО"}
+                                   placeholder={"Номер действующего \n полиса е-КАСКО"}
                                    controlName={'carKaskoDoc'} value={(this.state.carKaskoDoc)}/>
 
                         <FormInput span={6} onChangeCallback={this.formControlCallback}
                                    inputmask={dateFormatMask}
-                                   placeholder={"Дата начала действия \n нового полиса КАСКО"}
+                                   placeholder={"Дата начала действия \n нового полиса е-КАСКО"}
                                    controlName={'carKaskoDocStart'} value={(this.state.carKaskoDocStart)}/>
 
                     </Row>
@@ -634,7 +634,7 @@ class KaskoCarSelectNew extends Component {
                             suffix: '₽'
                         },
                         {
-                            name: 'КАСКО',
+                            name: 'е-КАСКО',
                             price: 10420,
                             prefix: 'от',
                             suffix: '₽'

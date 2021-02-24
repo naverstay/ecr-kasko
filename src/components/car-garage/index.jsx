@@ -307,7 +307,7 @@ class CarGarage extends Component {
                                     <ul className="kasko-car-info__status">
                                         <li className={"kasko-car-info__status--item " + c.options.credit}>Кредит</li>
                                         <li className={"kasko-car-info__status--item " + c.options.osago}>е-ОСАГО</li>
-                                        <li className={"kasko-car-info__status--item " + c.options.kasko}>КАСКО</li>
+                                        <li className={"kasko-car-info__status--item " + c.options.kasko}>е-КАСКО</li>
                                     </ul>
                                 </Link>
                             </Col>

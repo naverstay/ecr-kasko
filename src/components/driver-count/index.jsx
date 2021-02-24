@@ -90,6 +90,7 @@ class DriverCount extends Component {
                                              title="Неограниченное количество водителей">
                                         <Checkbox
                                             className={'w_100p text_center'}
+                                            disabled={'disabled'}
                                             indeterminate={this.state.indeterminate}
                                             checked={this.state.checkAll}
                                             onChange={this.onCheckAllChange}>Мультидрайв</Checkbox>

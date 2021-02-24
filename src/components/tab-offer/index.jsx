@@ -379,7 +379,7 @@ class TabOffer extends Component {
     }
 
     calculationButtonText = () => {
-        return (this.state.showPayment || (this.props.step === 2) || (this.props.osago && this.state.activeOffers.length)) ? 'Анкета ' + (this.props.osago ? 'е-ОСАГО' : 'КАСКО') + ' заполните 0 полей' : this.state.fullCalculation ? (this.props.osago ? 'Для расчета заполните 20 полей' : 'Для окончательного расчета заполните 20 полей') : 'Для предварительного расчета заполните 10 полей'
+        return (this.state.showPayment || (this.props.step === 2) || (this.props.osago && this.state.activeOffers.length)) ? 'Анкета ' + (this.props.osago ? 'е-ОСАГО' : 'е-КАСКО') + ' заполните 0 полей' : this.state.fullCalculation ? (this.props.osago ? 'Заполнить анкету и получить стоимость' : 'Для окончательного расчета заполните 20 полей') : 'Для предварительного расчета заполните 10 полей'
     }
 
     offersUpdate = (offer) => {
@@ -493,7 +493,7 @@ class TabOffer extends Component {
         const dateFormatMask = "'mask': '99.99.9999', 'showMaskOnHover': 'false'";
         const periodOptions = [12, 9, 6];
         const damageOptions = ['Ущерб', 'Полная гибель', 'Угон', 'Шины/Диски', 'ЛКП', 'Стекла', 'Фары', 'Бамперы и зеркала'];
-        const insuranceList = ['КАСКО', 'GAP', 'е-ОСАГО'];
+        const insuranceList = ['е-КАСКО', 'GAP', 'е-ОСАГО'];
         const franchise = this.state.franchise;
 
         let calendarBtn = <span className={'datepicker_placeholder'}><span className={'input-icon'}><span
@@ -744,7 +744,7 @@ class TabOffer extends Component {
                 offers: [
                     {
                         name: '',
-                        type: 'КАСКО+GAP+е-ОСАГО',
+                        type: 'е-КАСКО+GAP+е-ОСАГО',
                         credit: null,
                         megashare: '-7%',
                         price: '52 500',
@@ -755,7 +755,7 @@ class TabOffer extends Component {
                         list: [
                             {
                                 name: 'Премиум',
-                                type: 'КАСКО',
+                                type: 'е-КАСКО',
                                 credit: false,
                                 price: '51 450',
                                 dealerFee: '5 145',
@@ -763,7 +763,7 @@ class TabOffer extends Component {
                             },
                             {
                                 name: '',
-                                type: 'КАСКО',
+                                type: 'е-КАСКО',
                                 credit: false,
                                 price: '31 450',
                                 dealerFee: '3 145',
@@ -771,7 +771,7 @@ class TabOffer extends Component {
                             },
                             {
                                 name: 'Премиум',
-                                type: 'КАСКО',
+                                type: 'е-КАСКО',
                                 credit: true,
                                 price: '51 450',
                                 dealerFee: '5 145',
@@ -779,7 +779,7 @@ class TabOffer extends Component {
                             },
                             {
                                 name: 'Обычный 10',
-                                type: 'КАСКО',
+                                type: 'е-КАСКО',
                                 credit: false,
                                 price: '31 450',
                                 dealerFee: '3 145',
@@ -787,7 +787,7 @@ class TabOffer extends Component {
                             },
                             {
                                 name: '+Премиум',
-                                type: 'КАСКО',
+                                type: 'е-КАСКО',
                                 credit: true,
                                 price: '51 450',
                                 dealerFee: '5 145',
@@ -795,7 +795,7 @@ class TabOffer extends Component {
                             },
                             {
                                 name: 'Обычный 10',
-                                type: 'КАСКО',
+                                type: 'е-КАСКО',
                                 credit: false,
                                 price: '31 450',
                                 dealerFee: '3 145',
@@ -820,7 +820,7 @@ class TabOffer extends Component {
                 offers: [
                     {
                         name: '',
-                        type: 'КАСКО+GAP+е-ОСАГО',
+                        type: 'е-КАСКО+GAP+е-ОСАГО',
                         credit: null,
                         price: '30 450',
                         dealerFee: '3 045',
@@ -830,7 +830,7 @@ class TabOffer extends Component {
                         list: [
                             {
                                 name: 'Премиум',
-                                type: 'КАСКО',
+                                type: 'е-КАСКО',
                                 credit: false,
                                 price: '51 450',
                                 dealerFee: '5 145',
@@ -838,7 +838,7 @@ class TabOffer extends Component {
                             },
                             {
                                 name: '',
-                                type: 'КАСКО',
+                                type: 'е-КАСКО',
                                 credit: false,
                                 price: '31 450',
                                 dealerFee: '3 145',
@@ -846,7 +846,7 @@ class TabOffer extends Component {
                             },
                             {
                                 name: 'Премиум',
-                                type: 'КАСКО',
+                                type: 'е-КАСКО',
                                 credit: true,
                                 price: '51 450',
                                 dealerFee: '5 145',
@@ -854,7 +854,7 @@ class TabOffer extends Component {
                             },
                             {
                                 name: 'Обычный 10',
-                                type: 'КАСКО',
+                                type: 'е-КАСКО',
                                 credit: false,
                                 price: '31 450',
                                 dealerFee: '3 145',
@@ -862,7 +862,7 @@ class TabOffer extends Component {
                             },
                             {
                                 name: '+Премиум',
-                                type: 'КАСКО',
+                                type: 'е-КАСКО',
                                 credit: true,
                                 price: '51 450',
                                 dealerFee: '5 145',
@@ -870,7 +870,7 @@ class TabOffer extends Component {
                             },
                             {
                                 name: 'Обычный 10',
-                                type: 'КАСКО',
+                                type: 'е-КАСКО',
                                 credit: false,
                                 price: '31 450',
                                 dealerFee: '3 145',
@@ -895,7 +895,7 @@ class TabOffer extends Component {
                 offers: [
                     {
                         name: '',
-                        type: 'КАСКО+GAP+е-ОСАГО',
+                        type: 'е-КАСКО+GAP+е-ОСАГО',
                         credit: null,
                         share: 'Экономия 4 500',
                         price: '52 500',
@@ -906,7 +906,7 @@ class TabOffer extends Component {
                         list: [
                             {
                                 name: 'Премиум',
-                                type: 'КАСКО',
+                                type: 'е-КАСКО',
                                 credit: false,
                                 price: '51 450',
                                 dealerFee: '5 145',
@@ -914,7 +914,7 @@ class TabOffer extends Component {
                             },
                             {
                                 name: '',
-                                type: 'КАСКО',
+                                type: 'е-КАСКО',
                                 credit: false,
                                 price: '31 450',
                                 dealerFee: '3 145',
@@ -922,7 +922,7 @@ class TabOffer extends Component {
                             },
                             {
                                 name: 'Премиум',
-                                type: 'КАСКО',
+                                type: 'е-КАСКО',
                                 credit: true,
                                 price: '51 450',
                                 dealerFee: '5 145',
@@ -930,7 +930,7 @@ class TabOffer extends Component {
                             },
                             {
                                 name: 'Обычный 10',
-                                type: 'КАСКО',
+                                type: 'е-КАСКО',
                                 credit: false,
                                 price: '31 450',
                                 dealerFee: '3 145',
@@ -938,7 +938,7 @@ class TabOffer extends Component {
                             },
                             {
                                 name: '+Премиум',
-                                type: 'КАСКО',
+                                type: 'е-КАСКО',
                                 credit: true,
                                 price: '51 450',
                                 dealerFee: '5 145',
@@ -946,7 +946,7 @@ class TabOffer extends Component {
                             },
                             {
                                 name: 'Обычный 10',
-                                type: 'КАСКО',
+                                type: 'е-КАСКО',
                                 credit: false,
                                 price: '31 450',
                                 dealerFee: '3 145',
@@ -1098,7 +1098,7 @@ class TabOffer extends Component {
             var someOffers = [
                 {
                     name: 'Премиум',
-                    type: 'КАСКО',
+                    type: 'е-КАСКО',
                     payment: 'Наличные',
                     price: 49850,
                     dealerFee: 4985,
@@ -1161,7 +1161,7 @@ class TabOffer extends Component {
         let paramsBlock = <>
             {!osago ?
                 <>
-                    {/*<div className="kasko-car-select__caption">{'Добавить в КАСКО'}</div>*/}
+                    {/*<div className="kasko-car-select__caption">{'Добавить в е-КАСКО'}</div>*/}
 
                     <KaskoOffers step={step} active={[0, 1, 4, 5, 6]}
                                  onOfferSelect={this.offersUpdate} credit={true} slider={true}
@@ -1220,7 +1220,7 @@ class TabOffer extends Component {
                 : null}
 
             {!osago ? <div onClick={this.toggleShowParams}
-                           className={"kasko-car-select__caption" + (this.state.showCalculationOffers ? (this.state.openParams ? " expanded" : " collapsed") : "")}>{'Параметры ' + (eosago ? '' : (combo ? 'страхования' : 'КАСКО'))}</div> :
+                           className={"kasko-car-select__caption" + (this.state.showCalculationOffers ? (this.state.openParams ? " expanded" : " collapsed") : "")}>{'Параметры ' + (eosago ? '' : (combo ? 'страхования' : 'е-КАСКО'))}</div> :
                 <div onClick={this.toggleShowParams}
                      className={"kasko-car-select__caption" + (this.state.showCalculationOffers ? (this.state.openParams ? " expanded" : " collapsed") : "")}>{'Параметры ' + (eosago ? '' : (combo ? 'страхования' : ''))}</div>
             }
@@ -1321,7 +1321,7 @@ class TabOffer extends Component {
                                         <Row gutter={12}>
                                             {
                                                 periodOptions.map((c, i) => <Col key={i}>
-                                                        <Radio value={c}><span
+                                                        <Radio value={c} disabled={i ? 'disabled' : null}><span
                                                             className="kasko-car-select__period--value">{c}</span>
                                                             {/*<span className="kasko-car-select__period--label">{pluralFromArray(periodPlurals, c)}</span>*/}
                                                         </Radio>
@@ -1338,6 +1338,7 @@ class TabOffer extends Component {
                                     {/*<ConfigProvider locale={frFR}>*/}
                                     <DatePicker dropdownClassName={'litepicker_v1'}
                                                 ref={this.pickerRef}
+                                                format={'DD.MM.YYYY'}
                                         //locale={ru_RU}
                                                 suffixIcon={calendarBtn}
                                         //disabledDate={this.datepickerDisabledDate}
@@ -1369,14 +1370,14 @@ class TabOffer extends Component {
                             <DriverCount
                                 className={'mb_0 ' + (this.state.showCalculationOffers && !osago ? "mb_0" : "")}
                                 step={step}
-                                extraData={true}
+                                extraData={false}
                                 driverOptions={driverOptions}>
                                 {/*{step > 1 || this.state.showCalculationOffers ?*/}
 
                                 {/*<Col>*/}
                                 {/*    <div className="kasko-offer__more">*/}
                                 {/*            <span onClick={this.toggleCalculationPopup}*/}
-                                {/*                  className="gl_link">Анкета КАСКО</span>*/}
+                                {/*                  className="gl_link">Анкета е-КАСКО</span>*/}
                                 {/*    </div>*/}
                                 {/*</Col>*/}
 
@@ -1390,24 +1391,24 @@ class TabOffer extends Component {
                                         {osago ?
                                             <>
                                                 <Col span={4}>
-                                                    <Row gutter={12} className={"kasko-car-select__extra"}>
-                                                        <Col className="">
-                                                            <Tooltip overlayClassName="tooltip_v1" placement="top"
-                                                                     title="Отказ клиента">
-                                                                <Button className={"ant-btn ant-btn-sm btn-cancel"}
-                                                                        onClick={this.toggleClientRefusalPopup}
-                                                                ><span className={"i-close"}/></Button>
-                                                            </Tooltip>
-                                                        </Col>
-                                                        <Col className="">
-                                                            <Tooltip overlayClassName="tooltip_v1" placement="top"
-                                                                     title="Внести полис вручную">
-                                                                <Button className={"ant-btn ant-btn-sm btn-action"}
-                                                                        onClick={this.togglePolicyPopup}
-                                                                ><span className={"i-plus"}/></Button>
-                                                            </Tooltip>
-                                                        </Col>
-                                                    </Row>
+                                                    {/*<Row gutter={12} className={"kasko-car-select__extra"}>*/}
+                                                    {/*    <Col className="">*/}
+                                                    {/*        <Tooltip overlayClassName="tooltip_v1" placement="top"*/}
+                                                    {/*                 title="Отказ клиента">*/}
+                                                    {/*            <Button className={"ant-btn ant-btn-sm btn-cancel"}*/}
+                                                    {/*                    onClick={this.toggleClientRefusalPopup}*/}
+                                                    {/*            ><span className={"i-close"}/></Button>*/}
+                                                    {/*        </Tooltip>*/}
+                                                    {/*    </Col>*/}
+                                                    {/*    <Col className="">*/}
+                                                    {/*        <Tooltip overlayClassName="tooltip_v1" placement="top"*/}
+                                                    {/*                 title="Внести полис вручную">*/}
+                                                    {/*            <Button className={"ant-btn ant-btn-sm btn-action"}*/}
+                                                    {/*                    onClick={this.togglePolicyPopup}*/}
+                                                    {/*            ><span className={"i-plus"}/></Button>*/}
+                                                    {/*        </Tooltip>*/}
+                                                    {/*    </Col>*/}
+                                                    {/*</Row>*/}
                                                 </Col>
                                                 {/*<Col span={6}>*/}
                                                 {/*<Button to="/credit_kasko"*/}
@@ -1518,7 +1519,7 @@ class TabOffer extends Component {
                                                                                  :
                                                                                  [{
                                                                                      name: 'Премиум',
-                                                                                     type: 'КАСКО',
+                                                                                     type: 'е-КАСКО',
                                                                                      document: 'СС 12345678',
                                                                                      payment: 'Наличные',
                                                                                      price: 41450,
@@ -1564,7 +1565,7 @@ class TabOffer extends Component {
                                             {/*            :*/}
                                             {/*            [{*/}
                                             {/*                name: 'Премиум',*/}
-                                            {/*                type: 'КАСКО',*/}
+                                            {/*                type: 'е-КАСКО',*/}
                                             {/*                document: 'СС 12345678',*/}
                                             {/*                payment: 'Наличные',*/}
                                             {/*                price: 41450,*/}
@@ -1683,17 +1684,17 @@ class TabOffer extends Component {
                                                                 <Col span={8} className="text_left">
                                                                     <Row gutter={20}
                                                                          className={"kasko-car-select__extra"}>
-                                                                        <Col className="">
-                                                                            <Tooltip overlayClassName="tooltip_v1"
-                                                                                     placement="top"
-                                                                                     title="Отказ клиента">
-                                                                                <Button
-                                                                                    onClick={this.toggleClientRefusalPopup}
-                                                                                    className={"ant-btn ant-btn-sm btn-cancel"}>
-                                                                                    <span
-                                                                                        className={"i-close"}/></Button>
-                                                                            </Tooltip>
-                                                                        </Col>
+                                                                        {/*<Col className="">*/}
+                                                                        {/*    <Tooltip overlayClassName="tooltip_v1"*/}
+                                                                        {/*             placement="top"*/}
+                                                                        {/*             title="Отказ клиента">*/}
+                                                                        {/*        <Button*/}
+                                                                        {/*            onClick={this.toggleClientRefusalPopup}*/}
+                                                                        {/*            className={"ant-btn ant-btn-sm btn-cancel"}>*/}
+                                                                        {/*            <span*/}
+                                                                        {/*                className={"i-close"}/></Button>*/}
+                                                                        {/*    </Tooltip>*/}
+                                                                        {/*</Col>*/}
                                                                         <Col className="">
                                                                             <Tooltip overlayClassName="tooltip_v1"
                                                                                      placement="top"
@@ -1778,18 +1779,18 @@ class TabOffer extends Component {
                                                                         {eosago ?
                                                                             <Row gutter={12}
                                                                                  className={"kasko-car-select__extra"}>
-                                                                                <Col className="">
-                                                                                    <Tooltip
-                                                                                        overlayClassName="tooltip_v1"
-                                                                                        placement="top"
-                                                                                        title="Отказ клиента">
-                                                                                        <Button
-                                                                                            onClick={this.toggleClientRefusalPopup}
-                                                                                            className={"ant-btn ant-btn-sm btn-cancel"}>
-                                                                                        <span
-                                                                                            className={"i-close"}/></Button>
-                                                                                    </Tooltip>
-                                                                                </Col>
+                                                                                {/*<Col className="">*/}
+                                                                                {/*    <Tooltip*/}
+                                                                                {/*        overlayClassName="tooltip_v1"*/}
+                                                                                {/*        placement="top"*/}
+                                                                                {/*        title="Отказ клиента">*/}
+                                                                                {/*        <Button*/}
+                                                                                {/*            onClick={this.toggleClientRefusalPopup}*/}
+                                                                                {/*            className={"ant-btn ant-btn-sm btn-cancel"}>*/}
+                                                                                {/*        <span*/}
+                                                                                {/*            className={"i-close"}/></Button>*/}
+                                                                                {/*    </Tooltip>*/}
+                                                                                {/*</Col>*/}
                                                                                 <Col className="">
                                                                                     <Tooltip
                                                                                         overlayClassName="tooltip_v1"

@@ -39,13 +39,13 @@ class KaskoCarInfo extends Component {
                             {/*<Radio.Group onChange={this.onChange} >*/}
                             {/*	<Radio value={1}>Кредит</Radio>*/}
                             {/*	<Radio value={2}>е-ОСАГО</Radio>*/}
-                            {/*	<Radio value={3}>КАСКО</Radio>*/}
+                            {/*	<Radio value={3}>е-КАСКО</Radio>*/}
                             {/*</Radio.Group>*/}
 
                             <ul className="kasko-car-info__status">
                                 <li className="kasko-car-info__status--item">Кредит</li>
                                 <li className={"kasko-car-info__status--item" + (osago ? (notificationCount === 1 ? ' waiting' : notificationCount === 2 ? ' approved' : '') : "")}>е-ОСАГО</li>
-                                <li className={"kasko-car-info__status--item" + (!osago ? (notificationCount === 1 ? ' waiting' : notificationCount === 2 ? ' approved' : '') : "")}>КАСКО</li>
+                                <li className={"kasko-car-info__status--item" + (!osago ? (notificationCount === 1 ? ' waiting' : notificationCount === 2 ? ' approved' : '') : "")}>е-КАСКО</li>
                             </ul>
 
                         </div>

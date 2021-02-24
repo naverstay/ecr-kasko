@@ -53,7 +53,7 @@ class Service extends Component {
 			if (step === 2) {
 				events.push({
 						progress: 1,
-						name: 'КАСКО',
+						name: 'е-КАСКО',
 						status: 'Ожидание оплаты / Ингосстрах',
 						time: '9:50'
 					})
@@ -62,13 +62,13 @@ class Service extends Component {
 			if (step === 3) {
 				events.push({
 					progress: 2,
-					name: 'КАСКО',
+					name: 'е-КАСКО',
 					status: 'Выпущено / ВСК',
 					time: '9:50'
 				})
 				events.push({
 					progress: 1,
-					name: 'КАСКО',
+					name: 'е-КАСКО',
 					status: 'Ожидание оплаты / ВСК',
 					time: '9:50'
 				})

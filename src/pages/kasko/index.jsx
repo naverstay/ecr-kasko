@@ -151,7 +151,7 @@ class Kasko extends Component {
         if (step === 2) {
             events.push({
                 progress: 1,
-                name: this.state.tabIndex === 2 ? 'е-ОСАГО' : 'КАСКО',
+                name: this.state.tabIndex === 2 ? 'е-ОСАГО' : 'е-КАСКО',
                 status: 'Ожидание оплаты / Ингосстрах',
                 time: '9:50'
             })
@@ -160,7 +160,7 @@ class Kasko extends Component {
         if (step === 3) {
             events.push({
                 progress: 2,
-                name: this.state.tabIndex === 2 ? 'е-ОСАГО' : 'КАСКО',
+                name: this.state.tabIndex === 2 ? 'е-ОСАГО' : 'е-КАСКО',
                 status: 'Выпущено / Ингосстрах',
                 time: '9:50'
             });
@@ -168,7 +168,7 @@ class Kasko extends Component {
             if (this.state.tabIndex !== 2) {
                 events.push({
                     progress: 1,
-                    name: 'КАСКО',
+                    name: 'е-КАСКО',
                     status: 'Ожидание оплаты / ВСК',
                     time: '9:50'
                 });
@@ -180,7 +180,7 @@ class Kasko extends Component {
                 showOffers = 'кредит'
                 break
             case 1:
-                showOffers = 'каско'
+                showOffers = 'е-КАСКО'
                 break
             case 2:
                 showOffers = 'е-ОСАГО'
@@ -288,7 +288,7 @@ class Kasko extends Component {
                                             </Tab>
                                             {/*<Tab className={'kasko-tabs__tab'}>*/}
                                             {/*	<div className="kasko-tab__panel-name"><span*/}
-                                            {/*		className="kasko-tab__panel-name--text">КАСКО</span>*/}
+                                            {/*		className="kasko-tab__panel-name--text">е-КАСКО</span>*/}
                                             {/*		{this.state.tabIndex === 1 ?*/}
                                             {/*			tabStatus*/}
                                             {/*			: this.state.carFound ?*/}
@@ -474,7 +474,7 @@ class Kasko extends Component {
                                                                  doc='СС 12345678'
                                                                  status={paymentStatus}
                                                                  consult={consultStatus}
-                                                                 product='КАСКО' price='41 450 ₽' type={showOffers}/>
+                                                                 product='е-КАСКО' price='41 450 ₽' type={showOffers}/>
                                                 </AsideBlock>
                                                 <AsideBlock>
                                                     <KaskoNotice step={step}
@@ -503,7 +503,7 @@ class Kasko extends Component {
 
                             {this.state.tabIndex === 0 && step === 3 ?
                                 <>
-                                    <AsideBlockProduct callback={this.changeTabState} price={53719} name='КАСКО'
+                                    <AsideBlockProduct callback={this.changeTabState} price={53719} name='е-КАСКО'
                                                        tabIndex={1}/>
                                     <AsideBlockProduct callback={this.changeTabState} price={9719} name='е-ОСАГО'
                                                        tabIndex={1}/>

@@ -15,16 +15,15 @@
   }
 
   &__caption {
+    @extend %text1;
     font-weight: 500;
-    font-size: 12px;
-    line-height: 14px;
     position: relative;
     padding: 8px 11px;
     margin-right: 5px;
     cursor: pointer;
     display: inline-block;
     vertical-align: top;
-    letter-spacing: .05em;
+    //letter-spacing: .05em;
 
     &:before {
       transition: transform .25s;
@@ -165,10 +164,8 @@
 
   &__item {
     &--head {
+      @extend %text2;
       padding: 8px 25px;
-      font-weight: bold;
-      font-size: 12px;
-      line-height: 14px;
       color: #808080;
       background: #fff;
       position: relative;

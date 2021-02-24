@@ -41,7 +41,7 @@ const Details = props => {
 						<td className="oo_offer_cell oo_offer_col_3">16.10 % <p
 							title="Остаточный платеж">0 р.</p></td>
 						<td className="oo_offer_cell oo_offer_col_4">
-							<div className="kasko"><span>КАСКО</span><span className="sum"
+							<div className="kasko"><span>е-КАСКО</span><span className="sum"
 																		   style={{
 																			   display: 'block',
 																			   float: 'right',
@@ -103,7 +103,7 @@ const Details = props => {
 						<td className="oo_offer_cell oo_offer_col_3">16.10 % <p
 							title="Остаточный платеж">0 р.</p></td>
 						<td className="oo_offer_cell oo_offer_col_4">
-							<div className="kasko"><span>КАСКО</span><span className="sum"
+							<div className="kasko"><span>е-КАСКО</span><span className="sum"
 																		   style={{
 																			   display: 'block',
 																			   float: 'right',
