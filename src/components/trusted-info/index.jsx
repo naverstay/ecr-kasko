@@ -1,5 +1,5 @@
 import React, {Component} from "react";
-import {Input, Col, Row, Select, Checkbox, Button} from "antd";
+import {Input, Col, Row, Select, Checkbox, Button, Radio} from "antd";
 import './style.scss';
 import PropTypes from "prop-types";
 
@@ -9,6 +9,7 @@ import Inputmask from "inputmask";
 import FormInput from "../form-input";
 import FormSelect from "../form-select";
 import FormCheckbox from "../form-checkbox";
+import DriverLicense from "../driver-license";
 
 const {Option} = Select;
 
@@ -56,6 +57,7 @@ class TrustedInfo extends Component {
             driverPrevLicenseID: '',
             driverPrevLicenseNumber: '',
             driverChildrenCount: '',
+            showExtraOptions: false,
             driverOSAGOInsurant: false,
             driverInsuranceAdd: true,
             driverOSAGOOwner: false,
@@ -137,6 +139,10 @@ class TrustedInfo extends Component {
         return (this.state.activeFields.indexOf(field) > -1 ? " control-focused" : "")
     };
 
+    toggleExtraOptions = () => {
+        this.setState({showExtraOptions: !this.state.showExtraOptions})
+    }
+
     formControlCallback = (name, value) => {
         console.log('formControlCallback', name, value);
 
@@ -167,7 +173,7 @@ class TrustedInfo extends Component {
     };
 
     render() {
-        let {fullCalculation, allFields, expanded, osago, wholeName, showAddBlock, index} = this.props
+        let {fullCalculation, allFields, expanded, osago, wholeName, showAddBlock, index, disabled} = this.props
         //const dateFormat = "DD.MM.YY"
         const dateFormatMask = "'mask': '99.99.9999', 'showMaskOnHover': 'false'"
         const driverPhoneMask = "'mask': '[+7] (999)-999-99-99', 'showMaskOnHover': 'false'"
@@ -196,11 +202,14 @@ class TrustedInfo extends Component {
                     <Row className="kasko-car-select__controls mb_0" gutter={20}>
                         <Col span={3}/>
                         <Col span={6}>
-                            <div className="driver-info__caption">Водитель #{index}</div>
+                            <div className="driver-info__caption">Водитель {index > 0 ? '#' + index : ''}</div>
                         </Col>
-                        <Col span={6}>
-                            <div onClick={this.props.removeCallback} className="driver-info__remove m_0 gl_link"/>
-                        </Col>
+
+                        {disabled ? null :
+                            <Col span={6}>
+                                <div onClick={this.props.removeCallback} className="driver-info__remove m_0 gl_link"/>
+                            </Col>
+                        }
                     </Row>
 
                     <Row className="kasko-car-select__controls" gutter={20}>
@@ -208,7 +217,7 @@ class TrustedInfo extends Component {
 
                         {wholeName ?
                             <FormInput span={18} onChangeCallback={this.formControlCallback}
-                                       placeholder="Фамилия, Имя, Отчество" controlName={'clientWholeName'} value={''}/>
+                                       placeholder="Фамилия, Имя, Отчество" controlName={'clientWholeName'} disabled={disabled ? 'disabled' : null} value={disabled ? 'Константинопольский Константин Константинопольский' : ''}/>
                             :
                             <>
                                 <FormInput span={6} onChangeCallback={this.formControlCallback}
@@ -223,93 +232,55 @@ class TrustedInfo extends Component {
                         }
                     </Row>
 
-                    <Row className="kasko-car-select__controls" gutter={20}>
+                    {this.state.showExtraOptions ?
+                        <Radio.Group className={"w_100p "} defaultValue={0}>
+                            <Row className="kasko-car-select__controls" gutter={20}>
+                                <Col span={3}/>
+                                <Col>
+                                    <Radio disabled={disabled ? 'disabled' : null} value={0}>Мужской</Radio>
+                                </Col>
+                                <Col>
+                                    <Radio disabled={disabled ? 'disabled' : null} value={1}>Женский</Radio>
+                                </Col>
+                                <Col className={"ant-col-mla"}>
+                                    <div className="gl_link fz_12"
+                                         onClick={this.toggleExtraOptions}>Скрыть
+                                    </div>
+                                </Col>
+                                <Col span={3}/>
+                            </Row>
+                        </Radio.Group> : null
+                    }
+
+                    <Row className="kasko-car-select__controls mb_30" gutter={20}>
                         <Col span={3}/>
                         <FormInput span={6} onChangeCallback={this.formControlCallback}
-                                   placeholder="Дата рождения" controlName={'driverBirthday'} value={''}/>
+                                   disabled={disabled ? 'disabled' : null}
+                                   placeholder="Дата рождения" controlName={'driverBirthday'} value={disabled ? '12.12.1912' : ''}/>
                         {/*<FormInput span={6} onChangeCallback={this.formControlCallback}*/}
                         {/*           placeholder="Мобильный телефон"*/}
                         {/*           controlName={'driverPhone'} value={this.state.driverPhone}/>*/}
-                    </Row>
 
-                    {/*<Row className="kasko-car-select__controls" gutter={20}>*/}
-                    {/*    <Col span={3}/>*/}
-                    {/*    <FormSelect span={6} onChangeCallback={this.formControlCallback}*/}
-                    {/*                options={this.state.driverFamilyStatusList}*/}
-                    {/*                className={this.activeClass('driverFamilyStatus')}*/}
-                    {/*                placeholder="Отношение к клиенту" controlName={'driverFamilyStatus'}*/}
-                    {/*                value={this.state.driverFamilyStatus}/>*/}
+                        {!this.state.showExtraOptions ?
+                            <Col className={"ant-col-mla"}>
+                                <div className="gl_link fz_12 clr_gray"
+                                     onClick={this.toggleExtraOptions}>Подробнее
+                                </div>
+                            </Col> : null
+                        }
 
-                    {/*    <FormCheckbox onChangeCallback={this.formControlCallback}*/}
-                    {/*                  text="Добавить в полис е-ОСАГО или е-КАСКО"*/}
-                    {/*                  className="checkbox_middle check_v3"*/}
-                    {/*                  value={0}*/}
-                    {/*                  controlName={'driverInsuranceAdd'} checked={this.state.driverInsuranceAdd}/>*/}
-                    {/*</Row>*/}
-
-                    <Row className="kasko-car-select__controls" gutter={20}>
                         <Col span={3}/>
-
-                        <FormInput span={6} onChangeCallback={this.formControlCallback}
-                                   inputmask={clientLicenseIDMask}
-                                   placeholder="Серия, номер ВУ"
-                                   className={(index > 1 ? "input-error" : "")}
-                                   controlName={'driverAnotherDocument'} value={this.state.driverAnotherDocument}/>
-
-                        <FormInput span={6} onChangeCallback={this.formControlCallback}
-                                   inputmask={clientLicenseIDMask}
-                                   placeholder="Дата выдачи ВУ"
-                                   className={(index > 1 ? "input-error" : "")}
-                                   controlName={'driverAnotherDocumentStart'}
-                                   value={this.state.driverAnotherDocumentStart}/>
-
-                        <FormInput span={6} onChangeCallback={this.formControlCallback}
-                                   placeholder="Дата начала стажа"
-                                   className={(index > 1 ? "input-error" : "")}
-                                   controlName={'driverExperienceStart'}
-                                   value={this.state.driverExperienceStart}/>
                     </Row>
-
-                    {/*<Row className="kasko-car-select__controls mb_0" gutter={20}>*/}
-                    {/*    <Col span={3}/>*/}
-                    {/*    <FormInput span={18} onChangeCallback={this.formControlCallback}*/}
-                    {/*               placeholder="Кем выдано ВУ"*/}
-                    {/*               controlName={'driverAnotherDocumentDepartment'}*/}
-                    {/*               value={this.state.driverAnotherDocumentDepartment}/>*/}
-                    {/*</Row>*/}
 
                     <Row className="kasko-car-select__controls mb_0" gutter={20}>
                         <Col span={3}/>
-                        <FormCheckbox onChangeCallback={this.formControlCallback}
-                                      text="Страхователь"
-                                      className="checkbox_middle check_v3"
-                                      disabled={index > 1}
-                                      value={0}
-                                      controlName={'driverOSAGOInsurant'} checked={this.state.driverOSAGOInsurant}/>
-
-                        <FormCheckbox onChangeCallback={this.formControlCallback}
-                                      text="Собственник"
-                                      className="checkbox_middle check_v3"
-                                      disabled={index > 1}
-                                      value={1}
-                                      controlName={'driverOSAGOOwner'} checked={this.state.driverOSAGOOwner}/>
+                        <Col span={12}>
+                            <div className="driver-info__caption">Водительское удостоверение</div>
+                        </Col>
                     </Row>
 
+                    <DriverLicense disabled={disabled}/>
                 </div>
-
-                {/*<div className="kasko-car-select__controls ant-row-center">*/}
-                {/*	<div className="driver-info__add gl_link">Добавить водителя</div>*/}
-                {/*</div>*/}
-
-                {/*<div className="kasko-car-select__controls ant-row-center">*/}
-                {/*	<div className="kasko-car-select__controls--group">*/}
-                {/*		<div className="kasko-car-select__controls--group-l">*/}
-                {/*			<div onClick={() => this.driverInfoSave(false)} className={"gl_link"}>Отмена</div>*/}
-                {/*		</div>*/}
-                {/*		<div onClick={() => this.driverInfoSave(true)} className={"ant-btn ant-btn-primary btn_middle"}>Получить расчет</div>*/}
-                {/*	</div>*/}
-                {/*</div>*/}
-
             </div>
         );
     }

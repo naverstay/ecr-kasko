@@ -10,26 +10,25 @@ $scrollbar_size: 6px;
 html {
   font: 14px/1.2 'Roboto', sans-serif;
 
-
-  &::-webkit-scrollbar {
-    width: $scrollbar_size;
-  }
-
-  &::-webkit-scrollbar-thumb {
-    background: $color-prime;
-    border-radius: $scrollbar_size / 2;
-  }
-
-  * {
-    &::-webkit-scrollbar {
-      width: $scrollbar_size;
-    }
-
-    &::-webkit-scrollbar-thumb {
-      background: $color-prime;
-      border-radius: $scrollbar_size / 2;
-    }
-  }
+  //&::-webkit-scrollbar {
+  //  width: $scrollbar_size;
+  //}
+  //
+  //&::-webkit-scrollbar-thumb {
+  //  background: $color-prime;
+  //  border-radius: $scrollbar_size / 2;
+  //}
+  //
+  //* {
+  //  &::-webkit-scrollbar {
+  //    width: $scrollbar_size;
+  //  }
+  //
+  //  &::-webkit-scrollbar-thumb {
+  //    background: $color-prime;
+  //    border-radius: $scrollbar_size / 2;
+  //  }
+  //}
 }
 
 button,
@@ -610,6 +609,38 @@ $spinner_time: 1s;
 
       &:after {
         border-color: $color-green;
+      }
+    }
+  }
+}
+
+.check_v6 {
+  .ant-checkbox-wrapper {
+    display: inline-flex;
+    flex-flow: row nowrap;
+    align-items: center;
+  }
+
+  .ant-checkbox-inner,
+  .ant-checkbox-checked::after {
+    border-radius: 0;
+  }
+
+  .ant-checkbox {
+
+    + span {
+      @extend %text1;
+      color: #a8a8a8;
+      margin-bottom: 4px;
+    }
+  }
+
+  .ant-checkbox-checked {
+    .ant-checkbox-inner {
+      background: #fff;
+
+      &:after {
+        border-color: $color-blue;
       }
     }
   }

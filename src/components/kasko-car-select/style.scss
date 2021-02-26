@@ -424,8 +424,12 @@
     }
 
     .ant-radio-wrapper {
-      @extend %text2;
+      @extend %text1;
       //margin-top: 8px;
+
+      .ant-radio-inner {
+        top: -1px;
+      }
     }
 
     &--stretch {

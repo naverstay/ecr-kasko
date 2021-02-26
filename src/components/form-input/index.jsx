@@ -37,7 +37,7 @@ class FormInput extends Component {
                    maxLength={maxLength}
                    data-inputmask={inputmask ? inputmask : null}
                    className={(className || "") + " w_100p" + (placeholder ? " custom_placeholder" : " no_placeholder") + ((this.state.controlValue + '' + this.props.value).length ? "" : " _empty")}
-                   value={this.state.controlValue}
+                   value={disabled ? value : this.state.controlValue}
                    onChange={this.onChange} defaultValue={value}/>
             {placeholder ? <div className="float_placeholder">{placeholder}</div> : null}
         </>

@@ -1,5 +1,5 @@
 import React, {Component} from "react";
-import {Input, Col, Row, Select, Checkbox, Button} from "antd";
+import {Input, Col, Row, Select, Checkbox, Button, Radio} from "antd";
 import './style.scss';
 import PropTypes from "prop-types";
 
@@ -10,6 +10,7 @@ import FormInput from "../form-input";
 import FormSelect from "../form-select";
 import FormCheckbox from "../form-checkbox";
 import ReactComment from "../../helpers/reactComment";
+import DriverLicense from "../driver-license";
 
 const {Option} = Select;
 
@@ -18,6 +19,7 @@ class DriverInfo extends Component {
         super(props);
         this.state = {
             activeFields: [],
+            clientWholeName: 'Константинопольский Константин Константинопольский',
             clientLicenseDepartment: '',
             clientAddress: '',
             clientFlat: '',
@@ -48,7 +50,7 @@ class DriverInfo extends Component {
             driverLicenseStart: '',
             driverExperienceStart: '',
             driverLicenseFirst: '',
-            driverBirthday: '',
+            driverBirthday: '12.12.1912',
             driverRegistrationStart: '',
             driverLicenseDepartment: '',
             driverLicenseID: '',
@@ -58,6 +60,8 @@ class DriverInfo extends Component {
             driverPrevLicenseNumber: '',
             driverChildrenCount: '',
             driverOSAGOInsurant: false,
+            showExtraOptions: false,
+            insurantDriverLicFirst: true,
             driverOSAGOOwner: true,
             driverCitizenRF: true,
             sameAsRealAddress: true,
@@ -84,6 +88,7 @@ class DriverInfo extends Component {
 
     static propTypes = {
         children: PropTypes.node,
+        driverInfoUpdate: PropTypes.func,
         fullCalculation: PropTypes.bool,
         innerWidth: PropTypes.number
     };
@@ -136,6 +141,10 @@ class DriverInfo extends Component {
         return (this.state.activeFields.indexOf(field) > -1 ? " control-focused" : "")
     };
 
+    toggleExtraOptions = () => {
+        this.setState({showExtraOptions: !this.state.showExtraOptions})
+    }
+
     formControlCallback = (name, value) => {
         console.log('formControlCallback', name, value);
 
@@ -146,12 +155,24 @@ class DriverInfo extends Component {
             this.setState(obj)
         } else {
             switch (name) {
+                case 'clientWholeName':
+                    this.setState({clientWholeName: value})
+                    break;
+                case 'driverBirthday':
+                    this.setState({driverBirthday: value})
+                    break;
                 case 'carForTaxi':
                     this.setState({carForTaxi: value})
-                    break
-
+                    break;
+                case 'driverOSAGOInsurant':
+                    this.setState({driverOSAGOInsurant: value})
+                    break;
             }
         }
+
+        let obj = {};
+        obj[name] = value;
+        this.props.driverInfoUpdate(obj);
     };
 
     componentDidUpdate() {
@@ -166,7 +187,7 @@ class DriverInfo extends Component {
     };
 
     render() {
-        let {fullCalculation, allFields, expanded, osago, wholeName, showAddBlock} = this.props
+        let {fullCalculation, allFields, expanded, osago, wholeName, showAddBlock, driverInfoUpdate} = this.props
         //const dateFormat = "DD.MM.YY"
         const dateFormatMask = "'mask': '99.99.9999', 'showMaskOnHover': 'false'"
         const driverPhoneMask = "'mask': '[+7] (999)-999-99-99', 'showMaskOnHover': 'false'"
@@ -197,6 +218,26 @@ class DriverInfo extends Component {
                             <>
                                 {
                                     <div key={di} className="driver-info__item">
+                                        <Row className="kasko-car-select__controls ant-row-center mb_30 mt_-50"
+                                             gutter={20}>
+                                            <Col span={3}/>
+                                            <FormCheckbox onChangeCallback={this.formControlCallback}
+                                                          text="Собственник"
+                                                          disabled={'disabled'}
+                                                          className="checkbox_middle check_v3"
+                                                          value={1}
+                                                          controlName={'driverOSAGOOwner'}
+                                                          checked={this.state.driverOSAGOOwner}/>
+
+                                            <FormCheckbox onChangeCallback={this.formControlCallback}
+                                                          text="Водитель"
+                                                          className="checkbox_middle check_v3"
+                                                          value={0}
+                                                          controlName={'driverOSAGOInsurant'}
+                                                          checked={this.state.driverOSAGOInsurant}/>
+                                            <Col span={3}/>
+                                        </Row>
+
                                         <Row className="kasko-car-select__controls mb_0" gutter={20}>
                                             <Col span={3}/>
                                             <Col span={18}>
@@ -208,9 +249,9 @@ class DriverInfo extends Component {
                                             <Col span={3}/>
 
                                             {wholeName ?
-                                                <FormInput span={12} onChangeCallback={this.formControlCallback}
+                                                <FormInput span={18} onChangeCallback={this.formControlCallback}
                                                            placeholder="Фамилия, Имя, Отчество"
-                                                           controlName={'clientWholeName'} value={''}/>
+                                                           controlName={'clientWholeName'} value={this.state.clientWholeName}/>
                                                 :
                                                 <>
                                                     <FormInput span={6} onChangeCallback={this.formControlCallback}
@@ -228,46 +269,41 @@ class DriverInfo extends Component {
                                             }
                                         </Row>
 
-                                        <Row className="kasko-car-select__controls" gutter={20}>
-                                            <Col span={3}/>
-                                            <FormInput span={6} onChangeCallback={this.formControlCallback}
-                                                       placeholder="Дата рождения" controlName={'driverBirthday'}
-                                                       value={''}/>
-                                        </Row>
-
-                                        <Row className="kasko-car-select__controls mb_45" gutter={20}>
-                                            <Col span={3}/>
-                                            <FormCheckbox onChangeCallback={this.formControlCallback}
-                                                          text="Страхователь"
-                                                          className="checkbox_middle check_v3"
-                                                          value={0}
-                                                          controlName={'driverOSAGOInsurant'}
-                                                          checked={this.state.driverOSAGOInsurant}/>
-
-                                            <FormCheckbox onChangeCallback={this.formControlCallback}
-                                                          text="Собственник"
-                                                          className="checkbox_middle check_v3"
-                                                          value={1}
-                                                          controlName={'driverOSAGOOwner'}
-                                                          checked={this.state.driverOSAGOOwner}/>
-                                        </Row>
-
-                                        <Row className="kasko-car-select__controls mb_0" gutter={20}>
-                                            <Col span={3}/>
-                                            <Col span={18}>
-                                                <div className="driver-info__caption">Контакты</div>
-                                            </Col>
-                                        </Row>
+                                        {this.state.showExtraOptions ?
+                                            <Radio.Group className={"w_100p "} defaultValue={0}>
+                                                <Row className="kasko-car-select__controls" gutter={20}>
+                                                    <Col span={3}/>
+                                                    <Col>
+                                                        <Radio value={0}>Мужской</Radio>
+                                                    </Col>
+                                                    <Col>
+                                                        <Radio value={1}>Женский</Radio>
+                                                    </Col>
+                                                    <Col className={"ant-col-mla"}>
+                                                        <div className="gl_link fz_12"
+                                                             onClick={this.toggleExtraOptions}>Скрыть
+                                                        </div>
+                                                    </Col>
+                                                    <Col span={3}/>
+                                                </Row>
+                                            </Radio.Group> : null
+                                        }
 
                                         <Row className="kasko-car-select__controls mb_60" gutter={20}>
                                             <Col span={3}/>
                                             <FormInput span={6} onChangeCallback={this.formControlCallback}
-                                                       placeholder="Мобильный телефон"
-                                                       controlName={'driverPhone'} value={this.state.driverPhone}/>
+                                                       placeholder="Дата рождения" controlName={'driverBirthday'}
+                                                       value={this.state.driverBirthday}/>
 
-                                            <FormInput span={12} onChangeCallback={this.formControlCallback}
-                                                       placeholder="Емейл"
-                                                       controlName={'driverEmail'} value={this.state.driverEmail}/>
+                                            {!this.state.showExtraOptions ?
+                                                <Col className={"ant-col-mla"}>
+                                                    <div className="gl_link fz_12 clr_gray"
+                                                         onClick={this.toggleExtraOptions}>Подробнее
+                                                    </div>
+                                                </Col> : null
+                                            }
+
+                                            <Col span={3}/>
                                         </Row>
 
                                         {
@@ -315,7 +351,8 @@ class DriverInfo extends Component {
                                                     <Row className="kasko-car-select__controls mb_0" gutter={20}>
                                                         <Col span={3}/>
                                                         <Col span={12}>
-                                                            <div className="driver-info__caption">Адрес регистрации</div>
+                                                            <div className="driver-info__caption">Адрес регистрации
+                                                            </div>
                                                         </Col>
                                                     </Row>
 
@@ -327,7 +364,7 @@ class DriverInfo extends Component {
                                                                    value={''}/>
                                                     </Row>
 
-                                                    <Row className="kasko-car-select__controls" gutter={20}>
+                                                    <Row className="kasko-car-select__controls mb_60" gutter={20}>
                                                         <Col span={3}/>
 
                                                         <FormInput span={18} onChangeCallback={this.formControlCallback}
@@ -366,6 +403,42 @@ class DriverInfo extends Component {
                                                 </Col>
                                             </Row> : null
                                         }
+
+                                        <Row className="kasko-car-select__controls mb_0" gutter={20}>
+                                            <Col span={3}/>
+                                            <Col span={18}>
+                                                <div className="driver-info__caption">Контакты</div>
+                                            </Col>
+                                        </Row>
+
+                                        <Row className={"kasko-car-select__controls " + (this.state.driverOSAGOInsurant ? 'mb_60' : 'mb_10')} gutter={20}>
+                                            <Col span={3}/>
+                                            <FormInput span={6} onChangeCallback={this.formControlCallback}
+                                                       placeholder="Мобильный телефон"
+                                                       controlName={'driverPhone'} value={this.state.driverPhone}/>
+
+                                            <FormInput span={12} onChangeCallback={this.formControlCallback}
+                                                       placeholder="Емейл"
+                                                       controlName={'driverEmail'} value={this.state.driverEmail}/>
+                                        </Row>
+
+                                        {this.state.driverOSAGOInsurant ?
+                                            <>
+                                                <Row
+                                                    className="kasko-car-select__controls mb_0"
+                                                    gutter={20}>
+                                                    <Col span={3}/>
+                                                    <Col span={12}>
+                                                        <div
+                                                            className="driver-info__caption">Водительское удостоверение
+                                                        </div>
+                                                    </Col>
+                                                </Row>
+                                                <DriverLicense/>
+                                            </>
+                                            : null
+                                        }
+
                                     </div>
                                 }
                             </>

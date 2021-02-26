@@ -28,11 +28,12 @@ class CalculationPopup extends Component {
             showClientFields: true,
             toggleClientFields: false,
             calculationPopupOpened: false,
+            driverOSAGOInsurant: false,
             formBusy: false,
             useOCR: false,
             hasFranchise: true,
             carCredit: true,
-            trustedInfoCount: 1,
+            trustedInfoCount: 0,
             carOsagoDocStart: '',
             carMark: '',
             carPrice: 0,
@@ -106,6 +107,12 @@ class CalculationPopup extends Component {
         });
     };
 
+    driverInfoCallback = (rslt) => {
+        if (rslt.hasOwnProperty('driverOSAGOInsurant')) {
+            this.setState(rslt)
+        }
+    }
+
     onCalculationTypeChange = (checked) => {
         this.setState({fullCalculation: checked})
     }
@@ -138,8 +145,16 @@ class CalculationPopup extends Component {
         }
 
         for (let i = 0; i < this.state.trustedInfoCount; i++) {
-            console.log('for', i);
-            trustedInfoArray.push(<TrustedInfo removeCallback={this.onRemoveTrastedInfo} index={i + 1} wholeName={true} osago={osago}/>);
+            trustedInfoArray.push(<TrustedInfo removeCallback={this.onRemoveTrastedInfo}
+                                               wholeName={true} index={i + (this.state.driverOSAGOInsurant ? 2 : 1)}
+                                               osago={osago}/>);
+        }
+
+        if (this.state.driverOSAGOInsurant) {
+            trustedInfoArray.unshift(<TrustedInfo removeCallback={this.onRemoveTrastedInfo}
+                                                  disabled={true} index={0}
+                                                  wholeName={true}
+                                                  osago={osago}/>)
         }
 
         return (
@@ -148,7 +163,8 @@ class CalculationPopup extends Component {
 
                 <div className="calculation-popup__close" onClick={popupCloseFunc}/>
 
-                {!osago ? <div className={"kasko-car-select__calculation" + (allFields || this.state.fullCalculation ? ' active' : '')}>
+                {!osago ? <div
+                    className={"kasko-car-select__calculation" + (allFields || this.state.fullCalculation ? ' active' : '')}>
                     <span className="kasko-car-select__calculation--text">Предварительный расчет</span>
                     <Switch checked={allFields || this.state.fullCalculation}
                             className="kasko-car-select__calculation--switch" onChange={this.onCalculationTypeChange}/>
@@ -179,30 +195,33 @@ class CalculationPopup extends Component {
                 {/*    </Col>*/}
                 {/*</Row>*/}
 
+                {/*<div className="kasko-car-select__form mt_0">*/}
+                {/*    <h1 onClick={this.onToggleCarFields}*/}
+                {/*        className={"kasko-main__title" + (this.state.showCarFields ? " expanded" : " collapsed")}>*/}
+                {/*        <span>Автомобиль</span></h1>*/}
+
+                {/*<KaskoCarSelect hideOffers={true} allFields={true}/>*/}
+                {/*{!osago ?*/}
+                {/*<KaskoCarSelectNew hideOffers={true} allFields={allFields}*/}
+                {/*                   expanded={(step === void 0) || this.state.showCarFields}*/}
+                {/*                   fullCalculation={false}/>*/}
+                {/*	: */}
+                {/*	<KaskoCarSelectOsago hideOffers={true} allFields={allFields} expanded={(step === void 0) || this.state.showCarFields} fullCalculation={this.state.fullCalculation}/>*/}
+                {/*}*/}
+
+                {/*</div>*/}
+
                 <div className="kasko-car-select__form mt_0">
-                    <h1 onClick={this.onToggleCarFields}
-                        className={"kasko-main__title" + (this.state.showCarFields ? " expanded" : " collapsed")}>
-                        <span>Автомобиль</span></h1>
-
-                    {/*<KaskoCarSelect hideOffers={true} allFields={true}/>*/}
-                    {/*{!osago ?*/}
-                    <KaskoCarSelectNew hideOffers={true} allFields={allFields}
-                                       expanded={(step === void 0) || this.state.showCarFields}
-                                       fullCalculation={false}/>
-                    {/*	: */}
-                    {/*	<KaskoCarSelectOsago hideOffers={true} allFields={allFields} expanded={(step === void 0) || this.state.showCarFields} fullCalculation={this.state.fullCalculation}/>*/}
-                    {/*}*/}
-
-                </div>
-
-                <div className="kasko-car-select__form">
                     <Row gutter={20}>
                         <Col span={3}/>
                         <Col span={18}>
-                            <h1 onClick={this.onToggleClientFields}
-                                className={"kasko-main__title" + (this.state.showClientFields ? " expanded" : " collapsed")}>
-                                <span>Анкета и документы</span>
-                                <span className={"kasko-main__title--id"}>ID 123456</span>
+                            <h1
+                                //onClick={this.onToggleClientFields}
+                                className={"kasko-main__title"
+                                    //+ (this.state.showClientFields ? " expanded" : " collapsed")
+                                }>
+                                <span>Страхователь</span>
+                                {/*<span className={"kasko-main__title--id"}>ID 123456</span>*/}
                             </h1>
                         </Col>
                     </Row>
@@ -217,12 +236,13 @@ class CalculationPopup extends Component {
                                 {/*				onChange={this.onUseOCRChange}>Не распознавать документы</Checkbox>*/}
                                 {/*</div>*/}
 
-                                <ClientQuestionnaire/>
+                                {/*<ClientQuestionnaire/>*/}
 
-                                <DriverCount className={"mt_60"} step={step} driverOptions={driverOptions}/>
+                                {/*<DriverCount className={"mt_60"} step={step} driverOptions={driverOptions}/>*/}
 
                                 <DriverInfo showAddBlock={true} wholeName={true} osago={osago}
                                             calculationSave={updatePaymentState}
+                                            driverInfoUpdate={this.driverInfoCallback}
                                             expanded={(step !== 2) || this.state.showClientFields}
                                             fullCalculation={this.state.fullCalculation}/>
                             </>
@@ -243,45 +263,45 @@ class CalculationPopup extends Component {
                         </>
                         : null}
 
-                    <Row className="kasko-car-select__controls mb_0" gutter={20}>
-                        <Col span={3}/>
-                        <Col span={18}>
-                            <div onClick={this.addTrustedInfo} className="driver-info__add gl_link">Добавить водителя</div>
+                    <Row className="kasko-car-select__controls ant-row-center mb_20" gutter={20}>
+                        <Col span={6}>
+                            <Button onClick={this.addTrustedInfo}
+                                    className="driver-info__add gl_link w_100p btn-action">Добавить водителя</Button>
                         </Col>
                     </Row>
 
                 </div>
 
-                <Row gutter={20}>
-                    <Col span={3}/>
-                    <Col span={18}>
-                        <div className="driver-info__caption">Водители</div>
-                    </Col>
-                </Row>
+                {/*<Row gutter={20}>*/}
+                {/*    <Col span={3}/>*/}
+                {/*    <Col span={18}>*/}
+                {/*        <div className="driver-info__caption">Водители</div>*/}
+                {/*    </Col>*/}
+                {/*</Row>*/}
 
-                <Row gutter={20}>
-                    <Col span={3}/>
-                    <Col span={18}>
-                        <InsurancePolicy disableKasko={true} />
-                    </Col>
-                </Row>
+                {/*<Row gutter={20}>*/}
+                {/*    <Col span={3}/>*/}
+                {/*    <Col span={18}>*/}
+                {/*        <InsurancePolicy disableKasko={true} />*/}
+                {/*    </Col>*/}
+                {/*</Row>*/}
 
-                <Row className="kasko-car-select__controls ant-row-center mb_30" gutter={20}>
-                    <FormInput span={6} onChangeCallback={this.formControlCallback}
-                               inputmask={dateFormatMask}
-                               placeholder={"Дата начала действия \n нового полиса е-ОСАГО"}
-                               controlName={'carOsagoDocStart'} value={(this.state.carOsagoDocStart)}/>
-                </Row>
+                {/*<Row className="kasko-car-select__controls ant-row-center mb_30" gutter={20}>*/}
+                {/*    <FormInput span={6} onChangeCallback={this.formControlCallback}*/}
+                {/*               inputmask={dateFormatMask}*/}
+                {/*               placeholder={"Дата начала действия \n нового полиса е-ОСАГО"}*/}
+                {/*               controlName={'carOsagoDocStart'} value={(this.state.carOsagoDocStart)}/>*/}
+                {/*</Row>*/}
 
                 <Row className="kasko-car-select__controls ant-row-center" gutter={20}>
-                    <Col span={3}>
-                        <div onClick={() => this.onPopupCancel()} className="ant-btn btn_green fz_14 w_100p">
-                            <span>Отмена</span></div>
+                    <Col span={6}>
+                        <Button onClick={() => this.onPopupCancel()}
+                                className="ant-btn-primary w_100p">Сохранить</Button>
                     </Col>
                     <Col span={6}>
-                        <Button onClick={() => this.onPopupSubmit()} className={"ant-btn-primary btn_middle"}>Получить расчет</Button>
+                        <Button onClick={() => this.onPopupSubmit()} className={"ant-btn-primary w_100p"}
+                        >Получить расчет</Button>
                     </Col>
-                    <Col span={3}/>
                 </Row>
             </div>
         );
