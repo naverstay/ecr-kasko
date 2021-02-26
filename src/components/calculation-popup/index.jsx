@@ -28,7 +28,7 @@ class CalculationPopup extends Component {
             showClientFields: true,
             toggleClientFields: false,
             calculationPopupOpened: false,
-            driverOSAGOInsurant: false,
+            driverOSAGOInsurant: true,
             formBusy: false,
             useOCR: false,
             hasFranchise: true,

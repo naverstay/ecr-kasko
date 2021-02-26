@@ -7,8 +7,8 @@
 		max-width: $layout-maxwidth;
 		//max-width: none;
 		flex-direction: column;
-		overflow-x: hidden;
-    overflow-y: scroll;
+		//overflow-x: hidden;
+    //overflow-y: scroll;
 
 		@include for-size(desktop-up) {
 			margin-left: $aside-size-small;

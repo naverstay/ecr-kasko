@@ -59,7 +59,7 @@ class DriverInfo extends Component {
             driverPrevLicenseID: '',
             driverPrevLicenseNumber: '',
             driverChildrenCount: '',
-            driverOSAGOInsurant: false,
+            driverOSAGOInsurant: true,
             showExtraOptions: false,
             insurantDriverLicFirst: true,
             driverOSAGOOwner: true,

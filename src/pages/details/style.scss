@@ -1173,7 +1173,7 @@ html {
   box-sizing: border-box;
   -webkit-tap-highlight-color: transparent;
   height: 100%;
-  overflow-x: hidden;
+  //overflow-x: hidden;
   //overflow-y: scroll;
 }
 
@@ -1201,7 +1201,7 @@ body {
   box-sizing: border-box;
   -webkit-tap-highlight-color: transparent;
   line-height: 1.2;
-  overflow-y: scroll;
+  //overflow-y: scroll;
   font: 14px/1 RobotoLight, sans-serif;
   color: #000;
 }

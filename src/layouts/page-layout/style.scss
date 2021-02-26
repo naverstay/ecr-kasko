@@ -6,7 +6,7 @@
 		min-height: 100vh;
 		max-width: $layout-maxwidth;
 		flex-direction: column;
-		overflow-x: hidden;
+		//overflow-x: hidden;
 
 		@include for-size(desktop-up) {
 			margin-left: $aside-size-small;

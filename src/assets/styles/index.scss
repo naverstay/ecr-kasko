@@ -538,12 +538,17 @@ $spinner_time: 1s;
     }
   }
 
+  .ant-checkbox-inner,
+  .ant-checkbox-checked::after {
+    border-radius: 0;
+  }
+
   .ant-checkbox-checked {
     .ant-checkbox-inner {
       background: #fff;
 
       &:after {
-        border-color: $color-green;
+        border-color: $color-blue;
       }
     }
   }
