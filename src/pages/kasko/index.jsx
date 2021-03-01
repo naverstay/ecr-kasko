@@ -318,17 +318,17 @@ class Kasko extends Component {
                                                     }
                                                 </div>
                                             </Tab>
-                                            <Tab className={'kasko-tabs__tab'}>
-                                                <div className="kasko-tab__panel-name"><span
-                                                    className="kasko-tab__panel-name--text">POS кредит</span>
-                                                    {this.state.tabIndex === 4 ?
-                                                        tabStatus
-                                                        : this.state.carFound ?
-                                                            null
-                                                            : null
-                                                    }
-                                                </div>
-                                            </Tab>
+                                            {/*<Tab className={'kasko-tabs__tab'}>*/}
+                                            {/*    <div className="kasko-tab__panel-name"><span*/}
+                                            {/*        className="kasko-tab__panel-name--text">POS кредит</span>*/}
+                                            {/*        {this.state.tabIndex === 4 ?*/}
+                                            {/*            tabStatus*/}
+                                            {/*            : this.state.carFound ?*/}
+                                            {/*                null*/}
+                                            {/*                : null*/}
+                                            {/*        }*/}
+                                            {/*    </div>*/}
+                                            {/*</Tab>*/}
                                         </TabList>
 
                                         <TabPanel className="kasko-tab__panel">
@@ -365,10 +365,10 @@ class Kasko extends Component {
                                                 <TabService step={step} tabCallback={this.changeTabState}/>
                                             }
                                         </TabPanel>
-                                        <TabPanel className="kasko-tab__panel">
-                                            {this.state.tabIndex === null || !this.state.carFound ? null :
-                                                <h2>POS кредит</h2>}
-                                        </TabPanel>
+                                        {/*<TabPanel className="kasko-tab__panel">*/}
+                                        {/*    {this.state.tabIndex === null || !this.state.carFound ? null :*/}
+                                        {/*        <h2>POS кредит</h2>}*/}
+                                        {/*</TabPanel>*/}
                                     </Tabs>
                                 }
                             </>

@@ -718,17 +718,17 @@ class CarSelect extends Component {
                                                         <Row className="kasko-car-select__controls" gutter={20}>
                                                             <FormInput span={8}
                                                                        onChangeCallback={this.formControlCallback}
-                                                                       placeholder="Мощность"
-                                                                       inputmask={carPowerMask}
-                                                                       controlName={'carPower'}
-                                                                       value={''}/>
-
-                                                            <FormInput span={8}
-                                                                       onChangeCallback={this.formControlCallback}
                                                                        placeholder="VIN"
                                                                        className={(allFields ? "input-error" : "")}
                                                                        inputmask={carVINMask}
                                                                        controlName={'carVIN'} value={''}/>
+
+                                                            <FormInput span={8}
+                                                                       onChangeCallback={this.formControlCallback}
+                                                                       placeholder="Мощность"
+                                                                       inputmask={carPowerMask}
+                                                                       controlName={'carPower'}
+                                                                       value={''}/>
                                                         </Row>
 
                                                         <div className={"kasko-car-select__caption mt_60"}

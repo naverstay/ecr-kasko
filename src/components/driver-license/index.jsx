@@ -92,7 +92,7 @@ class DriverLicense extends Component {
         let {fullCalculation, allFields, expanded, osago, wholeName, showAddBlock, disabled} = this.props
 
         return (
-            <div className="driver-info">
+            <div className="driver-info__block">
                 <ReactComment text='"ecr-kasko/src/components/driver-license/index.jsx"'/>
 
                 <Row className="kasko-car-select__controls" gutter={20}>

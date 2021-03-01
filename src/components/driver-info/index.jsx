@@ -306,6 +306,26 @@ class DriverInfo extends Component {
                                             <Col span={3}/>
                                         </Row>
 
+                                        <Row className="kasko-car-select__controls mb_0" gutter={20}>
+                                            <Col span={3}/>
+                                            <Col span={18}>
+                                                <div className="driver-info__caption">Контакты</div>
+                                            </Col>
+                                        </Row>
+
+                                        <Row
+                                            className={"kasko-car-select__controls " + (this.state.driverOSAGOInsurant ? 'mb_60' : 'mb_10')}
+                                            gutter={20}>
+                                            <Col span={3}/>
+                                            <FormInput span={6} onChangeCallback={this.formControlCallback}
+                                                       placeholder="Мобильный телефон"
+                                                       controlName={'driverPhone'} value={this.state.driverPhone}/>
+
+                                            <FormInput span={12} onChangeCallback={this.formControlCallback}
+                                                       placeholder="Емейл"
+                                                       controlName={'driverEmail'} value={this.state.driverEmail}/>
+                                        </Row>
+
                                         {
                                             fullCalculation ?
                                                 <>
@@ -403,24 +423,6 @@ class DriverInfo extends Component {
                                                 </Col>
                                             </Row> : null
                                         }
-
-                                        <Row className="kasko-car-select__controls mb_0" gutter={20}>
-                                            <Col span={3}/>
-                                            <Col span={18}>
-                                                <div className="driver-info__caption">Контакты</div>
-                                            </Col>
-                                        </Row>
-
-                                        <Row className={"kasko-car-select__controls " + (this.state.driverOSAGOInsurant ? 'mb_60' : 'mb_10')} gutter={20}>
-                                            <Col span={3}/>
-                                            <FormInput span={6} onChangeCallback={this.formControlCallback}
-                                                       placeholder="Мобильный телефон"
-                                                       controlName={'driverPhone'} value={this.state.driverPhone}/>
-
-                                            <FormInput span={12} onChangeCallback={this.formControlCallback}
-                                                       placeholder="Емейл"
-                                                       controlName={'driverEmail'} value={this.state.driverEmail}/>
-                                        </Row>
 
                                         {this.state.driverOSAGOInsurant ?
                                             <>
