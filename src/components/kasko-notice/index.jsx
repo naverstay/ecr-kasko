@@ -95,7 +95,7 @@ class KaskoNotice extends Component {
                                 className={"kasko-notice__status " + (statusClasses[consult ? 1 : status])}>{statusNames[consult ? 6 : status]}</div> : null}
                         </div>
                         <div className="kasko-notice__progress--wrapper">
-                            <div className="kasko-notice__progress--price">11 450 ₽</div>
+                            {status ? null : <div className="kasko-notice__progress--price">11 450 ₽</div>}
                             <ul className="kasko-notice__progress">
                                 {progressHtml}
                             </ul>
@@ -119,7 +119,6 @@ class KaskoNotice extends Component {
                                         <div
                                             className="kasko-notice__price--value">{step >= 2 ? 'ВСК' : ''}
                                         </div>
-
                                     </li>
                                     <li>
                                         <div className="kasko-notice__price--label">ПВ</div>

@@ -145,13 +145,13 @@ class CalculationPopup extends Component {
         }
 
         for (let i = 0; i < this.state.trustedInfoCount; i++) {
-            trustedInfoArray.push(<TrustedInfo removeCallback={this.onRemoveTrastedInfo}
+            trustedInfoArray.push(<TrustedInfo key={i} removeCallback={this.onRemoveTrastedInfo}
                                                wholeName={true} index={i + (this.state.driverOSAGOInsurant ? 2 : 1)}
                                                osago={osago}/>);
         }
 
         if (this.state.driverOSAGOInsurant) {
-            trustedInfoArray.unshift(<TrustedInfo removeCallback={this.onRemoveTrastedInfo}
+            trustedInfoArray.unshift(<TrustedInfo key={parseInt(Math.random() * 100000)} removeCallback={this.onRemoveTrastedInfo}
                                                   disabled={true} index={0}
                                                   wholeName={true}
                                                   osago={osago}/>)
@@ -180,36 +180,6 @@ class CalculationPopup extends Component {
                         </>
                         : null
                 }
-
-                {/*<Row gutter={20}>*/}
-                {/*    <Col span={3}/>*/}
-                {/*    <Col span={18}>*/}
-                {/*        <div className="driver-info__caption">Добавить контактных лиц в полис</div>*/}
-                {/*    </Col>*/}
-                {/*</Row>*/}
-
-                {/*<Row gutter={20}>*/}
-                {/*    <Col span={3}/>*/}
-                {/*    <Col span={18}>*/}
-                {/*        <InsurancePolicy/>*/}
-                {/*    </Col>*/}
-                {/*</Row>*/}
-
-                {/*<div className="kasko-car-select__form mt_0">*/}
-                {/*    <h1 onClick={this.onToggleCarFields}*/}
-                {/*        className={"kasko-main__title" + (this.state.showCarFields ? " expanded" : " collapsed")}>*/}
-                {/*        <span>Автомобиль</span></h1>*/}
-
-                {/*<KaskoCarSelect hideOffers={true} allFields={true}/>*/}
-                {/*{!osago ?*/}
-                {/*<KaskoCarSelectNew hideOffers={true} allFields={allFields}*/}
-                {/*                   expanded={(step === void 0) || this.state.showCarFields}*/}
-                {/*                   fullCalculation={false}/>*/}
-                {/*	: */}
-                {/*	<KaskoCarSelectOsago hideOffers={true} allFields={allFields} expanded={(step === void 0) || this.state.showCarFields} fullCalculation={this.state.fullCalculation}/>*/}
-                {/*}*/}
-
-                {/*</div>*/}
 
                 <div className="kasko-car-select__form mt_0">
                     <Row gutter={20}>
@@ -271,27 +241,6 @@ class CalculationPopup extends Component {
                     </Row>
 
                 </div>
-
-                {/*<Row gutter={20}>*/}
-                {/*    <Col span={3}/>*/}
-                {/*    <Col span={18}>*/}
-                {/*        <div className="driver-info__caption">Водители</div>*/}
-                {/*    </Col>*/}
-                {/*</Row>*/}
-
-                {/*<Row gutter={20}>*/}
-                {/*    <Col span={3}/>*/}
-                {/*    <Col span={18}>*/}
-                {/*        <InsurancePolicy disableKasko={true} />*/}
-                {/*    </Col>*/}
-                {/*</Row>*/}
-
-                {/*<Row className="kasko-car-select__controls ant-row-center mb_30" gutter={20}>*/}
-                {/*    <FormInput span={6} onChangeCallback={this.formControlCallback}*/}
-                {/*               inputmask={dateFormatMask}*/}
-                {/*               placeholder={"Дата начала действия \n нового полиса е-ОСАГО"}*/}
-                {/*               controlName={'carOsagoDocStart'} value={(this.state.carOsagoDocStart)}/>*/}
-                {/*</Row>*/}
 
                 <Row className="kasko-car-select__controls ant-row-center" gutter={20}>
                     <Col span={6}>

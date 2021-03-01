@@ -285,8 +285,8 @@ class CarGarage extends Component {
 
                 <Row gutter={20}>
                     {
-                        carList.map((c) => {
-                            return <Col span={12}>
+                        carList.map((c, ci) => {
+                            return <Col key={ci} span={12}>
                                 <Link to={"/car"} className="kasko-car-select _garage">
                                     <div className="kasko-car-select__description">
                                         <div className="kasko-car-select__controls mb_10">

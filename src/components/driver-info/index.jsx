@@ -211,11 +211,10 @@ class DriverInfo extends Component {
         return (
             <div className="driver-info">
                 <ReactComment text='"ecr-kasko/src/components/driver-info/index.jsx"'/>
-
                 {
                     (expanded && drivers.length) ? drivers.map((d, di) => {
                         return (
-                            <>
+                            <div key={di}>
                                 {
                                     <div key={di} className="driver-info__item">
                                         <Row className="kasko-car-select__controls ant-row-center mb_30 mt_-50"
@@ -443,11 +442,10 @@ class DriverInfo extends Component {
 
                                     </div>
                                 }
-                            </>
+                            </div>
                         )
                     }) : null
                 }
-
             </div>
         );
     }

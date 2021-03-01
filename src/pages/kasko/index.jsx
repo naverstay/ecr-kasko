@@ -211,11 +211,13 @@ class Kasko extends Component {
         let carInfo = [];
 
         for (let i = 0; i < (this.props.dev ? 10 : 1); i++) {
-            carInfo.push(<AsideBlock><KaskoCarInfo step={step} notificationCount={step === 2 ? 1 : step === 3 ? 2 : 0}
-                                                   carName={step === 1 ? '' : 'Hyundai'}
-                                                   carModel={step === 1 ? '' : 'Sonata'} image={this.state.carImage}
-                                                   info={step === 1 ? '' : "2020 Новый"}
-                                                   price={step === 1 ? '' : "1 534 000 ₽"}/></AsideBlock>)
+            carInfo.push(<AsideBlock key={i}>
+                <KaskoCarInfo step={step} notificationCount={step === 2 ? 1 : step === 3 ? 2 : 0}
+                              carName={step === 1 ? '' : 'Hyundai'}
+                              carModel={step === 1 ? '' : 'Sonata'} image={this.state.carImage}
+                              info={step === 1 ? '' : "2020 Новый"}
+                              price={step === 1 ? '' : "1 534 000 ₽"}/>
+            </AsideBlock>)
         }
 
         console.log('paymentStatus', paymentStatus);

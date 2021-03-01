@@ -504,16 +504,12 @@ class TabOffer extends Component {
             onChange={this.onKaskoOsagoChange}>
             <Row gutter={20}>
                 {
-                    <>
-                        {
-                            insuranceList.map((c, i) =>
-                                <Col key={i}>
-                                    <Checkbox
-                                        value={i}>{c}</Checkbox>
-                                </Col>
-                            )
-                        }
-                    </>
+                    insuranceList.map((c, i) =>
+                        <Col key={i}>
+                            <Checkbox
+                                value={i}>{c}</Checkbox>
+                        </Col>
+                    )
                 }
             </Row>
         </Checkbox.Group>
@@ -1659,7 +1655,8 @@ class TabOffer extends Component {
                                                 {step === 1 ?
                                                     <Col span={24}>
                                                         <p className={"text_center calculation-offers__warning"}
-                                                        >Стоимость полиса предварительная и может измениться в момент выпуска.</p>
+                                                        >Стоимость полиса предварительная и может измениться в момент
+                                                            выпуска.</p>
                                                     </Col>
                                                     :
                                                     <>

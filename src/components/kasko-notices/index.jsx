@@ -87,7 +87,7 @@ class KaskoNotices extends Component {
             }
         }
 
-        console.log('consult', consult);
+        console.log('consult', consult, status);
 
         return (
             type ?
@@ -100,7 +100,7 @@ class KaskoNotices extends Component {
                                 className={"kasko-notice__status " + (statusClasses[consult ? 6 : status])}>{statusNames[consult ? 6 : status]}</div> : null}
                         </div>
                         <div className="kasko-notice__progress--wrapper">
-                            <div className="kasko-notice__progress--price">11 450 ₽</div>
+                            {status ? null : <div className="kasko-notice__progress--price">11 450 ₽</div>}
                             <ul className="kasko-notice__progress">
                                 {progressHtml}
                             </ul>

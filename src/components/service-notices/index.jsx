@@ -95,7 +95,7 @@ class ServiceNotices extends Component {
                                 className={"kasko-notice__status " + (statusClasses[status])}>{statusNames[status]}</div> : null}
                         </div>
                         <div className="kasko-notice__progress--wrapper">
-                            <div className="kasko-notice__progress--price">11 450 ₽</div>
+                            {status ? null : <div className="kasko-notice__progress--price">11 450 ₽</div>}
                             <ul className="kasko-notice__progress">
                                 {progressHtml}
                             </ul>
