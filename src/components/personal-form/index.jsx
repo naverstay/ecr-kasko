@@ -3,13 +3,12 @@ import Inputmask from "inputmask";
 import {Input, Col, Row, Select, Button, Checkbox, Form, Radio} from "antd";
 import './style.scss';
 import PropTypes from "prop-types";
-import moment from 'moment';
-import ru from 'moment/locale/ru';
+import dayjs from 'dayjs';
 import FormInput from "../form-input";
 
 const {Option} = Select;
 
-moment().locale('ru', ru);
+dayjs().locale('ru');
 
 class PersonalForm extends Component {
     constructor(props) {

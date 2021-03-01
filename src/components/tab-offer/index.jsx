@@ -1,11 +1,10 @@
 import React, {Component, useCallback} from "react";
 import {Col, Row, Button, Radio, Slider, Input, Tooltip, DatePicker, ConfigProvider} from "antd";
+//import DatePicker from '../../components/dayjs-picker';
 import './style.scss';
 import PropTypes from "prop-types";
-import moment from 'moment';
-import ru_RU from "antd/lib/locale-provider/ru_RU";
-import 'moment/locale/ru';
-import ru from 'moment/locale/ru';
+import dayjs from 'dayjs';
+
 import KaskoOffers from "../kasko-offers";
 import {Link} from "react-router-dom";
 import {Switch, Checkbox} from "antd";
@@ -25,7 +24,7 @@ import CalculationOffersCombo from "../calculation-offers-combo";
 import CalculationOffersEosago from "../calculation-offers-eosago";
 import FormCheckbox from "../form-checkbox";
 
-moment().locale('ru', ru);
+dayjs().locale('ru');
 
 class TabOffer extends Component {
     constructor(props) {
@@ -220,8 +219,8 @@ class TabOffer extends Component {
     datepickerDisabledDate = (d) => {
         console.log('datepickerPanelRender', d, this.pickerRef);
 
-        const minDate = moment().subtract(2, 'day');
-        const maxDate = moment().add(35, 'day');
+        const minDate = dayjs().subtract(2, 'day');
+        const maxDate = dayjs().add(35, 'day');
 
         return !d || d.isAfter(minDate) || d.isSameOrBefore(maxDate);
 
@@ -475,6 +474,8 @@ class TabOffer extends Component {
     componentDidMount() {
         // todo dev
         //this.props.tabCallback({newStep: 2});
+
+        console.log('componentDidMount', dayjs.locale())
 
         this.initDatePicker();
     }

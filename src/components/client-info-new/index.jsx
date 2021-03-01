@@ -162,7 +162,7 @@ class ClientInfoNew extends Component {
                     </Col>
                     <Col span={6}>
                         {/*<DatePicker format={dateFormat}*/}
-                        {/*			value={this.state.carPTSStart ? moment(this.state.carPTSStart) : null}*/}
+                        {/*			value={this.state.carPTSStart ? dayjs(this.state.carPTSStart) : null}*/}
                         {/*			onChange={this.onCarPTSStartChange} placeholder=""*/}
                         {/*			className={"w_100p hide_picker_icon wrapper-error" + (this.state.carPTSStart && this.state.carPTSStart._isAMomentObject ? "" : " _empty")}/>*/}
                         <Input
@@ -195,7 +195,7 @@ class ClientInfoNew extends Component {
                     </Col>
                     <Col span={6}>
                         {/*<DatePicker format={dateFormat}*/}
-                        {/*	value={this.state.clientLicenseStart ? moment(this.state.clientLicenseStart) : null}*/}
+                        {/*	value={this.state.clientLicenseStart ? dayjs(this.state.clientLicenseStart) : null}*/}
                         {/*	onChange={this.onClientLicenseStartChange} placeholder=""*/}
                         {/*	className={"w_100p wrapper-error hide_picker_icon" + (this.state.clientLicenseStart && this.state.clientLicenseStart._isAMomentObject ? "" : " _empty")}/>*/}
                         <Input data-inputmask={dateFormatMask}

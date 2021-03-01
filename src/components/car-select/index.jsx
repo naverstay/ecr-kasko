@@ -3,8 +3,7 @@ import Inputmask from "inputmask";
 import {Input, Col, Row, Select, Button, Checkbox, Form, Radio} from "antd";
 import './style.scss';
 import PropTypes from "prop-types";
-import moment from 'moment';
-import ru from 'moment/locale/ru';
+import dayjs from 'dayjs';
 import KaskoOffers from "../kasko-offers";
 import CarGarage from "../car-garage";
 import {formatMoney} from "../../helpers/formatMoney";
@@ -17,7 +16,7 @@ import FormCheckbox from "../form-checkbox";
 const {Option} = Select;
 //const {YearPicker} = DatePicker;
 
-moment().locale('ru', ru);
+dayjs().locale('ru');
 
 class CarSelect extends Component {
     constructor(props) {

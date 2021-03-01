@@ -23,7 +23,7 @@ export default class Example extends React.Component {
         if (!from) {
             return;
         }
-        if (moment(to).diff(moment(from), 'months') < 2) {
+        if (dayjs(to).diff(dayjs(from), 'months') < 2) {
             this.to.getDayPicker().showMonth(from);
         }
     }

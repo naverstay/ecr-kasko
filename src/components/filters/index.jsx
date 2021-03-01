@@ -8,13 +8,12 @@ import cn from 'classnames';
 // import DateRangePicker from './DateRangePicker';
 import flatpickr from 'flatpickr';
 import {Russian} from 'flatpickr/dist/l10n/ru.js';
-import moment from 'moment';
-import ru from 'moment/locale/ru';
+import dayjs from 'dayjs';
 import ReportSelect from './reportSelect';
 import ReportPageMenu from '../ReportPageMenu';
 import './style.scss';
 
-moment().locale('ru', ru);
+dayjs().locale('ru');
 
 const reportLinks = {
     appreg: `https://reports.auto.e-credit.one/reports/make-xsl-applications-registry-report`
@@ -112,7 +111,7 @@ class Filters extends Component {
     todayClickHandler = () => {
         const {filtersChange, filters} = this.props;
         this.flatpickr.setDate();
-        const today = `${moment().format('DD.MM.YYYY')}`;
+        const today = `${dayjs().format('DD.MM.YYYY')}`;
         const todayFilter = {
             active: 'today',
             clickedTimeFilter: 0,
@@ -125,10 +124,10 @@ class Filters extends Component {
     monthClickHandler = () => {
         const {filtersChange, filters} = this.props;
         this.flatpickr.setDate();
-        const monthBegin = `${moment()
+        const monthBegin = `${dayjs()
             .startOf('month')
             .format('DD.MM.YYYY')}`;
-        const today = `${moment().format('DD.MM.YYYY')}`;
+        const today = `${dayjs().format('DD.MM.YYYY')}`;
         const monthFilter = {
             clickedTimeFilter: 2,
             month: `${currDate.getMonth()}`,
@@ -146,10 +145,10 @@ class Filters extends Component {
 
         const yearFilter = {
             clickedTimeFilter: 3,
-            dateFrom: `${moment()
+            dateFrom: `${dayjs()
                 .startOf('year')
                 .format('DD.MM.YYYY')}`,
-            dateTo: `${moment().format('DD.MM.YYYY')}`,
+            dateTo: `${dayjs().format('DD.MM.YYYY')}`,
             year: `${currDate.getFullYear()}`,
             active: 'year'
         };
@@ -162,8 +161,8 @@ class Filters extends Component {
 
         this.flatpickr.setDate();
 
-        const today = `${moment().format('DD.MM.YYYY')}`;
-        const weekBeginDate = `${moment()
+        const today = `${dayjs().format('DD.MM.YYYY')}`;
+        const weekBeginDate = `${dayjs()
             .startOf('week')
             .format('DD.MM.YYYY')}`;
         const weekFilter = {
@@ -184,8 +183,8 @@ class Filters extends Component {
             mode: 'range',
             onChange: date => {
                 if (date.length > 1) {
-                    const dateFrom = `${moment(date[0]).format('DD.MM.YYYY')}`;
-                    const dateTo = `${moment(date[1]).format('DD.MM.YYYY')}`;
+                    const dateFrom = `${dayjs(date[0]).format('DD.MM.YYYY')}`;
+                    const dateTo = `${dayjs(date[1]).format('DD.MM.YYYY')}`;
                     const datePickerFilter = {
                         clickedTimeFilter: 4,
                         dateFrom,
@@ -257,7 +256,7 @@ class Filters extends Component {
         ]);
 
         /*
-    if (!loaded) { 
+    if (!loaded) {
       return <><PropagateLoader /></>
     }
     */

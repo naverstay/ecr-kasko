@@ -2,8 +2,7 @@ import React, {Component} from "react";
 import {Col, Row, Button, Radio, Slider, Input, Tooltip} from "antd";
 import './style.scss';
 import PropTypes from "prop-types";
-import moment from 'moment';
-import ru from 'moment/locale/ru';
+import dayjs from 'dayjs';
 import KaskoOffers from "../kasko-offers";
 import {Link} from "react-router-dom";
 import {Switch, Checkbox} from "antd";
@@ -18,7 +17,7 @@ import PopupOverlay from "../popup-overlay";
 import ServicePopup from "../service-popup";
 import ServiceOffers from "../service-offers";
 
-moment().locale('ru', ru);
+dayjs().locale('ru');
 
 class ServiceSelect extends Component {
     constructor(props) {
