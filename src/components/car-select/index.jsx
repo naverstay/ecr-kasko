@@ -23,7 +23,7 @@ class CarSelect extends Component {
         super(props);
         this.state = {
             activeFields: (this.props.step === 1 ? ['carMark'] : []),
-            carFound: void 0,
+            carFound: this.props.fill ? true : void 0,
             reopen: false,
             showAdditional: false,
             formBusy: false,
@@ -537,6 +537,8 @@ class CarSelect extends Component {
         //	}, 0)
         //}
 
+        console.log('this.state', this.state);
+
         return (
             <>
                 <ReactComment text='ecr-kasko/src/components/car-select/index.jsx'/>
@@ -577,7 +579,7 @@ class CarSelect extends Component {
                                 <div className="kasko-car-select__controls mb_10">
                                     <span onClick={this.toggleCarOptions}
                                           className={"gl_link color_black kasko-car-select__controls--toggle " + (this.state.showCarOptions || !collapseCarInfo ? 'expanded' : 'collapsed')}>
-                                        <span>Mazda CX-5</span> <span className="kasko-car-select__controls--equipment">2.0 MPI - 6AT</span>
+                                        <span>Hyundai Sonata</span> <span className="kasko-car-select__controls--equipment">2.0 MPI - 6AT</span>
                                     </span>
                                 </div>
 
@@ -701,9 +703,10 @@ class CarSelect extends Component {
 
                                                         <FormInput span={8} onChangeCallback={this.formControlCallback}
                                                                    placeholder="Стоимость, ₽"
-                                                                   //disabled={this.state.newCar ? "disabled" : ""}
+                                                            //disabled={this.state.newCar ? "disabled" : ""}
                                                                    inputmask={carPowerMask}
-                                                                   controlName={'carPrice'} value={this.state.carPrice}/>
+                                                                   controlName={'carPrice'}
+                                                                   value={this.state.carPrice}/>
                                                     </Row>
                                                     : null
                                                 }

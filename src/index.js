@@ -9,7 +9,8 @@ import './index.scss';
 import App from './App';
 import * as serviceWorker from './serviceWorker';
 
-import dayjs from 'dayjs';
+//import dayjs from 'dayjs';
+import * as dayjs from 'dayjs'
 import customParseFormat from 'dayjs/plugin/customParseFormat';
 import weekOfYear from 'dayjs/plugin/weekOfYear';
 import isMoment from 'dayjs/plugin/isMoment';
@@ -21,6 +22,8 @@ import isSameOrBefore from 'dayjs/plugin/isSameOrBefore';
 import isSameOrAfter from 'dayjs/plugin/isSameOrAfter';
 import 'dayjs/locale/ru';
 
+const updateLocale = require('dayjs/plugin/updateLocale');
+dayjs.extend(updateLocale);
 dayjs.extend(isSameOrBefore);
 dayjs.extend(isSameOrAfter);
 dayjs.extend(advancedFormat);
@@ -32,6 +35,12 @@ dayjs.extend(localeData);
 dayjs.extend(badMutable);
 
 dayjs.locale('ru');
+
+dayjs.updateLocale('ru', {
+    monthsShort: ["Янв", "Фев", "Март", "Апр", "Май", "Июнь", "Июль", "Авг", "Сент", "Окт", "Ноя", "Дек"],
+    weekdaysShort: ["Вс", "Пн", "Вт", "Ср", "Чт", "Пт", "Сб"],
+    weekdaysMin: ["Вс", "Пн", "Вт", "Ср", "Чт", "Пт", "Сб"]
+})
 
 ReactDOM.render(
     <ConfigProvider locale={ruRU}>

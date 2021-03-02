@@ -2,6 +2,7 @@ import React from 'react';
 import PageLayout from "./layouts/page-layout";
 import Home from "./pages/home";
 import Kasko from "./pages/kasko";
+import Docs from "./pages/docs";
 //import './App.scss';
 import {BrowserRouter, Link, Route} from "react-router-dom";
 import Credit from "./pages/credit";
@@ -71,6 +72,12 @@ function App() {
                         <li>
                             <Link to="/tabs">tabs</Link>
                         </li>
+                        <li>
+                            <Link to="/docs">docs</Link>
+                        </li>
+                        <li>
+                            <Link to="/cars">cars</Link>
+                        </li>
                     </ul>
                 </div>
                 : null
@@ -95,6 +102,12 @@ function App() {
                 <PageLayout>
                     <Kasko showCar={true} {...routeProps} step={1} tabs={true}
                            dev={process.env.NODE_ENV !== 'production'} showOffers={true}/>
+                </PageLayout>
+            )}/>
+            <Route path="/docs" render={(routeProps) => (
+                <PageLayout>
+                    <Docs showCar={true} {...routeProps}
+                           dev={process.env.NODE_ENV !== 'production'} />
                 </PageLayout>
             )}/>
             <Route path="/garage" render={(routeProps) => (

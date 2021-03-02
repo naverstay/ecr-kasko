@@ -3,9 +3,9 @@
 @font-face {
   font-family: '#{$icomoon-font-family}';
   src:
-    url('#{$icomoon-font-path}/#{$icomoon-font-family}.ttf?svi6wh') format('truetype'),
-    url('#{$icomoon-font-path}/#{$icomoon-font-family}.woff?svi6wh') format('woff'),
-    url('#{$icomoon-font-path}/#{$icomoon-font-family}.svg?svi6wh##{$icomoon-font-family}') format('svg');
+    url('#{$icomoon-font-path}/#{$icomoon-font-family}.ttf?iawu39') format('truetype'),
+    url('#{$icomoon-font-path}/#{$icomoon-font-family}.woff?iawu39') format('woff'),
+    url('#{$icomoon-font-path}/#{$icomoon-font-family}.svg?iawu39##{$icomoon-font-family}') format('svg');
   font-weight: normal;
   font-style: normal;
   font-display: block;
@@ -26,214 +26,219 @@
   -moz-osx-font-smoothing: grayscale;
 }
 
+.i-camera {
+  &:before {
+    content: $i-camera; 
+  }
+}
 .i-i {
   &:before {
-    content: $i-i;
+    content: $i-i; 
   }
 }
 .i-save {
   &:before {
-    content: $i-save;
+    content: $i-save; 
   }
 }
 .i-recalc {
   &:before {
-    content: $i-recalc;
+    content: $i-recalc; 
   }
 }
 .i-ecr {
   &:before {
-    content: $i-ecr;
+    content: $i-ecr; 
   }
 }
 .i-heart-o {
   &:before {
-    content: $i-heart-o;
+    content: $i-heart-o; 
   }
 }
 .i-heart {
   &:before {
-    content: $i-heart;
+    content: $i-heart; 
   }
 }
 .i-plane {
   &:before {
-    content: $i-plane;
+    content: $i-plane; 
   }
 }
 .i-minus {
   &:before {
-    content: $i-minus;
+    content: $i-minus; 
   }
 }
 .i-attach {
   &:before {
-    content: $i-attach;
+    content: $i-attach; 
   }
 }
 .i-alert {
   &:before {
-    content: $i-alert;
+    content: $i-alert; 
   }
 }
 .i-bell {
   &:before {
-    content: $i-bell;
+    content: $i-bell; 
   }
 }
 .i-sms {
   &:before {
-    content: $i-sms;
+    content: $i-sms; 
   }
 }
 .i-mail {
   &:before {
-    content: $i-mail;
+    content: $i-mail; 
   }
 }
 .i-comp {
   &:before {
-    content: $i-comp;
+    content: $i-comp; 
   }
 }
 .i-upload {
   &:before {
-    content: $i-upload;
+    content: $i-upload; 
   }
 }
 .i-plus {
   &:before {
-    content: $i-plus;
+    content: $i-plus; 
   }
 }
 .i-chat {
   &:before {
-    content: $i-chat;
+    content: $i-chat; 
   }
 }
 .i-search {
   &:before {
-    content: $i-search;
+    content: $i-search; 
   }
 }
 .i-check {
   &:before {
-    content: $i-check;
+    content: $i-check; 
   }
 }
 .i-add {
   &:before {
-    content: $i-add;
+    content: $i-add; 
   }
 }
 .i-play {
   &:before {
-    content: $i-play;
+    content: $i-play; 
   }
 }
 .i-copy {
   &:before {
-    content: $i-copy;
+    content: $i-copy; 
   }
 }
 .i-restore {
   &:before {
-    content: $i-restore;
+    content: $i-restore; 
   }
 }
 .i-bank {
   &:before {
-    content: $i-bank;
+    content: $i-bank; 
   }
 }
 .i-download {
   &:before {
-    content: $i-download;
+    content: $i-download; 
   }
 }
 .i-news {
   &:before {
-    content: $i-news;
+    content: $i-news; 
   }
 }
 .i-chart {
   &:before {
-    content: $i-chart;
+    content: $i-chart; 
   }
 }
 .i-calendar {
   &:before {
-    content: $i-calendar;
+    content: $i-calendar; 
   }
 }
 .i-cart {
   &:before {
-    content: $i-cart;
+    content: $i-cart; 
   }
 }
 .i-settings {
   &:before {
-    content: $i-settings;
+    content: $i-settings; 
   }
 }
 .i-user {
   &:before {
-    content: $i-user;
+    content: $i-user; 
   }
 }
 .i-exit {
   &:before {
-    content: $i-exit;
+    content: $i-exit; 
   }
 }
 .i-info {
   &:before {
-    content: $i-info;
+    content: $i-info; 
   }
 }
 .i-search_2 {
   &:before {
-    content: $i-search_2;
+    content: $i-search_2; 
   }
 }
 .i-chevron_r {
   &:before {
-    content: $i-chevron_r;
+    content: $i-chevron_r; 
   }
 }
 .i-add_fill {
   &:before {
-    content: $i-add_fill;
+    content: $i-add_fill; 
   }
 }
 .i-close_circle {
   &:before {
-    content: $i-close_circle;
+    content: $i-close_circle; 
   }
 }
 .i-close {
   &:before {
-    content: $i-close;
+    content: $i-close; 
   }
 }
 .i-printer {
   &:before {
-    content: $i-printer;
+    content: $i-printer; 
   }
 }
 .i-filter {
   &:before {
-    content: $i-filter;
+    content: $i-filter; 
   }
 }
 .i-sandwich {
   &:before {
-    content: $i-sandwich;
+    content: $i-sandwich; 
   }
 }
 .i-spinner {
   &:before {
-    content: $i-spinner;
+    content: $i-spinner; 
   }
 }
 

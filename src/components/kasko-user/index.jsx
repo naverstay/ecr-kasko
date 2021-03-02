@@ -1,4 +1,5 @@
 import React, {Component} from "react";
+import {Link} from "react-router-dom";
 
 import './style.scss';
 import PropTypes from "prop-types";
@@ -22,10 +23,17 @@ class KaskoUser extends Component {
                 <div
                     className={"kasko-user__info _phone" + ((phone) ? "" : " _inactive")}>{phone || '+ _ (___) ___ -__-__'}</div>
                 <div
-                    className={"kasko-user__info _small" + ((docs) ? "" : " _inactive")}>{docs || 'Анкета и документы'}</div>
+                    className={"kasko-user__info _small" + ((docs) ? "" : " _inactive")}>
+                    <Link to={"/docs"} className={'gl_link'}>{docs || 'Анкета и документы'}</Link></div>
                 {/*<div className={"kasko-user__info _small" + ((trustees) ? "" : " _inactive")}>{trustees || 'Доверенные лица'}</div>*/}
+                {/*<div*/}
+                {/*    className={"kasko-user__info _small" + ((trustees) ? "" : " _inactive")}>*/}
+                {/*    <Link to={"/trustees"} className={'gl_link'}>{trustees || 'Доверенные лица'}</Link>*/}
+                {/*</div>*/}
                 <div
-                    className={"kasko-user__info _small" + ((autos) ? "" : " _inactive")}>{autos || 'Автомобили клиента'}</div>
+                    className={"kasko-user__info _small" + ((autos) ? "" : " _inactive")}>
+                    <Link to={"/cars"} className={'gl_link'}>{autos || 'Автомобили клиента'}</Link>
+                </div>
             </div>
         );
     }

@@ -56,6 +56,10 @@
   color: #000;
 }
 
+.text1 {
+  @extend %text1;
+}
+
 %global_flex_block_row_nowrap_space_between_center {
   @include flex_block(row nowrap, space-between, center);
 }
@@ -530,7 +534,7 @@
 
     &:not(.ant-checkbox-checked) {
       + span {
-        color: rgba(0,0,0,.3);
+        color: rgba(0, 0, 0, .3);
       }
     }
   }

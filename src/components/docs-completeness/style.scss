@@ -1,0 +1,47 @@
+@import '../../assets/styles/global';
+
+.docs-completeness {
+
+  &__status {
+    width: 70px;
+    height: 70px;
+    margin: 10px auto 30px;
+    border-radius: 100%;
+    overflow: hidden;
+    background: #e3e3e3;
+
+    svg {
+      transform: rotate(-90deg);
+    }
+  }
+
+  &__list {
+
+    li {
+      @extend %text2;
+      position: relative;
+      text-decoration: underline;
+      margin-left: 10px;
+
+      + li {
+        margin-top: 14px;
+      }
+
+      &:before {
+        font-family: $icomoon-font-family;
+        content: $i-check;
+        position: absolute;
+        top: 0;
+        left: -22px;
+      }
+
+      &.checked {
+        color: $color-green;
+      }
+
+      &:not(.checked):before {
+        color: #e3e3e3;
+      }
+    }
+  }
+}
