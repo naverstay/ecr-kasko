@@ -5,13 +5,13 @@ $aside-size: 226px;
 .docs {
   &__frame {
     margin-top: 8px;
-    margin-bottom: 26px;
+    margin-bottom: 30px;
     border: 1px solid #b5b5b5;
     padding: 24px 1px 10px;
 
     &._active {
       border: 2px solid #7ebfed;
-      padding: 23px 0 6px;
+      padding: 6px 0 14px;
     }
 
     &-load {

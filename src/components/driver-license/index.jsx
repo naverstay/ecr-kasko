@@ -22,6 +22,7 @@ class DriverLicense extends Component {
     }
 
     static propTypes = {
+        prepend: PropTypes.node,
         children: PropTypes.node,
         fullCalculation: PropTypes.bool,
         innerWidth: PropTypes.number
@@ -89,7 +90,7 @@ class DriverLicense extends Component {
     };
 
     render() {
-        let {fullCalculation, allFields, expanded, osago, wholeName, showAddBlock, disabled} = this.props
+        let {prepend, disabled} = this.props
 
         return (
             <div className="driver-info__block">
@@ -115,6 +116,8 @@ class DriverLicense extends Component {
                                   controlName={'driverLicFirst'}
                                   checked={this.state.driverLicFirst}/>
                 </Row>
+
+                {prepend ? prepend : null}
 
                 {this.state.driverLicFirst ? null :
                     <Row className="kasko-car-select__controls" gutter={20}>
