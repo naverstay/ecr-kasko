@@ -25,12 +25,15 @@ import FormInput from "../../components/form-input";
 import FormSelect from "../../components/form-select";
 import FormCheckbox from "../../components/form-checkbox";
 import DriverLicense from "../../components/driver-license";
+import TrustedInfo from "../../components/trusted-info";
+import DriverInfo from "../../components/driver-info";
 
 class Docs extends Component {
     constructor(props) {
         super(props);
 
         this.state = {
+            anketaProduct: 0,
             clientObligatoryPayments: '',
             clientMortgageRepayment: '',
             clientOtherLoans: '',
@@ -83,6 +86,7 @@ class Docs extends Component {
             citizenRF: true,
             nameWasChanged: false,
             equalsRealAddress: false,
+            driverOSAGOInsurant: true,
             openAnketa: false,
             openTrusted: false
         };
@@ -91,6 +95,12 @@ class Docs extends Component {
     static propTypes = {
         children: PropTypes.node
     };
+
+    driverInfoCallback = (rslt) => {
+        if (rslt.hasOwnProperty('driverOSAGOInsurant')) {
+            //this.setState(rslt)
+        }
+    }
 
     formControlCallback = (name, value) => {
         console.log('formControlCallback', name, value);
@@ -141,6 +151,8 @@ class Docs extends Component {
 
     onAnketaProductChange = e => {
         console.log('onAnketaProductChange', e);
+
+        this.setState({anketaProduct: e.target.value});
     };
 
     render() {
@@ -149,7 +161,8 @@ class Docs extends Component {
         const PhoneMask = "'mask': '[+7] (999)-999-99-99', 'showMaskOnHover': 'false'";
         const dateFormatMask = "'mask': '99.99.9999', 'showMaskOnHover': 'false'";
 
-        let anketaOptions = <Radio.Group className={"w_100p"} defaultValue={0} onChange={this.onAnketaProductChange}>
+        let anketaOptions = <Radio.Group className={"w_100p"} defaultValue={this.state.anketaProduct}
+                                         onChange={this.onAnketaProductChange}>
             <Row className={"ant-row-center"} gutter={20}>
                 {
                     productList.map((c, i) =>
@@ -270,379 +283,423 @@ class Docs extends Component {
 
                             {this.state.openAnketa ?
                                 <>
-                                    <div className="kasko-car-select__controls radio_v2 mt_5 mb_0">{anketaOptions}</div>
-
-                                    <Row className="kasko-car-select__controls mt_45 mb_0" gutter={20}>
-                                        <Col span={3}/>
-                                        <Col span={18}>
-                                            <div className="driver-info__caption">Личная информация</div>
-                                        </Col>
-                                    </Row>
-
-                                    <Row className="kasko-car-select__controls" gutter={20}>
-                                        <Col span={3}/>
-                                        <FormInput span={12} onChangeCallback={this.formControlCallback}
-                                                   placeholder="Фамилия, имя, отчество"
-                                                   controlName={'clientWholeName'} value={this.state.clientWholeName}/>
-
-                                        <FormCheckbox span={6} onChangeCallback={this.formControlCallback}
-                                                      text="Ранее ФИО было изменено"
-                                                      value={1}
-                                                      className="checkbox_middle check_v6"
-                                                      controlName={'nameWasChanged'}
-                                                      checked={this.state.nameWasChanged}/>
-
-                                    </Row>
-
-                                    <Row className="kasko-car-select__controls" gutter={20}>
-                                        <Col span={3}/>
-                                        <FormInput span={6} onChangeCallback={this.formControlCallback}
-                                                   placeholder="Дата рождения"
-                                                   inputmask={dateFormatMask}
-                                                   controlName={'clientBirthday'}
-                                                   value={this.state.clientBirthday}/>
-                                    </Row>
-
-                                    <Row className="kasko-car-select__controls mb_60" gutter={20}>
-                                        <Col span={3}/>
-
-                                        <FormSelect span={6} onChangeCallback={this.formControlCallback}
-                                                    options={this.state.clientFamilyStatusList}
-                                                    placeholder="Семейное положение" controlName={'clientFamilyStatus'}
-                                                    value={this.state.clientFamilyStatus}/>
-
-                                        <FormInput span={6} onChangeCallback={this.formControlCallback}
-                                                   placeholder="Кол-во детей младше 21"
-                                                   controlName={'clientChildrenCount'} value={''}/>
-
-                                        <FormInput span={6} onChangeCallback={this.formControlCallback}
-                                                   placeholder="Кол-во иждивенцев"
-                                                   controlName={'clientEncmbranceCount'} value={''}/>
-
-                                    </Row>
-
-
-
-
-                                    <Row className="kasko-car-select__controls mb_0" gutter={20}>
-                                        <Col span={3}/>
-                                        <Col span={18}>
-                                            <div className="driver-info__caption">Контакты</div>
-                                        </Col>
-                                    </Row>
-
-                                    <Row
-                                        className={"kasko-car-select__controls mb_60"}
-                                        gutter={20}>
-                                        <Col span={3}/>
-                                        <FormInput span={6} onChangeCallback={this.formControlCallback}
-                                                   placeholder="Мобильный телефон"
-                                                   controlName={'clientPhone'} value={this.state.clientPhone}/>
-
-                                        <FormInput span={12} onChangeCallback={this.formControlCallback}
-                                                   placeholder="Емейл"
-                                                   controlName={'clientEmail'} value={this.state.clientEmail}/>
-                                    </Row>
-
-
-
-
-
-                                    <Row className="kasko-car-select__controls mb_0" gutter={20}>
-                                        <Col span={3}/>
-                                        <Col span={12}>
-                                            <div className="driver-info__caption">Паспорт</div>
-                                        </Col>
-                                        <FormCheckbox span={6} onChangeCallback={this.formControlCallback}
-                                                      text="Гражданин РФ"
-                                                      value={1}
-                                                      className="check_v6"
-                                                      controlName={'citizenRF'}
-                                                      checked={this.state.citizenRF}/>
-                                    </Row>
-
-                                    <Row className="kasko-car-select__controls" gutter={20}>
-                                        <Col span={3}/>
-                                        <FormInput span={6} onChangeCallback={this.formControlCallback}
-                                                   placeholder={"Серия, номер"}
-                                                   controlName={'clientPassportSeries'}
-                                                   value={''}/>
-
-                                        <FormInput span={6} onChangeCallback={this.formControlCallback}
-                                                   placeholder={"Дата выдачи"}
-                                                   controlName={'clientPassportDateStart'}
-                                                   value={''}/>
-
-                                        <FormInput span={6} onChangeCallback={this.formControlCallback}
-                                                   placeholder={"Код подразделения"}
-                                                   controlName={'clientPassportDepartmentCode'}
-                                                   value={''}/>
-                                    </Row>
-
-                                    <Row className="kasko-car-select__controls" gutter={20}>
-                                        <Col span={3}/>
-                                        <FormInput span={18} onChangeCallback={this.formControlCallback}
-                                                   placeholder={"Кем выдан"}
-                                                   controlName={'clientPassportDepartment'}
-                                                   value={''}/>
-                                    </Row>
-
-                                    <Row className="kasko-car-select__controls mb_60" gutter={20}>
-                                        <Col span={3}/>
-                                        <FormInput span={12} onChangeCallback={this.formControlCallback}
-                                                   placeholder="Место рождения" controlName={'clientBirthLocation'}
-                                                   value={''}/>
-                                    </Row>
-
-
-
-
-
-                                    <Row className="kasko-car-select__controls mb_0" gutter={20}>
-                                        <Col span={3}/>
-                                        <Col span={12}>
-                                            <div className="driver-info__caption">Адрес регистрации
-                                            </div>
-                                        </Col>
-                                    </Row>
-
-                                    <Row className="kasko-car-select__controls" gutter={20}>
-                                        <Col span={3}/>
-                                        <FormInput span={6} onChangeCallback={this.formControlCallback}
-                                                   placeholder="Индекс"
-                                                   controlName={'clientAddressPostCode'}
-                                                   value={''}/>
-                                    </Row>
-
-                                    <Row className="kasko-car-select__controls " gutter={20}>
-                                        <Col span={3}/>
-
-                                        <FormInput span={18} onChangeCallback={this.formControlCallback}
-                                                   placeholder="Адрес" controlName={'clientAddress'}
-                                                   value={''}/>
-                                    </Row>
-
-                                    <Row className="kasko-car-select__controls mb_60" gutter={20}>
-                                        <Col span={3}/>
-
-                                        <FormInput span={6} onChangeCallback={this.formControlCallback}
-                                                   placeholder={"Дата регистрации"}
-                                                   controlName={'clientAddressRegDate'}
-                                                   value={''}/>
-
-                                        <FormCheckbox span={10} onChangeCallback={this.formControlCallback}
-                                                      text="Фактическое место жительства совпадает с&nbsp;адресом регистрации"
-                                                      value={1}
-                                                      className="checkbox_middle check_v6"
-                                                      controlName={'equalsRealAddress'}
-                                                      checked={this.state.equalsRealAddress}/>
-                                    </Row>
-
-
-
-
-
-                                    <Row className="kasko-car-select__controls mb_0" gutter={20}>
-                                        <Col span={3}/>
-                                        <Col span={18}>
-                                            <div className="driver-info__caption"
-                                            >Статус и тип недвижимости по адресу проживания
-                                            </div>
-                                        </Col>
-                                    </Row>
-
-                                    <Row className="kasko-car-select__controls mb_60" gutter={20}>
-                                        <Col span={3}/>
-
-                                        <FormSelect span={6} onChangeCallback={this.formControlCallback}
-                                                    options={this.state.propertyStatusList}
-                                                    placeholder="Статус недвижимости" controlName={'propertyStatus'}
-                                                    value={this.state.propertyStatus}/>
-                                    </Row>
-
-
-
-
-                                    <Row className="kasko-car-select__controls mb_0" gutter={20}>
-                                        <Col span={3}/>
-                                        <Col span={18}>
-                                            <div className="driver-info__caption"
-                                            >Второй документ
-                                            </div>
-                                        </Col>
-                                    </Row>
-
-                                    <Row className="kasko-car-select__controls" gutter={20}>
-                                        <Col span={3}/>
-
-                                        <FormSelect span={12} onChangeCallback={this.formControlCallback}
-                                                    options={this.state.secondDocList}
-                                                    placeholder="Тип документа" controlName={'secondDoc'}
-                                                    value={this.state.secondDoc}/>
-                                    </Row>
-
-                                    <DriverLicense prepend={
-                                        <Row className="kasko-car-select__controls" gutter={20}>
-                                            <Col span={3}/>
-                                            <FormInput span={12} onChangeCallback={this.formControlCallback}
-                                                       placeholder={"Кем выдан"}
-                                                       controlName={'clientSecondDocDepartment'}
-                                                       value={''}/>
-                                        </Row>
-                                    }/>
-
-
-
-                                    <Row className="kasko-car-select__controls mt_60 mb_0" gutter={20}>
-                                        <Col span={3}/>
-                                        <Col span={18}>
-                                            <div className="driver-info__caption"
-                                            >Профессиональная деятельность клиента
-                                            </div>
-                                        </Col>
-                                    </Row>
-
-                                    <Row className="kasko-car-select__controls" gutter={20}>
-                                        <Col span={3}/>
-
-                                        <FormSelect span={6} onChangeCallback={this.formControlCallback}
-                                                    options={this.state.clientSocialStatusList}
-                                                    placeholder="Образование" controlName={'clientEducation'}
-                                                    value={this.state.clientSocialStatus}/>
-
-                                        <FormSelect span={12} onChangeCallback={this.formControlCallback}
-                                                    options={this.state.clientSocialStatusList}
-                                                    placeholder="Социальный статус" controlName={'clientSocialStatus'}
-                                                    value={this.state.clientSocialStatus}/>
-                                    </Row>
-
-                                    <Row className="kasko-car-select__controls" gutter={20}>
-                                        <Col span={3}/>
-
-                                        <FormInput span={18} onChangeCallback={this.formControlCallback}
-                                                   placeholder="Юридическое название места работы"
-                                                   controlName={'clientOrganizationLocation'} value={''}/>
-                                    </Row>
-
-                                    <Row className="kasko-car-select__controls" gutter={20}>
-                                        <Col span={3}/>
-
-                                        <FormInput span={6} onChangeCallback={this.formControlCallback}
-                                                   placeholder="Телефон офиса" controlName={'clientOrganizationPhone'}
-                                                   value={''}/>
-
-
-                                    </Row>
-
-                                    <Row className="kasko-car-select__controls" gutter={20}>
-                                        <Col span={3}/>
-
-                                        <FormInput span={12} onChangeCallback={this.formControlCallback}
-                                                   placeholder="Название должности"
-                                                   controlName={'clientPostName'} value={''}/>
-                                    </Row>
-
-
-
-                                    <Row className="kasko-car-select__controls" gutter={20}>
-                                        <Col span={3}/>
-
-                                        <FormSelect span={12} onChangeCallback={this.formControlCallback}
-                                                    options={this.state.clientSocialStatusList}
-                                                    placeholder="Характер должности" controlName={'clientPostType'}
-                                                    value={this.state.clientPostType}/>
-                                    </Row>
-
-                                    <Row className="kasko-car-select__controls" gutter={20}>
-                                        <Col span={3}/>
-
-                                        <FormInput span={6} onChangeCallback={this.formControlCallback}
-                                                   placeholder="Дата начала работы в этой организации"
-                                                   controlName={'clientPostStart'} value={''}/>
-
-                                        <FormInput span={6} onChangeCallback={this.formControlCallback}
-                                                   placeholder="Общий трудовой стаж с"
-                                                   controlName={'clientPostTotal'} value={''}/>
-
-                                    </Row>
-
-
-
-                                    <Row className="kasko-car-select__controls mt_60 mb_0" gutter={20}>
-                                        <Col span={3}/>
-                                        <Col span={18}>
-                                            <div className="driver-info__caption"
-                                            >Доход в месяц
-                                            </div>
-                                        </Col>
-                                    </Row>
-
-                                    <Row className="kasko-car-select__controls" gutter={20}>
-                                        <Col span={3}/>
-
-                                        <FormInput span={6} onChangeCallback={this.formControlCallback}
-                                                   placeholder="Доход по основному месту работы"
-                                                   controlName={'clientMainIncome'} value={''}/>
-
-                                        <FormInput span={6} onChangeCallback={this.formControlCallback}
-                                                   placeholder="Дополнительный доход"
-                                                   controlName={'clientAdditionalIncome'} value={''}/>
-
-                                    </Row>
-
-
-
-                                    <Row className="kasko-car-select__controls mt_60 mb_0" gutter={20}>
-                                        <Col span={3}/>
-                                        <Col span={18}>
-                                            <div className="driver-info__caption"
-                                            >Расходы в месяц
-                                            </div>
-                                        </Col>
-                                    </Row>
-
-                                    <Row className="kasko-car-select__controls" gutter={20}>
-                                        <Col span={3}/>
-
-                                        <FormInput span={6} onChangeCallback={this.formControlCallback}
-                                                   placeholder="Обязательные платежи"
-                                                   controlName={'clientObligatoryPayments'} value={''}/>
-
-                                        <FormInput span={6} onChangeCallback={this.formControlCallback}
-                                                   placeholder="Погашение ипотеки"
-                                                   controlName={'clientMortgageRepayment '} value={''}/>
-
-                                        <FormInput span={6} onChangeCallback={this.formControlCallback}
-                                                   placeholder="Погашение прочих кредитов "
-                                                   controlName={'clientOtherLoans'} value={''}/>
-
-                                    </Row>
-
-
-
-                                    <Row className="kasko-car-select__controls mt_60 mb_0" gutter={20}>
-                                        <Col span={3}/>
-                                        <Col span={18}>
-                                            <div className="driver-info__caption"
-                                            >Собственность
-                                            </div>
-                                        </Col>
-                                    </Row>
-
-
-
-
-
-                                    <Row className="kasko-car-select__controls mt_60 mb_0" gutter={20}>
-                                        <Col span={3}/>
-                                        <Col span={18}>
-                                            <div className="driver-info__caption"
-                                            >Документы клиента
-                                            </div>
-                                        </Col>
-                                    </Row>
-
-                                    {clientDocs}
+                                    <div className="mb_45">
+                                        <div
+                                            className="kasko-car-select__controls radio_v2 mt_5 mb_0">{anketaOptions}</div>
+                                    </div>
+
+                                    {
+                                        this.state.anketaProduct === 0 ?
+                                            <>
+
+                                                <Row className="kasko-car-select__controls mb_0" gutter={20}>
+                                                    <Col span={3}/>
+                                                    <Col span={18}>
+                                                        <div className="driver-info__caption">Личная информация</div>
+                                                    </Col>
+                                                </Row>
+
+                                                <Row className="kasko-car-select__controls" gutter={20}>
+                                                    <Col span={3}/>
+                                                    <FormInput span={12} onChangeCallback={this.formControlCallback}
+                                                               placeholder="Фамилия, имя, отчество"
+                                                               controlName={'clientWholeName'}
+                                                               value={this.state.clientWholeName}/>
+
+                                                    <FormCheckbox span={6} onChangeCallback={this.formControlCallback}
+                                                                  text="Ранее ФИО было изменено"
+                                                                  value={1}
+                                                                  className="checkbox_middle check_v6"
+                                                                  controlName={'nameWasChanged'}
+                                                                  checked={this.state.nameWasChanged}/>
+
+                                                </Row>
+
+                                                <Row className="kasko-car-select__controls" gutter={20}>
+                                                    <Col span={3}/>
+                                                    <FormInput span={6} onChangeCallback={this.formControlCallback}
+                                                               placeholder="Дата рождения"
+                                                               inputmask={dateFormatMask}
+                                                               controlName={'clientBirthday'}
+                                                               value={this.state.clientBirthday}/>
+                                                </Row>
+
+                                                <Row className="kasko-car-select__controls mb_60" gutter={20}>
+                                                    <Col span={3}/>
+
+                                                    <FormSelect span={6} onChangeCallback={this.formControlCallback}
+                                                                options={this.state.clientFamilyStatusList}
+                                                                placeholder="Семейное положение"
+                                                                controlName={'clientFamilyStatus'}
+                                                                value={this.state.clientFamilyStatus}/>
+
+                                                    <FormInput span={6} onChangeCallback={this.formControlCallback}
+                                                               placeholder="Кол-во детей младше 21"
+                                                               controlName={'clientChildrenCount'} value={''}/>
+
+                                                    <FormInput span={6} onChangeCallback={this.formControlCallback}
+                                                               placeholder="Кол-во иждивенцев"
+                                                               controlName={'clientEncmbranceCount'} value={''}/>
+
+                                                </Row>
+
+
+                                                <Row className="kasko-car-select__controls mb_0" gutter={20}>
+                                                    <Col span={3}/>
+                                                    <Col span={18}>
+                                                        <div className="driver-info__caption">Контакты</div>
+                                                    </Col>
+                                                </Row>
+
+                                                <Row
+                                                    className={"kasko-car-select__controls mb_60"}
+                                                    gutter={20}>
+                                                    <Col span={3}/>
+                                                    <FormInput span={6} onChangeCallback={this.formControlCallback}
+                                                               placeholder="Мобильный телефон"
+                                                               controlName={'clientPhone'}
+                                                               value={this.state.clientPhone}/>
+
+                                                    <FormInput span={12} onChangeCallback={this.formControlCallback}
+                                                               placeholder="Емейл"
+                                                               controlName={'clientEmail'}
+                                                               value={this.state.clientEmail}/>
+                                                </Row>
+
+
+                                                <Row className="kasko-car-select__controls mb_0" gutter={20}>
+                                                    <Col span={3}/>
+                                                    <Col span={12}>
+                                                        <div className="driver-info__caption">Паспорт</div>
+                                                    </Col>
+                                                    <FormCheckbox span={6} onChangeCallback={this.formControlCallback}
+                                                                  text="Гражданин РФ"
+                                                                  value={1}
+                                                                  className="check_v6"
+                                                                  controlName={'citizenRF'}
+                                                                  checked={this.state.citizenRF}/>
+                                                </Row>
+
+                                                <Row className="kasko-car-select__controls" gutter={20}>
+                                                    <Col span={3}/>
+                                                    <FormInput span={6} onChangeCallback={this.formControlCallback}
+                                                               placeholder={"Серия, номер"}
+                                                               controlName={'clientPassportSeries'}
+                                                               value={''}/>
+
+                                                    <FormInput span={6} onChangeCallback={this.formControlCallback}
+                                                               placeholder={"Дата выдачи"}
+                                                               controlName={'clientPassportDateStart'}
+                                                               value={''}/>
+
+                                                    <FormInput span={6} onChangeCallback={this.formControlCallback}
+                                                               placeholder={"Код подразделения"}
+                                                               controlName={'clientPassportDepartmentCode'}
+                                                               value={''}/>
+                                                </Row>
+
+                                                <Row className="kasko-car-select__controls" gutter={20}>
+                                                    <Col span={3}/>
+                                                    <FormInput span={18} onChangeCallback={this.formControlCallback}
+                                                               placeholder={"Кем выдан"}
+                                                               controlName={'clientPassportDepartment'}
+                                                               value={''}/>
+                                                </Row>
+
+                                                <Row className="kasko-car-select__controls mb_60" gutter={20}>
+                                                    <Col span={3}/>
+                                                    <FormInput span={12} onChangeCallback={this.formControlCallback}
+                                                               placeholder="Место рождения"
+                                                               controlName={'clientBirthLocation'}
+                                                               value={''}/>
+                                                </Row>
+
+
+                                                <Row className="kasko-car-select__controls mb_0" gutter={20}>
+                                                    <Col span={3}/>
+                                                    <Col span={12}>
+                                                        <div className="driver-info__caption">Адрес регистрации
+                                                        </div>
+                                                    </Col>
+                                                </Row>
+
+                                                <Row className="kasko-car-select__controls" gutter={20}>
+                                                    <Col span={3}/>
+                                                    <FormInput span={6} onChangeCallback={this.formControlCallback}
+                                                               placeholder="Индекс"
+                                                               controlName={'clientAddressPostCode'}
+                                                               value={''}/>
+                                                </Row>
+
+                                                <Row className="kasko-car-select__controls " gutter={20}>
+                                                    <Col span={3}/>
+
+                                                    <FormInput span={18} onChangeCallback={this.formControlCallback}
+                                                               placeholder="Адрес" controlName={'clientAddress'}
+                                                               value={''}/>
+                                                </Row>
+
+                                                <Row className="kasko-car-select__controls mb_60" gutter={20}>
+                                                    <Col span={3}/>
+
+                                                    <FormInput span={6} onChangeCallback={this.formControlCallback}
+                                                               placeholder={"Дата регистрации"}
+                                                               controlName={'clientAddressRegDate'}
+                                                               value={''}/>
+
+                                                    <FormCheckbox span={10} onChangeCallback={this.formControlCallback}
+                                                                  text="Фактическое место жительства совпадает с&nbsp;адресом регистрации"
+                                                                  value={1}
+                                                                  className="checkbox_middle check_v6"
+                                                                  controlName={'equalsRealAddress'}
+                                                                  checked={this.state.equalsRealAddress}/>
+                                                </Row>
+
+
+                                                <Row className="kasko-car-select__controls mb_0" gutter={20}>
+                                                    <Col span={3}/>
+                                                    <Col span={18}>
+                                                        <div className="driver-info__caption"
+                                                        >Статус и тип недвижимости по адресу проживания
+                                                        </div>
+                                                    </Col>
+                                                </Row>
+
+                                                <Row className="kasko-car-select__controls mb_60" gutter={20}>
+                                                    <Col span={3}/>
+
+                                                    <FormSelect span={6} onChangeCallback={this.formControlCallback}
+                                                                options={this.state.propertyStatusList}
+                                                                placeholder="Статус недвижимости"
+                                                                controlName={'propertyStatus'}
+                                                                value={this.state.propertyStatus}/>
+                                                </Row>
+
+
+                                                <Row className="kasko-car-select__controls mb_0" gutter={20}>
+                                                    <Col span={3}/>
+                                                    <Col span={18}>
+                                                        <div className="driver-info__caption"
+                                                        >Второй документ
+                                                        </div>
+                                                    </Col>
+                                                </Row>
+
+                                                <Row className="kasko-car-select__controls" gutter={20}>
+                                                    <Col span={3}/>
+
+                                                    <FormSelect span={12} onChangeCallback={this.formControlCallback}
+                                                                options={this.state.secondDocList}
+                                                                placeholder="Тип документа" controlName={'secondDoc'}
+                                                                value={this.state.secondDoc}/>
+                                                </Row>
+
+                                                <DriverLicense prepend={
+                                                    <Row className="kasko-car-select__controls" gutter={20}>
+                                                        <Col span={3}/>
+                                                        <FormInput span={12} onChangeCallback={this.formControlCallback}
+                                                                   placeholder={"Кем выдан"}
+                                                                   controlName={'clientSecondDocDepartment'}
+                                                                   value={''}/>
+                                                    </Row>
+                                                }/>
+
+
+                                                <Row className="kasko-car-select__controls mt_60 mb_0" gutter={20}>
+                                                    <Col span={3}/>
+                                                    <Col span={18}>
+                                                        <div className="driver-info__caption"
+                                                        >Профессиональная деятельность клиента
+                                                        </div>
+                                                    </Col>
+                                                </Row>
+
+                                                <Row className="kasko-car-select__controls" gutter={20}>
+                                                    <Col span={3}/>
+
+                                                    <FormSelect span={6} onChangeCallback={this.formControlCallback}
+                                                                options={this.state.clientSocialStatusList}
+                                                                placeholder="Образование"
+                                                                controlName={'clientEducation'}
+                                                                value={this.state.clientSocialStatus}/>
+
+                                                    <FormSelect span={12} onChangeCallback={this.formControlCallback}
+                                                                options={this.state.clientSocialStatusList}
+                                                                placeholder="Социальный статус"
+                                                                controlName={'clientSocialStatus'}
+                                                                value={this.state.clientSocialStatus}/>
+                                                </Row>
+
+                                                <Row className="kasko-car-select__controls" gutter={20}>
+                                                    <Col span={3}/>
+
+                                                    <FormInput span={18} onChangeCallback={this.formControlCallback}
+                                                               placeholder="Юридическое название места работы"
+                                                               controlName={'clientOrganizationLocation'} value={''}/>
+                                                </Row>
+
+                                                <Row className="kasko-car-select__controls" gutter={20}>
+                                                    <Col span={3}/>
+
+                                                    <FormInput span={6} onChangeCallback={this.formControlCallback}
+                                                               placeholder="Телефон офиса"
+                                                               controlName={'clientOrganizationPhone'}
+                                                               value={''}/>
+
+
+                                                </Row>
+
+                                                <Row className="kasko-car-select__controls" gutter={20}>
+                                                    <Col span={3}/>
+
+                                                    <FormInput span={12} onChangeCallback={this.formControlCallback}
+                                                               placeholder="Название должности"
+                                                               controlName={'clientPostName'} value={''}/>
+                                                </Row>
+
+
+                                                <Row className="kasko-car-select__controls" gutter={20}>
+                                                    <Col span={3}/>
+
+                                                    <FormSelect span={12} onChangeCallback={this.formControlCallback}
+                                                                options={this.state.clientSocialStatusList}
+                                                                placeholder="Характер должности"
+                                                                controlName={'clientPostType'}
+                                                                value={this.state.clientPostType}/>
+                                                </Row>
+
+                                                <Row className="kasko-car-select__controls" gutter={20}>
+                                                    <Col span={3}/>
+
+                                                    <FormInput span={6} onChangeCallback={this.formControlCallback}
+                                                               placeholder="Дата начала работы в этой организации"
+                                                               controlName={'clientPostStart'} value={''}/>
+
+                                                    <FormInput span={6} onChangeCallback={this.formControlCallback}
+                                                               placeholder="Общий трудовой стаж с"
+                                                               controlName={'clientPostTotal'} value={''}/>
+
+                                                </Row>
+
+
+                                                <Row className="kasko-car-select__controls mt_60 mb_0" gutter={20}>
+                                                    <Col span={3}/>
+                                                    <Col span={18}>
+                                                        <div className="driver-info__caption"
+                                                        >Доход в месяц
+                                                        </div>
+                                                    </Col>
+                                                </Row>
+
+                                                <Row className="kasko-car-select__controls" gutter={20}>
+                                                    <Col span={3}/>
+
+                                                    <FormInput span={6} onChangeCallback={this.formControlCallback}
+                                                               placeholder="Доход по основному месту работы"
+                                                               controlName={'clientMainIncome'} value={''}/>
+
+                                                    <FormInput span={6} onChangeCallback={this.formControlCallback}
+                                                               placeholder="Дополнительный доход"
+                                                               controlName={'clientAdditionalIncome'} value={''}/>
+
+                                                </Row>
+
+
+                                                <Row className="kasko-car-select__controls mt_60 mb_0" gutter={20}>
+                                                    <Col span={3}/>
+                                                    <Col span={18}>
+                                                        <div className="driver-info__caption"
+                                                        >Расходы в месяц
+                                                        </div>
+                                                    </Col>
+                                                </Row>
+
+                                                <Row className="kasko-car-select__controls" gutter={20}>
+                                                    <Col span={3}/>
+
+                                                    <FormInput span={6} onChangeCallback={this.formControlCallback}
+                                                               placeholder="Обязательные платежи"
+                                                               controlName={'clientObligatoryPayments'} value={''}/>
+
+                                                    <FormInput span={6} onChangeCallback={this.formControlCallback}
+                                                               placeholder="Погашение ипотеки"
+                                                               controlName={'clientMortgageRepayment '} value={''}/>
+
+                                                    <FormInput span={6} onChangeCallback={this.formControlCallback}
+                                                               placeholder="Погашение прочих кредитов "
+                                                               controlName={'clientOtherLoans'} value={''}/>
+
+                                                </Row>
+
+
+                                                <Row className="kasko-car-select__controls mt_60 mb_0" gutter={20}>
+                                                    <Col span={3}/>
+                                                    <Col span={18}>
+                                                        <div className="driver-info__caption"
+                                                        >Собственность
+                                                        </div>
+                                                    </Col>
+                                                </Row>
+
+                                                <Row className="kasko-car-select__controls mt_15 mb_30 ant-row-center"
+                                                     gutter={20}>
+                                                    <Col span={6}>
+                                                        <div className="docs__frame-load _add">
+                                                            <span>Недвижимость</span>
+                                                        </div>
+                                                    </Col>
+                                                </Row>
+
+                                                <Row className="kasko-car-select__controls ant-row-center" gutter={20}>
+                                                    <Col span={6}>
+                                                        <div className="docs__frame-load _add">
+                                                            <span>Автомобиль</span>
+                                                        </div>
+                                                    </Col>
+                                                </Row>
+
+                                                <Row className="kasko-car-select__controls mt_60 mb_0" gutter={20}>
+                                                    <Col span={3}/>
+                                                    <Col span={18}>
+                                                        <div className="driver-info__caption"
+                                                        >Документы клиента
+                                                        </div>
+                                                    </Col>
+                                                </Row>
+
+                                                {clientDocs}
+
+                                            </>
+
+                                            : this.state.anketaProduct === 1 ? <>
+                                                <DriverInfo showAddBlock={true} wholeName={true}
+                                                            driverInfoUpdate={this.driverInfoCallback}
+                                                            expanded={true}
+                                                            fullCalculation={true}/>
+
+                                            </>
+                                            : this.state.anketaProduct === 2 ? <>
+                                                    <Row className="kasko-car-select__controls mt_60 mb_0" gutter={20}>
+                                                        <Col span={3}/>
+                                                        <Col span={18}>
+                                                            <div className="driver-info__caption"
+                                                            >КАСКО
+                                                            </div>
+                                                        </Col>
+                                                    </Row>
+                                                </>
+                                                : <>
+                                                    <Row className="kasko-car-select__controls mt_60 mb_0" gutter={20}>
+                                                        <Col span={3}/>
+                                                        <Col span={18}>
+                                                            <div className="driver-info__caption"
+                                                            >Сервис
+                                                            </div>
+                                                        </Col>
+                                                    </Row>
+                                                </>
+
+                                    }
                                 </>
                                 : null
                             }
@@ -667,37 +724,98 @@ class Docs extends Component {
                         <AsideBlock>
                             <KaskoNotices noticeList={[{title: 'Понедельник, 20.02.19', list: []}]}/>
                         </AsideBlock>
-                        <AsideBlock>
-                            <DocsCompleteness docList={[
-                                {
-                                    name: 'Личная информация',
-                                    check: true
-                                },
-                                {
-                                    name: 'Доверенные лица',
-                                    check: true
-                                },
-                                {
-                                    name: 'Работа',
-                                    check: true
-                                },
-                                {
-                                    name: 'Финансы и собственность',
-                                    check: true
-                                },
-                                {
-                                    name: 'Гражданство и статус',
-                                    check: true
-                                },
-                                {
-                                    name: 'Подписать документы',
-                                    check: false
-                                }
-                            ]}/>
-                        </AsideBlock>
+
+                        {this.state.anketaProduct === 0 ?
+                            <AsideBlock>
+                                <DocsCompleteness docList={[
+                                    {
+                                        name: 'Личная информация',
+                                        check: true
+                                    },
+                                    {
+                                        name: 'Доверенные лица',
+                                        check: true
+                                    },
+                                    {
+                                        name: 'Работа',
+                                        check: true
+                                    },
+                                    {
+                                        name: 'Финансы и собственность',
+                                        check: true
+                                    },
+                                    {
+                                        name: 'Гражданство и статус',
+                                        check: true
+                                    },
+                                    {
+                                        name: 'Подписать документы',
+                                        check: false
+                                    }
+                                ]}/>
+                            </AsideBlock>
+                            : this.state.anketaProduct === 1 ?
+                                <>
+                                    <AsideBlock>
+                                        <DocsCompleteness docList={[
+                                            {
+                                                name: 'Личная информация',
+                                                check: true
+                                            },
+                                            {
+                                                name: 'Доверенные лица',
+                                                check: true
+                                            },
+                                            {
+                                                name: 'Работа',
+                                                check: true
+                                            },
+                                            {
+                                                name: 'Финансы и собственность',
+                                                check: true
+                                            },
+                                            {
+                                                name: 'Гражданство и статус',
+                                                check: true
+                                            },
+                                            {
+                                                name: 'Подписать документы',
+                                                check: false
+                                            }
+                                        ]}/>
+                                    </AsideBlock>
+                                    <>
+                                        <AsideBlock>
+                                            <DocsCompleteness docList={[
+                                                {
+                                                    name: 'Личная информация',
+                                                    check: true
+                                                },
+                                                {
+                                                    name: 'Доверенные лица',
+                                                    check: true
+                                                }
+                                            ]}/>
+                                        </AsideBlock>
+                                    </>
+                                </> :
+                                <>
+                                    <AsideBlock>
+                                        <DocsCompleteness docList={[
+                                            {
+                                                name: 'Личная информация',
+                                                check: true
+                                            },
+                                            {
+                                                name: 'Доверенные лица',
+                                                check: true
+                                            }
+                                        ]}/>
+                                    </AsideBlock>
+                                </>
+                        }
                     </Col>
                 </Row>
-
             </>
         );
     }

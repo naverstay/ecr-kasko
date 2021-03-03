@@ -250,7 +250,8 @@ class DriverInfo extends Component {
                                             {wholeName ?
                                                 <FormInput span={18} onChangeCallback={this.formControlCallback}
                                                            placeholder="Фамилия, Имя, Отчество"
-                                                           controlName={'clientWholeName'} value={this.state.clientWholeName}/>
+                                                           controlName={'clientWholeName'}
+                                                           value={this.state.clientWholeName}/>
                                                 :
                                                 <>
                                                     <FormInput span={6} onChangeCallback={this.formControlCallback}
@@ -313,7 +314,7 @@ class DriverInfo extends Component {
                                         </Row>
 
                                         <Row
-                                            className={"kasko-car-select__controls " + (this.state.driverOSAGOInsurant ? 'mb_60' : 'mb_10')}
+                                            className={"kasko-car-select__controls mb_60"}
                                             gutter={20}>
                                             <Col span={3}/>
                                             <FormInput span={6} onChangeCallback={this.formControlCallback}

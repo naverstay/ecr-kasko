@@ -14,6 +14,10 @@ $aside-size: 226px;
       padding: 6px 0 14px;
     }
 
+    .driver-info {
+      padding: 0;
+    }
+
     &-load {
       font-size: 12px;
       line-height: 14px;
@@ -29,18 +33,23 @@ $aside-size: 226px;
 
       &:before {
         font-family: $icomoon-font-family;
+        content: $i-add_fill;
         position: absolute;
         top: 50%;
         left: 40px;
         font-size: 22px;
         margin-top: -8px;
-        content: $i-add_fill;
+        transition: color .3s, background .3s;
       }
 
       &:not(._completed) {
         &:hover {
           background: $color-blue-light;
-          color: #fff;
+          color: #000;
+
+          &:before {
+            color: $color-blue;
+          }
         }
       }
 
@@ -49,7 +58,7 @@ $aside-size: 226px;
         line-height: 16px;
         padding-left: 45px;
         cursor: default;
-        background: $color-blue-light;
+        background: $color-blue-light-light;
         color: #000;
 
         &:before {
@@ -57,6 +66,29 @@ $aside-size: 226px;
           font-size: 20px;
           content: $i-check;
           color: $color-green;
+        }
+      }
+
+      &._add {
+        font-size: 15px;
+        line-height: 18px;
+        padding: 0 10px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        background: $color-blue-light-light;
+        color: #000;
+
+        &:before {
+          left: auto;
+          top: auto;
+          margin-top: 0;
+          margin-right: 10px;
+          font-size: 15px;
+          width: 15px;
+          height: 15px;
+          position: relative;
+          color: $color-blue-light;
         }
       }
     }

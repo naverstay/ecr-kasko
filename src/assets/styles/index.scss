@@ -9,6 +9,7 @@ $scrollbar_size: 6px;
 
 html {
   font: 14px/1.2 'Roboto', sans-serif;
+  overflow-y: scroll;
 
   //&::-webkit-scrollbar {
   //  width: $scrollbar_size;

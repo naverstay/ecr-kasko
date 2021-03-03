@@ -205,7 +205,7 @@ class TrustedInfo extends Component {
                             <div className="driver-info__caption">Водитель {index > 0 ? '#' + index : ''}</div>
                         </Col>
 
-                        {disabled ? null :
+                        {(disabled || index === -1) ? null :
                             <Col span={6}>
                                 <div onClick={this.props.removeCallback} className="driver-info__remove m_0 gl_link"/>
                             </Col>

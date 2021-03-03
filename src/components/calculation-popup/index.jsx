@@ -151,7 +151,7 @@ class CalculationPopup extends Component {
         }
 
         if (this.state.driverOSAGOInsurant) {
-            trustedInfoArray.unshift(<TrustedInfo key={parseInt(Math.random() * 100000)} removeCallback={this.onRemoveTrastedInfo}
+            trustedInfoArray.unshift(<TrustedInfo key={trustedInfoArray.length} removeCallback={this.onRemoveTrastedInfo}
                                                   disabled={true} index={0}
                                                   wholeName={true}
                                                   osago={osago}/>)
