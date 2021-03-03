@@ -1,0 +1,42 @@
+@import '../../assets/styles/global';
+
+.trusted-anketa {
+  &__title {
+    @extend %h3;
+    cursor: pointer;
+    position: relative;
+    padding: 18px 40px 18px 18px;
+    border: solid #b5b5b5;
+    border-width: 1px 0;
+    margin-bottom: -1px;
+    font-weight: 400;
+    letter-spacing: -0.055em;
+
+    &.expanded,
+    &.collapsed {
+      cursor: pointer;
+      position: relative;
+
+      &:before {
+        transition: transform .25s;
+        font-family: $icomoon-font-family;
+        content: $i-chevron_r;
+        color: #000;
+        font-size: 14px;
+        top: 50%;
+        margin-top: -11px;
+        right: 18px;
+        position: absolute;
+      }
+    }
+
+    &.collapsed {
+    }
+
+    &.expanded {
+      &:before {
+        transform: rotate(90deg);
+      }
+    }
+  }
+}

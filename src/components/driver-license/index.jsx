@@ -17,7 +17,11 @@ class DriverLicense extends Component {
     constructor(props) {
         super(props);
         this.state = {
-            driverLicFirst: true
+            driverLicFirst: true,
+            DriverLicFirstStart: '',
+            DriverLicNumFirst: '',
+            DriverLicNum: '',
+            DriverLicStart: ''
         };
     }
 
@@ -102,12 +106,12 @@ class DriverLicense extends Component {
                                disabled={disabled}
                                placeholder="Серия, номер"
                                controlName={'DriverLicNum'}
-                               value={''}/>
+                               value={this.state.DriverLicNum}/>
 
                     <FormInput span={6} onChangeCallback={this.formControlCallback}
                                disabled={disabled}
                                placeholder="Дата выдачи" controlName={'DriverLicStart'}
-                               value={''}/>
+                               value={this.state.DriverLicStart}/>
 
                     <FormCheckbox span={4} onChangeCallback={this.formControlCallback}
                                   text="Это первое водительское удостоверение"
@@ -126,11 +130,12 @@ class DriverLicense extends Component {
                                    disabled={disabled}
                                    placeholder="Серия, номер предыдущего удостоверения"
                                    controlName={'DriverLicNumFirst'}
-                                   value={''}/>
+                                   value={this.state.DriverLicNumFirst}/>
 
                         <FormInput span={6} onChangeCallback={this.formControlCallback}
+                                   disabled={disabled}
                                    placeholder="Дата выдачи первого удостоверения" controlName={'DriverLicFirstStart'}
-                                   value={''}/>
+                                   value={this.state.DriverLicFirstStart}/>
                     </Row>
                 }
             </div>

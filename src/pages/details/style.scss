@@ -6287,6 +6287,17 @@ textarea::-moz-placeholder {
   margin-bottom: -10px;
 }
 
+.lh_60 {
+  line-height: 60px;
+}
+
+.link_holder {
+  display: flex;
+  flex-flow: column;
+  height: 100%;
+  justify-content: center;
+}
+
 .bank_answer_text {
   width: 80%;
   display: inline-block;

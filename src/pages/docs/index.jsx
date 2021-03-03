@@ -25,7 +25,7 @@ import FormInput from "../../components/form-input";
 import FormSelect from "../../components/form-select";
 import FormCheckbox from "../../components/form-checkbox";
 import DriverLicense from "../../components/driver-license";
-import TrustedInfo from "../../components/trusted-info";
+import TrustedAnketa from "../../components/trusted-anketa";
 import DriverInfo from "../../components/driver-info";
 
 class Docs extends Component {
@@ -644,17 +644,15 @@ class Docs extends Component {
                                                 <Row className="kasko-car-select__controls mt_15 mb_30 ant-row-center"
                                                      gutter={20}>
                                                     <Col span={6}>
-                                                        <div className="docs__frame-load _add">
-                                                            <span>Недвижимость</span>
-                                                        </div>
+                                                        <Button className="driver-info__add gl_link w_100p btn-action"
+                                                        >Недвижимость</Button>
                                                     </Col>
                                                 </Row>
 
                                                 <Row className="kasko-car-select__controls ant-row-center" gutter={20}>
                                                     <Col span={6}>
-                                                        <div className="docs__frame-load _add">
-                                                            <span>Автомобиль</span>
-                                                        </div>
+                                                        <Button className="driver-info__add gl_link w_100p btn-action"
+                                                        >Автомобиль</Button>
                                                     </Col>
                                                 </Row>
 
@@ -712,8 +710,31 @@ class Docs extends Component {
                                 <span>Доверенные лица</span></h1>
 
                             {this.state.openTrusted ?
-                                <div>
-                                    123
+                                <div className={"mt_45"}>
+                                    <TrustedAnketa removeCallback={this.onRemoveTrastedInfo}
+                                                   disabled={true} index={0}
+                                                   wholeName={'Ларин Кирилл Олегович'}/>
+
+                                    <TrustedAnketa removeCallback={this.onRemoveTrastedInfo}
+                                                   disabled={true} index={0}
+                                                   wholeName={'Константинопольский Константин Константинович'}/>
+
+                                    <TrustedAnketa removeCallback={this.onRemoveTrastedInfo}
+                                                   disabled={true} index={0}
+                                                   wholeName={'Иванова Марина Игоревна'}/>
+
+                                    <TrustedAnketa removeCallback={this.onRemoveTrastedInfo}
+                                                   disabled={true} index={0}
+                                                   wholeName={'Петров Петр Петрович'}/>
+
+                                    <Row className="kasko-car-select__controls mt_60 mb_30 ant-row-center"
+                                         gutter={20}>
+                                        <Col span={6}>
+                                            <Button className="driver-info__add gl_link w_100p btn-action"
+                                            >Доверенное лицо</Button>
+                                        </Col>
+                                    </Row>
+
                                 </div>
                                 : null
                             }
