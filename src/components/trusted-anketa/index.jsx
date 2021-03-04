@@ -194,7 +194,7 @@ class TrustedAnketa extends Component {
     };
 
     render() {
-        let {fullCalculation, allFields, expanded, osago, wholeName, showAddBlock, index, disabled} = this.props
+        let {fullCalculation, allFields, expanded, osago, wholeName, showAddBlock, driver, disabled} = this.props
 
         return (
             <div className="driver-info">
@@ -241,128 +241,188 @@ class TrustedAnketa extends Component {
                                 }
                             </Row>
 
-                            <Row className="kasko-car-select__controls" gutter={20}>
-                                <Col span={3}/>
-                                <FormInput span={6} onChangeCallback={this.formControlCallback}
-                                           disabled={this.state.editMode ? null : 'disabled'}
-                                           placeholder="Дата рождения" controlName={'trustedBirthday'}
-                                           value={disabled ? '12.12.1912' : ''}/>
-                                <FormInput span={6} onChangeCallback={this.formControlCallback}
-                                           disabled={this.state.editMode ? null : 'disabled'}
-                                           placeholder="Мобильный телефон"
-                                           controlName={'trustedPhone'} value={this.state.trustedPhone}/>
+                            {driver ?
+                                <>
 
-                                <Col span={3}/>
-                            </Row>
+                                    {this.state.showExtraOptions ?
+                                        <Radio.Group className={"w_100p "} defaultValue={0}>
+                                            <Row className="kasko-car-select__controls" gutter={20}>
+                                                <Col span={3}/>
+                                                <Col>
+                                                    <Radio disabled={this.state.editMode ? null : 'disabled'}
+                                                           value={0}>Мужской</Radio>
+                                                </Col>
+                                                <Col>
+                                                    <Radio disabled={this.state.editMode ? null : 'disabled'}
+                                                           value={1}>Женский</Radio>
+                                                </Col>
+                                                <Col className={"ant-col-mla"}>
+                                                    <div className="gl_link fz_12"
+                                                         onClick={this.toggleExtraOptions}>Скрыть
+                                                    </div>
+                                                </Col>
+                                                <Col span={3}/>
+                                            </Row>
+                                        </Radio.Group> : null
+                                    }
 
-                            <Row className="kasko-car-select__controls mb_60" gutter={20}>
-                                <Col span={3}/>
+                                    <Row className="kasko-car-select__controls mb_30" gutter={20}>
+                                        <Col span={3}/>
+                                        <FormInput span={6} onChangeCallback={this.formControlCallback}
+                                                   disabled={this.state.editMode ? null : 'disabled'}
+                                                   placeholder="Дата рождения" controlName={'driverBirthday'}
+                                                   value={disabled ? '12.12.1912' : ''}/>
+                                        {/*<FormInput span={6} onChangeCallback={this.formControlCallback}*/}
+                                        {/*           placeholder="Мобильный телефон"*/}
+                                        {/*           controlName={'driverPhone'} value={this.state.driverPhone}/>*/}
 
-                                <FormSelect span={6} onChangeCallback={this.formControlCallback}
-                                            disabled={this.state.editMode ? null : 'disabled'}
-                                            options={this.state.trustedRelationList}
-                                            placeholder="Отношение к клиенту"
-                                            controlName={'trustedRelation'}
-                                            value={this.state.trustedRelation}/>
+                                        {!this.state.showExtraOptions ?
+                                            <Col className={"ant-col-mla"}>
+                                                <div className="gl_link fz_12 clr_gray"
+                                                     onClick={this.toggleExtraOptions}>Подробнее
+                                                </div>
+                                            </Col> : null
+                                        }
 
-                                <FormSelect span={12} onChangeCallback={this.formControlCallback}
-                                            disabled={this.state.editMode ? null : 'disabled'}
-                                            options={this.state.trustedEmploymentTypeList}
-                                            placeholder="Тип занятости"
-                                            controlName={'trustedEmploymentType'}
-                                            value={this.state.trustedEmploymentType}/>
-                            </Row>
+                                        <Col span={3}/>
+                                    </Row>
+
+                                    <Row className="kasko-car-select__controls mb_0" gutter={20}>
+                                        <Col span={3}/>
+                                        <Col span={12}>
+                                            <div className="driver-info__caption">Водительское удостоверение</div>
+                                        </Col>
+                                    </Row>
+
+                                    <DriverLicense disabled={!this.state.editMode}/>
+                                </>
+                                :
+                                <>
+
+                                    <Row className="kasko-car-select__controls" gutter={20}>
+                                        <Col span={3}/>
+                                        <FormInput span={6} onChangeCallback={this.formControlCallback}
+                                                   disabled={this.state.editMode ? null : 'disabled'}
+                                                   placeholder="Дата рождения" controlName={'trustedBirthday'}
+                                                   value={disabled ? '12.12.1912' : ''}/>
+                                        <FormInput span={6} onChangeCallback={this.formControlCallback}
+                                                   disabled={this.state.editMode ? null : 'disabled'}
+                                                   placeholder="Мобильный телефон"
+                                                   controlName={'trustedPhone'} value={this.state.trustedPhone}/>
+
+                                        <Col span={3}/>
+                                    </Row>
+
+                                    <Row className="kasko-car-select__controls mb_60" gutter={20}>
+                                        <Col span={3}/>
+
+                                        <FormSelect span={6} onChangeCallback={this.formControlCallback}
+                                                    disabled={this.state.editMode ? null : 'disabled'}
+                                                    options={this.state.trustedRelationList}
+                                                    placeholder="Отношение к клиенту"
+                                                    controlName={'trustedRelation'}
+                                                    value={this.state.trustedRelation}/>
+
+                                        <FormSelect span={12} onChangeCallback={this.formControlCallback}
+                                                    disabled={this.state.editMode ? null : 'disabled'}
+                                                    options={this.state.trustedEmploymentTypeList}
+                                                    placeholder="Тип занятости"
+                                                    controlName={'trustedEmploymentType'}
+                                                    value={this.state.trustedEmploymentType}/>
+                                    </Row>
 
 
-                            <Row className="kasko-car-select__controls mb_0" gutter={20}>
-                                <Col span={3}/>
-                                <Col span={18}>
-                                    <div className="driver-info__caption">Паспорт</div>
-                                </Col>
-                                {/*<FormCheckbox span={6} onChangeCallback={this.formControlCallback}*/}
-                                {/*              text="Гражданин РФ"*/}
-                                {/*              value={1}*/}
-                                {/*              className="check_v6"*/}
-                                {/*              controlName={'citizenRF'}*/}
-                                {/*              checked={this.state.citizenRF}/>*/}
-                            </Row>
+                                    <Row className="kasko-car-select__controls mb_0" gutter={20}>
+                                        <Col span={3}/>
+                                        <Col span={18}>
+                                            <div className="driver-info__caption">Паспорт</div>
+                                        </Col>
+                                        {/*<FormCheckbox span={6} onChangeCallback={this.formControlCallback}*/}
+                                        {/*              text="Гражданин РФ"*/}
+                                        {/*              value={1}*/}
+                                        {/*              className="check_v6"*/}
+                                        {/*              controlName={'citizenRF'}*/}
+                                        {/*              checked={this.state.citizenRF}/>*/}
+                                    </Row>
 
-                            <Row className="kasko-car-select__controls" gutter={20}>
-                                <Col span={3}/>
-                                <FormInput span={6} onChangeCallback={this.formControlCallback}
-                                           placeholder={"Серия, номер"}
-                                           disabled={this.state.editMode ? null : 'disabled'}
-                                           controlName={'trustedPassportSeries'}
-                                           value={this.state.trustedPassportSeries}/>
+                                    <Row className="kasko-car-select__controls" gutter={20}>
+                                        <Col span={3}/>
+                                        <FormInput span={6} onChangeCallback={this.formControlCallback}
+                                                   placeholder={"Серия, номер"}
+                                                   disabled={this.state.editMode ? null : 'disabled'}
+                                                   controlName={'trustedPassportSeries'}
+                                                   value={this.state.trustedPassportSeries}/>
 
-                                <FormInput span={6} onChangeCallback={this.formControlCallback}
-                                           placeholder={"Дата выдачи"}
-                                           disabled={this.state.editMode ? null : 'disabled'}
-                                           controlName={'trustedPassportDateStart'}
-                                           value={this.state.trustedPassportDateStart}/>
+                                        <FormInput span={6} onChangeCallback={this.formControlCallback}
+                                                   placeholder={"Дата выдачи"}
+                                                   disabled={this.state.editMode ? null : 'disabled'}
+                                                   controlName={'trustedPassportDateStart'}
+                                                   value={this.state.trustedPassportDateStart}/>
 
-                                <FormInput span={6} onChangeCallback={this.formControlCallback}
-                                           placeholder={"Код подразделения"}
-                                           disabled={this.state.editMode ? null : 'disabled'}
-                                           controlName={'trustedPassportDepartmentCode'}
-                                           value={this.state.trustedPassportDepartmentCode}/>
-                            </Row>
+                                        <FormInput span={6} onChangeCallback={this.formControlCallback}
+                                                   placeholder={"Код подразделения"}
+                                                   disabled={this.state.editMode ? null : 'disabled'}
+                                                   controlName={'trustedPassportDepartmentCode'}
+                                                   value={this.state.trustedPassportDepartmentCode}/>
+                                    </Row>
 
-                            <Row className="kasko-car-select__controls mb_60" gutter={20}>
-                                <Col span={3}/>
-                                <FormInput span={18} onChangeCallback={this.formControlCallback}
-                                           placeholder={"Кем выдан"}
-                                           disabled={this.state.editMode ? null : 'disabled'}
-                                           controlName={'trustedPassportDepartment'}
-                                           value={this.state.trustedPassportDepartment}/>
-                            </Row>
+                                    <Row className="kasko-car-select__controls mb_60" gutter={20}>
+                                        <Col span={3}/>
+                                        <FormInput span={18} onChangeCallback={this.formControlCallback}
+                                                   placeholder={"Кем выдан"}
+                                                   disabled={this.state.editMode ? null : 'disabled'}
+                                                   controlName={'trustedPassportDepartment'}
+                                                   value={this.state.trustedPassportDepartment}/>
+                                    </Row>
 
-                            <Row className="kasko-car-select__controls mb_0" gutter={20}>
-                                <Col span={3}/>
-                                <Col span={12}>
-                                    <div className="driver-info__caption">Адрес регистрации
-                                    </div>
-                                </Col>
-                            </Row>
+                                    <Row className="kasko-car-select__controls mb_0" gutter={20}>
+                                        <Col span={3}/>
+                                        <Col span={12}>
+                                            <div className="driver-info__caption">Адрес регистрации
+                                            </div>
+                                        </Col>
+                                    </Row>
 
-                            <Row className="kasko-car-select__controls mb_60" gutter={20}>
-                                <Col span={3}/>
-                                <FormInput span={18} onChangeCallback={this.formControlCallback}
-                                           disabled={this.state.editMode ? null : 'disabled'}
-                                           placeholder="Адрес"
-                                           controlName={'trustedAddress'}
-                                           value={this.state.trustedAddress}/>
-                            </Row>
+                                    <Row className="kasko-car-select__controls mb_60" gutter={20}>
+                                        <Col span={3}/>
+                                        <FormInput span={18} onChangeCallback={this.formControlCallback}
+                                                   disabled={this.state.editMode ? null : 'disabled'}
+                                                   placeholder="Адрес"
+                                                   controlName={'trustedAddress'}
+                                                   value={this.state.trustedAddress}/>
+                                    </Row>
 
-                            <Row className="kasko-car-select__controls mb_0" gutter={20}>
-                                <Col span={3}/>
-                                <Col span={12}>
-                                    <div className="driver-info__caption">Водительское удостоверение</div>
-                                </Col>
-                            </Row>
+                                    <Row className="kasko-car-select__controls mb_0" gutter={20}>
+                                        <Col span={3}/>
+                                        <Col span={12}>
+                                            <div className="driver-info__caption">Водительское удостоверение</div>
+                                        </Col>
+                                    </Row>
 
-                            <DriverLicense disabled={!this.state.editMode}/>
+                                    <DriverLicense disabled={!this.state.editMode}/>
 
-                            <Row className="mb_60 mt_60" gutter={20}>
-                                <Col span={3}/>
+                                    <Row className="mb_60 mt_60" gutter={20}>
+                                        <Col span={3}/>
 
-                                <Col span={6}>
-                                    <div className="docs__frame-load _completed">
-                                        <span>Паспорт</span>
-                                    </div>
-                                </Col>
+                                        <Col span={6}>
+                                            <div className="docs__frame-load _completed">
+                                                <span>Паспорт</span>
+                                            </div>
+                                        </Col>
 
-                                <Col span={6}>
-                                    <label className="docs__frame-load">
-                                        <input className={'hide'} type="file"/>
-                                        <span>Загрузить документ</span>
-                                    </label>
-                                </Col>
+                                        <Col span={6}>
+                                            <label className="docs__frame-load">
+                                                <input className={'hide'} type="file"/>
+                                                <span>Загрузить документ</span>
+                                            </label>
+                                        </Col>
 
-                                <Col span={3}/>
-                            </Row>
+                                        <Col span={3}/>
+                                    </Row>
+                                </>
+                            }
 
-                            <Row className="kasko-car-select__controls mt_15 mb_60 ant-row-center"
+                            <Row className="kasko-car-select__controls mt_60 mb_60 ant-row-center"
                                  gutter={20}>
 
                                 <Col className="text_center" span={3}>

@@ -11,6 +11,7 @@ import Orders from "./pages/orders";
 import CheryLayout from "./layouts/chery-layout";
 import Chat from "./components/orders/chat";
 import Service from "./pages/service";
+import Cars from "./pages/cars";
 
 function App() {
     return (
@@ -76,7 +77,7 @@ function App() {
                             <Link to="/docs">docs</Link>
                         </li>
                         <li>
-                            <Link to="/cars">cars</Link>
+                            <Link to="/vehicles">vehicles</Link>
                         </li>
                     </ul>
                 </div>
@@ -107,6 +108,12 @@ function App() {
             <Route path="/docs" render={(routeProps) => (
                 <PageLayout>
                     <Docs showCar={true} {...routeProps}
+                           dev={process.env.NODE_ENV !== 'production'} />
+                </PageLayout>
+            )}/>
+            <Route path="/vehicles" render={(routeProps) => (
+                <PageLayout>
+                    <Cars showCar={true} {...routeProps}
                            dev={process.env.NODE_ENV !== 'production'} />
                 </PageLayout>
             )}/>

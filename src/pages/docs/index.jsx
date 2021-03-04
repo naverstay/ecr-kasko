@@ -27,6 +27,7 @@ import FormCheckbox from "../../components/form-checkbox";
 import DriverLicense from "../../components/driver-license";
 import TrustedAnketa from "../../components/trusted-anketa";
 import DriverInfo from "../../components/driver-info";
+import TrustedInfo from "../../components/trusted-info";
 
 class Docs extends Component {
     constructor(props) {
@@ -34,6 +35,7 @@ class Docs extends Component {
 
         this.state = {
             anketaProduct: 0,
+            trustedInfoCount: 0,
             clientObligatoryPayments: '',
             clientMortgageRepayment: '',
             clientOtherLoans: '',
@@ -61,6 +63,11 @@ class Docs extends Component {
             clientAdditionalIncome: '',
             clientOrganizationPhone: '',
             clientOrganizationLocation: '',
+            clientEducation: '',
+            clientEducationList: [
+                "Высшее",
+                "Среднее"
+            ],
             clientSocialStatus: '',
             clientSocialStatusList: [
                 "Пенсионер",
@@ -84,8 +91,8 @@ class Docs extends Component {
                 "Недвиг 3"
             ],
             citizenRF: true,
-            nameWasChanged: false,
-            equalsRealAddress: false,
+            nameWasChanged: true,
+            equalsRealAddress: true,
             driverOSAGOInsurant: true,
             openAnketa: false,
             openTrusted: false
@@ -155,8 +162,21 @@ class Docs extends Component {
         this.setState({anketaProduct: e.target.value});
     };
 
+    addTrustedInfo = e => {
+        this.setState({
+            trustedInfoCount: this.state.trustedInfoCount + 1
+        });
+    };
+
+    onRemoveTrastedInfo = e => {
+        this.setState({
+            trustedInfoCount: this.state.trustedInfoCount - 1
+        });
+    };
+
     render() {
         let {step} = this.props;
+        let trustedInfoArray = [];
         const productList = ['Кредит', 'ОСАГО', 'КАСКО', 'Сервис'];
         const PhoneMask = "'mask': '[+7] (999)-999-99-99', 'showMaskOnHover': 'false'";
         const dateFormatMask = "'mask': '99.99.9999', 'showMaskOnHover': 'false'";
@@ -170,7 +190,12 @@ class Docs extends Component {
                     )
                 }
             </Row>
-        </Radio.Group>
+        </Radio.Group>;
+
+        for (let i = 0; i < this.state.trustedInfoCount; i++) {
+            trustedInfoArray.push(<TrustedInfo key={i} removeCallback={this.onRemoveTrastedInfo}
+                                               wholeName={true} index={i + 1}/>);
+        }
 
         let clientDocs = <>
             <Row className="mb_15" gutter={20}>
@@ -222,7 +247,7 @@ class Docs extends Component {
                         <AsideCrumbs crumbs={['Главная']}/>
                         <AsideBlock>
                             <KaskoUser firstName={'Мария'} lastName={'Константинопольская'}
-                                       avatar={'users/masha.jpg'}
+                                       avatar={'./users/masha.jpg'}
                                        phone={"+ 7 (910) 222-12-12"} docs="" trustees=""
                                        autos=''/>
                         </AsideBlock>
@@ -230,7 +255,7 @@ class Docs extends Component {
                         <AsideBlock>
                             <KaskoCarInfo step={step} notificationCount={step === 2 ? 1 : step === 3 ? 2 : 0}
                                           carName={step === 1 ? '' : 'Hyundai'}
-                                          carModel={step === 1 ? '' : 'Sonata'} image={this.state.carImage}
+                                          carModel={step === 1 ? '' : 'Sonata'} image={'Hyundai'}
                                           info={step === 1 ? '' : "2020 Новый"}
                                           price={step === 1 ? '' : "1 534 000 ₽"}/>
                         </AsideBlock>
@@ -244,7 +269,7 @@ class Docs extends Component {
                                 <Col span={6}>
                                     <div className="docs__frame-avatar">
                                         <div className="docs__frame-avatar_wrapper">
-                                            <img src="users/masha.jpg" alt=""/>
+                                            <img src="./users/masha.jpg" alt=""/>
                                         </div>
                                         <label className="docs__frame-avatar_load">
                                             <input className={'hide'} type="file"/>
@@ -265,7 +290,7 @@ class Docs extends Component {
                                     <div className="text_right">
                                         <div className="docs__frame-status _active">Активный</div>
                                         <p className="text1">
-                                            <span className="color_gray">Клиент с <br/>20.01.20
+                                            <span className="color_gray fz_12">Клиент с <br/>20.01.20
                                             </span>
                                         </p>
                                     </div>
@@ -518,10 +543,10 @@ class Docs extends Component {
                                                     <Col span={3}/>
 
                                                     <FormSelect span={6} onChangeCallback={this.formControlCallback}
-                                                                options={this.state.clientSocialStatusList}
+                                                                options={this.state.clientEducationList}
                                                                 placeholder="Образование"
                                                                 controlName={'clientEducation'}
-                                                                value={this.state.clientSocialStatus}/>
+                                                                value={this.state.clientEducation}/>
 
                                                     <FormSelect span={12} onChangeCallback={this.formControlCallback}
                                                                 options={this.state.clientSocialStatusList}
@@ -707,23 +732,27 @@ class Docs extends Component {
                         <div className="docs__frame _active">
                             <h1 onClick={this.onToggleTrusted}
                                 className={"kasko-main__title" + (this.state.openTrusted ? " expanded" : " collapsed")}>
-                                <span>Доверенные лица</span></h1>
+                                <span>{this.state.anketaProduct ? 'Водители' : 'Доверенные лица'}</span></h1>
 
                             {this.state.openTrusted ?
                                 <div className={"mt_45"}>
-                                    <TrustedAnketa removeCallback={this.onRemoveTrastedInfo}
+                                    <TrustedAnketa driver={!!this.state.anketaProduct}
+                                                   removeCallback={this.onRemoveTrastedInfo}
                                                    disabled={true} index={0}
                                                    wholeName={'Ларин Кирилл Олегович'}/>
 
-                                    <TrustedAnketa removeCallback={this.onRemoveTrastedInfo}
+                                    <TrustedAnketa driver={!!this.state.anketaProduct}
+                                                   removeCallback={this.onRemoveTrastedInfo}
                                                    disabled={true} index={0}
                                                    wholeName={'Константинопольский Константин Константинович'}/>
 
-                                    <TrustedAnketa removeCallback={this.onRemoveTrastedInfo}
+                                    <TrustedAnketa driver={!!this.state.anketaProduct}
+                                                   removeCallback={this.onRemoveTrastedInfo}
                                                    disabled={true} index={0}
                                                    wholeName={'Иванова Марина Игоревна'}/>
 
-                                    <TrustedAnketa removeCallback={this.onRemoveTrastedInfo}
+                                    <TrustedAnketa driver={!!this.state.anketaProduct}
+                                                   removeCallback={this.onRemoveTrastedInfo}
                                                    disabled={true} index={0}
                                                    wholeName={'Петров Петр Петрович'}/>
 
@@ -731,7 +760,7 @@ class Docs extends Component {
                                          gutter={20}>
                                         <Col span={6}>
                                             <Button className="driver-info__add gl_link w_100p btn-action"
-                                            >Доверенное лицо</Button>
+                                            >{this.state.anketaProduct ? 'Водитель' : 'Доверенное лицо'}</Button>
                                         </Col>
                                     </Row>
 
@@ -747,34 +776,48 @@ class Docs extends Component {
                         </AsideBlock>
 
                         {this.state.anketaProduct === 0 ?
-                            <AsideBlock>
-                                <DocsCompleteness docList={[
-                                    {
-                                        name: 'Личная информация',
-                                        check: true
-                                    },
-                                    {
-                                        name: 'Доверенные лица',
-                                        check: true
-                                    },
-                                    {
-                                        name: 'Работа',
-                                        check: true
-                                    },
-                                    {
-                                        name: 'Финансы и собственность',
-                                        check: true
-                                    },
-                                    {
-                                        name: 'Гражданство и статус',
-                                        check: true
-                                    },
-                                    {
-                                        name: 'Подписать документы',
-                                        check: false
-                                    }
-                                ]}/>
-                            </AsideBlock>
+                            <>
+                                <AsideBlock>
+                                    <DocsCompleteness docList={[
+                                        {
+                                            name: 'Личная информация',
+                                            check: true
+                                        },
+                                        {
+                                            name: 'Доверенные лица',
+                                            check: true
+                                        },
+                                        {
+                                            name: 'Работа',
+                                            check: true
+                                        },
+                                        {
+                                            name: 'Финансы и собственность',
+                                            check: true
+                                        },
+                                        {
+                                            name: 'Гражданство и статус',
+                                            check: true
+                                        },
+                                        {
+                                            name: 'Подписать документы',
+                                            check: false
+                                        }
+                                    ]}/>
+                                </AsideBlock>
+                                <AsideBlock>
+                                    <DocsCompleteness docList={[
+                                        {
+                                            name: 'Личная информация',
+                                            check: true
+                                        },
+                                        {
+                                            name: 'Доверенные лица',
+                                            check: true
+                                        }
+                                    ]}/>
+                                </AsideBlock>
+                            </>
                             : this.state.anketaProduct === 1 ?
                                 <>
                                     <AsideBlock>
@@ -786,39 +829,9 @@ class Docs extends Component {
                                             {
                                                 name: 'Доверенные лица',
                                                 check: true
-                                            },
-                                            {
-                                                name: 'Работа',
-                                                check: true
-                                            },
-                                            {
-                                                name: 'Финансы и собственность',
-                                                check: true
-                                            },
-                                            {
-                                                name: 'Гражданство и статус',
-                                                check: true
-                                            },
-                                            {
-                                                name: 'Подписать документы',
-                                                check: false
                                             }
                                         ]}/>
                                     </AsideBlock>
-                                    <>
-                                        <AsideBlock>
-                                            <DocsCompleteness docList={[
-                                                {
-                                                    name: 'Личная информация',
-                                                    check: true
-                                                },
-                                                {
-                                                    name: 'Доверенные лица',
-                                                    check: true
-                                                }
-                                            ]}/>
-                                        </AsideBlock>
-                                    </>
                                 </> :
                                 <>
                                     <AsideBlock>

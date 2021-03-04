@@ -32,7 +32,7 @@ class KaskoUser extends Component {
                 {/*</div>*/}
                 <div
                     className={"kasko-user__info _small" + ((autos) ? "" : " _inactive")}>
-                    <Link to={"/cars"} className={'gl_link'}>{autos || 'Автомобили клиента'}</Link>
+                    <Link to={"/vehicles"} className={'gl_link'}>{autos || 'Автомобили клиента'}</Link>
                 </div>
             </div>
         );
