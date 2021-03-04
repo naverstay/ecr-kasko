@@ -94,6 +94,7 @@ class Docs extends Component {
             nameWasChanged: true,
             equalsRealAddress: true,
             driverOSAGOInsurant: true,
+            editMode: false,
             openAnketa: false,
             openTrusted: false
         };
@@ -107,6 +108,10 @@ class Docs extends Component {
         if (rslt.hasOwnProperty('driverOSAGOInsurant')) {
             //this.setState(rslt)
         }
+    }
+
+    toggleEditMode = () => {
+        this.setState({editMode: !this.state.editMode})
     }
 
     formControlCallback = (name, value) => {
@@ -329,11 +334,13 @@ class Docs extends Component {
                                                     <FormInput span={12} onChangeCallback={this.formControlCallback}
                                                                placeholder="Фамилия, имя, отчество"
                                                                controlName={'clientWholeName'}
+                                                               disabled={this.state.editMode ? null : 'disabled'}
                                                                value={this.state.clientWholeName}/>
 
                                                     <FormCheckbox span={6} onChangeCallback={this.formControlCallback}
                                                                   text="Ранее ФИО было изменено"
                                                                   value={1}
+                                                                  disabled={this.state.editMode ? null : 'disabled'}
                                                                   className="checkbox_middle check_v6"
                                                                   controlName={'nameWasChanged'}
                                                                   checked={this.state.nameWasChanged}/>
@@ -345,6 +352,7 @@ class Docs extends Component {
                                                     <FormInput span={6} onChangeCallback={this.formControlCallback}
                                                                placeholder="Дата рождения"
                                                                inputmask={dateFormatMask}
+                                                               disabled={this.state.editMode ? null : 'disabled'}
                                                                controlName={'clientBirthday'}
                                                                value={this.state.clientBirthday}/>
                                                 </Row>
@@ -355,17 +363,21 @@ class Docs extends Component {
                                                     <FormSelect span={6} onChangeCallback={this.formControlCallback}
                                                                 options={this.state.clientFamilyStatusList}
                                                                 placeholder="Семейное положение"
+                                                                disabled={this.state.editMode ? null : 'disabled'}
                                                                 controlName={'clientFamilyStatus'}
                                                                 value={this.state.clientFamilyStatus}/>
 
                                                     <FormInput span={6} onChangeCallback={this.formControlCallback}
                                                                placeholder="Кол-во детей младше 21"
-                                                               controlName={'clientChildrenCount'} value={''}/>
+                                                               disabled={this.state.editMode ? null : 'disabled'}
+                                                               controlName={'clientChildrenCount'}
+                                                               value={this.state.clientChildrenCount}/>
 
                                                     <FormInput span={6} onChangeCallback={this.formControlCallback}
                                                                placeholder="Кол-во иждивенцев"
-                                                               controlName={'clientEncmbranceCount'} value={''}/>
-
+                                                               disabled={this.state.editMode ? null : 'disabled'}
+                                                               controlName={'clientEncmbranceCount'}
+                                                               value={this.state.clientEncmbranceCount}/>
                                                 </Row>
 
 
@@ -382,11 +394,13 @@ class Docs extends Component {
                                                     <Col span={3}/>
                                                     <FormInput span={6} onChangeCallback={this.formControlCallback}
                                                                placeholder="Мобильный телефон"
+                                                               disabled={this.state.editMode ? null : 'disabled'}
                                                                controlName={'clientPhone'}
                                                                value={this.state.clientPhone}/>
 
                                                     <FormInput span={12} onChangeCallback={this.formControlCallback}
                                                                placeholder="Емейл"
+                                                               disabled={this.state.editMode ? null : 'disabled'}
                                                                controlName={'clientEmail'}
                                                                value={this.state.clientEmail}/>
                                                 </Row>
@@ -401,6 +415,7 @@ class Docs extends Component {
                                                                   text="Гражданин РФ"
                                                                   value={1}
                                                                   className="check_v6"
+                                                                  disabled={this.state.editMode ? null : 'disabled'}
                                                                   controlName={'citizenRF'}
                                                                   checked={this.state.citizenRF}/>
                                                 </Row>
@@ -409,34 +424,39 @@ class Docs extends Component {
                                                     <Col span={3}/>
                                                     <FormInput span={6} onChangeCallback={this.formControlCallback}
                                                                placeholder={"Серия, номер"}
+                                                               disabled={this.state.editMode ? null : 'disabled'}
                                                                controlName={'clientPassportSeries'}
-                                                               value={''}/>
+                                                               value={this.state.clientPassportSeries}/>
 
                                                     <FormInput span={6} onChangeCallback={this.formControlCallback}
                                                                placeholder={"Дата выдачи"}
+                                                               disabled={this.state.editMode ? null : 'disabled'}
                                                                controlName={'clientPassportDateStart'}
-                                                               value={''}/>
+                                                               value={this.state.clientPassportDateStart}/>
 
                                                     <FormInput span={6} onChangeCallback={this.formControlCallback}
                                                                placeholder={"Код подразделения"}
+                                                               disabled={this.state.editMode ? null : 'disabled'}
                                                                controlName={'clientPassportDepartmentCode'}
-                                                               value={''}/>
+                                                               value={this.state.clientPassportDepartmentCode}/>
                                                 </Row>
 
                                                 <Row className="kasko-car-select__controls" gutter={20}>
                                                     <Col span={3}/>
                                                     <FormInput span={18} onChangeCallback={this.formControlCallback}
                                                                placeholder={"Кем выдан"}
+                                                               disabled={this.state.editMode ? null : 'disabled'}
                                                                controlName={'clientPassportDepartment'}
-                                                               value={''}/>
+                                                               value={this.state.clientPassportDepartment}/>
                                                 </Row>
 
                                                 <Row className="kasko-car-select__controls mb_60" gutter={20}>
                                                     <Col span={3}/>
                                                     <FormInput span={12} onChangeCallback={this.formControlCallback}
                                                                placeholder="Место рождения"
+                                                               disabled={this.state.editMode ? null : 'disabled'}
                                                                controlName={'clientBirthLocation'}
-                                                               value={''}/>
+                                                               value={this.state.clientBirthLocation}/>
                                                 </Row>
 
 
@@ -452,16 +472,19 @@ class Docs extends Component {
                                                     <Col span={3}/>
                                                     <FormInput span={6} onChangeCallback={this.formControlCallback}
                                                                placeholder="Индекс"
+                                                               disabled={this.state.editMode ? null : 'disabled'}
                                                                controlName={'clientAddressPostCode'}
-                                                               value={''}/>
+                                                               value={this.state.clientAddressPostCode}/>
                                                 </Row>
 
                                                 <Row className="kasko-car-select__controls " gutter={20}>
                                                     <Col span={3}/>
 
                                                     <FormInput span={18} onChangeCallback={this.formControlCallback}
-                                                               placeholder="Адрес" controlName={'clientAddress'}
-                                                               value={''}/>
+                                                               placeholder="Адрес"
+                                                               disabled={this.state.editMode ? null : 'disabled'}
+                                                               controlName={'clientAddress'}
+                                                               value={this.state.clientAddress}/>
                                                 </Row>
 
                                                 <Row className="kasko-car-select__controls mb_60" gutter={20}>
@@ -469,13 +492,15 @@ class Docs extends Component {
 
                                                     <FormInput span={6} onChangeCallback={this.formControlCallback}
                                                                placeholder={"Дата регистрации"}
+                                                               disabled={this.state.editMode ? null : 'disabled'}
                                                                controlName={'clientAddressRegDate'}
-                                                               value={''}/>
+                                                               value={this.state.clientAddressRegDate}/>
 
                                                     <FormCheckbox span={10} onChangeCallback={this.formControlCallback}
                                                                   text="Фактическое место жительства совпадает с&nbsp;адресом регистрации"
                                                                   value={1}
                                                                   className="checkbox_middle check_v6"
+                                                                  disabled={this.state.editMode ? null : 'disabled'}
                                                                   controlName={'equalsRealAddress'}
                                                                   checked={this.state.equalsRealAddress}/>
                                                 </Row>
@@ -496,6 +521,7 @@ class Docs extends Component {
                                                     <FormSelect span={6} onChangeCallback={this.formControlCallback}
                                                                 options={this.state.propertyStatusList}
                                                                 placeholder="Статус недвижимости"
+                                                                disabled={this.state.editMode ? null : 'disabled'}
                                                                 controlName={'propertyStatus'}
                                                                 value={this.state.propertyStatus}/>
                                                 </Row>
@@ -515,17 +541,20 @@ class Docs extends Component {
 
                                                     <FormSelect span={12} onChangeCallback={this.formControlCallback}
                                                                 options={this.state.secondDocList}
-                                                                placeholder="Тип документа" controlName={'secondDoc'}
+                                                                placeholder="Тип документа"
+                                                                disabled={this.state.editMode ? null : 'disabled'}
+                                                                controlName={'secondDoc'}
                                                                 value={this.state.secondDoc}/>
                                                 </Row>
 
-                                                <DriverLicense prepend={
+                                                <DriverLicense disabled={!this.state.editMode} prepend={
                                                     <Row className="kasko-car-select__controls" gutter={20}>
                                                         <Col span={3}/>
                                                         <FormInput span={12} onChangeCallback={this.formControlCallback}
                                                                    placeholder={"Кем выдан"}
+                                                                   disabled={this.state.editMode ? null : 'disabled'}
                                                                    controlName={'clientSecondDocDepartment'}
-                                                                   value={''}/>
+                                                                   value={this.state.clientSecondDocDepartment}/>
                                                     </Row>
                                                 }/>
 
@@ -545,12 +574,14 @@ class Docs extends Component {
                                                     <FormSelect span={6} onChangeCallback={this.formControlCallback}
                                                                 options={this.state.clientEducationList}
                                                                 placeholder="Образование"
+                                                                disabled={this.state.editMode ? null : 'disabled'}
                                                                 controlName={'clientEducation'}
                                                                 value={this.state.clientEducation}/>
 
                                                     <FormSelect span={12} onChangeCallback={this.formControlCallback}
                                                                 options={this.state.clientSocialStatusList}
                                                                 placeholder="Социальный статус"
+                                                                disabled={this.state.editMode ? null : 'disabled'}
                                                                 controlName={'clientSocialStatus'}
                                                                 value={this.state.clientSocialStatus}/>
                                                 </Row>
@@ -560,7 +591,9 @@ class Docs extends Component {
 
                                                     <FormInput span={18} onChangeCallback={this.formControlCallback}
                                                                placeholder="Юридическое название места работы"
-                                                               controlName={'clientOrganizationLocation'} value={''}/>
+                                                               disabled={this.state.editMode ? null : 'disabled'}
+                                                               controlName={'clientOrganizationLocation'}
+                                                               value={this.state.clientOrganizationLocation}/>
                                                 </Row>
 
                                                 <Row className="kasko-car-select__controls" gutter={20}>
@@ -568,8 +601,9 @@ class Docs extends Component {
 
                                                     <FormInput span={6} onChangeCallback={this.formControlCallback}
                                                                placeholder="Телефон офиса"
+                                                               disabled={this.state.editMode ? null : 'disabled'}
                                                                controlName={'clientOrganizationPhone'}
-                                                               value={''}/>
+                                                               value={this.state.clientOrganizationPhone}/>
 
 
                                                 </Row>
@@ -579,7 +613,9 @@ class Docs extends Component {
 
                                                     <FormInput span={12} onChangeCallback={this.formControlCallback}
                                                                placeholder="Название должности"
-                                                               controlName={'clientPostName'} value={''}/>
+                                                               disabled={this.state.editMode ? null : 'disabled'}
+                                                               controlName={'clientPostName'}
+                                                               value={this.state.clientPostName}/>
                                                 </Row>
 
 
@@ -589,6 +625,7 @@ class Docs extends Component {
                                                     <FormSelect span={12} onChangeCallback={this.formControlCallback}
                                                                 options={this.state.clientSocialStatusList}
                                                                 placeholder="Характер должности"
+                                                                disabled={this.state.editMode ? null : 'disabled'}
                                                                 controlName={'clientPostType'}
                                                                 value={this.state.clientPostType}/>
                                                 </Row>
@@ -598,11 +635,15 @@ class Docs extends Component {
 
                                                     <FormInput span={6} onChangeCallback={this.formControlCallback}
                                                                placeholder="Дата начала работы в этой организации"
-                                                               controlName={'clientPostStart'} value={''}/>
+                                                               disabled={this.state.editMode ? null : 'disabled'}
+                                                               controlName={'clientPostStart'}
+                                                               value={this.state.clientPostStart}/>
 
                                                     <FormInput span={6} onChangeCallback={this.formControlCallback}
                                                                placeholder="Общий трудовой стаж с"
-                                                               controlName={'clientPostTotal'} value={''}/>
+                                                               disabled={this.state.editMode ? null : 'disabled'}
+                                                               controlName={'clientPostTotal'}
+                                                               value={this.state.clientPostTotal}/>
 
                                                 </Row>
 
@@ -621,11 +662,15 @@ class Docs extends Component {
 
                                                     <FormInput span={6} onChangeCallback={this.formControlCallback}
                                                                placeholder="Доход по основному месту работы"
-                                                               controlName={'clientMainIncome'} value={''}/>
+                                                               disabled={this.state.editMode ? null : 'disabled'}
+                                                               controlName={'clientMainIncome'}
+                                                               value={this.state.clientMainIncome}/>
 
                                                     <FormInput span={6} onChangeCallback={this.formControlCallback}
                                                                placeholder="Дополнительный доход"
-                                                               controlName={'clientAdditionalIncome'} value={''}/>
+                                                               disabled={this.state.editMode ? null : 'disabled'}
+                                                               controlName={'clientAdditionalIncome'}
+                                                               value={this.state.clientAdditionalIncome}/>
 
                                                 </Row>
 
@@ -644,15 +689,21 @@ class Docs extends Component {
 
                                                     <FormInput span={6} onChangeCallback={this.formControlCallback}
                                                                placeholder="Обязательные платежи"
-                                                               controlName={'clientObligatoryPayments'} value={''}/>
+                                                               disabled={this.state.editMode ? null : 'disabled'}
+                                                               controlName={'clientObligatoryPayments'}
+                                                               value={this.state.clientObligatoryPayments}/>
 
                                                     <FormInput span={6} onChangeCallback={this.formControlCallback}
                                                                placeholder="Погашение ипотеки"
-                                                               controlName={'clientMortgageRepayment '} value={''}/>
+                                                               disabled={this.state.editMode ? null : 'disabled'}
+                                                               controlName={'clientMortgageRepayment'}
+                                                               value={this.state.clientMortgageRepayment }/>
 
                                                     <FormInput span={6} onChangeCallback={this.formControlCallback}
                                                                placeholder="Погашение прочих кредитов "
-                                                               controlName={'clientOtherLoans'} value={''}/>
+                                                               disabled={this.state.editMode ? null : 'disabled'}
+                                                               controlName={'clientOtherLoans'}
+                                                               value={this.state.clientOtherLoans}/>
 
                                                 </Row>
 
@@ -691,11 +742,11 @@ class Docs extends Component {
                                                 </Row>
 
                                                 {clientDocs}
-
                                             </>
 
                                             : this.state.anketaProduct === 1 ? <>
                                                 <DriverInfo showAddBlock={true} wholeName={true}
+                                                            disabled={!this.state.editMode}
                                                             driverInfoUpdate={this.driverInfoCallback}
                                                             expanded={true}
                                                             fullCalculation={true}/>
@@ -721,8 +772,30 @@ class Docs extends Component {
                                                         </Col>
                                                     </Row>
                                                 </>
-
                                     }
+
+                                    <Row className="kasko-car-select__controls mt_60 mb_60 ant-row-center"
+                                         gutter={20}>
+
+                                        <Col className="text_center" span={3}>
+                                            {this.state.editMode ?
+                                                <div className="link_holder">
+                                                    <div onClick={this.toggleEditMode}
+                                                         className="gl_link">Отмена
+                                                    </div>
+                                                </div>
+                                                : null}
+                                        </Col>
+                                        <Col span={6}>
+                                            <Button
+                                                className={"w_100p " + (this.state.editMode ? "ant-btn-primary" : "btn-action")}
+                                                onClick={this.toggleEditMode}
+                                            >{this.state.editMode ? 'Сохранить' : 'Редактировать'}</Button>
+                                        </Col>
+                                        <Col span={3}>
+
+                                        </Col>
+                                    </Row>
                                 </>
                                 : null
                             }
@@ -802,18 +875,6 @@ class Docs extends Component {
                                         {
                                             name: 'Подписать документы',
                                             check: false
-                                        }
-                                    ]}/>
-                                </AsideBlock>
-                                <AsideBlock>
-                                    <DocsCompleteness docList={[
-                                        {
-                                            name: 'Личная информация',
-                                            check: true
-                                        },
-                                        {
-                                            name: 'Доверенные лица',
-                                            check: true
                                         }
                                     ]}/>
                                 </AsideBlock>

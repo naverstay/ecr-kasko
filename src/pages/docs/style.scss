@@ -9,6 +9,14 @@ $aside-size: 226px;
     border: 1px solid #b5b5b5;
     padding: 24px 1px 10px;
 
+    &._car {
+      border: 2px solid #7ebfed;
+      padding: 23px 0 12px;
+      margin-bottom: 18px;
+      min-height: 210px;
+      position: relative;
+    }
+
     &._active {
       border: 2px solid #7ebfed;
       padding: 9px 0;
@@ -16,6 +24,40 @@ $aside-size: 226px;
 
     .driver-info {
       padding: 0;
+    }
+
+    &-expand {
+      z-index: 1;
+      position: absolute;
+      top: 0;
+      height: 210px;
+      left: 0;
+      right: 0;
+      cursor: pointer;
+
+      &.expanded,
+      &.collapsed {
+
+        &:before {
+          transition: transform .25s;
+          font-family: $icomoon-font-family;
+          content: $i-chevron_r;
+          color: $color-grey;
+          font-size: 16px;
+          top: 95px;
+          right: 25px;
+          position: absolute;
+        }
+      }
+
+      &.collapsed {
+      }
+
+      &.expanded {
+        &:before {
+          transform: rotate(90deg);
+        }
+      }
     }
 
     &-load {

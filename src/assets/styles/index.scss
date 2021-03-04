@@ -481,6 +481,10 @@ $spinner_time: 1s;
 }
 
 .ant-select {
+  &.ant-select-disabled:not(.ant-select-customize-input) .ant-select-selector {
+    color: #000 !important;
+  }
+
   &.select_v2 {
     margin-left: -7px;
 

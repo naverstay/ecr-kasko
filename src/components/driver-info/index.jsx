@@ -187,7 +187,7 @@ class DriverInfo extends Component {
     };
 
     render() {
-        let {fullCalculation, allFields, expanded, osago, wholeName, showAddBlock, driverInfoUpdate} = this.props
+        let {fullCalculation, allFields, expanded, osago, wholeName, showAddBlock, driverInfoUpdate, disabled} = this.props
         //const dateFormat = "DD.MM.YY"
         const dateFormatMask = "'mask': '99.99.9999', 'showMaskOnHover': 'false'"
         const driverPhoneMask = "'mask': '[+7] (999)-999-99-99', 'showMaskOnHover': 'false'"
@@ -230,6 +230,7 @@ class DriverInfo extends Component {
 
                                             <FormCheckbox onChangeCallback={this.formControlCallback}
                                                           text="Водитель"
+                                                          disabled={disabled ? 'disabled' : null}
                                                           className="checkbox_middle check_v3"
                                                           value={0}
                                                           controlName={'driverOSAGOInsurant'}
@@ -251,20 +252,24 @@ class DriverInfo extends Component {
                                                 <FormInput span={18} onChangeCallback={this.formControlCallback}
                                                            placeholder="Фамилия, Имя, Отчество"
                                                            controlName={'clientWholeName'}
+                                                           disabled={disabled ? 'disabled' : null}
                                                            value={this.state.clientWholeName}/>
                                                 :
                                                 <>
                                                     <FormInput span={6} onChangeCallback={this.formControlCallback}
                                                                placeholder="Фамилия" controlName={'driverLastName'}
-                                                               value={''}/>
+                                                               disabled={disabled ? 'disabled' : null}
+                                                               value={this.state.driverLastName}/>
 
                                                     <FormInput span={6} onChangeCallback={this.formControlCallback}
                                                                placeholder="Имя" controlName={'driverFirstName'}
-                                                               value={''}/>
+                                                               disabled={disabled ? 'disabled' : null}
+                                                               value={this.state.driverFirstName}/>
 
                                                     <FormInput span={6} onChangeCallback={this.formControlCallback}
                                                                placeholder="Отчество" controlName={'driverFarthersName'}
-                                                               value={''}/>
+                                                               disabled={disabled ? 'disabled' : null}
+                                                               value={this.state.driverFarthersName}/>
                                                 </>
                                             }
                                         </Row>
@@ -274,10 +279,10 @@ class DriverInfo extends Component {
                                                 <Row className="kasko-car-select__controls" gutter={20}>
                                                     <Col span={3}/>
                                                     <Col>
-                                                        <Radio value={0}>Мужской</Radio>
+                                                        <Radio disabled={disabled ? 'disabled' : null} value={0}>Мужской</Radio>
                                                     </Col>
                                                     <Col>
-                                                        <Radio value={1}>Женский</Radio>
+                                                        <Radio disabled={disabled ? 'disabled' : null} value={1}>Женский</Radio>
                                                     </Col>
                                                     <Col className={"ant-col-mla"}>
                                                         <div className="gl_link fz_12"
@@ -293,6 +298,7 @@ class DriverInfo extends Component {
                                             <Col span={3}/>
                                             <FormInput span={6} onChangeCallback={this.formControlCallback}
                                                        placeholder="Дата рождения" controlName={'driverBirthday'}
+                                                       disabled={disabled ? 'disabled' : null}
                                                        value={this.state.driverBirthday}/>
 
                                             {!this.state.showExtraOptions ?
@@ -319,10 +325,12 @@ class DriverInfo extends Component {
                                             <Col span={3}/>
                                             <FormInput span={6} onChangeCallback={this.formControlCallback}
                                                        placeholder="Мобильный телефон"
+                                                       disabled={disabled ? 'disabled' : null}
                                                        controlName={'driverPhone'} value={this.state.driverPhone}/>
 
                                             <FormInput span={12} onChangeCallback={this.formControlCallback}
                                                        placeholder="Емейл"
+                                                       disabled={disabled ? 'disabled' : null}
                                                        controlName={'driverEmail'} value={this.state.driverEmail}/>
                                         </Row>
 
@@ -342,18 +350,21 @@ class DriverInfo extends Component {
                                                         <FormInput span={6} onChangeCallback={this.formControlCallback}
                                                                    inputmask={clientLicenseIDMask}
                                                                    placeholder="Серия, номер"
+                                                                   disabled={disabled ? 'disabled' : null}
                                                                    controlName={'driverPassport'}
                                                                    value={this.state.driverPassport}/>
 
                                                         <FormInput span={6} onChangeCallback={this.formControlCallback}
                                                                    inputmask={clientLicenseIDMask}
                                                                    placeholder="Дата выдачи"
+                                                                   disabled={disabled ? 'disabled' : null}
                                                                    controlName={'driverPassportStart'}
                                                                    value={this.state.driverPassportStart}/>
 
                                                         <FormInput span={6} onChangeCallback={this.formControlCallback}
                                                                    inputmask={clientLicenseNumberMask}
                                                                    placeholder="Код подразделения"
+                                                                   disabled={disabled ? 'disabled' : null}
                                                                    controlName={'driverPassportDepID'}
                                                                    value={this.state.driverPassportDepID}/>
 
@@ -364,6 +375,7 @@ class DriverInfo extends Component {
 
                                                         <FormInput span={18} onChangeCallback={this.formControlCallback}
                                                                    placeholder="Кем выдан"
+                                                                   disabled={disabled ? 'disabled' : null}
                                                                    controlName={'driverPassportDepartment'}
                                                                    value={this.state.driverPassportDepartment}/>
                                                     </Row>
@@ -380,16 +392,19 @@ class DriverInfo extends Component {
                                                         <Col span={3}/>
                                                         <FormInput span={6} onChangeCallback={this.formControlCallback}
                                                                    placeholder="Индекс"
+                                                                   disabled={disabled ? 'disabled' : null}
                                                                    controlName={'driverAddressPostCode'}
-                                                                   value={''}/>
+                                                                   value={this.state.driverAddressPostCode}/>
                                                     </Row>
 
                                                     <Row className="kasko-car-select__controls mb_60" gutter={20}>
                                                         <Col span={3}/>
 
                                                         <FormInput span={18} onChangeCallback={this.formControlCallback}
-                                                                   placeholder="Адрес" controlName={'driverAddress'}
-                                                                   value={''}/>
+                                                                   placeholder="Адрес"
+                                                                   disabled={disabled ? 'disabled' : null}
+                                                                   controlName={'driverAddress'}
+                                                                   value={this.state.driverAddress}/>
 
                                                     </Row>
                                                 </>
@@ -402,6 +417,7 @@ class DriverInfo extends Component {
                                                     <Input data-inputmask={driverLicenseIDMask}
                                                            className={"w_100p custom_placeholder " + ((this.state.driverPrevLicenseID + '').length ? "" : " _empty")}
                                                            value={this.state.driverPrevLicenseID}
+                                                           disabled={disabled ? 'disabled' : null}
                                                            onChange={this.onDriverPrevLicenseIDChange} defaultValue=""/>
                                                     <div className="float_placeholder">Серия</div>
                                                 </Col>
@@ -409,6 +425,7 @@ class DriverInfo extends Component {
                                                     <Input data-inputmask={driverLicenseNumberMask}
                                                            className={"w_100p custom_placeholder " + ((this.state.driverPrevLicenseNumber + '').length ? "" : " _empty")}
                                                            value={this.state.driverPrevLicenseNumber}
+                                                           disabled={disabled ? 'disabled' : null}
                                                            onChange={this.onDriverLicenseNumberPrevChange}
                                                            defaultValue=""/>
                                                     <div className="float_placeholder">Номер</div>
@@ -417,6 +434,7 @@ class DriverInfo extends Component {
                                                     <Input data-inputmask={dateFormatMask}
                                                            className={"w_100p custom_placeholder " + ((this.state.driverPrevLicenseStart + '').length ? "" : " _empty")}
                                                            value={this.state.driverPrevLicenseStart}
+                                                           disabled={disabled ? 'disabled' : null}
                                                            onChange={this.onDriverPrevLicenseStartChange}
                                                            defaultValue=""/>
                                                     <div className="float_placeholder">Дата выдачи</div>
@@ -436,7 +454,7 @@ class DriverInfo extends Component {
                                                         </div>
                                                     </Col>
                                                 </Row>
-                                                <DriverLicense/>
+                                                <DriverLicense disabled={disabled}/>
                                             </>
                                             : null
                                         }

@@ -126,6 +126,18 @@
         border: 1px solid $color-green;
       }
 
+      &.declined:before {
+        color: #fff;
+        background: $color-prime;
+        border: 1px solid $color-prime;
+      }
+
+      &.refused:before {
+        color: #fff;
+        background: #F7F7F7;
+        border: 1px solid #F7F7F7;
+      }
+
       .kasko-car-select & {
         margin-left: 12px;
       }

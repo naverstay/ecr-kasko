@@ -27,6 +27,9 @@ import FormCheckbox from "../../components/form-checkbox";
 import DriverLicense from "../../components/driver-license";
 import TrustedAnketa from "../../components/trusted-anketa";
 import DriverInfo from "../../components/driver-info";
+import {formatMoney} from "../../helpers/formatMoney";
+import {Link} from "react-router-dom";
+import VehicleAnketa from "../../components/vehicle-anketa";
 
 class Cars extends Component {
     constructor(props) {
@@ -188,15 +191,18 @@ class Cars extends Component {
                     </Col>
 
                     <Col span={16} className="kasko-main">
-                        <div className="docs__frame">
-                            <Row className="mb_60" gutter={20}>
-                                <Col span={3}/>
 
-                                <Col span={3}/>
-                            </Row>
+                        <VehicleAnketa date={'20.01.20'} number={['а', '000', 'аа', '00']} status={['waiting', 'approved', 'declined']} />
 
-                        </div>
+                        <VehicleAnketa date={'-'} number={['с', '065', 'мк', '177']} status={['refused', 'waiting', 'declined']} />
 
+                        <Row className="kasko-car-select__controls mt_30 mb_30 ant-row-center"
+                             gutter={20}>
+                            <Col span={6}>
+                                <Button className="driver-info__add gl_link w_100p btn-action"
+                                >Добавить автомобиль</Button>
+                            </Col>
+                        </Row>
                     </Col>
 
                     <Col span={4} className="kasko-aside">
