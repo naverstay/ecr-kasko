@@ -1,5 +1,5 @@
 import React, {Component} from "react";
-import {Input, Col, Row, Select, Checkbox, Button, Radio} from "antd";
+import {Input, Col, Row, Select, Checkbox, Button, Radio, Form} from "antd";
 import './style.scss';
 import PropTypes from "prop-types";
 
@@ -20,7 +20,57 @@ class VehicleAnketa extends Component {
         this.state = {
             showAnketa: false,
             editMode: false,
+            carTaxi: false,
+            carAutoStart: false,
+            trailerUsage: false,
             activeFields: [],
+            carYear: '',
+            carVIN: '',
+            carPTS: '',
+            carSTS: '',
+            carPTSStart: '',
+            carSTSStart: '',
+            carDiagnosticCard: '',
+            carDiagnosticCardStart: '',
+            carDiagnosticCardEnd: '',
+            carDiagnosticCardDuration: '',
+            carMotorSize: '',
+            carBodyType: '',
+            carMotorType: '',
+            carKaskoDoc: '',
+            carKaskoDocStart: '',
+            carBankName: '',
+            carTransmissionType: '',
+            engineCapacity: '',
+            newCar: false,
+            carPrice: this.props.fill ? 1534000 : '',
+            carPower: this.props.fill ? 245 : '',
+            carMileage: this.props.fill ? 245000 : '',
+            carRegion: this.props.fill ? 'г. Москва' : '',
+            carMark: this.props.fill ? 'Hyundai' : '',
+            carModel: this.props.fill ? 'Sonata' : '',
+            carEquipment: this.props.fill ? '2.0 MPI - 6AT' : '',
+            carATS: this.props.fill ? 'Noname' : '',
+            carNumber: this.props.fill ? 'A 123 AA 177' : '',
+            carUsageStart: this.props.fill ? '18.05.2015' : '',
+            markList: [
+                "Hyundai",
+                "Mazda"
+                //"Mercedes-Benz"
+            ],
+            modelList: [
+                "Sonata",
+                "Solaris",
+                "CX-5",
+                "CX-9"
+            ],
+            equipmentList: [
+                "2.0 MPI - 6AT",
+                "Comfort",
+                "Sport",
+                "Executive",
+                "GT S Sports Car"
+            ],
             trustedFlat: '',
             trustedWholeName: this.props.disabled ? typeof this.props.wholeName === 'string' ? this.props.wholeName : 'Константинопольский Константин Константинопольский' : '',
             trustedPostCode: '',
@@ -38,6 +88,7 @@ class VehicleAnketa extends Component {
             trustedBirthLocation: '',
             trustedAddress: '',
             trustedAddressPostCode: '',
+            carCredit: false,
             citizenRF: false,
             nonChangedPassportApproval: false,
             trustedLicensePrev: false,
@@ -93,6 +144,41 @@ class VehicleAnketa extends Component {
             trustedSecondDocTypeList: [
                 "Водительское удостоверение",
                 "Военный билет"
+            ],
+            carBankNameList: [
+                "Банк 1",
+                "Банк 2"
+            ],
+            carATSList: [
+                "Sheriff",
+                "Mangoose",
+                "Noname"
+            ],
+            carPowerList: [
+                "100 л.с.",
+                "200 л.с.",
+                "300 л.с."
+            ],
+            carTransmissionTypeList: [
+                "МКПП",
+                "АКПП"
+            ],
+            carMotorSizeList: [
+                "1 л.",
+                "2 л.",
+                "3 л."
+            ],
+            carBodyTypeList: [
+                "Седан",
+                "Универсал",
+                "Ландо",
+                "Купе"
+            ],
+            carMotorTypeList: [
+                "Бензин",
+                "Дизель",
+                "Эко",
+                "Гибрид"
             ]
         };
     }
@@ -165,6 +251,12 @@ class VehicleAnketa extends Component {
         this.setState({showAnketa: !this.state.showAnketa})
     }
 
+    onCarCreditChange = e => {
+        this.setState({
+            carCredit: !!e.target.value
+        });
+    };
+
     formControlCallback = (name, value) => {
         console.log('formControlCallback', name, value);
 
@@ -183,6 +275,14 @@ class VehicleAnketa extends Component {
         }
     };
 
+    onCarNewChange = e => {
+        this.setState({
+            newCar: !!e.target.value,
+            carYear: '' + (new Date()).getFullYear(),
+            carNumber: ''
+        });
+    };
+
     componentDidUpdate() {
         document.querySelectorAll('[data-inputmask]').forEach(function (inp) {
             let mask = {}
@@ -196,6 +296,17 @@ class VehicleAnketa extends Component {
 
     render() {
         let {fullCalculation, allFields, date, number, wholeName, status, driver, disabled} = this.props
+        const carPowerMask = "'alias': 'integer', 'groupSeparator': ' ', 'digitsOptional': true, 'autoGroup': true, 'rightAlign': 'false', 'clearMaskOnLostFocus': 'true', 'placeholder': ''"
+        const carNumberMask = "'mask': 'A 999 AA 999'"
+        const carPriceMask = "'alias': 'integer', 'groupSeparator': ' ', 'digitsOptional': true, 'autoGroup': true, 'rightAlign': 'false', 'clearIncomplete': 'true', 'clearMaskOnLostFocus': 'true', 'placeholder': ''"
+        const dateFormatMask = "'mask': '99.99.9999', 'showMaskOnHover': 'false'";
+        const carVINMask = "'alias': 'vin', 'placeholder': '', 'clearIncomplete': 'false'"
+
+        let yearList = []
+
+        for (let y = (new Date()).getFullYear(); y > 1980; y--) {
+            yearList.push(y)
+        }
 
         return (
             <div className={"docs__frame _car"}>
@@ -252,37 +363,278 @@ class VehicleAnketa extends Component {
 
                 {this.state.showAnketa ?
                     <div className={"mt_60"}>
-                        <Row className="kasko-car-select__controls mb_0" gutter={20}>
+                        <Row className="mb_60" gutter={20}>
+                            <Col span={3}/>
+
+                            <Col span={6}>
+                                <div className="docs__frame-load _completed">
+                                    <span>ПТС</span>
+                                </div>
+                            </Col>
+
+                            <Col span={6}>
+                                <div className="docs__frame-load _completed">
+                                    <span>СТС</span>
+                                </div>
+                            </Col>
+
+                            <Col span={6}>
+                                <label className="docs__frame-load">
+                                    <input className={'hide'} type="file"/>
+                                    <span>Загрузить документ</span>
+                                </label>
+                            </Col>
+
+                            <Col span={3}/>
+                        </Row>
+
+                        <Row className="kasko-car-select__controls mb_60 w_100p" gutter={20}>
                             <Col span={3}/>
                             <Col span={6}>
-                                <div className="driver-info__caption">Личная информация</div>
+                                <Row className="kasko-car-select__controls mb_60 radio_v2" gutter={20}>
+                                    <Col className={'mb_0'}>
+                                        <Radio.Group defaultValue={1} className={"mt_10 mb_10"}
+                                                     onChange={this.onCarNewChange}>
+                                            <Radio disabled={this.state.editMode ? null : 'disabled'}
+                                                   value={1}>Новый</Radio>
+                                        </Radio.Group>
+                                    </Col>
+                                    <Col className={'ant-col-mla mb_0'}>
+                                        <Radio.Group defaultValue={1} className={"mt_10 mb_10"}
+                                                     onChange={this.onCarCreditChange}>
+                                            <Radio disabled={this.state.editMode ? null : 'disabled'} value={1}
+                                            >В кредит</Radio>
+                                        </Radio.Group>
+                                    </Col>
+                                </Row>
                             </Col>
+
+                            <FormSelect cellClass="align-start" span={6}
+                                        onChangeCallback={this.formControlCallback}
+                                        options={this.state.carBankNameList}
+                                        disabled={this.state.editMode ? null : 'disabled'}
+                                        placeholder="Банк" controlName={'carBankName'}
+                                        value={this.state.carBankName}/>
+                        </Row>
+
+
+                        {this.state.editMode ?
+                            <Row className="kasko-car-select__controls mb_60" gutter={20}>
+                                <Col span={3}/>
+
+                                <FormCheckbox onChangeCallback={this.formControlCallback}
+                                              text="Такси"
+                                              className="checkbox_middle check_v3"
+                                              value={0}
+                                              controlName={'carTaxi'}
+                                              disabled={this.state.editMode ? null : 'disabled'}
+                                              checked={this.state.carTaxi}/>
+
+                                <FormCheckbox onChangeCallback={this.formControlCallback}
+                                              text="Автозапуск"
+                                              className="checkbox_middle check_v3"
+                                              value={0}
+                                              controlName={'carAutoStart'}
+                                              disabled={this.state.editMode ? null : 'disabled'}
+                                              checked={this.state.carAutoStart}/>
+
+                                <FormCheckbox onChangeCallback={this.formControlCallback}
+                                              text="Используется прицеп"
+                                              className="checkbox_middle check_v3"
+                                              value={0}
+                                              controlName={'trailerUsage'}
+                                              disabled={this.state.editMode ? null : 'disabled'}
+                                              checked={this.state.trailerUsage}/>
+                            </Row>
+                            : null
+                        }
+
+                        <Row className="kasko-car-select__controls" gutter={20}>
+                            <Col span={3}/>
+
+                            <FormInput span={6} onChangeCallback={this.formControlCallback}
+                                       placeholder="Госномер автомобиля"
+                                       disabled={this.state.editMode ? null : 'disabled'}
+                                       inputmask={carNumberMask}
+                                       controlName={'carNumber'} value={this.state.carNumber}/>
+
                         </Row>
 
                         <Row className="kasko-car-select__controls" gutter={20}>
                             <Col span={3}/>
 
-                            {wholeName ?
-                                <FormInput span={18} onChangeCallback={this.formControlCallback}
-                                           placeholder="Фамилия, Имя, Отчество" controlName={'trustedWholeName'}
-                                           disabled={this.state.editMode ? null : 'disabled'}
-                                           value={this.state.trustedWholeName}/>
-                                :
-                                <>
-                                    <FormInput span={6} onChangeCallback={this.formControlCallback}
-                                               placeholder="Фамилия" controlName={'trustedLastName'}
-                                               value={this.state.trustedLastName}/>
+                            <FormSelect span={6} onChangeCallback={this.formControlCallback}
+                                        options={this.state.markList}
+                                        className={this.activeClass('carMark')}
+                                        placeholder="Марка" controlName={'carMark'}
+                                        disabled={this.state.editMode ? null : 'disabled'}
+                                        value={this.state.carMark}/>
 
-                                    <FormInput span={6} onChangeCallback={this.formControlCallback}
-                                               placeholder="Имя" controlName={'trustedFirstName'}
-                                               value={this.state.trustedFirstName}/>
+                            <FormSelect span={6} onChangeCallback={this.formControlCallback}
+                                        options={this.state.modelList}
+                                        className={this.activeClass('carModel')}
+                                        placeholder="Модель" controlName={'carModel'}
+                                        disabled={this.state.editMode ? null : 'disabled'}
+                                        value={this.state.carModel}/>
 
-                                    <FormInput span={6} onChangeCallback={this.formControlCallback}
-                                               placeholder="Отчество" controlName={'trustedFarthersName'}
-                                               value={this.state.trustedFarthersName}/>
-                                </>
-                            }
+                            <FormSelect span={6} onChangeCallback={this.formControlCallback}
+                                        options={this.state.equipmentList}
+                                        className={this.activeClass('carEquipment')}
+                                        placeholder="Комплектация" controlName={'carEquipment'}
+                                        disabled={this.state.editMode ? null : 'disabled'}
+                                        value={this.state.carEquipment}/>
                         </Row>
+
+                        <Row className="kasko-car-select__controls mb_60" gutter={20}>
+                            <Col span={3}/>
+
+                            <FormSelect span={6} onChangeCallback={this.formControlCallback}
+                                        options={yearList}
+                                        className={this.activeClass('carYear')}
+                                        disabled={this.state.editMode ? null : 'disabled'}
+                                        placeholder="Год выпуска" controlName={'carYear'}
+                                        value={this.state.carYear}/>
+
+                            <FormInput span={6} onChangeCallback={this.formControlCallback}
+                                       placeholder="Стоимость, ₽"
+                                       disabled={this.state.editMode ? null : 'disabled'}
+                                       inputmask={carPowerMask}
+                                       controlName={'carPrice'}
+                                       value={this.state.carPrice}/>
+
+                            <FormInput span={6} onChangeCallback={this.formControlCallback}
+                                       placeholder="Пробег, км"
+                                       disabled={this.state.editMode ? null : 'disabled'}
+                                       inputmask={carPowerMask}
+                                       controlName={'carMileage'} value={this.state.carMileage}/>
+                        </Row>
+
+                        <Row className="kasko-car-select__controls mb_0" gutter={20}>
+                            <Col span={3}/>
+                            <Col span={6}>
+                                <div className="driver-info__caption">Параметры автомобиля</div>
+                            </Col>
+                        </Row>
+
+                        <Row className="kasko-car-select__controls mb_0" gutter={20}>
+                            <Col span={3}/>
+                            <FormInput span={6}
+                                       onChangeCallback={this.formControlCallback}
+                                       placeholder="VIN"
+                                       disabled={this.state.editMode ? null : 'disabled'}
+                                       className={(allFields ? "input-error" : "")}
+                                       inputmask={carVINMask}
+                                       controlName={'carVIN'}
+                                       value={this.state.carVIN}/>
+
+                            <FormInput span={6}
+                                       onChangeCallback={this.formControlCallback}
+                                       placeholder="Мощность"
+                                       disabled={this.state.editMode ? null : 'disabled'}
+                                       inputmask={carPowerMask}
+                                       controlName={'carPower'}
+                                       value={this.state.carPower}/>
+
+                            <FormSelect span={6} onChangeCallback={this.formControlCallback}
+                                        options={this.state.carMotorSizeList}
+                                        disabled={this.state.editMode ? null : 'disabled'}
+                                        placeholder="Объем двигателя" controlName={'carMotorSize'}
+                                        value={this.state.carMotorSize}/>
+                        </Row>
+
+                        <Row className="kasko-car-select__controls mb_60" gutter={20}>
+                            <Col span={3}/>
+                            <FormInput span={6}
+                                       onChangeCallback={this.formControlCallback}
+                                       placeholder="Дата начала эксплуатации"
+                                       disabled={this.state.editMode ? null : 'disabled'}
+                                       className={(allFields ? "input-error" : "")}
+                                       inputmask={carVINMask}
+                                       controlName={'carUsageStart'}
+                                       value={this.state.carUsageStart}/>
+
+                            <FormSelect span={6} onChangeCallback={this.formControlCallback}
+                                        options={this.state.carATSList}
+                                        className={(allFields ? "wrapper-error" : "")}
+                                        placeholder="Противоугонная система"
+                                        disabled={this.state.editMode ? null : 'disabled'}
+                                        controlName={'carATS'}
+                                        value={this.state.carATS}/>
+                        </Row>
+
+                        <Row className="kasko-car-select__controls mb_0" gutter={20}>
+                            <Col span={3}/>
+                            <Col span={18}>
+                                <div className="driver-info__caption">Документы на автомобиль</div>
+                            </Col>
+                        </Row>
+
+                        <Row className="kasko-car-select__controls" gutter={20}>
+                            <Col span={3}/>
+                            <FormInput span={6}
+                                       onChangeCallback={this.formControlCallback}
+                                       placeholder="Серия, номер ПТС"
+                                       disabled={this.state.editMode ? null : 'disabled'}
+                                       className={(allFields ? "input-error" : "")}
+                                       controlName={'carPTS'}
+                                       value={this.state.carPTS}/>
+
+                            <FormInput span={6}
+                                       onChangeCallback={this.formControlCallback}
+                                       placeholder="Дата выдачи ПТС"
+                                       disabled={this.state.editMode ? null : 'disabled'}
+                                       className={(allFields ? "input-error" : "")}
+                                       controlName={'carPTSStart'}
+                                       value={this.state.carPTSStart}/>
+                        </Row>
+
+                        <Row className="kasko-car-select__controls" gutter={20}>
+                            <Col span={3}/>
+                            <FormInput span={6}
+                                       onChangeCallback={this.formControlCallback}
+                                       placeholder="Серия, номер СТС"
+                                       disabled={this.state.editMode ? null : 'disabled'}
+                                       className={(allFields ? "input-error" : "")}
+                                       controlName={'carSTS'}
+                                       value={this.state.carSTS}/>
+
+                            <FormInput span={6}
+                                       onChangeCallback={this.formControlCallback}
+                                       placeholder="Дата выдачи СТС"
+                                       disabled={this.state.editMode ? null : 'disabled'}
+                                       className={(allFields ? "input-error" : "")}
+                                       controlName={'carSTSStart'}
+                                       value={this.state.carSTSStart}/>
+                        </Row>
+
+                        {this.state.newCar === false ?
+                            <Row className="kasko-car-select__controls" gutter={20}>
+                                <Col span={3}/>
+                                <FormInput span={6}
+                                           onChangeCallback={this.formControlCallback}
+                                           placeholder="Диагностическая карта"
+                                           disabled={this.state.editMode ? null : 'disabled'}
+                                           controlName={'carDiagnosticCard'}
+                                           value={this.state.carDiagnosticCard}/>
+
+                                {/*<FormInput span={6}*/}
+                                {/*           onChangeCallback={this.formControlCallback}*/}
+                                {/*           placeholder={"Дата выдачи"}*/}
+                                {/*           disabled={this.state.editMode ? null : 'disabled'}*/}
+                                {/*           inputmask={dateFormatMask}*/}
+                                {/*           controlName={'carDiagnosticCardStart'}*/}
+                                {/*           value={this.state.carDiagnosticCardStart}/>*/}
+
+                                <FormInput span={6}
+                                           onChangeCallback={this.formControlCallback}
+                                           placeholder={"Срок действия"}
+                                           disabled={this.state.editMode ? null : 'disabled'}
+                                           controlName={'carDiagnosticCardDuration'}
+                                           value={this.state.carDiagnosticCardDuration}/>
+                            </Row>
+                            :
+                            null
+                        }
 
                         <Row className="kasko-car-select__controls mt_60 mb_60 ant-row-center"
                              gutter={20}>
