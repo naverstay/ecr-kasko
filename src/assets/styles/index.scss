@@ -163,6 +163,7 @@ input {
 
   .ant-select-selection-item {
     padding-top: 10px;
+    color: #000;
     //padding-top: 2px !important;
   }
 }
@@ -356,6 +357,7 @@ $spinner_time: 1s;
   //font-size: 15px;
   padding-left: 5px;
   padding-right: 5px;
+  transition: color .3s, opacity .3s, background .3s;
 
   &.ant-btn-lg {
     padding-left: 5px;

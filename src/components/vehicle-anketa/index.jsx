@@ -24,35 +24,34 @@ class VehicleAnketa extends Component {
             carAutoStart: false,
             trailerUsage: false,
             activeFields: [],
-            carYear: '',
-            carVIN: '',
-            carPTS: '',
-            carSTS: '',
-            carPTSStart: '',
-            carSTSStart: '',
+            carYear: '2021',
+            carVIN: 'XMCLRDG3A4F044785',
+            carPTS: '24 ТХ 205766 ',
+            carSTS: '24 ТХ 205766 ',
+            carPTSStart: '12.12.2012',
+            carSTSStart: '12.12.2012',
             carDiagnosticCard: '',
             carDiagnosticCardStart: '',
             carDiagnosticCardEnd: '',
             carDiagnosticCardDuration: '',
-            carMotorSize: '',
             carBodyType: '',
             carMotorType: '',
             carKaskoDoc: '',
             carKaskoDocStart: '',
-            carBankName: '',
+            carBankName: 'Совкомбанк',
             carTransmissionType: '',
-            engineCapacity: '',
+            carMotorSize: '2,0',
             newCar: false,
-            carPrice: this.props.fill ? 1534000 : '',
-            carPower: this.props.fill ? 245 : '',
-            carMileage: this.props.fill ? 245000 : '',
-            carRegion: this.props.fill ? 'г. Москва' : '',
-            carMark: this.props.fill ? 'Hyundai' : '',
-            carModel: this.props.fill ? 'Sonata' : '',
-            carEquipment: this.props.fill ? '2.0 MPI - 6AT' : '',
-            carATS: this.props.fill ? 'Noname' : '',
-            carNumber: this.props.fill ? 'A 123 AA 177' : '',
-            carUsageStart: this.props.fill ? '18.05.2015' : '',
+            carPrice: '1 524 000 ₽',
+            carPower: '200',
+            carMileage: '100 000',
+            carRegion: 'г. Москва',
+            carMark: 'Hyundai',
+            carModel: 'Sonata',
+            carEquipment: '2.0 MPI - 6AT',
+            carATS: 'Noname',
+            carNumber: 'A 123 AA 177',
+            carUsageStart: '18.05.2015',
             markList: [
                 "Hyundai",
                 "Mazda"
@@ -146,6 +145,7 @@ class VehicleAnketa extends Component {
                 "Военный билет"
             ],
             carBankNameList: [
+                "Совкомбанк",
                 "Банк 1",
                 "Банк 2"
             ],
@@ -164,9 +164,9 @@ class VehicleAnketa extends Component {
                 "АКПП"
             ],
             carMotorSizeList: [
-                "1 л.",
-                "2 л.",
-                "3 л."
+                "1,0",
+                "2,0",
+                "3,0"
             ],
             carBodyTypeList: [
                 "Седан",
@@ -399,7 +399,7 @@ class VehicleAnketa extends Component {
                                                    value={1}>Новый</Radio>
                                         </Radio.Group>
                                     </Col>
-                                    <Col className={'ant-col-mla mb_0'}>
+                                    <Col className={'mb_0'}>
                                         <Radio.Group defaultValue={1} className={"mt_10 mb_10"}
                                                      onChange={this.onCarCreditChange}>
                                             <Radio disabled={this.state.editMode ? null : 'disabled'} value={1}
@@ -516,7 +516,7 @@ class VehicleAnketa extends Component {
                             </Col>
                         </Row>
 
-                        <Row className="kasko-car-select__controls mb_0" gutter={20}>
+                        <Row className="kasko-car-select__controls" gutter={20}>
                             <Col span={3}/>
                             <FormInput span={6}
                                        onChangeCallback={this.formControlCallback}

@@ -38,8 +38,9 @@ $aside-size: 226px;
 
 .cars {
   &__number {
-    font-family: RoadNumbers, sans-serif;
+    //font-family: RoadNumbers, sans-serif;
     position: relative;
+    font-weight: 500;
     margin: 0 auto;
     width: 116px;
     height: 25px;
@@ -70,30 +71,30 @@ $aside-size: 226px;
 
     &-letter {
       text-transform: uppercase;
-      font-size: 16px;
-      line-height: 16px;
+      font-size: 14px;
+      line-height: 14px;
       position: absolute;
       bottom: 1px;
-      right: 33px;
+      right: 35px;
 
       &:first-child {
         right: auto;
-        left: 8px;
+        left: 10px;
       }
     }
 
     &-digit {
       position: absolute;
-      left: 21px;
+      left: 22px;
       bottom: 1px;
       font-size: 19px;
       line-height: 1;
     }
 
     &-region {
-      font-size: 14px;
-      line-height: 11px;
-      width: 22px;
+      font-size: 12px;
+      line-height: 12px;
+      width: 20px;
       position: absolute;
       top: 0;
       right: 8px;
