@@ -19,7 +19,7 @@ class DealerIncome extends Component {
                 <div className="dealer-income__popup">
                     <ul>
                         {
-                            income.map((c) => <li>
+                            income.map((c, i) => <li key={i}>
                                 <span>{c.text}</span>
                                 <span>{c.value}</span>
                             </li>)

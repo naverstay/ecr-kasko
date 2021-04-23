@@ -466,7 +466,7 @@ class Kasko extends Component {
                                 null
                                 :
                                 <>
-                                    <AsideBlock>
+                                    {this.state.tabIndex !== null && <AsideBlock>
                                         <DealerIncome income={[
                                             {
                                                 text: 'Итого',
@@ -485,7 +485,7 @@ class Kasko extends Component {
                                                 value: '0  ₽'
                                             }
                                         ]}/>
-                                    </AsideBlock>
+                                    </AsideBlock>}
                                     {this.state.tabIndex === 0 ?
                                         <AsideBlock>
                                             <KaskoNotices step={step} credit={true} status={0} type={showOffers}/>
