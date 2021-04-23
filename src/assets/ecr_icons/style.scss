@@ -3,9 +3,9 @@
 @font-face {
   font-family: '#{$icomoon-font-family}';
   src:
-    url('#{$icomoon-font-path}/#{$icomoon-font-family}.ttf?iawu39') format('truetype'),
-    url('#{$icomoon-font-path}/#{$icomoon-font-family}.woff?iawu39') format('woff'),
-    url('#{$icomoon-font-path}/#{$icomoon-font-family}.svg?iawu39##{$icomoon-font-family}') format('svg');
+    url('#{$icomoon-font-path}/#{$icomoon-font-family}.ttf?1zm38u') format('truetype'),
+    url('#{$icomoon-font-path}/#{$icomoon-font-family}.woff?1zm38u') format('woff'),
+    url('#{$icomoon-font-path}/#{$icomoon-font-family}.svg?1zm38u##{$icomoon-font-family}') format('svg');
   font-weight: normal;
   font-style: normal;
   font-display: block;
@@ -26,54 +26,9 @@
   -moz-osx-font-smoothing: grayscale;
 }
 
-.i-camera {
+.i-eye {
   &:before {
-    content: $i-camera; 
-  }
-}
-.i-i {
-  &:before {
-    content: $i-i; 
-  }
-}
-.i-save {
-  &:before {
-    content: $i-save; 
-  }
-}
-.i-recalc {
-  &:before {
-    content: $i-recalc; 
-  }
-}
-.i-ecr {
-  &:before {
-    content: $i-ecr; 
-  }
-}
-.i-heart-o {
-  &:before {
-    content: $i-heart-o; 
-  }
-}
-.i-heart {
-  &:before {
-    content: $i-heart; 
-  }
-}
-.i-plane {
-  &:before {
-    content: $i-plane; 
-  }
-}
-.i-minus {
-  &:before {
-    content: $i-minus; 
-  }
-}
-.i-attach {
-  &:before {
-    content: $i-attach; 
+    content: $i-eye; 
   }
 }
 .i-alert {
@@ -239,6 +194,56 @@
 .i-spinner {
   &:before {
     content: $i-spinner; 
+  }
+}
+.i-camera {
+  &:before {
+    content: $i-camera; 
+  }
+}
+.i-i {
+  &:before {
+    content: $i-i; 
+  }
+}
+.i-save {
+  &:before {
+    content: $i-save; 
+  }
+}
+.i-recalc {
+  &:before {
+    content: $i-recalc; 
+  }
+}
+.i-ecr {
+  &:before {
+    content: $i-ecr; 
+  }
+}
+.i-heart-o {
+  &:before {
+    content: $i-heart-o; 
+  }
+}
+.i-heart {
+  &:before {
+    content: $i-heart; 
+  }
+}
+.i-plane {
+  &:before {
+    content: $i-plane; 
+  }
+}
+.i-minus {
+  &:before {
+    content: $i-minus; 
+  }
+}
+.i-attach {
+  &:before {
+    content: $i-attach; 
   }
 }
 

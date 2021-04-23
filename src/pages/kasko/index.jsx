@@ -1,6 +1,7 @@
 import React, {Component} from "react";
 import {Button, Checkbox, Col, Row} from "antd";
 import AsideBlock from "../../components/aside-block";
+import DealerIncome from "../../components/dealer-income";
 import AsideCrumbs from "../../components/aside-crumbs";
 import KaskoNotices from "../../components/kasko-notices";
 import KaskoUser from "../../components/kasko-user";
@@ -465,6 +466,26 @@ class Kasko extends Component {
                                 null
                                 :
                                 <>
+                                    <AsideBlock>
+                                        <DealerIncome income={[
+                                            {
+                                                text: 'Итого',
+                                                value: '59 090 ₽'
+                                            }, {
+                                                text: 'Кредит',
+                                                value: '1 150 000 ₽'
+                                            }, {
+                                                text: 'е-ОСАГО',
+                                                value: '1 545 ₽'
+                                            }, {
+                                                text: 'е-КАСКО',
+                                                value: '7 545 ₽'
+                                            }, {
+                                                text: 'Сервис',
+                                                value: '0  ₽'
+                                            }
+                                        ]}/>
+                                    </AsideBlock>
                                     {this.state.tabIndex === 0 ?
                                         <AsideBlock>
                                             <KaskoNotices step={step} credit={true} status={0} type={showOffers}/>

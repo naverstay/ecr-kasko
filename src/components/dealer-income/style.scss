@@ -1,0 +1,83 @@
+@import '../../assets/styles/global';
+
+.dealer-income {
+  font-size: 15px;
+  font-weight: 500;
+  position: relative;
+  padding-right: 30px;
+
+  &__tip {
+    position: absolute;
+    right: -12px;
+    top: -3px;
+    width: 24px;
+    height: 24px;
+    line-height: 24px;
+    font-size: 24px;
+    text-align: center;
+    color: #b5b5b5;
+
+    &:before {
+      font-family: $icomoon-font-family;
+      content: $i-eye;
+    }
+
+    &:hover {
+      ~ .dealer-income__popup {
+        display: block;
+      }
+    }
+  }
+
+  &__popup {
+    z-index: 1;
+    position: absolute;
+    top: 100%;
+    margin-top: 14px;
+    right: -20px;
+    background: #fff;
+    border: 1px solid #b5b5b5;
+    padding: 17px 15px;
+    min-width: 164px;
+    display: none;
+
+    &:before {
+      content: '';
+      position: absolute;
+      right: 9px;
+      bottom: 100%;
+      width: 0;
+      height: 0;
+      border-left: 10px solid transparent;
+      border-right: 10px solid transparent;
+      border-bottom: 10px solid #b5b5b5;
+    }
+
+    ul {
+      list-style: none;
+      font-size: 12px;
+      color: #000;
+
+      li {
+        display: flex;
+        flex-flow: row nowrap;
+        justify-content: space-between;
+
+        span {
+          &:first-child {
+            padding-right: 5px;
+          }
+        }
+
+        &:first-child {
+          font-weight: bold;
+
+          ~ li {
+            margin-top: 18px;
+          }
+        }
+      }
+    }
+  }
+}
+
