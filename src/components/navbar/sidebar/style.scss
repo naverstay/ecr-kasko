@@ -11,6 +11,14 @@
   flex-flow: row;
   align-items: stretch;
 
+  @include for-size(desktop-down) {
+    position: fixed;
+    top: 0;
+    bottom: 0;
+    width: 0;
+    overflow: visible;
+  }
+
   &__backdrop {
     position: fixed;
     z-index: -10;
@@ -88,6 +96,10 @@
     justify-content: flex-start;
     overflow-y: auto;
 
+    @include for-size(desktop-down) {
+      background: #e5e5e5;
+    }
+
     &-line {
       position: fixed;
       background: $color-prime;
@@ -95,6 +107,32 @@
       bottom: 0;
       left: 0;
       width: $aside-size-small;
+
+      @include for-size(desktop-down) {
+        width: 100vw;
+        height: calc(50px + var(--sat));
+        bottom: auto;
+        display: flex;
+        align-items: flex-end;
+      }
+    }
+
+    &-mobile {
+      position: relative;
+      padding: 0 114px;
+      text-align: center;
+      height: 50px;
+      width: 100%;
+    }
+
+    &-title {
+      color: #fff;
+      max-width: 100%;
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis;
+      font-size: 24px;
+      line-height: 50px;
     }
 
     .lang-select {
@@ -159,6 +197,16 @@
 
       }
     }
+
+    @include for-size(desktop-down) {
+      overflow: visible;
+      position: absolute;
+      bottom: 0;
+      left: 0;
+      padding: 0 40px;
+      width: 100vw;
+      flex-flow: row nowrap;
+    }
   }
 
   &.open {
@@ -203,6 +251,17 @@
     position: relative;
     //}
 
+    &.__home {
+      margin-bottom: 33px;
+
+      @include for-size(desktop-down) {
+        margin-bottom: 0;
+        position: fixed;
+        top: 0;
+        left: 0;
+      }
+    }
+
     &.button-wide {
       flex: 1;
     }
@@ -224,16 +283,90 @@
         padding-bottom: 17px;
         justify-content: flex-end;
 
+        @include for-size(desktop-down) {
+          padding: 0;
+          width: 66.666%;
+        }
+
         &:not(:first-child) {
           padding-top: $aside-size-small;
+
+          @include for-size(desktop-down) {
+            padding: 0;
+          }
         }
       }
 
       &:first-child {
         padding-top: 0;
 
+        @include for-size(desktop-down) {
+          width: 33.333%;
+        }
+
         &:not(:last-child) {
           padding-bottom: $aside-size-small;
+
+          @include for-size(desktop-down) {
+            padding: 0;
+          }
+        }
+      }
+
+      @include for-size(desktop-down) {
+        width: auto;
+        display: flex;
+        align-items: center;
+        flex: 1 0 auto;
+        flex-flow: row nowrap;
+
+        .sidebar__button {
+          flex: 1 1 100%;
+          flex-flow: column;
+          align-items: center;
+        }
+
+        .sidebar__button-icon {
+          min-height: 30px;
+          min-width: 30px;
+          width: 30px;
+
+          &:not(.home) {
+            background: none !important;
+          }
+
+          &.home {
+            font-size: 16px;
+            min-width: 57px;
+            min-height: calc(50px + var(--sat));
+            padding-top: var(--sat);
+          }
+
+          .avatar-initials {
+            height: 20px;
+            width: 20px;
+            margin-top: 12px;
+            color: #fff;
+            background: #b5b5b5;
+            font-size: 10px;
+            line-height: 22px;
+            border: 0;
+          }
+
+          &::before {
+            font-size: 20px;
+            color: #000;
+          }
+        }
+
+        .sidebar__button-label {
+          color: #000;
+          padding: 4px 10px;
+          font-size: 14px;
+
+          &::after {
+            display: none;
+          }
         }
       }
     }
@@ -324,7 +457,10 @@
       }
 
       &.avatar {
-        height: 75px;
+
+        @include for-size(desktop-up) {
+          height: 75px;
+        }
 
         ~ .sidebar__button-submenu {
           @include for-size(desktop-down) {
@@ -454,7 +590,10 @@
       cursor: default;
 
       .sidebar__button-label {
-        padding-right: 35px;
+
+        @include for-size(desktop-up) {
+          padding-right: 35px;
+        }
 
         &:after {
           content: '\e911';

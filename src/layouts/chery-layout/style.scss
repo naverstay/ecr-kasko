@@ -1,50 +1,108 @@
 @import '../../assets/styles/vars.scss';
 
+#root.show-chat {
+  @include for-size(desktop-down) {
+    display: flex;
+    flex-flow: column nowrap;
+
+    .chat-holder {
+      top: unset;
+      bottom: unset;
+      left: unset;
+      right: unset;
+      width: 100%;
+      padding-bottom: 65px;
+      margin-top: -20px;
+      background: #fff;
+
+      .chat-title {
+        display: none;
+      }
+
+      .chat-msg {
+        border: 1px solid #b5b5b5;
+        border-radius: 5px;
+        margin: 10px 20px;
+      }
+
+      .chat-scroller {
+        overflow: unset;
+        height: auto;
+      }
+
+      .chat-day {
+        border: 0;
+      }
+
+      .chat-day__caption {
+        border-top: 1px solid #c4c4c4;
+        border-bottom: 1px solid #c4c4c4;
+        margin-bottom: -1px;
+
+        + .chat-msg {
+          margin-top: 20px;
+        }
+      }
+    }
+
+    .page__layout {
+      min-height: 0;
+      order: -1;
+      padding: 0;
+
+      .kasko-wrapper {
+        min-height: 0;
+      }
+    }
+  }
+}
+
 .page {
-	&__layout {
-		display: flex;
-		min-height: 100vh;
-		max-width: $layout-maxwidth;
-		//max-width: none;
-		flex-direction: column;
-		//overflow-x: hidden;
+  &__layout {
+    display: flex;
+    min-height: 100vh;
+    max-width: $layout-maxwidth;
+    //max-width: none;
+    flex-direction: column;
+    //overflow-x: hidden;
     //overflow-y: scroll;
 
-		@include for-size(desktop-up) {
-			margin-left: $aside-size-small;
-		}
+    @include for-size(desktop-up) {
+      margin-left: $aside-size-small;
+    }
 
-		&.chery {
-			margin-left: 0;
-			padding-top: 10px;
+    &.chery {
+      margin-left: 0;
+      padding-top: 10px;
 
-			.kasko-wrapper__fixed {
-				top: 163px;
-				left: $content-padding;
-			}
-		}
-	}
+      .kasko-wrapper__fixed {
+        top: 163px;
+        left: $content-padding;
+      }
+    }
+  }
 
-	&__content {
-		margin-top: 50px;
-		height: 100%;
-		flex-basis: 100%;
-		display: flex;
-		flex-flow: column;
-		padding: 2rem;
+  &__content {
+    margin-top: 50px;
+    height: 100%;
+    flex-basis: 100%;
+    display: flex;
+    flex-flow: column;
+    padding: 10px 20px;
 
-		@include for-size(desktop-up) {
-			margin-top: 85px;
+    @include for-size(desktop-up) {
+      margin-top: 85px;
+      padding: 2rem;
 
-			&._kasko {
-				margin-top: 0;
-				padding: 0 $content-padding;
-				font-family: Roboto, sans-serif;
+      &._kasko {
+        margin-top: 0;
+        padding: 0 $content-padding;
+        font-family: Roboto, sans-serif;
 
-				.chery & {
-					margin-top: 10px;
-				}
-			}
-		}
-	}
+        .chery & {
+          margin-top: 10px;
+        }
+      }
+    }
+  }
 }

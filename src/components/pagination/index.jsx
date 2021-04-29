@@ -10,6 +10,7 @@ import './style.scss';
 export default function Pagination(props) {
     const classContainer = cn([
         'pagination__container',
+        'dt-only',
         ...props.classList
     ]);
 

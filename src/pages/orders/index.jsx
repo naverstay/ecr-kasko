@@ -31,6 +31,8 @@ class Orders extends Component {
         };
     }
 
+    tabWrapperRef = React.createRef();
+
     toggleManagerPopup = () => {
         this.setState({showManagerPopup: !this.state.showManagerPopup})
     }
@@ -144,6 +146,16 @@ class Orders extends Component {
         console.log('openOrder', index);
     }
 
+    toggleNotifications = (show) => {
+        let action = show ? 'add' : 'remove';
+        this.tabWrapperRef.current.classList[action]('show-notification');
+        document.getElementById('root').classList[action]('show-chat');
+    }
+
+    tabChange = (firstTab, lastTab) => {
+        this.toggleNotifications(false);
+    }
+
     render() {
         //let events = [
         //	{
@@ -201,18 +213,26 @@ class Orders extends Component {
             <>
                 <Row gutter={20} className="kasko-wrapper">
                     <Col span={24} className="kasko-main">
-                        <Tabs className={'orders-tabs__wrapper'}>
-                            <TabList className={'orders-tabs__list'}>
-                                <Tab className={'orders-tabs__tab'}>
-                                    <div className="tab-panel__name">Заявки в работе</div>
-                                </Tab>
-                                <Tab className={'orders-tabs__tab'}>
-                                    <div className="tab-panel__name">Список заявок</div>
-                                </Tab>
-                                <Tab className={'orders-tabs__tab'}>
-                                    <div className="tab-panel__name">Lost</div>
-                                </Tab>
-                            </TabList>
+                        <Tabs onSelect={(firstTab, lastTab) => this.tabChange(firstTab, lastTab)}
+                              className={'orders-tabs__wrapper'}>
+                            <div className="orders-tabs__list-holder" ref={this.tabWrapperRef}>
+                                <TabList className={'orders-tabs__list'}>
+                                    <Tab className={'orders-tabs__tab'}>
+                                        <div className="tab-panel__name">Заявки в работе</div>
+                                    </Tab>
+                                    <Tab className={'orders-tabs__tab'}>
+                                        <div className="tab-panel__name">Список заявок</div>
+                                    </Tab>
+                                    <Tab className={'orders-tabs__tab'}>
+                                        <div className="tab-panel__name">Lost</div>
+                                    </Tab>
+                                    <li onClick={() => {this.toggleNotifications(true)}}
+                                        className={'orders-tabs__tab orders-tabs__notification dt-hidden'}>
+                                        <div className="tab-panel__counter"><span>5</span></div>
+                                        <div className="tab-panel__name">Уведомления</div>
+                                    </li>
+                                </TabList>
+                            </div>
 
                             <TabPanel>
                                 <div className="orders-table__scroller">

@@ -17,7 +17,7 @@ function App() {
     return (
         <BrowserRouter>
             {process.env.NODE_ENV !== 'production' ?
-                <div className="dev-navigation">
+                <div className="dev-navigation dt-only">
                     <ul>
                         {/*<li>*/}
                         {/*    <Link to="/">home</Link>*/}

@@ -124,6 +124,18 @@ $col_count: 10;
   }
 }
 
+.dt-hidden {
+  @include for-size(desktop-up) {
+    display: none !important;
+  }
+}
+
+.dt-only {
+  @include for-size(desktop-down) {
+    display: none !important;
+  }
+}
+
 .mob-only {
   @include for-size(phone-up) {
     display: none !important;
