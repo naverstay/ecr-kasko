@@ -1,4 +1,5 @@
 @import 'src/assets/styles/_vars.scss';
+@import '../../../assets/styles/global';
 
 .sidebar {
   z-index: 1005;
@@ -123,6 +124,66 @@
       text-align: center;
       height: 50px;
       width: 100%;
+
+      &_controls {
+        position: absolute;
+        bottom: 0;
+        right: 0;
+      }
+
+      &_btn {
+        display: block;
+        float: left;
+        cursor: pointer;
+        width: 57px;
+        height: 57px;
+        text-align: center;
+        line-height: 57px;
+        color: #fff;
+
+        &::before {
+          display: inline-block;
+          vertical-align: -8px;
+          line-height: 1;
+          font-size: 24px;
+          font-family: $icomoon-font-family;
+        }
+
+        &.__filter {
+          &::before {
+            content: $i-filter;
+          }
+        }
+
+        &.__search {
+          &::before {
+            content: $i-search;
+          }
+        }
+      }
+    }
+
+    &-back {
+      position: absolute;
+      left: 70px;
+      bottom: 16px;
+      color: #fff;
+      font-size: 16px;
+      line-height: 19px;
+      padding-left: 25px;
+      cursor: pointer;
+      display: none;
+
+      &::before {
+        font-family: $icomoon-font-family;
+        content: $i-chevron_r;
+        transform: rotate(180deg);
+        font-size: 14px;
+        line-height: 18px;
+        position: absolute;
+        left: 0;
+        top: 0;
+      }
     }
 
     &-title {
@@ -320,12 +381,6 @@
         flex: 1 0 auto;
         flex-flow: row nowrap;
 
-        .sidebar__button {
-          flex: 1 1 100%;
-          flex-flow: column;
-          align-items: center;
-        }
-
         .sidebar__button-icon {
           min-height: 30px;
           min-width: 30px;
@@ -340,6 +395,10 @@
             min-width: 57px;
             min-height: calc(50px + var(--sat));
             padding-top: var(--sat);
+
+            svg {
+              margin-bottom: 3px;
+            }
           }
 
           .avatar-initials {
@@ -366,6 +425,19 @@
 
           &::after {
             display: none;
+          }
+        }
+
+        .sidebar__button {
+          flex: 1 1 100%;
+          flex-flow: column;
+          align-items: center;
+
+          &.active {
+            .sidebar__button-icon::before,
+            .sidebar__button-label {
+              color: $color-prime;
+            }
           }
         }
       }

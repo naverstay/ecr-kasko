@@ -19,6 +19,7 @@ class Svetofor extends Component {
 
         const className = cn([
             'svetofor-wrapper',
+            'clearfix',
             ...(classList ? classList : [])
         ]);
 

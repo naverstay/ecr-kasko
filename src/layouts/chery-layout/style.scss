@@ -1,57 +1,102 @@
 @import '../../assets/styles/vars.scss';
 
-#root.show-chat {
+#root {
+
   @include for-size(desktop-down) {
-    display: flex;
-    flex-flow: column nowrap;
-
-    .chat-holder {
-      top: unset;
-      bottom: unset;
-      left: unset;
-      right: unset;
-      width: 100%;
-      padding-bottom: 65px;
-      margin-top: -20px;
-      background: #fff;
-
-      .chat-title {
+    &.open-order {
+      .orders-tabs__wrapper > .orders-tabs__list-holder {
         display: none;
       }
 
-      .chat-msg {
-        border: 1px solid #b5b5b5;
-        border-radius: 5px;
-        margin: 10px 20px;
+      .sidebar__header-back {
+        display: block;
       }
 
-      .chat-scroller {
-        overflow: unset;
-        height: auto;
+      .sidebar__header-title {
+        display: none;
       }
 
-      .chat-day {
-        border: 0;
-      }
+      .orders-table__row {
+        &.open {
+          margin: -10px -20px;
+          padding-bottom: 0;
+          padding-top: 32px;
+          background: #f7f7f7;
+          border: 0;
+          border-radius: 0;
 
-      .chat-day__caption {
-        border-top: 1px solid #c4c4c4;
-        border-bottom: 1px solid #c4c4c4;
-        margin-bottom: -1px;
+          .orders-table__info {
+            width: auto;
+            margin-left: -9px;
+            margin-right: -9px;
+            border-top: 0;
+            overflow-x: hidden;
+          }
 
-        + .chat-msg {
-          margin-top: 20px;
+          .cell_size-5 {
+            font-size: 24px;
+            line-height: 28px;
+          }
+        }
+
+        &:not(.open) {
+          display: none !important;
         }
       }
     }
 
-    .page__layout {
-      min-height: 0;
-      order: -1;
-      padding: 0;
+    &.show-chat {
+      display: flex;
+      flex-flow: column nowrap;
 
-      .kasko-wrapper {
+      .chat-holder {
+        top: unset;
+        bottom: unset;
+        left: unset;
+        right: unset;
+        width: 100%;
+        padding-bottom: 65px;
+        margin-top: -20px;
+        background: #fff;
+
+        .chat-title {
+          display: none;
+        }
+
+        .chat-msg {
+          border: 1px solid #b5b5b5;
+          border-radius: 5px;
+          margin: 10px 20px;
+        }
+
+        .chat-scroller {
+          overflow: unset;
+          height: auto;
+        }
+
+        .chat-day {
+          border: 0;
+        }
+
+        .chat-day__caption {
+          border-top: 1px solid #c4c4c4;
+          border-bottom: 1px solid #c4c4c4;
+          margin-bottom: -1px;
+
+          + .chat-msg {
+            margin-top: 20px;
+          }
+        }
+      }
+
+      .page__layout {
         min-height: 0;
+        order: -1;
+        padding: 0;
+
+        .kasko-wrapper {
+          min-height: 0;
+        }
       }
     }
   }

@@ -3,6 +3,7 @@
 .svetofor {
   &-wrapper {
     position: relative;
+    min-height: 24px;
 
     &__center {
       text-align: center;
@@ -21,6 +22,12 @@
     color: #000;
     border: 1px solid $color-grey;
     margin: 3px 7px 3px 0;
+
+    @include for-size(desktop-down) {
+      width: 20px;
+      height: 20px;
+      line-height: 18px;
+    }
 
     &--yellow {
       background: $color-yellow;

@@ -20,7 +20,9 @@ class TableOrderRow extends Component {
     };
 
     toggleInfoHandle() {
+        document.getElementById('root').classList[this.state.rowOpen ? 'remove' : 'add']('open-order');
         this.setState({rowOpen: !this.state.rowOpen});
+        this.props.forceCloseOrders(this);
     }
 
     toggleRowChecked(e) {

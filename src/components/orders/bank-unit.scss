@@ -1,4 +1,5 @@
 @import '../../assets/styles/vars.scss';
+@import '../../assets/styles/global';
 
 .bank-unit {
   display: flex;
@@ -8,33 +9,36 @@
   font-size: 12px;
 
   &__cell {
-    padding-right: 18px;
 
-    &.cell_size-1 {
-      $cell-size: 450px;
-      max-width: $cell-size;
-      flex: 1 1 $cell-size;
-    }
+    @include for-size(desktop-up) {
+      padding-right: 18px;
 
-    &.cell_size-2 {
-      $cell-size: 125px;
-      max-width: $cell-size;
-      flex: 1 1 $cell-size;
-    }
+      &.cell_size-1 {
+        $cell-size: 450px;
+        max-width: $cell-size;
+        flex: 1 1 $cell-size;
+      }
 
-    &.cell_size-3 {
-      $cell-size: 30px;
-      max-width: $cell-size;
-      flex: 1 1 $cell-size;
-      padding-right: 0;
-    }
+      &.cell_size-2 {
+        $cell-size: 125px;
+        max-width: $cell-size;
+        flex: 1 1 $cell-size;
+      }
 
-    &.cell_size-4 {
-      $cell-size: 350px;
-      max-width: 65px;
-      flex: 1 1 65px;
-      padding-right: 0;
-      text-align: center;
+      &.cell_size-3 {
+        $cell-size: 30px;
+        max-width: $cell-size;
+        flex: 1 1 $cell-size;
+        padding-right: 0;
+      }
+
+      &.cell_size-4 {
+        $cell-size: 350px;
+        max-width: 65px;
+        flex: 1 1 65px;
+        padding-right: 0;
+        text-align: center;
+      }
     }
   }
 
@@ -44,10 +48,12 @@
   }
 
   &__programme {
-    white-space: nowrap;
-    overflow: hidden;
-    max-width: 100%;
-    text-overflow: ellipsis;
+    @include for-size(desktop-up) {
+      white-space: nowrap;
+      overflow: hidden;
+      max-width: 100%;
+      text-overflow: ellipsis;
+    }
   }
 
   &__price {
@@ -58,7 +64,9 @@
   }
 
   &__fee {
-    font-size: 12px;
+    @include for-size(desktop-up) {
+      font-size: 12px;
+    }
   }
 
   &__chat {
@@ -128,6 +136,69 @@
 
       &:before {
         background: $color-prime;
+      }
+    }
+  }
+
+  @include for-size(desktop-down) {
+    padding: 20px 80px 10px 20px;
+    display: block;
+    position: relative;
+    letter-spacing: -.017em;
+
+    &::before {
+      font-family: $icomoon-font-family;
+      content: $i-chevron_r;
+      color: #000;
+      font-size: 14px;
+      line-height: 1;
+      top: 50%;
+      margin-top: -7px;
+      right: 20px;
+      position: absolute;
+      transform: rotate(90deg);
+    }
+
+    .unit_active & {
+      &::before {
+        transform: rotate(-90deg);
+      }
+    }
+
+    &__cell {
+      font-size: 15px;
+      line-height: 18px;
+
+      &.cell_size-1 {
+        color: #000;
+        margin-bottom: 2px;
+
+        .bank-unit__name {
+          letter-spacing: -.01em;
+          font-size: 18px;
+          line-height: 21px;
+        }
+      }
+
+      &.cell_size-2 {
+        color: #a8a8a8;
+        display: flex;
+
+        .bank-unit__fee {
+          order: -1;
+          padding-right: 10px;
+        }
+      }
+
+      &.cell_size-3 {
+        position: absolute;
+        right: 67px;
+        top: 50%;
+        margin-top: -14px;
+      }
+
+      &.cell_size-4 {
+
       }
     }
   }

@@ -5,7 +5,8 @@ import Topbar from './topbar';
 
 class Navbar extends Component {
     static propTypes = {
-        innerWidth: PropTypes.number
+        innerWidth: PropTypes.number,
+        toggleOrderHandle: PropTypes.func
     };
 
     state = {width: window.innerWidth};
@@ -130,7 +131,15 @@ class Navbar extends Component {
                 </div>
                 <div className="sidebar__header-line">
                     <div className="sidebar__header-mobile dt-hidden">
+                        <div onClick={() => {
+                            this.props.toggleOrderHandle(false);
+                        }} className="sidebar__header-back">Назад
+                        </div>
                         <div className="sidebar__header-title">Заявки</div>
+                        <div className="sidebar__header-mobile_controls">
+                            <div className="sidebar__header-mobile_btn __search"/>
+                            <div className="sidebar__header-mobile_btn __filter"/>
+                        </div>
                     </div>
                 </div>
                 <div className="sidebar__body">
