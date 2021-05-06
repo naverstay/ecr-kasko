@@ -212,7 +212,208 @@ class Orders extends Component {
                 tooltipList: ['Райффайзенбанк', 'Плюс Банк', 'Совкомбанк', 'ВТБ'],
                 tooltipTitle: 'Отказ'
             }
-        ]}/>
+        ]}/>;
+
+        let svetoforTooltip5 = <Svetofor data={[
+            {
+                value: 5,
+                tooltipWide: true,
+                tooltipList: ['Райффайзенбанк', 'Плюс Банк', 'Совкомбанк', 'ВТБ'],
+                tooltipTitle: 'Одобрение'
+            },
+            {
+                className: 'svetofor-item--gray',
+                value: ''
+            },
+            {
+                className: 'svetofor-item--blue',
+                value: 3,
+                tooltipWide: true,
+                tooltipList: ['Райффайзенбанк', 'Плюс Банк', 'Совкомбанк', 'ВТБ'],
+                tooltipTitle: 'Расслабление'
+            },
+            {
+                className: 'svetofor-item--yellow',
+                value: 5,
+                tooltipWide: true,
+                tooltipList: ['Райффайзенбанк', 'Плюс Банк', 'Совкомбанк', 'ВТБ'],
+                tooltipTitle: 'Ожидание'
+            },
+            {
+                className: 'svetofor-item--gray',
+                value: ''
+            }
+        ]}/>;
+
+        let svetoforTooltip12 = <Svetofor data={[
+            {
+                value: 12,
+                tooltipWide: true,
+                tooltipList: ['Райффайзенбанк', 'Плюс Банк', 'Совкомбанк', 'ВТБ'],
+                tooltipTitle: 'Одобрение'
+            },
+            {
+                className: 'svetofor-item--gray',
+                value: ''
+            },
+            {
+                className: 'svetofor-item--gray',
+                value: ''
+            },
+            {
+                className: 'svetofor-item--gray',
+                value: ''
+            },
+            {
+                className: 'svetofor-item--gray',
+                value: ''
+            }
+        ]}/>;
+
+        let duplicates = (count, clone) => {
+            let ret = [];
+            for (let i = 0; i < count; i++) {
+                ret.push(clone === 'lost' ?
+                    <TableOrderRow key={i} forceCloseOrders={this.props.forceCloseOrders} index={1}
+                                   rowCheckCallback={this.checkRowCallback}>
+                        <TableCell toggleInfoRow={true}
+                                   classList={['orders-table__cell', 'cell_size-2']}>
+                            <div
+                                className='orders-table__cell-content orders-table__cell--collapse'>
+                                <p>200 ЕвросибАвто</p>
+                                <p>Пулково Санкт-Петербург</p>
+                            </div>
+                        </TableCell>
+                        <TableCell toggleInfoRow={true}
+                                   classList={['orders-table__cell', 'cell_size-3']}>
+                            <div className='orders-table__cell-content'>
+                                <p>* Абдрахманов И. </p>
+                                <p>Ларин</p>
+                            </div>
+                        </TableCell>
+                        <TableCell toggleInfoRow={true}
+                                   classList={['orders-table__cell', 'cell_size-4']}>
+                            <div className='orders-table__cell-content'>
+                                <p className="color_green dt-only">auto.ru</p>
+                                <p>20.02.19</p>
+                            </div>
+                        </TableCell>
+                        <TableCell toggleInfoRow={true}
+                                   classList={['orders-table__cell', 'cell_size-5']}>
+                            <div className='orders-table__cell-content'>
+                                <p className="color_black">Чичиков</p>
+                                <p className="color_black">Павел</p>
+                            </div>
+                        </TableCell>
+                        <TableCell classList={['orders-table__cell', 'cell_size-6']}>
+                            <div className='orders-table__cell-content'>
+                                {svetoforTooltip}
+                                <div className="orders-table__cell-label dt-hidden">Кредит</div>
+                            </div>
+                        </TableCell>
+                        <TableCell toggleInfoRow={true}
+                                   classList={['orders-table__cell', 'cell_size-8']}>
+                            <div className='orders-table__cell-content'>
+                                <Svetofor classList={['svetofor-wrapper__center']} data={[{
+                                    className: 'svetofor-item--gray',
+                                    tooltipShort: true,
+                                    value: 3,
+                                    tooltipTitle: 'Ожидание'
+                                }]}/>
+                                <div className="orders-table__cell-label dt-hidden">е-ОСАГО
+                                </div>
+                            </div>
+                        </TableCell>
+                        <TableCell toggleInfoRow={true}
+                                   classList={['orders-table__cell', 'cell_size-9']}>
+                            <div className='orders-table__cell-content'>
+                                <Svetofor classList={['svetofor-wrapper__center']} data={[{
+                                    className: 'svetofor-item--gray',
+                                    tooltipShort: true,
+                                    value: 1,
+                                    tooltipTitle: 'Не предлагалось'
+                                }]}/>
+                                <div className="orders-table__cell-label dt-hidden">е-КАСКО
+                                </div>
+                            </div>
+                        </TableCell>
+                        <TableCell classList={['orders-table__cell', 'cell_size-10']}>
+                            <div className='orders-table__cell-content'>
+                                <OrderButton onClick={() => {
+                                    this.openOrder(1)
+                                }} text={'Открыть'}/>
+                            </div>
+                        </TableCell>
+                        {this.orderInfoRow()}
+                    </TableOrderRow> :
+                    <TableOrderRow key={i}
+                                   forceCloseOrders={this.props.forceCloseOrders}
+                                   index={1}
+                                   rowCheckCallback={this.checkRowCallback}>
+                        <TableCell toggleInfoRow={true}
+                                   classList={['orders-table__cell', 'cell_size-2']}>
+                            <div
+                                className='orders-table__cell-content orders-table__cell--collapse'>
+                                <p>200 ЕвросибАвто</p>
+                                <p>Пулково Санкт-Петербург</p>
+                            </div>
+                        </TableCell>
+                        <TableCell toggleInfoRow={true}
+                                   classList={['orders-table__cell', 'cell_size-3']}>
+                            <div className='orders-table__cell-content'>
+                                <p>* Абдрахманов И. </p>
+                                <p>Ларин</p>
+                            </div>
+                        </TableCell>
+                        <TableCell toggleInfoRow={true}
+                                   classList={['orders-table__cell', 'cell_size-4']}>
+                            <div className='orders-table__cell-content'>
+                                <p className="color_green dt-only">auto.ru</p>
+                                <p>20.02.19</p>
+                            </div>
+                        </TableCell>
+                        <TableCell toggleInfoRow={true}
+                                   classList={['orders-table__cell', 'cell_size-5']}>
+                            <div className='orders-table__cell-content'>
+                                <p className="color_black">Ростова</p>
+                                <p className="color_black">Наталья</p>
+                            </div>
+                        </TableCell>
+                        <TableCell
+                            classList={['orders-table__cell', 'cell_size-6']}>
+                            <div className='orders-table__cell-content'>
+                                {svetoforTooltip12}
+                                <div
+                                    className="orders-table__cell-label dt-hidden">Кредит
+                                </div>
+                            </div>
+                        </TableCell>
+                        <TableCell toggleInfoRow={true}
+                                   classList={['orders-table__cell', 'cell_size-8']}>
+                            <div className='orders-table__cell-content'>
+                                &nbsp;
+                            </div>
+                        </TableCell>
+                        <TableCell toggleInfoRow={true}
+                                   classList={['orders-table__cell', 'cell_size-9']}>
+                            <div className='orders-table__cell-content'>
+                                &nbsp;
+                            </div>
+                        </TableCell>
+                        <TableCell
+                            classList={['orders-table__cell', 'cell_size-10']}>
+                            <div className='orders-table__cell-content'>
+                                <OrderButton onClick={() => {
+                                    this.openOrder(1)
+                                }} text={'Открыть'}/>
+                            </div>
+                        </TableCell>
+                        {this.orderInfoRow()}
+                    </TableOrderRow>
+                );
+            }
+            return ret;
+        };
 
         return (
             <>
@@ -231,7 +432,9 @@ class Orders extends Component {
                                     <Tab className={'orders-tabs__tab'}>
                                         <div className="tab-panel__name">Lost</div>
                                     </Tab>
-                                    <li onClick={() => {this.toggleNotifications(true)}}
+                                    <li onClick={() => {
+                                        this.toggleNotifications(true)
+                                    }}
                                         className={'orders-tabs__tab orders-tabs__notification dt-hidden'}>
                                         <div className="tab-panel__counter"><span>5</span></div>
                                         <div className="tab-panel__name">Уведомления</div>
@@ -312,7 +515,8 @@ class Orders extends Component {
                                         </div>
                                         <div className="orders-table__body">
                                             {/* row 1*/}
-                                            <TableOrderRow forceCloseOrders={this.props.forceCloseOrders} index={1} rowCheckCallback={this.checkRowCallback}>
+                                            <TableOrderRow forceCloseOrders={this.props.forceCloseOrders} index={1}
+                                                           rowCheckCallback={this.checkRowCallback}>
                                                 <TableCell toggleInfoRow={true}
                                                            classList={['orders-table__cell', 'cell_size-2']}>
                                                     <div
@@ -343,8 +547,8 @@ class Orders extends Component {
                                                     </div>
                                                 </TableCell>
                                                 <TableCell classList={['orders-table__cell', 'cell_size-6']}>
-                                                    <div>
-                                                        <div className="svetofor-wrapper">&nbsp;</div>
+                                                    <div className='orders-table__cell-content'>
+                                                        {svetoforTooltip12}
                                                         <div className="orders-table__cell-label dt-hidden">Кредит</div>
                                                     </div>
                                                 </TableCell>
@@ -356,7 +560,8 @@ class Orders extends Component {
                                                             tooltipShort: true,
                                                             tooltipTitle: 'Не предлагалось'
                                                         }]}/>
-                                                        <div className="orders-table__cell-label dt-hidden">е-ОСАГО</div>
+                                                        <div className="orders-table__cell-label dt-hidden">е-ОСАГО
+                                                        </div>
                                                     </div>
                                                 </TableCell>
                                                 <TableCell toggleInfoRow={true}
@@ -367,7 +572,8 @@ class Orders extends Component {
                                                             tooltipShort: true,
                                                             tooltipTitle: 'Не предлагалось'
                                                         }]}/>
-                                                        <div className="orders-table__cell-label dt-hidden">е-КАСКО</div>
+                                                        <div className="orders-table__cell-label dt-hidden">е-КАСКО
+                                                        </div>
                                                     </div>
                                                 </TableCell>
                                                 <TableCell classList={['orders-table__cell', 'cell_size-10']}>
@@ -381,7 +587,8 @@ class Orders extends Component {
                                             </TableOrderRow>
 
                                             {/* row 2*/}
-                                            <TableOrderRow forceCloseOrders={this.props.forceCloseOrders} index={2} rowCheckCallback={this.checkRowCallback}>
+                                            <TableOrderRow forceCloseOrders={this.props.forceCloseOrders} index={2}
+                                                           rowCheckCallback={this.checkRowCallback}>
                                                 <TableCell toggleInfoRow={true}
                                                            classList={['orders-table__cell', 'cell_size-2']}>
                                                     <div
@@ -425,7 +632,8 @@ class Orders extends Component {
                                                             tooltipShort: true,
                                                             tooltipTitle: 'Не предлагалось'
                                                         }]}/>
-                                                        <div className="orders-table__cell-label dt-hidden">е-ОСАГО</div>
+                                                        <div className="orders-table__cell-label dt-hidden">е-ОСАГО
+                                                        </div>
                                                     </div>
                                                 </TableCell>
                                                 <TableCell toggleInfoRow={true}
@@ -436,7 +644,8 @@ class Orders extends Component {
                                                             tooltipShort: true,
                                                             tooltipTitle: 'Не предлагалось'
                                                         }]}/>
-                                                        <div className="orders-table__cell-label dt-hidden">е-КАСКО</div>
+                                                        <div className="orders-table__cell-label dt-hidden">е-КАСКО
+                                                        </div>
                                                     </div>
                                                 </TableCell>
                                                 <TableCell classList={['orders-table__cell', 'cell_size-10']}>
@@ -450,7 +659,8 @@ class Orders extends Component {
                                             </TableOrderRow>
 
                                             {/* row 3*/}
-                                            <TableOrderRow forceCloseOrders={this.props.forceCloseOrders} index={3} rowCheckCallback={this.checkRowCallback}>
+                                            <TableOrderRow forceCloseOrders={this.props.forceCloseOrders} index={3}
+                                                           rowCheckCallback={this.checkRowCallback}>
                                                 <TableCell toggleInfoRow={true}
                                                            classList={['orders-table__cell', 'cell_size-2']}>
                                                     <div
@@ -482,7 +692,7 @@ class Orders extends Component {
                                                 </TableCell>
                                                 <TableCell classList={['orders-table__cell', 'cell_size-6']}>
                                                     <div className='orders-table__cell-content'>
-                                                        <div className="svetofor-wrapper">&nbsp;</div>
+                                                        {svetoforTooltip5}
                                                         <div className="orders-table__cell-label dt-hidden">Кредит</div>
                                                     </div>
                                                 </TableCell>
@@ -495,7 +705,8 @@ class Orders extends Component {
                                                                       tooltipShort: true,
                                                                       tooltipTitle: 'Оформление'
                                                                   }]}/>
-                                                        <div className="orders-table__cell-label dt-hidden">е-ОСАГО</div>
+                                                        <div className="orders-table__cell-label dt-hidden">е-ОСАГО
+                                                        </div>
                                                     </div>
                                                 </TableCell>
                                                 <TableCell toggleInfoRow={true}
@@ -507,7 +718,8 @@ class Orders extends Component {
                                                                       tooltipShort: true,
                                                                       tooltipTitle: 'Оформление'
                                                                   }]}/>
-                                                        <div className="orders-table__cell-label dt-hidden">е-КАСКО</div>
+                                                        <div className="orders-table__cell-label dt-hidden">е-КАСКО
+                                                        </div>
                                                     </div>
                                                 </TableCell>
                                                 <TableCell classList={['orders-table__cell', 'cell_size-10']}>
@@ -521,7 +733,8 @@ class Orders extends Component {
                                             </TableOrderRow>
 
                                             {/* row 4*/}
-                                            <TableOrderRow forceCloseOrders={this.props.forceCloseOrders} index={4} rowCheckCallback={this.checkRowCallback}>
+                                            <TableOrderRow forceCloseOrders={this.props.forceCloseOrders} index={4}
+                                                           rowCheckCallback={this.checkRowCallback}>
                                                 <TableCell toggleInfoRow={true}
                                                            classList={['orders-table__cell', 'cell_size-2']}>
                                                     <div
@@ -636,7 +849,8 @@ class Orders extends Component {
                                                             tooltipShort: true,
                                                             tooltipTitle: 'Не предлагалось'
                                                         }]}/>
-                                                        <div className="orders-table__cell-label dt-hidden">е-ОСАГО</div>
+                                                        <div className="orders-table__cell-label dt-hidden">е-ОСАГО
+                                                        </div>
                                                     </div>
                                                 </TableCell>
                                                 <TableCell toggleInfoRow={true}
@@ -647,7 +861,8 @@ class Orders extends Component {
                                                             tooltipShort: true,
                                                             tooltipTitle: 'Не предлагалось'
                                                         }]}/>
-                                                        <div className="orders-table__cell-label dt-hidden">е-КАСКО</div>
+                                                        <div className="orders-table__cell-label dt-hidden">е-КАСКО
+                                                        </div>
                                                     </div>
                                                 </TableCell>
                                                 <TableCell classList={['orders-table__cell', 'cell_size-10']}>
@@ -661,7 +876,8 @@ class Orders extends Component {
                                             </TableOrderRow>
 
                                             {/* row 5*/}
-                                            <TableOrderRow forceCloseOrders={this.props.forceCloseOrders} index={5} rowCheckCallback={this.checkRowCallback}>
+                                            <TableOrderRow forceCloseOrders={this.props.forceCloseOrders} index={5}
+                                                           rowCheckCallback={this.checkRowCallback}>
                                                 <TableCell toggleInfoRow={true}
                                                            classList={['orders-table__cell', 'cell_size-2']}>
                                                     <div
@@ -702,10 +918,13 @@ class Orders extends Component {
                                                     <div className='orders-table__cell-content'>
                                                         <Svetofor classList={['svetofor-wrapper__center']} data={[{
                                                             className: 'svetofor-item--white',
-                                                            tooltipShort: true,
-                                                            tooltipTitle: 'Не предлагалось'
+                                                            tooltipWide: true,
+                                                            tooltipList: ['Райффайзенбанк', 'ВТБ'],
+                                                            tooltipTitle: 'Ожидание',
+                                                            value: 5
                                                         }]}/>
-                                                        <div className="orders-table__cell-label dt-hidden">е-ОСАГО</div>
+                                                        <div className="orders-table__cell-label dt-hidden">е-ОСАГО
+                                                        </div>
                                                     </div>
                                                 </TableCell>
                                                 <TableCell toggleInfoRow={true}
@@ -716,7 +935,8 @@ class Orders extends Component {
                                                             tooltipShort: true,
                                                             tooltipTitle: 'Не предлагалось'
                                                         }]}/>
-                                                        <div className="orders-table__cell-label dt-hidden">е-КАСКО</div>
+                                                        <div className="orders-table__cell-label dt-hidden">е-КАСКО
+                                                        </div>
                                                     </div>
                                                 </TableCell>
                                                 <TableCell classList={['orders-table__cell', 'cell_size-10']}>
@@ -730,7 +950,8 @@ class Orders extends Component {
                                             </TableOrderRow>
 
                                             {/* row 6*/}
-                                            <TableOrderRow forceCloseOrders={this.props.forceCloseOrders} index={6} rowCheckCallback={this.checkRowCallback}>
+                                            <TableOrderRow forceCloseOrders={this.props.forceCloseOrders} index={6}
+                                                           rowCheckCallback={this.checkRowCallback}>
                                                 <TableCell toggleInfoRow={true}
                                                            classList={['orders-table__cell', 'cell_size-2']}>
                                                     <div
@@ -762,7 +983,7 @@ class Orders extends Component {
                                                 </TableCell>
                                                 <TableCell classList={['orders-table__cell', 'cell_size-6']}>
                                                     <div className='orders-table__cell-content'>
-                                                        <div className="svetofor-wrapper">&nbsp;</div>
+                                                        {svetoforTooltip5}
                                                         <div className="orders-table__cell-label dt-hidden">Кредит</div>
                                                     </div>
                                                 </TableCell>
@@ -775,7 +996,8 @@ class Orders extends Component {
                                                                       tooltipShort: true,
                                                                       tooltipTitle: 'Оформление'
                                                                   }]}/>
-                                                        <div className="orders-table__cell-label dt-hidden">е-ОСАГО</div>
+                                                        <div className="orders-table__cell-label dt-hidden">е-ОСАГО
+                                                        </div>
                                                     </div>
                                                 </TableCell>
                                                 <TableCell toggleInfoRow={true}
@@ -787,7 +1009,8 @@ class Orders extends Component {
                                                                       tooltipShort: true,
                                                                       tooltipTitle: 'Оформление'
                                                                   }]}/>
-                                                        <div className="orders-table__cell-label dt-hidden">е-КАСКО</div>
+                                                        <div className="orders-table__cell-label dt-hidden">е-КАСКО
+                                                        </div>
                                                     </div>
                                                 </TableCell>
                                                 <TableCell classList={['orders-table__cell', 'cell_size-10']}>
@@ -801,7 +1024,8 @@ class Orders extends Component {
                                             </TableOrderRow>
 
                                             {/* row 7*/}
-                                            <TableOrderRow forceCloseOrders={this.props.forceCloseOrders} index={7} rowCheckCallback={this.checkRowCallback}>
+                                            <TableOrderRow forceCloseOrders={this.props.forceCloseOrders} index={7}
+                                                           rowCheckCallback={this.checkRowCallback}>
                                                 <TableCell toggleInfoRow={true}
                                                            classList={['orders-table__cell', 'cell_size-2']}>
                                                     <div
@@ -832,8 +1056,8 @@ class Orders extends Component {
                                                     </div>
                                                 </TableCell>
                                                 <TableCell classList={['orders-table__cell', 'cell_size-6']}>
-                                                    <div>
-                                                        <div className="svetofor-wrapper">&nbsp;</div>
+                                                    <div className='orders-table__cell-content'>
+                                                        {svetoforTooltip12}
                                                         <div className="orders-table__cell-label dt-hidden">Кредит</div>
                                                     </div>
                                                 </TableCell>
@@ -843,7 +1067,8 @@ class Orders extends Component {
                                                         <div
                                                             className="orders-table__state orders-table__state--green">Оплата
                                                         </div>
-                                                        <div className="orders-table__cell-label dt-hidden">е-ОСАГО</div>
+                                                        <div className="orders-table__cell-label dt-hidden">е-ОСАГО
+                                                        </div>
                                                     </div>
                                                 </TableCell>
                                                 <TableCell toggleInfoRow={true}
@@ -854,7 +1079,8 @@ class Orders extends Component {
                                                             tooltipShort: true,
                                                             tooltipTitle: 'Не предлагалось'
                                                         }]}/>
-                                                        <div className="orders-table__cell-label dt-hidden">е-КАСКО</div>
+                                                        <div className="orders-table__cell-label dt-hidden">е-КАСКО
+                                                        </div>
                                                     </div>
                                                 </TableCell>
                                                 <TableCell classList={['orders-table__cell', 'cell_size-10']}>
@@ -868,7 +1094,8 @@ class Orders extends Component {
                                             </TableOrderRow>
 
                                             {/* row 8*/}
-                                            <TableOrderRow forceCloseOrders={this.props.forceCloseOrders} index={8} rowCheckCallback={this.checkRowCallback}>
+                                            <TableOrderRow forceCloseOrders={this.props.forceCloseOrders} index={8}
+                                                           rowCheckCallback={this.checkRowCallback}>
                                                 <TableCell toggleInfoRow={true}
                                                            classList={['orders-table__cell', 'cell_size-2']}>
                                                     <div
@@ -910,7 +1137,8 @@ class Orders extends Component {
                                                         <div
                                                             className="orders-table__state orders-table__state--green">Выпущен
                                                         </div>
-                                                        <div className="orders-table__cell-label dt-hidden">е-ОСАГО</div>
+                                                        <div className="orders-table__cell-label dt-hidden">е-ОСАГО
+                                                        </div>
                                                     </div>
                                                 </TableCell>
                                                 <TableCell toggleInfoRow={true}
@@ -921,7 +1149,8 @@ class Orders extends Component {
                                                             tooltipShort: true,
                                                             tooltipTitle: 'Не предлагалось'
                                                         }]}/>
-                                                        <div className="orders-table__cell-label dt-hidden">е-КАСКО</div>
+                                                        <div className="orders-table__cell-label dt-hidden">е-КАСКО
+                                                        </div>
                                                     </div>
                                                 </TableCell>
                                                 <TableCell classList={['orders-table__cell', 'cell_size-10']}>
@@ -935,7 +1164,8 @@ class Orders extends Component {
                                             </TableOrderRow>
 
                                             {/* row 9*/}
-                                            <TableOrderRow forceCloseOrders={this.props.forceCloseOrders} index={9} rowCheckCallback={this.checkRowCallback}>
+                                            <TableOrderRow forceCloseOrders={this.props.forceCloseOrders} index={9}
+                                                           rowCheckCallback={this.checkRowCallback}>
                                                 <TableCell toggleInfoRow={true}
                                                            classList={['orders-table__cell', 'cell_size-2']}>
                                                     <div
@@ -967,7 +1197,7 @@ class Orders extends Component {
                                                 </TableCell>
                                                 <TableCell classList={['orders-table__cell', 'cell_size-6']}>
                                                     <div className='orders-table__cell-content'>
-                                                        <div className="svetofor-wrapper">&nbsp;</div>
+                                                        {svetoforTooltip5}
                                                         <div className="orders-table__cell-label dt-hidden">Кредит</div>
                                                     </div>
                                                 </TableCell>
@@ -980,7 +1210,8 @@ class Orders extends Component {
                                                                       tooltipShort: true,
                                                                       tooltipTitle: 'Отказ страховых'
                                                                   }]}/>
-                                                        <div className="orders-table__cell-label dt-hidden">е-ОСАГО</div>
+                                                        <div className="orders-table__cell-label dt-hidden">е-ОСАГО
+                                                        </div>
                                                     </div>
                                                 </TableCell>
                                                 <TableCell toggleInfoRow={true}
@@ -988,11 +1219,13 @@ class Orders extends Component {
                                                     <div className='orders-table__cell-content'>
                                                         <Svetofor classList={['svetofor-wrapper__center']}
                                                                   data={[{
-                                                                      className: 'svetofor-item--green',
-                                                                      tooltipShort: true,
-                                                                      tooltipTitle: 'Оформление'
+                                                                      tooltipWide: true,
+                                                                      tooltipList: ['Райффайзенбанк', 'Плюс Банк', 'Совкомбанк', 'ВТБ'],
+                                                                      tooltipTitle: 'Ожидание',
+                                                                      value: 5
                                                                   }]}/>
-                                                        <div className="orders-table__cell-label dt-hidden">е-КАСКО</div>
+                                                        <div className="orders-table__cell-label dt-hidden">е-КАСКО
+                                                        </div>
                                                     </div>
                                                 </TableCell>
                                                 <TableCell classList={['orders-table__cell', 'cell_size-10']}>
@@ -1006,7 +1239,8 @@ class Orders extends Component {
                                             </TableOrderRow>
 
                                             {/* row 10*/}
-                                            <TableOrderRow forceCloseOrders={this.props.forceCloseOrders} index={10} rowCheckCallback={this.checkRowCallback}>
+                                            <TableOrderRow forceCloseOrders={this.props.forceCloseOrders} index={10}
+                                                           rowCheckCallback={this.checkRowCallback}>
                                                 <TableCell toggleInfoRow={true}
                                                            classList={['orders-table__cell', 'cell_size-2']}>
                                                     <div
@@ -1038,7 +1272,7 @@ class Orders extends Component {
                                                 </TableCell>
                                                 <TableCell classList={['orders-table__cell', 'cell_size-6']}>
                                                     <div className='orders-table__cell-content'>
-                                                        <div className="svetofor-wrapper">&nbsp;</div>
+                                                        {svetoforTooltip12}
                                                         <div className="orders-table__cell-label dt-hidden">Кредит</div>
                                                     </div>
                                                 </TableCell>
@@ -1051,7 +1285,8 @@ class Orders extends Component {
                                                                       tooltipShort: true,
                                                                       tooltipTitle: 'Отказ клиента'
                                                                   }]}/>
-                                                        <div className="orders-table__cell-label dt-hidden">е-ОСАГО</div>
+                                                        <div className="orders-table__cell-label dt-hidden">е-ОСАГО
+                                                        </div>
                                                     </div>
                                                 </TableCell>
                                                 <TableCell toggleInfoRow={true}
@@ -1062,7 +1297,8 @@ class Orders extends Component {
                                                             tooltipShort: true,
                                                             tooltipTitle: 'Отказ клиента'
                                                         }]}/>
-                                                        <div className="orders-table__cell-label dt-hidden">е-КАСКО</div>
+                                                        <div className="orders-table__cell-label dt-hidden">е-КАСКО
+                                                        </div>
                                                     </div>
                                                 </TableCell>
                                                 <TableCell classList={['orders-table__cell', 'cell_size-10']}>
@@ -1082,10 +1318,158 @@ class Orders extends Component {
                                             activePage={11}/>
                             </TabPanel>
                             <TabPanel>
-                                <h2>Any content 2</h2>
+                                <div className="orders-table__scroller">
+                                    <div className="orders-table">
+                                        <div className="orders-table__header">
+                                            <div className="orders-table__row">
+                                                <TableCell
+                                                    classList={['orders-table__cell', (this.state.checkedRows.length ? 'cell_size-wide' : 'cell_size-1'), 'check_v3']}>
+                                                    <Checkbox>
+                                                        {this.state.checkedRows.length ? 'Выбрать все' : null}
+                                                    </Checkbox>
+
+                                                    {this.state.checkedRows.length ?
+                                                        <>
+                                                            <div className="orders-table__common--count">
+                                                                {'Выбрано ' + this.state.checkedRows.length}
+                                                            </div>
+                                                            <ul className="orders-table__common--controls">
+                                                                <li>
+                                                                    <div onClick={this.toggleManagerPopup}
+                                                                         className="gl_link">Изменить менеджера
+                                                                    </div>
+                                                                </li>
+                                                                <li>
+                                                                    <div className="gl_link">Отказ клиента</div>
+                                                                </li>
+                                                                <li>
+                                                                    <div className="gl_link">Удалить заявку</div>
+                                                                </li>
+                                                            </ul>
+                                                            <div className="orders-table__common--close"/>
+                                                        </>
+                                                        : null
+                                                    }
+                                                </TableCell>
+
+                                                {this.state.checkedRows.length ?
+                                                    null
+                                                    :
+                                                    <>
+                                                        <TableCell
+                                                            classList={['orders-table__cell', 'cell_size-2', 'sortable-desc']}>
+                                                            <TableHeaderButton label={<>Дилер</>}/>
+                                                        </TableCell>
+                                                        <TableCell
+                                                            classList={['orders-table__cell', 'cell_size-3', 'sortable-asc']}>
+                                                            <TableHeaderButton label={<>КСО <br/> МОП</>}/>
+                                                        </TableCell>
+                                                        <TableCell classList={['orders-table__cell', 'cell_size-4']}>
+                                                            <TableHeaderButton label={<>Источник <br/> Дата заявки</>}/>
+                                                        </TableCell>
+                                                        <TableCell classList={['orders-table__cell', 'cell_size-5']}>
+                                                            <TableHeaderButton label={<>Клиент</>}/>
+                                                        </TableCell>
+                                                        <TableCell classList={['orders-table__cell', 'cell_size-6']}>
+                                                            <TableHeaderButton classList={['wide']}
+                                                                               label={<>Кредит</>}/>
+                                                        </TableCell>
+                                                        <TableCell
+                                                            classList={['orders-table__cell', 'cell_size-8', 'text_center']}>
+                                                            <TableHeaderButton label={<>е-ОСАГО</>}/>
+                                                        </TableCell>
+                                                        <TableCell
+                                                            classList={['orders-table__cell', 'cell_size-9', 'text_center']}>
+                                                            <TableHeaderButton label={<>е-КАСКО</>}/>
+                                                        </TableCell>
+                                                        <TableCell classList={['orders-table__cell', 'cell_size-10']}>
+                                                        </TableCell>
+                                                    </>
+                                                }
+                                            </div>
+                                        </div>
+                                        <div className="orders-table__body">
+                                            {duplicates(10, 'orders')}
+                                        </div>
+                                    </div>
+                                </div>
                             </TabPanel>
                             <TabPanel>
-                                <h2>Any content 3</h2>
+                                <div className="orders-table__scroller">
+                                    <div className="orders-table">
+                                        <div className="orders-table__header">
+                                            <div className="orders-table__row">
+                                                <TableCell
+                                                    classList={['orders-table__cell', (this.state.checkedRows.length ? 'cell_size-wide' : 'cell_size-1'), 'check_v3']}>
+                                                    <Checkbox>
+                                                        {this.state.checkedRows.length ? 'Выбрать все' : null}
+                                                    </Checkbox>
+
+                                                    {this.state.checkedRows.length ?
+                                                        <>
+                                                            <div className="orders-table__common--count">
+                                                                {'Выбрано ' + this.state.checkedRows.length}
+                                                            </div>
+                                                            <ul className="orders-table__common--controls">
+                                                                <li>
+                                                                    <div onClick={this.toggleManagerPopup}
+                                                                         className="gl_link">Изменить менеджера
+                                                                    </div>
+                                                                </li>
+                                                                <li>
+                                                                    <div className="gl_link">Отказ клиента</div>
+                                                                </li>
+                                                                <li>
+                                                                    <div className="gl_link">Удалить заявку</div>
+                                                                </li>
+                                                            </ul>
+                                                            <div className="orders-table__common--close"/>
+                                                        </>
+                                                        : null
+                                                    }
+                                                </TableCell>
+
+                                                {this.state.checkedRows.length ?
+                                                    null
+                                                    :
+                                                    <>
+                                                        <TableCell
+                                                            classList={['orders-table__cell', 'cell_size-2', 'sortable-desc']}>
+                                                            <TableHeaderButton label={<>Дилер</>}/>
+                                                        </TableCell>
+                                                        <TableCell
+                                                            classList={['orders-table__cell', 'cell_size-3', 'sortable-asc']}>
+                                                            <TableHeaderButton label={<>КСО <br/> МОП</>}/>
+                                                        </TableCell>
+                                                        <TableCell classList={['orders-table__cell', 'cell_size-4']}>
+                                                            <TableHeaderButton label={<>Источник <br/> Дата заявки</>}/>
+                                                        </TableCell>
+                                                        <TableCell classList={['orders-table__cell', 'cell_size-5']}>
+                                                            <TableHeaderButton label={<>Клиент</>}/>
+                                                        </TableCell>
+                                                        <TableCell classList={['orders-table__cell', 'cell_size-6']}>
+                                                            <TableHeaderButton classList={['wide']}
+                                                                               label={<>Кредит</>}/>
+                                                        </TableCell>
+                                                        <TableCell
+                                                            classList={['orders-table__cell', 'cell_size-8', 'text_center']}>
+                                                            <TableHeaderButton label={<>е-ОСАГО</>}/>
+                                                        </TableCell>
+                                                        <TableCell
+                                                            classList={['orders-table__cell', 'cell_size-9', 'text_center']}>
+                                                            <TableHeaderButton label={<>е-КАСКО</>}/>
+                                                        </TableCell>
+                                                        <TableCell classList={['orders-table__cell', 'cell_size-10']}>
+                                                        </TableCell>
+                                                    </>
+                                                }
+                                            </div>
+                                        </div>
+                                        <div className="orders-table__body">
+                                            {duplicates(10, 'lost')}
+                                        </div>
+                                    </div>
+                                </div>
                             </TabPanel>
                         </Tabs>
                     </Col>

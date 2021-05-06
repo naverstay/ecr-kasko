@@ -11,12 +11,15 @@
   display: flex;
   flex-flow: row;
   align-items: stretch;
+  will-change: transform;
+  transition: transform .3s;
+
+  @include for-size(desktop-up) {
+    padding-top: 50px;
+  }
+
 
   @include for-size(desktop-down) {
-    position: fixed;
-    top: 0;
-    bottom: 0;
-    width: 0;
     overflow: visible;
   }
 
@@ -97,11 +100,8 @@
     justify-content: flex-start;
     overflow-y: auto;
 
-    @include for-size(desktop-down) {
-      background: #e5e5e5;
-    }
-
     &-line {
+      transition: transform .3s;
       position: fixed;
       background: $color-prime;
       top: 0;
@@ -115,15 +115,39 @@
         bottom: auto;
         display: flex;
         align-items: flex-end;
+        z-index: -1;
+
+        .scroll-down:not(.open-order) & {
+          transform: translate(0, calc(-114px - var(--sat)));
+        }
       }
     }
 
     &-mobile {
-      position: relative;
-      padding: 0 114px;
-      text-align: center;
-      height: 50px;
-      width: 100%;
+
+      @include for-size(desktop-down) {
+        position: relative;
+        padding: 0 114px;
+        text-align: center;
+        height: 50px;
+        width: 100%;
+
+        .sidebar__button-icon {
+          font-size: 16px;
+          min-width: 57px;
+          min-height: calc(50px + var(--sat));
+
+          svg {
+            margin-bottom: 3px;
+          }
+        }
+      }
+
+      .sidebar__button-icon {
+        position: absolute;
+        top: 0;
+        left: 0;
+      }
 
       &_controls {
         position: absolute;
@@ -260,6 +284,7 @@
     }
 
     @include for-size(desktop-down) {
+      background: #e5e5e5;
       overflow: visible;
       position: absolute;
       bottom: 0;
@@ -267,6 +292,18 @@
       padding: 0 40px;
       width: 100vw;
       flex-flow: row nowrap;
+      will-change: transform;
+      transition: transform .3s;
+
+      &::before {
+        content: '';
+        position: absolute;
+        top: 100%;
+        right: 0;
+        left: 0;
+        height: 70px;
+        background: inherit;
+      }
     }
   }
 
@@ -313,13 +350,20 @@
     //}
 
     &.__home {
-      margin-bottom: 33px;
+
+      @include for-size(desktop-up) {
+        margin-top: -50px;
+        margin-bottom: 33px;
+        padding-left: 50px;
+        min-height: 50px;
+      }
 
       @include for-size(desktop-down) {
         margin-bottom: 0;
         position: fixed;
         top: 0;
         left: 0;
+        transform: translateY(calc(-100vh + 62px));
       }
     }
 
@@ -328,13 +372,16 @@
     }
 
     &-wrapper {
-      position: relative;
-      z-index: 1;
       display: flex;
       flex-flow: column;
       //pointer-events: none;
-      width: $aside-size-small;
       //overflow: hidden;
+
+      @include for-size(desktop-up) {
+        width: $aside-size-small;
+        position: relative;
+        z-index: 1;
+      }
 
       &:nth-child(2) {
         flex: 1 1;
@@ -391,6 +438,8 @@
           }
 
           &.home {
+            will-change: transform;
+            transition: transform .3s;
             font-size: 16px;
             min-width: 57px;
             min-height: calc(50px + var(--sat));
@@ -398,6 +447,10 @@
 
             svg {
               margin-bottom: 3px;
+            }
+
+            .scroll-down:not(.open-order) & {
+              transform: translate(0, calc(-114px - var(--sat)));
             }
           }
 

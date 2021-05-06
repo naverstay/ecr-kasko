@@ -51,5 +51,20 @@
       background: $color-blue;
       border-color: $color-blue;
     }
+
+    &--gray {
+      //color: #fff;
+      background: #f7f7f7;
+      border-color: #f7f7f7;
+
+      @include for-size(desktop-down) {
+
+        .orders-table__row.open & {
+          //color: #f7f7f7;
+          background: #fff;
+          border-color: #fff;
+        }
+      }
+    }
   }
 }

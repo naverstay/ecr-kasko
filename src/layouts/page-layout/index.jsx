@@ -20,6 +20,18 @@ class PageLayout extends Component {
         innerWidth: PropTypes.number
     };
 
+    componentDidMount() {
+        let prevY = window.scrollY;
+
+        window.addEventListener('scroll', (evt) => {
+            let action = (window.scrollY > 50 && window.scrollY - prevY > 0) ? 'add' : 'remove';
+
+            document.getElementById('root').classList[action]('scroll-down');
+
+            prevY = window.scrollY;
+        })
+    }
+
     forceCloseOrders = (row) => {
         if (row) {
             this.setState({openedRow: row});

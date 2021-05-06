@@ -4,6 +4,8 @@
 
   @include for-size(desktop-down) {
     &.open-order {
+
+      .sidebar__header-mobile_controls,
       .orders-tabs__wrapper > .orders-tabs__list-holder {
         display: none;
       }
@@ -18,12 +20,20 @@
 
       .orders-table__row {
         &.open {
-          margin: -10px -20px;
+          //margin: -10px -20px;
           padding-bottom: 0;
           padding-top: 32px;
           background: #f7f7f7;
           border: 0;
           border-radius: 0;
+          z-index: 1;
+          position: fixed;
+          align-items: flex-start;
+          max-height: calc(100% - 110px);
+          top: 50px;
+          left: 0;
+          right: 0;
+          overflow-y: auto;
 
           .orders-table__info {
             width: auto;
@@ -40,7 +50,9 @@
         }
 
         &:not(.open) {
-          display: none !important;
+          opacity: 0;
+          visibility: hidden;
+          pointer-events: none;
         }
       }
     }
