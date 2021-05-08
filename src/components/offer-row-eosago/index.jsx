@@ -297,7 +297,7 @@ class OfferRowEosago extends Component {
                             }
                             {showOptions && 'options' in o && o.options.length ?
                                 <tr key={i + 100000}
-                                    className={'info_row ' + (offerSelected ? "selected" : "") + (lastRow ? ' last-row' : '')}>
+                                    className={'info_row ' + ((offerSelected && !(completed || waiting)) ? " selected" : "") + (lastRow ? ' last-row' : '')}>
                                     <td>&nbsp;</td>
                                     <td colSpan={((completed || waiting) ? 4 : 4)}>
                                         {/*<p className="text_left" style={{marginBottom: '15px'}}>Условия е-ОСАГО:</p>*/}

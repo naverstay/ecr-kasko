@@ -1100,21 +1100,12 @@ class TabOffer extends Component {
                     name: 'Премиум',
                     type: 'е-КАСКО',
                     payment: 'Наличные',
-                    price: 49850,
-                    dealerFee: 4985,
+                    price: '49 850 ₽',
+                    dealerFee: '4 985 ₽',
                     share: 'Экономия 4 500 ₽',
                     dateStart: '20.02.19',
                     dateEnd: '19.02.20',
                     options: optionsFixtures
-                },
-                {
-                    type: 'е-ОСАГО',
-                    payment: 'Наличные',
-                    nobill: true,
-                    price: 46550,
-                    dealerFee: 4655,
-                    dateStart: '20.02.19',
-                    dateEnd: '19.02.20'
                 }
             ];
 
@@ -1511,8 +1502,8 @@ class TabOffer extends Component {
                                                                                      type: 'е-ОСАГО',
                                                                                      document: 'СС 12345678',
                                                                                      payment: 'Наличные',
-                                                                                     price: 41450,
-                                                                                     dealerFee: 4145,
+                                                                                     price: '41 450 ₽',
+                                                                                     dealerFee: '4 145 ₽',
                                                                                      dateStart: '20.02.19',
                                                                                      dateEnd: '19.02.20',
                                                                                      options: optionsFixtures
@@ -1523,24 +1514,13 @@ class TabOffer extends Component {
                                                                                      type: 'е-КАСКО',
                                                                                      document: 'СС 12345678',
                                                                                      payment: 'Наличные',
-                                                                                     price: 41450,
-                                                                                     dealerFee: 4145,
+                                                                                     price: '41 450 ₽',
+                                                                                     dealerFee: '4 145 ₽',
                                                                                      share: 'Экономия 4 500',
                                                                                      dateStart: '20.02.19',
                                                                                      dateEnd: '19.02.20',
                                                                                      options: optionsFixtures
-                                                                                 },
-                                                                                     {
-                                                                                         name: 'Обычный',
-                                                                                         type: 'е-ОСАГО',
-                                                                                         document: 'СС 87654321',
-                                                                                         price: 41450,
-                                                                                         dealerFee: 4145,
-                                                                                         nobill: true,
-                                                                                         dateStart: '20.02.19',
-                                                                                         dateEnd: '19.02.20'
-                                                                                     }
-                                                                                 ]
+                                                                                 }]
                                                                          }
                                                                      ]}/>
 
