@@ -11,26 +11,27 @@
   }
 
   &__item {
+    box-shadow: inset 0 0 0 1px #7ebfed;
     display: block;
     width: 100%;
-    height: 46px;
+    //height: 46px;
     position: relative;
     //color: $color-green;
-    font-size: 14px;
-    line-height: 21px;
-    padding: 12px 15px;
+    //font-size: 14px;
+    //line-height: 21px;
+    //padding: 12px 15px;
     box-sizing: border-box;
     text-align: center;
     //border: 1px solid $color-green;
 
-    &:after {
-      color: $color-green;
-      font-family: $icomoon-font-family;
-      content: $i-chevron_r;
-      padding-left: 15px;
-      display: inline-block;
-      vertical-align: top;
-      padding-top: 1px;
-    }
+    //&:after {
+    //  color: $color-green;
+    //  font-family: $icomoon-font-family;
+    //  content: $i-chevron_r;
+    //  padding-left: 15px;
+    //  display: inline-block;
+    //  vertical-align: top;
+    //  padding-top: 1px;
+    //}
   }
 }

@@ -45,6 +45,8 @@ class OfferRowEosago extends Component {
 
     creditChange = () => {
         console.log('creditChange');
+
+
     }
 
     addOptionFlag(index) {
@@ -60,19 +62,20 @@ class OfferRowEosago extends Component {
     }
 
     renderSwitch(step, completed, waiting, o) {
-        console.log('renderSwitch row', step, o);
+        //console.log('renderSwitch row', step, o);
         switch (step) {
             case 1:
                 return (
                     <>
                         <td className="calculation-offers__table--col-2"/>
-                        <td className={"calculation-offers__table--col-5 text_right" + ((completed || waiting) ? " small" : "")}>
+                        <td style={{paddingRight: 5}}
+                            className={"calculation-offers__table--col-5 text_right" + ((completed || waiting) ? " small" : "")}>
                             <div className="offer-row__price">
                                 {o.megashare ?
                                     <div className="offer-row__price-megashare">{o.megashare}</div> : null}
                                 {(o.price)}</div>
                             {o.share ? <div className="offer-row__price-small">{(o.share)}</div> : null}
-                            <div className="offer-row__fee">{(o.dealerFee)}</div>
+                            {/*<div className="offer-row__fee">{(o.dealerFee)}</div>*/}
                         </td>
                     </>);
             case 2:
@@ -90,13 +93,14 @@ class OfferRowEosago extends Component {
                         {/*    <div className="offer-row__date">{o.dateEnd}</div>*/}
                         {/*</td>*/}
 
-                        <td className={"calculation-offers__table--col-5 text_right" + ((completed || waiting) ? " small" : "")}>
+                        <td style={{paddingRight: 5}}
+                            className={"calculation-offers__table--col-5 text_right" + ((completed || waiting) ? " small" : "")}>
                             <div className="offer-row__price">
                                 {o.megashare ?
                                     <div className="offer-row__price-megashare">{o.megashare}</div> : null}
                                 {(o.price)}</div>
                             {o.share ? <div className="offer-row__price-small">{(o.share)}</div> : null}
-                            <div>{(o.dealerFee)}</div>
+                            {/*<div>{(o.dealerFee)}</div>*/}
                         </td>
                     </>);
             case 3:
@@ -109,13 +113,14 @@ class OfferRowEosago extends Component {
                                     <div className="offer-row__bill gl_link">Заявление</div>}
                             </div>
                         </td>
-                        <td className={"calculation-offers__table--col-5 text_right" + ((completed || waiting) ? " small" : "")}>
+                        <td style={{paddingRight: 5}}
+                            className={"calculation-offers__table--col-5 text_right" + ((completed || waiting) ? " small" : "")}>
                             <div className="offer-row__price">
                                 {o.megashare ?
                                     <div className="offer-row__price-megashare">{o.megashare}</div> : null}
                                 {(o.price)}</div>
                             {o.share ? <div className="offer-row__price-small">{(o.share)}</div> : null}
-                            <div>{(o.dealerFee)}</div>
+                            {/*<div>{(o.dealerFee)}</div>*/}
                         </td>
                     </>);
             default:
@@ -131,9 +136,9 @@ class OfferRowEosago extends Component {
         const moreLink = 'еще ' + (offers.length - 1) + ' ' + pluralFromArray(['тариф', 'тарифа', 'тарифов'], (offers.length - 1))
         const lessLink = 'скрыть ' + (offers.length - 1) + ' ' + pluralFromArray(['тариф', 'тарифа', 'тарифов'], (offers.length - 1))
 
-        function buildOptions(opt) {
+        function buildOptions(opt, key) {
 
-            let ret = [<div key={1} className={'offer-row__option-title'}>{opt.title}</div>];
+            let ret = [<div key={key} className={'offer-row__option-title'}>{opt.title}</div>];
             let items = [];
 
             if (opt.hasOwnProperty('list')) {
@@ -164,6 +169,8 @@ class OfferRowEosago extends Component {
                     const show = (i === 0 || !this.state.rowsCollapsed)
                     const showOptions = (i in this.state.optionsToggle) && this.state.optionsToggle[i]
                     const offerSelected = o.selected && (i in this.state.offerSelected) && this.state.offerSelected[i]
+
+                    //console.log('offerSelected', i, o.selected, i in this.state.offerSelected, this.state.offerSelected[i]);
 
                     return (show ?
                         <>
@@ -227,36 +234,36 @@ class OfferRowEosago extends Component {
                                         <>
                                             {this.renderSwitch(step || 0, completed, waiting, o)}
 
-                                            {osago ? null :
-                                                <td className={'calculation-offers__table--col-6'}>
-                                                    <div className="offer-row__fee">
-                                                        <Checkbox disabled={completed || waiting || o.credit === null}
-                                                                  defaultChecked={o.credit ? "checked" : null}
-                                                                  onChange={this.creditChange}/>
+                                            {/*{osago ? null :*/}
+                                            {/*    <td className={'calculation-offers__table--col-6'}>*/}
+                                            {/*        <div className="offer-row__fee">*/}
+                                            {/*<Checkbox disabled={completed || waiting || o.credit === null}*/}
+                                            {/*          defaultChecked={o.credit ? "checked" : null}*/}
+                                            {/*          onChange={this.creditChange}/>*/}
 
-                                                        {/*{o.payment && Array.isArray(o.payment) && o.payment.length > 1 ?*/}
-                                                        {/*	<Select*/}
-                                                        {/*		size="small"*/}
-                                                        {/*		defaultValue={o.payment[0]}*/}
-                                                        {/*		dropdownClassName="select_dropdown_v1"*/}
-                                                        {/*		className={"w_100p small_select"}*/}
-                                                        {/*		placeholder=""*/}
-                                                        {/*	>*/}
-                                                        {/*		{o.payment.map((e, i) =>*/}
-                                                        {/*			<Option key={i} value={e}>{e}</Option>)}*/}
-                                                        {/*	</Select>*/}
-                                                        {/*	:*/}
-                                                        {/*	o.payment*/}
-                                                        {/*}*/}
-                                                    </div>
-                                                </td>
-                                            }
+                                            {/*{o.payment && Array.isArray(o.payment) && o.payment.length > 1 ?*/}
+                                            {/*	<Select*/}
+                                            {/*		size="small"*/}
+                                            {/*		defaultValue={o.payment[0]}*/}
+                                            {/*		dropdownClassName="select_dropdown_v1"*/}
+                                            {/*		className={"w_100p small_select"}*/}
+                                            {/*		placeholder=""*/}
+                                            {/*	>*/}
+                                            {/*		{o.payment.map((e, i) =>*/}
+                                            {/*			<Option key={i} value={e}>{e}</Option>)}*/}
+                                            {/*	</Select>*/}
+                                            {/*	:*/}
+                                            {/*	o.payment*/}
+                                            {/*}*/}
+                                            {/*        </div>*/}
+                                            {/*    </td>*/}
+                                            {/*}*/}
 
                                             {(completed || waiting) ?
                                                 <>
-                                                    <td className={'calculation-offers__table--col-6 wide'}>
-                                                        <div
-                                                            className={"offer-row__status " + (completed ? "approved" : "waiting")}/>
+                                                    <td style={{padding: 0}}
+                                                        className={'calculation-offers__table--col-6'}>
+                                                        {/*<div className={"offer-row__status " + (completed ? "approved" : "waiting")}/>*/}
                                                     </td>
                                                 </>
                                                 :
@@ -299,9 +306,9 @@ class OfferRowEosago extends Component {
                                             {o.options.map((opt, k) => {
                                                 let ret = [];
                                                 if (typeof opt === 'string') {
-                                                    ret.push(<li key={k}>{opt}</li>);
+                                                    ret.push(<li key={k * (i + 1)}>{opt}</li>);
                                                 } else {
-                                                    ret.push(buildOptions(opt));
+                                                    !k && ret.push(buildOptions(opt, k * (i + 1)));
                                                 }
 
                                                 return (ret)

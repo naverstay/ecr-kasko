@@ -315,7 +315,7 @@ class VehicleAnketa extends Component {
                     <Col span={7}>
                         <div className="kasko-car-select__image"><img src={"./cars/Hyundai.png"} alt=""/>
                         </div>
-                        <div className="cars__number">
+                        <div className={"cars__number" + (number[1] === '000' ? ' _disabled' : '')}>
                             <span className="cars__number-letter">{number[0]}</span>
                             <span className="cars__number-digit">{number[1]}</span>
                             <span className="cars__number-letter">{number[2]}</span>

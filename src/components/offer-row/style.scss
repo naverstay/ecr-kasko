@@ -6,6 +6,8 @@
     font-size: 12px;
     position: relative;
     z-index: 2;
+    display: flex;
+    flex-flow: column nowrap;
   }
 
   &__date {
@@ -60,8 +62,8 @@
     opacity: 0;
 
     .ant-checkbox-input {
-      width: 46vw;
-      left: -41vw;
+      width: 60vw;
+      left: -50vw;
       top: -35px;
       height: 86px;
     }
@@ -79,11 +81,11 @@
   &__hint {
     @extend %text2;
     color: $color-grey;
-    float: left;
-    margin-top: 8px;
-    margin-bottom: -30px;
-    position: relative;
+    position: absolute;
+    bottom: 10px;
+    left: 10px;
     z-index: 2;
+    white-space: nowrap;
 
     &._hint-0 {
       margin-top: 2px;
@@ -134,6 +136,10 @@
 
         &:first-child {
           width: 60%;
+
+          &:only-child {
+            width: 100%;
+          }
         }
       }
     }
@@ -350,7 +356,10 @@
     @extend %h1;
     white-space: nowrap;
     position: relative;
-    margin-bottom: 5px;
+
+    &:not(:last-child ) {
+      margin-bottom: 5px;
+    }
 
     &-megashare {
       position: absolute;

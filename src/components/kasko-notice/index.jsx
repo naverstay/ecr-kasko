@@ -176,7 +176,7 @@ class KaskoNotice extends Component {
                     </div>
                 </div>
                 :
-                <div className={"kasko-notice" + (this.state.noticeOpened ? " open" : null)}>
+                <div className={"kasko-notice" + (this.state.noticeOpened ? " open" : "")}>
                     <div className="kasko-notice__head">
                         <div
                             className={"kasko-notice__caption color_red" + (this.state.noticeOpened ? " open" : "")}

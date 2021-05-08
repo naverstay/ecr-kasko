@@ -157,6 +157,8 @@ class CalculationPopup extends Component {
                                                   osago={osago}/>)
         }
 
+        console.log('CalculationPopup step', step);
+
         return (
             <div className="calculation-popup">
                 <ReactComment text='"ecr-kasko/src/components/calculation-popup/index.jsx"'/>

@@ -104,5 +104,8 @@ $aside-size: 226px;
       text-align: right;
     }
 
+    &._disabled {
+      opacity: .3;
+    }
   }
 }

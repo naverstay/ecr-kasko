@@ -98,6 +98,8 @@ class Kasko extends Component {
 
             if (action.updatePaymentState === 1) {
                 obj.showStatus = true;
+                obj.showPayment = true;
+                //obj.newStep = 1;
             }
 
             this.setState(obj);
@@ -199,8 +201,8 @@ class Kasko extends Component {
             status = 6;
         }
 
-        let tabStatus = this.state.showStatus ? <div className={"kasko-notice__status " + (statusClasses[status])}
-        >{statusNames[status] + (this.state.tabIndex === 3 && this.state.productCount ? ' (' + this.state.productCount + ')' : '')}</div> : null
+        let tabStatus = this.state.showStatus ? <div
+            className={"kasko-notice__status " + (statusClasses[status])}>{statusNames[status] + (this.state.tabIndex === 3 && this.state.productCount ? ' (' + this.state.productCount + ')' : '')}</div> : null
 
         if (this.state.tabIndex === 0 && step > 1) {
             tabStatus = <>
@@ -213,7 +215,8 @@ class Kasko extends Component {
 
         for (let i = 0; i < (this.props.dev ? 10 : 1); i++) {
             carInfo.push(<AsideBlock key={i}>
-                <KaskoCarInfo step={step} notificationCount={step === 2 ? 1 : step === 3 ? 2 : 0}
+                <KaskoCarInfo osago={this.state.tabIndex === 2} step={step}
+                              notificationCount={step === 2 ? 1 : step === 3 ? 2 : 0}
                               carName={step === 1 ? '' : 'Hyundai'}
                               carModel={step === 1 ? '' : 'Sonata'} image={this.state.carImage}
                               info={step === 1 ? '' : "2020 Новый"}
@@ -304,7 +307,7 @@ class Kasko extends Component {
                                                 <div className="kasko-tab__panel-name"><span
                                                     className="kasko-tab__panel-name--text">е-ОСАГО</span>
                                                     {this.state.tabIndex === 2 ?
-                                                        tabStatus
+                                                        null // tabStatus
                                                         //: this.state.carFound ?
                                                         //	<span className="kasko-tab__panel-name--val">от <b>10 450 ₽</b></span>
                                                         : null
@@ -493,19 +496,21 @@ class Kasko extends Component {
                                         : this.state.tabIndex === 1 ?
                                             <>
                                                 <AsideBlock>
-                                                    <KaskoNotice step={step}
-                                                                 doc='СС 12345678'
-                                                                 status={paymentStatus}
-                                                                 consult={consultStatus}
-                                                                 product='е-КАСКО' price='41 450 ₽' type={showOffers}/>
+                                                    <KaskoNotices step={step}
+                                                                  showStatus={this.state.showStatus || status === 4}
+                                                                  doc='СС 12345678'
+                                                                  status={paymentStatus}
+                                                                  consult={consultStatus}
+                                                                  product='е-КАСКО' price='41 450 ₽' type={showOffers}/>
                                                 </AsideBlock>
                                                 <AsideBlock>
-                                                    <KaskoNotice step={step}
-                                                                 doc='СС 87654321'
-                                                                 status={paymentStatus}
-                                                                 consult={consultStatus}
-                                                                 product='е-ОСАГО' price='11 450 ₽'
-                                                                 type={showOffers}/>
+                                                    <KaskoNotices step={step}
+                                                                  showStatus={this.state.showStatus || status === 4}
+                                                                  doc='СС 87654321'
+                                                                  status={paymentStatus}
+                                                                  consult={consultStatus}
+                                                                  product='е-ОСАГО' price='11 450 ₽'
+                                                                  type={showOffers}/>
                                                 </AsideBlock>
                                             </>
                                             : this.state.tabIndex === 2 ?

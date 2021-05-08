@@ -34,7 +34,7 @@ class OfferRowCombo extends Component {
         this.setState({offerSelected: options, disableCashierPayment: disableCashierPayment})
 
         setTimeout(() => {
-            console.log('onSelectOfferToggle offer', company, this.state.offerSelected, disableCashierPayment);
+            console.log('onSelectOfferToggle offer', options, company, this.state.offerSelected, disableCashierPayment);
             this.props.selectedOffer && typeof this.props.selectedOffer === 'function' && this.props.selectedOffer(this.state.offerSelected, disableCashierPayment)
         }, 0)
     }
@@ -44,7 +44,7 @@ class OfferRowCombo extends Component {
     }
 
     creditChange = () => {
-        console.log('creditChange');
+        console.log('creditChange combo');
     }
 
     addOptionFlag(index) {
@@ -111,7 +111,8 @@ class OfferRowCombo extends Component {
                                     <div className="offer-row__price">
                                         {o.megashare ?
                                             <div className="offer-row__price-megashare">{o.megashare}</div> : null}
-                                        {(o.price)}</div>
+                                        {(o.price)}
+                                    </div>
                                     {o.share ? <div className="offer-row__price-small">{(o.share)}</div> : null}
                                 </td>
 

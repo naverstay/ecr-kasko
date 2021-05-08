@@ -1,7 +1,7 @@
 import React, {Component} from "react";
 
 import PropTypes from "prop-types";
-import {Col, Input, Select} from "antd";
+import {Col, Select} from "antd";
 
 const {Option} = Select;
 
@@ -25,8 +25,18 @@ class FormSelect extends Component {
         typeof this.props.onChangeCallback === 'function' && this.props.onChangeCallback(this.props.controlName, value)
     };
 
+    //handleSelectAll = (value) => {
+    //    if (value && value.length && value.includes("all")) {
+    //        if (value.length === all.length + 1) {
+    //            return [];
+    //        }
+    //        return [...all];
+    //    }
+    //    return value;
+    //}
+
     render() {
-        const {cellClass, controlName, span, placeholder, options, dropdownClassName, className, disabled, value} = this.props;
+        const {cellClass, controlName, span, placeholder, options, dropdownClassName, className, disabled, value, multi, selectAll, appendTo} = this.props;
 
         //console.log('controlValue', controlName, '#', options, '#', this.state.controlValue, '#', value);
 
@@ -39,7 +49,11 @@ class FormSelect extends Component {
                 placeholder=""
                 onChange={this.onChange}
                 value={value}
+                mode={multi ? "multiple" : null}
+                getPopupContainer={triggerNode => triggerNode.parentNode}
+                open={multi}
             >
+                {selectAll && <Option key="all" value={controlName + "All"}>{selectAll}</Option>}
                 {(options && options.length) ? options.map((e, i) =>
                     <Option key={i} value={e}>{e}</Option>) : null}
             </Select>

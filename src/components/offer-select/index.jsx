@@ -15,6 +15,7 @@ import DriverCount from "../driver-count";
 import KaskoCarSelect from "../kasko-car-select";
 import PopupOverlay from "../popup-overlay";
 import FormInput from "../form-input";
+import ReactComment from "../../helpers/reactComment";
 
 dayjs().locale('ru');
 
@@ -983,6 +984,7 @@ class OfferSelect extends Component {
 
                 {this.state.calculationPopupOpened ?
                     <PopupOverlay span={16}>
+                        <ReactComment text="ecr-kasko/src/components/offer-select/index.jsx"/>
                         <CalculationPopup osago={osago} updatePaymentState={this.updatePaymentState}
                                           step={this.state.showCalculationOffers ? 2 : step}
                                           allFields={this.state.showCalculationOffers || (step === 2)}

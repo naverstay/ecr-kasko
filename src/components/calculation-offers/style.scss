@@ -260,7 +260,10 @@
       display: block;
     }
 
-    thead,
+    thead {
+      display: none;
+    }
+
     tbody {
       display: block;
 
@@ -337,6 +340,7 @@
       }
 
       td {
+        position: relative;
         display: flex;
         flex-flow: column;
         justify-content: center;

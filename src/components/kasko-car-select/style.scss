@@ -3,6 +3,11 @@
 .kasko-car-select {
   color: #000;
 
+  &__wide {
+    margin-left: -17.15%;
+    margin-right: -17.15%;
+  }
+
   &._add {
     display: flex;
     flex-flow: column nowrap;

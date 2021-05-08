@@ -43,7 +43,7 @@ class ConfirmationPopup extends Component {
                         <>
                             <Col className={"text_center"} style={{lineHeight: '60px'}} span={4}>
                                 <div onClick={() => this.onPopupCancel()}
-                                     className={"gl_link" + (attention ? ' btn-action' : ' btn_green')}>
+                                     className={"gl_link fz_15" + (attention ? ' btn-action' : ' btn_green')}>
                                     <span>{noBtn || 'Нет'}</span></div>
                             </Col>
                             <Col span={8}>

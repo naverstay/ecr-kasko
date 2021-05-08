@@ -1,5 +1,5 @@
 import React, {Component} from "react";
-import {Link} from "react-router-dom";
+import {Link, NavLink} from "react-router-dom";
 
 import './style.scss';
 import PropTypes from "prop-types";
@@ -23,16 +23,16 @@ class KaskoUser extends Component {
                 <div
                     className={"kasko-user__info _phone" + ((phone) ? "" : " _inactive")}>{phone || '+ _ (___) ___ -__-__'}</div>
                 <div
-                    className={"kasko-user__info _small" + ((docs) ? "" : " _inactive")}>
-                    <Link to={"/docs"} className={'gl_link'}>{docs || 'Анкета и документы'}</Link></div>
+                    className={"kasko-user__info _small"}>
+                    <NavLink to={"/docs"} activeClassName='_active' className={'gl_link'}>{docs || 'Анкета и документы'}</NavLink></div>
                 {/*<div className={"kasko-user__info _small" + ((trustees) ? "" : " _inactive")}>{trustees || 'Доверенные лица'}</div>*/}
                 {/*<div*/}
                 {/*    className={"kasko-user__info _small" + ((trustees) ? "" : " _inactive")}>*/}
                 {/*    <Link to={"/trustees"} className={'gl_link'}>{trustees || 'Доверенные лица'}</Link>*/}
                 {/*</div>*/}
                 <div
-                    className={"kasko-user__info _small" + ((autos) ? "" : " _inactive")}>
-                    <Link to={"/vehicles"} className={'gl_link'}>{autos || 'Автомобили клиента'}</Link>
+                    className={"kasko-user__info _small"}>
+                    <NavLink to={"/vehicles"} activeClassName='_active' className={'gl_link'}>{autos || 'Автомобили клиента'}</NavLink>
                 </div>
             </div>
         );

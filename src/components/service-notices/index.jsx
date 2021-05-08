@@ -27,7 +27,7 @@ class ServiceNotices extends Component {
     }
 
     render() {
-        const {noticeList, type, status, step, credit, kasko, osago} = this.props;
+        const {noticeList, type, status, step, credit, kasko, osago, showStatus, consult} = this.props;
         const statusClasses = {
             0: 'calculation',
             1: 'approved',
@@ -70,13 +70,15 @@ class ServiceNotices extends Component {
 
         </li>) : null;
 
-        let progressHtml = []
+        let progressHtml = [];
+        let newNotice = true;
 
         if (status !== void 0) {
             for (let p in progressNames) {
                 if (p < 4 && progressNames.hasOwnProperty(p)) {
                     let active = status !== 4 ? status : 0;
-                    progressHtml.push(<li key={p} className={"kasko-notice__progress--unit" + (+p <= active ? ' active' : '')}
+                    progressHtml.push(<li key={p}
+                                          className={"kasko-notice__progress--unit" + (+p <= active ? ' active' : '')}
                     >{(+p === active ? <>
                         <span>{progressNames[p]}</span>
                     </> : '')}</li>)
@@ -84,51 +86,78 @@ class ServiceNotices extends Component {
             }
         }
 
+        console.log('service-notices');
+
         return (
             type ?
-                <div className="kasko-notice">
-                    <div className={"kasko-notice" + (this.state.noticeOpened ? " open" : "")}>
-                        <div className="kasko-notice__head">
-                            <div className={"kasko-notice__caption offer" + (this.state.noticeOpened ? " open" : "")}
-                                 onClick={this.toggleOpened}>{(type)}</div>
-                            {step > 1 ? <div
-                                className={"kasko-notice__status " + (statusClasses[status])}>{statusNames[status]}</div> : null}
-                        </div>
-                        <div className="kasko-notice__progress--wrapper">
-                            {status ? null : <div className="kasko-notice__progress--price">11 450 ₽</div>}
-                            <ul className="kasko-notice__progress">
-                                {progressHtml}
-                            </ul>
-                        </div>
+                newNotice ?
+                    <div className={"kasko-notices"}>
+                        <div className={"kasko-notices__row"}>
+                            <div className={"kasko-notices__caption"}>{type}</div>
+                            <div className={"kasko-notices__info"}>
+                                {showStatus ? <div
+                                    className={"kasko-notice__status " + (statusClasses[consult ? 6 : status])}>{statusNames[consult ? 6 : status]}</div> : null}
+                            </div>
 
-                        {this.state.noticeOpened ?
-                            <ul className={"kasko-notice__price"}>
-                                <li>
-                                    <div className="kasko-notice__price--label">Продленная <br/>гарантия</div>
-                                    <div className="kasko-notice__price--value">
-                                        {step >= 2 ?
-                                            <>
-                                                <span className="kasko-notice__price--big">10 000 ₽</span>
-                                                <span className={"offer-row__status " + (statusClasses[status])}/>
-                                            </>
-                                            : null}
-                                    </div>
-                                </li>
-                                <li>
-                                    <div className="kasko-notice__price--label">Ассистанс</div>
-                                    <div className="kasko-notice__price--value">
-                                        {step >= 2 ?
-                                            <>
-                                                <span className="kasko-notice__price--big">10 000 ₽</span>
-                                                <span className={"offer-row__status " + (statusClasses[status])}/>
-                                            </>
-                                            : null}
-                                    </div>
-                                </li>
-                            </ul>
-                            : null}
+                        </div>
+                        {step >= 2 && <div className={"kasko-notices__row"}>
+                            <div className="kasko-notices__price">
+                                {(status !== 4) ?
+                                    <>
+                                        <span>41 450 ₽</span>
+                                        {osago ? null : <span
+                                            className="kasko-notice__status calculation">Наличные</span>}
+                                    </>
+                                    : null}
+                            </div>
+                            <div className="kasko-notices__info">{(status !== 4) ? 'Ренессанс Страхование' : ''}</div>
+                        </div>}
                     </div>
-                </div>
+                    :
+                    <div className="kasko-notice">
+                        <div className={"kasko-notice" + (this.state.noticeOpened ? " open" : "")}>
+                            <div className="kasko-notice__head">
+                                <div
+                                    className={"kasko-notice__caption offer" + (this.state.noticeOpened ? " open" : "")}
+                                    onClick={this.toggleOpened}>{(type)}</div>
+                                {step > 1 ? <div
+                                    className={"kasko-notice__status " + (statusClasses[status])}>{statusNames[status]}</div> : null}
+                            </div>
+                            <div className="kasko-notice__progress--wrapper">
+                                {status ? null : <div className="kasko-notice__progress--price">11 450 ₽</div>}
+                                <ul className="kasko-notice__progress">
+                                    {progressHtml}
+                                </ul>
+                            </div>
+
+                            {this.state.noticeOpened ?
+                                <ul className={"kasko-notice__price"}>
+                                    <li>
+                                        <div className="kasko-notice__price--label">Продленная <br/>гарантия</div>
+                                        <div className="kasko-notice__price--value">
+                                            {step >= 2 ?
+                                                <>
+                                                    <span className="kasko-notice__price--big">10 000 ₽</span>
+                                                    <span className={"offer-row__status " + (statusClasses[status])}/>
+                                                </>
+                                                : null}
+                                        </div>
+                                    </li>
+                                    <li>
+                                        <div className="kasko-notice__price--label">Ассистанс</div>
+                                        <div className="kasko-notice__price--value">
+                                            {step >= 2 ?
+                                                <>
+                                                    <span className="kasko-notice__price--big">10 000 ₽</span>
+                                                    <span className={"offer-row__status " + (statusClasses[status])}/>
+                                                </>
+                                                : null}
+                                        </div>
+                                    </li>
+                                </ul>
+                                : null}
+                        </div>
+                    </div>
                 :
                 <div className={"kasko-notice" + (this.state.noticeOpened ? " open" : "")}>
                     <div className="kasko-notice__head">

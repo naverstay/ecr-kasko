@@ -9,6 +9,16 @@
     color: $color-grey;
   }
 
+  .gl_link {
+    &._active {
+      text-decoration: none;
+    }
+
+    &:not(._active) {
+      color: $color-grey;
+    }
+  }
+
   &__avatar {
     width: 120px;
     height: 120px;

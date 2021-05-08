@@ -2,6 +2,7 @@ import React, {Component} from 'react';
 import PropTypes from 'prop-types';
 import Sidebar from './sidebar';
 import Topbar from './topbar';
+import MobileFilters from "../mobile-filters";
 
 class Navbar extends Component {
     static propTypes = {
@@ -178,6 +179,21 @@ class Navbar extends Component {
                         </ul>
                     </div>
                     <div className="sidebar__backdrop"></div>
+                </div>
+                <div className="sidebar__filter dt-hidden">
+                    <div className="sidebar__filter-header dt-hidden">
+                        <div onClick={() => {
+                            this.toggleMobileFilter();
+                        }} className="sidebar__filter-back">Назад
+                        </div>
+                        <div onClick={() => {
+                            this.toggleMobileFilter()
+                        }} className="sidebar__filter-close"/>
+                        <div className="sidebar__filter-title dt-hidden">Фильтры</div>
+                    </div>
+                    <div className="sidebar__filter-body">
+                        <MobileFilters/>
+                    </div>
                 </div>
                 <div className="sidebar__footer dt-hidden">
                     <div className="sidebar__button active button-submenu"><a href="/orders"
