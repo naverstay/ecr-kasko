@@ -60,6 +60,15 @@
   @extend %text1;
 }
 
+%no_select {
+  -webkit-touch-callout: none;
+  -webkit-user-select: none;
+  -khtml-user-select: none;
+  -moz-user-select: none;
+  -ms-user-select: none;
+  user-select: none;
+}
+
 %global_flex_block_row_nowrap_space_between_center {
   @include flex_block(row nowrap, space-between, center);
 }

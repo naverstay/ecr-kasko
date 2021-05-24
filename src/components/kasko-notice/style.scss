@@ -16,6 +16,7 @@
 
   &__caption {
     @extend %text1;
+    @extend %no_select;
     font-weight: 500;
     position: relative;
     padding: 8px 11px;

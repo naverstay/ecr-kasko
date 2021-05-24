@@ -510,7 +510,7 @@ class Kasko extends Component {
                                                                   status={paymentStatus}
                                                                   consult={consultStatus}
                                                                   product='е-ОСАГО' price='11 450 ₽'
-                                                                  type={showOffers}/>
+                                                                  type={'е-ОСАГО'}/>
                                                 </AsideBlock>
                                             </>
                                             : this.state.tabIndex === 2 ?

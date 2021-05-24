@@ -52,7 +52,7 @@ class SelectFilter extends Component {
 
     selectAll() {
         let {options} = this.props;
-        let selected = options.map((o, i) => i);
+        let selected = options.length === this.state.selected.length ? [] : options.map((o, i) => i);
         this.setState({selected: selected});
     }
 
@@ -108,7 +108,7 @@ class SelectFilter extends Component {
                         </div>
                         <div className="sidebar__filter-body">
                             <ul className={'fullscreen-select__options'}>
-                                {selectAll && <li className={'fullscreen-select__item'} onClick={() => {
+                                {selectAll && <li className={'fullscreen-select__item' + (options.length === selected.length ? ' __active' : '')} onClick={() => {
                                     this.selectAll();
                                 }}>{selectAll}</li>}
                                 {options.map((l, i) => <li
