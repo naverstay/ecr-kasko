@@ -102,7 +102,7 @@ class KaskoNotices extends Component {
                             </div>
 
                         </div>
-                        {step >= 2 && <div className={"kasko-notices__row"}>
+                        {showStatus && <div className={"kasko-notices__row"}>
                             <div className="kasko-notices__price">
                                 {(status !== 4) ?
                                     <>
